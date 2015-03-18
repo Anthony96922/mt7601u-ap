@@ -113,29 +113,6 @@ ifeq ($(OSABL),YES)
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 endif
 
-ifeq ($(RT28xx_MODE),AP)
-
-ifeq ($(OSABL),YES)
-
-endif
-ifeq ($(PLATFORM),INF_AMAZON_SE)
-
-endif
-else	
-ifeq ($(RT28xx_MODE),APSTA)
-
-ifeq ($(OSABL),YES)
-
-endif
-else
-
-ifeq ($(OSABL),YES)
-
-endif
-endif	
-endif	
-else
-
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
@@ -151,45 +128,12 @@ else
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
 endif
+endif
 
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
-
-ifeq ($(RT28xx_MODE),AP)
-ifneq ($(findstring 7601,$(CHIPSET)),)
-
-else
-
-endif
-ifeq ($(OSABL),YES)
-
-endif
-
-else	
-ifeq ($(RT28xx_MODE),APSTA)
-
-ifeq ($(OSABL),YES)
-
-endif
-else
-ifneq ($(findstring 7601,$(CHIPSET)),)
-
-else
-
-endif
-ifeq ($(OSABL),YES)
-ifneq ($(findstring 7601,$(CHIPSET)),)
-
-else
-
-endif
-endif
-endif
-endif
-endif
-
 
 release: build_tools
 	$(MAKE) -C $(RT28xx_DIR)/striptool -f Makefile.release clean
@@ -288,6 +232,3 @@ endif
 
 # Declare the contents of the .PHONY variable as phony.  We keep that information in a variable
 .PHONY: $(PHONY)
-
-
-
