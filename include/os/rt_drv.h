@@ -354,30 +354,33 @@ typedef struct os_cookie	* POS_COOKIE;
 extern ULONG		RTDebugLevel;
 extern ULONG		RTDebugFunc;
 
-#define DBGPRINT_RAW(Level, Fmt)    \
-do{                                   \
+#define DBGPRINT_RAW(Level, Fmt)	\
+do {					\
 	ULONG __gLevel = (Level) & 0xff;\
 	ULONG __fLevel = ((Level)>>8) & 0xffffff;\
-    if (__gLevel <= RTDebugLevel)      \
-    {                               \
-    	if ((RTDebugFunc == 0) || \
-		((RTDebugFunc != 0) && (((__fLevel & RTDebugFunc)!= 0) || (__gLevel <= RT_DEBUG_ERROR))))\
-        printk Fmt;               \
-    }                               \
-}while(0)
+	if (__gLevel <= RTDebugLevel)	\
+	{                               \
+		if ((RTDebugFunc == 0) || \
+			((RTDebugFunc != 0) && (((__fLevel & RTDebugFunc)!= 0) || (__gLevel <= RT_DEBUG_ERROR)))) { \
+			printk(RTMP_DRV_NAME ": "); \
+			printk Fmt;	\
+		}			\
+	}				\
+} while(0)
 
 #define DBGPRINT(Level, Fmt)    DBGPRINT_RAW(Level, Fmt)
 
 
-#define DBGPRINT_ERR(Fmt)           \
-{                                   \
-    printk("ERROR!!! ");          \
-    printk Fmt;                  \
+#define DBGPRINT_ERR(Fmt)		\
+{					\
+	printk(RTMP_DRV_NAME ": error: ");		\
+	printk Fmt;			\
 }
 
 #define DBGPRINT_S(Status, Fmt)		\
-{									\
-	printk Fmt;					\
+{					\
+	printk(RTMP_DRV_NAME ": ");	\
+	printk Fmt;			\
 }
 #else
 #define DBGPRINT(Level, Fmt)

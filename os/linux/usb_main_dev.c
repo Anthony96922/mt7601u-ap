@@ -497,7 +497,7 @@ static int rt2870_resume(
 /* Init driver module */
 INT __init rtusb_init(void)
 {
-	printk("%s: init\n", RTMP_DRV_NAME);
+	printk(RTMP_DRV_NAME ": init\n");
 	return usb_register(&rtusb_driver);
 }
 
@@ -505,7 +505,7 @@ INT __init rtusb_init(void)
 VOID __exit rtusb_exit(void)
 {
 	usb_deregister(&rtusb_driver);
-	printk("%s: exit\n", RTMP_DRV_NAME);
+	printk(RTMP_DRV_NAME ": exit\n");
 }
 
 module_init(rtusb_init);
