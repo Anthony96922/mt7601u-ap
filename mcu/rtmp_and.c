@@ -524,7 +524,6 @@ loadfw_protect:
 				DBGPRINT(RT_DEBUG_ERROR, ("Upload FW timeout\n"));
 				goto error2;
 			}
-			DBGPRINT(RT_DEBUG_OFF, ("."));
 
 			RTUSBReadMACRegister(pAd, TX_CPU_PORT_FROM_FCE_CPU_DESC_INDEX, &MACValue);
 			MACValue++;
@@ -542,7 +541,7 @@ loadfw_protect:
 	os_free_mem(NULL, SentToMCUDone);
 
 	/* Upload new 64 bytes interrupt vector */
-	DBGPRINT(RT_DEBUG_OFF, ("\n"));
+	printk("\n");
 	Status = USBLoadIVB(pAd);
 	
 	/* Check MCU if ready */
