@@ -4,7 +4,7 @@
 
 int main(int argc ,char *argv[])
 {
-    FILE *infile, *outfile;	
+    FILE *infile, *outfile;
     char infname[1024];
     char outfname[1024];
     char fw_name[128];
@@ -13,11 +13,11 @@ int main(int argc ,char *argv[])
 	char *wow, *rt28xx_mode; /* for WOW firmware */
     int i=0;//,n=0;
     unsigned char c;
-   
+
     memset(infname,0,1024);
     memset(outfname,0,1024);
     memset(fw_name, 0, 128);
-    
+
     rt28xxdir = (char *)getenv("RT28xx_DIR");
     chipset = (char *)getenv("CHIPSET");
 	wow = (char *)getenv("HAS_WOW_SUPPORT"); /* for WOW firmware */
@@ -31,8 +31,8 @@ int main(int argc ,char *argv[])
     if(!chipset) {
 	 printf("Environment value \"CHIPSET\" not export \n");
 	 return -1;
-    }	    
-	
+    }
+
     if (strlen(rt28xxdir) > (sizeof(infname)-100)) {
 	 printf("Environment value \"RT28xx_DIR\" is too long!\n");
 	 return -1;
@@ -40,7 +40,7 @@ int main(int argc ,char *argv[])
 
     strcat(infname,rt28xxdir);
     strcat(outfname,rt28xxdir);
-    
+
     if (strncmp(chipset, "2860",4) == 0) {
         strcat(infname,"/mcu/bin/rt2860.bin");
         strcat(outfname,"/include/mcu/firmware.h");
@@ -121,55 +121,55 @@ int main(int argc ,char *argv[])
 			fprintf(stderr, "infname %s\n", infname);
 		}
 	}
-	    
+
     infile = fopen(infname,"r");
-     
+
     if (infile == (FILE *) NULL)
     {
-         printf("Can't read file %s \n",infname);
+         printf("Can't read file %s\n",infname);
 	 return -1;
     }
 
     outfile = fopen(outfname,"w");
-    
+
     if (outfile == (FILE *) NULL)
     {
-         printf("Can't open write file %s \n",outfname);
+         printf("Can't open write file %s\n", outfname);
         return -1;
     }
-    
-    fputs("/* AUTO GEN PLEASE DO NOT MODIFY IT */ \n",outfile);
-    fputs("/* AUTO GEN PLEASE DO NOT MODIFY IT */ \n",outfile);
+
+    fputs("/* AUTO GEN PLEASE DO NOT MODIFY IT */\n",outfile);
+    fputs("/* AUTO GEN PLEASE DO NOT MODIFY IT */\n",outfile);
     fputs("\n",outfile);
     fputs("\n",outfile);
 
-	fprintf(outfile, "UCHAR %s[] = {\n", fw_name);
+    fprintf(outfile, "UCHAR %s[] = {\n", fw_name);
 
     while(1)
     {
-	char cc[3];    
+	char cc[3];
 
 	c = getc(infile);
-	
+
 	if (feof(infile))
 	    break;
-	
+
 	memset(cc,0,2);
-	
+
 	if (i>=16)
-	{	
-	    fputs("\n", outfile);	
+	{
+	    fputs("\n", outfile);
 	    i = 0;
-	}    
-	fputs("0x", outfile); 
+	}
+	fputs("0x", outfile);
 	sprintf(cc,"%02x",c);
 	fputs(cc, outfile);
 	fputs(", ", outfile);
 	i++;
-    } 
-    
+    }
+
     fputs("} ;\n", outfile);
     fclose(infile);
     fclose(outfile);
     exit(0);
-}	
+}
