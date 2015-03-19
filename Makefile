@@ -43,10 +43,8 @@ ifeq ($(MODULE),3352)
 PLATFORM = RALINK_3352
 endif
 
-
 #RELEASE Package
 RELEASE = DPA
-
 
 ifeq ($(TARGET),LINUX)
 MAKE = make
@@ -112,23 +110,14 @@ ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.4.netif $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 endif
+endif
 
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
-
 	cp os/linux/Makefile.6 $(RT28xx_DIR)/os/linux/Makefile
-ifeq ($(PLATFORM),DM6446)
-	$(MAKE)  ARCH=arm CROSS_COMPILE=arm_v5t_le- -C  $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
-else
-ifeq ($(PLATFORM),FREESCALE8377)
-	$(MAKE) ARCH=powerpc CROSS_COMPILE=$(CROSS_COMPILE) -C  $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
-else
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
-endif
-endif
-endif
 
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
@@ -151,19 +140,19 @@ ifeq ($(MODULE), 2880)
 else
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.release prerelease
 endif
-	cp $(RT28xx_DIR)/os/linux/Makefile.DPB $(RTMP_SRC_DIR)/os/linux/.
-	cp $(RT28xx_DIR)/os/linux/Makefile.DPA $(RTMP_SRC_DIR)/os/linux/.
-	cp $(RT28xx_DIR)/os/linux/Makefile.DPC $(RTMP_SRC_DIR)/os/linux/.
+	cp $(RT28xx_DIR)/os/linux/Makefile.DPB $(RTMP_SRC_DIR)/os/linux/
+	cp $(RT28xx_DIR)/os/linux/Makefile.DPA $(RTMP_SRC_DIR)/os/linux/
+	cp $(RT28xx_DIR)/os/linux/Makefile.DPC $(RTMP_SRC_DIR)/os/linux/
 ifeq ($(RT28xx_MODE),STA)
-	cp $(RT28xx_DIR)/os/linux/Makefile.DPD $(RTMP_SRC_DIR)/os/linux/.
-	cp $(RT28xx_DIR)/os/linux/Makefile.DPO $(RTMP_SRC_DIR)/os/linux/.
+	cp $(RT28xx_DIR)/os/linux/Makefile.DPD $(RTMP_SRC_DIR)/os/linux/
+	cp $(RT28xx_DIR)/os/linux/Makefile.DPO $(RTMP_SRC_DIR)/os/linux/
 endif	
 
 clean:
 ifeq ($(TARGET), LINUX)
-	cp -f os/linux/Makefile.clean os/linux/Makefile
+	cp os/linux/Makefile.clean os/linux/Makefile
 	$(MAKE) -C os/linux clean
-	rm -rf os/linux/Makefile
+	rm -f os/linux/Makefile
 endif	
 ifeq ($(TARGET), UCOS)
 	$(MAKE) -C os/ucos clean MODE=$(RT28xx_MODE)
