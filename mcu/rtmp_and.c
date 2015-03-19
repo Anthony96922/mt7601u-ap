@@ -143,19 +143,19 @@ loadfw_protect:
 	FWVersion = (*(pChipCap->FWImageName + 11) << 8) | (*(pChipCap->FWImageName + 10));
 
 	BuildVersion = (*(pChipCap->FWImageName + 9) << 8) | (*(pChipCap->FWImageName + 8));
-	
-	DBGPRINT(RT_DEBUG_OFF, ("FW Version:%d.%d.%02d ", (FWVersion & 0xf000) >> 8,
+
+	DBGPRINT(RT_DEBUG_OFF, ("FW version: %d.%d.%02d\n", (FWVersion & 0xf000) >> 8,
 						(FWVersion & 0x0f00) >> 8, FWVersion & 0x00ff));
-	DBGPRINT(RT_DEBUG_OFF, ("Build:%x\n", BuildVersion));
-	DBGPRINT(RT_DEBUG_OFF, ("Build Time:"));
+	DBGPRINT(RT_DEBUG_OFF, ("Build: %x\n", BuildVersion));
+	DBGPRINT(RT_DEBUG_OFF, ("Build time: "));
 
 	for (Loop = 0; Loop < 16; Loop++)
 		DBGPRINT(RT_DEBUG_OFF, ("%c", *(pChipCap->FWImageName + 16 + Loop)));
 
 	DBGPRINT(RT_DEBUG_OFF, ("\n"));
 
-	DBGPRINT(RT_DEBUG_OFF, ("ILM Length = %d(bytes)\n", ILMLen));
-	DBGPRINT(RT_DEBUG_OFF, ("DLM Length = %d(bytes)\n", DLMLen));
+	DBGPRINT(RT_DEBUG_OFF, ("ILM length = %d bytes\n", ILMLen));
+	DBGPRINT(RT_DEBUG_OFF, ("DLM length = %d bytes\n", DLMLen));
 
 	RTMP_IO_WRITE32(pAd, 0xa44, 0x0);
 
