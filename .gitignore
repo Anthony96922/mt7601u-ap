@@ -28,5 +28,4 @@
 *.x86_64
 *.hex
 
-include/mcu/MT7601_firmware.h
 tools/bin2h
