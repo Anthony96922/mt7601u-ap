@@ -519,8 +519,8 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 #endif /* DOT11_N_SUPPORT */
 
 			APStartUp(pAd);
-			DBGPRINT(RT_DEBUG_OFF, ("%s: bssid = %02x:%02x:%02x:%02x:%02x:%02x\n",
-									RTMP_DRV_NAME, PRINT_MAC(pAd->ApCfg.MBSSID[BSS0].Bssid)));
+			DBGPRINT(RT_DEBUG_OFF, ("bssid = %02x:%02x:%02x:%02x:%02x:%02x\n",
+							PRINT_MAC(pAd->ApCfg.MBSSID[BSS0].Bssid)));
 		}
 #endif /* CONFIG_AP_SUPPORT */
 
