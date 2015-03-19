@@ -150,9 +150,9 @@ loadfw_protect:
 	DBGPRINT(RT_DEBUG_OFF, ("Build time: "));
 
 	for (Loop = 0; Loop < 16; Loop++)
-		DBGPRINT(RT_DEBUG_OFF, ("%c", *(pChipCap->FWImageName + 16 + Loop)));
+		printk("%c", *(pChipCap->FWImageName + 16 + Loop));
 
-	DBGPRINT(RT_DEBUG_OFF, ("\n"));
+	printk("\n");
 
 	DBGPRINT(RT_DEBUG_OFF, ("ILM length = %d bytes\n", ILMLen));
 	DBGPRINT(RT_DEBUG_OFF, ("DLM length = %d bytes\n", DLMLen));
@@ -363,7 +363,6 @@ loadfw_protect:
 				DBGPRINT(RT_DEBUG_ERROR, ("Upload FW timeout\n"));
 				goto error2;
 			}
-			DBGPRINT(RT_DEBUG_OFF, ("."));
 
 			RTMP_IO_READ32(pAd, TX_CPU_PORT_FROM_FCE_CPU_DESC_INDEX, &MACValue);
 			MACValue++;
