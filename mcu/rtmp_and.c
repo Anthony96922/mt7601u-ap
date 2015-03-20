@@ -150,9 +150,9 @@ loadfw_protect:
 	DBGPRINT(RT_DEBUG_OFF, ("Build time: "));
 
 	for (Loop = 0; Loop < 16; Loop++)
-		printk("%c", *(pChipCap->FWImageName + 16 + Loop));
+		DBGPRINT(RT_DEBUG_OFF, ("%c", *(pChipCap->FWImageName + 16 + Loop)));
 
-	printk("\n");
+	DBGPRINT(RT_DEBUG_OFF, ("\n"));
 
 	DBGPRINT(RT_DEBUG_OFF, ("ILM length = %d bytes\n", ILMLen));
 	DBGPRINT(RT_DEBUG_OFF, ("DLM length = %d bytes\n", DLMLen));
@@ -541,7 +541,7 @@ loadfw_protect:
 	os_free_mem(NULL, SentToMCUDone);
 
 	/* Upload new 64 bytes interrupt vector */
-	printk("\n");
+	DBGPRINT(RT_DEBUG_OFF, ("\n"));
 	Status = USBLoadIVB(pAd);
 	
 	/* Check MCU if ready */
@@ -669,7 +669,7 @@ get_seq:
 			}
 			else
 			{
-				printk("CmdRspNum = %d\n", GetCmdRspNum(pAd));
+				DBGPRINT(RT_DEBUG_OFF, ("CmdRspNum = %d\n", GetCmdRspNum(pAd)));
 				goto get_seq;
 			}
 		}
