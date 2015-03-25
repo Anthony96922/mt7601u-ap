@@ -2060,7 +2060,6 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 	ba_flush_reordering_timeout_mpdus(pAd, pBAEntry, Now32);
 	pBAEntry->LastIndSeqAtTimer = Now32;
 
-	
 	/* Reset Last Indicate Sequence*/
 	/* */
 	if (pBAEntry->LastIndSeq == RESET_RCV_SEQ)
@@ -2073,7 +2072,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 		INDICATE_LEGACY_OR_AMSDU_HDR_TRNS(pAd, pRxBlk, FromWhichBSSID);
 		return;
 	}
-	
+
 	/* I. Check if in order.*/
 	if (SEQ_STEPONE(Sequence, pBAEntry->LastIndSeq, MAXSEQ))
 	{
@@ -2088,40 +2087,33 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 		}
 		pBAEntry->LastIndSeqAtTimer = Now32;
 	}
-	
+
 	/* II. Drop Duplicated Packet*/
 	else if (Sequence == pBAEntry->LastIndSeq)
 	{
-	
-		
 		/* drop and release packet*/
 		pBAEntry->nDropPacket++;
 		RELEASE_NDIS_PACKET(pAd, pRxBlk->pRxPacket, NDIS_STATUS_FAILURE);
 	}
-	
+
 	/* III. Drop Old Received Packet*/
 	else if (SEQ_SMALLER(Sequence, pBAEntry->LastIndSeq, MAXSEQ))
 	{
-	
-		
 		/* drop and release packet*/
 		pBAEntry->nDropPacket++;
 		RELEASE_NDIS_PACKET(pAd, pRxBlk->pRxPacket, NDIS_STATUS_FAILURE);
 	}
-	
+
 	/* IV. Receive Sequence within Window Size*/
 	else if (SEQ_SMALLER(Sequence, (((pBAEntry->LastIndSeq+pBAEntry->BAWinSize+1)) & MAXSEQ), MAXSEQ))
 	{
 		ba_enqueue_reordering_packet_hdr_trns(pAd, pBAEntry, pRxBlk, FromWhichBSSID);
 	}
-	
+
 	/* V. Receive seq surpasses Win(lastseq + nMSDU). So refresh all reorder buffer*/
 	else
 	{
 		LONG WinStartSeq, TmpSeq;
-
-
-		printk("999999999\n");
 
 		TmpSeq = Sequence - (pBAEntry->BAWinSize) -1;
 		if (TmpSeq < 0)
