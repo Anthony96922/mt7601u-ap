@@ -319,6 +319,8 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 	pAd->RfIcType = RFIC_UNKNOWN;
 	Status = RTMPReadParametersHook(pAd);
 
+
+	DBGPRINT(RT_DEBUG_OFF, ("1. Phy Mode = %d\n", pAd->CommonCfg.PhyMode));
 	if (Status != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT_ERR(("RTMPReadParametersHook failed, Status = [0x%08x]\n",Status));
@@ -349,8 +351,12 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 
 	/* after reading Registry, we now know if in AP mode or STA mode*/
 
+	DBGPRINT(RT_DEBUG_OFF, ("2. Phy Mode = %d\n", pAd->CommonCfg.PhyMode));
+
 	/* We should read EEPROM for all cases.  rt2860b*/
 	NICReadEEPROMParameters(pAd, (PSTRING)pDefaultMac);
+
+	DBGPRINT(RT_DEBUG_OFF, ("3. Phy Mode = %d\n", pAd->CommonCfg.PhyMode));
 
 #ifdef LED_CONTROL_SUPPORT
 	/* Send LED Setting to MCU */
@@ -393,6 +399,9 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 	}
 
 #ifdef DOT11_N_SUPPORT
+	DBGPRINT(RT_DEBUG_OFF, ("MCS Set = %02x %02x %02x %02x %02x\n", pAd->CommonCfg.HtCapability.MCSSet[0],
+				pAd->CommonCfg.HtCapability.MCSSet[1], pAd->CommonCfg.HtCapability.MCSSet[2],
+				pAd->CommonCfg.HtCapability.MCSSet[3], pAd->CommonCfg.HtCapability.MCSSet[4]));
 #endif /* DOT11_N_SUPPORT */
 
 
@@ -519,7 +528,7 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 #endif /* DOT11_N_SUPPORT */
 
 			APStartUp(pAd);
-			DBGPRINT(RT_DEBUG_OFF, ("bssid = %02x:%02x:%02x:%02x:%02x:%02x\n",
+			DBGPRINT(RT_DEBUG_OFF, ("Main bssid = %02x:%02x:%02x:%02x:%02x:%02x\n",
 							PRINT_MAC(pAd->ApCfg.MBSSID[BSS0].Bssid)));
 		}
 #endif /* CONFIG_AP_SUPPORT */
@@ -646,6 +655,8 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 	}
 #endif /* RT3290 */
 
+	DBGPRINT_S(Status, ("<==== rt28xx_init, Status=%x\n", Status));
+
 	return TRUE;
 
 /*err7:
@@ -763,10 +774,12 @@ VOID RTMPDrvOpen(
 
 
 //+++Add by shiang for debug
+	DBGPRINT(RT_DEBUG_OFF, ("%s(1):Check if PDMA is idle!\n", __FUNCTION__));
 	AsicWaitPDMAIdle(pAd, 5, 10);
 //---Add by shiang for debug
 
 //+++Add by shiang for debug
+	DBGPRINT(RT_DEBUG_OFF, ("%s(2):Check if PDMA is idle!\n", __FUNCTION__));
 	AsicWaitPDMAIdle(pAd, 5, 10);
 //---Add by shiang for debug
 

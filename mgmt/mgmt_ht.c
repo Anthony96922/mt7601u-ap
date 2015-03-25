@@ -608,9 +608,7 @@ VOID RTMPSetIndividualHT(
 
 	/* update HT Rate setting */
 	if (pAd->OpMode == OPMODE_STA)
-	{
-			MlmeUpdateHtTxRates(pAd, BSS0);
-	}
+		MlmeUpdateHtTxRates(pAd, BSS0);
 	else
 		MlmeUpdateHtTxRates(pAd, apidx);
 
@@ -738,6 +736,8 @@ VOID RTMPUpdateHTIE(
 	pAddHtInfo->AddHtInfo2.OperaionMode = pRtHt->OperaionMode;
 	pAddHtInfo->AddHtInfo2.NonGfPresent = pRtHt->NonGfPresent;
 	RTMPMoveMemory(pAddHtInfo->MCSSet, /*pRtHt->MCSSet*/pMcsSet, 4); /* rt2860 only support MCS max=32, no need to copy all 16 uchar.*/
+
+	DBGPRINT(RT_DEBUG_TRACE, ("RTMPUpdateHTIE <== \n"));
 }
 
 #endif /* DOT11_N_SUPPORT */

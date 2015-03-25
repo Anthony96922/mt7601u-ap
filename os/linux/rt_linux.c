@@ -951,11 +951,18 @@ static inline NDIS_STATUS __RtmpOSTaskKill(OS_TASK *pTask)
 	}
 #else
 	CHECK_PID_LEGALITY(pTask->taskPID) {
+		DBGPRINT(RT_DEBUG_TRACE,
+			 ("Terminate the task(%s) with pid(%d)!\n",
+			  pTask->taskName, GET_PID_NUMBER(pTask->taskPID)));
 		mb();
 		pTask->task_killed = 1;
 		mb();
 		ret = KILL_THREAD_PID(pTask->taskPID, SIGTERM, 1);
 		if (ret) {
+			printk(KERN_WARNING
+			       "kill task(%s) with pid(%d) failed(retVal=%d)!\n",
+			       pTask->taskName, GET_PID_NUMBER(pTask->taskPID),
+			       ret);
 		} else {
 			wait_for_completion(&pTask->taskComplete);
 			pTask->taskPID = THREAD_PID_INIT_VALUE;
@@ -1496,6 +1503,8 @@ int RtmpOSNetDevAttach(
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,31)
 	struct net_device_ops *pNetDevOps = (struct net_device_ops *)pNetDev->netdev_ops;
 #endif
+
+	DBGPRINT(RT_DEBUG_TRACE, ("RtmpOSNetDevAttach()--->\n"));
 
 	/* If we need hook some callback function to the net device structrue, now do it. */
 	if (pDevOpHook) {

@@ -246,6 +246,7 @@ UCHAR *wmode_2_str(UCHAR wmode)
 
 UCHAR cfgmode_2_wmode(UCHAR cfg_mode)
 {
+	DBGPRINT(RT_DEBUG_OFF, ("cfg_mode=%d\n", cfg_mode));
 	if (cfg_mode >= PHY_MODE_MAX)
 		cfg_mode =  PHY_MODE_MAX;
 	
@@ -358,10 +359,10 @@ INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
 		return FALSE;
 	}
 
-	if (wmode_band_equal(pAd->CommonCfg.PhyMode, wmode) == TRUE) {
-	} else {
+	if (wmode_band_equal(pAd->CommonCfg.PhyMode, wmode) == TRUE)
+		DBGPRINT(RT_DEBUG_OFF, ("wmode_band_equal(): Band Equal!\n"));
+	else
 		DBGPRINT(RT_DEBUG_OFF, ("wmode_band_equal(): Band Not Equal!\n"));
-	}
 
 	pAd->CommonCfg.PhyMode = wmode;
 	pAd->CommonCfg.cfg_wmode = wmode;
@@ -369,6 +370,8 @@ INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
 	mode_str = wmode_2_str(wmode);
 	if (mode_str)
 	{
+		DBGPRINT(RT_DEBUG_TRACE, ("%s(): Set WMODE=%s(0x%x)\n",
+				__FUNCTION__, mode_str, wmode));
 		os_free_mem(NULL, mode_str);
 	}
 
@@ -1006,7 +1009,11 @@ INT RTMP_COM_IoctlHandle(
 			for (i = 0; i < 6; i++) 
 				pAd->BulkOutEpAddr[i] = pConfig->BulkOutEpAddr[i];
 
-			
+			for (i = 0; i < 6; i++) {
+				DBGPRINT(RT_DEBUG_OFF, ("%s():pAd->BulkOutEpAddr=0x%x\n", __FUNCTION__, pAd->BulkOutEpAddr[i]));
+			}
+
+
 			for (i = 0; i < 2; i++)
 				pAd->BulkInEpAddr[i] = pConfig->BulkInEpAddr[i];
 

@@ -243,6 +243,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 #endif /* WORKQUEUE_BH */
 		}
 		pAd->BeaconBuf = pBeaconBuf;
+		DBGPRINT(RT_DEBUG_OFF, ("\n\n=== pAd = %p, size = %d ===\n\n", pAd, (UINT32)sizeof(RTMP_ADAPTER)));
 
 		if (RtmpOsStatsAlloc(&pAd->stats, &pAd->iw_stats) == FALSE)
 		{
@@ -331,6 +332,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 			pAd->ProbeRespIE[index].pIe = NULL;
 	}
 
+	DBGPRINT_S(Status, ("<-- RTMPAllocAdapterBlock, Status=%x\n", Status));
 	return Status;
 }
 
@@ -379,6 +381,7 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, PSTRING mac_addr)
 #ifdef RALINK_ATE
 		if(!pAd->bFroceEEPROMBuffer && pAd->bEEPROMFile)
 		{
+			DBGPRINT(RT_DEBUG_OFF, ("--> NICReadEEPROMParameters::(Efuse)Load to EEPROM Buffer Mode\n"));
 			eFuseLoadEEPROM(pAd);
 		}
 #endif /* RALINK_ATE */
@@ -533,6 +536,8 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, PSTRING mac_addr)
 
 #ifdef RT65xx
 	if (IS_RT8592(pAd)) {
+		DBGPRINT(RT_DEBUG_OFF, ("RT85592: Antenna.RfIcType=%d, TxPath=%d, RxPath=%d\n",
+					Antenna.field.RfIcType, Antenna.field.TxPath, Antenna.field.RxPath));
 		// TODO: fix me!!
 		Antenna.word = 0;
 		Antenna.field.BoardType = 0;
@@ -557,6 +562,8 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, PSTRING mac_addr)
 	if (((Antenna.word & 0xFF00) != 0xFF00) && (Antenna.word & 0x2000))  
 	{																	  
 		pAd->chipCap.bTxRxSwAntDiv = TRUE;		/* for GPIO switch */
+		DBGPRINT(RT_DEBUG_OFF, ("\x1b[mAntenna word %X/%d, AntDiv %d\x1b[m\n",
+					Antenna.word, Antenna.field.BoardType, pAd->NicConfig2.field.AntDiversity));
 	}
 #endif /* TXRX_SW_ANTDIV_SUPPORT */
 
@@ -2932,6 +2939,7 @@ VOID UserCfgInit(RTMP_ADAPTER *pAd)
 	pAd->WOW_Cfg.nSelectedGPIO = 1;
 	pAd->WOW_Cfg.nDelay = 3; /* (3+1)*3 = 12 sec */
 	pAd->WOW_Cfg.nHoldTime = 1; /* 1*10 = 10 ms */
+	DBGPRINT(RT_DEBUG_OFF, ("WOW Enable %d, WOWFirmware %d\n", pAd->WOW_Cfg.bEnable, pAd->WOW_Cfg.bWOWFirmware));
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
 
 	/* 802.11H and DFS related params*/
@@ -3465,24 +3473,28 @@ BOOLEAN PairEP(RTMP_ADAPTER *pAd, UINT8 EP, UINT8 Index, UINT8 InOut)
 	if (Index == 0 && InOut == 0)
 	{
 		pChipCap->CommandBulkOutAddr = EP;
+		DBGPRINT(RT_DEBUG_OFF, ("Endpoint(%x) is for In-band Command\n", EP));
 		return TRUE;
 	}
 	
 	if (Index > 0 && Index < 5 && InOut == 0)
 	{
 		pChipCap->WMM0ACBulkOutAddr[Index - 1] = EP; 
+		DBGPRINT(RT_DEBUG_OFF, ("Endpoint(%x) is for WMM0 AC%d\n", EP, Index - 1));
 		return TRUE;
 	}
 	
 	if (Index == 5 && InOut == 0)
 	{
 		pChipCap->WMM1ACBulkOutAddr = EP;
+		DBGPRINT(RT_DEBUG_OFF, ("Endpoint(%x) is for WMM1 AC0\n", EP));
 		return TRUE;
 	}
 
 	if (Index == 0 && InOut == 1)
 	{
 		pChipCap->DataBulkInAddr = EP;
+		DBGPRINT(RT_DEBUG_OFF, ("Endpoint(%x) is for Data-In\n", EP));
 		return TRUE;
 	}
 
@@ -3490,6 +3502,7 @@ BOOLEAN PairEP(RTMP_ADAPTER *pAd, UINT8 EP, UINT8 Index, UINT8 InOut)
 	if (Index == 1 && InOut == 1)
 	{
 		pChipCap->CommandRspBulkInAddr = EP;
+		DBGPRINT(RT_DEBUG_OFF, ("Endpoint(%x) is for Command Rsp\n", EP));
 		return TRUE;
 	}
 				
@@ -3752,7 +3765,14 @@ IN  PRTMP_ADAPTER   pAd)
 	
 #ifdef TXRX_SW_ANTDIV_SUPPORT
 	/* EEPROM 0x34[15:12] = 0xF is invalid, 0x2~0x3 is TX/RX SW AntDiv */
+	DBGPRINT(RT_DEBUG_OFF, ("%s: bTxRxSwAntDiv %d\n", __FUNCTION__, pAd->chipCap.bTxRxSwAntDiv));
+	if (pAd->chipCap.bTxRxSwAntDiv)
+	{
+		DBGPRINT(RT_DEBUG_OFF, ("Antenna word %X/%d, AntDiv %d\n",
+					pAd->Antenna.word, pAd->Antenna.field.BoardType, pAd->NicConfig2.field.AntDiversity));
+	}
 #endif /* TXRX_SW_ANTDIV_SUPPORT */
+
 	{
 		if (pAd->NicConfig2.field.AntOpt== 1) /* ant selected by efuse */
 		{	
@@ -3778,6 +3798,11 @@ IN  PRTMP_ADAPTER   pAd)
 			pAd->RxAnt.Pair1SecondaryRxAnt = 1;
 		}
 	}
+
+	DBGPRINT(RT_DEBUG_OFF, ("%s: primary/secondary ant %d/%d\n", 
+					__FUNCTION__,
+					pAd->RxAnt.Pair1PrimaryRxAnt,
+					pAd->RxAnt.Pair1SecondaryRxAnt));
 }
 
 #ifdef MICROWAVE_OVEN_SUPPORT

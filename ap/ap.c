@@ -150,6 +150,8 @@ VOID APStartUp(
 	/* BOOLEAN		bDot1xReload = FALSE; */
 #endif /* DOT1X_SUPPORT */
 
+	DBGPRINT(RT_DEBUG_TRACE, ("===> APStartUp\n"));
+
 #ifdef INF_AMAZON_SE
 	for (i = 0; i < NUM_OF_TX_RING; i ++)
 	{

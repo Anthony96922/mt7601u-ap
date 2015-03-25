@@ -1018,6 +1018,7 @@ NTSTATUS RTUSB_ResetDevice(
 {
 	NTSTATUS		Status = TRUE;
 
+	DBGPRINT_RAW(RT_DEBUG_TRACE, ("--->USB_ResetDevice\n"));
 	/*RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_RESET_IN_PROGRESS);*/
 	return Status;
 }
@@ -1029,6 +1030,7 @@ NTSTATUS CheckGPIOHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 #ifdef RALINK_ATE
 		if (ATE_ON(pAd))
 		{
+			DBGPRINT(RT_DEBUG_TRACE, ("The driver is in ATE mode now\n"));
 			return NDIS_STATUS_SUCCESS;
 		}
 #endif /* RALINK_ATE */
@@ -1047,6 +1049,8 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 	PHT_TX_CONTEXT	pHTTXContext;
 /*	RTMP_TX_RING *pTxRing;*/
 	unsigned long IrqFlags;
+
+	DBGPRINT(RT_DEBUG_TRACE, ("CMDTHREAD_RESET_BULK_OUT(ResetPipeid=0x%0x)===>\n", pAd->bulkResetPipeid));
 
 	/* All transfers must be aborted or cancelled before attempting to reset the pipe.						*/
 	/*RTUSBCancelPendingBulkOutIRP(pAd);*/
@@ -1082,6 +1086,7 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 
 	MACValue &= (~0x80000);
 	RTUSBWriteMACRegister(pAd, USB_DMA_CFG, MACValue, FALSE);
+	DBGPRINT(RT_DEBUG_TRACE, ("\tSet 0x2a0 bit19. Clear USB DMA TX path\n"));
 
 	/* Wait 5ms to prevent next URB to bulkout before HW reset. by MAXLEE 12-25-2007*/
 	/*RTMPusecDelay(5000);*/
@@ -1094,6 +1099,7 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 			RTUSB_SET_BULK_FLAG(pAd, fRTUSB_BULK_OUT_MLME);
 
 		RTUSBKickBulkOut(pAd);
+		DBGPRINT(RT_DEBUG_TRACE, ("\tTX MGMT RECOVER Done!\n"));
 	}
 	else
 	{
@@ -1130,11 +1136,25 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 						pHTTXContext->IRPPending = FALSE;
 						pAd->watchDogTxPendingCnt[pAd->bulkResetPipeid] = 0;
 						RTMP_INT_UNLOCK(&pAd->BulkOutLock[pAd->bulkResetPipeid], IrqFlags);
+
+						DBGPRINT(RT_DEBUG_ERROR, ("CMDTHREAD_RESET_BULK_OUT:Submit Tx URB failed %d\n", ret));
 				}
 				else
 				{
 						RTMP_INT_LOCK(&pAd->BulkOutLock[pAd->bulkResetPipeid], IrqFlags);
+
+						DBGPRINT(RT_DEBUG_TRACE,("\tCMDTHREAD_RESET_BULK_OUT: TxContext[%d]:CWPos=%ld, NBPos=%ld, ENBPos=%ld, bCopy=%d, pending=%d!\n",
+											pAd->bulkResetPipeid, pHTTXContext->CurWritePosition, pHTTXContext->NextBulkOutPosition,
+											pHTTXContext->ENextBulkOutPosition, pHTTXContext->bCopySavePad,
+											pAd->BulkOutPending[pAd->bulkResetPipeid]));
+						DBGPRINT(RT_DEBUG_TRACE,("\t\tBulkOut Req=0x%lx, Complete=0x%lx, Other=0x%lx\n",
+											pAd->BulkOutReq, pAd->BulkOutComplete, pAd->BulkOutCompleteOther));
+
 						RTMP_INT_UNLOCK(&pAd->BulkOutLock[pAd->bulkResetPipeid], IrqFlags);
+
+						DBGPRINT(RT_DEBUG_TRACE, ("\tCMDTHREAD_RESET_BULK_OUT: Submit Tx DATA URB for failed BulkReq(0x%lx) Done, status=%d!\n",
+											pAd->bulkResetReq[pAd->bulkResetPipeid],
+											RTMP_USB_URB_STATUS_GET(pHTTXContext->pUrb)));
 				}
 			}
 		}
@@ -1142,6 +1162,9 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 		{
 			/*NdisReleaseSpinLock(&pAd->BulkOutLock[pAd->bulkResetPipeid]);*/
 			/*RTMP_INT_UNLOCK(&pAd->BulkOutLock[pAd->bulkResetPipeid], IrqFlags);*/
+
+			DBGPRINT(RT_DEBUG_ERROR, ("CmdThread : TX DATA RECOVER FAIL for BulkReq(0x%lx) because BulkOutPending[%d] is TRUE!\n",
+								pAd->bulkResetReq[pAd->bulkResetPipeid], pAd->bulkResetPipeid));
 
 			if (pAd->bulkResetPipeid == 0)
 			{
@@ -1161,6 +1184,8 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 					pendingContext |= 8;
 				else
 					pendingContext = 0;
+
+				DBGPRINT(RT_DEBUG_ERROR, ("\tTX Occupied by %d!\n", pendingContext));
 			}
 
 			/* no matter what, clean the flag*/
@@ -1175,6 +1200,7 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 		/*RTUSBKickBulkOut(pAd);*/
 	}
 
+	DBGPRINT_RAW(RT_DEBUG_TRACE, ("CmdThread : CMDTHREAD_RESET_BULK_OUT<===\n"));
 	return NDIS_STATUS_SUCCESS;
 
 
@@ -1187,6 +1213,9 @@ static NTSTATUS ResetBulkInHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 	UINT32 MACValue;
 	NTSTATUS ntStatus;
 
+	DBGPRINT_RAW(RT_DEBUG_TRACE, ("CmdThread : CMDTHREAD_RESET_BULK_IN === >\n"));
+
+
 #ifdef RALINK_ATE
 	if (ATE_ON(pAd))
 		ATEResetBulkIn(pAd);
@@ -1196,6 +1225,7 @@ static NTSTATUS ResetBulkInHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 		/*while ((atomic_read(&pAd->PendingRx) > 0) && (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST))) */
 		if((pAd->PendingRx > 0) && (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST)))
 		{
+			DBGPRINT_RAW(RT_DEBUG_ERROR, ("BulkIn IRP Pending!!!\n"));
 			RTUSBCancelPendingBulkInIRP(pAd);
 			RTMPusecDelay(100000);
 			pAd->PendingRx = 0;
@@ -1218,6 +1248,15 @@ static NTSTATUS ResetBulkInHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 			return NDIS_STATUS_SUCCESS;
 
 		pAd->NextRxBulkInPosition = pAd->RxContext[pAd->NextRxBulkInIndex].BulkInOffset;
+
+		DBGPRINT(RT_DEBUG_TRACE, ("BULK_IN_RESET: NBIIdx=0x%x,NBIRIdx=0x%x, BIRPos=0x%lx. BIReq=x%lx, BIComplete=0x%lx, BICFail0x%lx\n",
+					pAd->NextRxBulkInIndex,  pAd->NextRxBulkInReadIndex, pAd->NextRxBulkInPosition, pAd->BulkInReq, pAd->BulkInComplete, pAd->BulkInCompleteFail));
+
+		for (i = 0; i < RX_RING_SIZE; i++)
+		{
+ 			DBGPRINT(RT_DEBUG_TRACE, ("\tRxContext[%d]: IRPPending=%d, InUse=%d, Readable=%d!\n"
+							, i, pAd->RxContext[i].IRPPending, pAd->RxContext[i].InUse, pAd->RxContext[i].Readable));
+		}
 
 		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_BULKIN_RESET);
 
@@ -1255,11 +1294,13 @@ static NTSTATUS ResetBulkInHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 				pAd->PendingRx--;
 				pAd->BulkInReq--;
 				RTMP_IRQ_UNLOCK(&pAd->BulkInLock, IrqFlags);
+				DBGPRINT(RT_DEBUG_ERROR, ("CMDTHREAD_RESET_BULK_IN: Submit Rx URB failed(%d), status=%d\n", ret, RTMP_USB_URB_STATUS_GET(pUrb)));
 			}
 			else
 			{	/* success*/
 				/*DBGPRINT(RT_DEBUG_TRACE, ("BIDone, Pend=%d,BIIdx=%d,BIRIdx=%d!\n", */
 				/*							pAd->PendingRx, pAd->NextRxBulkInIndex, pAd->NextRxBulkInReadIndex));*/
+				DBGPRINT_RAW(RT_DEBUG_TRACE, ("CMDTHREAD_RESET_BULK_IN: Submit Rx URB Done, status=%d!\n", RTMP_USB_URB_STATUS_GET(pUrb)));
 				ASSERT((pRxContext->InUse == pRxContext->IRPPending));
 			}
 		}
@@ -1271,9 +1312,13 @@ static NTSTATUS ResetBulkInHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 		if (NT_SUCCESS(ntStatus) != TRUE)
 		{
 			RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST);
+			DBGPRINT_RAW(RT_DEBUG_ERROR, ("CMDTHREAD_RESET_BULK_IN: Read Register Failed!Card must be removed!!\n\n"));
 		}
+		else
+			DBGPRINT_RAW(RT_DEBUG_ERROR, ("CMDTHREAD_RESET_BULK_IN: Cannot do bulk in because flags(0x%lx) on !\n", pAd->Flags));
 	}
 
+	DBGPRINT_RAW(RT_DEBUG_TRACE, ("CmdThread : CMDTHREAD_RESET_BULK_IN <===\n"));
 	return NDIS_STATUS_SUCCESS;
 }
 
@@ -1290,8 +1335,12 @@ static NTSTATUS SetAsicWcidHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 
 	offset = MAC_WCID_BASE + ((UCHAR)SetAsicWcid.WCID)*HW_WCID_ENTRY_SIZE;
 
+	DBGPRINT_RAW(RT_DEBUG_TRACE, ("CmdThread : CMDTHREAD_SET_ASIC_WCID : WCID = %ld, SetTid  = %lx, DeleteTid = %lx.\n",
+						SetAsicWcid.WCID, SetAsicWcid.SetTid, SetAsicWcid.DeleteTid));
+
 	MACValue = (pAd->MacTab.Content[SetAsicWcid.WCID].Addr[3]<<24)+(pAd->MacTab.Content[SetAsicWcid.WCID].Addr[2]<<16)+(pAd->MacTab.Content[SetAsicWcid.WCID].Addr[1]<<8)+(pAd->MacTab.Content[SetAsicWcid.WCID].Addr[0]);
 
+	DBGPRINT_RAW(RT_DEBUG_TRACE, ("1-MACValue= %x,\n", MACValue));
 	RTUSBWriteMACRegister(pAd, offset, MACValue, FALSE);
 	/* Read bitmask*/
 	RTUSBReadMACRegister(pAd, offset+4, &MACRValue);
@@ -1304,6 +1353,8 @@ static NTSTATUS SetAsicWcidHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 	MACValue = (pAd->MacTab.Content[SetAsicWcid.WCID].Addr[5]<<8)+pAd->MacTab.Content[SetAsicWcid.WCID].Addr[4];
 	MACValue |= MACRValue;
 	RTUSBWriteMACRegister(pAd, offset+4, MACValue, FALSE);
+
+	DBGPRINT_RAW(RT_DEBUG_TRACE, ("2-MACValue= %x,\n", MACValue));
 
 	return NDIS_STATUS_SUCCESS;
 }
@@ -1557,12 +1608,15 @@ static NTSTATUS LEDWPSMode10Hdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 #ifdef CONFIG_AP_SUPPORT
 static NTSTATUS ChannelRescanHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
+	DBGPRINT(RT_DEBUG_TRACE, ("cmd> Re-scan channel! \n"));
+
 	pAd->CommonCfg.Channel = AP_AUTO_CH_SEL(pAd, TRUE);
 #ifdef DOT11_N_SUPPORT
 	/* If WMODE_CAP_N(phymode) and BW=40 check extension channel, after select channel  */
 	N_ChannelCheck(pAd);
 #endif /* DOT11_N_SUPPORT */
 
+	DBGPRINT(RT_DEBUG_TRACE, ("cmd> Switch to %d! \n", pAd->CommonCfg.Channel));
 	APStop(pAd);
 	APStartUp(pAd);
 

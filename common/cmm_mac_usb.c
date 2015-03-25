@@ -661,6 +661,7 @@ NDIS_STATUS	RTMPAllocTxRxRingMemory(
 		}
 	} while (FALSE);
 
+	DBGPRINT_S(Status, ("<-- RTMPAllocTxRxRingMemory, Status=%x\n", Status));
 	return Status;
 
 err:
@@ -1125,6 +1126,7 @@ NDIS_STATUS	RTMPAllocTxRxRingMemory(
 		}
 	} while (FALSE);
 
+	DBGPRINT_S(Status, ("<-- RTMPAllocTxRxRingMemory, Status=%x\n", Status));
 	return Status;
 }
 
