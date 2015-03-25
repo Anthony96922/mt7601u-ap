@@ -749,22 +749,23 @@ VOID RTMPDrvOpen(
 	{
 	UINT32 reg = 0;
 	RTMP_IO_READ32(pAd, 0x1300, &reg);  /* clear garbage interrupts*/
+#ifdef DBG
+	printk("0x1300 = %08x\n", reg);
+#endif
 	}
 
-	{
-/*	u32 reg;*/
-/*	UINT8  byte;*/
-/*	u16 tmp;*/
+/*	{
+	u32 reg;
+	UINT8  byte;
+	u16 tmp;
 
-/*	RTMP_IO_READ32(pAd, XIFS_TIME_CFG, &reg);*/
+	RTMP_IO_READ32(pAd, XIFS_TIME_CFG, &reg);
 
-/*	tmp = 0x0805;*/
-/*	reg  = (reg & 0xffff0000) | tmp;*/
-/*	RTMP_IO_WRITE32(pAd, XIFS_TIME_CFG, reg);*/
+	tmp = 0x0805;
+	reg  = (reg & 0xffff0000) | tmp;
+	RTMP_IO_WRITE32(pAd, XIFS_TIME_CFG, reg);
 
-	}
-
-
+	}*/
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef BG_FT_SUPPORT
@@ -802,7 +803,7 @@ VOID RTMPDrvOpen(
 			{
 				PWSC_CTRL pWscControl;
 				UCHAR zeros16[16]= {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-				
+
 				pWscControl = &pAd->ApCfg.MBSSID[index].WscControl;
 				DBGPRINT(RT_DEBUG_TRACE, ("Generate UUID for apidx(%d)\n", index));
 				if (NdisEqualMemory(&pWscControl->Wsc_Uuid_E[0], zeros16, UUID_LEN_HEX))
@@ -815,8 +816,8 @@ VOID RTMPDrvOpen(
 		for(index = 0; index < MAX_APCLI_NUM; index++)
 		{
 			PWSC_CTRL pWpsCtrl = &pAd->ApCfg.ApCliTab[index].WscControl;
-			
-			pWpsCtrl->pAd = pAd;        
+
+			pWpsCtrl->pAd = pAd;
 			NdisZeroMemory(pWpsCtrl->EntryAddr, MAC_ADDR_LEN);
 			pWpsCtrl->WscConfigMethods= 0x018C;
 			RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_WSC_INIT, 0, (VOID *)&pAd->ApCfg.ApCliTab[index], index);
@@ -888,7 +889,7 @@ VOID RTMPDrvClose(
 			RTMPusecDelay(1000);
 		}
 	}
-	
+
 #ifdef RTMP_MAC_USB
 	RtmpOsUsbEmptyUrbCheck(&pAd->wait, &pAd->BulkInLock, &pAd->PendingRx);
 
@@ -917,7 +918,7 @@ VOID RTMPDrvClose(
 
 	/* Stop Mlme state machine*/
 	MlmeHalt(pAd);
-	
+
 	/* Close net tasklets*/
 	RtmpNetTaskExit(pAd);
 
@@ -1059,16 +1060,12 @@ VOID RTMPInfClose(
 
 }
 
-
-
-
 PNET_DEV RtmpPhyNetDevMainCreate(
 	IN VOID				*pAdSrc)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	PNET_DEV pDevNew;
 	UINT32 MC_RowID = 0, IoctlIF = 0;
-
 
 	pAd = pAd;
 
@@ -1088,5 +1085,3 @@ PNET_DEV RtmpPhyNetDevMainCreate(
 
 	return pDevNew;
 }
-
-
