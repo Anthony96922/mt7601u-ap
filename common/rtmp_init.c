@@ -3799,7 +3799,7 @@ IN  PRTMP_ADAPTER   pAd)
 		}
 	}
 
-	DBGPRINT(RT_DEBUG_OFF, ("%s: primary/secondary ant %d/%d\n", 
+	DBGPRINT(RT_DEBUG_OFF, ("%s: primary/secondary ant %d/%d\n",
 					__FUNCTION__,
 					pAd->RxAnt.Pair1PrimaryRxAnt,
 					pAd->RxAnt.Pair1SecondaryRxAnt));
