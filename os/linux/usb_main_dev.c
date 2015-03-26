@@ -139,7 +139,7 @@ static BOOLEAN USBDevConfigInit(
 	{
 #ifdef DBG
 		printk("Could not find both bulk-in and bulk-out endpoints\n");
-#endif
+#endif /* DBG */
 		return FALSE;
 	}
 
@@ -271,7 +271,7 @@ static BOOLEAN USBDevConfigInit(
 	{
 #ifdef DBG
 		printk("%s: Could not find both bulk-in and bulk-out endpoints\n", __FUNCTION__);
-#endif
+#endif /* DBG */
 		return FALSE;
 	}
 
@@ -335,7 +335,7 @@ static void rtusb_disconnect(struct usb_interface *intf)
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
 #ifdef DBG
 	printk("rtusb_disconnect usb_autopm_put_interface\n");
-#endif
+#endif /* DBG */
 	usb_autopm_put_interface(intf);
 #ifdef DBG
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,32)
@@ -343,7 +343,7 @@ static void rtusb_disconnect(struct usb_interface *intf)
 #else
 	printk("rt2870_disconnect pm_usage_cnt %d\n", intf->pm_usage_cnt);
 #endif
-#endif
+#endif /* DBG */
 #endif /* USB_SUPPORT_SELECTIVE_SUSPEND */
 #endif /* CONFIG_PM */
 
@@ -559,7 +559,7 @@ static void rt2870_disconnect(struct usb_device *dev, VOID *pAd)
 
 #ifdef DBG
 		printk("rtusb_disconnect: pAd == NULL!\n");
-#endif
+#endif /* DBG */
 		return;
 	}
 /*	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST); */
@@ -643,12 +643,12 @@ static int rt2870_probe(
 	atomic_set(&intf->pm_usage_cnt, 1);
 #ifdef DBG
 	printk("rt2870_probe ====> pm_usage_cnt %d\n", atomic_read(&intf->pm_usage_cnt));
-#endif
+#endif /* DBG */
 #else
         intf->pm_usage_cnt = 1;
 #ifdef DBG
 	printk("rt2870_probe ====> pm_usage_cnt %d\n", intf->pm_usage_cnt);
-#endif
+#endif /* DBG */
 #endif
 #endif /* USB_SUPPORT_SELECTIVE_SUSPEND */
 #endif /* CONFIG_PM */
@@ -661,7 +661,7 @@ static int rt2870_probe(
 	{
 #ifdef DBG
 		printk("rt2870_probe(): Allocate memory for os handle failed!\n");
-#endif
+#endif /* DBG */
 		return -ENOMEM;
 	}
 	memset(handle, 0, sizeof(struct os_cookie));
