@@ -130,8 +130,8 @@ release: build_tools
 	striptool/striptool.out
 ifeq ($(RELEASE), DPO)
 	gcc -o striptool/banner striptool/banner.c
-	./striptool/banner -b striptool/copyright.gpl -s DPO/ -d DPO_GPL -R
-	./striptool/banner -b striptool/copyright.frm -s DPO_GPL/include/firmware.h
+	striptool/banner -b striptool/copyright.gpl -s DPO/ -d DPO_GPL -R
+	striptool/banner -b striptool/copyright.frm -s DPO_GPL/include/firmware.h
 endif
 
 prerelease:
@@ -172,7 +172,7 @@ endif
 
 install:
 ifeq ($(TARGET), LINUX)
-ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 install
 else
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 install
@@ -180,7 +180,7 @@ endif
 endif
 
 libwapi:
-ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	cp -f os/linux/Makefile.libwapi.4 $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 else
@@ -190,7 +190,7 @@ endif
 
 osutil:
 ifeq ($(OSABL),YES)
-ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	cp -f os/linux/Makefile.4.util $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 else
@@ -201,7 +201,7 @@ endif
 
 osnet:
 ifeq ($(OSABL),YES)
-ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	cp -f os/linux/Makefile.4.netif $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 else
@@ -211,7 +211,7 @@ endif
 endif
 
 osdrv:
-ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	cp os/linux/Makefile.4 $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 else

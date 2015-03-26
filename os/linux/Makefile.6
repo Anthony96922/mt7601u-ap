@@ -3,45 +3,45 @@ include $(RT28xx_DIR)/os/linux/config.mk
 obj_wsc :=
 obj_vht :=
 obj_cmm := \
-	../../common/crypt_md5.o\
-        ../../common/crypt_sha2.o\
-        ../../common/crypt_hmac.o\
-        ../../common/crypt_aes.o\
-        ../../common/crypt_arc4.o\
-        ../../common/mlme.o\
-        ../../common/cmm_wep.o\
-        ../../common/action.o\
-        ../../common/cmm_data.o\
-	../../common/rtmp_init.o\
-        ../../common/rtmp_init_inf.o\
-        ../../common/cmm_tkip.o\
-        ../../common/cmm_aes.o\
-        ../../common/cmm_sync.o\
-        ../../common/eeprom.o\
-        ../../common/cmm_sanity.o\
-        ../../common/cmm_info.o\
-        ../../common/cmm_cfg.o\
-        ../../common/cmm_wpa.o\
-        ../../common/cmm_radar.o\
-	../../common/spectrum.o\
-        ../../common/rtmp_timer.o\
-        ../../common/rt_channel.o\
-        ../../common/cmm_profile.o\
-        ../../common/cmm_asic.o\
-        ../../common/scan.o\
-        ../../common/cmm_cmd.o\
-        ../../common/uapsd.o\
-	../../common/ps.o\
-	../../rate_ctrl/ra_ctrl.o\
-        ../../rate_ctrl/alg_legacy.o\
-        ../../rate_ctrl/alg_ags.o\
-	../../chips/rtmp_chip.o\
-		../../common/txpower.o\
-	../../mac/rtmp_mac.o\
-	../../mgmt/mgmt_hw.o\
-	../../mgmt/mgmt_entrytb.o\
-        ../../phy/rtmp_phy.o\
-        ../../phy/rlt_phy.o\
+	../../common/crypt_md5.o \
+	../../common/crypt_sha2.o \
+	../../common/crypt_hmac.o \
+	../../common/crypt_aes.o \
+	../../common/crypt_arc4.o \
+	../../common/mlme.o \
+	../../common/cmm_wep.o \
+	../../common/action.o \
+	../../common/cmm_data.o \
+	../../common/rtmp_init.o \
+	../../common/rtmp_init_inf.o \
+	../../common/cmm_tkip.o \
+	../../common/cmm_aes.o \
+	../../common/cmm_sync.o \
+	../../common/eeprom.o \
+	../../common/cmm_sanity.o \
+	../../common/cmm_info.o \
+	../../common/cmm_cfg.o \
+	../../common/cmm_wpa.o \
+	../../common/cmm_radar.o \
+	../../common/spectrum.o \
+	../../common/rtmp_timer.o \
+	../../common/rt_channel.o \
+	../../common/cmm_profile.o \
+	../../common/cmm_asic.o \
+	../../common/scan.o \
+	../../common/cmm_cmd.o \
+	../../common/uapsd.o \
+	../../common/ps.o \
+	../../rate_ctrl/ra_ctrl.o \
+	../../rate_ctrl/alg_legacy.o \
+	../../rate_ctrl/alg_ags.o \
+	../../chips/rtmp_chip.o \
+	../../common/txpower.o \
+	../../mac/rtmp_mac.o \
+	../../mgmt/mgmt_hw.o \
+	../../mgmt/mgmt_entrytb.o \
+	../../phy/rtmp_phy.o \
+	../../phy/rlt_phy.o \
 	../../phy/rlt_rf.o
 
 ifeq ($(HAS_BLOCK_NET_IF),y)
@@ -67,14 +67,14 @@ endif
 #ifdef DOT11_N_SUPPORT
 ifeq ($(HAS_DOT11_N_SUPPORT),y)
 obj_cmm += \
-        ../../common/ba_action.o\
-        ../../mgmt/mgmt_ht.o
+	../../common/ba_action.o \ 
+	../../mgmt/mgmt_ht.o
 
 #ifdef TXBF_SUPPORT
 ifeq ($(HAS_TXBF_SUPPORT),y)
 obj_cmm += \
-        ../../common/cmm_txbf.o\
-        ../../common/cmm_txbf_cal.o
+	../../common/cmm_txbf.o \
+	../../common/cmm_txbf_cal.o
 endif
 #endif // TXBF_SUPPORT //
 endif
@@ -82,7 +82,7 @@ endif
 
 #ifdef DOT11_VHT_SUPPORT
 ifeq ($(HAS_DOT11_VHT_SUPPORT),y)
-obj_vht += ../../mgmt/mgmt_vht.o\
+obj_vht += ../../mgmt/mgmt_vht.o \
 	../../common/vht.o
 endif
 #endif // DOT11_VHT_SUPPORT //
@@ -90,10 +90,10 @@ endif
 #ifdef WSC_INCLUDED
 ifeq ($(HAS_WSC),y)
 obj_wsc += \
-        ../../common/wsc.o\
-        ../../common/wsc_tlv.o\
-        ../../common/crypt_biginteger.o\
-        ../../common/crypt_dh.o
+	../../common/wsc.o \
+	../../common/wsc_tlv.o \
+	../../common/crypt_biginteger.o \
+	../../common/crypt_dh.o
 endif
 ifeq ($(HAS_WSC_V2),y)
 obj_wsc += ../../common/wsc_v2.o
@@ -114,8 +114,8 @@ MOD_NAME = mt$(MODULE)ap
 else
 MOD_NAME = rt$(MODULE)ap
 endif
-DAT_PATH = /etc/Wireless/RT$(CHIPSET_DAT)AP
-DAT_FILE_NAME = RT$(CHIPSET_DAT)AP.dat
+DAT_PATH = /etc/wifi/RT$(CHIPSET_DAT)AP
+DAT_FILE_NAME = RT$(CHIPSET_DAT)AP.txt
 endif
 #endif // CONFIG_AP_SUPPORT //
 
@@ -126,28 +126,28 @@ obj-m := $(MOD_NAME).o
 #ifdef CONFIG_AP_SUPPORT
 ifeq ($(RT28xx_MODE),AP)
 $(MOD_NAME)-objs := \
-	../../os/linux/rt_profile.o\
-	../../ap/ap_mbss.o\
-	../../ap/ap.o\
-	../../ap/ap_assoc.o\
-	../../ap/ap_auth.o\
-	../../ap/ap_connect.o\
-	../../ap/ap_mlme.o\
-	../../ap/ap_sanity.o\
-	../../ap/ap_sync.o\
-	../../ap/ap_wpa.o\
-	../../ap/ap_data.o\
-	../../ap/ap_autoChSel.o\
-	../../ap/ap_qload.o\
-	../../ap/ap_cfg.o\
-	$(obj_vht)\
-	$(obj_cmm)\
+	../../os/linux/rt_profile.o \
+	../../ap/ap_mbss.o \
+	../../ap/ap.o \
+	../../ap/ap_assoc.o \
+	../../ap/ap_auth.o \
+	../../ap/ap_connect.o \
+	../../ap/ap_mlme.o \
+	../../ap/ap_sanity.o \
+	../../ap/ap_sync.o \
+	../../ap/ap_wpa.o \
+	../../ap/ap_data.o \
+	../../ap/ap_autoChSel.o \
+	../../ap/ap_qload.o \
+	../../ap/ap_cfg.o \
+	$(obj_vht) \
+	$(obj_cmm) \
 	$(obj_wsc)
 
 #ifdef WSC_INCLUDED
 ifeq ($(HAS_WSC),y)
 $(MOD_NAME)-objs += \
-        ../../common/wsc_ufd.o
+	../../common/wsc_ufd.o
 endif
 #endif // WSC_INCLUDE //
 	
@@ -161,10 +161,10 @@ endif
 
 ifeq ($(OSABL),NO)
 $(MOD_NAME)-objs += \
-	../../ap/ap_mbss_inf.o\
-	../../common/rt_os_util.o\
-	../../os/linux/ap_ioctl.o\
-	../../os/linux/rt_linux.o\
+	../../ap/ap_mbss_inf.o \
+	../../common/rt_os_util.o \
+	../../os/linux/ap_ioctl.o \
+	../../os/linux/rt_linux.o \
 	../../os/linux/rt_main_dev.o
 else
 $(MOD_NAME)-objs += \
@@ -185,7 +185,7 @@ endif
 ifeq ($(OSABL),NO)
 ifeq ($(HAS_CFG80211_SUPPORT),y)
 $(MOD_NAME)-objs += \
-	../../os/linux/cfg80211.o\
+	../../os/linux/cfg80211.o \
 	../../os/linux/cfg80211drv.o
 endif
 endif
@@ -208,9 +208,9 @@ endif
 
 ifeq ($(HAS_RT2880_RT2860_COEXIST),y)	
 RT28XX_AP_OBJ += \
-	../../os/linux/rt_pci_rbus.o\
-	../../os/linux/rt_rbus_pci_util.o\
-	../../os/linux/pci_main_dev.o\
+	../../os/linux/rt_pci_rbus.o \
+	../../os/linux/rt_rbus_pci_util.o \
+	../../os/linux/pci_main_dev.o \
 	../../common/dfs.o
 endif
 
@@ -274,7 +274,7 @@ endif
 #ifdef PLATFORM_BL23570
 ifeq ($(PLATFORM),BL23570)
 rt$(CHIPSET)ap-objs += \
-        ../../os/linux/vr_bdlt.o
+	../../os/linux/vr_bdlt.o
 endif
 #endif // PLATFORM_BL23570 //
 
@@ -285,10 +285,6 @@ $(MOD_NAME)-objs += \
 	../../common/wapi.o
 endif
 #endif // WAPI_SUPPORT //
-
-
-
-
 
 ifeq ($(HAS_CLIENT_WDS_SUPPORT),y)
 $(MOD_NAME)-objs += \
@@ -304,49 +300,26 @@ endif
 endif
 #endif // CONFIG_AP_SUPPORT //
 
-
-
-
 #chip releated
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #ifdef RT3290
 ifneq ($(findstring 3290,$(CHIPSET)),)
 $(MOD_NAME)-objs += \
-	../../common/cmm_mac_pci.o\
-	../../common/cmm_data_pci.o\
-	../../os/linux/rt_rbus_pci_drv.o\
-	../../common/rtmp_mcu.o\
-	../../common/ee_prom.o\
-	../../common/ee_efuse.o\
-	../../common/rt_rf.o\
-	../../chips/rt30xx.o\
+	../../common/cmm_mac_pci.o \
+	../../common/cmm_data_pci.o \
+	../../os/linux/rt_rbus_pci_drv.o \
+	../../common/rtmp_mcu.o \
+	../../common/ee_prom.o \
+	../../common/ee_efuse.o \
+	../../common/rt_rf.o \
+	../../chips/rt30xx.o \
 	../../chips/rt3290.o
 
 ifeq ($(OSABL),NO)
 $(MOD_NAME)-objs += \
-        ../../os/linux/rt_pci_rbus.o\
-        ../../os/linux/rt_rbus_pci_util.o\
-        ../../os/linux/pci_main_dev.o
+	../../os/linux/rt_pci_rbus.o\
+	../../os/linux/rt_rbus_pci_util.o\
+	../../os/linux/pci_main_dev.o
 endif
 
 ifneq ($(findstring $(RT28xx_MODE),STA APSTA),)
@@ -360,144 +333,138 @@ endif
 #ifdef RT6592
 ifneq ($(findstring 6592,$(CHIPSET)),)
 $(MOD_NAME)-objs += \
-        ../../common/cmm_mac_pci.o\
-        ../../common/cmm_data_pci.o\
-        ../../os/linux/rt_rbus_pci_drv.o\
-        ../../common/rtmp_mcu.o\
-        ../../common/ee_prom.o\
-        ../../common/ee_efuse.o\
-        ../../common/rt_rf.o\
-        ../../chips/rt6592.o
+	../../common/cmm_mac_pci.o \
+	../../common/cmm_data_pci.o \
+	../../os/linux/rt_rbus_pci_drv.o \
+	../../common/rtmp_mcu.o \
+	../../common/ee_prom.o \
+	../../common/ee_efuse.o \
+	../../common/rt_rf.o \
+	../../chips/rt6592.o
 
 ifeq ($(OSABL),NO)
 $(MOD_NAME)-objs += \
-        ../../os/linux/rt_pci_rbus.o\
-        ../../os/linux/rt_rbus_pci_util.o\
-        ../../os/linux/pci_main_dev.o
+	../../os/linux/rt_pci_rbus.o \
+	../../os/linux/rt_rbus_pci_util.o \
+	../../os/linux/pci_main_dev.o
 endif
 endif
 #endif // RT6592 //
 
-
-
-
-
 #ifdef RT6590
 ifneq ($(findstring 6590,$(CHIPSET)),)
 $(MOD_NAME)-objs += \
-                ../../common/cmm_mac_pci.o\
-                ../../common/cmm_data_pci.o\
-                ../../os/linux/rt_rbus_pci_drv.o\
-				../../common/ee_efuse.o\
-                ../../common/ee_prom.o\
-                ../../common/rt_rf.o\
-                ../../chips/rt30xx.o\
-		../../chips/rt65xx.o\
-                ../../chips/rt6590.o\
-		../../mac/ral_nmac.o\
-		../../mcu/rtmp_and.o
+	../../common/cmm_mac_pci.o \
+	../../common/cmm_data_pci.o \
+	../../os/linux/rt_rbus_pci_drv.o \
+	../../common/ee_efuse.o \
+	../../common/ee_prom.o \
+	../../common/rt_rf.o \
+	../../chips/rt30xx.o \
+	../../chips/rt65xx.o \
+	../../chips/rt6590.o \
+	../../mac/ral_nmac.o \
+	../../mcu/rtmp_and.o
 
 ifeq ($(HAS_RTMP_FLASH_SUPPORT),y)
 $(MOD_NAME)-objs += \
-        ../../common/ee_flash.o
+	../../common/ee_flash.o
 endif
 
 ifeq ($(OSABL),NO)
 $(MOD_NAME)-objs += \
-                ../../os/linux/rt_pci_rbus.o\
-                ../../os/linux/rt_rbus_pci_util.o\
-                ../../os/linux/pci_main_dev.o
+	../../os/linux/rt_pci_rbus.o \
+	../../os/linux/rt_rbus_pci_util.o \
+	../../os/linux/pci_main_dev.o
 endif
 
 ifneq ($(findstring $(RT28xx_MODE),STA APSTA),)
 $(MOD_NAME)-objs += \
-        ../../common/frq_cal.o
+	../../common/frq_cal.o
 endif
 
 endif
 #endif // RT6590 //
 
-
 #ifdef RT6570
 ifneq ($(findstring 6570,$(CHIPSET)),)
 $(MOD_NAME)-objs += \
-                ../../common/cmm_mac_usb.o\
-                ../../common/cmm_data_usb.o\
-		../../common/rtusb_io.o\
-		../../common/rtusb_data.o\
-		../../common/rtusb_bulk.o\
-                ../../os/linux/rt_usb.o\
-                ../../common/ee_prom.o\
-				../../common/ee_efuse.o\
-                ../../common/rtmp_mcu.o\
-                ../../common/rt_rf.o\
-                ../../chips/rt30xx.o\
-		../../chips/rt65xx.o\
-                ../../chips/rt6590.o\
-                ../../mac/ral_nmac.o\
-                ../../mcu/rtmp_and.o
+	../../common/cmm_mac_usb.o \
+	../../common/cmm_data_usb.o \
+	../../common/rtusb_io.o \
+	../../common/rtusb_data.o \
+	../../common/rtusb_bulk.o \
+	../../os/linux/rt_usb.o \
+	../../common/ee_prom.o \
+	../../common/ee_efuse.o \
+	../../common/rtmp_mcu.o \
+	../../common/rt_rf.o \
+	../../chips/rt30xx.o \
+	../../chips/rt65xx.o \
+	../../chips/rt6590.o \
+	../../mac/ral_nmac.o \
+	../../mcu/rtmp_and.o
 
 ifeq ($(HAS_RTMP_FLASH_SUPPORT),y)
 $(MOD_NAME)-objs += \
-        ../../common/ee_flash.o
+	../../common/ee_flash.o
 endif
 
 ifeq ($(HAS_TSO_SUPPORT),y)
 $(MOD_NAME)-objs += \
-	../../naf/net_acc.o\
-	../../naf/tso.o\
+	../../naf/net_acc.o \
+	../../naf/tso.o \
 	../../naf/cso.o
 endif
 
 ifeq ($(OSABL),NO)
 $(MOD_NAME)-objs += \
-                ../../os/linux/rt_usb.o\
-                ../../os/linux/rt_usb_util.o\
-                ../../os/linux/usb_main_dev.o\
-		../../common/rtusb_dev_id.o
+	../../os/linux/rt_usb.o \
+	../../os/linux/rt_usb_util.o \
+	../../os/linux/usb_main_dev.o \
+	../../common/rtusb_dev_id.o
 endif
 
 ifneq ($(findstring $(RT28xx_MODE),STA APSTA),)
 $(MOD_NAME)-objs += \
-        ../../common/frq_cal.o
+	../../common/frq_cal.o
 endif
 
 endif
 #endif // RT6570 //
 
-
 #ifdef RT8592
 ifneq ($(findstring 8592,$(CHIPSET)),)
 $(MOD_NAME)-objs += \
-                ../../common/cmm_mac_pci.o\
-                ../../common/cmm_data_pci.o\
-                ../../os/linux/rt_rbus_pci_drv.o\
-                ../../common/ee_prom.o\
-		../../common/ee_efuse.o\
-                ../../common/rtmp_mcu.o\
-                ../../common/rt_rf.o\
-                ../../chips/rt30xx.o\
-		../../chips/rt65xx.o\
-		../../chips/rt6592.o\
-                ../../chips/rt85592.o\
-                ../../mac/ral_nmac.o\
-                ../../mcu/rtmp_and.o
+	../../common/cmm_mac_pci.o \
+	../../common/cmm_data_pci.o \
+	../../os/linux/rt_rbus_pci_drv.o \
+	../../common/ee_prom.o \
+	../../common/ee_efuse.o \
+	../../common/rtmp_mcu.o \
+	../../common/rt_rf.o \
+	../../chips/rt30xx.o \
+	../../chips/rt65xx.o \
+	../../chips/rt6592.o \
+	../../chips/rt85592.o \
+	../../mac/ral_nmac.o \
+	../../mcu/rtmp_and.o
 
 ifeq ($(HAS_RTMP_FLASH_SUPPORT),y)
 $(MOD_NAME)-objs += \
-        ../../common/ee_flash.o
+	../../common/ee_flash.o
 endif
 
 ifeq ($(OSABL),NO)
 $(MOD_NAME)-objs += \
-                ../../os/linux/rt_pci_rbus.o\
-                ../../os/linux/rt_rbus_pci_util.o\
-                ../../os/linux/pci_main_dev.o
+	../../os/linux/rt_pci_rbus.o \
+	../../os/linux/rt_rbus_pci_util.o \
+	../../os/linux/pci_main_dev.o
 endif
 
 ifneq ($(findstring $(RT28xx_MODE),STA APSTA),)
 $(MOD_NAME)-objs += \
-        ../../common/frq_cal.o
+	../../common/frq_cal.o
 endif
 
 endif
@@ -507,40 +474,40 @@ endif
 #ifdef MT7601E
 ifneq ($(findstring 7601E,$(CHIPSET)),)
 $(MOD_NAME)-objs += \
-                ../../common/cmm_mac_pci.o\
-                ../../common/cmm_data_pci.o\
-                ../../os/linux/rt_rbus_pci_drv.o\
-                ../../common/ee_prom.o\
-		../../common/ee_efuse.o\
-		../../mcu/rtmp_and.o\
-		../../mcu/rtmp_mcu.o\
-		../../mcu/rtmp_M51.o\
-                ../../common/rt_rf.o\
-                ../../chips/rt30xx.o\
-		../../chips/mt7601.o\
-		../../mac/ral_omac.o
+	../../common/cmm_mac_pci.o \
+	../../common/cmm_data_pci.o \
+	../../os/linux/rt_rbus_pci_drv.o \
+	../../common/ee_prom.o \
+	../../common/ee_efuse.o \
+	../../mcu/rtmp_and.o \
+	../../mcu/rtmp_mcu.o \
+	../../mcu/rtmp_M51.o \
+	../../common/rt_rf.o \
+	../../chips/rt30xx.o \
+	../../chips/mt7601.o \
+	../../mac/ral_omac.o
 
 ifeq ($(HAS_RTMP_FLASH_SUPPORT),y)
 $(MOD_NAME)-objs += \
-        ../../common/ee_flash.o
+	../../common/ee_flash.o
 endif
 
 ifeq ($(HAS_ATE),y)
 $(MOD_NAME)-objs += \
-	../../ate/chips/mt7601_ate.o\
+	../../ate/chips/mt7601_ate.o \
 	../../ate/common/ate_usb.o
 endif
 
 ifeq ($(OSABL),NO)
 $(MOD_NAME)-objs += \
-                ../../os/linux/rt_pci_rbus.o\
-                ../../os/linux/rt_rbus_pci_util.o\
-                ../../os/linux/pci_main_dev.o
+	../../os/linux/rt_pci_rbus.o \
+	../../os/linux/rt_rbus_pci_util.o \
+	../../os/linux/pci_main_dev.o
 endif
 
 ifneq ($(findstring $(RT28xx_MODE),STA APSTA),)
 $(MOD_NAME)-objs += \
-        ../../common/frq_cal.o
+	../../common/frq_cal.o
 endif
 
 endif
@@ -550,55 +517,54 @@ endif
 #ifdef MT7601U
 ifneq ($(findstring 7601U,$(CHIPSET)),)
 $(MOD_NAME)-objs += \
-                ../../common/cmm_mac_usb.o\
-                ../../common/cmm_data_usb.o\
-		../../common/rtusb_io.o\
-		../../common/rtusb_data.o\
-		../../common/rtusb_bulk.o\
-                ../../os/linux/rt_usb.o\
-                ../../common/ee_prom.o\
-                ../../common/ee_efuse.o\
-		../../mcu/rtmp_and.o\
-		../../mcu/rtmp_mcu.o\
-		../../mcu/rtmp_M51.o\
-                ../../common/rt_rf.o\
-		../../chips/mt7601.o\
-                ../../mac/ral_omac.o
+	../../common/cmm_mac_usb.o \
+	../../common/cmm_data_usb.o \
+	../../common/rtusb_io.o \
+	../../common/rtusb_data.o \
+	../../common/rtusb_bulk.o \
+	../../os/linux/rt_usb.o \
+	../../common/ee_prom.o \
+	../../common/ee_efuse.o \
+	../../mcu/rtmp_and.o \
+	../../mcu/rtmp_mcu.o \
+	../../mcu/rtmp_M51.o \
+	../../common/rt_rf.o \
+	../../chips/mt7601.o \
+	../../mac/ral_omac.o
 
 ifeq ($(HAS_RTMP_FLASH_SUPPORT),y)
 $(MOD_NAME)-objs += \
-        ../../common/ee_flash.o
+	../../common/ee_flash.o
 endif
 
 ifeq ($(HAS_ATE),y)
 $(MOD_NAME)-objs += \
-	../../ate/chips/mt7601_ate.o\
+	../../ate/chips/mt7601_ate.o \
 	../../ate/common/ate_usb.o
 endif
 
 ifeq ($(HAS_TSO_SUPPORT),y)
 $(MOD_NAME)-objs += \
-	../../naf/net_acc.o\
-	../../naf/tso.o\
+	../../naf/net_acc.o \
+	../../naf/tso.o \
 	../../naf/cso.o
 endif
 
 ifeq ($(OSABL),NO)
 $(MOD_NAME)-objs += \
-                ../../os/linux/rt_usb.o\
-                ../../os/linux/rt_usb_util.o\
-                ../../os/linux/usb_main_dev.o\
-		../../common/rtusb_dev_id.o
+	../../os/linux/rt_usb.o \
+	../../os/linux/rt_usb_util.o \
+	../../os/linux/usb_main_dev.o \
+	../../common/rtusb_dev_id.o
 endif
 
 ifneq ($(findstring $(RT28xx_MODE),STA APSTA),)
 $(MOD_NAME)-objs += \
-        ../../common/frq_cal.o
+	../../common/frq_cal.o
 endif
 
 endif
 #endif // MT7601U //
-
 
 PHONY := clean install uninstall
 
@@ -634,18 +600,14 @@ endif
 endif
 
 install:
-	rm -rf $(DAT_PATH)
-	$(shell [ ! -f /etc/Wireless ] && mkdir /etc/Wireless)
-	mkdir $(DAT_PATH)
-	cp $(RT28xx_DIR)/$(DAT_FILE_NAME) $(DAT_PATH)/.
-	install -d $(LINUX_SRC_MODULE)
+	mkdir -p $(DAT_PATH)
+	cp $(RT28xx_DIR)/$(DAT_FILE_NAME) $(DAT_PATH)/
 	install -m 644 -c $(addsuffix .ko,$(MOD_NAME)) $(LINUX_SRC_MODULE)
-	/sbin/depmod -a ${shell uname -r}
+	depmod $(shell uname -r)
 
 uninstall:
-#	rm -rf $(DAT_PATH)
 	rm -rf $(addprefix $(LINUX_SRC_MODULE),$(addsuffix .ko,$(MOD_NAME)))
-	/sbin/depmod -a ${shell uname -r}
+	depmod $(shell uname -r)
 
 # Declare the contents of the .PHONY variable as phony.  We keep that
 # information in a variable so we can use it in if_changed and friends.
