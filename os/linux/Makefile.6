@@ -67,7 +67,7 @@ endif
 #ifdef DOT11_N_SUPPORT
 ifeq ($(HAS_DOT11_N_SUPPORT),y)
 obj_cmm += \
-	../../common/ba_action.o \ 
+	../../common/ba_action.o \
 	../../mgmt/mgmt_ht.o
 
 #ifdef TXBF_SUPPORT
@@ -82,7 +82,8 @@ endif
 
 #ifdef DOT11_VHT_SUPPORT
 ifeq ($(HAS_DOT11_VHT_SUPPORT),y)
-obj_vht += ../../mgmt/mgmt_vht.o \
+obj_vht += \
+	../../mgmt/mgmt_vht.o \
 	../../common/vht.o
 endif
 #endif // DOT11_VHT_SUPPORT //
@@ -99,7 +100,6 @@ ifeq ($(HAS_WSC_V2),y)
 obj_wsc += ../../common/wsc_v2.o
 endif
 #endif // WSC_INCLUDED //
-
 
 #ifdef ANDES_FIRMWARE_SUPPORT
 ifeq ($(HAS_ANDES_FIRMWARE_SUPPORT),y)
