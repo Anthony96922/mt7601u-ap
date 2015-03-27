@@ -15,10 +15,11 @@ Then download the source and compile:
 $ git clone https://github.com/anthony96922/mt7601u-ap
 $ cd mt7601u-ap
 $ make
-$ make install
+$ sudo make install
+$ sudo modprobe mt7601Uap
 ````
 
-If the module had loaded then running `ifconfig wifi0 up` will bring up a Wi-Fi access point that you can connect your devices to.
+If the module has loaded then running `ifconfig wifi0 up` will bring up a Wi-Fi access point that you can connect your devices to.
 You can change the network name and the security by editing the file `/etc/wifi/RT2870AP/RT2870AP.txt`.
 
 #### Cross compiling
