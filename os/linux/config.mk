@@ -10,8 +10,8 @@ HAS_RSSI_FEEDBACK=n
 HAS_XLINK=n
 
 # Support WSC function
-HAS_WSC=y
-HAS_WSC_V2=y
+HAS_WSC=n
+HAS_WSC_V2=n
 HAS_WSC_LED=n
 
 # Support LLTD function
