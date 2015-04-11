@@ -31,7 +31,6 @@
 INT RtmpChipOpsEepromHook(RTMP_ADAPTER *pAd, INT infType)
 {
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
-	UINT32 e2p_csr;
 
 #ifdef RTMP_FLASH_SUPPORT
 	pChipOps->eeinit = rtmp_nv_init;

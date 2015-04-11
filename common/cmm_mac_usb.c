@@ -1355,10 +1355,6 @@ Note:
 VOID RT28XXDMAEnable(
 	IN RTMP_ADAPTER *pAd)
 {
-	WPDMA_GLO_CFG_STRUC GloCfg;
-	USB_DMA_CFG_STRUC	UsbCfg;
-	
-	
 	RTMP_IO_WRITE32(pAd, MAC_SYS_CTRL, 0x4);
 
 	if (AsicWaitPDMAIdle(pAd, 200, 1000) == FALSE) {
@@ -1936,7 +1932,6 @@ VOID RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
 	BOOLEAN brc;
 	UINT RetryRound = 0;
 	UINT32 rx_filter_flag;
-	WPDMA_GLO_CFG_STRUC GloCfg;
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 
 

@@ -254,7 +254,7 @@ VOID AsicAdjustTxPower(
 {
 	INT			i, j;
 	CHAR 		Value;
-	CHAR		Rssi = -127;
+	//CHAR		Rssi = -127;
 	CHAR		DeltaPwr = 0;
 	CHAR		TxAgcCompensate = 0;
 	CHAR		DeltaPowerByBbpR1 = 0; 

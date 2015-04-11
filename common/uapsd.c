@@ -183,7 +183,6 @@ Note:
 VOID RtmpAsicSleepHandle(
     IN  PRTMP_ADAPTER       pAd)
 {
-	BOOLEAN FlgCanAsicSleep = TRUE;
 
 
 

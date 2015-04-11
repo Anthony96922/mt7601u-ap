@@ -36,7 +36,6 @@ REG_PAIR   BBPRegTable[] = {
 NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 {
 	INT Index = 0;
-	UCHAR R0 = 0xff;
 	
 	/* Read BBP register, make sure BBP is up and running before write new data*/
 	if (rtmp_bbp_is_ready(pAd)== FALSE)

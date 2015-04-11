@@ -214,7 +214,6 @@ VOID DefaultATEAsicAdjustTxPower(
 	UCHAR desiredTSSI = 0, currentTSSI = 0;
 	const TX_POWER_TUNING_ENTRY_STRUCT *TxPowerTuningTable = pAd->chipCap.TxPowerTuningTable_2G;
 	PTX_POWER_TUNING_ENTRY_STRUCT pTxPowerTuningEntry = NULL;
-	UCHAR RFValue = 0, TmpValue = 0;   
 #endif /* RTMP_INTERNAL_TX_ALC */
 
 	maxTxPwrCnt = pChipStruct->maxTxPwrCnt;
@@ -4245,7 +4244,6 @@ INT Set_ATE_Cal_Free_Info_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	PSTRING			arg)
 {
-	BOOLEAN		    	ret = FALSE;
 
 	if ( pAd->bCalFreeIC )
 		DBGPRINT(RT_DEBUG_OFF, ("%s (bCalFreeIC=TRUE)\n\n", __FUNCTION__));

@@ -207,9 +207,10 @@ static UCHAR CFG_WMODE_MAP[]={
 	PHY_MODE_MAX, WMODE_INVALID /* default phy mode if not match */
 };
 
-
+#ifdef DBG
 static PSTRING BAND_STR[] = {"Invalid", "2.4G", "5G", "2.4G/5G"};
-static PSTRING WMODE_STR[]= {"", "A", "B", "G", "gN", "aN", "AC"};
+#endif /* DBG */
+static PSTRING WMODE_STR[]= {"", "a", "b", "g", "gn", "an", "ac"};
 
 UCHAR *wmode_2_str(UCHAR wmode)
 {
@@ -268,7 +269,6 @@ UCHAR wmode_2_cfgmode(UCHAR wmode)
 	return PHY_11ABGN_MIXED;
 }
 
-
 static BOOLEAN wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
 {
 	if ((WMODE_CAP_5G(wmode) && (!PHY_CAP_5G(pAd->chipCap.phy_caps))) ||
@@ -279,12 +279,10 @@ static BOOLEAN wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
 	else
 		return TRUE;
 }
-
-
 static BOOLEAN wmode_valid_and_correct(RTMP_ADAPTER *pAd, UCHAR* wmode)
 {
 	BOOLEAN ret = TRUE;
-	UCHAR mode = *wmode;
+	//UCHAR mode = *wmode;
 
 	if (WMODE_CAP_5G(*wmode) && (!PHY_CAP_5G(pAd->chipCap.phy_caps)))
 	{

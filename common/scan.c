@@ -314,8 +314,7 @@ VOID ScanNextChannel(
 	BOOLEAN ScanPending = FALSE;
 	RALINK_TIMER_STRUCT *sc_timer;
 	UINT stay_time = 0;
-	UCHAR ImprovedScan_MaxScanChannelCnt;
-			
+
 
 #ifdef RALINK_ATE
 	/* Nothing to do in ATE mode. */

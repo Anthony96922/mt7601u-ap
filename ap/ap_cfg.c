@@ -5703,9 +5703,10 @@ INT Show_DriverInfo_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	PSTRING			arg)
 {
-    printk("Driver version: %s (%s %s) .\n", AP_DRIVER_VERSION, __DATE__, __TIME__);
-    
-    return TRUE;
+#ifdef DBG
+	printk("Driver version: %s (%s %s) .\n", AP_DRIVER_VERSION, __DATE__, __TIME__);
+#endif /* DBG */    
+	return TRUE;
 }
 
 
@@ -5995,7 +5996,7 @@ INT	Show_Sat_Reset_Proc(
 {
 	/* Sanity check for calculation of sucessful count */
 
-	printk("TransmittedFragmentCount = %d\n", pAd->WlanCounters.TransmittedFragmentCount.u.LowPart + pAd->WlanCounters.MulticastTransmittedFrameCount.QuadPart);
+	printk("TransmittedFragmentCount = %lld\n", pAd->WlanCounters.TransmittedFragmentCount.u.LowPart + pAd->WlanCounters.MulticastTransmittedFrameCount.QuadPart);
 	printk("MulticastTransmittedFrameCount = %d\n", pAd->WlanCounters.MulticastTransmittedFrameCount.u.LowPart);
 	printk("FailedCount = %d\n", pAd->WlanCounters.FailedCount.u.LowPart);
 	printk("RetryCount = %d\n", pAd->WlanCounters.RetryCount.u.LowPart);
@@ -11407,7 +11408,7 @@ INT	Set_TestTxFrameProc(
 		UCHAR	Header802_3[14];
 		PUCHAR	pOutBuffer = NULL;
 		ULONG	FrameLen = 0;
-		ULONG	TempLen;
+		//ULONG	TempLen;
 		UCHAR	idxCount;
 		ULONG TmpLen1 = 0;
 		UCHAR RalinkIe[10] = {0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf};
@@ -11664,7 +11665,6 @@ INT	Set_TestTxFrame2Proc(
 	UCHAR	tempMAC[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0xb8};
 	PSTRING	value;
 	INT	i;
-	UINT32 	Value1 = 0;
 	
 	if(strlen(arg) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
 		return FALSE;
@@ -11735,7 +11735,6 @@ INT	Set_TestTxFrame3Proc(
 	UCHAR CurrentAddress[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0x41};
 	PSTRING	value;
 	INT	i;
-	UINT32 	Value1 = 0;
 	
 	if(strlen(arg) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
 		return FALSE;
@@ -11806,7 +11805,6 @@ INT	Set_TestTxFrame4Proc(
 	UCHAR CurrentAddress[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x77,0x88,0x99};
 	PSTRING	value;
 	INT	i;
-	UINT32 	Value1 = 0;
 	
 	if(strlen(arg) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
 		return FALSE;

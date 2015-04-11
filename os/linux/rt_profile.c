@@ -434,8 +434,11 @@ void announce_802_3_packet(
 	IN PNDIS_PACKET pPacket,
 	IN UCHAR OpMode)
 {
+#if defined(IKANOS_VX_1X0) || defined(INF_PPA_SUPPORT)
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
+#endif
 	PNDIS_PACKET pRxPkt = pPacket;
+
 
 	ASSERT(pPacket);
 	MEM_DBG_PKT_FREE_INC(pPacket);

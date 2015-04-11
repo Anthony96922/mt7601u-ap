@@ -1000,7 +1000,6 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, PSTRING mac_addr)
 VOID	NICInitAsicFromEEPROM(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	USHORT i;
 #ifdef RALINK_ATE
 	USHORT value;
 #endif /* RALINK_ATE */
@@ -1009,7 +1008,7 @@ VOID	NICInitAsicFromEEPROM(
 	DBGPRINT(RT_DEBUG_TRACE, ("--> NICInitAsicFromEEPROM\n"));
 
 #if !defined(RT65xx) && !defined(MT7601)
-	for(i = EEPROM_BBP_ARRAY_OFFSET; i < NUM_EEPROM_BBP_PARMS; i++)
+	for(USHORT i = EEPROM_BBP_ARRAY_OFFSET; i < NUM_EEPROM_BBP_PARMS; i++)
 	{
 		UCHAR BbpRegIdx, BbpValue;
 	
@@ -1206,7 +1205,6 @@ NDIS_STATUS	NICInitializeAdapter(
 	IN   BOOLEAN    bHardReset)
 {
 	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
-	WPDMA_GLO_CFG_STRUC	GloCfg;
 	ULONG j=0;
 
 
@@ -1273,7 +1271,9 @@ NDIS_STATUS	NICInitializeAsic(
 	UINT32			Counter = 0;
 	USB_DMA_CFG_STRUC UsbCfg;
 #endif /* RTMP_MAC_USB */
+#if !(defined(RTMP_MAC_USB) && defined(RLT_MAC))
 	USHORT			KeyIdx;
+#endif
 
 #ifdef RLT_MAC
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;

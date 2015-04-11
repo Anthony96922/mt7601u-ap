@@ -933,7 +933,7 @@ VOID AsicSetMcastWC(RTMP_ADAPTER *pAd)
 	pEntry->Sst = SST_ASSOC;
 	pEntry->Aid = MCAST_WCID;	/* Softap supports 1 BSSID and use WCID=0 as multicast Wcid index*/
 	pEntry->PsMode = PWR_ACTIVE;
-	pEntry->CurrTxRate = pAd->CommonCfg.MlmeRate; 
+	pEntry->CurrTxRate = pAd->CommonCfg.MlmeRate;
 	//offset = MAC_WCID_BASE + BSS0Mcast_WCID * HW_WCID_ENTRY_SIZE;
 }
 
@@ -1733,10 +1733,12 @@ VOID AsicAddPairwiseKeyEntry(
 {
 	INT i;
 	ULONG 		offset;
-	PUCHAR		 pKey = pCipherKey->Key;
 	PUCHAR		 pTxMic = pCipherKey->TxMic;
 	PUCHAR		 pRxMic = pCipherKey->RxMic;
+#ifdef DBG
+	PUCHAR pKey = pCipherKey
 	UCHAR		CipherAlg = pCipherKey->CipherAlg;
+#endif /* DBG */
 
 	/* EKEY*/
 	offset = PAIRWISE_KEY_TABLE_BASE + (WCID * HW_KEY_ENTRY_SIZE);
