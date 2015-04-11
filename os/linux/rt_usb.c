@@ -57,31 +57,37 @@ NDIS_STATUS	 RtmpMgmtTaskInit(
 	RtmpTimerQInit(pAd);
 
 	pTask = &pAd->timerTask;
-	RTMP_OS_TASK_INIT(pTask, "RtmpTimerTask", pAd);
+	RTMP_OS_TASK_INIT(pTask, "rtmp_timer_task", pAd);
 	status = RtmpOSTaskAttach(pTask, RtmpTimerQThread, (ULONG)pTask);
-	if (status == NDIS_STATUS_FAILURE) 
+	if (status == NDIS_STATUS_FAILURE)
 	{
-		printk (KERN_WARNING "%s: unable to start RtmpTimerQThread\n", RTMP_OS_NETDEV_GET_DEVNAME(pAd->net_dev));
+#ifdef DBG
+		printk(KERN_WARNING "%s: unable to start RtmpTimerQThread\n", RTMP_OS_NETDEV_GET_DEVNAME(pAd->net_dev));
+#endif /* DBG */
 		return NDIS_STATUS_FAILURE;
 	}
-	
+
 	/* Creat MLME Thread */
 	pTask = &pAd->mlmeTask;
-	RTMP_OS_TASK_INIT(pTask, "RtmpMlmeTask", pAd);
+	RTMP_OS_TASK_INIT(pTask, "rtmp_mlme_task", pAd);
 	status = RtmpOSTaskAttach(pTask, MlmeThread, (ULONG)pTask);
-	if (status == NDIS_STATUS_FAILURE) 
+	if (status == NDIS_STATUS_FAILURE)
 	{
-		printk (KERN_WARNING "%s: unable to start MlmeThread\n", RTMP_OS_NETDEV_GET_DEVNAME(pAd->net_dev));
+#ifdef DBG
+		printk(KERN_WARNING "%s: unable to start MlmeThread\n", RTMP_OS_NETDEV_GET_DEVNAME(pAd->net_dev));
+#endif /* DBG */
 		return NDIS_STATUS_FAILURE;
 	}
 
 	/* Creat Command Thread */
 	pTask = &pAd->cmdQTask;
-	RTMP_OS_TASK_INIT(pTask, "RtmpCmdQTask", pAd);
+	RTMP_OS_TASK_INIT(pTask, "rtmp_cmd_qtask", pAd);
 	status = RtmpOSTaskAttach(pTask, RTUSBCmdThread, (ULONG)pTask);
-	if (status == NDIS_STATUS_FAILURE) 
+	if (status == NDIS_STATUS_FAILURE)
 	{
-		printk (KERN_WARNING "%s: unable to start RTUSBCmdThread\n", RTMP_OS_NETDEV_GET_DEVNAME(pAd->net_dev));
+#ifdef DBG
+		printk(KERN_WARNING "%s: unable to start RTUSBCmdThread\n", RTMP_OS_NETDEV_GET_DEVNAME(pAd->net_dev));
+#endif /* DBG */
 		return NDIS_STATUS_FAILURE;
 	}
 
@@ -114,7 +120,7 @@ VOID RtmpMgmtTaskExit(
 {
 	INT			ret;
 	RTMP_OS_TASK	*pTask;
-	
+
 	/* Sleep 50 milliseconds so pending io might finish normally */
 	RTMPusecDelay(50000);
 
