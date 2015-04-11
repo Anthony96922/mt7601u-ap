@@ -27,16 +27,15 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Paul Lin <paul_lin@ralinktech.com>");
 MODULE_DESCRIPTION("RT2870 Wireless Lan Linux Driver");
 
-// TODO: shiang-6590, remove the License declaration after finish test
-MODULE_LICENSE("GPL");
-
-
+#ifdef MODULE_VERSION
+MODULE_VERSION(AP_DRIVER_VERSION);
+#endif
 
 extern USB_DEVICE_ID rtusb_dev_id[];
 extern INT const rtusb_usb_id_len;
 
 static void rt2870_disconnect(
-	IN struct usb_device *dev, 
+	IN struct usb_device *dev,
 	IN VOID *pAd);
 
 static int rt2870_probe(
@@ -57,16 +56,14 @@ static BOOLEAN USBDevConfigInit(
 	IN struct usb_device 	*dev,
 	IN struct usb_interface *intf, 
 	IN VOID					*pAd);
-	
 
 VOID RT28XXVendorSpecificCheck(
 	IN struct usb_device 	*dev,
 	IN VOID 				*pAd)
 {
 
-
 	RT_CMD_USB_MORE_FLAG_CONFIG Config = { dev->descriptor.idVendor,
-										dev->descriptor.idProduct };
+									dev->descriptor.idProduct };
 	RTMP_DRIVER_USB_MORE_FLAG_SET(pAd, &Config);
 }
 
@@ -91,7 +88,7 @@ struct usb_driver rtusb_driver = {
 
 static BOOLEAN USBDevConfigInit(
 	IN struct usb_device *dev,
-	IN struct usb_interface *intf, 
+	IN struct usb_interface *intf,
 	IN VOID *pAd)
 {
 	struct usb_interface_descriptor *iface_desc;
