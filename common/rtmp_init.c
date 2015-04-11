@@ -3567,7 +3567,7 @@ INT RtmpRaDevCtrlInit(VOID *pAdSrc, RTMP_INF_TYPE infType)
 
 	if (pAd->MC_RowID == -1)
 #ifdef CONFIG_AP_SUPPORT
-		strcpy(pAd->MC_FileName, AP_PROFILE_PATH);
+		strcpy(pAd->MC_FileName, ap_profile_path);
 #endif /* CONFIG_AP_SUPPORT */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("MC> ROW = %d, PATH = %s\n", pAd->MC_RowID, pAd->MC_FileName));

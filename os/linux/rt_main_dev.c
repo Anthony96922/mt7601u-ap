@@ -40,15 +40,6 @@
 #endif
 #endif
 
-// TODO: shiang-6590, remove it when MP
-// TODO: End---
-
-#ifdef RTMP_MAC_USB
-#ifdef OS_ABL_SUPPORT
-MODULE_LICENSE("GPL");
-#endif /* OS_ABL_SUPPORT */
-#endif /* RTMP_MAC_USB */
-
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
 /*UINT32 CW_MAX_IN_BITS;*/
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
@@ -60,11 +51,15 @@ MODULE_LICENSE("GPL");
 PSTRING mac = "";		   /* default 00:00:00:00:00:00 */
 PSTRING hostname = "";		   /* default CMPC */
 #if LINUX_VERSION_CODE <= KERNEL_VERSION(2,6,12)
-MODULE_PARM (mac, "s");
+MODULE_PARM(mac, "s");
 #else
-module_param (mac, charp, 0);
+module_param(mac, charp, 0);
 #endif
-MODULE_PARM_DESC (mac, "wireless mac addr");
+MODULE_PARM_DESC(mac, "wireless mac addr");
+
+PSTRING ap_profile_path = AP_PROFILE_PATH;
+module_param(ap_profile_path, charp, 0);
+MODULE_PARM_DESC(ap_profile_path, "full path to config file");
 
 #ifdef OS_ABL_SUPPORT
 RTMP_DRV_ABL_OPS RtmpDrvOps, *pRtmpDrvOps = &RtmpDrvOps;
