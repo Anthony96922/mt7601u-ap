@@ -20,9 +20,6 @@
 #include "rt_os_util.h"
 
 #ifdef RTMP_MAC_USB
-#ifdef OS_ABL_SUPPORT
-MODULE_LICENSE("GPL");
-#endif /* OS_ABL_SUPPORT */
 
 #if LINUX_VERSION_CODE > KERNEL_VERSION(2,5,0)
 /*
