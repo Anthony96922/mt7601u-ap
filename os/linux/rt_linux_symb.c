@@ -196,8 +196,10 @@ EXPORT_SYMBOL(RtmpOsAtomicRead);
 EXPORT_SYMBOL(RtmpOsAtomicDec);
 EXPORT_SYMBOL(RtmpOsAtomicInterlockedExchange);
 
+#ifdef DBG
 EXPORT_SYMBOL(RtmpDrvAllMacPrint);
 EXPORT_SYMBOL(RtmpDrvAllE2PPrint);
+#endif /* DBG */
 
 EXPORT_SYMBOL(RtmpMeshDown);
 EXPORT_SYMBOL(RtmpOSIRQRelease);
@@ -281,7 +283,8 @@ EXPORT_SYMBOL(RtmpComplete);
 #endif /* RTMP_USB_SUPPORT */
 EXPORT_SYMBOL(RtmpMsecsToJiffies);
 
-
+#ifdef DBG
 EXPORT_SYMBOL(RtmpDrvAllRFPrint);
+#endif /* DBG */
 #endif /* OS_ABL_SUPPORT */
 

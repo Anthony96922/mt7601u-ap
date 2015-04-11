@@ -1753,7 +1753,7 @@ UINT RtmpOsWirelessExtVerGet(VOID)
 	return WIRELESS_EXT;
 }
 
-
+#ifdef DBG
 VOID RtmpDrvAllMacPrint(
 	IN VOID *pReserved,
 	IN UINT32 *pBufMac,
@@ -1770,7 +1770,7 @@ VOID RtmpDrvAllMacPrint(
 	os_alloc_mem(NULL, (UCHAR **)&msg, 1024);
 	if (!msg)
 		return;
-	
+
 	orig_fs = get_fs();
 	set_fs(KERNEL_DS);
 
@@ -1803,7 +1803,6 @@ VOID RtmpDrvAllMacPrint(
 	os_free_mem(NULL, msg);
 }
 
-
 VOID RtmpDrvAllE2PPrint(
 	IN VOID *pReserved,
 	IN USHORT *pMacContent,
@@ -1820,10 +1819,10 @@ VOID RtmpDrvAllE2PPrint(
 	os_alloc_mem(NULL, (UCHAR **)&msg, 1024);
 	if (!msg)
 		return;
-	
+
 	orig_fs = get_fs();
 	set_fs(KERNEL_DS);
-	
+
 	/* open file */
 	file_w = filp_open(fileName, O_WRONLY | O_CREAT, 0);
 	if (IS_ERR(file_w)) {
@@ -1864,7 +1863,7 @@ VOID RtmpDrvAllRFPrint(
 	PSTRING fileName = "RFDump.txt";
 	mm_segment_t orig_fs;
 	UINT32 macAddr = 0, macValue = 0;
-	
+
 	orig_fs = get_fs();
 	set_fs(KERNEL_DS);
 
@@ -1884,6 +1883,7 @@ VOID RtmpDrvAllRFPrint(
 	}
 	set_fs(orig_fs);
 }
+#endif /* DBG */
 
 /*
 ========================================================================

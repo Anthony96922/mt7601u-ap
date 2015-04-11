@@ -3587,10 +3587,12 @@ INT RTMPAPQueryInformation(
 			break;
 #endif /* DOT1X_SUPPORT */			
 
+#ifdef WSC_AP_SUPPORT
 		case RT_OID_802_11_MAC_ADDRESS:
                         wrq->u.data.length = MAC_ADDR_LEN;
                         Status = copy_to_user(wrq->u.data.pointer, &pAd->ApCfg.MBSSID[apidx].Bssid, wrq->u.data.length);
 			break;
+#endif /* WSC_AP_SUPPORT */
 
 #ifdef SNMP_SUPPORT
 		case RT_OID_802_11_MANUFACTUREROUI:

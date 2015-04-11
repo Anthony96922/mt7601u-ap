@@ -640,12 +640,14 @@ int RtmpOSWrielessEventSendExt(
 
 UINT RtmpOsWirelessExtVerGet(VOID);
 
+#ifdef DBG
 VOID RtmpDrvAllMacPrint(
 	IN VOID						*pReserved,
 	IN UINT32					*pBufMac,
 	IN UINT32					AddrStart,
 	IN UINT32					AddrEnd,
 	IN UINT32					AddrStep);
+#endif /* DBG */
 
 VOID RtmpDrvAllE2PPrint(
 	IN	VOID					*pReserved,
@@ -653,10 +655,12 @@ VOID RtmpDrvAllE2PPrint(
 	IN	UINT32					AddrEnd,
 	IN	UINT32					AddrStep);
 
+#ifdef DBG
 VOID RtmpDrvAllRFPrint(
 	IN VOID *pReserved,
 	IN UINT32 *pBuf,
 	IN UINT32 BufLen);
+#endif /* DBG */
 
 int RtmpOSIRQRelease(
 	IN	PNET_DEV				pNetDev,
