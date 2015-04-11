@@ -131,11 +131,11 @@ char const *pWirelessWscEventText[IW_WSC_EVENT_TYPE_NUM] = {
 NDIS_STATUS	RTMPReadParametersHook(
 	IN	PRTMP_ADAPTER pAd)
 {
-	PSTRING					src = NULL;
-	RTMP_OS_FD				srcf;
-	RTMP_OS_FS_INFO			osFSInfo;
-	INT 						retval = NDIS_STATUS_FAILURE;
-	PSTRING					buffer;
+	PSTRING			src = NULL;
+	RTMP_OS_FD		srcf;
+	RTMP_OS_FS_INFO		osFSInfo;
+	INT			retval = NDIS_STATUS_FAILURE;
+	PSTRING			buffer;
 
 #ifdef HOSTAPD_SUPPORT
 	int i;

@@ -57,10 +57,6 @@ module_param(mac, charp, 0);
 #endif
 MODULE_PARM_DESC(mac, "wireless mac addr");
 
-PSTRING ap_profile_path = AP_PROFILE_PATH;
-module_param(ap_profile_path, charp, 0);
-MODULE_PARM_DESC(ap_profile_path, "full path to config file");
-
 #ifdef OS_ABL_SUPPORT
 RTMP_DRV_ABL_OPS RtmpDrvOps, *pRtmpDrvOps = &RtmpDrvOps;
 RTMP_NET_ABL_OPS RtmpDrvNetOps, *pRtmpDrvNetOps = &RtmpDrvNetOps;
