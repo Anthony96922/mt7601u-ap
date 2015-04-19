@@ -161,6 +161,15 @@ ifeq ($(TARGET), ECOS)
 	$(MAKE) -C os/ecos clean MODE=$(RT28xx_MODE)
 endif
 
+strip:
+ifeq ($(TARGET), LINUX)
+ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 strip
+else
+	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 strip
+endif
+endif
+
 uninstall:
 ifeq ($(TARGET), LINUX)
 ifneq (,$(findstring 2.4,$(LINUX_SRC)))
