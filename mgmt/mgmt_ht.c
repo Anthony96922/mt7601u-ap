@@ -86,7 +86,7 @@ INT get_ht_max_mcs(RTMP_ADAPTER *pAd, UCHAR *desire_mcs, UCHAR *cap_mcs)
 
 INT get_ht_cent_ch(RTMP_ADAPTER *pAd, UCHAR *rf_bw, UCHAR *ext_ch)
 {
-	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_40) && 
+	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_40) &&
 		(pAd->CommonCfg.RegTransmitSetting.field.EXTCHA == EXTCHA_ABOVE)
 	)
 	{
@@ -128,7 +128,7 @@ UCHAR get_cent_ch_by_htinfo(
 		cent_ch = ht_op->ControlChan + 2;
 	else
 		cent_ch = ht_op->ControlChan;
-	
+
 	return cent_ch;
 }
 
@@ -156,7 +156,7 @@ VOID RTMPSetHT(
 	INT bw;
 	RT_HT_CAPABILITY *rt_ht_cap = &pAd->CommonCfg.DesiredHtPhy;
 	HT_CAPABILITY_IE *ht_cap= &pAd->CommonCfg.HtCapability;
-	
+
 #ifdef CONFIG_AP_SUPPORT
 	/* sanity check for extention channel */
 	if (CHAN_PropertyCheck(pAd, pAd->CommonCfg.Channel,
@@ -186,10 +186,10 @@ VOID RTMPSetHT(
 #endif /* CONFIG_AP_SUPPORT */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : HT_mode(%d), ExtOffset(%d), MCS(%d), BW(%d), STBC(%d), SHORTGI(%d)\n",
-										pHTPhyMode->HtMode, pHTPhyMode->ExtOffset, 
+										pHTPhyMode->HtMode, pHTPhyMode->ExtOffset,
 										pHTPhyMode->MCS, pHTPhyMode->BW,
 										pHTPhyMode->STBC, pHTPhyMode->SHORTGI));
-			
+
 	/* Don't zero supportedHyPhy structure.*/
 	RTMPZeroMemory(ht_cap, sizeof(HT_CAPABILITY_IE));
 	RTMPZeroMemory(&pAd->CommonCfg.AddHTInfo, sizeof(pAd->CommonCfg.AddHTInfo));
@@ -230,13 +230,13 @@ VOID RTMPSetHT(
 	ht_cap->HtCapInfo.AMsduSize = (USHORT)pAd->CommonCfg.BACapability.field.AmsduSize;
 	ht_cap->HtCapInfo.MimoPs = (USHORT)pAd->CommonCfg.BACapability.field.MMPSmode;
 	ht_cap->HtCapParm.MpduDensity = (UCHAR)pAd->CommonCfg.BACapability.field.MpduDensity;
-	
-	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : AMsduSize = %d, MimoPs = %d, MpduDensity = %d, MaxRAmpduFactor = %d\n", 
-													rt_ht_cap->AmsduSize, 
+
+	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : AMsduSize = %d, MimoPs = %d, MpduDensity = %d, MaxRAmpduFactor = %d\n",
+													rt_ht_cap->AmsduSize,
 													rt_ht_cap->MimoPs,
 													rt_ht_cap->MpduDensity,
 													rt_ht_cap->MaxRAmpduFactor));
-	
+
 	if(pHTPhyMode->HtMode == HTMODE_GF)
 	{
 		ht_cap->HtCapInfo.GF = 1;
@@ -244,7 +244,7 @@ VOID RTMPSetHT(
 	}
 	else
 		rt_ht_cap->GF = 0;
-	
+
 	/* Decide Rx MCSSet*/
 	switch (RxStream)
 	{
@@ -350,7 +350,7 @@ VOID RTMPSetHT(
 		rt_ht_cap->RxSTBC = 0;
 	}
 
-	if(pHTPhyMode->SHORTGI == GI_400)
+	if (pHTPhyMode->SHORTGI == GI_400)
 	{
 		ht_cap->HtCapInfo.ShortGIfor20 = 1;
 		rt_ht_cap->ShortGIfor20 = 1;
