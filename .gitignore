@@ -3,6 +3,8 @@
 *.ko
 *.obj
 *.elf
+*.o.cmd
+*.ko.cmd
 
 # Precompiled Headers
 *.gch
@@ -28,4 +30,9 @@
 *.x86_64
 *.hex
 
+*.mod.c
 tools/bin2h
+.tmp_versions
+os/linux/Makefile
+os/linux/Module.symvers
+os/linux/modules.order
