@@ -1991,13 +1991,10 @@ VOID UAPSD_UnTagFrame(
 						QueId = RTMP_GET_PACKET_UAPSD_QUE_ID(pPkt);
 
 						if (QueId > QID_AC_VO)
-	                    {
-	                        /* should not be here, only for sanity */
 							QueId = QID_AC_BE;
-	                    } /* End of if */
 
 #ifdef UAPSD_DEBUG
-				DBGPRINT(RT_DEBUG_ERROR, ("uapsd> enqueue the EOSP frame...\n"));
+						DBGPRINT(RT_DEBUG_ERROR, ("uapsd> enqueue the EOSP frame...\n"));
 #endif /* UAPSD_DEBUG */
 
 						UAPSD_INSERT_QUEUE_AC(pAd, pEntry,
@@ -2013,7 +2010,9 @@ VOID UAPSD_UnTagFrame(
 						*/
 
 						/* de-queue packet here to speed up EOSP frame response */
+#ifdef UAPSD_DEBUG
 						printk("%s:: ----> RTMPDeQueuePacket\n", __FUNCTION__);
+#endif /* UAPSD_DEBUG */
 						RTMPDeQueuePacket(pAd, FALSE, NUM_OF_TX_RING, MAX_TX_PROCESS);
 					}
 					else
