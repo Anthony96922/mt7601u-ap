@@ -365,7 +365,9 @@ PNET_DEV RtmpPhyNetDevInit(
 	RTMP_DRIVER_MAIN_INF_CREATE(pAd, &net_dev);
 	if (net_dev == NULL)
 	{
+#ifdef DBG
 		printk("RtmpPhyNetDevInit(): creation failed for main physical net device!\n");
+#endif /* DBG */
 		return NULL;
 	}
 

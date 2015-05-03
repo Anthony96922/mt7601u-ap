@@ -1175,7 +1175,9 @@ static UINT32 RtmpOSWirelessEventTranslate(IN UINT32 eventType)
 		break;
 
 	default:
+#ifdef DBG
 		printk("Unknown event: 0x%x\n", eventType);
+#endif /* DBG */
 		break;
 	}
 

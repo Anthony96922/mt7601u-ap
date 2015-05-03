@@ -38,24 +38,28 @@ Note:
 */
 void dump_urb(VOID *purb_org)
 {
+#ifdef DBG
 	struct urb *purb = (struct urb *)purb_org;
 
-	printk("urb                  :0x%08lx\n", (unsigned long)purb);
-	printk("\tdev                   :0x%08lx\n", (unsigned long)purb->dev);
-	printk("\t\tdev->state          :0x%d\n", purb->dev->state);
-	printk("\tpipe                  :0x%08x\n", purb->pipe);
-	printk("\tstatus                :%d\n", purb->status);
-	printk("\ttransfer_flags        :0x%08x\n", purb->transfer_flags);
-	printk("\ttransfer_buffer       :0x%08lx\n", (unsigned long)purb->transfer_buffer);
-	printk("\ttransfer_buffer_length:%d\n", purb->transfer_buffer_length);
-	printk("\tactual_length         :%d\n", purb->actual_length);
-	printk("\tsetup_packet          :0x%08lx\n", (unsigned long)purb->setup_packet);
-	printk("\tstart_frame           :%d\n", purb->start_frame);
-	printk("\tnumber_of_packets     :%d\n", purb->number_of_packets);
-	printk("\tinterval              :%d\n", purb->interval);
-	printk("\terror_count           :%d\n", purb->error_count);
-	printk("\tcontext               :0x%08lx\n", (unsigned long)purb->context);
-	printk("\tcomplete              :0x%08lx\n\n", (unsigned long)purb->complete);
+	printk("urb                     : 0x%08lx\n", (unsigned long)purb);
+	printk("\tdev                   : 0x%08lx\n", (unsigned long)purb->dev);
+	printk("\t\tdev->state          : 0x%d\n", purb->dev->state);
+	printk("\tpipe                  : 0x%08x\n", purb->pipe);
+	printk("\tstatus                : %d\n", purb->status);
+	printk("\ttransfer_flags        : 0x%08x\n", purb->transfer_flags);
+	printk("\ttransfer_buffer       : 0x%08lx\n", (unsigned long)purb->transfer_buffer);
+	printk("\ttransfer_buffer_length: %d\n", purb->transfer_buffer_length);
+	printk("\tactual_length         : %d\n", purb->actual_length);
+	printk("\tsetup_packet          : 0x%08lx\n", (unsigned long)purb->setup_packet);
+	printk("\tstart_frame           : %d\n", purb->start_frame);
+	printk("\tnumber_of_packets     : %d\n", purb->number_of_packets);
+	printk("\tinterval              : %d\n", purb->interval);
+	printk("\terror_count           : %d\n", purb->error_count);
+	printk("\tcontext               : 0x%08lx\n", (unsigned long)purb->context);
+	printk("\tcomplete              : 0x%08lx\n\n", (unsigned long)purb->complete);
+#else
+	return;
+#endif /* DBG */
 }
 #else
 void dump_urb(VOID *purb_org)

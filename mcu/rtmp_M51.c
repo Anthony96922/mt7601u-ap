@@ -421,22 +421,26 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 #ifdef WOW_SUPPORT
 		if (pAd->WOW_Cfg.bWOWFirmware == TRUE)
 		{
-			UCHAR ver = FirmwareImage[FIRMWAREIMAGEV3_LENGTH+0xFFD];
-			UINT16 sum ;
+			UCHAR ver = FirmwareImage[FIRMWAREIMAGEV3_LENGTH + 0xFFD];
+			UINT16 sum;
 
 			NdisCopyMemory(&sum, &FirmwareImage[FIRMWAREIMAGEV3_LENGTH+0xFFE], 2);
+#ifdef DBG
 			printk("%s: ver %x/%x, sum %x/%x, mac %x\n", __FUNCTION__, FVer, ver, FCS, sum, MacReg1);
+#endif /* DBG */
 			if ( FVer != ver || FCS != sum )
 				Equal = FALSE;
 		}
 		else
 #endif /* WOW_SUPPORT */
 		{
-			UCHAR ver = FirmwareImage[FIRMWAREIMAGEV2_LENGTH+0xFFD];
-			UINT16 sum ;
+			UCHAR ver = FirmwareImage[FIRMWAREIMAGEV2_LENGTH + 0xFFD];
+			UINT16 sum;
 
 			NdisCopyMemory(&sum, &FirmwareImage[FIRMWAREIMAGEV2_LENGTH+0xFFE], 2);
+#ifdef DBG
 			printk("%s: ver %x/%x, sum %x/%x, mac %x\n", __FUNCTION__, FVer, ver, FCS, sum, MacReg1);
+#endif /* DBG */
 			if ( FVer != ver || FCS != sum )
 				Equal = FALSE;
 		}	
