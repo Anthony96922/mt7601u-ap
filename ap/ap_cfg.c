@@ -5705,7 +5705,7 @@ INT Show_DriverInfo_Proc(
 {
 #ifdef DBG
 	printk("Driver version: %s (%s %s) .\n", AP_DRIVER_VERSION, __DATE__, __TIME__);
-#endif /* DBG */    
+#endif /* DBG */
 	return TRUE;
 }
 
@@ -5719,8 +5719,8 @@ INT	Show_StaCount_Proc(
 
 	RTMP_IO_READ32(pAd, BKOFF_SLOT_CFG, &RegValue);
 	printk("BackOff Slot      : %s slot time, BKOFF_SLOT_CFG(0x1104) = 0x%08x\n", 
-			OPSTATUS_TEST_FLAG(pAd, fOP_STATUS_SHORT_SLOT_INUSED) ? "short" : "long",
- 			RegValue);
+		OPSTATUS_TEST_FLAG(pAd, fOP_STATUS_SHORT_SLOT_INUSED) ? "short" : "long",
+		RegValue);
 
 #ifdef DOT11_N_SUPPORT
 	printk("HT Operating Mode: %d\n", pAd->CommonCfg.AddHTInfo.AddHtInfo2.OperaionMode);
