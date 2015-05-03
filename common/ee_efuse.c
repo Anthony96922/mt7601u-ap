@@ -32,22 +32,22 @@
 
 #if defined(RT65xx) || defined(MT7601)
 /* eFuse registers */
-#define EFUSE_CTRL					0x24
-#define EFUSE_DATA0				0x28
-#define EFUSE_DATA1				0x2c
-#define EFUSE_DATA2				0x30
-#define EFUSE_DATA3				0x34
+#define EFUSE_CTRL			0x24
+#define EFUSE_DATA0			0x28
+#define EFUSE_DATA1			0x2c
+#define EFUSE_DATA2			0x30
+#define EFUSE_DATA3			0x34
 #else
 /* eFuse registers */
-#define EFUSE_CTRL					0x0580
-#define EFUSE_DATA0				0x0590
-#define EFUSE_DATA1				0x0594
-#define EFUSE_DATA2				0x0598
-#define EFUSE_DATA3				0x059c
+#define EFUSE_CTRL			0x0580
+#define EFUSE_DATA0			0x0590
+#define EFUSE_DATA1			0x0594
+#define EFUSE_DATA2			0x0598
+#define EFUSE_DATA3			0x059c
 #endif /* RT65xx */
 
 
-#define EFUSE_CTRL_3290		0x24
+#define EFUSE_CTRL_3290			0x24
 #define EFUSE_DATA0_3290		0x28
 #define EFUSE_DATA1_3290		0x2c
 #define EFUSE_DATA2_3290		0x30
@@ -55,23 +55,23 @@
 
 #ifdef RT65xx
 #define EFUSE_EEPROM_DEFULT_FILE	"RT30xxEEPROM.bin"
-#define EFUSE_BUFFER_PATH			"/var/lib/share/MT7650/RT30xxEEPROM.bin"
+#define EFUSE_BUFFER_PATH		"/var/lib/share/MT7650/RT30xxEEPROM.bin"
 #define MAX_EEPROM_BIN_FILE_SIZE	512
 #endif /* RT65xx */
 
 #ifdef MT7601
 #define EFUSE_EEPROM_DEFULT_FILE	"MT7601EEPROM.bin"
-#define EFUSE_BUFFER_PATH			"/var/lib/share/MT7601/MT7601EEPROM.bin"
+#define EFUSE_BUFFER_PATH		"/var/lib/share/MT7601/MT7601EEPROM.bin"
 #define MAX_EEPROM_BIN_FILE_SIZE	512
 #endif /* MT7601 */
 
 #ifdef RTMP_MAC
 #define EFUSE_EEPROM_DEFULT_FILE	"RT30xxEEPROM.bin"
-#define EFUSE_BUFFER_PATH			"/var/lib/share/RT2870/RT30xxEEPROM.bin"
+#define EFUSE_BUFFER_PATH		"/var/lib/share/RT2870/RT30xxEEPROM.bin"
 #define MAX_EEPROM_BIN_FILE_SIZE	512
 #endif /* RTMP_MAC */
 
-#define EFUSE_TAG				0x2fe
+#define EFUSE_TAG			0x2fe
 
 #ifdef RT_BIG_ENDIAN
 typedef	union	_EFUSE_CTRL_STRUC {
@@ -926,11 +926,13 @@ INT set_eFuseGetFreeBlockCount_Proc(
    	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
-	UINT efusefreenum=0;
+	UINT efusefreenum = 0;
 	if (pAd->bUseEfuse == FALSE && pAd->bFroceEEPROMBuffer == FALSE)
 		return FALSE;
 	eFuseGetFreeBlockCount(pAd,&efusefreenum);
-	printk("efuseFreeNumber is %d\n",efusefreenum);
+#ifdef DBG
+	printk("efuseFreeNumber is %d\n", efusefreenum);
+#endif /* DBG */
 	return TRUE;
 }
 
@@ -945,16 +947,18 @@ INT set_eFusedump_Proc(
 	if (pAd->bUseEfuse == FALSE && pAd->bFroceEEPROMBuffer == FALSE)
 		return FALSE;
 	
-	for(i =0; i<pAd->chipCap.EFUSE_USAGE_MAP_END/2; i++)
+	for(i = 0; i < pAd->chipCap.EFUSE_USAGE_MAP_END/2; i++)
 	{
 		InBuf[0] = 2*i;
 		InBuf[1] = 2;
 		InBuf[2] = 0x0;	
 		
 		eFuseReadPhysical(pAd, &InBuf[0], 4, &InBuf[2], 2);
-		if(i%4==0)
-		printk("\nBlock %x:",i/8);
-		printk("%04x ",InBuf[2]);
+#ifdef DBG
+		if (i%4 == 0)
+			printk("\nBlock %x:", i / 8);
+		printk("%04x ", InBuf[2]);
+#endif /* DBG */
 	}
 	return TRUE;
 }
@@ -1266,7 +1270,9 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 		}
 		if(!bNotWrite)
 		{
-		printk("The data is not the same\n");
+#ifdef DBG
+			printk("The data is not the same\n");
+#endif /* DBG */
 		
 			for(i =0; i<8; i++)
 			{
