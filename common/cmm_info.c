@@ -878,7 +878,7 @@ INT Set_ChannelListAdd_Proc(
 					inChDesp.MaxTxPwr = (UCHAR) simple_strtol(tempBuff[2], 0, 10);
 					inChDesp.Geography = (!strcmp(tempBuff[3], "BOTH") ? BOTH: (!strcmp(tempBuff[3], "IDOR") ? IDOR : ODOR));
 					inChDesp.DfsReq= (!strcmp(tempBuff[4], "TRUE") ? TRUE : FALSE);
-				} 
+				}
 			}
 			else
 			{
@@ -1982,7 +1982,7 @@ VOID	RTMPCommSiteSurveyData(
 		else if (wireless_mode == Ndis802_11OFDM24_N)
 			sprintf(msg+strlen(msg),"%-7s", "11b/g/n");
 		else
-			sprintf(msg+strlen(msg),"%-7s", "unknow");
+			sprintf(msg+strlen(msg),"%-7s", "unknown");
 
 		/* Ext Channel*/
 		if (pBss->AddHtInfoLen > 0)
@@ -2190,7 +2190,7 @@ VOID RTMPIoctlGetMacTable(
 			sprintf(msg+strlen(msg),"%-10d\n",0/*pAd->MacTab.Content[i].HSCounter.TotalTxByteCount*/); /* ToDo*/
 
 		}
-	} 
+	}
 	/* for compatible with old API just do the printk to console*/
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s", msg));
@@ -2245,7 +2245,7 @@ VOID RTMPAR9IoctlGetMacTable(
 			sprintf(msg+strlen(msg),"%-10d\n",0/*pAd->MacTab.Content[i].HSCounter.TotalTxByteCount*/); /* ToDo*/
 
 		}
-	} 
+	}
 	/* for compatible with old API just do the printk to console*/
 	wrq->u.data.length = strlen(msg);
 	if (copy_to_user(wrq->u.data.pointer, msg, wrq->u.data.length))
@@ -3966,7 +3966,7 @@ INT	Show_WirelessMode_Proc(
 			break;
 #endif /* DOT11_N_SUPPORT */
 		default:
-			snprintf(pBuf, BufLen, "\tUnknow Value(%d)", pAd->CommonCfg.PhyMode);
+			snprintf(pBuf, BufLen, "\tUnknown Value(%d)", pAd->CommonCfg.PhyMode);
 			break;
 	}
 
@@ -4042,7 +4042,7 @@ INT	Show_BGProtection_Proc(
 			snprintf(pBuf, BufLen, "\tAuto");
 			break;
 		default:
-			snprintf(pBuf, BufLen, "\tUnknow Value(%lu)", pAd->CommonCfg.UseBGProtection);
+			snprintf(pBuf, BufLen, "\tUnknown Value(%lu)", pAd->CommonCfg.UseBGProtection);
 			break;
 	}
 	return 0;
@@ -4112,7 +4112,7 @@ INT	Show_HtGi_Proc(
 			snprintf(pBuf, BufLen, "\tGI_800");
 			break;
 		default:
-			snprintf(pBuf, BufLen, "\tUnknow Value(%u)", pAd->CommonCfg.RegTransmitSetting.field.ShortGI);
+			snprintf(pBuf, BufLen, "\tUnknown Value(%u)", pAd->CommonCfg.RegTransmitSetting.field.ShortGI);
 			break;
 	}
 	return 0;
@@ -4132,7 +4132,7 @@ INT	Show_HtOpMode_Proc(
 			snprintf(pBuf, BufLen, "\tMM");
 			break;
 		default:
-			snprintf(pBuf, BufLen, "\tUnknow Value(%u)", pAd->CommonCfg.RegTransmitSetting.field.HTMODE);
+			snprintf(pBuf, BufLen, "\tUnknown Value(%u)", pAd->CommonCfg.RegTransmitSetting.field.HTMODE);
 			break;
 	}
 	return 0;
@@ -4152,7 +4152,7 @@ INT	Show_HtExtcha_Proc(
 			snprintf(pBuf, BufLen, "\tAbove");
 			break;
 		default:
-			snprintf(pBuf, BufLen, "\tUnknow Value(%u)", pAd->CommonCfg.RegTransmitSetting.field.EXTCHA);
+			snprintf(pBuf, BufLen, "\tUnknown Value(%u)", pAd->CommonCfg.RegTransmitSetting.field.EXTCHA);
 			break;
 	}
 	return 0;
@@ -4295,7 +4295,7 @@ INT	Show_AuthMode_Proc(
 		snprintf(pBuf, BufLen, "\t%s", "WAI_PSK");				 
 #endif /* WAPI_SUPPORT */
 	else
-		snprintf(pBuf, BufLen, "\tUnknow Value(%d)", AuthMode);
+		snprintf(pBuf, BufLen, "\tUnknown Value(%d)", AuthMode);
 	
 	return 0;
 }
@@ -4319,11 +4319,10 @@ INT	Show_EncrypType_Proc(
 		snprintf(pBuf, BufLen, "\t%s", RTMPGetRalinkEncryModeStr(WepStatus));
 #ifdef WAPI_SUPPORT
 	else if (WepStatus == Ndis802_11EncryptionSMS4Enabled)
-		snprintf(pBuf, BufLen, "\t%s", "WPI_SMS4");
+		snprintf(pBuf, BufLen, "\tWPI_SMS4");
 #endif /* WAPI_SUPPORT */
 	else
-		snprintf(pBuf, BufLen, "\tUnknow Value(%d)", WepStatus);
-	
+		snprintf(pBuf, BufLen, "\tUnknown Value(%d)", WepStatus);
 	return 0;
 }
 
@@ -4481,10 +4480,11 @@ INT	Show_MacTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	PSTRING			arg)
 {
+#ifdef DBG
 	INT i;
     	UINT32 RegValue;
-	ULONG DataRate=0;
-	
+	ULONG DataRate = 0;
+
 	printk("\n");
 	RTMP_IO_READ32(pAd, BKOFF_SLOT_CFG, &RegValue);
 	printk("BackOff Slot      : %s slot time, BKOFF_SLOT_CFG(0x1104) = 0x%08x\n", 
@@ -4550,8 +4550,8 @@ INT	Show_MacTable_Proc(
 			
 			printk("\n");
 		}
-	} 
-
+	}
+#endif /* DBG */
 	return TRUE;
 }
 
