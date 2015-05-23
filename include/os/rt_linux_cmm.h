@@ -15,15 +15,15 @@
 
     Module Name:
 	rt_linux_cmm.h
- 
+
     Abstract:
 	Common OS structure/definition in LINUX whatever OS ABL.
- 
+
     Revision History:
     Who          When          What
     ---------    ----------    ----------------------------------------------
  */
- 
+
 
 #ifndef __RT_LINUX_CMM_H__
 #define __RT_LINUX_CMM_H__
@@ -55,7 +55,7 @@ void Rtmp_Drv_Ops_##_func(VOID *__pDrvOps, VOID *__pNetOps, 	\
 	Rtmp_Drv_Ops_##_func
 
 
-#define xdef_to_str(s)   def_to_str(s) 
+#define xdef_to_str(s)   def_to_str(s)
 #define def_to_str(s)    #s
 
 

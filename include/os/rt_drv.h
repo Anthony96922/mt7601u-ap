@@ -64,25 +64,22 @@ typedef VOID	pregs;
 #ifdef CONFIG_AP_SUPPORT
 #ifdef RTMP_MAC_USB
 #ifdef INF_AMAZON_SE
-#define AP_PROFILE_PATH                 "/ramdisk/etc/wifi/RT2870AP/RT2870AP.txt"
-#define AP_RTMP_FIRMWARE_FILE_NAME "/ramdisk/etc/wifi/RT2870AP/RT2870AP.bin"
+#define AP_PROFILE_PATH			"/ramdisk/etc/wifi/RT2870AP/RT2870AP.txt"
+#define AP_RTMP_FIRMWARE_FILE_NAME	"/ramdisk/etc/wifi/RT2870AP/RT2870AP.bin"
 #else
 #define AP_PROFILE_PATH			"/etc/wifi/RT2870AP/RT2870AP.txt"
-#define AP_RTMP_FIRMWARE_FILE_NAME "/etc/wifi/RT2870AP/RT2870AP.bin"
+#define AP_RTMP_FIRMWARE_FILE_NAME	"/etc/wifi/RT2870AP/RT2870AP.bin"
 #endif
-#define AP_NIC_DEVICE_NAME			"RT2870AP"
-#define AP_DRIVER_VERSION			"3.0.0.0_beta"
+#define AP_NIC_DEVICE_NAME		"RT2870AP"
+#define AP_DRIVER_VERSION		"3.0.0.0_beta"
 #ifdef MULTIPLE_CARD_SUPPORT
-#define CARD_INFO_PATH			"/etc/wifi/RT2870AP/RT2870APCard.dat"
+#define CARD_INFO_PATH			"/etc/wifi/RT2870AP/RT2870APCard.txt"
 #endif /* MULTIPLE_CARD_SUPPORT */
 #endif /* RTMP_MAC_USB */
-
 #endif /* CONFIG_AP_SUPPORT */
 
-
-
 #ifdef SINGLE_SKU_V2
-#define SINGLE_SKU_TABLE_FILE_NAME	"/etc/wifi/RT2870STA/SingleSKU.dat"
+#define SINGLE_SKU_TABLE_FILE_NAME	"/etc/wifi/RT2870STA/SingleSKU.txt"
 #endif /* SINGLE_SKU_V2 */
 
 /***********************************************************************************
@@ -99,15 +96,15 @@ typedef VOID	pregs;
 /***********************************************************************************
  *	OS Specific definitions and data structures
  ***********************************************************************************/
-typedef void				* PPCI_DEV;
-typedef void				* PNET_DEV;
-typedef void				* PNDIS_PACKET;
-typedef char				NDIS_PACKET;
+typedef void			* PPCI_DEV;
+typedef void			* PNET_DEV;
+typedef void			* PNDIS_PACKET;
+typedef char			NDIS_PACKET;
 typedef PNDIS_PACKET		* PPNDIS_PACKET;
 typedef ra_dma_addr_t		NDIS_PHYSICAL_ADDRESS;
 typedef ra_dma_addr_t		* PNDIS_PHYSICAL_ADDRESS;
-typedef void				* NDIS_HANDLE;
-typedef char 				* PNDIS_BUFFER;
+typedef void			* NDIS_HANDLE;
+typedef char			* PNDIS_BUFFER;
 
 #undef KERN_ERR
 #define KERN_ERR
@@ -124,11 +121,11 @@ typedef char 				* PNDIS_BUFFER;
 
 #define NDIS_STATUS_SUCCESS                     0x00
 #define NDIS_STATUS_FAILURE                     0x01
-#define NDIS_STATUS_INVALID_DATA				0x02
+#define NDIS_STATUS_INVALID_DATA		0x02
 #define NDIS_STATUS_RESOURCES                   0x03
 
-#define NDIS_SET_PACKET_STATUS(_p, _status)			do{} while(0)
-#define NdisWriteErrorLogEntry(_a, _b, _c, _d)		do{} while(0)
+#define NDIS_SET_PACKET_STATUS(_p, _status)		do {} while(0)
+#define NdisWriteErrorLogEntry(_a, _b, _c, _d)		do {} while(0)
 
 /* statistics counter */
 #define STATS_INC_RX_PACKETS(_pAd, _dev)
@@ -153,8 +150,6 @@ typedef char 				* PNDIS_BUFFER;
 #define MIN_NET_DEVICE_FOR_MESH			0x30
 
 #define NET_DEVICE_REAL_IDX_MASK		0x0f		/* for each operation mode, we maximum support 15 entities. */
-
-
 
 
 /***********************************************************************************
@@ -202,8 +197,8 @@ typedef VOID * 			RTMP_OS_FD;
 #define NdisEqualMemory(Source1, Source2, Length)   (!memcmp(Source1, Source2, Length))
 #define RTMPEqualMemory(Source1, Source2, Length)	(!memcmp(Source1, Source2, Length))
 
-#define MlmeAllocateMemory(_pAd, _ppVA)				os_alloc_mem(_pAd, _ppVA, MGMT_DMA_BUFFER_SIZE)
-#define MlmeFreeMemory(_pAd, _pVA)					os_free_mem(_pAd, _pVA)
+#define MlmeAllocateMemory(_pAd, _ppVA)			os_alloc_mem(_pAd, _ppVA, MGMT_DMA_BUFFER_SIZE)
+#define MlmeFreeMemory(_pAd, _pVA)			os_free_mem(_pAd, _pVA)
 
 #define COPY_MAC_ADDR(Addr1, Addr2)             	memcpy((Addr1), (Addr2), MAC_ADDR_LEN)
 
@@ -211,11 +206,11 @@ typedef VOID * 			RTMP_OS_FD;
 /***********************************************************************************
  *	OS task related data structure and definitions
  ***********************************************************************************/
-#define RTMP_OS_PID						ULONG /* value or pointer */
+#define RTMP_OS_PID				ULONG /* value or pointer */
 
 #define RTMP_GET_OS_PID(_a, _b)			RtmpOsGetPid(&_a, _b);
 #define CHECK_TASK_LEGALITY(_task)		RtmpOsCheckTaskLegality(_task)
-#define ATE_KILL_THREAD_PID				RtmpThreadPidKill
+#define ATE_KILL_THREAD_PID			RtmpThreadPidKill
 
 typedef INT (*RTMP_OS_TASK_CALLBACK)(ULONG);
 
@@ -237,7 +232,7 @@ typedef INT (*RTMP_OS_TASK_CALLBACK)(ULONG);
 #undef ENOTCONN
 
 #define EINVAL					(-RTMP_IO_EINVAL)
-#define EOPNOTSUPP      		(-RTMP_IO_EOPNOTSUPP)
+#define EOPNOTSUPP      			(-RTMP_IO_EOPNOTSUPP)
 #define EFAULT					(-RTMP_IO_EFAULT)
 #define ENETDOWN				(-RTMP_IO_ENETDOWN)
 #define E2BIG					(-RTMP_IO_E2BIG)
@@ -324,21 +319,21 @@ struct os_cookie {
 	RTMP_NET_TASK_STRUCT	hcca_null_frame_complete_task;
 #endif /* CONFIG_MULTI_CHANNEL */
 
-	RTMP_OS_PID				apd_pid; /*802.1x daemon pid */
-	unsigned long			apd_pid_nr;
+	RTMP_OS_PID		apd_pid; /*802.1x daemon pid */
+	unsigned long		apd_pid_nr;
 #ifdef CONFIG_AP_SUPPORT
 #ifdef IAPP_SUPPORT
-/*	RT_SIGNAL_STRUC			RTSignal; */
-	RTMP_OS_PID				IappPid; /*IAPP daemon pid */
-	unsigned long			IappPid_nr;
+/*	RT_SIGNAL_STRUC		RTSignal; */
+	RTMP_OS_PID		IappPid; /*IAPP daemon pid */
+	unsigned long		IappPid_nr;
 #endif /* IAPP_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 #ifdef WAPI_SUPPORT
-	RTMP_OS_PID				wapi_pid; /*wapi daemon pid */
-	unsigned long			wapi_pid_nr;
+	RTMP_OS_PID		wapi_pid; /*wapi daemon pid */
+	unsigned long		wapi_pid_nr;
 #endif /* WAPI_SUPPORT */
-	INT						ioctl_if_type;
-	INT 					ioctl_if;
+	INT			ioctl_if_type;
+	INT 			ioctl_if;
 };
 
 typedef struct os_cookie	* POS_COOKIE;
@@ -391,12 +386,10 @@ do {					\
 
 #undef  ASSERT
 #ifdef DBG
-#define ASSERT(x)                                                               \
-{                                                                               \
-    if (!(x))                                                                   \
-    {                                                                           \
-        printk(__FILE__ ":%d assert " #x "failed\n", __LINE__);    \
-    }                                                                           \
+#define ASSERT(x)							\
+{									\
+	if (!(x))							\
+		printk(__FILE__ ":%d assert " #x "failed\n", __LINE__);	\
 }
 #else
 #define ASSERT(x)

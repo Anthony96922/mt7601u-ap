@@ -2,10 +2,10 @@
 
     Module Name:
 	rt_linux.h
- 
+
     Abstract:
 	Any OS related definition/MACRO is defined here.
- 
+
     Revision History:
     Who        When          What
     ---------  ----------    ----------------------------------------------
@@ -123,27 +123,23 @@ typedef struct usb_ctrlrequest devctrlrequest;
 #ifdef CONFIG_AP_SUPPORT
 #ifdef RTMP_MAC_USB
 #ifdef INF_AMAZON_SE
-#define AP_PROFILE_PATH                 "/ramdisk/etc/wifi/RT2870AP/RT2870AP.txt"
-#define AP_RTMP_FIRMWARE_FILE_NAME "/ramdisk/etc/wifi/RT2870AP/RT2870AP.bin"
+#define AP_PROFILE_PATH			"/ramdisk/etc/wifi/RT2870AP/RT2870AP.txt"
+#define AP_RTMP_FIRMWARE_FILE_NAME	"/ramdisk/etc/wifi/RT2870AP/RT2870AP.bin"
 #else
 #define AP_PROFILE_PATH			"/etc/wifi/RT2870AP/RT2870AP.txt"
-#define AP_RTMP_FIRMWARE_FILE_NAME "/etc/wifi/RT2870AP/RT2870AP.bin"
+#define AP_RTMP_FIRMWARE_FILE_NAME	"/etc/wifi/RT2870AP/RT2870AP.bin"
 #endif
-#define AP_NIC_DEVICE_NAME			"RT2870AP"
-#define AP_DRIVER_VERSION			"3.0.0.0_beta"
+#define AP_NIC_DEVICE_NAME		"RT2870AP"
+#define AP_DRIVER_VERSION		"3.0.0.0_beta"
 #ifdef MULTIPLE_CARD_SUPPORT
-#define CARD_INFO_PATH			"/etc/wifi/RT2870AP/RT2870APCard.dat"
+#define CARD_INFO_PATH			"/etc/wifi/RT2870AP/RT2870APCard.txt"
 #endif /* MULTIPLE_CARD_SUPPORT */
 #endif /* RTMP_MAC_USB */
 
-
 #ifdef SINGLE_SKU_V2
-#define SINGLE_SKU_TABLE_FILE_NAME	"/etc/wifi/RT2860STA/SingleSKU.dat"
+#define SINGLE_SKU_TABLE_FILE_NAME	"/etc/wifi/RT2870AP/SingleSKU.txt"
 #endif /* SINGLE_SKU_V2 */
-
 #endif /* CONFIG_AP_SUPPORT */
-
-
 
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
 extern	const struct iw_handler_def rt28xx_ap_iw_handler_def;
@@ -159,20 +155,19 @@ extern	const struct iw_handler_def rt28xx_ap_iw_handler_def;
 #define INOUT
 #define NDIS_STATUS		INT
 
-
 /***********************************************************************************
  *	OS Specific definitions and data structures
  ***********************************************************************************/
 typedef struct net_device_stats	NET_DEV_STATS;
 typedef struct pci_dev 		* PPCI_DEV;
 typedef struct net_device	* PNET_DEV;
-typedef void				* PNDIS_PACKET;
-typedef char				NDIS_PACKET;
+typedef void			* PNDIS_PACKET;
+typedef char			NDIS_PACKET;
 typedef PNDIS_PACKET		* PPNDIS_PACKET;
-typedef	ra_dma_addr_t			NDIS_PHYSICAL_ADDRESS;
-typedef	ra_dma_addr_t			* PNDIS_PHYSICAL_ADDRESS;
-typedef void				* NDIS_HANDLE;
-typedef char 				* PNDIS_BUFFER;
+typedef	ra_dma_addr_t		NDIS_PHYSICAL_ADDRESS;
+typedef	ra_dma_addr_t		* PNDIS_PHYSICAL_ADDRESS;
+typedef void			* NDIS_HANDLE;
+typedef char 			* PNDIS_BUFFER;
 
 typedef struct ifreq		NET_IOCTL;
 typedef struct ifreq		* PNET_IOCTL;
@@ -180,7 +175,7 @@ typedef struct ifreq		* PNET_IOCTL;
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,27)
 typedef	struct pid *	RTMP_OS_PID;
 #else
-typedef pid_t 				RTMP_OS_PID;
+typedef pid_t 			RTMP_OS_PID;
 #endif
 
 typedef struct semaphore	OS_SEM;
@@ -223,12 +218,12 @@ struct iw_statistics *rt28xx_get_wireless_stats(
 
 #define ETH_LENGTH_OF_ADDRESS	6
 
-#define NDIS_STATUS_SUCCESS                     0x00
-#define NDIS_STATUS_FAILURE                     0x01
-#define NDIS_STATUS_INVALID_DATA				0x02
-#define NDIS_STATUS_RESOURCES                   0x03
+#define NDIS_STATUS_SUCCESS		0x00
+#define NDIS_STATUS_FAILURE		0x01
+#define NDIS_STATUS_INVALID_DATA	0x02
+#define NDIS_STATUS_RESOURCES		0x03
 
-#define NDIS_SET_PACKET_STATUS(_p, _status)			do{} while(0)
+#define NDIS_SET_PACKET_STATUS(_p, _status)		do{} while(0)
 #define NdisWriteErrorLogEntry(_a, _b, _c, _d)		do{} while(0)
 
 /* statistics counter */
@@ -255,9 +250,6 @@ struct iw_statistics *rt28xx_get_wireless_stats(
 
 #define NET_DEVICE_REAL_IDX_MASK		0x0f		/* for each operation mode, we maximum support 15 entities. */
 
-
-
-
 /***********************************************************************************
  *	OS signaling related constant definitions
  ***********************************************************************************/
@@ -270,79 +262,76 @@ typedef struct file* RTMP_OS_FD;
 
 typedef struct _OS_FS_INFO_
 {
-	int				fsuid;
-	int				fsgid;
+	int		fsuid;
+	int		fsgid;
 	mm_segment_t	fs;
 } OS_FS_INFO;
 
 #define IS_FILE_OPEN_ERR(_fd) 	((_fd == NULL) || IS_ERR((_fd)))
 
-
 /***********************************************************************************
  *	OS semaphore related data structure and definitions
  ***********************************************************************************/
 struct os_lock  {
-	spinlock_t		lock;
+	spinlock_t	lock;
 	unsigned long  	flags;
 };
 
-typedef spinlock_t			OS_NDIS_SPIN_LOCK;
+typedef spinlock_t	OS_NDIS_SPIN_LOCK;
 
 /* */
 /*  spin_lock enhanced for Nested spin lock */
 /* */
 #define OS_NdisAllocateSpinLock(__lock)			\
-{                                       		\
-    spin_lock_init((spinlock_t *)(__lock));		\
+{							\
+	spin_lock_init((spinlock_t *)(__lock));		\
 }
 
-#define OS_NdisFreeSpinLock(lock)				\
-	do{}while(0)
+#define OS_NdisFreeSpinLock(lock)			\
+	do{} while(0)
 
-
-#define OS_SEM_LOCK(__lock)						\
-{												\
+#define OS_SEM_LOCK(__lock)				\
+{							\
 	spin_lock_bh((spinlock_t *)(__lock));		\
 }
 
-#define OS_SEM_UNLOCK(__lock)					\
-{												\
+#define OS_SEM_UNLOCK(__lock)				\
+{							\
 	spin_unlock_bh((spinlock_t *)(__lock));		\
 }
-
 
 /* sample, use semaphore lock to replace IRQ lock, 2007/11/15 */
 #ifdef MULTI_CORE_SUPPORT
 
-#define OS_IRQ_LOCK(__lock, __irqflags)			\
-{													\
-	__irqflags = 0;									\
-	spin_lock_irqsave((spinlock_t *)(__lock), __irqflags);			\
+#define OS_IRQ_LOCK(__lock, __irqflags)				\
+{								\
+	__irqflags = 0;						\
+	spin_lock_irqsave((spinlock_t *)(__lock), __irqflags);	\
 }
 
-#define OS_IRQ_UNLOCK(__lock, __irqflag)			\
-{													\
-	spin_unlock_irqrestore((spinlock_t *)(__lock), __irqflag);			\
+#define OS_IRQ_UNLOCK(__lock, __irqflag)				\
+{									\
+	spin_unlock_irqrestore((spinlock_t *)(__lock), __irqflag);	\
 }
 #else
 #define OS_IRQ_LOCK(__lock, __irqflags)			\
-{												\
-	__irqflags = 0;								\
+{							\
+	__irqflags = 0;					\
 	spin_lock_bh((spinlock_t *)(__lock));		\
 }
 
 #define OS_IRQ_UNLOCK(__lock, __irqflag)		\
-{												\
+{							\
 	spin_unlock_bh((spinlock_t *)(__lock));		\
 }
 #endif // MULTI_CORE_SUPPORT //
-#define OS_INT_LOCK(__lock, __irqflags)			\
-{												\
+#define OS_INT_LOCK(__lock, __irqflags)				\
+{								\
 	spin_lock_irqsave((spinlock_t *)__lock, __irqflags);	\
 }
 
-#define OS_INT_UNLOCK(__lock, __irqflag)		\
-{												\
+#define OS_INT_UNLOCK(__lock, __irqflag)						\
+{											\
 	spin_unlock_irqrestore((spinlock_t *)(__lock), ((unsigned long)__irqflag));	\
 }
 
@@ -353,8 +342,8 @@ typedef spinlock_t			OS_NDIS_SPIN_LOCK;
 	Following lock/unlock definition used for BBP/RF register read/write.
 	Currently we don't use it to protect MAC register access.
 
-	For USB: 
-			we use binary semaphore to do the protection because all register 
+	For USB:
+			we use binary semaphore to do the protection because all register
 			access done in kernel thread and should allow task go sleep when
 			in protected status.
 
@@ -362,115 +351,106 @@ typedef spinlock_t			OS_NDIS_SPIN_LOCK;
 			We use interrupt to do the protection because the register may accessed
 			in thread/tasklet/timer/inteerupt, so we use interrupt_disable to protect
 			the access.
-*/	
-#define RTMP_MCU_RW_LOCK(_pAd, _irqflags)	\
-	do{								\
-		if (_pAd->infType == RTMP_DEV_INF_USB)	\
-		{\
-			RTMP_SEM_EVENT_WAIT(&_pAd->McuCmdSem, _irqflags);\
-		}\
-		else\
-		{\
-			RTMP_SEM_LOCK(&_pAd->McuCmdLock, _irqflags);\
-		}\
-	}while(0)
+*/
+#define RTMP_MCU_RW_LOCK(_pAd, _irqflags)					\
+	do {									\
+		if (_pAd->infType == RTMP_DEV_INF_USB)				\
+			RTMP_SEM_EVENT_WAIT(&_pAd->McuCmdSem, _irqflags);	\
+		else								\
+			RTMP_SEM_LOCK(&_pAd->McuCmdLock, _irqflags);		\
+	} while(0)
 
-#define RTMP_MCU_RW_UNLOCK(_pAd, _irqflags)	\
-	do{				\
-		if(_pAd->infType == RTMP_DEV_INF_USB)\
-		{	\
-			RTMP_SEM_EVENT_UP(&_pAd->McuCmdSem);\
-		}		\
-		else\
-		{\
-			RTMP_SEM_UNLOCK(&_pAd->McuCmdLock, _irqflags);\
-		}\
-	}while(0)
+#define RTMP_MCU_RW_UNLOCK(_pAd, _irqflags)				\
+	do {								\
+		if (_pAd->infType == RTMP_DEV_INF_USB)			\
+			RTMP_SEM_EVENT_UP(&_pAd->McuCmdSem);		\
+		else							\
+			RTMP_SEM_UNLOCK(&_pAd->McuCmdLock, _irqflags);	\
+	} while(0)
 
-	
 #ifndef wait_event_interruptible_timeout
-#define __wait_event_interruptible_timeout(wq, condition, ret) \
-do { \
-        wait_queue_t __wait; \
-        init_waitqueue_entry(&__wait, current); \
-        add_wait_queue(&wq, &__wait); \
-        for (;;) { \
-                set_current_state(TASK_INTERRUPTIBLE); \
-                if (condition) \
-                        break; \
-                if (!signal_pending(current)) { \
-                        ret = schedule_timeout(ret); \
-                        if (!ret) \
-                                break; \
-                        continue; \
-                } \
-                ret = -ERESTARTSYS; \
-                break; \
-        } \
-        current->state = TASK_RUNNING; \
-        remove_wait_queue(&wq, &__wait); \
+#define __wait_event_interruptible_timeout(wq, condition, ret)	\
+do {								\
+        wait_queue_t __wait;					\
+        init_waitqueue_entry(&__wait, current);			\
+        add_wait_queue(&wq, &__wait);				\
+        for (;;) {						\
+                set_current_state(TASK_INTERRUPTIBLE);		\
+                if (condition)					\
+                        break;					\
+                if (!signal_pending(current)) {			\
+                        ret = schedule_timeout(ret);		\
+                        if (!ret)				\
+                                break;				\
+                        continue;				\
+                }						\
+                ret = -ERESTARTSYS;				\
+                break;						\
+        }							\
+        current->state = TASK_RUNNING;				\
+        remove_wait_queue(&wq, &__wait);			\
 } while (0)
 
-#define wait_event_interruptible_timeout(wq, condition, timeout) \
-({ \
-        long __ret = timeout; \
-        if (!(condition)) \
-                __wait_event_interruptible_timeout(wq, condition, __ret); \
-        __ret; \
+#define wait_event_interruptible_timeout(wq, condition, timeout)		\
+({										\
+        long __ret = timeout;							\
+        if (!(condition))							\
+                __wait_event_interruptible_timeout(wq, condition, __ret);	\
+        __ret;									\
 })
 #endif
 
 #define OS_SEM_EVENT_INIT_LOCKED(_pSema) 	sema_init((_pSema), 0)
-#define OS_SEM_EVENT_INIT(_pSema)			sema_init((_pSema), 1)
-#define OS_SEM_EVENT_DESTORY(_pSema)		do{}while(0)
+#define OS_SEM_EVENT_INIT(_pSema)		sema_init((_pSema), 1)
+#define OS_SEM_EVENT_DESTORY(_pSema)		do {} while(0)
 #define OS_SEM_EVENT_WAIT(_pSema, _status)	((_status) = down_interruptible((_pSema)))
-#define OS_SEM_EVENT_UP(_pSema)				up(_pSema)
+#define OS_SEM_EVENT_UP(_pSema)			up(_pSema)
 
 #define RTCMDUp					OS_RTCMDUp
 
 #ifdef KTHREAD_SUPPORT
-#define RTMP_WAIT_EVENT_INTERRUPTIBLE(_Status, _pTask) \
-do { \
-		wait_event_interruptible(_pTask->kthread_q, \
-								 _pTask->kthread_running || kthread_should_stop()); \
-		_pTask->kthread_running = FALSE; \
-		if (kthread_should_stop()) \
-		{ \
-			(_Status) = -1; \
-			break; \
-		} \
-		else (_Status) = 0; \
+#define RTMP_WAIT_EVENT_INTERRUPTIBLE(_Status, _pTask)							\
+do {													\
+		wait_event_interruptible(_pTask->kthread_q,						\
+						_pTask->kthread_running || kthread_should_stop());	\
+		_pTask->kthread_running = FALSE;							\
+		if (kthread_should_stop())								\
+		{											\
+			(_Status) = -1;									\
+			break;										\
+		}											\
+		else (_Status) = 0;									\
 } while(0)
 #endif
 
 #ifdef KTHREAD_SUPPORT
-#define WAKE_UP(_pTask) \
-	do{ \
-		if ((_pTask)->kthread_task) \
-        { \
-			(_pTask)->kthread_running = TRUE; \
-	        wake_up(&(_pTask)->kthread_q); \
-		} \
-	}while(0)
+#define WAKE_UP(_pTask)						\
+	do {							\
+		if ((_pTask)->kthread_task)			\
+		{						\
+			(_pTask)->kthread_running = TRUE;	\
+			wake_up(&(_pTask)->kthread_q);		\
+		}						\
+	} while(0)
 #endif
 
 /***********************************************************************************
  *	OS Memory Access related data structure and definitions
  ***********************************************************************************/
-#define MEM_ALLOC_FLAG      (GFP_ATOMIC) /*(GFP_DMA | GFP_ATOMIC) */
+#define MEM_ALLOC_FLAG					(GFP_ATOMIC) /*(GFP_DMA | GFP_ATOMIC) */
 
-#define NdisMoveMemory(Destination, Source, Length) memmove(Destination, Source, Length)
-#define NdisCopyMemory(Destination, Source, Length) memcpy(Destination, Source, Length)
-#define NdisZeroMemory(Destination, Length)         memset(Destination, 0, Length)
-#define NdisFillMemory(Destination, Length, Fill)   memset(Destination, Fill, Length)
-#define NdisCmpMemory(Destination, Source, Length)  memcmp(Destination, Source, Length)
-#define NdisEqualMemory(Source1, Source2, Length)   (!memcmp(Source1, Source2, Length))
+#define NdisMoveMemory(Destination, Source, Length)	memmove(Destination, Source, Length)
+#define NdisCopyMemory(Destination, Source, Length)	memcpy(Destination, Source, Length)
+#define NdisZeroMemory(Destination, Length)		memset(Destination, 0, Length)
+#define NdisFillMemory(Destination, Length, Fill)	memset(Destination, Fill, Length)
+#define NdisCmpMemory(Destination, Source, Length)	memcmp(Destination, Source, Length)
+#define NdisEqualMemory(Source1, Source2, Length)	(!memcmp(Source1, Source2, Length))
 #define RTMPEqualMemory(Source1, Source2, Length)	(!memcmp(Source1, Source2, Length))
 
-#define MlmeAllocateMemory(_pAd, _ppVA)		os_alloc_mem(_pAd, _ppVA, MGMT_DMA_BUFFER_SIZE)
+#define MlmeAllocateMemory(_pAd, _ppVA)			os_alloc_mem(_pAd, _ppVA, MGMT_DMA_BUFFER_SIZE)
 #define MlmeFreeMemory(_pAd, _pVA)			os_free_mem(_pAd, _pVA)
 
-#define COPY_MAC_ADDR(Addr1, Addr2)             memcpy((Addr1), (Addr2), MAC_ADDR_LEN)
+#define COPY_MAC_ADDR(Addr1, Addr2)			memcpy((Addr1), (Addr2), MAC_ADDR_LEN)
 
 
 /***********************************************************************************
@@ -483,26 +463,26 @@ do { \
 #define	THREAD_PID_INIT_VALUE	NULL
 /* TODO: Use this IOCTL carefully when linux kernel version larger than 2.6.27, because the PID only correct when the user space task do this ioctl itself. */
 /*#define RTMP_GET_OS_PID(_x, _y)    _x = get_task_pid(current, PIDTYPE_PID); */
-#define RT_GET_OS_PID(_x, _y)		do{rcu_read_lock(); _x=(ULONG)current->pids[PIDTYPE_PID].pid; rcu_read_unlock();}while(0)
+#define RT_GET_OS_PID(_x, _y)		do { rcu_read_lock(); _x=(ULONG)current->pids[PIDTYPE_PID].pid; rcu_read_unlock(); } while(0)
 #ifdef OS_ABL_FUNC_SUPPORT
-#define RTMP_GET_OS_PID(_a, _b)			RtmpOsGetPid(&_a, _b)
+#define RTMP_GET_OS_PID(_a, _b)		RtmpOsGetPid(&_a, _b)
 #else
-#define RTMP_GET_OS_PID(_a, _b)			RT_GET_OS_PID(_a, _b)
+#define RTMP_GET_OS_PID(_a, _b)		RT_GET_OS_PID(_a, _b)
 #endif
-#define	GET_PID_NUMBER(_v)	pid_nr((_v))
+#define	GET_PID_NUMBER(_v)		pid_nr((_v))
 #define CHECK_PID_LEGALITY(_pid)	if (pid_nr((_pid)) > 0)
 #define KILL_THREAD_PID(_A, _B, _C)	kill_pid((_A), (_B), (_C))
 #else
 /*typedef	pid_t	THREAD_PID; // no use */
-#define	THREAD_PID_INIT_VALUE	-1
+#define	THREAD_PID_INIT_VALUE		-1
 #define RT_GET_OS_PID(_x, _pid)		_x = _pid
-#define RTMP_GET_OS_PID(_x, _pid)		_x = _pid
-#define	GET_PID_NUMBER(_v)	(_v)
+#define RTMP_GET_OS_PID(_x, _pid)	_x = _pid
+#define	GET_PID_NUMBER(_v)		(_v)
 #define CHECK_PID_LEGALITY(_pid)	if ((_pid) >= 0)
 #define KILL_THREAD_PID(_A, _B, _C)	kill_proc((_A), (_B), (_C))
 #endif
 
-#define ATE_KILL_THREAD_PID(PID)		KILL_THREAD_PID(PID, SIGTERM, 1)
+#define ATE_KILL_THREAD_PID(PID)	KILL_THREAD_PID(PID, SIGTERM, 1)
 
 typedef int (*cast_fn)(void *);
 typedef INT (*RTMP_OS_TASK_CALLBACK)(ULONG);
@@ -526,46 +506,46 @@ typedef struct timer_list	OS_TIMER;
 typedef void (*TIMER_FUNCTION)(unsigned long);
 
 
-#define OS_WAIT(_time) \
-{	\
-	if (in_interrupt()) \
-	{\
-		RTMPusecDelay(_time * 1000);\
-	}else	\
-	{\
-		int _i; \
-		long _loop = ((_time)/(1000/OS_HZ)) > 0 ? ((_time)/(1000/OS_HZ)) : 1;\
-		wait_queue_head_t _wait; \
-		init_waitqueue_head(&_wait); \
-		for (_i=0; _i<(_loop); _i++) \
-			wait_event_interruptible_timeout(_wait, 0, ONE_TICK); \
-	}\
+#define OS_WAIT(_time)									\
+{											\
+	if (in_interrupt()) 								\
+		RTMPusecDelay(_time * 1000);						\
+	else										\
+	{										\
+		int _i; 								\
+		long _loop = ((_time)/(1000/OS_HZ)) > 0 ? ((_time)/(1000/OS_HZ)) : 1;	\
+		wait_queue_head_t _wait;						\
+		init_waitqueue_head(&_wait);						\
+		for (_i=0; _i<(_loop); _i++)						\
+			wait_event_interruptible_timeout(_wait, 0, ONE_TICK);		\
+	}										\
 }
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
-#define RTMP_TIME_AFTER(a,b)		\
-	(typecheck(unsigned long, (unsigned long)a) && \
-	 typecheck(unsigned long, (unsigned long)b) && \
-	 ((long)(b) - (long)(a) < 0))
+#define RTMP_TIME_AFTER(a,b)					\
+	(typecheck(unsigned long, (unsigned long)a) &&		\
+		typecheck(unsigned long, (unsigned long)b) &&	\
+		((long)(b) - (long)(a) < 0))
 
 #define RTMP_TIME_AFTER_EQ(a,b)	\
-	(typecheck(unsigned long, (unsigned long)a) && \
-	 typecheck(unsigned long, (unsigned long)b) && \
-	 ((long)(a) - (long)(b) >= 0))
+	(typecheck(unsigned long, (unsigned long)a) &&		\
+		typecheck(unsigned long, (unsigned long)b) &&	\
+		((long)(a) - (long)(b) >= 0))
+
 #define RTMP_TIME_BEFORE(a,b)	RTMP_TIME_AFTER_EQ(b,a)
 #else
-#define typecheck(type,x) \
-({      type __dummy; \
-        typeof(x) __dummy2; \
-        (void)(&__dummy == &__dummy2); \
-        1; \
+#define typecheck(type,x)					\
+({      type __dummy;						\
+        typeof(x) __dummy2;					\
+        (void)(&__dummy == &__dummy2);				\
+        1;							\
 })
-#define RTMP_TIME_AFTER_EQ(a,b)	\
-	(typecheck(unsigned long, (unsigned long)a) && \
-	 typecheck(unsigned long, (unsigned long)b) && \
-	 ((long)(a) - (long)(b) >= 0))
+#define RTMP_TIME_AFTER_EQ(a,b)					\
+	(typecheck(unsigned long, (unsigned long)a) &&		\
+		typecheck(unsigned long, (unsigned long)b) &&	\
+		((long)(a) - (long)(b) >= 0))
 #define RTMP_TIME_BEFORE(a,b)	RTMP_TIME_AFTER_EQ(b,a)
-#define RTMP_TIME_AFTER(a,b) time_after(a, b)
+#define RTMP_TIME_AFTER(a,b)	time_after(a, b)
 #endif
 
 #define ONE_TICK 1
@@ -583,11 +563,11 @@ static inline void NdisGetSystemUpTime(ULONG *time)
 struct os_cookie {
 
 #ifdef RTMP_MAC_USB
-	struct usb_device		*pUsb_Dev;
+	struct usb_device	*pUsb_Dev;
 #endif /* RTMP_MAC_USB */
 
 #ifdef WORKQUEUE_BH
-	UINT32		     pAd_va;
+	UINT			pAd_va;
 #endif /* WORKQUEUE_BH */
 
 	RTMP_NET_TASK_STRUCT rx_done_task;
@@ -666,17 +646,17 @@ typedef struct os_cookie	* POS_COOKIE;
 extern ULONG		RTDebugLevel;
 extern ULONG		RTDebugFunc;
 
-#define DBGPRINT_RAW(Level, Fmt)		\
-do {						\
-	ULONG __gLevel = (Level) & 0xff;	\
-	ULONG __fLevel = ((Level)>>8) & 0xffffff;\
-	if (__gLevel <= RTDebugLevel)		\
-	{					\
-		if ((RTDebugFunc == 0) || \
+#define DBGPRINT_RAW(Level, Fmt)			\
+do {							\
+	ULONG __gLevel = (Level) & 0xff;		\
+	ULONG __fLevel = ((Level)>>8) & 0xffffff;	\
+	if (__gLevel <= RTDebugLevel)			\
+	{						\
+		if ((RTDebugFunc == 0) ||		\
 			((RTDebugFunc != 0) && (((__fLevel & RTDebugFunc)!= 0) || (__gLevel <= RT_DEBUG_ERROR)))) \
-			printk Fmt;		\
-    	}					\
-}while(0)
+			printk Fmt;			\
+	}						\
+} while(0)
 
 #define DBGPRINT(Level, Fmt)    DBGPRINT_RAW(Level, Fmt)
 
@@ -700,12 +680,10 @@ do {						\
 
 #undef  ASSERT
 #ifdef DBG
-#define ASSERT(x)                                                               \
-{                                                                               \
-    if (!(x))                                                                   \
-    {                                                                           \
-        printk(KERN_WARNING __FILE__ ": %d assert " #x "failed\n", __LINE__);    \
-    }                                                                           \
+#define ASSERT(x)									\
+{											\
+	if (!(x))									\
+		printk(KERN_WARNING __FILE__ ": %d assert " #x "failed\n", __LINE__);	\
 }
 #else
 #define ASSERT(x)
