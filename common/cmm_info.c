@@ -15,14 +15,14 @@
 
     Module Name:
 	cmm_info.c
- 
+
     Abstract:
- 
+
     Revision History:
     Who          When          What
     ---------    ----------    ----------------------------------------------
  */
- 
+
 #include	"rt_config.h"
 
 
@@ -36,7 +36,7 @@
     ==========================================================================
 */
 INT Set_DriverVersion_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 #ifdef CONFIG_AP_SUPPORT
@@ -48,7 +48,7 @@ INT Set_DriverVersion_Proc(
     return TRUE;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Country Region.
@@ -58,11 +58,11 @@ INT Set_DriverVersion_Proc(
     ==========================================================================
 */
 INT Set_CountryRegion_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	int retval;
-	
+
 #ifdef EXT_BUILD_CHANNEL_LIST
 	return -EOPNOTSUPP;
 #endif /* EXT_BUILD_CHANNEL_LIST */
@@ -70,17 +70,17 @@ INT Set_CountryRegion_Proc(
 	retval = RT_CfgSetCountryRegion(pAd, arg, BAND_24G);
 	if (retval == FALSE)
 		return FALSE;
-	
+
 	/* if set country region, driver needs to be reset*/
 	BuildChannelList(pAd);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_CountryRegion_Proc::(CountryRegion=%d)\n", pAd->CommonCfg.CountryRegion));
-	
+
 	return TRUE;
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Country Region for A band.
@@ -90,7 +90,7 @@ INT Set_CountryRegion_Proc(
     ==========================================================================
 */
 INT Set_CountryRegionABand_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	int retval;
@@ -107,13 +107,13 @@ INT Set_CountryRegionABand_Proc(
 	BuildChannelList(pAd);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_CountryRegionABand_Proc::(CountryRegion=%d)\n", pAd->CommonCfg.CountryRegionForABand));
-	
+
 	return TRUE;
 }
 
 
 INT	Set_Cmm_WirelessMode_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg,
 	IN	BOOLEAN			FlgIsDiffMbssModeUsed)
 {
@@ -125,9 +125,9 @@ INT	Set_Cmm_WirelessMode_Proc(
 
 	if (FlgIsDiffMbssModeUsed) {
 		LONG cfg_mode = simple_strtol(arg, 0, 10);
-		
+
 		/* assign wireless mode for the BSS */
-		pAd->ApCfg.MBSSID[pObj->ioctl_if].PhyMode = 
+		pAd->ApCfg.MBSSID[pObj->ioctl_if].PhyMode =
 					cfgmode_2_wmode((UCHAR)cfg_mode);
 
 		/*
@@ -190,14 +190,14 @@ INT	Set_Cmm_WirelessMode_Proc(
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("Set_WirelessMode_Proc::parameters out of range\n"));
 	}
-	
+
 	return success;
 }
 
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef MBSS_SUPPORT
-/* 
+/*
     ==========================================================================
     Description:
         Set Wireless Mode for MBSS
@@ -206,7 +206,7 @@ INT	Set_Cmm_WirelessMode_Proc(
     ==========================================================================
 */
 INT	Set_MBSS_WirelessMode_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	return Set_Cmm_WirelessMode_Proc(pAd, arg, 1);
@@ -214,7 +214,7 @@ INT	Set_MBSS_WirelessMode_Proc(
 #endif /* MBSS_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Wireless Mode
@@ -230,7 +230,7 @@ INT	Set_WirelessMode_Proc(RTMP_ADAPTER *pAd, PSTRING arg)
 
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Channel
@@ -239,22 +239,20 @@ INT	Set_WirelessMode_Proc(RTMP_ADAPTER *pAd, PSTRING arg)
     ==========================================================================
 */
 INT	Set_Channel_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 #ifdef CONFIG_AP_SUPPORT
 	INT		i;
 #endif /* CONFIG_AP_SUPPORT */
  	INT		success = TRUE;
-	UCHAR	Channel;	
+	UCHAR	Channel;
 
 	Channel = (UCHAR) simple_strtol(arg, 0, 10);
 
 	/* check if this channel is valid*/
 	if (ChannelSanity(pAd, Channel) == TRUE)
-	{
 		success = TRUE;
-	}
 	else
 	{
 #ifdef CONFIG_AP_SUPPORT
@@ -330,7 +328,7 @@ INT	Set_Channel_Proc(
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Short Slot Time Enable or Disable
@@ -339,11 +337,11 @@ INT	Set_Channel_Proc(
     ==========================================================================
 */
 INT	Set_ShortSlot_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	int retval;
-	
+
 	retval = RT_CfgSetShortSlot(pAd, arg);
 	if (retval == TRUE)
 		DBGPRINT(RT_DEBUG_TRACE, ("Set_ShortSlot_Proc::(ShortSlot=%d)\n", pAd->CommonCfg.bUseShortSlotTime));
@@ -352,7 +350,7 @@ INT	Set_ShortSlot_Proc(
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Tx power
@@ -361,7 +359,7 @@ INT	Set_ShortSlot_Proc(
     ==========================================================================
 */
 INT	Set_TxPower_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	LONG TxPower;
@@ -385,7 +383,7 @@ INT	Set_TxPower_Proc(
 	return success;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Set 11B/11G Protection
@@ -394,7 +392,7 @@ INT	Set_TxPower_Proc(
     ==========================================================================
 */
 INT	Set_BGProtection_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	switch (simple_strtol(arg, 0, 10))
@@ -407,7 +405,7 @@ INT	Set_BGProtection_Proc(
 			break;
 		case 2: /*Always OFF*/
 			pAd->CommonCfg.UseBGProtection = 2;
-			break;		
+			break;
 		default:  /*Invalid argument */
 			return FALSE;
 	}
@@ -422,7 +420,7 @@ INT	Set_BGProtection_Proc(
 	return TRUE;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Set TxPreamble
@@ -431,7 +429,7 @@ INT	Set_BGProtection_Proc(
     ==========================================================================
 */
 INT	Set_TxPreamble_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	RT_802_11_PREAMBLE	Preamble;
@@ -461,7 +459,7 @@ INT	Set_TxPreamble_Proc(
 	return TRUE;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Set RTS Threshold
@@ -470,7 +468,7 @@ INT	Set_TxPreamble_Proc(
     ==========================================================================
 */
 INT	Set_RTSThreshold_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	 NDIS_802_11_RTS_THRESHOLD           RtsThresh;
@@ -487,7 +485,7 @@ INT	Set_RTSThreshold_Proc(
 	return TRUE;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Fragment Threshold
@@ -496,7 +494,7 @@ INT	Set_RTSThreshold_Proc(
     ==========================================================================
 */
 INT	Set_FragThreshold_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	 NDIS_802_11_FRAGMENTATION_THRESHOLD     FragThresh;
@@ -504,23 +502,21 @@ INT	Set_FragThreshold_Proc(
 	FragThresh = simple_strtol(arg, 0, 10);
 
 	if (FragThresh > MAX_FRAG_THRESHOLD || FragThresh < MIN_FRAG_THRESHOLD)
-	{ 
+	{
 		/*Illegal FragThresh so we set it to default*/
 		pAd->CommonCfg.FragmentThreshold = MAX_FRAG_THRESHOLD;
 	}
 	else if (FragThresh % 2 == 1)
 	{
 		/*
-			The length of each fragment shall always be an even number of octets, 
-			except for the last fragment of an MSDU or MMPDU, which may be either 
+			The length of each fragment shall always be an even number of octets,
+			except for the last fragment of an MSDU or MMPDU, which may be either
 			an even or an odd number of octets.
 		*/
 		pAd->CommonCfg.FragmentThreshold = (USHORT)(FragThresh - 1);
 	}
 	else
-	{
 		pAd->CommonCfg.FragmentThreshold = (USHORT)FragThresh;
-	}
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_FragThreshold_Proc::(FragThreshold=%d)\n", pAd->CommonCfg.FragmentThreshold));
@@ -528,7 +524,7 @@ INT	Set_FragThreshold_Proc(
 	return TRUE;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Set TxBurst
@@ -537,7 +533,7 @@ INT	Set_FragThreshold_Proc(
     ==========================================================================
 */
 INT	Set_TxBurst_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	LONG TxBurst;
@@ -549,7 +545,7 @@ INT	Set_TxBurst_Proc(
 		pAd->CommonCfg.bEnableTxBurst = FALSE;
 	else
 		return FALSE;  /*Invalid argument */
-	
+
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_TxBurst_Proc::(TxBurst=%d)\n", pAd->CommonCfg.bEnableTxBurst));
 
 	return TRUE;
@@ -559,7 +555,7 @@ INT	Set_TxBurst_Proc(
 
 
 #ifdef AGGREGATION_SUPPORT
-/* 
+/*
     ==========================================================================
     Description:
         Set TxBurst
@@ -568,7 +564,7 @@ INT	Set_TxBurst_Proc(
     ==========================================================================
 */
 INT	Set_PktAggregate_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	LONG aggre;
@@ -601,12 +597,12 @@ INT	Set_PktAggregate_Proc(
 
 #ifdef INF_PPA_SUPPORT
 INT	Set_INF_AMAZON_SE_PPA_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PUCHAR			arg)
 {
 	ULONG aggre;
 	UINT status;
-	
+
 	aggre = simple_strtol(arg, 0, 10);
 
 	if (aggre == 1)
@@ -617,11 +613,11 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 		}
 		else
 		{
-			if (ppa_hook_directpath_register_dev_fn) 
+			if (ppa_hook_directpath_register_dev_fn)
 			{
 				UINT32 g_if_id;
-				
-				if (pAd->pDirectpathCb == NULL) 
+
+				if (pAd->pDirectpathCb == NULL)
 				{
 /*					pAd->pDirectpathCb = (PPA_DIRECTPATH_CB *) kmalloc (sizeof(PPA_DIRECTPATH_CB), GFP_ATOMIC);*/
 					os_alloc_mem(NULL, (UCHAR **)&(pAd->pDirectpathCb), sizeof(PPA_DIRECTPATH_CB));
@@ -635,7 +631,7 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 
 				status = ppa_hook_directpath_register_dev_fn(&g_if_id, pAd->net_dev, pAd->pDirectpathCb, PPA_F_DIRECTPATH_REGISTER|PPA_F_DIRECTPATH_ETH_IF);
 
-				if(status==IFX_SUCCESS)
+				if(status == IFX_SUCCESS)
 				{
 					pAd->g_if_id=g_if_id;
 					DBGPRINT(RT_DEBUG_TRACE, ("register INF_AMAZON_SE_PPA success :ret:%d id:%d:%d\n",status,pAd->g_if_id,g_if_id));
@@ -652,18 +648,16 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 				DBGPRINT(RT_DEBUG_TRACE, ("INF_AMAZON_SE_PPA enable fail : there is no INF_AMAZON_SE_PPA module . \n"));
 			}
 		}
-
-		
 	}
 	else if (aggre == 0)
 	{
-		if(pAd->PPAEnable==FALSE)
+		if(pAd->PPAEnable == FALSE)
 		{
 			DBGPRINT(RT_DEBUG_TRACE, ("INF_AMAZON_SE_PPA already disable \n"));
 		}
 		else
 		{
-			if (ppa_hook_directpath_register_dev_fn) 
+			if (ppa_hook_directpath_register_dev_fn)
 			{
 				UINT32 g_if_id;
 				g_if_id=pAd->g_if_id;
@@ -694,7 +688,7 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("Invalid argument %d \n",aggre));
 		return FALSE;  /*Invalid argument */
-	}	
+	}
 
 	return TRUE;
 
@@ -702,7 +696,7 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 #endif /* INF_PPA_SUPPORT */
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set IEEE80211H.
@@ -712,7 +706,7 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
     ==========================================================================
 */
 INT	Set_IEEE80211H_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
     LONG ieee80211h;
@@ -725,14 +719,14 @@ INT	Set_IEEE80211H_Proc(
 		pAd->CommonCfg.bIEEE80211H = FALSE;
 	else
 		return FALSE;  /*Invalid argument */
-	
+
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_IEEE80211H_Proc::(IEEE80211H=%d)\n", pAd->CommonCfg.bIEEE80211H));
 
 	return TRUE;
 }
 
 #ifdef EXT_BUILD_CHANNEL_LIST
-/* 
+/*
     ==========================================================================
     Description:
         Set Country Code.
@@ -741,16 +735,16 @@ INT	Set_IEEE80211H_Proc(
     ==========================================================================
 */
 INT Set_ExtCountryCode_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
-	
+
 	if (RTMP_DRIVER_IOCTL_SANITY_CHECK(pAd, NULL) == NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s can only be used when interface is down.\n", __FUNCTION__));
 		return TRUE;
 	}
-	
+
 	if(strlen(arg) == 2)
 	{
 		NdisMoveMemory(pAd->CommonCfg.CountryCode, arg, 2);
@@ -760,9 +754,9 @@ INT Set_ExtCountryCode_Proc(
 	{
 		NdisZeroMemory(pAd->CommonCfg.CountryCode, 3);
 		pAd->CommonCfg.bCountryFlag = FALSE;
-	}	
+	}
 
-	{	
+	{
 		UCHAR CountryCode[3] = {0};
 		NdisMoveMemory(CountryCode, pAd->CommonCfg.CountryCode, 2);
 		DBGPRINT(RT_DEBUG_TRACE, ("Set_CountryCode_Proc::(bCountryFlag=%d, CountryCode=%s)\n",
@@ -771,7 +765,7 @@ INT Set_ExtCountryCode_Proc(
 	}
 	return TRUE;
 }
-/* 
+/*
     ==========================================================================
     Description:
         Set Ext DFS Type
@@ -780,7 +774,7 @@ INT Set_ExtCountryCode_Proc(
     ==========================================================================
 */
 INT Set_ExtDfsType_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	UCHAR	*pDfsType = &pAd->CommonCfg.DfsType;
@@ -802,7 +796,7 @@ INT Set_ExtDfsType_Proc(
 	return TRUE;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Add new channel list
@@ -811,12 +805,12 @@ INT Set_ExtDfsType_Proc(
     ==========================================================================
 */
 INT Set_ChannelListAdd_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	CH_DESP		inChDesp;
 	PCH_REGION pChRegion = NULL;
-	
+
 	if (RTMP_DRIVER_IOCTL_SANITY_CHECK(pAd, NULL) == NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s can only be used when interface is down.\n", __FUNCTION__));
@@ -847,7 +841,7 @@ INT Set_ChannelListAdd_Proc(
 	{
 		UCHAR strBuff[64], count = 0;
 		PUCHAR	pStart, pEnd, tempIdx, tempBuff[5];
-		
+
 		if (strlen(arg) <64)
 			NdisCopyMemory(strBuff, arg, strlen(arg));
 
@@ -899,13 +893,13 @@ INT Set_ChannelListAdd_Proc(
 		PCH_DESP pChDesp = NULL;
 		UCHAR CountryCode[3] = {0};
 		if (pAd->CommonCfg.pChDesp == NULL)
-		{			
+		{
 			os_alloc_mem(pAd,  &pAd->CommonCfg.pChDesp, MAX_PRECONFIG_DESP_ENTRY_SIZE*sizeof(CH_DESP));
 			pChDesp = (PCH_DESP) pAd->CommonCfg.pChDesp;
 			if (pChDesp)
 			{
 				for (EntryIdx= 0; pChRegion->pChDesp[EntryIdx].FirstChannel != 0; EntryIdx++)
-				{	
+				{
 					if (EntryIdx == (MAX_PRECONFIG_DESP_ENTRY_SIZE-2)) /* Keep an NULL entry in the end of table*/
 					{
 						DBGPRINT(RT_DEBUG_TRACE, ("Table is full.\n"));
@@ -923,17 +917,17 @@ INT Set_ChannelListAdd_Proc(
 			}
 		}
 		else
-		{	
+		{
 			pChDesp = (PCH_DESP) pAd->CommonCfg.pChDesp;
 			for (EntryIdx= 0; pChDesp[EntryIdx].FirstChannel != 0; EntryIdx++)
-			{	
+			{
 				if(EntryIdx ==  (MAX_PRECONFIG_DESP_ENTRY_SIZE-2)) /* Keep an NULL entry in the end of table*/
 				{
 					DBGPRINT(RT_DEBUG_TRACE, ("Table is full.\n"));
 					return TRUE;
 				}
 			}
-		}				
+		}
 		NdisMoveMemory(CountryCode, pAd->CommonCfg.CountryCode, 2);
 		DBGPRINT(RT_DEBUG_TRACE, ("Add channel lists {%u, %u, %u, %s, %s} to %s.\n",
 							inChDesp.FirstChannel,
@@ -943,18 +937,18 @@ INT Set_ChannelListAdd_Proc(
 							(inChDesp.DfsReq == TRUE) ? "TRUE" : "FALSE",
 							CountryCode));
 		NdisCopyMemory(&pChDesp[EntryIdx], &inChDesp, sizeof(CH_DESP));
-		pChDesp[++EntryIdx].FirstChannel = 0; 
+		pChDesp[++EntryIdx].FirstChannel = 0;
 	}
 	return TRUE;
 }
 
 INT Set_ChannelListShow_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	PCH_REGION	pChRegion = NULL;
 	UCHAR		EntryIdx, CountryCode[3]={0};
-	
+
 	/* Get Channel Region (CountryCode)*/
 	{
 		INT loop = 0;
@@ -983,7 +977,7 @@ INT Set_ChannelListShow_Proc(
 	DBGPRINT(RT_DEBUG_ERROR, ("DfsType:%s\n",
 					(pAd->CommonCfg.DfsType == JAP) ? "JAP" :
 					((pAd->CommonCfg.DfsType == FCC) ? "FCC" : "CE" )));
-					
+
 	if (pAd->CommonCfg.pChDesp != NULL)
 	{
 		PCH_DESP pChDesp = (PCH_DESP) pAd->CommonCfg.pChDesp;
@@ -1010,26 +1004,26 @@ INT Set_ChannelListShow_Proc(
 						pChRegion->pChDesp[EntryIdx].MaxTxPwr,
 						(pChRegion->pChDesp[EntryIdx].Geography == BOTH) ? "BOTH" : (pChRegion->pChDesp[EntryIdx].Geography == IDOR) ?  "IDOR" : "ODOR",
 						(pChRegion->pChDesp[EntryIdx].DfsReq == TRUE) ? "TRUE" : "FALSE"));
-		}	
+		}
 	}
 	DBGPRINT(RT_DEBUG_ERROR, ("=========================================\n"));
 	return TRUE;
 }
 
 INT Set_ChannelListDel_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	UCHAR EntryIdx, TargetIdx, NumOfEntry;
 	PCH_REGION	pChRegion = NULL;
-	PCH_DESP pChDesp = NULL; 
+	PCH_DESP pChDesp = NULL;
 	TargetIdx = simple_strtol(arg, 0, 10);
 	if (RTMP_DRIVER_IOCTL_SANITY_CHECK(pAd, NULL) == NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s can only be used when interface is down.\n", __FUNCTION__));
 		return TRUE;
 	}
-	
+
 	/* Get Channel Region (CountryCode)*/
 	{
 		INT loop = 0;
@@ -1056,7 +1050,7 @@ INT Set_ChannelListDel_Proc(
 		{
 			pChDesp = (PCH_DESP) pAd->CommonCfg.pChDesp;
 			for (EntryIdx= 0; pChRegion->pChDesp[EntryIdx].FirstChannel != 0; EntryIdx++)
-			{	
+			{
 				if (EntryIdx == (MAX_PRECONFIG_DESP_ENTRY_SIZE-2)) /* Keep an NULL entry in the end of table*/
 				{
 					DBGPRINT(RT_DEBUG_TRACE, ("Table is full.\n"));
@@ -1075,7 +1069,7 @@ INT Set_ChannelListDel_Proc(
 	}
 	else
 		pChDesp = (PCH_DESP) pAd->CommonCfg.pChDesp;
-		
+
 	if (!strcmp(arg, "default"))
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("Default table used.\n" ));
@@ -1093,7 +1087,7 @@ INT Set_ChannelListDel_Proc(
 	else if (TargetIdx < (MAX_PRECONFIG_DESP_ENTRY_SIZE-1))
 	{
 		for (EntryIdx= 0; pChDesp[EntryIdx].FirstChannel != 0; EntryIdx++)
-		{	
+		{
 			if(EntryIdx ==  (MAX_PRECONFIG_DESP_ENTRY_SIZE-2)) /* Keep an NULL entry in the end of table */
 			{
 				DBGPRINT(RT_DEBUG_TRACE, ("Last entry should be NULL.\n"));
@@ -1114,36 +1108,36 @@ INT Set_ChannelListDel_Proc(
 	}
 	else
 		DBGPRINT(RT_DEBUG_TRACE, ("Entry not found.\n"));
-	
+
 	return TRUE;
 }
 #endif /* EXT_BUILD_CHANNEL_LIST  */
 
 #ifdef WSC_INCLUDED
 INT	Set_WscGenPinCode_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
-    PWSC_CTRL   pWscControl = NULL;
-    POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
-    UCHAR	    apidx = pObj->ioctl_if;
-    
+	PWSC_CTRL   pWscControl = NULL;
+	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
+	UCHAR	    apidx = pObj->ioctl_if;
+
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
 #ifdef APCLI_SUPPORT
-	    if (pObj->ioctl_if_type == INT_APCLI)
-	    {
-	        pWscControl = &pAd->ApCfg.ApCliTab[apidx].WscControl;
-	        DBGPRINT(RT_DEBUG_TRACE, ("IF(apcli%d) Set_WscGenPinCode_Proc:: This command is from apcli interface now.\n", apidx));
-	    }
-	    else
-#endif /* APCLI_SUPPORT */
-	    {
-			pWscControl = &pAd->ApCfg.MBSSID[apidx].WscControl;
-	        DBGPRINT(RT_DEBUG_TRACE, ("IF(ra%d) Set_WscGenPinCode_Proc:: This command is from ra interface now.\n", apidx));
-	    }
+	if (pObj->ioctl_if_type == INT_APCLI)
+	{
+		pWscControl = &pAd->ApCfg.ApCliTab[apidx].WscControl;
+		DBGPRINT(RT_DEBUG_TRACE, ("IF(apcli%d) Set_WscGenPinCode_Proc:: This command is from apcli interface now.\n", apidx));
 	}
+	else
+#endif /* APCLI_SUPPORT */
+	{
+		pWscControl = &pAd->ApCfg.MBSSID[apidx].WscControl;
+	        DBGPRINT(RT_DEBUG_TRACE, ("IF(ra%d) Set_WscGenPinCode_Proc:: This command is from ra interface now.\n", apidx));
+	}
+}
 #endif /* CONFIG_AP_SUPPORT */
 
 
@@ -1154,7 +1148,7 @@ INT	Set_WscGenPinCode_Proc(
 		return TRUE;
 	}
 
-	if (pWscControl->WscEnrollee4digitPinCode)	
+	if (pWscControl->WscEnrollee4digitPinCode)
 	{
 		pWscControl->WscEnrolleePinCodeLen = 4;
 		pWscControl->WscEnrolleePinCode = WscRandomGen4digitPinCode(pAd);
@@ -1172,7 +1166,7 @@ INT	Set_WscGenPinCode_Proc(
 }
 
 INT Set_WscVendorPinCode_Proc(
-    IN  PRTMP_ADAPTER   pAd, 
+    IN  PRTMP_ADAPTER   pAd,
     IN  PSTRING          arg)
 {
 	PWSC_CTRL   pWscControl = NULL;
@@ -1205,12 +1199,12 @@ INT Set_WscVendorPinCode_Proc(
 	if (!pWscControl)
 		return FALSE;
 	else
-	return RT_CfgSetWscPinCode(pAd, arg, pWscControl);
+		return RT_CfgSetWscPinCode(pAd, arg, pWscControl);
 }
 #endif /* WSC_INCLUDED */
 
 #ifdef DBG
-/* 
+/*
     ==========================================================================
     Description:
         For Debug information
@@ -1219,7 +1213,7 @@ INT Set_WscVendorPinCode_Proc(
     ==========================================================================
 */
 INT	Set_Debug_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	DBGPRINT(RT_DEBUG_TRACE, ("==>%s()\n", __FUNCTION__));
@@ -1234,7 +1228,7 @@ INT	Set_Debug_Proc(
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         For DebugFunc information
@@ -1243,7 +1237,7 @@ INT	Set_Debug_Proc(
     ==========================================================================
 */
 INT	Set_DebugFunc_Proc(
-	IN RTMP_ADAPTER *pAd, 
+	IN RTMP_ADAPTER *pAd,
 	IN PSTRING arg)
 {
 	DBGPRINT_S(RT_DEBUG_TRACE, ("==>%s()\n", __FUNCTION__));
@@ -1256,38 +1250,38 @@ INT	Set_DebugFunc_Proc(
 
 
 INT	Show_DescInfo_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 
 	return TRUE;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Reset statistics counter
 
     Arguments:
         pAd            Pointer to our adapter
-        arg                 
+        arg
 
     Return:
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
 INT	Set_ResetStatCounter_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	PSTRING			arg)
 {
 	/*UCHAR           i;*/
 	/*MAC_TABLE_ENTRY *pEntry;*/
-    
+
 	DBGPRINT(RT_DEBUG_TRACE, ("==>Set_ResetStatCounter_Proc\n"));
 
 	/* add the most up-to-date h/w raw counters into software counters*/
 	NICUpdateRawCounters(pAd);
-    
+
 	NdisZeroMemory(&pAd->WlanCounters, sizeof(COUNTER_802_11));
 	NdisZeroMemory(&pAd->Counters8023, sizeof(COUNTER_802_3));
 	NdisZeroMemory(&pAd->RalinkCounters, sizeof(COUNTER_RALINK));
@@ -1309,24 +1303,24 @@ INT	Set_ResetStatCounter_Proc(
 
 
 BOOLEAN RTMPCheckStrPrintAble(
-    IN  CHAR *pInPutStr, 
-    IN  UCHAR strLen)
+	IN  CHAR *pInPutStr,
+	IN  UCHAR strLen)
 {
-    UCHAR i=0;
-    
-    for (i=0; i<strLen; i++)
-    {
-        if ((pInPutStr[i] < 0x20) ||
-            (pInPutStr[i] > 0x7E))
-            return FALSE;
-    }
-    
-    return TRUE;
+	UCHAR i = 0;
+
+	for (i = 0; i < strLen; i++)
+	{
+		if ((pInPutStr[i] < 0x20) ||
+			(pInPutStr[i] > 0x7E))
+			return FALSE;
+	}
+
+	return TRUE;
 }
 
 /*
 	========================================================================
-	
+
 	Routine Description:
 		Remove WPA Key process
 
@@ -1338,9 +1332,9 @@ BOOLEAN RTMPCheckStrPrintAble(
 		NDIS_SUCCESS					Add key successfully
 
 	IRQL = DISPATCH_LEVEL
-	
+
 	Note:
-		
+
 	========================================================================
 */
 
@@ -3009,7 +3003,7 @@ INT	Set_HtMIMOPSmode_Proc(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_HtMIMOPSmode_Proc::(MIMOPS mode=%d)\n",pAd->CommonCfg.BACapability.field.MMPSmode));
 
-	return TRUE;																																	
+	return TRUE;
 }
 
 #ifdef CONFIG_AP_SUPPORT
@@ -6044,12 +6038,11 @@ INT set_rf(RTMP_ADAPTER *pAd, PSTRING arg)
 	
 	if (arg)
 	{
-		rv = sscanf(arg, "%d-%d-%x", &(bank_id), &(rf_id), &(rf_val));
+		rv = sscanf(arg, "%d-%d-%c", &(bank_id), &(rf_id), &(rf_val));
 		DBGPRINT(RT_DEBUG_TRACE, ("%s():rv = %d, bank_id = %d, rf_id = %d, rf_val = 0x%02x\n", __FUNCTION__, rv, bank_id, rf_id, rf_val));
 		if (rv == 3)
 		{
 			rlt_rf_write(pAd, (UCHAR)bank_id, (UCHAR)rf_id, (UCHAR)rf_val);
-			
 			rlt_rf_read(pAd, bank_id, rf_id, &rf_val);
 			DBGPRINT(RT_DEBUG_TRACE, ("%s():%d %03d 0x%02X\n", __FUNCTION__, bank_id, rf_id, rf_val));
 		}

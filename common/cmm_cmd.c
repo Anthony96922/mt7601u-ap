@@ -14,7 +14,7 @@
  * way altering	the	source code	is stricitly prohibited, unless	the	prior
  * written consent of Ralink Technology, Inc. is obtained.
  ***************************************************************************
- 
+
  	Module Name:
 	cmm_cmd.c
 
@@ -35,17 +35,17 @@
 
 /*
 	========================================================================
-	
+
 	Routine Description:
 
 	Arguments:
 
 	Return Value:
-	
-	IRQL = 
-	
+
+	IRQL =
+
 	Note:
-	
+
 	========================================================================
 */
 VOID	RTInitializeCmdQ(
@@ -60,17 +60,17 @@ VOID	RTInitializeCmdQ(
 
 /*
 	========================================================================
-	
+
 	Routine Description:
 
 	Arguments:
 
 	Return Value:
-	
-	IRQL = 
-	
+
+	IRQL =
+
 	Note:
-	
+
 	========================================================================
 */
 VOID	RTThreadDequeueCmd(
@@ -78,7 +78,7 @@ VOID	RTThreadDequeueCmd(
 	OUT	PCmdQElmt	*pcmdqelmt)
 {
 	*pcmdqelmt = cmdq->head;
-	
+
 	if (*pcmdqelmt != NULL)
 	{
 		cmdq->head = cmdq->head->next;
@@ -91,28 +91,28 @@ VOID	RTThreadDequeueCmd(
 
 /*
 	========================================================================
-	
+
 	Routine Description:
 
 	Arguments:
 
 	Return Value:
 
-	IRQL = 
-	
+	IRQL =
+
 	Note:
-	
+
 	========================================================================
 */
 NDIS_STATUS RTEnqueueInternalCmd(
 	IN PRTMP_ADAPTER	pAd,
 	IN NDIS_OID			Oid,
 	IN PVOID			pInformationBuffer,
-	IN UINT32			InformationBufferLength)	
+	IN UINT32			InformationBufferLength)
 {
 	NDIS_STATUS	status;
 	PCmdQElmt	cmdqelmt = NULL;
-	
+
 
 	status = os_alloc_mem(pAd, (PUCHAR *)&cmdqelmt, sizeof(CmdQElmt));
 	if ((status != NDIS_STATUS_SUCCESS) || (cmdqelmt == NULL))
@@ -151,9 +151,7 @@ NDIS_STATUS RTEnqueueInternalCmd(
 			status = NDIS_STATUS_SUCCESS;
 		}
 		else
-		{
 			status = NDIS_STATUS_FAILURE;
-		}
 		NdisReleaseSpinLock(&pAd->CmdQLock);
 
 		if (status == NDIS_STATUS_FAILURE)

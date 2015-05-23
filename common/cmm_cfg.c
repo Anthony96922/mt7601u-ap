@@ -48,7 +48,7 @@ void DisplayTxAgg (RTMP_ADAPTER *pAd)
 		for (i=0; i<MAX_AGG_CNT; i++) {
 			DBGPRINT(RT_DEBUG_OFF, ("\t%d MPDU=%ld (%ld%%)\n", i+1, aggCnt[i+2], aggCnt[i+2]*100/totalCount));
 		}
-	printk("====================\n");
+	DBGPRINT(RT_DEBUG_OFF, ("====================\n"));
 
 }
 #endif /* DOT11_N_SUPPORT */
@@ -61,16 +61,16 @@ INT ComputeChecksum(
 	IN UINT PIN)
 {
 	INT digit_s;
-    UINT accum = 0;
+	UINT accum = 0;
 
 	PIN *= 10;
-	accum += 3 * ((PIN / 10000000) % 10); 
-	accum += 1 * ((PIN / 1000000) % 10); 
-	accum += 3 * ((PIN / 100000) % 10); 
-	accum += 1 * ((PIN / 10000) % 10); 
-	accum += 3 * ((PIN / 1000) % 10); 
-	accum += 1 * ((PIN / 100) % 10); 
-	accum += 3 * ((PIN / 10) % 10); 
+	accum += 3 * ((PIN / 10000000) % 10);
+	accum += 1 * ((PIN / 1000000) % 10);
+	accum += 3 * ((PIN / 100000) % 10);
+	accum += 1 * ((PIN / 10000) % 10);
+	accum += 3 * ((PIN / 1000) % 10);
+	accum += 1 * ((PIN / 100) % 10);
+	accum += 3 * ((PIN / 10) % 10);
 
 	digit_s = (accum % 10);
 	return ((10 - digit_s) % 10);
@@ -78,7 +78,7 @@ INT ComputeChecksum(
 
 UINT GenerateWpsPinCode(
 	IN	PRTMP_ADAPTER	pAd,
-    IN  BOOLEAN         bFromApcli,	
+	IN  BOOLEAN         bFromApcli,
 	IN	UCHAR			apidx)
 {
 	UCHAR	macAddr[MAC_ADDR_LEN];
@@ -210,7 +210,7 @@ static UCHAR CFG_WMODE_MAP[]={
 #ifdef DBG
 static PSTRING BAND_STR[] = {"Invalid", "2.4G", "5G", "2.4G/5G"};
 #endif /* DBG */
-static PSTRING WMODE_STR[]= {"", "a", "b", "g", "gn", "an", "ac"};
+static PSTRING WMODE_STR[]= {"", "a", "b", "g", "n", "n", "ac"};
 
 UCHAR *wmode_2_str(UCHAR wmode)
 {
@@ -262,7 +262,7 @@ UCHAR wmode_2_cfgmode(UCHAR wmode)
 
 	for (index = 0; index < PHY_MODE_MAX; index++ )
 	{
-		if ( wmode == CFG_WMODE_MAP[index*2 + 1])
+		if (wmode == CFG_WMODE_MAP[index*2 + 1])
 			return CFG_WMODE_MAP[index*2];
 	}
 
@@ -282,22 +282,15 @@ static BOOLEAN wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
 static BOOLEAN wmode_valid_and_correct(RTMP_ADAPTER *pAd, UCHAR* wmode)
 {
 	BOOLEAN ret = TRUE;
-	//UCHAR mode = *wmode;
 
 	if (WMODE_CAP_5G(*wmode) && (!PHY_CAP_5G(pAd->chipCap.phy_caps)))
-	{
 		*wmode = *wmode & ~(WMODE_A | WMODE_AN | WMODE_AC);
-	}
 	else if (WMODE_CAP_2G(*wmode) && (!PHY_CAP_2G(pAd->chipCap.phy_caps)))
-	{
 		*wmode = *wmode & ~(WMODE_B | WMODE_G | WMODE_GN);
-	}
 	else if (WMODE_CAP_N(*wmode) && RTMP_TEST_MORE_FLAG(pAd, fRTMP_ADAPTER_DISABLE_DOT_11N))
-	{
 		*wmode = *wmode & ~(WMODE_GN | WMODE_AN);
-	}
 
-	if ( *wmode == 0 )
+	if (*wmode == 0 )
 		ret = FALSE;
 
 	return ret;
@@ -343,7 +336,6 @@ INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
 {
 	LONG cfg_mode;
 	UCHAR wmode, *mode_str;
-
 
 	cfg_mode = simple_strtol(arg, 0, 10);
 
@@ -492,7 +484,7 @@ static BOOLEAN RT_isLegalCmdBeforeInfUp(
 					!strcmp(SetCmd, "ModuleTxpower") ||
 #endif /* SINGLE_SKU */
 					FALSE; /* default */
-       return TestFlag;
+	return TestFlag;
 }
 
 
@@ -600,15 +592,13 @@ INT RT_CfgSetWPAPSKKey(
 	if ((keyStringLen < 8) || (keyStringLen > 64))
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WPAPSK Key length(%d) error, required 8 ~ 64 characters!(keyStr=%s)\n", 
-									keyStringLen, keyString));
+						keyStringLen, keyString));
 		return FALSE;
 	}
 
 	NdisZeroMemory(pPMKBuf, 32);
 	if (keyStringLen == 64)
-	{
-	    AtoH(keyString, pPMKBuf, 32);
-	}
+		AtoH(keyString, pPMKBuf, 32);
 	else
 	{
 	    RtmpPasswordHash(keyString, pHashStr, hashStrLen, keyMaterial);
@@ -627,9 +617,9 @@ INT	RT_CfgSetFixedTxPhyMode(PSTRING arg)
 	if (rtstrcasecmp(arg, "OFDM") == TRUE)
 		fix_tx_mode = FIXED_TXMODE_OFDM;
 	else if (rtstrcasecmp(arg, "CCK") == TRUE)
-	    fix_tx_mode = FIXED_TXMODE_CCK;
+		fix_tx_mode = FIXED_TXMODE_CCK;
 	else if (rtstrcasecmp(arg, "HT") == TRUE)
-	    fix_tx_mode = FIXED_TXMODE_HT;
+		fix_tx_mode = FIXED_TXMODE_HT;
 	else if (rtstrcasecmp(arg, "VHT") == TRUE)
 		fix_tx_mode = FIXED_TXMODE_VHT;
 	else
@@ -653,7 +643,7 @@ INT	RT_CfgSetFixedTxPhyMode(PSTRING arg)
 
 INT	RT_CfgSetMacAddress(
 	IN 	PRTMP_ADAPTER 	pAd,
-	IN	PSTRING			arg)
+	IN	PSTRING		arg)
 {
 	INT	i, mac_len;
 	
@@ -974,26 +964,20 @@ INT RTMP_COM_IoctlHandle(
 			if (VendorID == 0x0DB0)
 			{
 				if ((ProductID == 0x871C) || (ProductID == 0x822C))
-				{
 					RTMP_SET_MORE_FLAG(pAd, (fRTMP_ADAPTER_DISABLE_DOT_11N | fRTMP_ADAPTER_WSC_PBC_PIN0));
-				}
 				if ((ProductID == 0x871A) || (ProductID == 0x822A))
-				{
 					RTMP_SET_MORE_FLAG(pAd, fRTMP_ADAPTER_DISABLE_DOT_11N);
-				}
 				if ((ProductID == 0x871B) || (ProductID == 0x822B))
-				{
 					RTMP_SET_MORE_FLAG(pAd, fRTMP_ADAPTER_WSC_PBC_PIN0);
-				}
 			}
 
-	    	if (VendorID == 0x07D1)
-	    	{
+	 		if (VendorID == 0x07D1)
+	    		{
 				if (ProductID == 0x3C0F)
 					RTMP_SET_MORE_FLAG(pAd, fRTMP_ADAPTER_DISABLE_DOT_11N);
-	    	}
+			}
 		}
-			break;
+		break;
 
 		case CMD_RTPRIV_IOCTL_USB_CONFIG_INIT:
 		{
@@ -1004,10 +988,8 @@ INT RTMP_COM_IoctlHandle(
 			pAd->BulkInMaxPacketSize = pConfig->BulkInMaxPacketSize;
 			pAd->BulkOutMaxPacketSize = pConfig->BulkOutMaxPacketSize;
 
-			for (i = 0; i < 6; i++) 
-				pAd->BulkOutEpAddr[i] = pConfig->BulkOutEpAddr[i];
-
 			for (i = 0; i < 6; i++) {
+				pAd->BulkOutEpAddr[i] = pConfig->BulkOutEpAddr[i];
 				DBGPRINT(RT_DEBUG_OFF, ("%s():pAd->BulkOutEpAddr=0x%x\n", __FUNCTION__, pAd->BulkOutEpAddr[i]));
 			}
 
@@ -1131,9 +1113,7 @@ INT RTMP_COM_IoctlHandle(
 					for(index = 0; index < MAX_MBSSID_NUM(pAd); index++)
 					{
 						if (pAd->ApCfg.MBSSID[index].MSSIDDev == (PNET_DEV)(pStats->pNetDev))
-						{
 							break;
-						}
 					}
 						
 					if(index >= MAX_MBSSID_NUM(pAd))
@@ -1196,8 +1176,7 @@ INT RTMP_COM_IoctlHandle(
 			if (CurOpMode == OPMODE_AP)
 			{
 #ifdef APCLI_SUPPORT
-				if ((pStats->priv_flags == INT_APCLI)
-					)
+				if ((pStats->priv_flags == INT_APCLI))
 				{
 					INT ApCliIdx = ApCliIfLookUp(pAd, (PUCHAR)pStats->dev_addr);
 					if ((ApCliIdx >= 0) && VALID_WCID(pAd->ApCfg.ApCliTab[ApCliIdx].MacTabWCID))
@@ -1232,8 +1211,7 @@ INT RTMP_COM_IoctlHandle(
 			if (CurOpMode == OPMODE_AP)
 			{
 				if (pMacEntry != NULL)
-					pStats->level =
-						RTMPMaxRssi(pAd, pMacEntry->RssiSample.AvgRssi0,
+					pStats->level = RTMPMaxRssi(pAd, pMacEntry->RssiSample.AvgRssi0,
 										pMacEntry->RssiSample.AvgRssi1,
 										pMacEntry->RssiSample.AvgRssi2);
 			}
@@ -1308,7 +1286,7 @@ INT RTMP_COM_IoctlHandle(
 			PermanentAddress[4] = (UCHAR)(Addr45 & 0xff);
 			PermanentAddress[5] = (UCHAR)(Addr45 >> 8);				
 			
-			for(i=0; i<6; i++)
+			for(i = 0; i < 6; i++)
 				*(UCHAR *)(pData+i) = PermanentAddress[i];
 			break;
 #ifdef CONFIG_AP_SUPPORT
@@ -1408,9 +1386,9 @@ INT Set_SiteSurvey_Proc(
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
 		if ((strlen(arg) != 0) && (strlen(arg) <= MAX_LEN_OF_SSID))
-    	{
-        	NdisMoveMemory(Ssid.Ssid, arg, strlen(arg));
-        	Ssid.SsidLength = strlen(arg);
+		{
+			NdisMoveMemory(Ssid.Ssid, arg, strlen(arg));
+			Ssid.SsidLength = strlen(arg);
 		}
 
 		if (Ssid.SsidLength == 0)
@@ -1426,7 +1404,7 @@ INT Set_SiteSurvey_Proc(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_SiteSurvey_Proc\n"));
 
-    return TRUE;
+	return TRUE;
 }
 
 INT	Set_Antenna_Proc(
@@ -1487,4 +1465,3 @@ INT Set_MO_FalseCCATh_Proc(
 	return TRUE;
 }
 #endif /* MICROWAVE_OVEN_SUPPORT */
-

@@ -15,14 +15,14 @@
 
     Module Name:
 	cmm_profile.c
- 
+
     Abstract:
- 
+
     Revision History:
     Who          When          What
     ---------    ----------    ----------------------------------------------
  */
- 
+
 #include "rt_config.h"
 
 
@@ -62,10 +62,10 @@ BOOLEAN rtstrcasecmp(PSTRING s1, PSTRING s2)
 {
 	PSTRING p1 = s1, p2 = s2;
 	CHAR c1, c2;
-	
+
 	if (strlen(s1) != strlen(s2))
 		return FALSE;
-	
+
 	while(*p1 != '\0')
 	{
 		c1 = ASC_LOWER(*p1);
@@ -75,7 +75,7 @@ BOOLEAN rtstrcasecmp(PSTRING s1, PSTRING s2)
 		p1++;
 		p2++;
 	}
-	
+
 	return TRUE;
 }
 
@@ -115,7 +115,7 @@ PSTRING rtstrstruncasecmp(PSTRING s1, PSTRING s2)
 
 		s1++;
 	}
-	
+
 	return NULL; /* not found*/
 }
 
@@ -132,9 +132,9 @@ PSTRING rtstrstr(PSTRING s1,const PSTRING s2)
 	l2 = strlen(s2);
 	if (!l2)
 		return s1;
-	
+
 	l1 = strlen(s1);
-	
+
 	while (l1 >= l2)
 	{
 		l1--;
@@ -142,10 +142,10 @@ PSTRING rtstrstr(PSTRING s1,const PSTRING s2)
 			return s1;
 		s1++;
 	}
-	
+
 	return NULL;
 }
- 
+
 /**
  * rstrtok - Split a string into tokens
  * @s: The string to be searched
@@ -159,9 +159,7 @@ PSTRING rstrtok(PSTRING s,const PSTRING ct)
 
 	sbegin  = s ? s : __rstrtok;
 	if (!sbegin)
-	{
 		return NULL;
-	}
 
 	sbegin += strspn(sbegin,ct);
 	if (*sbegin == '\0')
@@ -189,34 +187,34 @@ INT delimitcnt(PSTRING s,PSTRING ct)
 {
 	INT count = 0;
 	/* point to the beginning of the line */
-	PSTRING token = s; 
+	PSTRING token = s;
 
 	for ( ;; )
 	{
 		token = strpbrk(token, ct); /* search for delimiters */
 
-        if ( token == NULL )
+		if ( token == NULL )
 		{
 			/* advanced to the terminating null character */
-			break; 
+			break;
 		}
 		/* skip the delimiter */
-	    ++token; 
+		++token;
 
 		/*
 		 * Print the found text: use len with %.*s to specify field width.
 		 */
-        
+
 		/* accumulate delimiter count */
-	    ++count; 
+		++count; 
 	}
-    return count;
+	return count;
 }
 
 /*
   * converts the Internet host address from the standard numbers-and-dots notation
   * into binary data.
-  * returns nonzero if the address is valid, zero if not.	
+  * returns nonzero if the address is valid, zero if not.
   */
 int rtinet_aton(PSTRING cp, unsigned int *addr)
 {
@@ -227,90 +225,88 @@ int rtinet_aton(PSTRING cp, unsigned int *addr)
 	unsigned int    *pp = parts;
 
 	for (;;)
-    {
-         /*
-          * Collect number up to ``.''. 
-          * Values are specified as for C: 
-          *	0x=hex, 0=octal, other=decimal.
-          */
-         val = 0;
-         base = 10;
-         if (*cp == '0')
-         {
-             if (*++cp == 'x' || *cp == 'X')
-                 base = 16, cp++;
-             else
-                 base = 8;
-         }
-         while ((c = *cp) != '\0')
-         {
-             if (isdigit((unsigned char) c))
-             {
-                 val = (val * base) + (c - '0');
-                 cp++;
-                 continue;
-             }
-             if (base == 16 && isxdigit((unsigned char) c))
-             {
-                 val = (val << 4) +
-                     (c + 10 - (islower((unsigned char) c) ? 'a' : 'A'));
-                 cp++;
-                 continue;
-             }
-             break;
-         }
-         if (*cp == '.')
-         {
-             /*
-              * Internet format: a.b.c.d a.b.c   (with c treated as 16-bits)
-              * a.b     (with b treated as 24 bits)
-              */
-             if (pp >= parts + 3 || val > 0xff)
-                 return 0;
-             *pp++ = val, cp++;
-         }
-         else
-             break;
-     }
- 
-     /*
-      * Check for trailing junk.
-      */
-     while (*cp)
-         if (!isspace((unsigned char) *cp++))
-             return 0;
- 
-     /*
-      * Concoct the address according to the number of parts specified.
-      */
-     n = pp - parts + 1;
-     switch (n)
-     {
- 
-         case 1:         /* a -- 32 bits */
-             break;
- 
-         case 2:         /* a.b -- 8.24 bits */
-             if (val > 0xffffff)
-                 return 0;
-             val |= parts[0] << 24;
-             break;
- 
-         case 3:         /* a.b.c -- 8.8.16 bits */
-             if (val > 0xffff)
-                 return 0;
-             val |= (parts[0] << 24) | (parts[1] << 16);
-             break;
- 
-         case 4:         /* a.b.c.d -- 8.8.8.8 bits */
-             if (val > 0xff)
-                 return 0;
-             val |= (parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8);
-             break;
-     }
-	      
-     *addr = OS_HTONL(val);
-     return 1;
+	{
+		/*
+		 * Collect number up to ``.''.
+		 * Values are specified as for C:
+		 *	0x=hex, 0=octal, other=decimal.
+		 */
+		val = 0;
+		base = 10;
+		if (*cp == '0')
+		{
+			if (*++cp == 'x' || *cp == 'X')
+				base = 16, cp++;
+			else
+				base = 8;
+		}
+		while ((c = *cp) != '\0')
+		{
+			if (isdigit((unsigned char) c))
+			{
+				val = (val * base) + (c - '0');
+				cp++;
+				continue;
+			}
+			if (base == 16 && isxdigit((unsigned char) c))
+			{
+				val = (val << 4) +
+				(c + 10 - (islower((unsigned char) c) ? 'a' : 'A'));
+				cp++;
+				continue;
+			}
+			break;
+		}
+		if (*cp == '.')
+		{
+			/*
+			 * Internet format: a.b.c.d a.b.c   (with c treated as 16-bits)
+			 * a.b     (with b treated as 24 bits)
+			 */
+			if (pp >= parts + 3 || val > 0xff)
+				return 0;
+			*pp++ = val, cp++;
+		}
+		else
+			break;
+	}
+
+	/*
+	 * Check for trailing junk.
+	 */
+	while (*cp)
+		if (!isspace((unsigned char) *cp++))
+			return 0;
+
+	/*
+	 * Concoct the address according to the number of parts specified.
+	 */
+	n = pp - parts + 1;
+	switch (n)
+	{
+
+		case 1:         /* a -- 32 bits */
+			break;
+
+		case 2:         /* a.b -- 8.24 bits */
+			if (val > 0xffffff)
+				return 0;
+			val |= parts[0] << 24;
+			break;
+		case 3:         /* a.b.c -- 8.8.16 bits */
+			if (val > 0xffff)
+				return 0;
+			val |= (parts[0] << 24) | (parts[1] << 16);
+			break;
+		case 4:         /* a.b.c.d -- 8.8.8.8 bits */
+			if (val > 0xff)
+				return 0;
+			val |= (parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8);
+			break;
+	}
+
+	*addr = OS_HTONL(val);
+	return 1;
 
 }
 
@@ -332,15 +328,15 @@ int rtinet_aton(PSTRING cp, unsigned int *addr)
 PSTRING RTMPFindSection(
     IN  PSTRING   buffer)
 {
-    STRING temp_buf[32];
-    PSTRING  ptr;
+	STRING temp_buf[32];
+	PSTRING  ptr;
 
-    strcpy(temp_buf, "Default");
+	strcpy(temp_buf, "Default");
 
-    if((ptr = rtstrstr(buffer, temp_buf)) != NULL)
-            return (ptr+strlen("\n"));
-        else
-            return NULL;
+	if((ptr = rtstrstr(buffer, temp_buf)) != NULL)
+		return (ptr+strlen("\n"));
+	else
+		return NULL;
 }
 
 /*
@@ -1641,122 +1637,101 @@ static void HTParametersHook(
 	PSTRING		Bufptr;
 #endif /* CONFIG_AP_SUPPORT */
 
-    if (RTMPGetKeyParameter("HT_PROTECT", pValueStr, 25, pInput, TRUE))
-    {
-        Value = simple_strtol(pValueStr, 0, 10);
-        if (Value == 0)
-        {
-            pAd->CommonCfg.bHTProtect = FALSE;
-        }
-        else
-        {
-            pAd->CommonCfg.bHTProtect = TRUE;
-        }
-        DBGPRINT(RT_DEBUG_TRACE, ("HT: Protection  = %s\n", (Value==0) ? "Disable" : "Enable"));
-    }
-
-
-    if (RTMPGetKeyParameter("HT_MIMOPSMode", pValueStr, 25, pInput, TRUE))
-    {
-        Value = simple_strtol(pValueStr, 0, 10);
-        if (Value > MMPS_ENABLE)
-        {
-			pAd->CommonCfg.BACapability.field.MMPSmode = MMPS_ENABLE;
-        }
-        else
-        {
-            /*TODO: add mimo power saving mechanism*/
-            pAd->CommonCfg.BACapability.field.MMPSmode = MMPS_ENABLE;
-			/*pAd->CommonCfg.BACapability.field.MMPSmode = Value;*/
-        }
-        DBGPRINT(RT_DEBUG_TRACE, ("HT: MIMOPS Mode  = %d\n", (INT) Value));
-    }
-
-    if (RTMPGetKeyParameter("HT_BADecline", pValueStr, 25, pInput, TRUE))
-    {
-        Value = simple_strtol(pValueStr, 0, 10);
-        if (Value == 0)
-        {
-            pAd->CommonCfg.bBADecline = FALSE;
-        }
-        else
-        {
-            pAd->CommonCfg.bBADecline = TRUE;
-        }
-        DBGPRINT(RT_DEBUG_TRACE, ("HT: BA Decline  = %s\n", (Value==0) ? "Disable" : "Enable"));
-    }
-
-
-    if (RTMPGetKeyParameter("HT_AutoBA", pValueStr, 25, pInput, TRUE))
-    {
-        Value = simple_strtol(pValueStr, 0, 10);
-        if (Value == 0)
-        {
-            pAd->CommonCfg.BACapability.field.AutoBA = FALSE;
-			pAd->CommonCfg.BACapability.field.Policy = BA_NOTUSE;
-        }
-        else
-        {
-            pAd->CommonCfg.BACapability.field.AutoBA = TRUE;
-			pAd->CommonCfg.BACapability.field.Policy = IMMED_BA;
-        }
-        pAd->CommonCfg.REGBACapability.field.AutoBA = pAd->CommonCfg.BACapability.field.AutoBA;
-		pAd->CommonCfg.REGBACapability.field.Policy = pAd->CommonCfg.BACapability.field.Policy;
-        DBGPRINT(RT_DEBUG_TRACE, ("HT: Auto BA  = %s\n", (Value==0) ? "Disable" : "Enable"));
-    }
-
-	/* Tx_+HTC frame*/
-    if (RTMPGetKeyParameter("HT_HTC", pValueStr, 25, pInput, TRUE))
+	if (RTMPGetKeyParameter("HT_PROTECT", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
+
 		if (Value == 0)
-		{
-			pAd->HTCEnable = FALSE;
-		}
+			pAd->CommonCfg.bHTProtect = FALSE;
 		else
-		{
-            pAd->HTCEnable = TRUE;
-		}
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: Tx +HTC frame = %s\n", (Value==0) ? "Disable" : "Enable"));
+			pAd->CommonCfg.bHTProtect = TRUE;
+
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Protection  = %s\n", (Value==0) ? "Disable" : "Enable"));
 	}
 
 
-	/* Reverse Direction Mechanism*/
-    if (RTMPGetKeyParameter("HT_RDG", pValueStr, 25, pInput, TRUE))
+	if (RTMPGetKeyParameter("HT_MIMOPSMode", pValueStr, 25, pInput, TRUE))
+	{
+		Value = simple_strtol(pValueStr, 0, 10);
+		if (Value > MMPS_ENABLE)
+			pAd->CommonCfg.BACapability.field.MMPSmode = MMPS_ENABLE;
+		else
+		{
+			/*TODO: add mimo power saving mechanism*/
+			pAd->CommonCfg.BACapability.field.MMPSmode = MMPS_ENABLE;
+			/*pAd->CommonCfg.BACapability.field.MMPSmode = Value;*/
+		}
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: MIMOPS Mode = %d\n", (INT) Value));
+	}
+
+	if (RTMPGetKeyParameter("HT_BADecline", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 		if (Value == 0)
-		{			
-			pAd->CommonCfg.bRdg = FALSE;
+			pAd->CommonCfg.bBADecline = FALSE;
+		else
+			pAd->CommonCfg.bBADecline = TRUE;
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: BA Decline  = %s\n", (Value==0) ? "Disable" : "Enable"));
+	}
+
+	if (RTMPGetKeyParameter("HT_AutoBA", pValueStr, 25, pInput, TRUE))
+	{
+		Value = simple_strtol(pValueStr, 0, 10);
+		if (Value == 0)
+		{
+			pAd->CommonCfg.BACapability.field.AutoBA = FALSE;
+			pAd->CommonCfg.BACapability.field.Policy = BA_NOTUSE;
 		}
 		else
 		{
+			pAd->CommonCfg.BACapability.field.AutoBA = TRUE;
+			pAd->CommonCfg.BACapability.field.Policy = IMMED_BA;
+		}
+		pAd->CommonCfg.REGBACapability.field.AutoBA = pAd->CommonCfg.BACapability.field.AutoBA;
+		pAd->CommonCfg.REGBACapability.field.Policy = pAd->CommonCfg.BACapability.field.Policy;
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Auto BA  = %s\n", (Value==0) ? "Disable" : "Enable"));
+	}
+
+	/* Tx_+HTC frame*/
+	if (RTMPGetKeyParameter("HT_HTC", pValueStr, 25, pInput, TRUE))
+	{
+		Value = simple_strtol(pValueStr, 0, 10);
+		if (Value == 0)
+			pAd->HTCEnable = FALSE;
+		else
 			pAd->HTCEnable = TRUE;
-            pAd->CommonCfg.bRdg = TRUE;
+
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Tx +HTC frame = %s\n", (Value==0) ? "Disable" : "Enable"));
+	}
+
+	/* Reverse Direction Mechanism*/
+	if (RTMPGetKeyParameter("HT_RDG", pValueStr, 25, pInput, TRUE))
+	{
+		Value = simple_strtol(pValueStr, 0, 10);
+		if (Value == 0)
+			pAd->CommonCfg.bRdg = FALSE;
+		else
+		{
+			pAd->HTCEnable = TRUE;
+			pAd->CommonCfg.bRdg = TRUE;
 		}
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: RDG = %s\n", (Value==0) ? "Disable" : "Enable(+HTC)"));
 	}
 
-
-
-
 	/* Tx A-MSUD ?*/
-    if (RTMPGetKeyParameter("HT_AMSDU", pValueStr, 25, pInput, TRUE))
+	if (RTMPGetKeyParameter("HT_AMSDU", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 		if (Value == 0)
-		{
 			pAd->CommonCfg.BACapability.field.AmsduEnable = FALSE;
-		}
 		else
-		{
-            pAd->CommonCfg.BACapability.field.AmsduEnable = TRUE;
-		}
+			pAd->CommonCfg.BACapability.field.AmsduEnable = TRUE;
+
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: Tx A-MSDU = %s\n", (Value==0) ? "Disable" : "Enable"));
 	}
 
 	/* MPDU Density*/
-    if (RTMPGetKeyParameter("HT_MpduDensity", pValueStr, 25, pInput, TRUE))
+	if (RTMPGetKeyParameter("HT_MpduDensity", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 		if (Value <=7 && Value >= 0)
@@ -1772,7 +1747,7 @@ static void HTParametersHook(
 	}
 
 	/* Max Rx BA Window Size*/
-    if (RTMPGetKeyParameter("HT_BAWinSize", pValueStr, 25, pInput, TRUE))
+	if (RTMPGetKeyParameter("HT_BAWinSize", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 
@@ -1789,7 +1764,7 @@ static void HTParametersHook(
 		}
 		else
 		{
-            pAd->CommonCfg.REGBACapability.field.RxBAWinLimit = 64;
+			pAd->CommonCfg.REGBACapability.field.RxBAWinLimit = 64;
 			pAd->CommonCfg.BACapability.field.RxBAWinLimit = 64;
 			DBGPRINT(RT_DEBUG_TRACE, ("HT: BA Windw Size = 64 (Defualt)\n"));
 		}
@@ -1802,13 +1777,9 @@ static void HTParametersHook(
 		Value = simple_strtol(pValueStr, 0, 10);
 
 		if (Value == GI_400)
-		{
 			pAd->CommonCfg.RegTransmitSetting.field.ShortGI = GI_400;
-		}
 		else
-		{
 			pAd->CommonCfg.RegTransmitSetting.field.ShortGI = GI_800;
-		}
 		
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: Guard Interval = %s\n", (Value==GI_400) ? "400" : "800" ));
 	}
@@ -1819,14 +1790,9 @@ static void HTParametersHook(
 		Value = simple_strtol(pValueStr, 0, 10);
 
 		if (Value == HTMODE_GF)
-		{
-
 			pAd->CommonCfg.RegTransmitSetting.field.HTMODE  = HTMODE_GF;
-		}
 		else
-		{
-			pAd->CommonCfg.RegTransmitSetting.field.HTMODE  = HTMODE_MM;
-		}		
+			pAd->CommonCfg.RegTransmitSetting.field.HTMODE  = HTMODE_MM;		
 
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: Operate Mode = %s\n", (Value==HTMODE_GF) ? "Green Field" : "Mixed Mode" ));
 	}
@@ -1887,13 +1853,9 @@ static void HTParametersHook(
 			{
 				Value = simple_strtol(Bufptr, 0, 10);			
 				if ((Value >= 0 && Value <= 23) || (Value == 32))
-				{
 					pAd->ApCfg.MBSSID[i].DesiredTransmitSetting.field.MCS  = Value;
-				}
 				else
-				{
 					pAd->ApCfg.MBSSID[i].DesiredTransmitSetting.field.MCS  = MCS_AUTO;
-				}
 				DBGPRINT(RT_DEBUG_TRACE, ("(IF-ra%d) HT: MCS = %s(%d)\n", i, 
 						(pAd->ApCfg.MBSSID[i].DesiredTransmitSetting.field.MCS == MCS_AUTO ? "AUTO" : "Fixed"),
 						pAd->ApCfg.MBSSID[i].DesiredTransmitSetting.field.MCS));
@@ -1904,17 +1866,14 @@ static void HTParametersHook(
 	}
 
 	/* STBC */
-    if (RTMPGetKeyParameter("HT_STBC", pValueStr, 25, pInput, TRUE))
+	if (RTMPGetKeyParameter("HT_STBC", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
-		if (Value == STBC_USE)
-		{		
+		if (Value == STBC_USE)		
 			pAd->CommonCfg.RegTransmitSetting.field.STBC = STBC_USE;
-		}
 		else
-		{
 			pAd->CommonCfg.RegTransmitSetting.field.STBC = STBC_NONE;
-		}
+
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: STBC = %d\n", pAd->CommonCfg.RegTransmitSetting.field.STBC));
 	}
 
@@ -1923,15 +1882,13 @@ static void HTParametersHook(
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 		if (Value == 0)
-		{		
 			pAd->CommonCfg.bForty_Mhz_Intolerant = FALSE;
-		}
 		else
-		{
 			pAd->CommonCfg.bForty_Mhz_Intolerant = TRUE;
-		}
+
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: 40MHZ INTOLERANT = %d\n", pAd->CommonCfg.bForty_Mhz_Intolerant));
 	}
+
 	/*HT_TxStream*/
 	if(RTMPGetKeyParameter("HT_TxStream", pValueStr, 10, pInput, TRUE))
 	{
@@ -1980,14 +1937,11 @@ static void HTParametersHook(
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 		if (Value == 0)
-		{		
 			pAd->ApCfg.bGreenAPEnable = FALSE;
-		}
 		else
-		{
 			pAd->ApCfg.bGreenAPEnable = TRUE;
-		}
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: Green AP= %d\n", pAd->ApCfg.bGreenAPEnable));
+
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Green AP = %d\n", pAd->ApCfg.bGreenAPEnable));
 	}
 #endif /* GREENAP_SUPPORT */
 	/* HT_DisallowTKIP*/
@@ -1995,119 +1949,106 @@ static void HTParametersHook(
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 
-		if (Value == 1)
-		{
-			pAd->CommonCfg.HT_DisallowTKIP = TRUE;
-		}
-		else
-		{
+		if (Value == 0)
 			pAd->CommonCfg.HT_DisallowTKIP = FALSE;
-		}		
+		else
+			pAd->CommonCfg.HT_DisallowTKIP = TRUE;
 
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: Disallow TKIP mode = %s\n", (pAd->CommonCfg.HT_DisallowTKIP == TRUE) ? "ON" : "OFF" ));
 	}
 
 #ifdef DOT11_N_SUPPORT
 #ifdef DOT11N_DRAFT3
-			if (RTMPGetKeyParameter("OBSSScanParam", pValueStr, 32, pInput, TRUE))
+	if (RTMPGetKeyParameter("OBSSScanParam", pValueStr, 32, pInput, TRUE))
+	{
+		int ObssScanValue, idx;
+		PSTRING	macptr;	
+		for (idx = 0, macptr = rstrtok(pValueStr,";"); macptr; macptr = rstrtok(NULL,";"), idx++)
+		{
+			ObssScanValue = simple_strtol(macptr, 0, 10);
+			switch (idx)
 			{
-				int ObssScanValue, idx;
-				PSTRING	macptr;	
-				for (idx = 0, macptr = rstrtok(pValueStr,";"); macptr; macptr = rstrtok(NULL,";"), idx++)
-				{
-					ObssScanValue = simple_strtol(macptr, 0, 10);
-					switch (idx)
+				case 0:
+					if (ObssScanValue < 5 || ObssScanValue > 1000)
+						DBGPRINT(RT_DEBUG_ERROR, ("Invalid OBSSScanParam for Dot11OBssScanPassiveDwell(%d), should in range 5~1000\n", ObssScanValue));
+					else
 					{
-						case 0:
-							if (ObssScanValue < 5 || ObssScanValue > 1000)
-							{
-								DBGPRINT(RT_DEBUG_ERROR, ("Invalid OBSSScanParam for Dot11OBssScanPassiveDwell(%d), should in range 5~1000\n", ObssScanValue));
-							}
-							else
-							{
-								pAd->CommonCfg.Dot11OBssScanPassiveDwell = ObssScanValue;	/* Unit : TU. 5~1000*/
-								DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11OBssScanPassiveDwell=%d\n", ObssScanValue));
-							}
-							break;
-						case 1:
-							if (ObssScanValue < 10 || ObssScanValue > 1000)
-							{
-								DBGPRINT(RT_DEBUG_ERROR, ("Invalid OBSSScanParam for Dot11OBssScanActiveDwell(%d), should in range 10~1000\n", ObssScanValue));
-							}
-							else
-							{
-								pAd->CommonCfg.Dot11OBssScanActiveDwell = ObssScanValue;	/* Unit : TU. 10~1000*/
-								DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11OBssScanActiveDwell=%d\n", ObssScanValue));
-							}
-							break;
-						case 2:
-							pAd->CommonCfg.Dot11BssWidthTriggerScanInt = ObssScanValue;	/* Unit : Second*/
-							DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11BssWidthTriggerScanInt=%d\n", ObssScanValue));
-							break;
-						case 3:
-							if (ObssScanValue < 200 || ObssScanValue > 10000)
-							{
-								DBGPRINT(RT_DEBUG_ERROR, ("Invalid OBSSScanParam for Dot11OBssScanPassiveTotalPerChannel(%d), should in range 200~10000\n", ObssScanValue));
-							}
-							else
-							{
-								pAd->CommonCfg.Dot11OBssScanPassiveTotalPerChannel = ObssScanValue;	/* Unit : TU. 200~10000*/
-								DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11OBssScanPassiveTotalPerChannel=%d\n", ObssScanValue));
-							}
-							break;
-						case 4:
-							if (ObssScanValue < 20 || ObssScanValue > 10000)
-							{
-								DBGPRINT(RT_DEBUG_ERROR, ("Invalid OBSSScanParam for Dot11OBssScanActiveTotalPerChannel(%d), should in range 20~10000\n", ObssScanValue));
-							}
-							else
-							{
-								pAd->CommonCfg.Dot11OBssScanActiveTotalPerChannel = ObssScanValue;	/* Unit : TU. 20~10000*/
-								DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11OBssScanActiveTotalPerChannel=%d\n", ObssScanValue));
-							}
-							break;
-						case 5:
-							pAd->CommonCfg.Dot11BssWidthChanTranDelayFactor = ObssScanValue;
-							DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11BssWidthChanTranDelayFactor=%d\n", ObssScanValue));
-							break;
-						case 6:
-							pAd->CommonCfg.Dot11OBssScanActivityThre = ObssScanValue;	/* Unit : percentage*/
-							DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11BssWidthChanTranDelayFactor=%d\n", ObssScanValue));
-							break;
-					}			
-				}
+						pAd->CommonCfg.Dot11OBssScanPassiveDwell = ObssScanValue;	/* Unit : TU. 5~1000*/
+						DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11OBssScanPassiveDwell=%d\n", ObssScanValue));
+					}
+					break;
+				case 1:
+					if (ObssScanValue < 10 || ObssScanValue > 1000)
+						DBGPRINT(RT_DEBUG_ERROR, ("Invalid OBSSScanParam for Dot11OBssScanActiveDwell(%d), should in range 10~1000\n", ObssScanValue));
+					else
+					{
+						pAd->CommonCfg.Dot11OBssScanActiveDwell = ObssScanValue;	/* Unit : TU. 10~1000*/
+						DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11OBssScanActiveDwell=%d\n", ObssScanValue));
+					}
+					break;
+				case 2:
+					pAd->CommonCfg.Dot11BssWidthTriggerScanInt = ObssScanValue;	/* Unit : Second*/
+					DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11BssWidthTriggerScanInt=%d\n", ObssScanValue));
+					break;
+				case 3:
+					if (ObssScanValue < 200 || ObssScanValue > 10000)
+						DBGPRINT(RT_DEBUG_ERROR, ("Invalid OBSSScanParam for Dot11OBssScanPassiveTotalPerChannel(%d), should in range 200~10000\n", ObssScanValue));
+					else
+					{
+						pAd->CommonCfg.Dot11OBssScanPassiveTotalPerChannel = ObssScanValue;	/* Unit : TU. 200~10000*/
+						DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11OBssScanPassiveTotalPerChannel=%d\n", ObssScanValue));
+					}
+					break;
+				case 4:
+					if (ObssScanValue < 20 || ObssScanValue > 10000)
+						DBGPRINT(RT_DEBUG_ERROR, ("Invalid OBSSScanParam for Dot11OBssScanActiveTotalPerChannel(%d), should in range 20~10000\n", ObssScanValue));
+					else
+					{
+						pAd->CommonCfg.Dot11OBssScanActiveTotalPerChannel = ObssScanValue;	/* Unit : TU. 20~10000*/
+						DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11OBssScanActiveTotalPerChannel=%d\n", ObssScanValue));
+					}
+					break;
+				case 5:
+					pAd->CommonCfg.Dot11BssWidthChanTranDelayFactor = ObssScanValue;
+					DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11BssWidthChanTranDelayFactor=%d\n", ObssScanValue));
+					break;
+				case 6:
+					pAd->CommonCfg.Dot11OBssScanActivityThre = ObssScanValue;	/* Unit : percentage*/
+					DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11BssWidthChanTranDelayFactor=%d\n", ObssScanValue));
+					break;
+			}			
+		}
 
-				if (idx != 7)
-				{
-					DBGPRINT(RT_DEBUG_ERROR, ("Wrong OBSSScanParamtetrs format in dat file!!!!! Use default value.\n"));
+		if (idx != 7)
+		{
+			DBGPRINT(RT_DEBUG_ERROR, ("Wrong OBSSScanParamtetrs format in dat file!!!!! Use default value.\n"));
 
-					pAd->CommonCfg.Dot11OBssScanPassiveDwell = dot11OBSSScanPassiveDwell;	/* Unit : TU. 5~1000*/
-					pAd->CommonCfg.Dot11OBssScanActiveDwell = dot11OBSSScanActiveDwell;	/* Unit : TU. 10~1000*/
-					pAd->CommonCfg.Dot11BssWidthTriggerScanInt = dot11BSSWidthTriggerScanInterval;	/* Unit : Second	*/
-					pAd->CommonCfg.Dot11OBssScanPassiveTotalPerChannel = dot11OBSSScanPassiveTotalPerChannel;	/* Unit : TU. 200~10000*/
-					pAd->CommonCfg.Dot11OBssScanActiveTotalPerChannel = dot11OBSSScanActiveTotalPerChannel;	/* Unit : TU. 20~10000*/
-					pAd->CommonCfg.Dot11BssWidthChanTranDelayFactor = dot11BSSWidthChannelTransactionDelayFactor;
-					pAd->CommonCfg.Dot11OBssScanActivityThre = dot11BSSScanActivityThreshold;	/* Unit : percentage*/
-				}
-				pAd->CommonCfg.Dot11BssWidthChanTranDelay = (pAd->CommonCfg.Dot11BssWidthTriggerScanInt * pAd->CommonCfg.Dot11BssWidthChanTranDelayFactor);
-							DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11BssWidthChanTranDelay=%ld\n", pAd->CommonCfg.Dot11BssWidthChanTranDelay));
-			}
+			pAd->CommonCfg.Dot11OBssScanPassiveDwell = dot11OBSSScanPassiveDwell;	/* Unit : TU. 5~1000*/
+			pAd->CommonCfg.Dot11OBssScanActiveDwell = dot11OBSSScanActiveDwell;	/* Unit : TU. 10~1000*/
+			pAd->CommonCfg.Dot11BssWidthTriggerScanInt = dot11BSSWidthTriggerScanInterval;	/* Unit : Second	*/
+			pAd->CommonCfg.Dot11OBssScanPassiveTotalPerChannel = dot11OBSSScanPassiveTotalPerChannel;	/* Unit : TU. 200~10000*/
+			pAd->CommonCfg.Dot11OBssScanActiveTotalPerChannel = dot11OBSSScanActiveTotalPerChannel;	/* Unit : TU. 20~10000*/
+			pAd->CommonCfg.Dot11BssWidthChanTranDelayFactor = dot11BSSWidthChannelTransactionDelayFactor;
+			pAd->CommonCfg.Dot11OBssScanActivityThre = dot11BSSScanActivityThreshold;	/* Unit : percentage*/
+		}
+		pAd->CommonCfg.Dot11BssWidthChanTranDelay = (pAd->CommonCfg.Dot11BssWidthTriggerScanInt * pAd->CommonCfg.Dot11BssWidthChanTranDelayFactor);
+		DBGPRINT(RT_DEBUG_TRACE, ("OBSSScanParam for Dot11BssWidthChanTranDelay=%ld\n", pAd->CommonCfg.Dot11BssWidthChanTranDelay));
+	}
 
-			if (RTMPGetKeyParameter("HT_BSSCoexistence", pValueStr, 25, pInput, TRUE))
-			{
-				Value = simple_strtol(pValueStr, 0, 10);
-				pAd->CommonCfg.bBssCoexEnable = ((Value == 1) ? TRUE : FALSE);
+	if (RTMPGetKeyParameter("HT_BSSCoexistence", pValueStr, 25, pInput, TRUE))
+	{
+		Value = simple_strtol(pValueStr, 0, 10);
+		pAd->CommonCfg.bBssCoexEnable = ((Value == 1) ? TRUE : FALSE);
 
-				DBGPRINT(RT_DEBUG_TRACE, ("HT: 20/40 BssCoexSupport = %s\n", (pAd->CommonCfg.bBssCoexEnable == TRUE) ? "ON" : "OFF" ));
-			}
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: 20/40 BssCoexSupport = %s\n", (pAd->CommonCfg.bBssCoexEnable == TRUE) ? "ON" : "OFF" ));
+	}
 
-			
-			if (RTMPGetKeyParameter("HT_BSSCoexApCntThr", pValueStr, 25, pInput, TRUE))
-			{
-				pAd->CommonCfg.BssCoexApCntThr = simple_strtol(pValueStr, 0, 10);;
+	if (RTMPGetKeyParameter("HT_BSSCoexApCntThr", pValueStr, 25, pInput, TRUE))
+	{
+		pAd->CommonCfg.BssCoexApCntThr = simple_strtol(pValueStr, 0, 10);;
 
-				DBGPRINT(RT_DEBUG_TRACE, ("HT: 20/40 BssCoexApCntThr = %d\n", pAd->CommonCfg.BssCoexApCntThr));
-			}
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: 20/40 BssCoexApCntThr = %d\n", pAd->CommonCfg.BssCoexApCntThr));
+	}
 				
 #endif /* DOT11N_DRAFT3 */
 
@@ -2115,14 +2056,12 @@ static void HTParametersHook(
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 		pAd->CommonCfg.bRalinkBurstMode = ((Value == 1) ? 1 : 0);
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: RaBurstMode= %d\n", pAd->CommonCfg.bRalinkBurstMode));
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: RaBurstMode = %d\n", pAd->CommonCfg.bRalinkBurstMode));
 	}
 #endif /* DOT11_N_SUPPORT */
 
 }
 #endif /* DOT11_N_SUPPORT */
-
-
 
 
 void RTMPSetCountryCode(RTMP_ADAPTER *pAd, PSTRING CountryCode)
@@ -2185,8 +2124,8 @@ NDIS_STATUS	RTMPSetProfileParameters(
 
 		if (pAd->CommonCfg.bCountryFlag == 0)
 		{
-		if(RTMPGetKeyParameter("CountryCode", tmpbuf, 25, pBuffer, TRUE))
-			RTMPSetCountryCode(pAd, tmpbuf);
+			if(RTMPGetKeyParameter("CountryCode", tmpbuf, 25, pBuffer, TRUE))
+				RTMPSetCountryCode(pAd, tmpbuf);
 		}
 
 #ifdef EXT_BUILD_CHANNEL_LIST
@@ -2223,13 +2162,13 @@ NDIS_STATUS	RTMPSetProfileParameters(
 					DBGPRINT(RT_DEBUG_TRACE, ("BssidNum=%d(MAX_MBSSID_NUM is %d)\n", pAd->ApCfg.BssidNum,MAX_MBSSID_NUM(pAd)));
 				}
 				else
-				DBGPRINT(RT_DEBUG_TRACE, ("BssidNum=%d\n", pAd->ApCfg.BssidNum));
+					DBGPRINT(RT_DEBUG_TRACE, ("BssidNum=%d\n", pAd->ApCfg.BssidNum));
 			}
 
 			if (HW_BEACON_OFFSET > (HW_BEACON_MAX_SIZE(pAd) / pAd->ApCfg.BssidNum))
 			{
 				DBGPRINT(RT_DEBUG_OFF, ("mbss> fatal error! beacon offset is error in driver! "
-						"Please re-assign HW_BEACON_OFFSET!\n"));
+							"Please re-assign HW_BEACON_OFFSET!\n"));
 			}
 #else
 			pAd->ApCfg.BssidNum = 1;
@@ -2252,17 +2191,15 @@ NDIS_STATUS	RTMPSetProfileParameters(
 				{
 					snprintf(tok_str, sizeof(tok_str), "SSID%d", i + 1);
 					if(RTMPGetKeyParameter(tok_str, tmpbuf, 33, pBuffer, FALSE))
-						{
-							NdisMoveMemory(pAd->ApCfg.MBSSID[i].Ssid, tmpbuf , strlen(tmpbuf));
-					    	pAd->ApCfg.MBSSID[i].Ssid[strlen(tmpbuf)] = '\0';
-								    	pAd->ApCfg.MBSSID[i].SsidLen = strlen((PSTRING) pAd->ApCfg.MBSSID[i].Ssid);
-							if (bSSIDxIsUsed == FALSE)
-							{
-								bSSIDxIsUsed = TRUE;
-							}
-					    	DBGPRINT(RT_DEBUG_TRACE, ("SSID[%d]=%s\n", i, pAd->ApCfg.MBSSID[i].Ssid));
-						}
+					{
+						NdisMoveMemory(pAd->ApCfg.MBSSID[i].Ssid, tmpbuf , strlen(tmpbuf));
+						pAd->ApCfg.MBSSID[i].Ssid[strlen(tmpbuf)] = '\0';
+						pAd->ApCfg.MBSSID[i].SsidLen = strlen((PSTRING) pAd->ApCfg.MBSSID[i].Ssid);
+						if (bSSIDxIsUsed == FALSE)
+							bSSIDxIsUsed = TRUE;
+						DBGPRINT(RT_DEBUG_TRACE, ("SSID[%d]=%s\n", i, pAd->ApCfg.MBSSID[i].Ssid));
 					}
+				}
 				if (bSSIDxIsUsed == FALSE)
 				{
 					if(RTMPGetKeyParameter("SSID", tmpbuf, 256, pBuffer, FALSE))
@@ -2270,7 +2207,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 						BssidCountSupposed = delimitcnt(tmpbuf, ";") + 1;
 						if (pAd->ApCfg.BssidNum != BssidCountSupposed)
 						{
-							DBGPRINT_ERR(("Your no. of SSIDs( = %d) does not match your BssidNum( = %d)!\n", BssidCountSupposed, pAd->ApCfg.BssidNum));
+							DBGPRINT_ERR(("Your no. of SSIDs (%d) does not match your BssidNum (%d)!\n", BssidCountSupposed, pAd->ApCfg.BssidNum));
 						}
 						if (pAd->ApCfg.BssidNum > 1)
 						{
@@ -2280,13 +2217,9 @@ NDIS_STATUS	RTMPSetProfileParameters(
 								int apidx = 0;
 
 								if (i < pAd->ApCfg.BssidNum)
-								{
 									apidx = i;
-								} 
 								else
-								{
 									break;
-								}
 
 								NdisMoveMemory(pAd->ApCfg.MBSSID[apidx].Ssid, macptr , strlen(macptr));
 				    			pAd->ApCfg.MBSSID[apidx].Ssid[strlen(macptr)] = '\0';
@@ -2300,8 +2233,8 @@ NDIS_STATUS	RTMPSetProfileParameters(
 							if ((strlen(tmpbuf) > 0) && (strlen(tmpbuf) <= 32))
 							{
 								NdisMoveMemory(pAd->ApCfg.MBSSID[BSS0].Ssid, tmpbuf , strlen(tmpbuf));
-						    	pAd->ApCfg.MBSSID[BSS0].Ssid[strlen(tmpbuf)] = '\0';
-									    	pAd->ApCfg.MBSSID[BSS0].SsidLen = strlen((PSTRING) pAd->ApCfg.MBSSID[BSS0].Ssid);
+							    	pAd->ApCfg.MBSSID[BSS0].Ssid[strlen(tmpbuf)] = '\0';
+							    	pAd->ApCfg.MBSSID[BSS0].SsidLen = strlen((PSTRING) pAd->ApCfg.MBSSID[BSS0].Ssid);
 								DBGPRINT(RT_DEBUG_TRACE, ("SSID=%s\n", pAd->ApCfg.MBSSID[BSS0].Ssid));
 							}
 						}
@@ -2363,7 +2296,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 			DBGPRINT(RT_DEBUG_TRACE, ("PhyMode=%d\n", pAd->CommonCfg.PhyMode));
 		}
 
-	    /*BasicRate*/
+		/*BasicRate*/
 		if(RTMPGetKeyParameter("BasicRate", tmpbuf, 10, pBuffer, TRUE))
 		{
 			pAd->CommonCfg.BasicRateBitmap = (ULONG) simple_strtol(tmpbuf, 0, 10);
@@ -2400,114 +2333,110 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		}
 		{
 			INT k=0;
-		/*SymRoundFromCfg*/
-	            if (RTMPGetKeyParameter("SymRoundFromCfg", tmpbuf, 10, pBuffer, TRUE))
-	            {
-		                pRadarDetect->SymRoundFromCfg = (UCHAR) simple_strtol(tmpbuf, 0, 10);
-	                pRadarDetect->SymRoundCfgValid = 1;
-	                DBGPRINT(RT_DEBUG_TRACE, ("SymRoundFromCfg=%d\n", pRadarDetect->SymRoundFromCfg));
-	            }
+			/*SymRoundFromCfg*/
+			if (RTMPGetKeyParameter("SymRoundFromCfg", tmpbuf, 10, pBuffer, TRUE))
+			{
+				pRadarDetect->SymRoundFromCfg = (UCHAR) simple_strtol(tmpbuf, 0, 10);
+				pRadarDetect->SymRoundCfgValid = 1;
+				DBGPRINT(RT_DEBUG_TRACE, ("SymRoundFromCfg=%d\n", pRadarDetect->SymRoundFromCfg));
+			}
 
-	            /*BusyIdleFromCfg*/
-	            if (RTMPGetKeyParameter("BusyIdleFromCfg", tmpbuf, 10, pBuffer, TRUE))
-	            {
-	                pRadarDetect->BusyIdleFromCfg = (UCHAR) simple_strtol(tmpbuf, 0, 10);
-	                pRadarDetect->BusyIdleCfgValid = 1;
-	                DBGPRINT(RT_DEBUG_TRACE, ("BusyIdleFromCfg=%d\n", pRadarDetect->BusyIdleFromCfg));
-	            }
-	            /*DfsRssiHighFromCfg*/
-	            if (RTMPGetKeyParameter("DfsRssiHighFromCfg", tmpbuf, 10, pBuffer, TRUE))
-	            {
-	                pRadarDetect->DfsRssiHighFromCfg = simple_strtol(tmpbuf, 0, 10);
-	                pRadarDetect->DfsRssiHighCfgValid = 1;
-	                DBGPRINT(RT_DEBUG_TRACE, ("DfsRssiHighFromCfg=%d\n", pRadarDetect->DfsRssiHighFromCfg));
-	            }
+			/*BusyIdleFromCfg*/
+			if (RTMPGetKeyParameter("BusyIdleFromCfg", tmpbuf, 10, pBuffer, TRUE))
+			{
+				pRadarDetect->BusyIdleFromCfg = (UCHAR) simple_strtol(tmpbuf, 0, 10);
+				pRadarDetect->BusyIdleCfgValid = 1;
+				DBGPRINT(RT_DEBUG_TRACE, ("BusyIdleFromCfg=%d\n", pRadarDetect->BusyIdleFromCfg));
+			}
+			/*DfsRssiHighFromCfg*/
+			if (RTMPGetKeyParameter("DfsRssiHighFromCfg", tmpbuf, 10, pBuffer, TRUE))
+			{
+				pRadarDetect->DfsRssiHighFromCfg = simple_strtol(tmpbuf, 0, 10);
+				pRadarDetect->DfsRssiHighCfgValid = 1;
+				DBGPRINT(RT_DEBUG_TRACE, ("DfsRssiHighFromCfg=%d\n", pRadarDetect->DfsRssiHighFromCfg));
+			}
+			/*DfsRssiLowFromCfg*/
+			if (RTMPGetKeyParameter("DfsRssiLowFromCfg", tmpbuf, 10, pBuffer, TRUE))
+			{
+				pRadarDetect->DfsRssiLowFromCfg = simple_strtol(tmpbuf, 0, 10);
+				pRadarDetect->DfsRssiLowCfgValid = 1;
+				DBGPRINT(RT_DEBUG_TRACE, ("DfsRssiLowFromCfg=%d\n", pRadarDetect->DfsRssiLowFromCfg));
+			}
 
-	            /*DfsRssiLowFromCfg*/
-	            if (RTMPGetKeyParameter("DfsRssiLowFromCfg", tmpbuf, 10, pBuffer, TRUE))
-	            {
-	                pRadarDetect->DfsRssiLowFromCfg = simple_strtol(tmpbuf, 0, 10);
-	                pRadarDetect->DfsRssiLowCfgValid = 1;
-	                DBGPRINT(RT_DEBUG_TRACE, ("DfsRssiLowFromCfg=%d\n", pRadarDetect->DfsRssiLowFromCfg));
-	            }
-
-		/*DFSParamFromConfig*/
-		 if (RTMPGetKeyParameter("DFSParamFromConfig", tmpbuf, 10, pBuffer, TRUE))
-		 {
+			/*DFSParamFromConfig*/
+			if (RTMPGetKeyParameter("DFSParamFromConfig", tmpbuf, 10, pBuffer, TRUE))
+			{
 				pRadarDetect->DFSParamFromConfig = (UCHAR) simple_strtol(tmpbuf, 0, 10);
-			
 				DBGPRINT(RT_DEBUG_TRACE, ("DFSParamFromConfig=%d\n", pRadarDetect->DFSParamFromConfig));
-		 }
+			}
 		
-		/* DFSParam*/
-			for(k = 0; k < 4*pAd->chipCap.DfsEngineNum; k++) 
-		{
-			STRING	tok_str[32];
-			INT index ; 
+			/* DFSParam*/
+			for(k = 0; k < 4 * pAd->chipCap.DfsEngineNum; k++) 
+			{
+				STRING	tok_str[32];
+				INT index ; 
 				UINT8 DfsEngineNum = pAd->chipCap.DfsEngineNum;
 				index = (k%DfsEngineNum);
 				if (((k-k%DfsEngineNum)/DfsEngineNum) == 0)
-				snprintf(tok_str, sizeof(tok_str), "FCCParamCh%d", index);
+					snprintf(tok_str, sizeof(tok_str), "FCCParamCh%d", index);
 				else if (((k-k%DfsEngineNum)/DfsEngineNum) == 1)
-				snprintf(tok_str, sizeof(tok_str), "CEParamCh%d", index);
+					snprintf(tok_str, sizeof(tok_str), "CEParamCh%d", index);
 				else if (((k-k%DfsEngineNum)/DfsEngineNum) == 2)
-				snprintf(tok_str, sizeof(tok_str), "JAPParamCh%d", index);
+					snprintf(tok_str, sizeof(tok_str), "JAPParamCh%d", index);
 				else if (((k-k%DfsEngineNum)/DfsEngineNum) == 3)
-				snprintf(tok_str, sizeof(tok_str), "JAPW53ParamCh%d", index);
+					snprintf(tok_str, sizeof(tok_str), "JAPW53ParamCh%d", index);
 
-			if (RTMPGetKeyParameter(tok_str, tmpbuf, 128, pBuffer, TRUE))
-			{
-				ULONG DfsParam;
-		    		for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
-		    		{
-		    			DfsParam = simple_strtol(macptr, 0, 10);
-		    			switch (i)
-		    			{
-		    				case 0:
-		    					pDfsProgramParam->NewDFSTableEntry[k].mode = DfsParam;
-		    					break;
-		    				case 1:
-		    					pDfsProgramParam->NewDFSTableEntry[k].avgLen = DfsParam;
+				if (RTMPGetKeyParameter(tok_str, tmpbuf, 128, pBuffer, TRUE))
+				{
+					ULONG DfsParam;
+			    		for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
+			    		{
+			    			DfsParam = simple_strtol(macptr, 0, 10);
+			    			switch (i)
+			    			{
+			    				case 0:
+			    					pDfsProgramParam->NewDFSTableEntry[k].mode = DfsParam;
+			    					break;
+			    				case 1:
+			    					pDfsProgramParam->NewDFSTableEntry[k].avgLen = DfsParam;
 								pDfsProgramParam->NewDFSTableEntry[k].valid = 1;
-		    					break;
-		    		 		case 2:
+			    					break;
+			    		 		case 2:
 								pDfsProgramParam->NewDFSTableEntry[k].ELow = DfsParam;
-		    					break;
-		    				case 3:
+			    					break;
+			    				case 3:
 								pDfsProgramParam->NewDFSTableEntry[k].EHigh = DfsParam;
-		    					break;
-		    				case 4:
+			    					break;
+			    				case 4:
 								pDfsProgramParam->NewDFSTableEntry[k].WLow = DfsParam;
-		    					break;
-		    				case 5:
+			    					break;
+			    				case 5:
 								pDfsProgramParam->NewDFSTableEntry[k].WHigh = DfsParam;
-		    					break;
-		    				case 6:
+			    					break;
+			    				case 6:
 								pDfsProgramParam->NewDFSTableEntry[k].EpsilonW = DfsParam;
-		    					break;
-		    				case 7:
+			    					break;
+			    				case 7:
 								pDfsProgramParam->NewDFSTableEntry[k].TLow = DfsParam;
-		    					break;
-		    				case 8:
+			    					break;
+			    				case 8:
 								pDfsProgramParam->NewDFSTableEntry[k].THigh = DfsParam;
-		    					break;
-		    				case 9:
+			    					break;
+			    				case 9:
 								pDfsProgramParam->NewDFSTableEntry[k].EpsilonT = DfsParam;
-		    					break;
-
+			    					break;
 							case 10:
 								pDfsProgramParam->NewDFSTableEntry[k].BLow = DfsParam;
-		    					break;
+			    					break;
 							case 11:
 								pDfsProgramParam->NewDFSTableEntry[k].BHigh = DfsParam;
-		    					break;
-
-		    				default:
-		    					break;
-		    			}
-		    		}
+			    					break;
+			    				default:
+			    					break;
+			    			}
+			    		}
+				}
 			}
-		}
 		}
 	}	
 #endif /* DFS_SUPPORT */
@@ -2530,9 +2459,9 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		/*BGProtection*/
 		if(RTMPGetKeyParameter("BGProtection", tmpbuf, 10, pBuffer, TRUE))
 		{
-	/*#if 0	#ifndef WIFI_TEST*/
-	/*		pAd->CommonCfg.UseBGProtection = 2; disable b/g protection for throughput test*/
-	/*#else*/
+/*#if 0	#ifndef WIFI_TEST*/
+/*			pAd->CommonCfg.UseBGProtection = 2; disable b/g protection for throughput test*/
+/*#else*/
 			switch (simple_strtol(tmpbuf, 0, 10))
 			{
 				case 1: /*Always On*/
@@ -2546,8 +2475,8 @@ NDIS_STATUS	RTMPSetProfileParameters(
 					pAd->CommonCfg.UseBGProtection = 0;
 					break;
 			}
-	/*#endif*/
-			DBGPRINT(RT_DEBUG_TRACE, ("BGProtection=%ld\n", pAd->CommonCfg.UseBGProtection));
+/*#endif*/
+		DBGPRINT(RT_DEBUG_TRACE, ("BGProtection=%ld\n", pAd->CommonCfg.UseBGProtection));
 		}
 
 #ifdef CONFIG_AP_SUPPORT
@@ -2613,23 +2542,21 @@ NDIS_STATUS	RTMPSetProfileParameters(
 				pAd->CommonCfg.FragmentThreshold = (USHORT)(FragThresh - 1);
 			}
 			else
-			{
 				pAd->CommonCfg.FragmentThreshold = (USHORT)FragThresh;
-			}
-			/*pAd->CommonCfg.AllowFragSize = (pAd->CommonCfg.FragmentThreshold) - LENGTH_802_11 - LENGTH_CRC;*/
-			DBGPRINT(RT_DEBUG_TRACE, ("FragThreshold=%d\n", pAd->CommonCfg.FragmentThreshold));
+				/*pAd->CommonCfg.AllowFragSize = (pAd->CommonCfg.FragmentThreshold) - LENGTH_802_11 - LENGTH_CRC;*/
+				DBGPRINT(RT_DEBUG_TRACE, ("FragThreshold=%d\n", pAd->CommonCfg.FragmentThreshold));
 		}
 		/*TxBurst*/
 		if(RTMPGetKeyParameter("TxBurst", tmpbuf, 10, pBuffer, TRUE))
 		{
-	/*#ifdef WIFI_TEST*/
-	/*						pAd->CommonCfg.bEnableTxBurst = FALSE;*/
-	/*#else*/
+/*#ifdef WIFI_TEST*/
+/*			pAd->CommonCfg.bEnableTxBurst = FALSE;*/
+/*#else*/
 			if(simple_strtol(tmpbuf, 0, 10) != 0)  /*Enable*/
 				pAd->CommonCfg.bEnableTxBurst = TRUE;
 			else /*Disable*/
 				pAd->CommonCfg.bEnableTxBurst = FALSE;
-	/*#endif*/
+/*#endif*/
 			DBGPRINT(RT_DEBUG_TRACE, ("TxBurst=%d\n", pAd->CommonCfg.bEnableTxBurst));
 		}
 
@@ -2664,9 +2591,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		*/
 		/* IdleTimeout*/
 		if(RTMPGetKeyParameter("IdleTimeout", tmpbuf, 10, pBuffer, TRUE))
-		{
 			ApCfg_Set_IdleTimeout_Proc(pAd, tmpbuf);
-		}
 
 		/*StationKeepAlive*/
 		if(RTMPGetKeyParameter("StationKeepAlive", tmpbuf, 32, pBuffer, TRUE))
@@ -2690,20 +2615,20 @@ NDIS_STATUS	RTMPSetProfileParameters(
 			/* MaxStaNum*/
 			if (RTMPGetKeyParameter("MaxStaNum", tmpbuf, 32, pBuffer, TRUE))
 			{
-			    for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
-			    {
+				for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
+				{
 					if (i >= pAd->ApCfg.BssidNum)
 						break;
 					
 					ApCfg_Set_MaxStaNum_Proc(pAd, i, macptr);					
-			    }
+				}
 			}
 		
 			/*NoForwarding*/
 			if(RTMPGetKeyParameter("NoForwarding", tmpbuf, 32, pBuffer, TRUE))
 			{
-			    for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
-			    {
+				for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
+				{
 					if (i >= pAd->ApCfg.BssidNum)
 						break;
 
@@ -2713,7 +2638,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 						pAd->ApCfg.MBSSID[i].IsolateInterStaTraffic = FALSE;
 
 					DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) NoForwarding=%ld\n", i, pAd->ApCfg.MBSSID[i].IsolateInterStaTraffic));
-			    }
+				}
 			}
 			/*NoForwardingBTNBSSID*/
 			if(RTMPGetKeyParameter("NoForwardingBTNBSSID", tmpbuf, 10, pBuffer, TRUE))
@@ -2729,7 +2654,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 			if(RTMPGetKeyParameter("HideSSID", tmpbuf, 32, pBuffer, TRUE))
 			{
 				for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
-			    {
+				{
 					int apidx = i;
 
 					if (i >= pAd->ApCfg.BssidNum)
@@ -2756,9 +2681,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 				{
 					ChannelSel_Alg SelAlg=(ChannelSel_Alg)simple_strtol(tmpbuf, 0, 10);
 					if (SelAlg > 2 || SelAlg < 0)
-					{
 						pAd->ApCfg.bAutoChannelAtBootup = FALSE;
-					}
 					else /*Enable*/
 					{
 						pAd->ApCfg.bAutoChannelAtBootup = TRUE;
@@ -2787,9 +2710,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 						DBGPRINT(RT_DEBUG_TRACE, (" AutoChannelSkipList[%d]= %d \n", i, pAd->ApCfg.AutoChannelSkipList[i]));
 					}
 					else
-					{
 						break;
-					}
 				}
 			}
 		}
@@ -2830,13 +2751,9 @@ NDIS_STATUS	RTMPSetProfileParameters(
 				DBGPRINT(RT_DEBUG_TRACE, ("ETxBfEnCond = %ld\n", pAd->CommonCfg.ETxBfEnCond));
 
 				if (pAd->CommonCfg.ETxBfEnCond)
-				{
 					pAd->CommonCfg.RegTransmitSetting.field.TxBF = TRUE;
-				}
 				else
-				{
 					pAd->CommonCfg.RegTransmitSetting.field.TxBF = FALSE;
-			}
 				rtmp_asic_set_bf(pAd);
 			}
 
@@ -2942,7 +2859,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		/*CSPeriod*/
 		if(RTMPGetKeyParameter("CSPeriod", tmpbuf, 10, pBuffer, TRUE))
 		{
-		    if(simple_strtol(tmpbuf, 0, 10) != 0)
+			if(simple_strtol(tmpbuf, 0, 10) != 0)
 				pAd->Dot11_H.CSPeriod = simple_strtol(tmpbuf, 0, 10);
 			else
 				pAd->Dot11_H.CSPeriod = 0;
@@ -2950,7 +2867,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 				DBGPRINT(RT_DEBUG_TRACE, ("CSPeriod=%d\n", pAd->Dot11_H.CSPeriod));
 		}
 
-		}
+	}
 #endif /* DFS_SUPPORT */
 
 		/*RDRegion*/
@@ -2958,36 +2875,36 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		{
 			if ((strncmp(tmpbuf, "JAP_W53", 7) == 0) || (strncmp(tmpbuf, "jap_w53", 7) == 0))
 			{
-							pAd->CommonCfg.RDDurRegion = JAP_W53;
-							/*pRadarDetect->DfsSessionTime = 15;*/
+				pAd->CommonCfg.RDDurRegion = JAP_W53;
+				/*pRadarDetect->DfsSessionTime = 15;*/
 			}
 			else if ((strncmp(tmpbuf, "JAP_W56", 7) == 0) || (strncmp(tmpbuf, "jap_w56", 7) == 0))
 			{
-							pAd->CommonCfg.RDDurRegion = JAP_W56;
-							/*pRadarDetect->DfsSessionTime = 13;*/
+				pAd->CommonCfg.RDDurRegion = JAP_W56;
+				/*pRadarDetect->DfsSessionTime = 13;*/
 			}
 			else if ((strncmp(tmpbuf, "JAP", 3) == 0) || (strncmp(tmpbuf, "jap", 3) == 0))
 			{
-							pAd->CommonCfg.RDDurRegion = JAP;
-							/*pRadarDetect->DfsSessionTime = 5;*/
+				pAd->CommonCfg.RDDurRegion = JAP;
+				/*pRadarDetect->DfsSessionTime = 5;*/
 			}
 			else  if ((strncmp(tmpbuf, "FCC", 3) == 0) || (strncmp(tmpbuf, "fcc", 3) == 0))
 			{
-							pAd->CommonCfg.RDDurRegion = FCC;
-							/*pRadarDetect->DfsSessionTime = 5;*/
+				pAd->CommonCfg.RDDurRegion = FCC;
+				/*pRadarDetect->DfsSessionTime = 5;*/
 			}
 			else if ((strncmp(tmpbuf, "CE", 2) == 0) || (strncmp(tmpbuf, "ce", 2) == 0))
 			{
-							pAd->CommonCfg.RDDurRegion = CE;
-							/*pRadarDetect->DfsSessionTime = 13;*/
+				pAd->CommonCfg.RDDurRegion = CE;
+				/*pRadarDetect->DfsSessionTime = 13;*/
 			}
 			else
 			{
-							pAd->CommonCfg.RDDurRegion = CE;
-							/*pRadarDetect->DfsSessionTime = 13;*/
+				pAd->CommonCfg.RDDurRegion = CE;
+				/*pRadarDetect->DfsSessionTime = 13;*/
 			}
 
-						DBGPRINT(RT_DEBUG_TRACE, ("RDRegion=%d\n", pAd->CommonCfg.RDDurRegion));
+			DBGPRINT(RT_DEBUG_TRACE, ("RDRegion=%d\n", pAd->CommonCfg.RDDurRegion));
 		}
 		else
 		{
@@ -3017,9 +2934,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 			IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 			{
 		   		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < pAd->ApCfg.BssidNum); macptr = rstrtok(NULL,";"), i++)
-		    	{
 					ApCfg_Set_AuthMode_Proc(pAd, i, macptr);
-				}
 			}
 #endif /* CONFIG_AP_SUPPORT */
 		}
@@ -3040,13 +2955,9 @@ NDIS_STATUS	RTMPSetProfileParameters(
 					int apidx;
 
 					if (i<pAd->ApCfg.BssidNum)
-					{							
 						apidx = i;
-					}
 		        		else
-					{
 						break;
-					}
 
 					if ((strncmp(macptr, "NONE", 4) == 0) || (strncmp(macptr, "none", 4) == 0))
 		            			pAd->ApCfg.MBSSID[apidx].WepStatus = Ndis802_11WEPDisabled;
@@ -3059,25 +2970,24 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		        		else if ((strncmp(macptr, "AES", 3) == 0) || (strncmp(macptr, "aes", 3) == 0))
 		            			pAd->ApCfg.MBSSID[apidx].WepStatus = Ndis802_11Encryption3Enabled;
 #ifdef WAPI_SUPPORT
-									else if ((strncmp(macptr, "SMS4", 4) == 0) || (strncmp(macptr, "sms4", 4) == 0))
-					            			pAd->ApCfg.MBSSID[apidx].WepStatus = Ndis802_11EncryptionSMS4Enabled;									
+					else if ((strncmp(macptr, "SMS4", 4) == 0) || (strncmp(macptr, "sms4", 4) == 0))
+						pAd->ApCfg.MBSSID[apidx].WepStatus = Ndis802_11EncryptionSMS4Enabled;
 #endif /* WAPI_SUPPORT */
 		        		else
 		            			pAd->ApCfg.MBSSID[apidx].WepStatus = Ndis802_11WEPDisabled;
 
-						/* decide the group key encryption type*/
-						if (pAd->ApCfg.MBSSID[apidx].WepStatus == Ndis802_11Encryption4Enabled)	
-							pAd->ApCfg.MBSSID[apidx].GroupKeyWepStatus = Ndis802_11Encryption2Enabled;		
-						else
-							pAd->ApCfg.MBSSID[apidx].GroupKeyWepStatus = pAd->ApCfg.MBSSID[apidx].WepStatus;
+					/* decide the group key encryption type*/
+					if (pAd->ApCfg.MBSSID[apidx].WepStatus == Ndis802_11Encryption4Enabled)	
+						pAd->ApCfg.MBSSID[apidx].GroupKeyWepStatus = Ndis802_11Encryption2Enabled;		
+					else
+						pAd->ApCfg.MBSSID[apidx].GroupKeyWepStatus = pAd->ApCfg.MBSSID[apidx].WepStatus;
 
-						/* move to ap.c::APStartUp to process*/
-	        			/*RTMPMakeRSNIE(pAd, pAd->ApCfg.MBSSID[apidx].AuthMode, pAd->ApCfg.MBSSID[apidx].WepStatus, apidx);*/
-		        		DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) EncrypType=%d\n", i, pAd->ApCfg.MBSSID[apidx].WepStatus));
+					/* move to ap.c::APStartUp to process*/
+	       				/*RTMPMakeRSNIE(pAd, pAd->ApCfg.MBSSID[apidx].AuthMode, pAd->ApCfg.MBSSID[apidx].WepStatus, apidx);*/
+	        			DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) EncrypType=%d\n", i, pAd->ApCfg.MBSSID[apidx].WepStatus));
 		    		}
 			}
 #endif /* CONFIG_AP_SUPPORT */
-
 		}
 
 #ifdef CONFIG_AP_SUPPORT
@@ -3184,7 +3094,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 								pAd->ApCfg.MBSSID[i].WPAREKEY.ReKeyInterval = 
 										pAd->ApCfg.MBSSID[0].WPAREKEY.ReKeyInterval;
 								DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) ReKeyInterval=%ld\n", 
-															i, pAd->ApCfg.MBSSID[i].WPAREKEY.ReKeyInterval));
+												i, pAd->ApCfg.MBSSID[i].WPAREKEY.ReKeyInterval));
 							}
 						}
 
@@ -3194,11 +3104,10 @@ NDIS_STATUS	RTMPSetProfileParameters(
 					{
 						for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 						{									
-							pAd->ApCfg.MBSSID[i].PMKCachePeriod = 
-													simple_strtol(macptr, 0, 10) * 60 * OS_HZ;
+							pAd->ApCfg.MBSSID[i].PMKCachePeriod = simple_strtol(macptr, 0, 10) * 60 * OS_HZ;
 
 							DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) PMKCachePeriod=%ld\n", 
-														i, pAd->ApCfg.MBSSID[i].PMKCachePeriod));
+											i, pAd->ApCfg.MBSSID[i].PMKCachePeriod));
 						}
 
 						/* Apply to remaining MBSS*/
@@ -3210,7 +3119,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 										pAd->ApCfg.MBSSID[0].PMKCachePeriod;
 
 								DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) PMKCachePeriod=%ld\n", 
-															i, pAd->ApCfg.MBSSID[i].PMKCachePeriod));					
+												i, pAd->ApCfg.MBSSID[i].PMKCachePeriod));					
 							}
 						}
 					}
@@ -3225,31 +3134,25 @@ NDIS_STATUS	RTMPSetProfileParameters(
 						for (i = 0; i < pAd->ApCfg.BssidNum; i++)
 						{
 							snprintf(tok_str, sizeof(tok_str), "WPAPSK%d", i + 1);
-						if(RTMPGetKeyParameter(tok_str, tmpbuf, 65, pBuffer, FALSE))
+							if(RTMPGetKeyParameter(tok_str, tmpbuf, 65, pBuffer, FALSE))
 							{
 								rtmp_parse_wpapsk_buffer_from_file(pAd, tmpbuf, i);
 								
 								if (bWPAPSKxIsUsed == FALSE)
-								{
 									bWPAPSKxIsUsed = TRUE;
-								}
 							}
 						}
 						if (bWPAPSKxIsUsed == FALSE)
 						{
-						if (RTMPGetKeyParameter("WPAPSK", tmpbuf, 512, pBuffer, FALSE))
+							if (RTMPGetKeyParameter("WPAPSK", tmpbuf, 512, pBuffer, FALSE))
 							{
 								if (pAd->ApCfg.BssidNum == 1)
-								{
 									rtmp_parse_wpapsk_buffer_from_file(pAd, tmpbuf, BSS0);
-								}
 								else
 								{
 									/* Anyway, we still do the legacy dissection of the whole WPAPSK passphrase.*/
 									for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
-									{
 										rtmp_parse_wpapsk_buffer_from_file(pAd, macptr, i);
-									}
 
 								}
 							}
@@ -3259,15 +3162,14 @@ NDIS_STATUS	RTMPSetProfileParameters(
 						for (i = 0; i < pAd->ApCfg.BssidNum; i++)
 						{
 							int j;
-							
-											DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) WPAPSK Key => \n", i));
-											for (j = 0; j < 32; j++)
-											{
-												DBGPRINT(RT_DEBUG_TRACE, ("%02x:", pAd->ApCfg.MBSSID[i].PMK[j]));
-												if ((j%16) == 15)
-														DBGPRINT(RT_DEBUG_TRACE, ("\n"));
-											}
-											DBGPRINT(RT_DEBUG_TRACE, ("\n"));
+							DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) WPAPSK Key => \n", i));
+							for (j = 0; j < 32; j++)
+							{
+								DBGPRINT(RT_DEBUG_TRACE, ("%02x:", pAd->ApCfg.MBSSID[i].PMK[j]));
+								if ((j%16) == 15)
+									DBGPRINT(RT_DEBUG_TRACE, ("\n"));
+							}
+							DBGPRINT(RT_DEBUG_TRACE, ("\n"));
 						}
 #endif
 					}
@@ -3439,9 +3341,8 @@ NDIS_STATUS	RTMPSetProfileParameters(
 							bEn = TRUE;
 
 						for (i = 0; i < pAd->ApCfg.BssidNum; i++)
-						{
 							pAd->ApCfg.MBSSID[i].WscControl.bWCNTest = bEn;
-						}
+
 						DBGPRINT(RT_DEBUG_TRACE, ("WCNTest=%d\n", bEn));
 					}
 
@@ -3453,7 +3354,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 						if(RTMPGetKeyParameter(tok_str, tmpbuf, 40, pBuffer, FALSE))
 						{
 							NdisMoveMemory(&pWpsCtrl->Wsc_Uuid_Str[0], tmpbuf , strlen(tmpbuf));
-					    	DBGPRINT(RT_DEBUG_TRACE, ("UUID_Str[%d]=%s\n", i+1, pWpsCtrl->Wsc_Uuid_Str));
+						    	DBGPRINT(RT_DEBUG_TRACE, ("UUID_Str[%d]=%s\n", i+1, pWpsCtrl->Wsc_Uuid_Str));
 						}
 					}
 
@@ -3505,27 +3406,27 @@ NDIS_STATUS	RTMPSetProfileParameters(
 									pAd->CommonCfg.MCastPhyMode.field.BW = pAd->CommonCfg.RegTransmitSetting.field.BW;
 						switch (PhyMode)
 						{
-										case MCAST_DISABLE: /* disable*/
-											NdisMoveMemory(&pAd->CommonCfg.MCastPhyMode,
-												&pAd->MacTab.Content[MCAST_WCID].HTPhyMode, sizeof(HTTRANSMIT_SETTING));
-											break;
-
-										case MCAST_CCK:	/* CCK*/
-											pAd->CommonCfg.MCastPhyMode.field.MODE = MODE_CCK;
-											pAd->CommonCfg.MCastPhyMode.field.BW =  BW_20;
+							case MCAST_DISABLE: /* disable*/
+								NdisMoveMemory(&pAd->CommonCfg.MCastPhyMode,
+								&pAd->MacTab.Content[MCAST_WCID].HTPhyMode, sizeof(HTTRANSMIT_SETTING));
 								break;
 
-										case MCAST_OFDM:	/* OFDM*/
-											pAd->CommonCfg.MCastPhyMode.field.MODE = MODE_OFDM;
+							case MCAST_CCK:	/* CCK*/
+								pAd->CommonCfg.MCastPhyMode.field.MODE = MODE_CCK;
+								pAd->CommonCfg.MCastPhyMode.field.BW =  BW_20;
+								break;
+
+							case MCAST_OFDM:	/* OFDM*/
+								pAd->CommonCfg.MCastPhyMode.field.MODE = MODE_OFDM;
 								break;
 #ifdef DOT11_N_SUPPORT
-										case MCAST_HTMIX:	/* HTMIX*/
-											pAd->CommonCfg.MCastPhyMode.field.MODE = MODE_HTMIX;
+							case MCAST_HTMIX:	/* HTMIX*/
+								pAd->CommonCfg.MCastPhyMode.field.MODE = MODE_HTMIX;
 								break;
 #endif /* DOT11_N_SUPPORT */									
 
 							default:
-								DBGPRINT(RT_DEBUG_OFF, ("unknow Muticast PhyMode %d.\n", PhyMode));
+								DBGPRINT(RT_DEBUG_OFF, ("Unknown Muticast PhyMode %d.\n", PhyMode));
 								DBGPRINT(RT_DEBUG_OFF, ("0:Disable 1:CCK, 2:OFDM, 3:HTMIX.\n"));
 								break;
 						}
@@ -3599,9 +3500,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 					int bSetOk;
 #ifdef CONFIG_AP_SUPPORT
 					IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-					{
 						pWscContrl = &pAd->ApCfg.MBSSID[BSS0].WscControl;
-					}
 #endif /* CONFIG_AP_SUPPORT */
 					bSetOk = RT_CfgSetWscPinCode(pAd, tmpbuf, pWscContrl);
 					if (bSetOk)
@@ -3697,12 +3596,10 @@ NDIS_STATUS	RTMPSetProfileParameters(
 
 #ifdef MICROWAVE_OVEN_SUPPORT
 		if (RTMPGetKeyParameter("MO_FalseCCATh", tmpbuf, 10, pBuffer, TRUE))
-		{
 			Set_MO_FalseCCATh_Proc(pAd, tmpbuf);
-		}
 #endif /* MICROWAVE_OVEN_SUPPORT */
 
-	}while(0);
+	} while(0);
 
 #ifdef CUSTOMER_DEMO
 	demo_mode_cfg(pAd);

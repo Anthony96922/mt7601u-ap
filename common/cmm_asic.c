@@ -20,7 +20,7 @@
 
 	Abstract:
 	Functions used to communicate with ASIC
-	
+
 	Revision History:
 	Who			When			What
 	--------	----------		----------------------------------------------
@@ -38,7 +38,7 @@
 		Set MAC register value according operation mode.
 		OperationMode AND bNonGFExist are for MM and GF Proteciton.
 		If MM or GF mask is not set, those passing argument doesn't not take effect.
-		
+
 		Operation mode meaning:
 		= 0 : Pure HT, no preotection.
 		= 0x01; there may be non-HT devices in both the control and extension channel, protection is optional in BSS.
@@ -53,7 +53,7 @@ VOID 	AsicUpdateProtect(
 	IN USHORT OperationMode,
 	IN UCHAR SetMask,
 	IN BOOLEAN bDisableBGProtect,
-	IN BOOLEAN bNonGFExist)	
+	IN BOOLEAN bNonGFExist)
 {
 	PROT_CFG_STRUC	ProtCfg, ProtCfg4;
 	UINT32 Protect[6];
@@ -84,17 +84,13 @@ VOID 	AsicUpdateProtect(
 	/* If the user want disable RtsThreshold and enbale Amsdu/Ralink-Aggregation, set the RtsThreshold as 4096*/
         if ((
 #ifdef DOT11_N_SUPPORT
-			(pAd->CommonCfg.BACapability.field.AmsduEnable) || 
+	(pAd->CommonCfg.BACapability.field.AmsduEnable) ||
 #endif /* DOT11_N_SUPPORT */
-			(pAd->CommonCfg.bAggregationCapable == TRUE))
-            && pAd->CommonCfg.RtsThreshold == MAX_RTS_THRESHOLD)
-        {
-			MacReg |= (0x1000 << 8);
-        }
+	(pAd->CommonCfg.bAggregationCapable == TRUE))
+	&& pAd->CommonCfg.RtsThreshold == MAX_RTS_THRESHOLD)
+		MacReg |= (0x1000 << 8);
         else
-        {
-			MacReg |= (pAd->CommonCfg.RtsThreshold << 8);
-        }
+		MacReg |= (pAd->CommonCfg.RtsThreshold << 8);
 
 	RTMP_IO_WRITE32(pAd, TX_RTS_CFG, MacReg);
 
@@ -117,16 +113,14 @@ VOID 	AsicUpdateProtect(
 		/* update PHY mode and rate*/
 		if (pAd->CommonCfg.Channel > 14)
 			ProtCfg.field.ProtectRate = 0x4000;
-		ProtCfg.field.ProtectRate |= pAd->CommonCfg.RtsRate;	
+		ProtCfg.field.ProtectRate |= pAd->CommonCfg.RtsRate;
 	}
 	else if (pAd->OpMode == OPMODE_STA)
 	{
 		// Decide Protect Rate for Legacy packet
 		if (pAd->CommonCfg.Channel > 14)
-		{
 			ProtCfg.field.ProtectRate = 0x4000; // OFDM 6Mbps
-		}
-		else 
+		else
 		{
 			ProtCfg.field.ProtectRate = 0x0000; // CCK 1Mbps
 			if (pAd->CommonCfg.MinTxRate > RATE_11)
@@ -172,7 +166,7 @@ VOID 	AsicUpdateProtect(
 				/*	PROT_NAV(19:18)  -- 01 (Short NAV protection)*/
 				/*  PROT_CTRL(17:16) -- 00 (None)*/
 				/* 	PROT_RATE(15:0)  -- 0x4004 (OFDM 24M)*/
-				Protect[2] = 0x01744004;	
+				Protect[2] = 0x01744004;
 
 				/* MM40_PROT_CFG*/
 				/*	Reserved (31:27)*/
@@ -217,22 +211,22 @@ VOID 	AsicUpdateProtect(
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG6, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = 0;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG6, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG6, vht_port_cfg.word);
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG7, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = 0;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG7, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG7, vht_port_cfg.word);
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG8, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = 0;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG8, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG8, vht_port_cfg.word);
 				}
 #endif /* RT65xx */
 #endif /* DOT11_VHT_AC */
 
 
 				break;
-				
+
  			case 1:
 				/* This is "HT non-member protection mode."*/
 				/* If there may be non-HT STAs my BSS*/
@@ -264,21 +258,21 @@ VOID 	AsicUpdateProtect(
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG6, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = ASIC_RTS;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG6, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG6, vht_port_cfg.word);
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG7, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = ASIC_RTS;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG7, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG7, vht_port_cfg.word);
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG8, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = ASIC_RTS;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG8, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG8, vht_port_cfg.word);
 				}
 #endif /* RT65xx */
 #endif /* DOT11_VHT_AC */
 
 				break;
-				
+
 			case 2:
 				/* If only HT STAs are in BSS. at least one is 20MHz. Only protect 40MHz packets*/
 				ProtCfg.word = 0x01744004;  /* PROT_CTRL(17:16) : 0 (None)*/
@@ -287,7 +281,7 @@ VOID 	AsicUpdateProtect(
 				{
 					ProtCfg.word = 0x01740003;	/*ERP use Protection bit is set, use protection rate at Clause 18..*/
 					ProtCfg4.word = 0x03f40003; /* Don't duplicate RTS/CTS in CCK mode. 0x03f40083; */
-				} 
+				}
 				/*Assign Protection method for 40MHz packets*/
 				ProtCfg4.field.ProtectCtrl = ASIC_RTS;
 				ProtCfg4.field.ProtectNav = ASIC_SHORTNAV;
@@ -313,20 +307,20 @@ VOID 	AsicUpdateProtect(
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG6, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = 0;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG6, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG6, vht_port_cfg.word);
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG7, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = ASIC_RTS;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG7, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG7, vht_port_cfg.word);
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG8, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = ASIC_RTS;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG8, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG8, vht_port_cfg.word);
 				}
 #endif /* RT65xx */
 #endif /* DOT11_VHT_AC */
 				break;
-				
+
 			case 3:
 				/* HT mixed mode.	 PROTECT ALL!*/
 				/* Assign Rate*/
@@ -359,20 +353,20 @@ VOID 	AsicUpdateProtect(
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG6, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = ASIC_RTS;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG6, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG6, vht_port_cfg.word);
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG7, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = ASIC_RTS;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG7, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG7, vht_port_cfg.word);
 
 					RTMP_IO_READ32(pAd, TX_PROT_CFG8, &vht_port_cfg.word);
 					vht_port_cfg.field.ProtectCtrl = ASIC_RTS;
-					RTMP_IO_WRITE32(pAd, TX_PROT_CFG8, vht_port_cfg.word);  
+					RTMP_IO_WRITE32(pAd, TX_PROT_CFG8, vht_port_cfg.word);
 				}
 #endif /* RT65xx */
 #endif /* DOT11_VHT_AC */
-				break;	
-				
+				break;
+
 			case 8:
 				/* Special on for Atheros problem n chip.*/
 				ProtCfg.word = 0x01754004;	/*duplicaet legacy 24M. BW set 1.*/
@@ -382,25 +376,24 @@ VOID 	AsicUpdateProtect(
 					ProtCfg.word = 0x01750003;	/*ERP use Protection bit is set, use protection rate at Clause 18..*/
 					ProtCfg4.word = 0x03f50003; /* Don't duplicate RTS/CTS in CCK mode. 0x03f40083*/
 				}
-				
 				Protect[2] = ProtCfg.word; 	/*0x01754004;*/
 				Protect[3] = ProtCfg4.word; /*0x03f54084;*/
 				Protect[4] = ProtCfg.word; 	/*0x01754004;*/
 				Protect[5] = ProtCfg4.word; /*0x03f54084;*/
 				pAd->CommonCfg.IOTestParm.bRTSLongProtOn = TRUE;
-				break;		
+				break;
 		}
 	}
 #endif /* DOT11_N_SUPPORT */
-	
+
 	offset = CCK_PROT_CFG;
 	for (i = 0;i < 6;i++)
 	{
-			if ((SetMask & (1<< i)))
+		if ((SetMask & (1<< i)))
 		{
-		RTMP_IO_WRITE32(pAd, offset + i*4, Protect[i]);
+			RTMP_IO_WRITE32(pAd, offset + i*4, Protect[i]);
+		}
 	}
-}
 }
 
 
@@ -411,20 +404,20 @@ VOID AsicBBPAdjust(RTMP_ADAPTER *pAd)
 		pAd->chipOps.ChipBBPAdjust(pAd);
 }
 
-	
+
 /*
 	==========================================================================
 	Description:
 
 	IRQL = PASSIVE_LEVEL
 	IRQL = DISPATCH_LEVEL
-	
+
 	==========================================================================
  */
 VOID AsicSwitchChannel(
-	IN RTMP_ADAPTER *pAd, 
+	IN RTMP_ADAPTER *pAd,
 	IN UCHAR Channel,
-	IN BOOLEAN bScan) 
+	IN BOOLEAN bScan)
 {
 
 	RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_SUSPEND);
@@ -461,12 +454,12 @@ VOID AsicSwitchChannel(
 
 	IRQL = PASSIVE_LEVEL
 	IRQL = DISPATCH_LEVEL
-	
+
 	==========================================================================
  */
 VOID AsicLockChannel(
-	IN PRTMP_ADAPTER pAd, 
-	IN UCHAR Channel) 
+	IN PRTMP_ADAPTER pAd,
+	IN UCHAR Channel)
 {
 }
 
@@ -476,7 +469,7 @@ VOID AsicLockChannel(
 
 	IRQL = PASSIVE_LEVEL
 	IRQL = DISPATCH_LEVEL
-	
+
 	==========================================================================
  */
 
@@ -497,7 +490,7 @@ VOID InitLookupTable(
 	UCHAR RFValue = 0, BbpValue = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==> InitLookupTable\n"));
-	
+
 	/* Read from EEPROM, as parameters for lookup table for G band */
 	RT28xx_EEPROM_READ16(pAd, 0x6e, WordStruct.word);
 	DBGPRINT(RT_DEBUG_TRACE, ("[temp. compensation 2.4G] EEPROM 6e = %x\n", WordStruct.word));
@@ -1736,7 +1729,7 @@ VOID AsicAddPairwiseKeyEntry(
 	PUCHAR		 pTxMic = pCipherKey->TxMic;
 	PUCHAR		 pRxMic = pCipherKey->RxMic;
 #ifdef DBG
-	PUCHAR pKey = pCipherKey
+	PUCHAR pKey = pCipherKey;
 	UCHAR		CipherAlg = pCipherKey->CipherAlg;
 #endif /* DBG */
 
