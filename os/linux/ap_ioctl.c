@@ -42,21 +42,21 @@ struct iw_priv_args ap_privtab[] = {
   "show"},
 #ifdef AP_SCAN_SUPPORT
 { RTPRIV_IOCTL_GSITESURVEY,
-  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024 ,
+  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024,
   "get_site_survey"},
 #endif /* AP_SCAN_SUPPORT */
 #ifdef INF_AR9
   { RTPRIV_IOCTL_GET_AR9_SHOW,
-  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024 ,
+  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024,
   "ar9_show"},
 #endif /* INF_AR9 */
 #ifdef WSC_AP_SUPPORT
   { RTPRIV_IOCTL_SET_WSCOOB,
-  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024 ,
+  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024,
   "set_wsc_oob"},
 #endif /* WSC_AP_SUPPORT */
 { RTPRIV_IOCTL_GET_MAC_TABLE,
-  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024 ,
+  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024,
   "get_mac_table"},
 #ifdef DBG
 { RTPRIV_IOCTL_E2P,
@@ -75,12 +75,14 @@ struct iw_priv_args ap_privtab[] = {
 
 #ifdef WSC_AP_SUPPORT
 { RTPRIV_IOCTL_WSC_PROFILE,
-  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024 ,
+  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024,
   "get_wsc_profile"},
 #endif /* WSC_AP_SUPPORT */
+#ifdef DOT11_N_SUPPORT
 { RTPRIV_IOCTL_QUERY_BATABLE,
-  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024 ,
+  IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024,
   "get_ba_table"},
+#endif /* DOT11_N_SUPPORT */
 { RTPRIV_IOCTL_STATISTICS,
   IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | 1024,
   "stat"}
@@ -103,7 +105,7 @@ const struct iw_handler_def rt28xx_ap_iw_handler_def =
 INT rt28xx_ap_ioctl(
 	IN	struct net_device	*net_dev,
 	IN	OUT	struct ifreq	*rq,
-	IN	INT					cmd)
+	IN	INT			cmd)
 {
 	VOID			*pAd = NULL;
 	struct iwreq		*wrqin = (struct iwreq *) rq;
@@ -148,8 +150,6 @@ INT rt28xx_ap_ioctl(
 
 	apidx = pIoctlConfig->apidx;
 
-
-
 	switch(cmd)
 	{
 		case SIOCGIWNAME:
@@ -158,9 +158,7 @@ INT rt28xx_ap_ioctl(
 
 			return Status;
 		case RTPRIV_IOCTL_ATE:
-			{
-				RTMP_COM_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_ATE, 0, wrqin->ifr_name, 0);
-			}
+			RTMP_COM_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_ATE, 0, wrqin->ifr_name, 0);
 			break;
 
 		case SIOCGIFHWADDR:
@@ -205,13 +203,13 @@ INT rt28xx_ap_ioctl(
 			Status = RTMP_IO_EOPNOTSUPP;
 			break;
 		case SIOCGIWFREQ: /* get channel/frequency (Hz) */
-		{
-			ULONG Channel;
-			RTMP_DRIVER_CHANNEL_GET(pAd, &Channel);
-			wrqin->u.freq.m = Channel; /*pAd->CommonCfg.Channel; */
-			wrqin->u.freq.e = 0;
-			wrqin->u.freq.i = 0;
-		}
+			{
+				ULONG Channel;
+				RTMP_DRIVER_CHANNEL_GET(pAd, &Channel);
+				wrqin->u.freq.m = Channel; /*pAd->CommonCfg.Channel; */
+				wrqin->u.freq.e = 0;
+				wrqin->u.freq.i = 0;
+			}
 			break;
 		case SIOCSIWFREQ: /*set channel/frequency (Hz) */
 			Status = RTMP_IO_EOPNOTSUPP;
@@ -310,7 +308,6 @@ INT rt28xx_ap_ioctl(
 			DBGPRINT(RT_DEBUG_TRACE,("ioctl SIOCSIWGENIE apidx=%d\n",apidx));
 			DBGPRINT(RT_DEBUG_TRACE,("ioctl SIOCSIWGENIE length=%d, pointer=%x\n", wrqin->u.data.length, wrqin->u.data.pointer));
 
-
 			RTMP_AP_IoctlHandle(pAd, wrqin, CMD_RTPRIV_IOCTL_AP_SIOCSIWGENIE, 0, NULL, 0);
 			break;
 #endif /* HOSTAPD_SUPPORT */
@@ -318,7 +315,7 @@ INT rt28xx_ap_ioctl(
 		case SIOCGIWPRIV:
 			if (wrqin->u.data.pointer)
 			{
-				if ( access_ok(VERIFY_WRITE, wrqin->u.data.pointer, sizeof(ap_privtab)) != TRUE)
+				if (access_ok(VERIFY_WRITE, wrqin->u.data.pointer, sizeof(ap_privtab)) != TRUE)
 					break;
 				if ((sizeof(ap_privtab) / sizeof(ap_privtab[0])) <= wrq->u.data.length)
 				{
@@ -332,13 +329,13 @@ INT rt28xx_ap_ioctl(
 			break;
 		case RTPRIV_IOCTL_SET:
 			{
-				if( access_ok(VERIFY_READ, wrqin->u.data.pointer, wrqin->u.data.length) == TRUE)
+				if(access_ok(VERIFY_READ, wrqin->u.data.pointer, wrqin->u.data.length) == TRUE)
 					Status = RTMP_AP_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_SET, 0, NULL, 0);
 			}
 			break;
 		case RTPRIV_IOCTL_SHOW:
 			{
-				if( access_ok(VERIFY_READ, wrqin->u.data.pointer, wrqin->u.data.length) == TRUE)
+				if(access_ok(VERIFY_READ, wrqin->u.data.pointer, wrqin->u.data.length) == TRUE)
 					Status = RTMP_AP_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_SHOW, 0, NULL, 0);
 			}
 			break;
@@ -346,7 +343,7 @@ INT rt28xx_ap_ioctl(
 #ifdef AR9_MAPI_SUPPORT
 		case RTPRIV_IOCTL_GET_AR9_SHOW:
 			{
-				if( access_ok(VERIFY_READ, wrqin->u.data.pointer, wrqin->u.data.length) == TRUE)
+				if(access_ok(VERIFY_READ, wrqin->u.data.pointer, wrqin->u.data.length) == TRUE)
 					Status = RTMP_AP_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_GET_AR9_SHOW, 0, NULL, 0);
 			}
 			break;
@@ -356,7 +353,7 @@ INT rt28xx_ap_ioctl(
 #ifdef WSC_AP_SUPPORT
 		case RTPRIV_IOCTL_SET_WSCOOB:
 			RTMP_AP_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_SET_WSCOOB, 0, NULL, 0);
-			 break;
+			break;
 #endif /* WSC_AP_SUPPORT */
 
 /* modified by Red@Ralink, 2009/09/30 */
@@ -382,13 +379,13 @@ INT rt28xx_ap_ioctl(
 #ifdef WSC_AP_SUPPORT
 		case RTPRIV_IOCTL_WSC_PROFILE:
 			RTMP_AP_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_WSC_PROFILE, 0, NULL, 0);
-		    break;
+			break;
 #endif /* WSC_AP_SUPPORT */
 
 #ifdef DOT11_N_SUPPORT
 		case RTPRIV_IOCTL_QUERY_BATABLE:
 			RTMP_AP_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_QUERY_BATABLE, 0, NULL, 0);
-		    break;
+			break;
 #endif /* DOT11_N_SUPPORT */
 
 #ifdef DBG
@@ -416,8 +413,7 @@ INT rt28xx_ap_ioctl(
 	}
 
 LabelExit:
-	if (Status != 0)
-	{
+	if (Status != 0) {
 		RT_CMD_STATUS_TRANSLATE(Status);
 	}
 	else
