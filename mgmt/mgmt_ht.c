@@ -13,9 +13,7 @@
 INT ht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, HT_CAPABILITY_IE *peer, RT_HT_CAPABILITY *my)
 {
 	if ((peer->HtCapInfo.GF) && (my->GF))
-	{
 		pEntry->MaxHTPhyMode.field.MODE = MODE_HTGREENFIELD;
-	}
 	else
 	{
 		pEntry->MaxHTPhyMode.field.MODE = MODE_HTMIX;
@@ -104,9 +102,8 @@ INT get_ht_cent_ch(RTMP_ADAPTER *pAd, UCHAR *rf_bw, UCHAR *ext_ch)
 			pAd->CommonCfg.CentralChannel = pAd->CommonCfg.Channel - 1;
 		else
 			pAd->CommonCfg.CentralChannel = pAd->CommonCfg.Channel - 2;
-	} else {
+	} else
 		return FALSE;
-	}
 
 	return TRUE;
 }
@@ -170,18 +167,14 @@ VOID RTMPSetHT(
 		/* extension channel below this channel is not allowed */
 		if (CHAN_PropertyCheck(pAd, pAd->CommonCfg.Channel,
 						CHANNEL_NO_FAT_BELOW) == TRUE)
-		{
 			pHTPhyMode->ExtOffset = EXTCHA_ABOVE;
-		}
 	}
 	else if (pHTPhyMode->ExtOffset == EXTCHA_ABOVE)
 	{
 		/* extension channel above this channel is not allowed */
 		if (CHAN_PropertyCheck(pAd, pAd->CommonCfg.Channel,
 						CHANNEL_NO_FAT_ABOVE) == TRUE)
-		{
 			pHTPhyMode->ExtOffset = EXTCHA_BELOW;
-		}
 	}
 #endif /* CONFIG_AP_SUPPORT */
 
@@ -265,7 +258,6 @@ VOID RTMPSetHT(
 	}
 
 	// TODO: shiang-6590, how about the "bw" when channel 14 for JP region???
-	bw = BW_20;
 	if(pHTPhyMode->BW == BW_40)
 	{
 		ht_cap->MCSSet[4] = 0x1; /* MCS 32 */
@@ -295,6 +287,7 @@ VOID RTMPSetHT(
 	}
 	else
 	{
+
 		ht_cap->HtCapInfo.ChannelWidth = 0;
 		rt_ht_cap->ChannelWidth = 0;
 		pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth = 0;
@@ -363,9 +356,12 @@ VOID RTMPSetHT(
 	else
 	{
 		ht_cap->HtCapInfo.ShortGIfor20 = 0;
-		ht_cap->HtCapInfo.ShortGIfor40 = 0;
 		rt_ht_cap->ShortGIfor20 = 0;
-		rt_ht_cap->ShortGIfor40 = 0;
+		if (pHTPhyMode->BW == BW_40)
+		{
+			ht_cap->HtCapInfo.ShortGIfor40 = 0;
+			rt_ht_cap->ShortGIfor40 = 0;
+		}
 	}
 
 	/* We support link adaptation for unsolicit MCS feedback, set to 2.*/
@@ -543,7 +539,7 @@ VOID RTMPSetIndividualHT(
 	if (pAd->CommonCfg.HT_DisallowTKIP && IS_INVALID_HT_SECURITY(encrypt_mode))
 	{
 		DBGPRINT(RT_DEBUG_WARN, ("%s : Use legacy rate in WEP/TKIP encryption mode (apidx=%d)\n", 
-									__FUNCTION__, apidx));
+						__FUNCTION__, apidx));
 		return;
 	}
 
@@ -640,20 +636,14 @@ VOID RTMPDisableDesiredHtInfo(
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
 		for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
-		{
 			RTMPZeroMemory(&pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo, sizeof(RT_PHY_INFO));
-		}
 #ifdef WDS_SUPPORT
 		for (apidx = 0; apidx < MAX_WDS_ENTRY; apidx++)
-		{
 			RTMPZeroMemory(&pAd->WdsTab.WdsEntry[apidx].DesiredHtPhyInfo, sizeof(RT_PHY_INFO));
-		}
 #endif /* WDS_SUPPORT */
 #ifdef APCLI_SUPPORT
 		for (apidx = 0; apidx < MAX_APCLI_NUM; apidx++)
-		{
 			RTMPZeroMemory(&pAd->ApCfg.ApCliTab[apidx].DesiredHtPhyInfo, sizeof(RT_PHY_INFO));
-		}
 #endif /* APCLI_SUPPORT */
 	}
 #endif /* CONFIG_AP_SUPPORT */
