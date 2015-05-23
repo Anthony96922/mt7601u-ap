@@ -10,19 +10,19 @@
     Who          When          What
     ---------    ----------    ----------------------------------------------
 
-***************************************************************************/  
-    
+***************************************************************************/
+
 #ifndef __RT_COMM_H__
 #define __RT_COMM_H__
-    
+
 #define VENDOR_FEATURE1_SUPPORT
 /*#define VENDOR_FEATURE3_SUPPORT */
-    
-    
+
+
 /*#define MONITOR_FLAG_11N_SNIFFER_SUPPORT */
-    
-    
-#ifdef VENDOR_FEATURE3_SUPPORT 
+
+
+#ifdef VENDOR_FEATURE3_SUPPORT
 #ifdef DOT1X_SUPPORT
 #undef DOT1X_SUPPORT
 #endif	/* DOT1X_SUPPORT */
@@ -36,18 +36,18 @@
 #undef WSC_LED_SUPPORT
 #endif	/* WSC_LED_SUPPORT */
 #endif /* VENDOR_FEATURE3_SUPPORT */
-    
-    
+
+
 #ifdef CONFIG_AP_SUPPORT
-    
+
 #ifndef VENDOR_FEATURE3_SUPPORT
 #define AP_QLOAD_SUPPORT
 #endif /* VENDOR_FEATURE3_SUPPORT */
-    
-#endif	/* CONFIG_AP_SUPPORT */
-    
 
-/* ======================== Before include files ============================ */ 
+#endif	/* CONFIG_AP_SUPPORT */
+
+
+/* ======================== Before include files ============================ */
 /*
 	14 channels @2.4G +  12@UNII(lower/middle) + 16@HiperLAN2 + 11@UNII(upper) + 0 @Japan + 1 as NULL termination
 	Refer to CH_HZ_ID_MAP[] in rt_channel.c
@@ -67,11 +67,9 @@
 #include "link_list.h"
 #include "rtmp_cmd.h"
 #include "iface/iface_util.h"
-    
 
 
-
-/* ======================== Debug =========================================== */ 
+/* ======================== Debug =========================================== */
 /* */
 /*  Debug information verbosity: lower values indicate higher urgency */
 /* */
@@ -81,41 +79,41 @@
 #define RT_DEBUG_TRACE      3
 #define RT_DEBUG_INFO       4
 #define RT_DEBUG_LOUD       5
-    
+
 typedef enum{
 	DBG_FUNC_RA = 0x100,	/* debug flag for rate adaptation */
 	DBG_FUNC_SA = 0x200,	/* debug flag for smart antenna */
-}RT_DEBUG_FUNC;
+} RT_DEBUG_FUNC;
 
 
-/* ======================== Definition ====================================== */ 
+/* ======================== Definition ====================================== */
 #ifndef TRUE
 #define TRUE						1
 #endif
 #ifndef FALSE
 #define FALSE						0
 #endif
-    
+
 /* definition of pAd->OpMode */
-#define OPMODE_STA                  0
-#define OPMODE_AP                   1
-#define OPMODE_APSTA				2       /* as AP and STA at the same time */
-    
-#define MAIN_MBSSID                 0
-#define FIRST_MBSSID                1
-    
+#define OPMODE_STA		0
+#define OPMODE_AP		1
+#define OPMODE_APSTA		2	/* as AP and STA at the same time */
+
+#define MAIN_MBSSID		0
+#define FIRST_MBSSID		1
+
 /* Endian byte swapping codes */
 #define SWAP16(x) \
     ((UINT16) (\
 	       (((UINT16) (x) & (UINT16) 0x00ffU) << 8) | \
-	       (((UINT16) (x) & (UINT16) 0xff00U) >> 8))) 
- 
+	       (((UINT16) (x) & (UINT16) 0xff00U) >> 8)))
+
 #define SWAP32(x) \
     ((UINT32) (\
 	       (((UINT32) (x) & (UINT32) 0x000000ffUL) << 24) | \
 	       (((UINT32) (x) & (UINT32) 0x0000ff00UL) << 8) | \
 	       (((UINT32) (x) & (UINT32) 0x00ff0000UL) >> 8) | \
-	       (((UINT32) (x) & (UINT32) 0xff000000UL) >> 24))) 
+	       (((UINT32) (x) & (UINT32) 0xff000000UL) >> 24)))
 
 #define SWAP64(x) \
     ((UINT64)( \
