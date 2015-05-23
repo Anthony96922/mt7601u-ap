@@ -2,10 +2,10 @@
 
     Module Name:
     UTIL/rt_linux_symb.c
- 
+
     Abstract:
 	All symbols provided from UTIL module are put here.
- 
+
     Revision History:
     Who        When          What
     ---------  ----------    ----------------------------------------------
@@ -287,4 +287,3 @@ EXPORT_SYMBOL(RtmpMsecsToJiffies);
 EXPORT_SYMBOL(RtmpDrvAllRFPrint);
 #endif /* DBG */
 #endif /* OS_ABL_SUPPORT */
-
