@@ -119,8 +119,6 @@ DAT_FILE_NAME = RT$(CHIPSET_DAT)AP.txt
 endif
 #endif // CONFIG_AP_SUPPORT //
 
-
-
 obj-m := $(MOD_NAME).o
 
 #ifdef CONFIG_AP_SUPPORT
@@ -205,7 +203,6 @@ $(MOD_NAME)-objs += \
 endif
 #endif // LED_CONTROL_SUPPORT //
 
-
 ifeq ($(HAS_RT2880_RT2860_COEXIST),y)	
 RT28XX_AP_OBJ += \
 	../../os/linux/rt_pci_rbus.o \
@@ -213,8 +210,6 @@ RT28XX_AP_OBJ += \
 	../../os/linux/pci_main_dev.o \
 	../../common/dfs.o
 endif
-
-
 
 ifeq ($(HAS_WDS),y)
 $(MOD_NAME)-objs += ../../ap/ap_wds.o
@@ -249,7 +244,6 @@ ifeq ($(HAS_IGMP_SNOOP_SUPPORT),y)
 $(MOD_NAME)-objs += ../../common/igmp_snoop.o
 endif
 
-
 ifeq ($(HAS_QOS_DLS_SUPPORT),y)
 $(MOD_NAME)-objs += ../../ap/ap_dls.o
 endif
@@ -277,7 +271,6 @@ rt$(CHIPSET)ap-objs += \
 	../../os/linux/vr_bdlt.o
 endif
 #endif // PLATFORM_BL23570 //
-
 
 #ifdef WAPI_SUPPORT
 ifeq ($(HAS_WAPI_SUPPORT),y)
@@ -470,7 +463,6 @@ endif
 endif
 #endif // RT8592 //
 
-
 #ifdef MT7601E
 ifneq ($(findstring 7601E,$(CHIPSET)),)
 $(MOD_NAME)-objs += \
@@ -512,7 +504,6 @@ endif
 
 endif
 #endif // MT7601E //
-
 
 #ifdef MT7601U
 ifneq ($(findstring 7601U,$(CHIPSET)),)
@@ -600,16 +591,16 @@ endif
 endif
 
 strip:
-	$(STRIP) --strip-unneeded --strip-debug $(addsuffix .ko,$(MOD_NAME))
+	$(STRIP) --strip-unneeded --strip-debug $(MOD_NAME).ko
 
 install:
 	mkdir -p $(DAT_PATH)
 	cp $(RT28xx_DIR)/$(DAT_FILE_NAME) $(DAT_PATH)/
-	install -m 644 -c $(addsuffix .ko,$(MOD_NAME)) $(LINUX_SRC_MODULE)
+	install -m 644 -c $(MOD_NAME).ko $(LINUX_SRC_MODULE)
 	depmod $(shell uname -r)
 
 uninstall:
-	rm -rf $(addprefix $(LINUX_SRC_MODULE),$(addsuffix .ko,$(MOD_NAME)))
+	rm -rf $(LINUX_SRC_MODULE)$(MOD_NAME).ko
 	depmod $(shell uname -r)
 
 # Declare the contents of the .PHONY variable as phony.  We keep that

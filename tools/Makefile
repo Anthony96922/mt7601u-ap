@@ -1,6 +1,4 @@
 all:
-	gcc -g bin2h.c -o bin2h
+	@gcc -o bin2h bin2h.c
 clean:
-	rm -f *.o bin2h
-
-	
+	@rm -f bin2h

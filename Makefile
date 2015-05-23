@@ -50,13 +50,6 @@ ifeq ($(TARGET),LINUX)
 MAKE = make
 endif
 
-ifeq ($(TARGET), UCOS)
-MAKE = make
-endif
-ifeq ($(TARGET),THREADX)
-MAKE = gmake
-endif
-
 ifeq ($(PLATFORM),PC)
 # Linux 2.6
 LINUX_SRC = /lib/modules/$(shell uname -r)/build
@@ -69,7 +62,7 @@ endif
 export OSABL RT28xx_DIR RT28xx_MODE LINUX_SRC CROSS_COMPILE CROSS_COMPILE_INCLUDE PLATFORM RELEASE CHIPSET MODULE RTMP_SRC_DIR LINUX_SRC_MODULE TARGET HAS_WOW_SUPPORT
 
 # The targets that may be used.
-PHONY += all build_tools test UCOS THREADX LINUX release prerelease clean uninstall install libwapi osabl
+PHONY += all build_tools test LINUX release prerelease clean uninstall install libwapi osabl
 
 ifeq ($(TARGET),LINUX)
 all: build_tools $(TARGET)
@@ -84,31 +77,20 @@ build_tools:
 test:
 	$(MAKE) -C tools test
 
-UCOS:
-	$(MAKE) -C os/ucos/ MODE=$(RT28xx_MODE)
-	echo $(RT28xx_MODE)
-
-ECOS:
-	$(MAKE) -C os/ecos/ MODE=$(RT28xx_MODE)
-	cp os/ecos/$(MODULE) $(MODULE)
-
-THREADX:
-	$(MAKE) -C $(RT28xx_DIR)/os/Threadx -f $(RT28xx_DIR)/os/ThreadX/Makefile
-
 LINUX:
 ifneq (,$(findstring 2.4,$(LINUX_SRC)))
 
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.4.util $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux/
+	$(MAKE) -C $(RT28xx_DIR)/os/linux
 endif
 
 	cp os/linux/Makefile.4 $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux/
+	$(MAKE) -C $(RT28xx_DIR)/os/linux
 
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.4.netif $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux/
+	$(MAKE) -C $(RT28xx_DIR)/os/linux
 endif
 endif
 
@@ -150,20 +132,16 @@ endif
 
 clean:
 ifeq ($(TARGET), LINUX)
-	cp os/linux/Makefile.clean os/linux/Makefile
-	$(MAKE) -C os/linux clean
-	rm -f os/linux/Makefile
-endif	
-ifeq ($(TARGET), UCOS)
-	$(MAKE) -C os/ucos clean MODE=$(RT28xx_MODE)
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
+	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 clean
+else
+	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 clean
 endif
-ifeq ($(TARGET), ECOS)
-	$(MAKE) -C os/ecos clean MODE=$(RT28xx_MODE)
 endif
 
 strip:
 ifeq ($(TARGET), LINUX)
-ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 strip
 else
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 strip
@@ -172,7 +150,7 @@ endif
 
 uninstall:
 ifeq ($(TARGET), LINUX)
-ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 uninstall
 else
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 uninstall
@@ -194,7 +172,7 @@ ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 else
 	cp -f os/linux/Makefile.libwapi.6 $(RT28xx_DIR)/os/linux/Makefile	
-	$(MAKE) -C  $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules	
+	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules	
 endif	
 
 osutil:
