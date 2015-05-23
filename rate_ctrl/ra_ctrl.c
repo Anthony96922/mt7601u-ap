@@ -1410,13 +1410,13 @@ VOID MlmeRALog(
 	newTime = (tval.tv_sec*1000000L + tval.tv_usec);
 #endif
 
-	if (TxTotalCnt !=0 || raLogType==RAL_QUICK_DRS
+	if (TxTotalCnt !=0 || raLogType == RAL_QUICK_DRS
 #ifdef DBG_CTRL_SUPPORT
 		|| (pAd->CommonCfg.DebugFlags & DBF_SHOW_ZERO_RA_LOG)
 #endif /* DBG_CTRL_SUPPORT */
 	)
 	{
-#if (defined(TXBF_SUPPORT) && defined(DBG) || defined(STREAM_MODE_SUPPORT))
+#if (defined(DBG) || defined(STREAM_MODE_SUPPORT))
 		BOOLEAN csd = FALSE;
 #endif
 		BOOLEAN stbc;
