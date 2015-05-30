@@ -1781,7 +1781,7 @@ static void HTParametersHook(
 		else
 			pAd->CommonCfg.RegTransmitSetting.field.ShortGI = GI_800;
 		
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: Guard Interval = %s\n", (Value==GI_400) ? "400" : "800" ));
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Guard Interval = %s\n", (Value == GI_400) ? "400" : "800"));
 	}
 
 	/* HT Operation Mode : Mixed Mode , Green Field*/
@@ -1794,7 +1794,7 @@ static void HTParametersHook(
 		else
 			pAd->CommonCfg.RegTransmitSetting.field.HTMODE  = HTMODE_MM;		
 
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: Operate Mode = %s\n", (Value==HTMODE_GF) ? "Green Field" : "Mixed Mode" ));
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Operate Mode = %s\n", (Value == HTMODE_GF) ? "Green Field" : "Mixed Mode"));
 	}
 
 	/* Fixed Tx mode : CCK, OFDM*/
@@ -4330,7 +4330,6 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 	PSTRING ptr;
 	int index, i;
 	CH_POWER *StartCh = NULL;
-	UCHAR MaxPwr;
 	UCHAR channel, *temp;
 	RTMP_OS_FS_INFO osFSInfo;
 
@@ -4347,8 +4346,7 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 	if (IS_FILE_OPEN_ERR(srcf)) 
 	{
 		/* card information file does not exist */
-			DBGPRINT(RT_DEBUG_TRACE,
-				("--> Error opening %s\n", SINGLE_SKU_TABLE_FILE_NAME));
+		DBGPRINT(RT_DEBUG_TRACE, ("--> Error opening %s\n", SINGLE_SKU_TABLE_FILE_NAME));
 		goto  free_resource;
 	}
 
@@ -4858,14 +4856,14 @@ VOID UpdateSkuRatePwr(
 	UCHAR	i;
 	CHAR	rate_table[18];
 
-	printk("channel = %d, bw = %d\n", channel, bw);
+	//printk("channel = %d, bw = %d\n", channel, bw);
 
 	for ( i = 0 ; i < 18; i++ )
 	{
 		sku_rate_pwr = GetSkuRatePwr(pAd, i, channel, bw);
-		printk("sku_rate_pwr = %d", sku_rate_pwr);
+		//printk("sku_rate_pwr = %d", sku_rate_pwr);
 		sku_rate_pwr = sku_rate_pwr << 12;			// sku_rate_power * 4096
-		printk("\tsku_rate_pwr = %d\n", sku_rate_pwr);
+		//printk("\tsku_rate_pwr = %d\n", sku_rate_pwr);
 
 		if ( i < SKU_PHYMODE_CCK_5M_11M )
 		{
@@ -4902,17 +4900,17 @@ VOID UpdateSkuRatePwr(
 
 		pa_mode_pwr = GetSkuPAModePwr(pAd, i);
 
-		printk("base_pwr = %d", base_pwr);
+		//printk("base_pwr = %d", base_pwr);
 		rate_pwr = base_pwr << 12;
-		printk("\t base_pwr = %d\n", rate_pwr);
-		printk("mcs_digital_pwr = %d\n", mcs_digital_pwr);
-		printk("pa_mode_pwr = %d\n", pa_mode_pwr);
+		//printk("\t base_pwr = %d\n", rate_pwr);
+		//printk("mcs_digital_pwr = %d\n", mcs_digital_pwr);
+		//printk("pa_mode_pwr = %d\n", pa_mode_pwr);
 		rate_pwr = rate_pwr + mcs_digital_pwr + pa_mode_pwr;
-		printk("rate_pwr = %d\n", rate_pwr);
+		//printk("rate_pwr = %d\n", rate_pwr);
 		diff_pwr = sku_rate_pwr - rate_pwr;
-		printk("diff_pwr = %d", diff_pwr);
+		//printk("diff_pwr = %d", diff_pwr);
 		diff_pwr = diff_pwr >> 12;
-		printk("\tdiff_pwr = %d\n", diff_pwr);
+		//printk("\tdiff_pwr = %d\n", diff_pwr);
 
 		rate_table[i] = diff_pwr -1;
 	}
@@ -4950,6 +4948,4 @@ VOID UpdateSkuRatePwr(
 
 }
 
-
 #endif /* SINGLE_SKU_V2 */
-

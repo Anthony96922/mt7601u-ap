@@ -2325,7 +2325,7 @@ VOID WpaDerivePTK(
 	CurrPos += 32;
 
 	hex_dump("PMK", PMK, LEN_PMK);
-	hex_dump("concatenation=", concatenation, 76);
+	hex_dump("Concatenation = ", concatenation, 76);
 
 	/* Use PRF to generate PTK*/
 	PRF(PMK, LEN_PMK, Prefix, 22, concatenation, 76, output, len);

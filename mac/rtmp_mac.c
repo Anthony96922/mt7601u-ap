@@ -123,7 +123,7 @@ VOID RTMPWriteTxWI(
 		pTxWI->TxWIBW = (pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth == 0) ? (BW_20) : (pTransmit->field.BW);
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
-	
+
 	pTxWI->TxWIMCS = pTransmit->field.MCS;
 	pTxWI->TxWIPHYMODE = pTransmit->field.MODE;
 	pTxWI->TxWICFACK = CfAck;

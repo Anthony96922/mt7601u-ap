@@ -2013,7 +2013,7 @@ VOID RTMPIoctlGetSiteSurvey(
 	INT 		i=0;	 
 	INT			WaitCnt;
 	INT 		Status=0;	
-    INT         max_len = LINE_LEN;		
+	INT         max_len = LINE_LEN;
 	PBSS_ENTRY	pBss;
 	UINT32 TotalLen, BufLen = IW_SCAN_MAX_DATA;
 
@@ -2037,7 +2037,7 @@ VOID RTMPIoctlGetSiteSurvey(
 	sprintf(msg,"%s","\n");
 
 	sprintf(msg+strlen(msg),"%-4s%-33s%-20s%-23s%-9s%-7s%-7s%-3s\n",
-	    "Ch", "SSID", "BSSID", "Security", "Siganl(%)", "W-Mode", " ExtCH"," NT");	
+		"Ch", "SSID", "BSSID", "Security", "Signal(%)", "W-Mode", " ExtCH"," NT");	
 
 #ifdef WSC_INCLUDED
 	sprintf(msg+strlen(msg)-1,"%-4s%-5s\n", " WPS", " DPID");
@@ -4435,6 +4435,7 @@ INT	Show_STA_RAInfo_Proc(
 	OUT	PSTRING			pBuf,
 	IN	ULONG			BufLen)
 {
+#ifdef DBG
 	sprintf(pBuf, "\n");
 #ifdef PRE_ANT_SWITCH
 	sprintf(pBuf+strlen(pBuf), "PreAntSwitch: %d\n", pAd->CommonCfg.PreAntSwitch);
@@ -4466,6 +4467,7 @@ INT	Show_STA_RAInfo_Proc(
 #ifdef DBG_CTRL_SUPPORT
 	sprintf(pBuf+strlen(pBuf), "DebugFlags: 0x%lx\n", pAd->CommonCfg.DebugFlags);
 #endif /* DBG_CTRL_SUPPORT */
+#endif /* DBG */
 	return 0;
 }
 

@@ -301,13 +301,11 @@ VOID RtmpDrvSendWirelessEvent(
 			pBufPtr += sprintf(pBufPtr, "(RT2860) ");
 
 		if (type == IW_SYS_EVENT_FLAG_START)
-        {
+		{
 			pBufPtr += sprintf(pBufPtr, "%s", pWirelessSysEventText[event]);
-		    
-            if (Event_flag == IW_CHANNEL_CHANGE_EVENT_FLAG)
-		  	{
+
+			if (Event_flag == IW_CHANNEL_CHANGE_EVENT_FLAG)
 			 	pBufPtr += sprintf(pBufPtr, "%3d", Rssi);
-			}			
 		}
 #ifdef IDS_SUPPORT		
 		else if (type == IW_SPOOF_EVENT_FLAG_START)
