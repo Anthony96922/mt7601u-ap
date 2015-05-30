@@ -57,7 +57,7 @@ NDIS_STATUS	 RtmpMgmtTaskInit(
 	RtmpTimerQInit(pAd);
 
 	pTask = &pAd->timerTask;
-	RTMP_OS_TASK_INIT(pTask, "rtmp_timer_task", pAd);
+	RTMP_OS_TASK_INIT(pTask, "rtmp-timer-task", pAd);
 	status = RtmpOSTaskAttach(pTask, RtmpTimerQThread, (ULONG)pTask);
 	if (status == NDIS_STATUS_FAILURE)
 	{
@@ -69,7 +69,7 @@ NDIS_STATUS	 RtmpMgmtTaskInit(
 
 	/* Creat MLME Thread */
 	pTask = &pAd->mlmeTask;
-	RTMP_OS_TASK_INIT(pTask, "rtmp_mlme_task", pAd);
+	RTMP_OS_TASK_INIT(pTask, "rtmp-mlme-task", pAd);
 	status = RtmpOSTaskAttach(pTask, MlmeThread, (ULONG)pTask);
 	if (status == NDIS_STATUS_FAILURE)
 	{
@@ -81,7 +81,7 @@ NDIS_STATUS	 RtmpMgmtTaskInit(
 
 	/* Creat Command Thread */
 	pTask = &pAd->cmdQTask;
-	RTMP_OS_TASK_INIT(pTask, "rtmp_cmd_qtask", pAd);
+	RTMP_OS_TASK_INIT(pTask, "rtmp-cmd-qtask", pAd);
 	status = RtmpOSTaskAttach(pTask, RTUSBCmdThread, (ULONG)pTask);
 	if (status == NDIS_STATUS_FAILURE)
 	{
