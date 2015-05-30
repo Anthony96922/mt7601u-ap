@@ -104,9 +104,9 @@ int main(int argc ,char *argv[])
         strcat(outfname,"/include/mcu/MT7662_firmware.h");
         strcat(fw_name, "MT7662_FirmwareImage");
     } else if(strncmp(chipset, "7601",4)==0) {
-        strcat(infname,"/mcu/bin/MT7601.bin");
-        strcat(outfname,"/include/mcu/MT7601_firmware.h");
-        strcat(fw_name, "MT7601_FirmwareImage");
+	strcat(infname,"/mcu/bin/MT7601.bin");
+	strcat(outfname, "/include/mcu/MT7601_firmware.h");
+	strcat(fw_name, "MT7601_FirmwareImage");
     } else {
         strcat(infname,"/mcu/bin/rt2860.bin");
         strcat(outfname,"/include/firmware.h");
