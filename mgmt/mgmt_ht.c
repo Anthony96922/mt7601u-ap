@@ -64,9 +64,9 @@ INT get_ht_max_mcs(RTMP_ADAPTER *pAd, UCHAR *desire_mcs, UCHAR *cap_mcs)
 	UCHAR bitmask;
 
 
-	for (i = 23; i >= 0; i --)
+	for (i = 23; i >= 0; i--)
 	{
-		j = i/8;
+		j = i / 8;
 		bitmask = (1<<(i-(j*8)));
 		if ((desire_mcs[j] & bitmask) && (cap_mcs[j] & bitmask))
 		{
@@ -116,7 +116,7 @@ UCHAR get_cent_ch_by_htinfo(
 {
 	UCHAR cent_ch;
 
-	if ((ht_op->ControlChan > 2)&&
+	if ((ht_op->ControlChan > 2) &&
 		(ht_op->AddHtInfo.ExtChanOffset == EXTCHA_BELOW) &&
 		(ht_cap->HtCapInfo.ChannelWidth == BW_40))
 		cent_ch = ht_op->ControlChan - 2;
@@ -157,7 +157,7 @@ VOID RTMPSetHT(
 #ifdef CONFIG_AP_SUPPORT
 	/* sanity check for extention channel */
 	if (CHAN_PropertyCheck(pAd, pAd->CommonCfg.Channel,
-						CHANNEL_NO_FAT_BELOW | CHANNEL_NO_FAT_ABOVE) == TRUE)
+				CHANNEL_NO_FAT_BELOW | CHANNEL_NO_FAT_ABOVE) == TRUE)
 	{
 		/* only 20MHz is allowed */
 		pHTPhyMode->BW = 0;
@@ -166,22 +166,22 @@ VOID RTMPSetHT(
 	{
 		/* extension channel below this channel is not allowed */
 		if (CHAN_PropertyCheck(pAd, pAd->CommonCfg.Channel,
-						CHANNEL_NO_FAT_BELOW) == TRUE)
+					CHANNEL_NO_FAT_BELOW) == TRUE)
 			pHTPhyMode->ExtOffset = EXTCHA_ABOVE;
 	}
 	else if (pHTPhyMode->ExtOffset == EXTCHA_ABOVE)
 	{
 		/* extension channel above this channel is not allowed */
 		if (CHAN_PropertyCheck(pAd, pAd->CommonCfg.Channel,
-						CHANNEL_NO_FAT_ABOVE) == TRUE)
+					CHANNEL_NO_FAT_ABOVE) == TRUE)
 			pHTPhyMode->ExtOffset = EXTCHA_BELOW;
 	}
 #endif /* CONFIG_AP_SUPPORT */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : HT_mode(%d), ExtOffset(%d), MCS(%d), BW(%d), STBC(%d), SHORTGI(%d)\n",
-										pHTPhyMode->HtMode, pHTPhyMode->ExtOffset,
-										pHTPhyMode->MCS, pHTPhyMode->BW,
-										pHTPhyMode->STBC, pHTPhyMode->SHORTGI));
+					pHTPhyMode->HtMode, pHTPhyMode->ExtOffset,
+					pHTPhyMode->MCS, pHTPhyMode->BW,
+					pHTPhyMode->STBC, pHTPhyMode->SHORTGI));
 
 	/* Don't zero supportedHyPhy structure.*/
 	RTMPZeroMemory(ht_cap, sizeof(HT_CAPABILITY_IE));
@@ -225,10 +225,10 @@ VOID RTMPSetHT(
 	ht_cap->HtCapParm.MpduDensity = (UCHAR)pAd->CommonCfg.BACapability.field.MpduDensity;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : AMsduSize = %d, MimoPs = %d, MpduDensity = %d, MaxRAmpduFactor = %d\n",
-													rt_ht_cap->AmsduSize,
-													rt_ht_cap->MimoPs,
-													rt_ht_cap->MpduDensity,
-													rt_ht_cap->MaxRAmpduFactor));
+					rt_ht_cap->AmsduSize,
+					rt_ht_cap->MimoPs,
+					rt_ht_cap->MpduDensity,
+					rt_ht_cap->MaxRAmpduFactor));
 
 	if(pHTPhyMode->HtMode == HTMODE_GF)
 	{
@@ -258,6 +258,7 @@ VOID RTMPSetHT(
 	}
 
 	// TODO: shiang-6590, how about the "bw" when channel 14 for JP region???
+	bw = BW_40;
 	if(pHTPhyMode->BW == BW_40)
 	{
 		ht_cap->MCSSet[4] = 0x1; /* MCS 32 */
@@ -294,7 +295,7 @@ VOID RTMPSetHT(
 		pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset = EXTCHA_NONE;
 		pAd->CommonCfg.CentralChannel = pAd->CommonCfg.Channel;
 		/* Turn on BBP 20MHz mode by request here.*/
-		bw = BW_20;
+		//bw = BW_20;
 	}
 
 #ifdef DOT11_VHT_AC

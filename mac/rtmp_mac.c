@@ -81,19 +81,27 @@ VOID RTMPWriteTxWI(
 	if (IS_RT65XX(pAd))
 	{
 		if (BASize > 31)
-			BASize =31;
+			BASize = 31;
 	}
 	else
 #endif /* RT65xx */
+#ifdef MT7601
+	if (IS_MT7601(pAd))
+	{
+		if (BASize > 15)
+			BASize = 15;
+	}
+	else
+#endif /* MT7601 */
 	if (pAd->MACVersion == 0x28720200)
 	{
 		if (BASize > 13)
-			BASize =13;
+			BASize = 13;
 	}
 	else
 	{
-		if( BASize >7 )
-			BASize =7;
+		if (BASize > 7)
+			BASize = 7;
 	}
 
 	pTxWI->TxWIBAWinSize = BASize;
@@ -131,9 +139,9 @@ VOID RTMPWriteTxWI(
 #ifdef DOT11_N_SUPPORT
 	if (pMac)
 	{
-        if (pAd->CommonCfg.bMIMOPSEnable)
-        {
-    		if ((pMac->MmpsMode == MMPS_DYNAMIC) && (pTransmit->field.MCS > 7))
+		if (pAd->CommonCfg.bMIMOPSEnable)
+		{
+			if ((pMac->MmpsMode == MMPS_DYNAMIC) && (pTransmit->field.MCS > 7))
 			{
 				/* Dynamic MIMO Power Save Mode*/
 				pTxWI->TxWIMIMOps = 1;
@@ -147,11 +155,9 @@ VOID RTMPWriteTxWI(
 					pTxWI->TxWIMIMOps = 0;
 				}
 			}
-        }
-		/*pTxWI->TxWIMIMOps = (pMac->PsMode == PWR_MMPS)? 1:0;*/
-		{
-			pTxWI->TxWIMpduDensity = pMac->MpduDensity;
 		}
+		/*pTxWI->TxWIMIMOps = (pMac->PsMode == PWR_MMPS)? 1:0;*/
+		pTxWI->TxWIMpduDensity = pMac->MpduDensity;
 	}
 #endif /* DOT11_N_SUPPORT */
 
@@ -161,9 +167,9 @@ VOID RTMPWriteTxWI(
 #endif /* RLT_MAC */
 	NdisMoveMemory(pOutTxWI, &TxWI, TXWISize);
 //+++Add by shiang for debug
-if (0){
+#ifdef DBG
 	hex_dump("TxWI", (UCHAR *)pOutTxWI, TXWISize);
-}
+#endif /* DBG */
 //---Add by shiang for debug
 }
 

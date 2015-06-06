@@ -2149,7 +2149,7 @@ VOID MT7601AsicTemperatureCompensation(
 	pChipCap->CurrentTemperature = CurrentTemper;
 
 	/* DPD Calibration */
-	if ( ((CurrentTemper - pChipCap->TemperatureDPD) > 450) || ((CurrentTemper - pChipCap->TemperatureDPD) < -450 ))
+	if (((CurrentTemper - pChipCap->TemperatureDPD) > 450) || ((CurrentTemper - pChipCap->TemperatureDPD) < -450 ))
 	{
 		pChipCap->TemperatureDPD = CurrentTemper;
 
@@ -2171,7 +2171,7 @@ VOID MT7601AsicTemperatureCompensation(
 	/* PLL Lock Protect */
 	if (CurrentTemper < -50) // ( 20 - 25 ) * 10 = -50
 	{
-		if ( pAd->chipCap.bPllLockProtect == FALSE )
+		if (pAd->chipCap.bPllLockProtect == FALSE)
 		{
 			pAd->chipCap.bPllLockProtect = TRUE;
 			rlt_rf_write(pAd, RF_BANK4, RF_R04, 0x06);
@@ -2324,7 +2324,7 @@ INT16 lin2dBd(UINT16 linearValue)
 }
 
 
-VOID MT7601_EnableTSSI(IN 		PRTMP_ADAPTER 		pAd)
+VOID MT7601_EnableTSSI(IN PRTMP_ADAPTER pAd)
 {
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
@@ -2361,14 +2361,14 @@ VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 	rlt_rf_read(pAd, RF_BANK4, RF_R39, &Rf_B4_R39);
 	rlt_rf_write(pAd, RF_BANK4, RF_R39, 0x0);
 
-	for( i = 0; i < 4; i++)
+	for(i = 0; i < 4; i++)
 	{
-		if ( ( i == 0 ) || ( i == 2 ) )
-			rlt_rf_write(pAd, RF_BANK4, RF_R39, 0x0);		//disable PA
+		if ((i == 0) || (i == 2))
+			rlt_rf_write(pAd, RF_BANK4, RF_R39, 0x0); //disable PA
 		else
-			rlt_rf_write(pAd, RF_BANK4, RF_R39, Rf_B4_R39);	// enable PA
+			rlt_rf_write(pAd, RF_BANK4, RF_R39, Rf_B4_R39); // enable PA
 
-		if( i < 2)
+		if(i < 2)
 		{
  		 	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R23, 0x8);
 			rlt_rf_write(pAd, RF_BANK5, RF_R03, 0x8);
@@ -2389,7 +2389,7 @@ VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 
 		/* TSSI measurement */
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R47, 0x50);
-		if (( i == 0 ) || ( i == 2 ))
+		if ((i == 0) || (i == 2))
 			RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R22, 0x40);		// enable dc
 		else
 			RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R244, 0x31);	// enable ton gen
@@ -2425,8 +2425,7 @@ VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 			tssi_linear = tssi_linear * 4;
 			tssi0_db_hvga = lin2dBd(tssi_linear);
 		}
-			
-       }
+	}
 
 	pTxALCData->TSSI0_DB = tssi0_db;
 	DBGPRINT(RT_DEBUG_TRACE, ("tssi0_db_hvga = %x\n", tssi0_db_hvga));
@@ -2504,7 +2503,7 @@ VOID MT7601_InitDesiredTSSITable(
 		init_offset = 0x20;
 	else if(init_offset > 0x1f)
 		init_offset = 0x1f;
-	
+
 	Value = (Value & ~0x3F) | (init_offset & 0x3F);
 	pTxALCData->InitTxAlcCfg1 = Value;
 	RTMP_IO_WRITE32(pAd, TX_ALC_CFG_1, Value);
@@ -2887,9 +2886,9 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 		CurrentPower = (value & 0x3F);
 		CurrentPower = CurrentPower > 0x1F ? CurrentPower - 0x40 : CurrentPower;
 		PowerDiff += CurrentPower;
-		if ( PowerDiff > 31 )
+		if (PowerDiff > 31)
 			PowerDiff = 31;
-		if ( PowerDiff < -32 )
+		if (PowerDiff < -32)
 			PowerDiff = -32;
 		//PowerDiff = PowerDiff + (value & 0x3F);
 		value = (value & ~0x3F) | (PowerDiff & 0x3F);
@@ -2905,7 +2904,6 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 		}
 
 	}
-
 
 }
 #endif /* RTMP_INTERNAL_TX_ALC */
@@ -2938,7 +2936,7 @@ INT MT7601_Bootup_Read_Temperature(
 	while ( i > 0 )
 	{
 		RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R47, &BBPReg);
-		if( (BBPReg & 0x10) == 0)
+		if((BBPReg & 0x10) == 0)
 			break;
 		i--;
 	}
@@ -2972,7 +2970,7 @@ INT MT7601_Read_Temperature(
 	int i;
 
 #ifdef RTMP_INTERNAL_TX_ALC
-	if ((pAd->chipCap.TxALCData.TssiTriggered == 1) && ( pAd->TxPowerCtrl.bInternalTxALC == TRUE ))
+	if ((pAd->chipCap.TxALCData.TssiTriggered == 1) && ( pAd->TxPowerCtrl.bInternalTxALC == TRUE))
 		*Temperature = pAd->chipCap.CurrentTemperBbpR49;
 	else
 #endif /* RTMP_INTERNAL_TX_ALC */
@@ -2984,7 +2982,7 @@ INT MT7601_Read_Temperature(
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R47, BBPReg);
 
 		i = 100;
-		while ( i > 0 )
+		while (i > 0)
 		{
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R47, &BBPReg);
 			if( (BBPReg & 0x10) == 0)
@@ -3013,7 +3011,7 @@ VOID MT7601SetRxAnt(
 	(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS))   ||
 	(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RADIO_OFF)) ||
 	(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST)))
-	return;
+		return;
 
 	/* For PPAD Debug, BBP R153[7] = 1 --> Main Ant, R153[7] = 0 --> Aux Ant */
 	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R150, 0x00); /* Disable ANTSW_OFDM */
