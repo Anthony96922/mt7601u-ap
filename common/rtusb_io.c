@@ -1860,11 +1860,11 @@ VOID RTUSBWatchDog(IN RTMP_ADAPTER *pAd)
 	BOOLEAN				needDumpSeq = FALSE;
 	UINT32          	MACValue;
 
+
 	return;
 
 	if(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST))
 		return;
-
 
 	idx = 0;
 	RTMP_IO_READ32(pAd, TXRXQ_PCNT, &MACValue);

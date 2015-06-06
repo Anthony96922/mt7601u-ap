@@ -840,9 +840,7 @@ int BuildMessageM2(
 		*/
 	}
 	else
-	{
 		ConfigMethods = (pWscControl->WscConfigMethods & 0x00FF);
-	}
 #endif /* WSC_V2_SUPPORT */
 	ConfigMethods = cpu2be16(ConfigMethods);
 	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (UINT8 *)&ConfigMethods, 0);

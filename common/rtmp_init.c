@@ -1940,7 +1940,9 @@ VOID NICUpdateRawCounters(
 	/*ULONG	PageSum, OneSecTransmitCount;*/
 	/*ULONG	TxErrorRatio, Retry, Fail;*/
 	RX_STA_CNT0_STRUC	 RxStaCnt0;
+#ifndef CONFIG_MICROWAVE_SUPPORT
 	RX_STA_CNT1_STRUC   RxStaCnt1;
+#endif /* CONFIG_MICROWAVE_SUPPORT */
 	RX_STA_CNT2_STRUC   RxStaCnt2;
 	TX_STA_CNT0_STRUC 	 TxStaCnt0;
 	TX_STA_CNT1_STRUC	 StaTx1;
@@ -1981,15 +1983,15 @@ VOID NICUpdateRawCounters(
 #endif /* CONFIG_AP_SUPPORT */
 	{
 #ifdef MICROWAVE_OVEN_SUPPORT
-	    /* Update RX PLCP error counter*/
-	    pAd->PrivateInfo.PhyRxErrCnt += NICSumPLCPErrCnt(pAd); /* get PLCP error count per sec */
+		/* Update RX PLCP error counter*/
+		pAd->PrivateInfo.PhyRxErrCnt += NICSumPLCPErrCnt(pAd); /* get PLCP error count per sec */
 		/* Update False CCA counter*/
 		pAd->RalinkCounters.OneSecFalseCCACnt += NICSumFalseCCACnt(pAd); /* get FalseCCA count per sec */
 		pAd->RalinkCounters.FalseCCACnt += pAd->RalinkCounters.OneSecFalseCCACnt;
 #else
 		RTMP_IO_READ32(pAd, RX_STA_CNT1, &RxStaCnt1.word);
-	    /* Update RX PLCP error counter*/
-	    pAd->PrivateInfo.PhyRxErrCnt += RxStaCnt1.field.PlcpErr;
+		/* Update RX PLCP error counter*/
+		pAd->PrivateInfo.PhyRxErrCnt += RxStaCnt1.field.PlcpErr;
 		/* Update False CCA counter*/
 		pAd->RalinkCounters.OneSecFalseCCACnt += RxStaCnt1.field.FalseCca;
 		pAd->RalinkCounters.FalseCCACnt += RxStaCnt1.field.FalseCca;

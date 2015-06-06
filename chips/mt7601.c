@@ -895,9 +895,7 @@ VOID MT7601_INIT_CAL(RTMP_ADAPTER *pAd)
 
 	MT7601_Bootup_Read_Temperature(pAd, &pAd->chipCap.CurrentTemperBbpR49);
 	pAd->chipCap.CurrentTemperature = (pAd->chipCap.CurrentTemperBbpR49 - pAd->chipCap.TemperatureRef25C) * MT7601_E2_TEMPERATURE_SLOPE;
-#ifdef DPD_CALIBRATION_SUPPORT
 	pAd->chipCap.TemperatureDPD = pAd->chipCap.CurrentTemperature;
-#endif /* DPD_CALIBRATION_SUPPORT */
 
 	RTMP_IO_READ32(pAd, MAC_SYS_CTRL, &Mac_R1004);
 
@@ -945,7 +943,7 @@ VOID MT7601_INIT_CAL(RTMP_ADAPTER *pAd)
 
 	RTMP_IO_WRITE32(pAd, MAC_SYS_CTRL, Mac_R1004);
 
-	MT7601AsicTemperatureCompensation(pAd);
+	MT7601AsicTemperatureCompensation(pAd, TRUE);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("<==%s\n", __FUNCTION__));
 
@@ -1270,9 +1268,8 @@ static VOID MT7601_ChipSwitchChannel(
 	/* 
 		vcocal_en (initiate VCO calibration (reset after completion)) - It should be at the end of RF configuration. 
 	*/
-	AndesRFRandomWrite(pAd, 2,
-		RF_BANK0, RF_R04, 0x0A,
-		RF_BANK0, RF_R05, 0x20);
+	rlt_rf_write(pAd, RF_BANK0, RF_R04, 0x0A);
+	rlt_rf_write(pAd, RF_BANK0, RF_R05, 0x20);
 	rlt_rf_read(pAd, RF_BANK0, RF_R04, &RFValue);
 	RFValue = RFValue | 0x80;
 	rlt_rf_write(pAd, RF_BANK0, RF_R04, RFValue);
@@ -1398,22 +1395,20 @@ NTSTATUS MT7601DisableTxRx(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("----> %s\n", __FUNCTION__));
 
-	if ( Level == DOT11POWERSAVE )
+	if (Level == DOT11POWERSAVE)
 		MaxRetry = 20;
 	else
 		MaxRetry = 2000;
 
 	if (Level == RTMP_HALT)
-	{
 		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_ACTIVE);
-	}
 
 	DBGPRINT(RT_DEBUG_INFO, ("%s Tx success = %ld\n", 
 		__FUNCTION__, (ULONG)pAd->WlanCounters.TransmittedFragmentCount.u.LowPart));
 	DBGPRINT(RT_DEBUG_INFO, ("%s Tx success = %ld\n", 
 		__FUNCTION__, (ULONG)pAd->WlanCounters.ReceivedFragmentCount.QuadPart));
 
-	if ( StopDmaTx(pAd, Level) == STATUS_UNSUCCESSFUL )
+	if (StopDmaTx(pAd, Level) == STATUS_UNSUCCESSFUL)
 		return STATUS_UNSUCCESSFUL;
 
 	/*
@@ -1433,6 +1428,7 @@ NTSTATUS MT7601DisableTxRx(
 			bFree = FALSE;
 		if (bFree)
 			break;
+		RtmpOsMsDelay(10);
 		if (MacReg == 0xFFFFFFFF)
 		{
 			//RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST);
@@ -1588,11 +1584,11 @@ NTSTATUS MT7601DisableTxRx(
 		DBGPRINT(RT_DEBUG_ERROR, ("Check MAC Rx idle max(0x%08x)\n", MacReg));
 		bResetWLAN = TRUE;
 
-		if ( Level == DOT11POWERSAVE )
+		if (Level == DOT11POWERSAVE)
 			return STATUS_UNSUCCESSFUL;
 	}
 
-	if ( StopDmaRx(pAd, Level) == STATUS_UNSUCCESSFUL )
+	if (StopDmaRx(pAd, Level) == STATUS_UNSUCCESSFUL)
 		return STATUS_UNSUCCESSFUL;
 
 	if ((Level == RTMP_HALT) &&
@@ -1626,13 +1622,11 @@ VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, UCHAR Stage)
 #endif
 	DBGPRINT(RT_DEBUG_TRACE, ("--> %s\n", __FUNCTION__));
 
-	if ( RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_IDLE_RADIO_OFF) )
+	if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_IDLE_RADIO_OFF))
 		return;
 
 	if (Stage == SUSPEND_RADIO_OFF)
-	{
 		MT7601DisableTxRx(pAd, RTMP_HALT);
-	}
 	else
 	{
 		if ( MT7601DisableTxRx(pAd, DOT11POWERSAVE) == STATUS_UNSUCCESSFUL )
@@ -1655,11 +1649,9 @@ VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, UCHAR Stage)
 
 	RTMP_SET_PSFLAG(pAd, fRTMP_PS_MCU_SLEEP);
 
-	if (Stage != SUSPEND_RADIO_OFF )
-	{
+	if (Stage != SUSPEND_RADIO_OFF)
 		PWR_SAVING_OP(pAd, RADIO_OFF, 1, 0, 0, 0, 0);
-	}
-	
+
 	RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_MCU_SEND_IN_BAND_CMD);
 	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_RADIO_OFF);
 	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_IDLE_RADIO_OFF);
@@ -1672,9 +1664,8 @@ VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, UCHAR Stage)
 	}
 
 #ifdef RTMP_MAC_USB
-	if (IS_USB_INF(pAd)) {
+	if (IS_USB_INF(pAd))
 		RTMP_SEM_EVENT_UP(&pAd->hw_atomic);
-	}
 #endif /* RTMP_MAC_USB */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("<-- %s\n", __FUNCTION__));
@@ -1689,7 +1680,7 @@ VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, UCHAR Stage)
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==> %s\n", __FUNCTION__));
 
-	if ( !RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_IDLE_RADIO_OFF) )
+	if (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_IDLE_RADIO_OFF))
 		return;
 
 	RTMP_CLEAR_PSFLAG(pAd, fRTMP_PS_MCU_SLEEP);
@@ -1718,9 +1709,7 @@ VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, UCHAR Stage)
 #endif /* CONFIG_PM */
 	
 	if (pAd->WlanFunCtrl.field.WLAN_EN == 0)
-	{
 		MT7601_WLAN_ChipOnOff(pAd, TRUE, FALSE);
-	}
 
 	/* make some traffic to invoke EvtDeviceD0Entry callback function*/
 	RTUSBReadMACRegister(pAd,0x1000, &MACValue);
@@ -1732,7 +1721,7 @@ VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, UCHAR Stage)
 		rx_filter_flag = PSPXLINK;
 	else
 #endif /* XLINK_SUPPORT */	
-		rx_filter_flag = STANORMAL;     /* Staion not drop control frame will fail WiFi Certification.*/
+		rx_filter_flag = STANORMAL; /* Staion not drop control frame will fail WiFi Certification.*/
 	
 	RTMP_IO_WRITE32(pAd, RX_FILTR_CFG, rx_filter_flag);
 	RTMP_IO_WRITE32(pAd, MAC_SYS_CTRL, 0xc);
@@ -1743,12 +1732,14 @@ VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, UCHAR Stage)
 	RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_SUSPEND);
 
 	/* Send Bulkin IRPs after flag fRTMP_ADAPTER_IDLE_RADIO_OFF is cleared.*/
+	RTUSBBulkCmdRspEventReceive(pAd);
+	RTUSBBulkReceive(pAd);
 
 	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_MCU_SEND_IN_BAND_CMD);
 
-	AndesRFRandomWrite(pAd, 2,
-		RF_BANK0, RF_R04, 0x0A,
-		RF_BANK0, RF_R05, 0x20);
+	rlt_rf_write(pAd, RF_BANK0, RF_R04, 0x0A);
+	rlt_rf_write(pAd, RF_BANK0, RF_R05, 0x20);
+
 	rlt_rf_read(pAd, RF_BANK0, RF_R04, &RFValue);
 	RFValue = RFValue | 0x80;
 	rlt_rf_write(pAd, RF_BANK0, RF_R04, RFValue);
@@ -1790,7 +1781,7 @@ INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 	tx_pwr1 = TargetPwr & 0xFF;
 	DBGPRINT(RT_DEBUG_TRACE, ("%s: EEPROM 0xD0 = 0x%x\n", __FUNCTION__, tx_pwr1));
 	
-	if ( (tx_pwr1 == 0x0) || (tx_pwr1 > max_tx1_pwr) )
+	if ((tx_pwr1 == 0x0) || (tx_pwr1 > max_tx1_pwr))
 	{
 		tx_pwr1 = 0x20;
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: EEPROM 0xD0 Error! Use Default Target Power = 0x%x\n", __FUNCTION__, tx_pwr1));
@@ -2138,40 +2129,47 @@ VOID MT7601_TemperatureCompensation(
 #ifdef RTMP_INTERNAL_TX_ALC
 		if ( pAd->TxPowerCtrl.bInternalTxALC == FALSE )
 #endif /* RTMP_INTERNAL_TX_ALC */
-		{
 			MT7601_Read_Temperature(pAd, &pChipCap->CurrentTemperBbpR49);
-		}
 
-		MT7601AsicTemperatureCompensation(pAd);
+		MT7601AsicTemperatureCompensation(pAd, FALSE);
 	}
 }
 
 
 VOID MT7601AsicTemperatureCompensation(
-	IN PRTMP_ADAPTER			pAd)
+	IN PRTMP_ADAPTER			pAd,
+	IN BOOLEAN				bPowerOn)
 {
 	INT32	CurrentTemper;
 	UCHAR	RfReg;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
+	INT32 high_temp_cr_threshold, low_temp_cr_threshold;
 
 	CurrentTemper = (pChipCap->CurrentTemperBbpR49 - pChipCap->TemperatureRef25C) * MT7601_E2_TEMPERATURE_SLOPE;		// 3.9 * 10
 	pChipCap->CurrentTemperature = CurrentTemper;
 
-#ifdef DPD_CALIBRATION_SUPPORT
 	/* DPD Calibration */
 	if ( ((CurrentTemper - pChipCap->TemperatureDPD) > 450) || ((CurrentTemper - pChipCap->TemperatureDPD) < -450 ))
 	{
 		pChipCap->TemperatureDPD = CurrentTemper;
 
+#ifdef DPD_CALIBRATION_SUPPORT
 		/* DPD-Calibration */
 		AndesCalibrationOP(pAd, ANDES_CALIBRATION_DPD, pChipCap->TemperatureDPD);
+#endif /* DPD_CALIBRATION_SUPPORT */
+
+		rlt_rf_write(pAd, RF_BANK0, RF_R04, 0x0A);
+		rlt_rf_write(pAd, RF_BANK0, RF_R05, 0x20);
+		rlt_rf_read(pAd, RF_BANK0, RF_R04, &RfReg);
+		RfReg = RfReg | 0x80; 
+		rlt_rf_write(pAd, RF_BANK0, RF_R04, RfReg);
+		RTMPusecDelay(2000);
 
 		DBGPRINT(RT_DEBUG_TRACE, ("%s::ReCalibration DPD.\n", __FUNCTION__));
 	}
-#endif /* DPD_CALIBRATION_SUPPORT */
 
 	/* PLL Lock Protect */
-	if ( CurrentTemper < -50 )												// ( 20 - 25 ) * 10 = -50
+	if (CurrentTemper < -50) // ( 20 - 25 ) * 10 = -50
 	{
 		if ( pAd->chipCap.bPllLockProtect == FALSE )
 		{
@@ -2185,7 +2183,7 @@ VOID MT7601AsicTemperatureCompensation(
 			DBGPRINT(RT_DEBUG_TRACE, ("%s::Enable PLL Lock Protect.\n", __FUNCTION__));
 		}
 	}
-	else if ( CurrentTemper > 50 )											// ( 30 - 25 ) * 10 = 50
+	else if (CurrentTemper > 50) // ( 30 - 25 ) * 10 = 50
 	{
 		if ( pAd->chipCap.bPllLockProtect == TRUE )
 		{
@@ -2200,8 +2198,19 @@ VOID MT7601AsicTemperatureCompensation(
 		}
 	}
 
+	if (bPowerOn)
+	{
+		high_temp_cr_threshold = 350;
+		low_temp_cr_threshold = -250;
+	}
+	else
+	{
+		high_temp_cr_threshold = 400;
+		low_temp_cr_threshold = -200;
+	}
+
 	/* BBP CR for H, L, N temperature */
-	if ( CurrentTemper > 350  )													// (60 - 25) * 10 = 350
+	if (CurrentTemper > high_temp_cr_threshold) // (60 - 25) * 10 = 350
 	{
 		if ( pChipCap->TemperatureMode != TEMPERATURE_MODE_HIGH )
 		{
@@ -2209,36 +2218,28 @@ VOID MT7601AsicTemperatureCompensation(
 
 			AndesBBPRandomWritePair(pAd, MT7601_BBP_HighTempCommonRegTb, MT7601_BBP_HighTempCommonRegTb_Size);
 
-			if (pAd->CommonCfg.BBPCurrentBW == BW_20 )
-			{
+			if (pAd->CommonCfg.BBPCurrentBW == BW_20)
 				AndesBBPRandomWritePair(pAd, MT7601_BBP_HighTempBW20RegTb, MT7601_BBP_HighTempBW20RegTb_Size);
-			}
-			else if (pAd->CommonCfg.BBPCurrentBW == BW_40 )
-			{
+			else if (pAd->CommonCfg.BBPCurrentBW == BW_40)
 				AndesBBPRandomWritePair(pAd, MT7601_BBP_HighTempBW40RegTb, MT7601_BBP_HighTempBW40RegTb_Size);
-			}
 			else
 				DBGPRINT(RT_DEBUG_ERROR, ("%s::Unsupported BW(%x)\n", __FUNCTION__, pAd->CommonCfg.BBPCurrentBW));
 
 			DBGPRINT(RT_DEBUG_TRACE, ("%s::Change to TEMPERATURE_MODE_HIGH\n", __FUNCTION__));
 		}
 	}
-	else if ( CurrentTemper > -250 )									// ( 0 - 25 ) * 10
+	else if (CurrentTemper > low_temp_cr_threshold) // ( 0 - 25 ) * 10
 	{
-		if ( pChipCap->TemperatureMode != TEMPERATURE_MODE_NORMAL )
+		if (pChipCap->TemperatureMode != TEMPERATURE_MODE_NORMAL)
 		{
 			pChipCap->TemperatureMode = TEMPERATURE_MODE_NORMAL;
 
 			AndesBBPRandomWritePair(pAd, MT7601_BBP_CommonRegTb, MT7601_BBP_CommonRegTb_Size);
 
-			if (pAd->CommonCfg.BBPCurrentBW == BW_20 )
-			{
+			if (pAd->CommonCfg.BBPCurrentBW == BW_20)
 				AndesBBPRandomWritePair(pAd, MT7601_BBP_BW20RegTb, MT7601_BBP_BW20RegTb_Size);
-			}
-			else if (pAd->CommonCfg.BBPCurrentBW == BW_40 )
-			{
+			else if (pAd->CommonCfg.BBPCurrentBW == BW_40)
 				AndesBBPRandomWritePair(pAd, MT7601_BBP_BW40RegTb, MT7601_BBP_BW40RegTb_Size);
-			}
 			else
 				DBGPRINT(RT_DEBUG_ERROR, ("%s::Unsupported BW(%x)\n", __FUNCTION__, pAd->CommonCfg.BBPCurrentBW));
 
@@ -2247,20 +2248,16 @@ VOID MT7601AsicTemperatureCompensation(
 	}
 	else
 	{
-		if ( pChipCap->TemperatureMode != TEMPERATURE_MODE_LOW )
+		if (pChipCap->TemperatureMode != TEMPERATURE_MODE_LOW)
 		{
 			pChipCap->TemperatureMode = TEMPERATURE_MODE_LOW;
 
 			AndesBBPRandomWritePair(pAd, MT7601_BBP_LowTempCommonRegTb, MT7601_BBP_LowTempCommonRegTb_Size);
 
 			if (pAd->CommonCfg.BBPCurrentBW == BW_20 )
-			{
 				AndesBBPRandomWritePair(pAd, MT7601_BBP_LowTempBW20RegTb, MT7601_BBP_LowTempBW20RegTb_Size);
-			}
 			else if (pAd->CommonCfg.BBPCurrentBW == BW_40 )
-			{
 				AndesBBPRandomWritePair(pAd, MT7601_BBP_LowTempBW40RegTb, MT7601_BBP_LowTempBW40RegTb_Size);
-			}
 			else
 				DBGPRINT(RT_DEBUG_ERROR, ("%s::Unsupported BW(%x)\n", __FUNCTION__, pAd->CommonCfg.BBPCurrentBW));
 
@@ -2274,52 +2271,56 @@ VOID MT7601AsicTemperatureCompensation(
 #ifdef RTMP_INTERNAL_TX_ALC
 INT16 lin2dBd(UINT16 linearValue)
 {
-    short exp;
-    unsigned int mantisa;
-    int app,dBd;
-    // Default backoff ; to enhance leading bit searching time
-    mantisa = linearValue << DEFAULT_BO;
-    exp = -(DEFAULT_BO);
-    // Leading bit searching
-    if (mantisa < (0x8000)) {
-        while (mantisa < (0x8000)) {
-            mantisa = mantisa << 1; // no need saturation
-            exp--;
-            if (exp < -20) {
-                //printf("error, input too small");
-                //printf("exponent = %d\n",exp);
-                return LIN2DB_ERROR_CODE;
-            }
-        }
-    }
-    else {
-        while (mantisa > (0xFFFF)) {
-            mantisa = mantisa >> 1; // no need saturation
-            exp ++;
-            if (exp > 20) {
-                //printf("error, input too large");
-                //printf("exponent = %d\n",exp);
-                return LIN2DB_ERROR_CODE;
-            }
-        }
-    }
+	short exp;
+	unsigned int mantisa;
+	int app,dBd;
+	// Default backoff ; to enhance leading bit searching time
+	mantisa = linearValue << DEFAULT_BO;
+	exp = -(DEFAULT_BO);
+	// Leading bit searching
+	if (mantisa < (0x8000)) {
+		while (mantisa < (0x8000)) {
+			mantisa = mantisa << 1; // no need saturation
+			exp--;
+			if (exp < -20) {
+				//printf("error, input too small");
+				//printf("exponent = %d\n",exp);
+				return LIN2DB_ERROR_CODE;
+			}
+		}
+	}
+	else
+	{
+		while (mantisa > (0xFFFF)) {
+			mantisa = mantisa >> 1; // no need saturation
+			exp ++;
+			if (exp > 20) {
+				//printf("error, input too large");
+				//printf("exponent = %d\n",exp);
+				return LIN2DB_ERROR_CODE;
+			}
+		}
+	}
 	//printf("exp=0d%d,mantisa=0x%x\n",exp,mantisa);
 
-    if (mantisa <= 47104) {
-	    app= (mantisa+(mantisa>>3)+(mantisa>>4)-38400); //S(15,0)
-        if(app<0) {app=0;}
-    }
-    else {
-        app=(mantisa-(mantisa>>3)-(mantisa>>6)-23040); //S(15,0)
-        if(app<0) {app=0;}
-    }
+	if (mantisa <= 47104) {
+		app = (mantisa + (mantisa >> 3) + (mantisa >> 4) - 38400); //S(15,0)
+		if(app < 0)
+			app = 0;
+	}
+	else
+	{
+		app = (mantisa - (mantisa >> 3) - (mantisa >> 6) - 23040); //S(15,0)
+		if (app < 0)
+			app = 0;
+	}
 
-    dBd=((15+exp)<<15)+app;//since 2^15=1 here
+	dBd = ((15 + exp) << 15) + app; //since 2^15=1 here
 	//printf("dBd1=%d\n",dBd);
-    dBd=(dBd<<2)+(dBd<<1)+(dBd>>6)+(dBd>>7);
-	dBd=(dBd>>10);//S10.5
+	dBd = (dBd << 2) + (dBd << 1) + (dBd >> 6) + (dBd>>7);
+	dBd = (dBd >> 10); //S10.5
 	//printf("app=%d,dBd=%d,dBdF=%f\n",app,dBd,(double)dBd/32);
-    return(dBd);
+	return(dBd);
 }
 
 
@@ -2328,8 +2329,6 @@ VOID MT7601_EnableTSSI(IN 		PRTMP_ADAPTER 		pAd)
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 	AndesFunSetOP(pAd, 5, pTxALCData->TSSI_USE_HVGA);
-
-
 
 }
 
@@ -2390,27 +2389,27 @@ VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 
 		/* TSSI measurement */
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R47, 0x50);
-		if ( ( i == 0 ) || ( i == 2 ) )
+		if (( i == 0 ) || ( i == 2 ))
 			RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R22, 0x40);		// enable dc
 		else
 			RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R244, 0x31);	// enable ton gen
 		
-		for ( count = 0; count < 20; count++ )
+		for (count = 0; count < 20; count++)
 		{
 			//RTMPusecDelay(100);
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R47, &RValue);
 
-			if ( (RValue & 0x10) == 0x00 )
+			if ((RValue & 0x10) == 0x00)
 				break;
 		}
-		if ( count == 20 )
+		if (count == 20)
 			DBGPRINT(RT_DEBUG_ERROR, ("TssiDC0 Read Fail!\n"));
 
 		/* TSSI read */
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R47, 0x40);
-		if(i == 0)
+		if (i == 0)
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, &pTxALCData->TssiDC0);
-		else if(i == 2)
+		else if (i == 2)
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, &pTxALCData->TssiDC0_HVGA);
 		else 
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, (PUCHAR)&tssi_linear);
@@ -2418,9 +2417,9 @@ VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 		tssi_linear = tssi_linear & 0xff;
 		tssi_linear = (tssi_linear & 0x80) ? tssi_linear - 0x100 : tssi_linear; 
 
-		if(i==1)
+		if (i == 1)
 			tssi0_db = lin2dBd(tssi_linear - pTxALCData->TssiDC0);
-		else if(i == 3)
+		else if (i == 3)
 		{
 			tssi_linear = tssi_linear - pTxALCData->TssiDC0_HVGA;
 			tssi_linear = tssi_linear * 4;
@@ -2465,9 +2464,7 @@ VOID MT7601_InitDesiredTSSITable(
 
 
 	if (pAd->TxPowerCtrl.bInternalTxALC == FALSE)
-	{
 		return;
-	}
 
 	/* TSSI Slope in EEPROM 0x6E u.2.6 */
 	RT28xx_EEPROM_READ16(pAd, EEPROM_TX0_TSSI_SLOPE, Value);
@@ -2480,15 +2477,15 @@ VOID MT7601_InitDesiredTSSITable(
 	pTxALCData->MT7601_TSSI_OFFSET[2] = (Value & 0xFF00) >> 8;
 
 #ifdef DOT11_N_SUPPORT
-		if(pAd->TxPower[pAd->CommonCfg.CentralChannel-1].Power <= 20)
-			pTxALCData->TSSI_USE_HVGA = 1;
-		else
-			pTxALCData->TSSI_USE_HVGA = 0;
+	if(pAd->TxPower[pAd->CommonCfg.CentralChannel-1].Power <= 20)
+		pTxALCData->TSSI_USE_HVGA = 1;
+	else
+		pTxALCData->TSSI_USE_HVGA = 0;
 #else
-		if(pAd->TxPower[pAd->CommonCfg.Channel-1].Power <= 20)
-			pTxALCData->TSSI_USE_HVGA = 1;
-		else
-			pTxALCData->TSSI_USE_HVGA = 0;
+	if(pAd->TxPower[pAd->CommonCfg.Channel-1].Power <= 20)
+		pTxALCData->TSSI_USE_HVGA = 1;
+	else
+		pTxALCData->TSSI_USE_HVGA = 0;
 #endif /* DOT11_N_SUPPORT */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("TSSI slope = 0x%x, offset[0] = 0x%x, offset[1] = 0x%x, offset[2] = 0x%x, TSSI_USE_HVGA = %x\n",
@@ -2544,9 +2541,7 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R47, &BBPReg);
 	if (BBPReg & 0x10)
-	{
 		return FALSE;
-	}
 
 	/* 4. Read TSSI */
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R47, &BbpR47);
@@ -2567,9 +2562,9 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 	RTMPusecDelay(500);
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, &PacketType);
 
-	DBGPRINT(RT_DEBUG_TRACE, ("TSSI = 0x%X\n", *TssiLinear0));
-	DBGPRINT(RT_DEBUG_TRACE, ("temperature = 0x%X\n", pAd->chipCap.CurrentTemperBbpR49));
-	DBGPRINT(RT_DEBUG_TRACE, ("PacketType = 0x%X\n", PacketType));
+	DBGPRINT(RT_DEBUG_INFO, ("TSSI = 0x%X\n", *TssiLinear0));
+	DBGPRINT(RT_DEBUG_INFO, ("temperature = 0x%X\n", pAd->chipCap.CurrentTemperBbpR49));
+	DBGPRINT(RT_DEBUG_INFO, ("PacketType = 0x%X\n", PacketType));
 
 	pTxALCData->TssiTriggered = 0;
 
@@ -2585,31 +2580,31 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 	{
 		case 0:
 			TxRate = (PacketType >> 4) & 0x03;
-			DBGPRINT(RT_DEBUG_TRACE, ("tx_11b_rate: %x\n", TxRate));
+			DBGPRINT(RT_DEBUG_INFO, ("tx_11b_rate: %x\n", TxRate));
 			switch (TxRate)
 			{
 				case 0:	// 1 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_CCK_1M : BW20_MCS_POWER_CCK_1M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_CCK_1M;
 					break;
 				case 1:	// 2 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_CCK_2M : BW20_MCS_POWER_CCK_2M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_CCK_2M;
 					break;
 				case 2:	// 5.5 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_CCK_5M : BW20_MCS_POWER_CCK_5M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_CCK_5M;
 					break;
 				case 3:	// 11Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_CCK_11M : BW20_MCS_POWER_CCK_11M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_CCK_11M;
 					break;
 			}
@@ -2619,77 +2614,69 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 			if ( BBPR4 & 0x20 )
 			{
 				if ( BBPR178 == 0 )
-				{
 					Power += 9830;		// 8192 * 1.2
-				}
 				else
-				{
 					Power += 18022;		// 8192 * 2.2
-				}
 			}
 			else
 			{
 				if ( BBPR178 == 0 )
-				{
 					Power += 24576;		// 8192 * 3
-				}
 				else
-				{
 					Power += 819;		/// 8192 * 0.1
-				}
 			}
 			break;
 		case 1:
 			TxRate = (PacketType >> 4) & 0x0F;
-			DBGPRINT(RT_DEBUG_TRACE, ("tx_11g_rate: %x\n", TxRate));
+			DBGPRINT(RT_DEBUG_INFO, ("tx_11g_rate: %x\n", TxRate));
 			switch ( TxRate )
 			{
 				case 0xB:	// 6 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_OFDM_6M : BW20_MCS_POWER_OFDM_6M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_OFDM_6M;
 					break;
 				case 0xF:	// 9 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_OFDM_9M : BW20_MCS_POWER_OFDM_9M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_OFDM_9M;
 					break;
 				case 0xA:	// 12 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_OFDM_12M : BW20_MCS_POWER_OFDM_12M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_OFDM_12M;
 					break;
 				case 0xE:	// 18 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_OFDM_18M : BW20_MCS_POWER_OFDM_18M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_OFDM_18M;
 					break;
 				case 0x9:	// 24 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_OFDM_24M : BW20_MCS_POWER_OFDM_24M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_OFDM_24M;
 					break;
 				case 0xD:	// 36 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_OFDM_36M : BW20_MCS_POWER_OFDM_36M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_OFDM_36M;
 					break;
 				case 0x8:	// 48 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_OFDM_48M : BW20_MCS_POWER_OFDM_48M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_OFDM_48M;
 					break;
 				case 0xC:	// 54 Mbps
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_OFDM_54M : BW20_MCS_POWER_OFDM_54M;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_OFDM_54M;
 					break;
 			}
@@ -2698,56 +2685,56 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 			BbpR47 = (BbpR47 & ~0x07) | 0x02;
 			RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R47, BbpR47);
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, &TxRate);
-			DBGPRINT(RT_DEBUG_TRACE, ("tx_11n_rate: %x\n", TxRate));
+			DBGPRINT(RT_DEBUG_INFO, ("tx_11n_rate: %x\n", TxRate));
 			TxRate &= 0x7F;				// TxRate[7] is bandwidth
 			switch ( TxRate )
 			{
 				case 0x0:
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_HT_MCS0: BW20_MCS_POWER_HT_MCS0;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_HT_MCS0;
 					break;
 				case 0x1:
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_HT_MCS1: BW20_MCS_POWER_HT_MCS1;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_HT_MCS1;
 					break;
 				case 0x2:
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_HT_MCS2: BW20_MCS_POWER_HT_MCS2;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_HT_MCS2;
 					break;
 				case 0x3:
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_HT_MCS3: BW20_MCS_POWER_HT_MCS3;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_HT_MCS3;
 					break;
 				case 0x4:
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_HT_MCS4: BW20_MCS_POWER_HT_MCS4;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_HT_MCS4;
 					break;
 				case 0x5:
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_HT_MCS5: BW20_MCS_POWER_HT_MCS5;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_HT_MCS5;
 					break;
 				case 0x6:
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_HT_MCS6: BW20_MCS_POWER_HT_MCS6;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_HT_MCS6;
 					break;
 				case 0x7:
 					Power += (pAd->CommonCfg.BBPCurrentBW == BW_40)? BW40_MCS_POWER_HT_MCS7: BW20_MCS_POWER_HT_MCS7;
 					Power = Power << 12;
-					DBGPRINT(RT_DEBUG_TRACE, ("Channel PWR + MCS PWR = %x\n", Power));
+					DBGPRINT(RT_DEBUG_INFO, ("Channel PWR + MCS PWR = %x\n", Power));
 					Power += RF_PA_MODE_HT_MCS7;
 					break;
 
@@ -2775,7 +2762,7 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 	Power += pTxALCData->MT7601_TSSI_T0_Delta_Offset;
 
 	*TargetPower = Power;
-	DBGPRINT(RT_DEBUG_TRACE, ("TargetPower: 0x%x(%d)\n", *TargetPower, *TargetPower));
+	DBGPRINT(RT_DEBUG_INFO, ("TargetPower: 0x%x(%d)\n", *TargetPower, *TargetPower));
 
 	return TRUE;
 	
@@ -2786,7 +2773,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 	IN PCHAR					pDeltaPwr,
 	IN PCHAR					pTotalDeltaPwr,
 	IN PCHAR					pAgcCompensate,
-	IN PCHAR 					pDeltaPowerByBbpR1)
+	IN PCHAR	 				pDeltaPowerByBbpR1)
 {
 	INT32 TargetPower, CurrentPower, PowerDiff;
 	UCHAR TssiLinear0, TssiLinear1;
@@ -2822,12 +2809,12 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 		
 		tssi_m_dc = TssiLinear0 - ((pTxALCData->TSSI_USE_HVGA == 1) ? pTxALCData->TssiDC0_HVGA : pTxALCData->TssiDC0);
 
-		DBGPRINT(RT_DEBUG_TRACE, ("tssi_m_dc: %d\n", tssi_m_dc));
-		DBGPRINT(RT_DEBUG_TRACE, ("TssiLinear0: %d\n", TssiLinear0));
+		DBGPRINT(RT_DEBUG_INFO, ("tssi_m_dc: %d\n", tssi_m_dc));
+		DBGPRINT(RT_DEBUG_INFO, ("TssiLinear0: %d\n", TssiLinear0));
 		if ( pTxALCData->TSSI_USE_HVGA == 1 )
-			DBGPRINT(RT_DEBUG_TRACE, ("TssiDC0_HVGA: %d\n", pTxALCData->TssiDC0_HVGA));
+			DBGPRINT(RT_DEBUG_INFO, ("TssiDC0_HVGA: %d\n", pTxALCData->TssiDC0_HVGA));
 		else
-			DBGPRINT(RT_DEBUG_TRACE, ("TssiDC0: %d\n", pTxALCData->TssiDC0));
+			DBGPRINT(RT_DEBUG_INFO, ("TssiDC0: %d\n", pTxALCData->TssiDC0));
 		
 		tssi_db = lin2dBd(tssi_m_dc);
 
@@ -2847,20 +2834,20 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 			tssi_offset = pTxALCData->MT7601_TSSI_OFFSET[1];
 #endif /* DOT11_N_SUPPORT */	
 
-		DBGPRINT(RT_DEBUG_TRACE, ("tssi_offset: %d\n", tssi_offset));
-		DBGPRINT(RT_DEBUG_TRACE, ("tssi_offset<<9: %d\n", tssi_offset<<9));
-		DBGPRINT(RT_DEBUG_TRACE, ("TssiSlope: %d\n", pTxALCData->TssiSlope));
-		DBGPRINT(RT_DEBUG_TRACE, ("tssi_db: %d\n", tssi_db));
-              if(pTxALCData->TSSI_USE_HVGA == 1)
-  			tssi_db -= pTxALCData->TSSI_DBOFFSET_HVGA;
-			  
+		DBGPRINT(RT_DEBUG_INFO, ("tssi_offset: %d\n", tssi_offset));
+		DBGPRINT(RT_DEBUG_INFO, ("tssi_offset<<9: %d\n", tssi_offset<<9));
+		DBGPRINT(RT_DEBUG_INFO, ("TssiSlope: %d\n", pTxALCData->TssiSlope));
+		DBGPRINT(RT_DEBUG_INFO, ("tssi_db: %d\n", tssi_db));
+		if(pTxALCData->TSSI_USE_HVGA == 1)
+			tssi_db -= pTxALCData->TSSI_DBOFFSET_HVGA;
+
 		CurrentPower = (pTxALCData->TssiSlope*tssi_db) + (tssi_offset << 9);
 
-		DBGPRINT(RT_DEBUG_TRACE, ("CurrentPower: %d\n", CurrentPower));
+		DBGPRINT(RT_DEBUG_INFO, ("CurrentPower: %d\n", CurrentPower));
   			
 		PowerDiff = TargetPower - CurrentPower;
 
-		DBGPRINT(RT_DEBUG_TRACE, ("PowerDiff: %d\n", PowerDiff));
+		DBGPRINT(RT_DEBUG_INFO, ("PowerDiff: %d\n", PowerDiff));
 
 		if((TssiLinear0 > 126) && ( PowerDiff > 0)) 			// upper saturation
 		{
@@ -2889,14 +2876,12 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 				pTxALCData->PowerDiffPre = PowerDiff;
 		}
 		else 
-		{
 			pTxALCData->PowerDiffPre =  PowerDiff;
-		}
 		
-		PowerDiff = PowerDiff + ((PowerDiff>0)?2048:-2048);
+		PowerDiff = PowerDiff + ((PowerDiff > 0) ? 2048 : -2048);
 		PowerDiff = PowerDiff / 4096;
 
-		DBGPRINT(RT_DEBUG_TRACE, ("final PowerDiff: %d(0x%x)\n", PowerDiff, PowerDiff));
+		DBGPRINT(RT_DEBUG_INFO, ("final PowerDiff: %d(0x%x)\n", PowerDiff, PowerDiff));
 
 		RTMP_IO_READ32(pAd, TX_ALC_CFG_1, &value);
 		CurrentPower = (value & 0x3F);
@@ -2909,7 +2894,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 		//PowerDiff = PowerDiff + (value & 0x3F);
 		value = (value & ~0x3F) | (PowerDiff & 0x3F);
 		RTMP_IO_WRITE32(pAd, TX_ALC_CFG_1, value);
-		DBGPRINT(RT_DEBUG_TRACE, ("MAC 13b4: 0x%x\n", value));		
+		DBGPRINT(RT_DEBUG_INFO, ("MAC 13b4: 0x%x\n", value));		
 
 		//MT7601AsicTemperatureCompensation(pAd);
 
@@ -2954,9 +2939,7 @@ INT MT7601_Bootup_Read_Temperature(
 	{
 		RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R47, &BBPReg);
 		if( (BBPReg & 0x10) == 0)
-		{
 			break;
-		}
 		i--;
 	}
 
@@ -2989,10 +2972,8 @@ INT MT7601_Read_Temperature(
 	int i;
 
 #ifdef RTMP_INTERNAL_TX_ALC
-	if ( (pAd->chipCap.TxALCData.TssiTriggered == 1)  && ( pAd->TxPowerCtrl.bInternalTxALC == TRUE ) )
-	{
+	if ((pAd->chipCap.TxALCData.TssiTriggered == 1) && ( pAd->TxPowerCtrl.bInternalTxALC == TRUE ))
 		*Temperature = pAd->chipCap.CurrentTemperBbpR49;
-	}
 	else
 #endif /* RTMP_INTERNAL_TX_ALC */
 	{
@@ -3007,9 +2988,7 @@ INT MT7601_Read_Temperature(
 		{
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R47, &BBPReg);
 			if( (BBPReg & 0x10) == 0)
-			{
 				break;
-			}
 			i--;
 		}
 
@@ -3025,38 +3004,36 @@ INT MT7601_Read_Temperature(
 
 
 VOID MT7601SetRxAnt(
-    IN PRTMP_ADAPTER    pAd,
-    IN UCHAR            Ant)
+	IN PRTMP_ADAPTER    pAd,
+	IN UCHAR            Ant)
 {
 	UCHAR Val;
 
-    if ((RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RESET_IN_PROGRESS))  ||
-        (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS))   ||
-        (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RADIO_OFF)) ||
-        (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST)))
-    {
-        return;
-    }
+	if ((RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RESET_IN_PROGRESS))  ||
+	(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS))   ||
+	(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RADIO_OFF)) ||
+	(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST)))
+	return;
 
-   /* For PPAD Debug, BBP R153[7] = 1 --> Main Ant, R153[7] = 0 --> Aux Ant */
-   RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R150, 0x00); /* Disable ANTSW_OFDM */
-   RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R151, 0x00); /* Disable ANTSW_CCK */
-   RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R154, 0x00); /* Clear R154[4], Rx Ant is not bound to the previous rx packet selected Ant */
+	/* For PPAD Debug, BBP R153[7] = 1 --> Main Ant, R153[7] = 0 --> Aux Ant */
+	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R150, 0x00); /* Disable ANTSW_OFDM */
+	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R151, 0x00); /* Disable ANTSW_CCK */
+	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R154, 0x00); /* Clear R154[4], Rx Ant is not bound to the previous rx packet selected Ant */
 
-   if (Ant == 0)
-   {
-       RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R152, &Val);
-	   Val &= ~0x80;
-       RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R152, Val); /* Main Ant */
-       DBGPRINT(RT_DEBUG_OFF, ("\x1b[31m%s: MT7601 --> switch to main\x1b[m\n", __FUNCTION__));
-   }
-   else
-   {
-       RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R152, &Val);
-	   Val |= 0x80;
-       RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R152, Val); /* Aux Ant */
-       DBGPRINT(RT_DEBUG_OFF, ("\x1b[31m%s: MT7601 --> switch to aux\x1b[m\n", __FUNCTION__));
-   }
+	if (Ant == 0)
+	{
+		RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R152, &Val);
+		Val &= ~0x80;
+		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R152, Val); /* Main Ant */
+		DBGPRINT(RT_DEBUG_OFF, ("\x1b[31m%s: MT7601 --> switch to main\x1b[m\n", __FUNCTION__));
+	}
+	else
+	{
+		RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R152, &Val);
+		Val |= 0x80;
+		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R152, Val); /* Aux Ant */
+		DBGPRINT(RT_DEBUG_OFF, ("\x1b[31m%s: MT7601 --> switch to aux\x1b[m\n", __FUNCTION__));
+	}
 }
 
 
@@ -3098,7 +3075,7 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 	pChipCap->SnrFormula = SNR_FORMULA2;
 	pChipCap->FlgIsHwWapiSup = TRUE;
 	pChipCap->VcoPeriod = 10;
-	pChipCap->FlgIsVcoReCalMode = VCO_CAL_MODE_3;
+	pChipCap->FlgIsVcoReCalMode = VCO_CAL_DISABLE;
 	pChipCap->FlgIsHwAntennaDiversitySup = TRUE;
 	pChipCap->FlgSwBasedPPAD = TRUE;
 #ifdef STREAM_MODE_SUPPORT

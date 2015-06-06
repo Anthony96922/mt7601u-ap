@@ -130,7 +130,7 @@ typedef struct usb_ctrlrequest devctrlrequest;
 #define AP_RTMP_FIRMWARE_FILE_NAME	"/etc/wifi/RT2870AP/RT2870AP.bin"
 #endif
 #define AP_NIC_DEVICE_NAME		"RT2870AP"
-#define AP_DRIVER_VERSION		"3.0.0.0_beta"
+#define AP_DRIVER_VERSION		"3.0.0.1"
 #ifdef MULTIPLE_CARD_SUPPORT
 #define CARD_INFO_PATH			"/etc/wifi/RT2870AP/RT2870APCard.txt"
 #endif /* MULTIPLE_CARD_SUPPORT */

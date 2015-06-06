@@ -5346,10 +5346,12 @@ INT	Set_ACLShowAll_Proc(
 	IN	PSTRING			arg)
 {
 	RT_802_11_ACL			acl;
-	BOOLEAN					bDumpAll=FALSE;
+	BOOLEAN				bDumpAll = FALSE;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
-	INT						i, j;
-	
+#ifdef DBG
+	INT				i, j;
+#endif /* DBG */
+
 	bDumpAll = simple_strtol(arg, 0, 10);
 
 	if (bDumpAll == 1)

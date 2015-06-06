@@ -115,26 +115,27 @@ VOID WscSetupLockTimeout(
 
 	pWscControl->bSetupLock = FALSE;
 	pWscControl->WscSetupLockTimerRunning = FALSE;
+	pWscControl->PinAttackCount = 0;
 
-		WscBuildBeaconIE(pAd,
-						 pWscControl->WscConfStatus,
-						 FALSE,
-						 0,
-						 0,
-						 (pWscControl->EntryIfIdx & 0xF),
-						 NULL,
-						 0,
-						 AP_MODE);
-		WscBuildProbeRespIE(pAd,
-							WSC_MSGTYPE_AP_WLAN_MGR,
-							pWscControl->WscConfStatus,
-							FALSE,
-							0,
-							0,
-							pWscControl->EntryIfIdx,
-							NULL,
-							0,
-							AP_MODE);
+	WscBuildBeaconIE(pAd,
+				 pWscControl->WscConfStatus,
+				 FALSE,
+				 0,
+				 0,
+				 (pWscControl->EntryIfIdx & 0xF),
+				 NULL,
+				 0,
+				 AP_MODE);
+	WscBuildProbeRespIE(pAd,
+				WSC_MSGTYPE_AP_WLAN_MGR,
+				pWscControl->WscConfStatus,
+				FALSE,
+				0,
+				0,
+				pWscControl->EntryIfIdx,
+				NULL,
+				0,
+				AP_MODE);
 
 	APUpdateBeaconFrame(pAd, pWscControl->EntryIfIdx & 0x0F);
 	DBGPRINT(RT_DEBUG_TRACE, ("WscSetupLockTimeout!\n"));
@@ -181,7 +182,7 @@ VOID	WscCheckPinAttackCount(
 			pWscControl->WscSetupLockTimerRunning = TRUE;
 			RTMPSetTimer(&pWscControl->WscSetupLockTimer, pWscControl->SetupLockTime*60*1000);
 		}
-		pWscControl->PinAttackCount = 0;
+		//pWscControl->PinAttackCount = 0;
 
 			WscBuildBeaconIE(pAd, 
 							 pWscControl->WscConfStatus, 

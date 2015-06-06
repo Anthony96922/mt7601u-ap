@@ -451,7 +451,7 @@ VOID WscUPnPMsgTimeOutAction(
 			memset(pWscData, 0, WSC_MAX_DATA_LEN);
 			dataLen = BuildMessageNACK(pAd, pWscControl, pWscData);
 			WscSendUPnPMessage(pAd, (pWscControl->EntryIfIdx & 0x0F), 
-									WSC_OPCODE_UPNP_DATA, WSC_UPNP_DATA_SUB_NORMAL, 
+							WSC_OPCODE_UPNP_DATA, WSC_UPNP_DATA_SUB_NORMAL,
 									pWscData, dataLen, 0, 0, &pAd->CurrentAddress[0], AP_MODE);
 /*			kfree(pWscData); */
 			os_free_mem(NULL, pWscData);
@@ -1488,21 +1488,22 @@ VOID WscEapEnrolleeAction(
 
 				pWscControl->WscStatus = STATUS_WSC_EAP_M2D_RECEIVED;
 				
-				if (CurOpMode == AP_MODE)
-				{
-					/* For VISTA SP1 internal registrar test */
-					OpCode |= WSC_OPCODE_NACK;
-					pWscControl->RegData.SelfInfo.ConfigError = WSC_ERROR_NO_ERROR;
-					DataLen = BuildMessageNACK(pAdapter, pWscControl, WscData);
-	 				RTMPSendWirelessEvent(pAdapter, IW_WSC_SEND_NACK, NULL, (pWscControl->EntryIfIdx & 0x0F), 0);
-				}
-				else
+				if (CurOpMode == STA_MODE)
 				{
 					/* When external registrar is Marvell station, */
 					/* wps station sends NACK may confuse or reset Marvell wps state machine. */
 					OpCode |= WSC_OPCODE_ACK;
 					DataLen = BuildMessageACK(pAdapter, pWscControl, WscData);
 	 				RTMPSendWirelessEvent(pAdapter, IW_WSC_SEND_ACK, NULL, (pWscControl->EntryIfIdx & 0x0F), 0);
+				}
+				else
+				{
+					
+					/* For VISTA SP1 internal registrar test */
+					OpCode |= WSC_OPCODE_NACK;
+					pWscControl->RegData.SelfInfo.ConfigError = WSC_ERROR_NO_ERROR;
+					DataLen = BuildMessageNACK(pAdapter, pWscControl, WscData);
+	 				RTMPSendWirelessEvent(pAdapter, IW_WSC_SEND_NACK, NULL, (pWscControl->EntryIfIdx & 0x0F), 0);
 				}
 
 				/* Change the state to next one */
@@ -4138,7 +4139,7 @@ VOID WscBuildBeaconIE(
 	UCHAR 			*Data = NULL;
 	PUCHAR			pData;
 	INT				Len = 0, templen = 0;
-    USHORT          tempVal = 0;
+	USHORT          tempVal = 0;
 	PWSC_CTRL		pWpsCtrl = NULL;
 	PWSC_REG_DATA	pReg = NULL;
 
@@ -4194,21 +4195,21 @@ VOID WscBuildBeaconIE(
 	{
 		/* 3.Selected Registrar */
 		templen = AppendWSCTLV(WSC_ID_SEL_REGISTRAR, pData, (UINT8 *)&b_selRegistrar, 0);
-    	pData += templen;
-    	Len   += templen;
+		pData += templen;
+		Len   += templen;
 
 		/*4. Device Password ID */
 		tempVal = htons(devPwdId);
 		templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (UINT8 *)&tempVal, 0);
-    	pData += templen;
-    	Len   += templen;
+		pData += templen;
+		Len   += templen;
 
 		/* 5. Selected Registrar Config Methods */
 		tempVal = selRegCfgMethods;
 		tempVal = htons(tempVal);
 		templen = AppendWSCTLV(WSC_ID_SEL_REG_CFG_METHODS, pData, (UINT8 *)&tempVal, 0);
-    	pData += templen;
-    	Len   += templen;
+		pData += templen;
+		Len   += templen;
 	}
 
 	/* 6. UUID last 6 bytes use MAC */
@@ -4233,7 +4234,7 @@ VOID WscBuildBeaconIE(
 	}
 
 #ifdef RT_BIG_ENDIAN
-	tempVal =SWAP16(tempVal);
+	tempVal = SWAP16(tempVal);
 #endif /* RT_BIG_ENDIAN */
 	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (UINT8 *)&tempVal, 0);
 	pData += templen;
@@ -4355,20 +4356,20 @@ VOID WscBuildProbeRespIE(
 	{
 		/* 3. Selected Registrar */
 		templen = AppendWSCTLV(WSC_ID_SEL_REGISTRAR, pData, (UINT8 *)&b_selRegistrar, 0);
-    	pData += templen;
-    	Len   += templen;
+		pData += templen;
+		Len   += templen;
 
 		/* 4. Device Password ID */
 		tempVal = htons(devPwdId);
 		templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (UINT8 *)&tempVal, 0);
-    	pData += templen;
-    	Len   += templen;
+		pData += templen;
+		Len   += templen;
 
 		/* 5. Selected Registrar Config Methods */
 		tempVal = htons(selRegCfgMethods);
 		templen = AppendWSCTLV(WSC_ID_SEL_REG_CFG_METHODS, pData, (UINT8 *)&tempVal, 0);
-    	pData += templen;
-    	Len   += templen;
+		pData += templen;
+		Len   += templen;
 
 	}
 
@@ -4427,7 +4428,7 @@ VOID WscBuildProbeRespIE(
 		*/
 #ifdef WSC_V2_SUPPORT
 		if (pWpsCtrl->WscV2Info.bEnableWpsV2)
-	tempVal = pWpsCtrl->WscConfigMethods & 0xF97F;
+			tempVal = pWpsCtrl->WscConfigMethods & 0xF97F;
 		else
 #endif /* WSC_V2_SUPPORT */
 			tempVal = pWpsCtrl->WscConfigMethods & 0x00FF;
@@ -4457,7 +4458,7 @@ VOID WscBuildProbeRespIE(
 #ifdef RT_BIG_ENDIAN
 	tempVal =SWAP16(tempVal);
 #endif /* RT_BIG_ENDIAN */
-    templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (UINT8 *)&tempVal, 0);
+	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (UINT8 *)&tempVal, 0);
 	pData += templen;
 	Len   += templen;
      
@@ -5051,68 +5052,67 @@ UINT WscRandomGeneratePinCode(
 
 #ifdef CONFIG_AP_SUPPORT
 VOID  WscInformFromWPA(
-    IN  PMAC_TABLE_ENTRY    pEntry)
+	IN  PMAC_TABLE_ENTRY    pEntry)
 {
-    /* WPA_STATE_MACHINE informs this Entry is already WPA_802_1X_PORT_SECURED. */
-    RTMP_ADAPTER	*pAd = (PRTMP_ADAPTER)pEntry->pAd;
-    BOOLEAN         Cancelled;
+	/* WPA_STATE_MACHINE informs this Entry is already WPA_802_1X_PORT_SECURED. */
+	RTMP_ADAPTER	*pAd = (PRTMP_ADAPTER)pEntry->pAd;
+	BOOLEAN         Cancelled;
 
-    if (pEntry->apidx >= pAd->ApCfg.BssidNum)
-        return;
+	if (pEntry->apidx >= pAd->ApCfg.BssidNum)
+		return;
 
-    DBGPRINT(RT_DEBUG_TRACE, ("-----> WscInformFromWPA\n"));
-    
-    if (MAC_ADDR_EQUAL(pEntry->Addr, pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.EntryAddr))
-    {
-        NdisZeroMemory(pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.EntryAddr, MAC_ADDR_LEN);
-        RTMPCancelTimer(&pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.EapolTimer, &Cancelled);
-        pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.EapolTimerRunning = FALSE;
-        pEntry->bWscCapable = FALSE;
-        pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.WscState = WSC_STATE_CONFIGURED;
+	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscInformFromWPA\n"));
 
-        DBGPRINT(RT_DEBUG_TRACE, ("Reset EntryIfIdx to %d\n", WSC_INIT_ENTRY_APIDX));
-    }
+	if (MAC_ADDR_EQUAL(pEntry->Addr, pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.EntryAddr))
+	{
+		NdisZeroMemory(pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.EntryAddr, MAC_ADDR_LEN);
+		RTMPCancelTimer(&pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.EapolTimer, &Cancelled);
+		pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.EapolTimerRunning = FALSE;
+		pEntry->bWscCapable = FALSE;
+		pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.WscState = WSC_STATE_CONFIGURED;
 
-    DBGPRINT(RT_DEBUG_TRACE, ("<----- WscInformFromWPA\n"));
+		DBGPRINT(RT_DEBUG_TRACE, ("Reset EntryIfIdx to %d\n", WSC_INIT_ENTRY_APIDX));
+	}
+
+	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscInformFromWPA\n"));
 }
 
 VOID WscDelWPARetryTimer(
-    IN  PRTMP_ADAPTER pAd)
+	IN  PRTMP_ADAPTER pAd)
 {
-    PMAC_TABLE_ENTRY    pEntry;
-    UCHAR				apidx = MAIN_MBSSID;
-    BOOLEAN             Cancelled;
+	PMAC_TABLE_ENTRY    pEntry;
+	UCHAR				apidx = MAIN_MBSSID;
+	BOOLEAN             Cancelled;
 
-    DBGPRINT(RT_DEBUG_TRACE, ("<----- WscDelWPARetryTimer\n"));
+	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscDelWPARetryTimer\n"));
     
-    pEntry = MacTableLookup(pAd, pAd->ApCfg.MBSSID[apidx].WscControl.EntryAddr);
-    
-    if (pEntry)
-    {
-        RTMPCancelTimer(&pEntry->RetryTimer, &Cancelled);
-        pEntry->WpaState = AS_NOTUSE;
-    }
+	pEntry = MacTableLookup(pAd, pAd->ApCfg.MBSSID[apidx].WscControl.EntryAddr);
 
-    DBGPRINT(RT_DEBUG_TRACE, ("<----- WscDelWPARetryTimer\n"));
+	if (pEntry)
+	{
+		RTMPCancelTimer(&pEntry->RetryTimer, &Cancelled);
+		pEntry->WpaState = AS_NOTUSE;
+	}
+
+	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscDelWPARetryTimer\n"));
 }
 #endif /* CONFIG_AP_SUPPORT */
 
 VOID WscStop(
 	IN	PRTMP_ADAPTER	pAd,
 #ifdef CONFIG_AP_SUPPORT
-    IN  BOOLEAN         bFromApCli,
+	IN  BOOLEAN         bFromApCli,
 #endif /* CONFIG_AP_SUPPORT */
 	IN  PWSC_CTRL       pWscControl)
 {
 	PWSC_UPNP_NODE_INFO pWscUPnPInfo;
-    BOOLEAN Cancelled;
+	BOOLEAN Cancelled;
 #ifdef WSC_LED_SUPPORT
 	UCHAR WPSLEDStatus;
 #endif /* WSC_LED_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT	
 	MAC_TABLE_ENTRY  *pEntry;
-	UCHAR	apidx = (pWscControl->EntryIfIdx & 0x0F);
 #endif /* CONFIG_AP_SUPPORT */
 	UCHAR	CurOpMode = 0xff;
 

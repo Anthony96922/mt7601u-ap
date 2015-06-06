@@ -602,9 +602,7 @@ struct _RTMP_CHIP_CAP_ {
 	UCHAR	TemperatureMode;
 	BOOLEAN	bPllLockProtect;
 	CHAR	CurrentTemperBbpR49;
-#ifdef DPD_CALIBRATION_SUPPORT
 	INT32	TemperatureDPD;					// temperature when do DPD calibration
-#endif /* DPD_CALIBRATION_SUPPORT */
 	INT32	CurrentTemperature;					// (BBP_R49 - Ref25C) * offset
 #endif /* MT7601 */
 	/* ---------------------------- packet ---------------------------------- */

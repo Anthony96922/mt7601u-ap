@@ -94,6 +94,7 @@ static BOOLEAN USBDevConfigInit(
 	struct usb_interface_descriptor *iface_desc;
 	struct usb_endpoint_descriptor *endpoint;
 	ULONG BulkOutIdx;
+	ULONG BulkInIdx;
 	UINT32 i;
 	RT_CMD_USB_DEV_CONFIG Config, *pConfig = &Config;
 
@@ -107,13 +108,14 @@ static BOOLEAN USBDevConfigInit(
 	/* Configure Pipes */
 	endpoint = &iface_desc->endpoint[0];
 	BulkOutIdx = 0;
+	BulkInIdx = 0;
 
 	for(i=0; i<pConfig->NumberOfPipes; i++)
 	{
 		if ((endpoint[i].bmAttributes == USB_ENDPOINT_XFER_BULK) && 
 			((endpoint[i].bEndpointAddress & USB_ENDPOINT_DIR_MASK) == USB_DIR_IN))
 		{
-			pConfig->BulkInEpAddr = endpoint[i].bEndpointAddress;
+			pConfig->BulkInEpAddr[BulkInIdx++] = endpoint[i].bEndpointAddress;
 			pConfig->BulkInMaxPacketSize = endpoint[i].wMaxPacketSize;
 
 			DBGPRINT_RAW(RT_DEBUG_TRACE, ("BULK IN MaximumPacketSize = %d\n", pConfig->BulkInMaxPacketSize));

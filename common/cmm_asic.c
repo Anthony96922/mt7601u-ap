@@ -1304,10 +1304,10 @@ VOID AsicSetEdcaParm(
 
 
 		Ac2Cfg.field.AcTxop = (pEdcaParm->Txop[QID_AC_VI] * 6) / 10;
-		{
+
 		Ac2Cfg.field.Cwmin = pEdcaParm->Cwmin[QID_AC_VI];
 		Ac2Cfg.field.Cwmax = pEdcaParm->Cwmax[QID_AC_VI];
-		}
+
 		/*sync with window 20110524*/
 		Ac2Cfg.field.Aifsn = pEdcaParm->Aifsn[QID_AC_VI] + 1; /* 5.2.27 T6 Pass Tx VI+BE, but will impack 5.2.27/28 T7. Tx VI*/
 		
@@ -1323,17 +1323,29 @@ VOID AsicSetEdcaParm(
 		Ac3Cfg.field.Cwmin = pEdcaParm->Cwmin[QID_AC_VO];
 		Ac3Cfg.field.Cwmax = pEdcaParm->Cwmax[QID_AC_VO];
 		Ac3Cfg.field.Aifsn = pEdcaParm->Aifsn[QID_AC_VO];
+/* For WMM Test PASS */
+#ifdef CONFIG_AP_SUPPORT
+#ifdef RTMP_MAC_USB
+#ifdef MT7601
+		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
+		{
+			if ( IS_MT7601(pAd) && Ac3Cfg.field.Aifsn > 0)
+				Ac3Cfg.field.Aifsn --;
+		}
+#endif /* MT7601 */
+#endif /* RTMP_MAC_USB */
+#endif /* CONFIG_AP_SUPPORT */
 
 /*#ifdef WIFI_TEST*/
 		if (pAd->CommonCfg.bWiFiTest)
 		{
 			if (Ac3Cfg.field.AcTxop == 102)
 			{
-			Ac0Cfg.field.AcTxop = pEdcaParm->Txop[QID_AC_BE] ? pEdcaParm->Txop[QID_AC_BE] : 10;
+				Ac0Cfg.field.AcTxop = pEdcaParm->Txop[QID_AC_BE] ? pEdcaParm->Txop[QID_AC_BE] : 10;
 				Ac0Cfg.field.Aifsn  = pEdcaParm->Aifsn[QID_AC_BE]-1; /* AIFSN must >= 1 */
-			Ac1Cfg.field.AcTxop = pEdcaParm->Txop[QID_AC_BK];
+				Ac1Cfg.field.AcTxop = pEdcaParm->Txop[QID_AC_BK];
 				Ac1Cfg.field.Aifsn  = pEdcaParm->Aifsn[QID_AC_BK];
-			Ac2Cfg.field.AcTxop = pEdcaParm->Txop[QID_AC_VI];
+				Ac2Cfg.field.AcTxop = pEdcaParm->Txop[QID_AC_VI];
 			}
 		}
 /*#endif  WIFI_TEST */
@@ -1342,7 +1354,6 @@ VOID AsicSetEdcaParm(
 		RTMP_IO_WRITE32(pAd, EDCA_AC1_CFG, Ac1Cfg.word);
 		RTMP_IO_WRITE32(pAd, EDCA_AC2_CFG, Ac2Cfg.word);
 		RTMP_IO_WRITE32(pAd, EDCA_AC3_CFG, Ac3Cfg.word);
-
 
 		/*========================================================*/
 		/*      DMA Register has a copy too.*/
@@ -1987,9 +1998,8 @@ VOID AsicVCORecalibration(
 #ifdef RLT_RF
 		case VCO_CAL_MODE_3:
 
-			AndesRFRandomWrite(pAd, 2,
-				RF_BANK0, RF_R04, 0x0A,
-				RF_BANK0, RF_R05, 0x20);
+			rlt_rf_write(pAd, RF_BANK0, RF_R04, 0x0A);
+			rlt_rf_write(pAd, RF_BANK0, RF_R05, 0x20);
 			rlt_rf_read(pAd, RF_BANK0, RF_R04, &RFValue);
 			RFValue = RFValue | 0x80; /* bit 7=vcocal_en*/
 			rlt_rf_write(pAd, RF_BANK0, RF_R04, RFValue);

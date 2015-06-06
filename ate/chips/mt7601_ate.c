@@ -99,9 +99,8 @@ VOID MT7601ATEAsicSwitchChannel(
 	/* 
 		vcocal_en (initiate VCO calibration (reset after completion)) - It should be at the end of RF configuration. 
 	*/
-	AndesRFRandomWrite(pAd, 2,
-		RF_BANK0, RF_R04, 0x0A,
-		RF_BANK0, RF_R05, 0x20);
+	rlt_rf_write(pAd, RF_BANK0, RF_R04, 0x0A);
+	rlt_rf_write(pAd, RF_BANK0, RF_R05, 0x20);
 	rlt_rf_read(pAd, RF_BANK0, RF_R04, &RFValue);
 	RFValue = RFValue | 0x80; 
 	rlt_rf_write(pAd, RF_BANK0, RF_R04, RFValue);
@@ -778,11 +777,9 @@ VOID MT7601ATEAsicTemperatureCompensation(
 #ifdef RTMP_INTERNAL_TX_ALC
 		if ( pAd->TxPowerCtrl.bInternalTxALC == FALSE )
 #endif /* RTMP_INTERNAL_TX_ALC */
-		{
 			MT7601_Read_Temperature(pAd, &pChipCap->CurrentTemperBbpR49);
-		}
 
-		MT7601AsicTemperatureCompensation(pAd);
+		MT7601AsicTemperatureCompensation(pAd, FALSE);
 	}
 }
 
@@ -840,9 +837,8 @@ INT	MT7601_Set_ATE_TX_FREQ_OFFSET_Proc(
 	{
 		rlt_rf_write(pAd, RF_BANK0, RF_R12, pAd->ate.RFFreqOffset);
 
-		AndesRFRandomWrite(pAd, 2,
-			RF_BANK0, RF_R04, 0x0A,
-			RF_BANK0, RF_R05, 0x20);
+		rlt_rf_write(pAd, RF_BANK0, RF_R04, 0x0A);
+		rlt_rf_write(pAd, RF_BANK0, RF_R05, 0x20);
 		rlt_rf_read(pAd, RF_BANK0, RF_R04, &RFValue);
 		RFValue = RFValue | 0x80; 	/* vcocal_en (initiate VCO calibration (reset after completion)) - It should be at the end of RF configuration. */
 		rlt_rf_write(pAd, RF_BANK0, RF_R04, RFValue);
