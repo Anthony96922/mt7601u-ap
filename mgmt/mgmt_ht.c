@@ -258,7 +258,7 @@ VOID RTMPSetHT(
 	}
 
 	// TODO: shiang-6590, how about the "bw" when channel 14 for JP region???
-	bw = BW_40;
+	bw = BW_20;
 	if(pHTPhyMode->BW == BW_40)
 	{
 		ht_cap->MCSSet[4] = 0x1; /* MCS 32 */
