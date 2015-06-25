@@ -19,7 +19,7 @@ $ sudo make install
 $ sudo modprobe mt7601Uap
 ````
 
-If the module has loaded then running `ifconfig wifi0 up` will bring up a Wi-Fi access point that you can connect your devices to.
+If the module has loaded then running `ifconfig ra0 up` will bring up a Wi-Fi access point that you can connect your devices to.
 You can change the network name and the security by editing the file `/etc/wifi/RT2870AP/RT2870AP.txt`.
 
 #### Cross compiling
