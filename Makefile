@@ -17,10 +17,8 @@ MODULE = $(word 1, $(CHIPSET))
 #OS ABL - YES or NO
 OSABL = NO
 
-ifneq ($(TARGET),THREADX)
 #RT28xx_DIR = home directory of RT28xx source code
 RT28xx_DIR = $(shell pwd)
-endif
 
 include $(RT28xx_DIR)/os/linux/config.mk
 
@@ -46,16 +44,16 @@ endif
 #RELEASE Package
 RELEASE = DPA
 
-ifeq ($(TARGET),LINUX)
 MAKE = make
-endif
+
+LINUX_VER = $(shell uname -r)
 
 ifeq ($(PLATFORM),PC)
 # Linux 2.6
-LINUX_SRC = /lib/modules/$(shell uname -r)/build
+LINUX_SRC = /lib/modules/$(LINUX_VER)/build
 # Linux 2.4 Change to your local setting
 #LINUX_SRC = /usr/src/linux-2.4
-LINUX_SRC_MODULE = /lib/modules/$(shell uname -r)/kernel/drivers/net/wireless/
+LINUX_SRC_MODULE = /lib/modules/$(LINUX_VER)/kernel/drivers/net/wireless
 CROSS_COMPILE = 
 endif
 
@@ -64,21 +62,14 @@ export OSABL RT28xx_DIR RT28xx_MODE LINUX_SRC CROSS_COMPILE CROSS_COMPILE_INCLUD
 # The targets that may be used.
 PHONY += all build_tools test LINUX release prerelease clean uninstall install libwapi osabl
 
-ifeq ($(TARGET),LINUX)
 all: build_tools $(TARGET)
-else
-all: $(TARGET)
-endif 
 
 build_tools:
 	$(MAKE) -C tools
 	$(RT28xx_DIR)/tools/bin2h
 
-test:
-	$(MAKE) -C tools test
-
 LINUX:
-ifneq (,$(findstring 2.4,$(LINUX_SRC)))
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.4.util $(RT28xx_DIR)/os/linux/Makefile
@@ -206,5 +197,5 @@ else
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
 
-# Declare the contents of the .PHONY variable as phony.  We keep that information in a variable
+# Declare the contents of the .PHONY variable as phony. We keep that information in a variable
 .PHONY: $(PHONY)

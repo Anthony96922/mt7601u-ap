@@ -596,12 +596,12 @@ strip:
 install:
 	mkdir -p $(DAT_PATH)
 	cp $(RT28xx_DIR)/$(DAT_FILE_NAME) $(DAT_PATH)/
-	install -m 644 -c $(MOD_NAME).ko $(LINUX_SRC_MODULE)
-	depmod $(shell uname -r)
+	install -m 644 -c $(MOD_NAME).ko $(LINUX_SRC_MODULE)/
+	depmod $(LINUX_VER)
 
 uninstall:
-	rm -rf $(LINUX_SRC_MODULE)$(MOD_NAME).ko
-	depmod $(shell uname -r)
+	rm -f $(LINUX_SRC_MODULE)/$(MOD_NAME).ko
+	depmod $(LINUX_VER)
 
 # Declare the contents of the .PHONY variable as phony.  We keep that
 # information in a variable so we can use it in if_changed and friends.
