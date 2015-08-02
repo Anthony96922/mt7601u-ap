@@ -1667,10 +1667,10 @@ static void HTParametersHook(
 	if (RTMPGetKeyParameter("HT_BADecline", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
-		if (Value == 0)
-			pAd->CommonCfg.bBADecline = FALSE;
-		else
+		if (Value == 1)
 			pAd->CommonCfg.bBADecline = TRUE;
+		else
+			pAd->CommonCfg.bBADecline = FALSE;
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: BA Decline  = %s\n", (Value==0) ? "Disable" : "Enable"));
 	}
 
@@ -1718,7 +1718,7 @@ static void HTParametersHook(
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: RDG = %s\n", (Value==0) ? "Disable" : "Enable(+HTC)"));
 	}
 
-	/* Tx A-MSUD ?*/
+	/* Tx A-MSDU ?*/
 	if (RTMPGetKeyParameter("HT_AMSDU", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
@@ -1727,14 +1727,14 @@ static void HTParametersHook(
 		else
 			pAd->CommonCfg.BACapability.field.AmsduEnable = TRUE;
 
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: Tx A-MSDU = %s\n", (Value==0) ? "Disable" : "Enable"));
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Tx A-MSDU = %s\n", (Value == 0) ? "Disable" : "Enable"));
 	}
 
 	/* MPDU Density*/
 	if (RTMPGetKeyParameter("HT_MpduDensity", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
-		if (Value <=7 && Value >= 0)
+		if (Value <= 7 && Value >= 0)
 		{		
 			pAd->CommonCfg.BACapability.field.MpduDensity = Value;
 			DBGPRINT(RT_DEBUG_TRACE, ("HT: MPDU Density = %d\n", (INT) Value));
@@ -1790,9 +1790,9 @@ static void HTParametersHook(
 		Value = simple_strtol(pValueStr, 0, 10);
 
 		if (Value == HTMODE_GF)
-			pAd->CommonCfg.RegTransmitSetting.field.HTMODE  = HTMODE_GF;
+			pAd->CommonCfg.RegTransmitSetting.field.HTMODE = HTMODE_GF;
 		else
-			pAd->CommonCfg.RegTransmitSetting.field.HTMODE  = HTMODE_MM;		
+			pAd->CommonCfg.RegTransmitSetting.field.HTMODE = HTMODE_MM;		
 
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: Operate Mode = %s\n", (Value == HTMODE_GF) ? "Green Field" : "Mixed Mode"));
 	}
@@ -1805,10 +1805,8 @@ static void HTParametersHook(
 		{
 			for (i = 0, Bufptr = rstrtok(pValueStr,";"); (Bufptr && i < MAX_MBSSID_NUM(pAd)); Bufptr = rstrtok(NULL,";"), i++) 	
 			{
-				pAd->ApCfg.MBSSID[i].DesiredTransmitSetting.field.FixedTxMode = 
-														RT_CfgSetFixedTxPhyMode(Bufptr);																	
-				DBGPRINT(RT_DEBUG_TRACE, ("(IF-ra%d) Fixed Tx Mode = %d\n", i, 
-											pAd->ApCfg.MBSSID[i].DesiredTransmitSetting.field.FixedTxMode));							
+				pAd->ApCfg.MBSSID[i].DesiredTransmitSetting.field.FixedTxMode = RT_CfgSetFixedTxPhyMode(Bufptr);
+				DBGPRINT(RT_DEBUG_TRACE, ("(IF-ra%d) Fixed Tx Mode = %d\n", i, pAd->ApCfg.MBSSID[i].DesiredTransmitSetting.field.FixedTxMode));
 			}
 		}
 #endif /* CONFIG_AP_SUPPORT */
@@ -1828,7 +1826,7 @@ static void HTParametersHook(
 		pAd->CommonCfg.MCastPhyMode.field.BW = pAd->CommonCfg.RegTransmitSetting.field.BW;
 #endif /* MCAST_RATE_SPECIFIC */
 
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: Channel Width = %s\n", (Value==BW_40) ? "40 MHz" : "20 MHz" ));
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Channel Width = %s\n", (Value == BW_40) ? "40 MHz" : "20 MHz" ));
 	}
 
 	if (RTMPGetKeyParameter("HT_EXTCHA", pValueStr, 25, pInput, TRUE))
@@ -1836,14 +1834,14 @@ static void HTParametersHook(
 		Value = simple_strtol(pValueStr, 0, 10);
 
 		if (Value == 0)
-			pAd->CommonCfg.RegTransmitSetting.field.EXTCHA  = EXTCHA_BELOW;
+			pAd->CommonCfg.RegTransmitSetting.field.EXTCHA = EXTCHA_BELOW;
 		else
 			pAd->CommonCfg.RegTransmitSetting.field.EXTCHA = EXTCHA_ABOVE;
 
-		DBGPRINT(RT_DEBUG_TRACE, ("HT: Ext Channel = %s\n", (Value==0) ? "BELOW" : "ABOVE" ));
+		DBGPRINT(RT_DEBUG_TRACE, ("HT: Ext Channel = %s\n", (Value == 0) ? "BELOW" : "ABOVE" ));
 	}
 
-	/* MSC*/
+	/* MCS */
 	if (RTMPGetKeyParameter("HT_MCS", pValueStr, 50, pInput, TRUE))
 	{
 #ifdef CONFIG_AP_SUPPORT
@@ -1869,7 +1867,7 @@ static void HTParametersHook(
 	if (RTMPGetKeyParameter("HT_STBC", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
-		if (Value == STBC_USE)		
+		if (Value == STBC_USE)
 			pAd->CommonCfg.RegTransmitSetting.field.STBC = STBC_USE;
 		else
 			pAd->CommonCfg.RegTransmitSetting.field.STBC = STBC_NONE;
@@ -1881,10 +1879,10 @@ static void HTParametersHook(
 	if (RTMPGetKeyParameter("HT_40MHZ_INTOLERANT", pValueStr, 25, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
-		if (Value == 0)
-			pAd->CommonCfg.bForty_Mhz_Intolerant = FALSE;
-		else
+		if (Value == 1)
 			pAd->CommonCfg.bForty_Mhz_Intolerant = TRUE;
+		else
+			pAd->CommonCfg.bForty_Mhz_Intolerant = FALSE;
 
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: 40MHZ INTOLERANT = %d\n", pAd->CommonCfg.bForty_Mhz_Intolerant));
 	}
@@ -1936,10 +1934,10 @@ static void HTParametersHook(
 	if(RTMPGetKeyParameter("GreenAP", pValueStr, 10, pInput, TRUE))
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
-		if (Value == 0)
-			pAd->ApCfg.bGreenAPEnable = FALSE;
-		else
+		if (Value == 1)
 			pAd->ApCfg.bGreenAPEnable = TRUE;
+		else
+			pAd->ApCfg.bGreenAPEnable = FALSE;
 
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: Green AP = %d\n", pAd->ApCfg.bGreenAPEnable));
 	}
@@ -1949,10 +1947,10 @@ static void HTParametersHook(
 	{
 		Value = simple_strtol(pValueStr, 0, 10);
 
-		if (Value == 0)
-			pAd->CommonCfg.HT_DisallowTKIP = FALSE;
-		else
+		if (Value == 1)
 			pAd->CommonCfg.HT_DisallowTKIP = TRUE;
+		else
+			pAd->CommonCfg.HT_DisallowTKIP = FALSE;
 
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: Disallow TKIP mode = %s\n", (pAd->CommonCfg.HT_DisallowTKIP == TRUE) ? "ON" : "OFF" ));
 	}
@@ -2025,7 +2023,7 @@ static void HTParametersHook(
 
 			pAd->CommonCfg.Dot11OBssScanPassiveDwell = dot11OBSSScanPassiveDwell;	/* Unit : TU. 5~1000*/
 			pAd->CommonCfg.Dot11OBssScanActiveDwell = dot11OBSSScanActiveDwell;	/* Unit : TU. 10~1000*/
-			pAd->CommonCfg.Dot11BssWidthTriggerScanInt = dot11BSSWidthTriggerScanInterval;	/* Unit : Second	*/
+			pAd->CommonCfg.Dot11BssWidthTriggerScanInt = dot11BSSWidthTriggerScanInterval;	/* Unit : Second */
 			pAd->CommonCfg.Dot11OBssScanPassiveTotalPerChannel = dot11OBSSScanPassiveTotalPerChannel;	/* Unit : TU. 200~10000*/
 			pAd->CommonCfg.Dot11OBssScanActiveTotalPerChannel = dot11OBSSScanActiveTotalPerChannel;	/* Unit : TU. 20~10000*/
 			pAd->CommonCfg.Dot11BssWidthChanTranDelayFactor = dot11BSSWidthChannelTransactionDelayFactor;
@@ -2045,7 +2043,7 @@ static void HTParametersHook(
 
 	if (RTMPGetKeyParameter("HT_BSSCoexApCntThr", pValueStr, 25, pInput, TRUE))
 	{
-		pAd->CommonCfg.BssCoexApCntThr = simple_strtol(pValueStr, 0, 10);;
+		pAd->CommonCfg.BssCoexApCntThr = simple_strtol(pValueStr, 0, 10);
 
 		DBGPRINT(RT_DEBUG_TRACE, ("HT: 20/40 BssCoexApCntThr = %d\n", pAd->CommonCfg.BssCoexApCntThr));
 	}
@@ -2087,7 +2085,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 
 /*	tmpbuf = kmalloc(MAX_PARAM_BUFFER_SIZE, MEM_ALLOC_FLAG);*/
 	os_alloc_mem(NULL, (UCHAR **)&tmpbuf, MAX_PARAM_BUFFER_SIZE);
-	if(tmpbuf == NULL)
+	if (tmpbuf == NULL)
 		return NDIS_STATUS_FAILURE;
 	
 	do
@@ -2222,10 +2220,10 @@ NDIS_STATUS	RTMPSetProfileParameters(
 									break;
 
 								NdisMoveMemory(pAd->ApCfg.MBSSID[apidx].Ssid, macptr , strlen(macptr));
-				    			pAd->ApCfg.MBSSID[apidx].Ssid[strlen(macptr)] = '\0';
-							   pAd->ApCfg.MBSSID[apidx].SsidLen = strlen((PSTRING) pAd->ApCfg.MBSSID[apidx].Ssid);
+								pAd->ApCfg.MBSSID[apidx].Ssid[strlen(macptr)] = '\0';
+								pAd->ApCfg.MBSSID[apidx].SsidLen = strlen((PSTRING) pAd->ApCfg.MBSSID[apidx].Ssid);
 
-				    			DBGPRINT(RT_DEBUG_TRACE, ("SSID[%d]=%s\n", i, pAd->ApCfg.MBSSID[apidx].Ssid));
+								DBGPRINT(RT_DEBUG_TRACE, ("SSID[%d]=%s\n", i, pAd->ApCfg.MBSSID[apidx].Ssid));
 							}
 						}
 						else
@@ -2492,7 +2490,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 					pAd->CommonCfg.DisableOLBCDetect = 0;
 					break;
 				default:
-					pAd->CommonCfg.DisableOLBCDetect= 0;
+					pAd->CommonCfg.DisableOLBCDetect = 0;
 					break;
 			}
 			DBGPRINT(RT_DEBUG_TRACE, ("OLBCDetection=%ld\n", pAd->CommonCfg.DisableOLBCDetect));
@@ -2517,7 +2515,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		if(RTMPGetKeyParameter("RTSThreshold", tmpbuf, 10, pBuffer, TRUE))
 		{
 			RtsThresh = simple_strtol(tmpbuf, 0, 10);
-			if( (RtsThresh >= 1) && (RtsThresh <= MAX_RTS_THRESHOLD) )
+			if ((RtsThresh >= 1) && (RtsThresh <= MAX_RTS_THRESHOLD))
 				pAd->CommonCfg.RtsThreshold  = (USHORT)RtsThresh;
 			else
 				pAd->CommonCfg.RtsThreshold = MAX_RTS_THRESHOLD;
@@ -2552,7 +2550,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 /*#ifdef WIFI_TEST*/
 /*			pAd->CommonCfg.bEnableTxBurst = FALSE;*/
 /*#else*/
-			if(simple_strtol(tmpbuf, 0, 10) != 0)  /*Enable*/
+			if(simple_strtol(tmpbuf, 0, 10) == 1)  /*Enable*/
 				pAd->CommonCfg.bEnableTxBurst = TRUE;
 			else /*Disable*/
 				pAd->CommonCfg.bEnableTxBurst = FALSE;
@@ -2564,7 +2562,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		/*PktAggregate*/
 		if(RTMPGetKeyParameter("PktAggregate", tmpbuf, 10, pBuffer, TRUE))
 		{
-			if(simple_strtol(tmpbuf, 0, 10) != 0)  /*Enable*/
+			if(simple_strtol(tmpbuf, 0, 10) == 0)  /*Enable*/
 				pAd->CommonCfg.bAggregationCapable = TRUE;
 			else /*Disable*/
 				pAd->CommonCfg.bAggregationCapable = FALSE;
@@ -2843,15 +2841,15 @@ NDIS_STATUS	RTMPSetProfileParameters(
 		/*IEEE80211H*/
 		if(RTMPGetKeyParameter("IEEE80211H", tmpbuf, 10, pBuffer, TRUE))
 		{
-		    for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
-		    {
-				if(simple_strtol(macptr, 0, 10) != 0)  /*Enable*/
+			for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
+			{
+				if (simple_strtol(macptr, 0, 10) == 0) /*Enable*/
 					pAd->CommonCfg.bIEEE80211H = TRUE;
 				else /*Disable*/
 					pAd->CommonCfg.bIEEE80211H = FALSE;
 
 				DBGPRINT(RT_DEBUG_TRACE, ("IEEE80211H=%d\n", pAd->CommonCfg.bIEEE80211H));
-		    }
+			}
 		}
 		
 #ifdef DFS_SUPPORT
@@ -3004,7 +3002,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 							-	WPA-TKIP and WPA2-TKIPAES
 							-	WPA-TKIPAES and WPA2-AES
 							-	WPA-TKIPAES and WPA2-TKIP
-							-	WPA-TKIPAES and WPA2-TKIPAES (default)																 																	
+							-	WPA-TKIPAES and WPA2-TKIPAES (default)
 						 */							
 						for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 						{
@@ -3115,11 +3113,9 @@ NDIS_STATUS	RTMPSetProfileParameters(
 						{
 							for (i = 1; i < pAd->ApCfg.BssidNum; i++)
 							{
-								pAd->ApCfg.MBSSID[i].PMKCachePeriod = 
-										pAd->ApCfg.MBSSID[0].PMKCachePeriod;
+								pAd->ApCfg.MBSSID[i].PMKCachePeriod = pAd->ApCfg.MBSSID[0].PMKCachePeriod;
 
-								DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) PMKCachePeriod=%ld\n", 
-												i, pAd->ApCfg.MBSSID[i].PMKCachePeriod));					
+								DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) PMKCachePeriod=%ld\n", i, pAd->ApCfg.MBSSID[i].PMKCachePeriod));
 							}
 						}
 					}
@@ -3252,13 +3248,9 @@ NDIS_STATUS	RTMPSetProfileParameters(
 								break;
 
 							if (WscConfMode > 0 && WscConfMode < 8)
-							{
 								pAd->ApCfg.MBSSID[i].WscControl.WscConfMode = WscConfMode;
-							}
 							else
-							{
 								pAd->ApCfg.MBSSID[i].WscControl.WscConfMode = WSC_DISABLE;
-							}
 
 							DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) WscConfMode=%d\n", i, pAd->ApCfg.MBSSID[i].WscControl.WscConfMode));
 						}
@@ -3300,7 +3292,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 								break;
 
 							Value = (INT) simple_strtol(tmpbuf, 0, 10);
-							if(Value==0 || Value==1)
+							if(Value == 0 || Value == 1)
 								pAd->ApCfg.MBSSID[i].WscControl.WscKeyASCII = Value;
 							else if(Value >= 8 && Value <=63)
 								pAd->ApCfg.MBSSID[i].WscControl.WscKeyASCII = Value;
@@ -3335,7 +3327,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 					{
 						BOOLEAN	bEn = FALSE;
 						
-						if ((strncmp(tmpbuf, "0", 1) == 0))
+						if (strncmp(tmpbuf, "0", 1) == 0)
 							bEn = FALSE;
 						else
 							bEn = TRUE;
@@ -3370,11 +3362,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 							hex_dump("", &pWpsCtrl->Wsc_Uuid_E[0], UUID_LEN_HEX);
 						}
 					}
-
-		
 #endif /* WSC_AP_SUPPORT */
-
-
 				}
 #endif /* CONFIG_AP_SUPPORT */
 
@@ -3413,7 +3401,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 
 							case MCAST_CCK:	/* CCK*/
 								pAd->CommonCfg.MCastPhyMode.field.MODE = MODE_CCK;
-								pAd->CommonCfg.MCastPhyMode.field.BW =  BW_20;
+								pAd->CommonCfg.MCastPhyMode.field.BW = BW_20;
 								break;
 
 							case MCAST_OFDM:	/* OFDM*/
@@ -3432,7 +3420,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 						}
 					}
 					else
-									NdisMoveMemory(&pAd->CommonCfg.MCastPhyMode,
+						NdisMoveMemory(&pAd->CommonCfg.MCastPhyMode,
 										&pAd->MacTab.Content[MCAST_WCID].HTPhyMode, sizeof(HTTRANSMIT_SETTING));
 
 					/* McastMcs*/
@@ -3527,14 +3515,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 #endif /* CONFIG_AP_SUPPORT */
 				}
 #endif /* WSC_V2_SUPPORT */
-
-
 #endif /* WSC_INCLUDED */
-
-#ifdef CONFIG_AP_SUPPORT
-#endif /* CONFIG_AP_SUPPORT */
-
-
 
 #ifdef CONFIG_AP_SUPPORT
 				/* EntryLifeCheck is used to check */
@@ -3550,7 +3531,6 @@ NDIS_STATUS	RTMPSetProfileParameters(
 				}
 
 #endif /* CONFIG_AP_SUPPORT */
-
 
 #ifdef SINGLE_SKU
 				if(RTMPGetKeyParameter("AntGain", tmpbuf, 10, pBuffer, TRUE))
@@ -3640,12 +3620,14 @@ BOOLEAN RTMP_CardInfoRead(
 #define MC_SELECT_CARDTYPE		2	/* use CARD type (abgn or bgn) to identify different cards */
 
 #define LETTER_CASE_TRANSLATE(txt_p, card_id)			\
-	{	UINT32 _len; char _char;						\
-		for(_len=0; _len<strlen(card_id); _len++) {		\
-			_char = *(txt_p + _len);					\
-			if (('A' <= _char) && (_char <= 'Z'))		\
-				*(txt_p+_len) = 'a'+(_char-'A');		\
-		} }
+	{	UINT32 _len; char _char;			\
+		for(_len=0; _len<strlen(card_id); _len++)	\
+		{						\
+			_char = *(txt_p + _len);		\
+			if (('A' <= _char) && (_char <= 'Z'))	\
+				*(txt_p+_len) = 'a'+(_char-'A');\
+		}
+	}
 
 	RTMP_OS_FD srcf;
 	INT retval;
@@ -3713,9 +3695,8 @@ BOOLEAN RTMP_CardInfoRead(
 	if (IS_FILE_OPEN_ERR(srcf)) 
 	{
 		/* card information file does not exist */
-			DBGPRINT(RT_DEBUG_TRACE,
-				("--> Error opening %s\n", CARD_INFO_PATH));
-		goto  free_resource;
+		DBGPRINT(RT_DEBUG_TRACE, ("--> Error opening %s\n", CARD_INFO_PATH));
+		goto free_resource;
 	}
 
 	/* card information file exists so reading the card information */
@@ -3724,8 +3705,7 @@ BOOLEAN RTMP_CardInfoRead(
 	if (retval < 0)
 	{
 		/* read fail */
-			DBGPRINT(RT_DEBUG_TRACE,
-				("--> Read %s error %d\n", CARD_INFO_PATH, -retval));
+		DBGPRINT(RT_DEBUG_TRACE, ("--> Read %s error %d\n", CARD_INFO_PATH, -retval));
 	}
 	else
 	{
@@ -3743,8 +3723,7 @@ BOOLEAN RTMP_CardInfoRead(
 				card_select_method = MC_SELECT_CARDTYPE;
 		}
 
-		DBGPRINT(RT_DEBUG_TRACE,
-				("MC> Card Selection = %d\n", card_select_method));
+		DBGPRINT(RT_DEBUG_TRACE, ("MC> Card Selection = %d\n", card_select_method));
 
 		/* init*/
 		card_free_id = -1;
@@ -3753,9 +3732,7 @@ BOOLEAN RTMP_CardInfoRead(
 		card_match_id = -1;
 
 		/* search current card information records*/
-		for(card_index=0;
-			card_index<MAX_NUM_OF_MULTIPLE_CARD;
-			card_index++)
+		for(card_index = 0; card_index < MAX_NUM_OF_MULTIPLE_CARD; card_index++)
 		{
 			if ((*(UINT32 *)&MC_CardMac[card_index][0] == 0) &&
 				(*(UINT16 *)&MC_CardMac[card_index][4] == 0))
@@ -3777,11 +3754,8 @@ BOOLEAN RTMP_CardInfoRead(
 				else
 				{
 					/* MAC is not all-0 but used flag == 0*/
-					if ((MC_CardUsed[card_index] == 0) &&
-						(card_nouse_id < 0))
-					{
+					if ((MC_CardUsed[card_index] == 0) && (card_nouse_id < 0))
 						card_nouse_id = card_index; /* 1st available entry*/
-					}
 				}
 			}
 		}
@@ -3846,15 +3820,12 @@ BOOLEAN RTMP_CardInfoRead(
 				case MC_SELECT_CARDTYPE: /* CARDTYPE*/
 					card_nouse_id = -1;
 
-					for(card_index=0;
-						card_index<MAX_NUM_OF_MULTIPLE_CARD;
-						card_index++)
+					for(card_index = 0; card_index<MAX_NUM_OF_MULTIPLE_CARD; card_index++)
 					{
 						snprintf(card_id_buf, sizeof(card_id_buf), "%02dCARDTYPE%s",
 								card_index, RFIC_word);
 
-						if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer,
-													card_id_buf)) != NULL)
+						if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL)
 						{
 							LETTER_CASE_TRANSLATE(start_ptr, card_id_buf);
 
@@ -3926,20 +3897,13 @@ BOOLEAN RTMP_CardInfoRead(
 					pAd->MC_FileName[strlen(tmpbuf)] = '\0';
 					flg_match_ok = TRUE;
 
-					DBGPRINT(RT_DEBUG_TRACE,
-							("Card Profile Name = %s\n", pAd->MC_FileName));
+					DBGPRINT(RT_DEBUG_TRACE, ("Card Profile Name = %s\n", pAd->MC_FileName));
 				}
 				else
-				{
-					DBGPRINT(RT_DEBUG_ERROR,
-							("Card Profile Name length too large!\n"));
-				}
+					DBGPRINT(RT_DEBUG_ERROR, ("Card Profile Name length too large!\n"));
 			}
 			else
-			{
-				DBGPRINT(RT_DEBUG_ERROR,
-						("Can not find search key word in card.dat!\n"));
-			}
+				DBGPRINT(RT_DEBUG_ERROR, ("Can not find search key word in card.dat!\n"));
 
 			if ((flg_match_ok != TRUE) &&
 				(card_match_id < MAX_NUM_OF_MULTIPLE_CARD))
@@ -3948,86 +3912,84 @@ BOOLEAN RTMP_CardInfoRead(
 				memset(MC_CardMac[card_match_id], 0, sizeof(mac));
 			}
 		} /* if (card_match_id >= 0)*/
-		}
+	}
 
-
-/* close file*/
-retval = RtmpOSFileClose(srcf);
+	/* close file*/
+	retval = RtmpOSFileClose(srcf);
 
 free_resource:
-RtmpOSFSInfoChange(&osFSInfo, FALSE);
-/*	kfree(buffer);*/
-/*	kfree(tmpbuf);*/
-os_free_mem(NULL, buffer);
-os_free_mem(NULL, tmpbuf);
+	RtmpOSFSInfoChange(&osFSInfo, FALSE);
+	/*	kfree(buffer);*/
+	/*	kfree(tmpbuf);*/
+	os_free_mem(NULL, buffer);
+	os_free_mem(NULL, tmpbuf);
 
-return flg_match_ok;
+	return flg_match_ok;
 }
 #endif /* MULTIPLE_CARD_SUPPORT */
-
 
 #ifdef WSC_INCLUDED
 void rtmp_read_wsc_user_parms(
 	PWSC_CTRL pWscControl,
 	STRING *tmpbuf, 
 	STRING *buffer)
-{
+	{
 		if(RTMPGetKeyParameter("WscManufacturer", tmpbuf, WSC_MANUFACTURE_LEN, buffer,TRUE))
-	{
-		NdisZeroMemory(pWscControl->RegData.SelfInfo.Manufacturer, WSC_MANUFACTURE_LEN);
-		NdisMoveMemory(pWscControl->RegData.SelfInfo.Manufacturer, tmpbuf, strlen(tmpbuf));
+		{
+			NdisZeroMemory(pWscControl->RegData.SelfInfo.Manufacturer, WSC_MANUFACTURE_LEN);
+			NdisMoveMemory(pWscControl->RegData.SelfInfo.Manufacturer, tmpbuf, strlen(tmpbuf));
 			if(pWscControl->RegData.SelfInfo.Manufacturer[0] != 0x00)
-		RTMP_SET_FLAG(pWscControl, 0x01);
-	}
+				RTMP_SET_FLAG(pWscControl, 0x01);
+		}
 
-	/*WSC_User_ModelName*/
+		/*WSC_User_ModelName*/
 		if(RTMPGetKeyParameter("WscModelName", tmpbuf, WSC_MODELNAME_LEN, buffer,TRUE))
-	{
-		NdisZeroMemory(pWscControl->RegData.SelfInfo.ModelName, WSC_MODELNAME_LEN);
-		NdisMoveMemory(pWscControl->RegData.SelfInfo.ModelName, tmpbuf, strlen(tmpbuf));
+		{
+			NdisZeroMemory(pWscControl->RegData.SelfInfo.ModelName, WSC_MODELNAME_LEN);
+			NdisMoveMemory(pWscControl->RegData.SelfInfo.ModelName, tmpbuf, strlen(tmpbuf));
 			if(pWscControl->RegData.SelfInfo.ModelName[0] != 0x00)
-		RTMP_SET_FLAG(pWscControl, 0x02);
-	}
+				RTMP_SET_FLAG(pWscControl, 0x02);
+		}
 
-	/*WSC_User_DeviceName*/
+		/*WSC_User_DeviceName*/
 		if(RTMPGetKeyParameter("WscDeviceName", tmpbuf, WSC_DEVICENAME_LEN, buffer,TRUE))
-	{
-		NdisZeroMemory(pWscControl->RegData.SelfInfo.DeviceName, WSC_DEVICENAME_LEN);
-		NdisMoveMemory(pWscControl->RegData.SelfInfo.DeviceName, tmpbuf, strlen(tmpbuf));
+		{
+			NdisZeroMemory(pWscControl->RegData.SelfInfo.DeviceName, WSC_DEVICENAME_LEN);
+			NdisMoveMemory(pWscControl->RegData.SelfInfo.DeviceName, tmpbuf, strlen(tmpbuf));
 			if(pWscControl->RegData.SelfInfo.DeviceName[0] != 0x00)
-		RTMP_SET_FLAG(pWscControl, 0x04);
-	}
+				RTMP_SET_FLAG(pWscControl, 0x04);
+		}
 
-	/*WSC_User_ModelNumber*/
+		/*WSC_User_ModelNumber*/
 		if(RTMPGetKeyParameter("WscModelNumber", tmpbuf, WSC_MODELNUNBER_LEN, buffer,TRUE))
-	{
-		NdisZeroMemory(pWscControl->RegData.SelfInfo.ModelNumber, WSC_MODELNUNBER_LEN);
-		NdisMoveMemory(pWscControl->RegData.SelfInfo.ModelNumber, tmpbuf, strlen(tmpbuf));
+		{
+			NdisZeroMemory(pWscControl->RegData.SelfInfo.ModelNumber, WSC_MODELNUNBER_LEN);
+			NdisMoveMemory(pWscControl->RegData.SelfInfo.ModelNumber, tmpbuf, strlen(tmpbuf));
 			if(pWscControl->RegData.SelfInfo.ModelNumber[0] != 0x00)
-		RTMP_SET_FLAG(pWscControl, 0x08);
-	}
+				RTMP_SET_FLAG(pWscControl, 0x08);
+		}
 
-	/*WSC_User_SerialNumber*/
+		/*WSC_User_SerialNumber*/
 		if(RTMPGetKeyParameter("WscSerialNumber", tmpbuf, WSC_SERIALNUNBER_LEN, buffer,TRUE))
-	{
-		NdisZeroMemory(pWscControl->RegData.SelfInfo.SerialNumber, WSC_SERIALNUNBER_LEN);
-		NdisMoveMemory(pWscControl->RegData.SelfInfo.SerialNumber, tmpbuf, strlen(tmpbuf));
+		{
+			NdisZeroMemory(pWscControl->RegData.SelfInfo.SerialNumber, WSC_SERIALNUNBER_LEN);
+			NdisMoveMemory(pWscControl->RegData.SelfInfo.SerialNumber, tmpbuf, strlen(tmpbuf));
 			if(pWscControl->RegData.SelfInfo.SerialNumber[0] != 0x00)
-		RTMP_SET_FLAG(pWscControl, 0x10);
+				RTMP_SET_FLAG(pWscControl, 0x10);
+		}
 	}
-}
 
-void rtmp_read_wsc_user_parms_from_file(IN	PRTMP_ADAPTER pAd, char *tmpbuf, char *buffer)
-{
-	PWSC_CTRL           pWscControl;
+	void rtmp_read_wsc_user_parms_from_file(IN	PRTMP_ADAPTER pAd, char *tmpbuf, char *buffer)
+	{
+		PWSC_CTRL           pWscControl;
 
 #ifdef WSC_AP_SUPPORT
-	int i=0;
-	for(i = 0; i < MAX_MBSSID_NUM(pAd); i++)
-	{
-		pWscControl = &pAd->ApCfg.MBSSID[i].WscControl;
-		rtmp_read_wsc_user_parms(pWscControl, tmpbuf, buffer);
-}
+		int i=0;
+		for(i = 0; i < MAX_MBSSID_NUM(pAd); i++)
+		{
+			pWscControl = &pAd->ApCfg.MBSSID[i].WscControl;
+			rtmp_read_wsc_user_parms(pWscControl, tmpbuf, buffer);
+	}
 #ifdef APCLI_SUPPORT
 	pWscControl = &pAd->ApCfg.ApCliTab[0].WscControl;
 	rtmp_read_wsc_user_parms(pWscControl, tmpbuf, buffer);
@@ -4059,20 +4021,20 @@ VOID rtmp_read_multest_from_file(
 	/*WdsPhyMode */
 	if (RTMPGetKeyParameter("WdsPhyMode", tmpbuf, MAX_PARAM_BUFFER_SIZE, buffer, TRUE))
 	{	
-		for (i=0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++) 
+		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++) 
 		{
-	        if ((strncmp(macptr, "CCK", 3) == 0) || (strncmp(macptr, "cck", 3) == 0))
-	            pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_CCK;
-	        else if ((strncmp(macptr, "OFDM", 4) == 0) || (strncmp(macptr, "ofdm", 4) == 0))
-	            pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_OFDM;
+		        if ((strncmp(macptr, "CCK", 3) == 0) || (strncmp(macptr, "cck", 3) == 0))
+				pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_CCK;
+		        else if ((strncmp(macptr, "OFDM", 4) == 0) || (strncmp(macptr, "ofdm", 4) == 0))
+				pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_OFDM;
 #ifdef DOT11_N_SUPPORT
-	        else if ((strncmp(macptr, "HTMIX", 5) == 0) || (strncmp(macptr, "htmix", 5) == 0))
-	            pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_HTMIX;
-	        else if ((strncmp(macptr, "GREENFIELD", 10) == 0) || (strncmp(macptr, "greenfield", 10) == 0))
-	            pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_HTGREENFIELD;
+		        else if ((strncmp(macptr, "HTMIX", 5) == 0) || (strncmp(macptr, "htmix", 5) == 0))
+				pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_HTMIX;
+		        else if ((strncmp(macptr, "GREENFIELD", 10) == 0) || (strncmp(macptr, "greenfield", 10) == 0))
+				pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_HTGREENFIELD;
 #endif /* DOT11_N_SUPPORT */
-	        else
-	            pAd->MulTestTab.WdsEntry[i].PhyMode = 0xff;
+		        else
+				pAd->MulTestTab.WdsEntry[i].PhyMode = 0xff;
 		
 	        DBGPRINT(RT_DEBUG_TRACE, ("If/wds%d - WdsPhyMode=%d\n", i, pAd->MulTestTab.WdsEntry[i].PhyMode));	    
 		}
@@ -4083,11 +4045,11 @@ VOID rtmp_read_multest_from_file(
 	{
 		for (i=0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++) 
 		{				
-			if(strlen(macptr) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
+			if (strlen(macptr) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
 				continue; 
-			if(strcmp(macptr,"00:00:00:00:00:00") == 0)
+			if (strcmp(macptr,"00:00:00:00:00:00") == 0)
 				continue; 
-			if(i >= MAX_WDS_ENTRY)
+			if (i >= MAX_WDS_ENTRY)
 				break; 
 
 			for (j=0; j<ETH_LENGTH_OF_ADDRESS; j++)
@@ -4126,25 +4088,25 @@ VOID rtmp_read_multest_from_file(
 	/*WdsEncrypType */
 	if (RTMPGetKeyParameter("WdsEncrypType", tmpbuf, 128, buffer, TRUE))
 	{				
-	    for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++)
-	    {
-	        if ((strncmp(macptr, "NONE", 4) == 0) || (strncmp(macptr, "none", 4) == 0))
-	            pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11WEPDisabled;
-	        else if ((strncmp(macptr, "WEP", 3) == 0) || (strncmp(macptr, "wep", 3) == 0))
-	            pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11WEPEnabled;
-	        else if ((strncmp(macptr, "TKIP", 4) == 0) || (strncmp(macptr, "tkip", 4) == 0))
-	            pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11Encryption2Enabled;
-	        else if ((strncmp(macptr, "AES", 3) == 0) || (strncmp(macptr, "aes", 3) == 0))
-	            pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11Encryption3Enabled;
+		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++)
+		{
+			if ((strncmp(macptr, "NONE", 4) == 0) || (strncmp(macptr, "none", 4) == 0))
+				pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11WEPDisabled;
+			else if ((strncmp(macptr, "WEP", 3) == 0) || (strncmp(macptr, "wep", 3) == 0))
+				pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11WEPEnabled;
+			else if ((strncmp(macptr, "TKIP", 4) == 0) || (strncmp(macptr, "tkip", 4) == 0))
+				pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11Encryption2Enabled;
+			else if ((strncmp(macptr, "AES", 3) == 0) || (strncmp(macptr, "aes", 3) == 0))
+				pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11Encryption3Enabled;
 #ifdef WAPI_SUPPORT
-	        else if ((strncmp(macptr, "SMS4", 4) == 0) || (strncmp(macptr, "sms4", 4) == 0))
-	            pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11EncryptionSMS4Enabled;
+			else if ((strncmp(macptr, "SMS4", 4) == 0) || (strncmp(macptr, "sms4", 4) == 0))
+				pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11EncryptionSMS4Enabled;
 #endif /* WAPI_SUPPORT */
-	        else
-	            pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11WEPDisabled;
+			else
+				pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11WEPDisabled;
 
-	        DBGPRINT(RT_DEBUG_TRACE, ("WdsEncrypType[%d]=%d(%s)\n", i, pAd->MulTestTab.WdsEntry[i].WepStatus, GetEncryptType(pAd->MulTestTab.WdsEntry[i].WepStatus)));
-	    }
+			DBGPRINT(RT_DEBUG_TRACE, ("WdsEncrypType[%d]=%d(%s)\n", i, pAd->MulTestTab.WdsEntry[i].WepStatus, GetEncryptType(pAd->MulTestTab.WdsEntry[i].WepStatus)));
+		}
 		
 		/* Previous WDS only supports single encryption type. */
 		/* For backward compatible, other wds link encryption type shall be the same with the first. */
@@ -4190,11 +4152,8 @@ VOID rtmp_read_multest_from_file(
 		if (pAd->MulTestTab.WdsEntry[0].WdsKey.KeyLen == 16)
 		{
 			for (j = 1; j < MAX_WDS_ENTRY; j++)
-			{
-				NdisMoveMemory(&pAd->MulTestTab.WdsEntry[j].WdsKey, &pAd->MulTestTab.WdsEntry[0].WdsKey, sizeof(CIPHER_KEY));								
-			}
+				NdisMoveMemory(&pAd->MulTestTab.WdsEntry[j].WdsKey, &pAd->MulTestTab.WdsEntry[0].WdsKey, sizeof(CIPHER_KEY));
 		}
-	
 	}
 
 	/* The parameters can provide different key information for each WDS-Link */
@@ -4370,10 +4329,10 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 		{
 			*ptr = '\0';
 			
-			if ( readline[0] == '#' )
+			if (readline[0] == '#')
 				continue;
 
-			if ( !strncmp(readline, "ch", 2) )
+			if (!strncmp(readline, "ch", 2))
 			{
 
 				CH_POWER *pwr;
@@ -4385,15 +4344,15 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 				channel = simple_strtol(token, 0, 10);
 				pwr->StartChannel = channel;
 
-				for ( i= 0 ; i < SINGLE_SKU_TABLE_CCK_LENGTH ; i++ )
+				for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++)
 				{
 					token = rstrtok(NULL ," ");
-					if ( token == NULL )
+					if (token == NULL)
 						break;
 					pwr->PwrCCK[i] = simple_strtol(token, 0, 10) * 2;
 				}
 
-				for ( i= 0 ; i < SINGLE_SKU_TABLE_OFDM_LENGTH ; i++ )
+				for (i = 0; i < SINGLE_SKU_TABLE_OFDM_LENGTH; i++)
 				{
 					token = rstrtok(NULL ," ");
 					if ( token == NULL )
@@ -4401,7 +4360,7 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 					pwr->PwrOFDM[i] = simple_strtol(token, 0, 10) *2;
 				}
 
-				for ( i= 0 ; i < SINGLE_SKU_TABLE_HT_LENGTH ; i++ )
+				for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
 				{
 					token = rstrtok(NULL ," ");
 					if ( token == NULL )
@@ -4409,7 +4368,7 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 					pwr->PwrHT20[i] = simple_strtol(token, 0, 10) *2;
 				}
 
-				for ( i= 0 ; i < SINGLE_SKU_TABLE_HT_LENGTH ; i++ )
+				for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
 				{
 					token = rstrtok(NULL ," ");
 					if ( token == NULL )
@@ -4418,7 +4377,7 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 				}
 				
 
-				if ( StartCh == NULL )
+				if (StartCh == NULL)
 				{
 					StartCh = pwr;
 					insertTailList(&pAd->SingleSkuPwrList, (PLIST_ENTRY)pwr);
@@ -4427,20 +4386,20 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 				{
 					BOOLEAN isSame = TRUE;
 
-					for ( i= 0 ; i < SINGLE_SKU_TABLE_CCK_LENGTH ; i++ )
+					for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++ )
 					{
-						if ( StartCh->PwrCCK[i] != pwr->PwrCCK[i] )
+						if (StartCh->PwrCCK[i] != pwr->PwrCCK[i])
 						{
 							isSame = FALSE;
 							break;
 						}
 					}
 
-					if ( isSame == TRUE )
+					if (isSame == TRUE)
 					{
-						for ( i= 0 ; i < SINGLE_SKU_TABLE_OFDM_LENGTH ; i++ )
+						for (i = 0; i < SINGLE_SKU_TABLE_OFDM_LENGTH; i++)
 						{
-							if ( StartCh->PwrOFDM[i] != pwr->PwrOFDM[i] )
+							if (StartCh->PwrOFDM[i] != pwr->PwrOFDM[i])
 							{
 								isSame = FALSE;
 								break;
@@ -4448,11 +4407,11 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 						}
 					}
 
-					if ( isSame == TRUE )
+					if (isSame == TRUE)
 					{
-						for ( i= 0 ; i < SINGLE_SKU_TABLE_HT_LENGTH ; i++ )
+						for (i= 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
 						{
-							if ( StartCh->PwrHT20[i] != pwr->PwrHT20[i] )
+							if (StartCh->PwrHT20[i] != pwr->PwrHT20[i])
 							{
 								isSame = FALSE;
 								break;
@@ -4460,11 +4419,11 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 						}
 					}
 
-					if ( isSame == TRUE )
+					if (isSame == TRUE)
 					{
-						for ( i= 0 ; i < SINGLE_SKU_TABLE_HT_LENGTH ; i++ )
+						for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
 						{
-							if ( StartCh->PwrHT40[i] != pwr->PwrHT40[i] )
+							if (StartCh->PwrHT40[i] != pwr->PwrHT40[i])
 							{
 								isSame = FALSE;
 								break;
@@ -4472,18 +4431,14 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 						}
 					}
 
-					if ( isSame == TRUE )
-					{
+					if (isSame == TRUE)
 						os_free_mem(NULL, pwr);
-					}
 					else
 					{
 						StartCh = pwr;
 						insertTailList(&pAd->SingleSkuPwrList, (PLIST_ENTRY)StartCh);
 						pwr = NULL;
 					}
-
-
 				}
 
 
@@ -4510,37 +4465,29 @@ NDIS_STATUS	RTMPSetSingleSKUParameters(
 			int i;
 			DBGPRINT(RT_DEBUG_TRACE,("start ch = %d, ch->num = %d\n", ch->StartChannel, ch->num));
 
-			DBGPRINT(RT_DEBUG_TRACE, ("Channel: "));
-			for ( i = 0 ; i < ch->num ; i++ )
-				DBGPRINT(RT_DEBUG_TRACE,("%d ", ch->Channel[i]));
+			DBGPRINT(RT_DEBUG_TRACE, ("Channel:"));
+			for (i = 0; i < ch->num ; i++ )
+				DBGPRINT(RT_DEBUG_TRACE,(" %d", ch->Channel[i]));
 			DBGPRINT(RT_DEBUG_TRACE,("\n"));
 
 			DBGPRINT(RT_DEBUG_TRACE, ("CCK: "));
-			for ( i= 0 ; i < SINGLE_SKU_TABLE_CCK_LENGTH ; i++ )
-			{
-				DBGPRINT(RT_DEBUG_TRACE,("%d ", ch->PwrCCK[i]));
-			}
+			for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++)
+				DBGPRINT(RT_DEBUG_TRACE,(" %d", ch->PwrCCK[i]));
 			DBGPRINT(RT_DEBUG_TRACE,("\n"));
 
 			DBGPRINT(RT_DEBUG_TRACE, ("OFDM: "));
-			for ( i= 0 ; i < SINGLE_SKU_TABLE_OFDM_LENGTH ; i++ )
-			{
-				DBGPRINT(RT_DEBUG_TRACE,("%d ", ch->PwrOFDM[i]));
-			}
+			for (i = 0; i < SINGLE_SKU_TABLE_OFDM_LENGTH; i++)
+				DBGPRINT(RT_DEBUG_TRACE,(" %d", ch->PwrOFDM[i]));
 			DBGPRINT(RT_DEBUG_TRACE,("\n"));
 
 			DBGPRINT(RT_DEBUG_TRACE, ("HT20: "));
-			for ( i= 0 ; i < SINGLE_SKU_TABLE_HT_LENGTH ; i++ )
-			{
-				DBGPRINT(RT_DEBUG_TRACE, ("%d ", ch->PwrHT20[i]));
-			}
+			for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
+				DBGPRINT(RT_DEBUG_TRACE, (" %d", ch->PwrHT20[i]));
 			DBGPRINT(RT_DEBUG_TRACE,("\n"));
 
 			DBGPRINT(RT_DEBUG_TRACE, ("HT40: "));
-			for ( i= 0 ; i < SINGLE_SKU_TABLE_HT_LENGTH ; i++ )
-			{
-				DBGPRINT(RT_DEBUG_TRACE,("%d ", ch->PwrHT40[i]));
-			}
+			for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
+				DBGPRINT(RT_DEBUG_TRACE,(" %d", ch->PwrHT40[i]));
 			DBGPRINT(RT_DEBUG_TRACE,("\n"));
 
 			ch = ch->pNext;
@@ -4568,29 +4515,29 @@ UCHAR GetSkuChannelBasePwr(
 	UINT8 i, j;
 
 	ch = pAd->SingleSkuPwrList.pHead;
-	while (ch )
+	while (ch)
 	{
 		start_ch = ch->StartChannel;
 
-		if ( channel >= start_ch )
+		if (channel >= start_ch)
 		{
-			for ( j = 0; j < ch->num; j++ )
+			for (j = 0; j < ch->num; j++)
 			{
-				if ( channel == ch->Channel[j] )
+				if (channel == ch->Channel[j])
 				{
-					for ( i= 0 ; i < SINGLE_SKU_TABLE_CCK_LENGTH ; i++ )
+					for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++)
 					{
-						if ( base_pwr > ch->PwrCCK[i] )
+						if (base_pwr > ch->PwrCCK[i])
 							base_pwr = ch->PwrCCK[i];
 					}
 
-					for ( i= 0 ; i < SINGLE_SKU_TABLE_OFDM_LENGTH ; i++ )
+					for (i = 0; i < SINGLE_SKU_TABLE_OFDM_LENGTH; i++)
 					{
-						if ( base_pwr > ch->PwrOFDM[i] )
+						if (base_pwr > ch->PwrOFDM[i])
 							base_pwr = ch->PwrOFDM[i];
 					}
 
-					for ( i= 0 ; i < SINGLE_SKU_TABLE_HT_LENGTH ; i++ )
+					for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
 					{
 						if ( base_pwr > ch->PwrHT20[i] )
 							base_pwr = ch->PwrHT20[i];
@@ -4598,12 +4545,12 @@ UCHAR GetSkuChannelBasePwr(
 						
 					if (pAd->CommonCfg.BBPCurrentBW == BW_40)
 					{
-						for ( i= 0 ; i < SINGLE_SKU_TABLE_HT_LENGTH ; i++ )
+						for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
 						{
-							if ( ch->PwrHT40[i] == 0 )
+							if (ch->PwrHT40[i] == 0)
 								break;
 
-							if ( base_pwr > ch->PwrHT40[i] )
+							if (base_pwr > ch->PwrHT40[i])
 								base_pwr = ch->PwrHT40[i];
 						}
 					}
@@ -4611,7 +4558,6 @@ UCHAR GetSkuChannelBasePwr(
 				}
 			}
 		}
-
 		ch = ch->pNext;
 	}
 
@@ -4649,10 +4595,10 @@ VOID InitSkuRateDiffTable(
 	BasePwr = (value >> 8) & 0xFF;
 	BasePwr = (BasePwr > 0x1F ) ? BasePwr - 0x40: BasePwr;
 
-	for ( i = 0 ; i < 9; i++ )
+	for (i = 0; i < 9; i++)
 	{
 		RT28xx_EEPROM_READ16(pAd, EEPROM_TXPOWER_BYRATE_20MHZ_2_4G + i*2, value);
-		Pwr = value & 0xFF ;
+		Pwr = value & 0xFF;
 		Pwr = (Pwr > 0x1F ) ? Pwr - 0x40: Pwr;
 		pAd->SingleSkuRatePwrDiff[i *2] = Pwr - BasePwr;
 		Pwr = (value >> 8) & 0xFF;
@@ -4667,7 +4613,7 @@ INT32 GetSkuPAModePwr(
 {
 	INT32 pa_mode_pwr = 0;
 	
-	switch ( PAMode )
+	switch (PAMode)
 	{
 		case SKU_PHYMODE_CCK_1M_2M:
 			pa_mode_pwr = RF_PA_MODE_CCK_1M;
@@ -4737,17 +4683,17 @@ UCHAR GetSkuRatePwr(
 	INT32 pwr_diff;
 
 	ch = pAd->SingleSkuPwrList.pHead;
-	while (ch )
+	while (ch)
 	{
 		start_ch = ch->StartChannel;
 
-		if ( channel >= start_ch )
+		if (channel >= start_ch)
 		{
-			for ( i = 0; i < ch->num; i++ )
+			for (i = 0; i < ch->num; i++)
 			{
-				if ( channel == ch->Channel[i] )
+				if (channel == ch->Channel[i])
 				{
-					switch ( phymode )
+					switch (phymode)
 					{
 						case SKU_PHYMODE_CCK_1M_2M:
 							rate_pwr = ch->PwrCCK[0];
@@ -4769,54 +4715,54 @@ UCHAR GetSkuRatePwr(
 							break;
 						case SKU_PHYMODE_HT_MCS0_MCS1:
 						case SKU_PHYMODE_STBC_MCS0_MCS1:
-							if ( bw == BW_20 )
+							if (bw == BW_20)
 								rate_pwr = ch->PwrHT20[0];
-							else if ( bw == BW_40 )
+							else if (bw == BW_40)
 								rate_pwr = ch->PwrHT40[0];
 							break;
 						case SKU_PHYMODE_HT_MCS2_MCS3:
 						case SKU_PHYMODE_STBC_MCS2_MCS3:
-							if ( bw == BW_20 )
+							if (bw == BW_20)
 								rate_pwr = ch->PwrHT20[2];
-							else if ( bw == BW_40 )
+							else if (bw == BW_40)
 								rate_pwr = ch->PwrHT40[2];
 							break;
 						case SKU_PHYMODE_HT_MCS4_MCS5:
 						case SKU_PHYMODE_STBC_MCS4_MCS5:
-							if ( bw == BW_20 )
+							if (bw == BW_20)
 								rate_pwr = ch->PwrHT20[4];
-							else if ( bw == BW_40 )
+							else if (bw == BW_40)
 								rate_pwr = ch->PwrHT40[4];
 							break;
 						case SKU_PHYMODE_HT_MCS6_MCS7:
 						case SKU_PHYMODE_STBC_MCS6_MCS7:
-							if ( bw == BW_20 )
+							if (bw == BW_20)
 								rate_pwr = ch->PwrHT20[6];
-							else if ( bw == BW_40 )
+							else if (bw == BW_40)
 								rate_pwr = ch->PwrHT40[6];
 							break;
 						case SKU_PHYMODE_HT_MCS8_MCS9:
-							if ( bw == BW_20 )
+							if (bw == BW_20)
 								rate_pwr = ch->PwrHT20[8];
-							else if ( bw == BW_40 )
+							else if (bw == BW_40)
 								rate_pwr = ch->PwrHT40[8];
 							break;
 						case SKU_PHYMODE_HT_MCS10_MCS11:
-							if ( bw == BW_20 )
+							if (bw == BW_20)
 								rate_pwr = ch->PwrHT20[10];
-							else if ( bw == BW_40 )
+							else if (bw == BW_40)
 								rate_pwr = ch->PwrHT40[10];
 							break;
 						case SKU_PHYMODE_HT_MCS12_MCS13:
-							if ( bw == BW_20 )
+							if (bw == BW_20)
 								rate_pwr = ch->PwrHT20[12];
-							else if ( bw == BW_40 )
+							else if (bw == BW_40)
 								rate_pwr = ch->PwrHT40[12];
 							break;
 						case SKU_PHYMODE_HT_MCS14_MCS15:
-							if ( bw == BW_20 )
+							if (bw == BW_20)
 								rate_pwr = ch->PwrHT20[14];
-							else if ( bw == BW_40 )
+							else if (bw == BW_40)
 								rate_pwr = ch->PwrHT40[14];
 							break;
 						default:
@@ -4826,7 +4772,6 @@ UCHAR GetSkuRatePwr(
 				}
 			}
 		}
-
 		ch = ch->pNext;
 	}
 
@@ -4834,7 +4779,7 @@ UCHAR GetSkuRatePwr(
 	pwr_diff = pwr_diff >> 12;
 	max_pwr = pAd->DefaultTargetPwr + pwr_diff;
 
-	if ( rate_pwr > max_pwr )
+	if (rate_pwr > max_pwr)
 		rate_pwr = max_pwr;
 
 	return rate_pwr;
@@ -4865,38 +4810,28 @@ VOID UpdateSkuRatePwr(
 		sku_rate_pwr = sku_rate_pwr << 12;			// sku_rate_power * 4096
 		//printk("\tsku_rate_pwr = %d\n", sku_rate_pwr);
 
-		if ( i < SKU_PHYMODE_CCK_5M_11M )
+		if (i < SKU_PHYMODE_CCK_5M_11M)
 		{
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R4, &BBPR4);
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R178, &BBPR178);
-			if ( BBPR4 & 0x20 )
+			if (BBPR4 & 0x20)
 			{
-				if ( BBPR178 == 0 )
-				{
+				if (BBPR178 == 0)
 					mcs_digital_pwr = 9830;		// 8192 * 1.2
-				}
 				else
-				{
-					mcs_digital_pwr = 18022;		// 8192 * 2.2
-				}
+					mcs_digital_pwr = 18022;	// 8192 * 2.2
 			}
 			else
 			{
-				if ( BBPR178 == 0 )
-				{
-					mcs_digital_pwr = 24576;		// 8192 * 3
-				}
+				if (BBPR178 == 0)
+					mcs_digital_pwr = 24576;	// 8192 * 3
 				else
-				{
-					mcs_digital_pwr = 819;			/// 8192 * 0.1
-				}
+					mcs_digital_pwr = 819;		// 8192 * 0.1
 
 			}
 		}
 		else
-		{
 			mcs_digital_pwr = 0;
-		}
 
 		pa_mode_pwr = GetSkuPAModePwr(pAd, i);
 
@@ -4915,7 +4850,7 @@ VOID UpdateSkuRatePwr(
 		rate_table[i] = diff_pwr -1;
 	}
 
-	for ( i = 0 ; i < 5; i++ )
+	for (i = 0 ; i < 5; i++)
 	{
 		data = 0;
 		Adata = 0;
@@ -4925,7 +4860,7 @@ VOID UpdateSkuRatePwr(
 		Adata = ((rate_table[i*4] + pAd->chipCap.Apwrdelta ) & 0x3F )+ ( ((rate_table[i*4 + 1] + pAd->chipCap.Apwrdelta) & 0x3F) << 8);
 		Gdata = ((rate_table[i*4] + pAd->chipCap.Gpwrdelta ) & 0x3F ) + ( ((rate_table[i*4 + 1] + pAd->chipCap.Gpwrdelta) & 0x3F) << 8);
 		
-		if ( i != 4 )
+		if (i != 4)
 		{
 			data |= ((rate_table[i*4 + 2] &0x3F) << 16 )+ ((rate_table[i*4 + 3] & 0x3F) << 24);
 			Adata |= ( ((rate_table[i*4 + 2] + pAd->chipCap.Apwrdelta ) & 0x3F) << 16) + ( ((rate_table[i*4 + 3] + pAd->chipCap.Apwrdelta) & 0x3F) << 24);
