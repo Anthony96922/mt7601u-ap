@@ -65,7 +65,7 @@ PHONY += all build_tools test LINUX release prerelease clean uninstall install l
 all: build_tools $(TARGET)
 
 build_tools:
-	$(MAKE) -C tools
+	@$(MAKE) -C tools
 	$(RT28xx_DIR)/tools/bin2h
 
 LINUX:
@@ -86,14 +86,14 @@ endif
 endif
 
 ifeq ($(OSABL),YES)
-	cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
+	@cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
-	cp os/linux/Makefile.6 $(RT28xx_DIR)/os/linux/Makefile
+	@cp os/linux/Makefile.6 $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 
 ifeq ($(OSABL),YES)
-	cp os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
+	@cp os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
 
@@ -122,57 +122,37 @@ ifeq ($(RT28xx_MODE),STA)
 endif	
 
 clean:
-ifeq ($(TARGET), LINUX)
 ifneq ($(findstring 2.4,$(LINUX_SRC)),)
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 clean
 else
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 clean
 endif
-endif
 
 strip:
-ifeq ($(TARGET), LINUX)
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 strip
-else
-	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 strip
-endif
-endif
+	@$(MAKE) -C $(RT28xx_DIR)/os/linux strip
 
 uninstall:
-ifeq ($(TARGET), LINUX)
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 uninstall
-else
-	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 uninstall
-endif
-endif
+	$(MAKE) -C $(RT28xx_DIR)/os/linux uninstall
 
 install:
-ifeq ($(TARGET), LINUX)
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 install
-else
-	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 install
-endif
-endif
+	$(MAKE) -C $(RT28xx_DIR)/os/linux install
 
 libwapi:
 ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	cp -f os/linux/Makefile.libwapi.4 $(RT28xx_DIR)/os/linux/Makefile
+	cp os/linux/Makefile.libwapi.4 $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 else
-	cp -f os/linux/Makefile.libwapi.6 $(RT28xx_DIR)/os/linux/Makefile	
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules	
-endif	
+	cp os/linux/Makefile.libwapi.6 $(RT28xx_DIR)/os/linux/Makefile
+	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+endif
 
 osutil:
 ifeq ($(OSABL),YES)
 ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	cp -f os/linux/Makefile.4.util $(RT28xx_DIR)/os/linux/Makefile
+	cp os/linux/Makefile.4.util $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 else
-	cp -f os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
+	cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
 endif
@@ -180,10 +160,10 @@ endif
 osnet:
 ifeq ($(OSABL),YES)
 ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	cp -f os/linux/Makefile.4.netif $(RT28xx_DIR)/os/linux/Makefile
+	cp os/linux/Makefile.4.netif $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(RT28xx_DIR)/os/linux/
 else
-	cp -f os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
+	cp os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
 endif
