@@ -33,19 +33,12 @@
 DOT11_REGULATORY_INFORMATION USARegulatoryInfo[] = 
 {
 /*  "regulatory class"  "number of channels"  "Max Tx Pwr"  "channel list" */
-    {0,	                {0,                   0,           {0}}}, /* Invlid entry*/
-    {1,                 {4,                   16,           {36, 40, 44, 48}}}, 
-    {2,                 {4,                   23,           {52, 56, 60, 64}}}, 
-    {3,                 {4,                   29,           {149, 153, 157, 161}}}, 
-    {4,                 {11,                  23,           {100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140}}}, 
-    {5,                 {5,                   30,           {149, 153, 157, 161, 165}}}, 
-    {6,                 {10,                  14,           {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}}, 
-    {7,                 {10,                  27,           {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}}, 
-    {8,                 {5,                   17,           {11, 13, 15, 17, 19}}}, 
-    {9,                 {5,                   30,           {11, 13, 15, 17, 19}}}, 
-    {10,                {2,                   20,           {21, 25}}}, 
-    {11,                {2,                   33,            {21, 25}}}, 
-    {12,                {11,                  30,            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}}}
+    {0,	                {0,                    0,           {0}}}, /* Invalid entry*/
+    {1,                 {4,                   30,           {36, 40, 44, 48}}},
+    {2,                 {4,                   30,           {52, 56, 60, 64}}},
+    {3,                 {11,                  24,           {100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140}}},
+    {4,                 {5,                   30,           {149, 153, 157, 161, 165}}},
+    {5,                 {11,                  30,           {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}}}
 };
 #define USA_REGULATORY_INFO_SIZE (sizeof(USARegulatoryInfo) / sizeof(DOT11_REGULATORY_INFORMATION))
 
@@ -54,10 +47,10 @@ DOT11_REGULATORY_INFORMATION USARegulatoryInfo[] =
 DOT11_REGULATORY_INFORMATION EuropeRegulatoryInfo[] = 
 {
 /*  "regulatory class"  "number of channels"  "Max Tx Pwr"  "channel list" */
-    {0,                 {0,                   0,           {0}}}, /* Invalid entry*/
-    {1,                 {4,                   20,           {36, 40, 44, 48}}}, 
-    {2,                 {4,                   20,           {52, 56, 60, 64}}}, 
-    {3,                 {11,                  30,           {100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140}}}, 
+    {0,                 {0,                    0,           {0}}}, /* Invalid entry*/
+    {1,                 {4,                   20,           {36, 40, 44, 48}}},
+    {2,                 {4,                   20,           {52, 56, 60, 64}}},
+    {3,                 {11,                  24,           {100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140}}},
     {4,                 {13,                  20,           {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}}}
 };
 #define EU_REGULATORY_INFO_SIZE (sizeof(EuropeRegulatoryInfo) / sizeof(DOT11_REGULATORY_INFORMATION))
@@ -67,7 +60,7 @@ DOT11_REGULATORY_INFORMATION EuropeRegulatoryInfo[] =
 DOT11_REGULATORY_INFORMATION JapanRegulatoryInfo[] = 
 {
 /*  "regulatory class"  "number of channels"  "Max Tx Pwr"  "channel list" */
-    {0,                 {0,                   0,           {0}}}, /* Invalid entry*/
+    {0,                 {0,                    0,           {0}}}, /* Invalid entry*/
     {1,                 {4,                   22,           {34, 38, 42, 46}}}, 
     {2,                 {3,                   24,           {8, 12, 16}}}, 
     {3,                 {3,                   24,           {8, 12, 16}}}, 
@@ -120,6 +113,11 @@ UINT8 GetRegulatoryMaxTxPwr(
 		MaxRegulatoryClassNum = USA_REGULATORY_INFO_SIZE;
 		pRegulatoryClass = &USARegulatoryInfo[0];
 	}
+	else if (strncmp(pCountry, "EU", 2) == 0)
+	{
+		MaxRegulatoryClassNum = EU_REGULATORY_INFO_SIZE;
+		pRegulatoryClass = &EuropeRegulatoryInfo[0];
+	}
 	else if (strncmp(pCountry, "JP", 2) == 0)
 	{
 		MaxRegulatoryClassNum = JP_REGULATORY_INFO_SIZE;
@@ -127,13 +125,13 @@ UINT8 GetRegulatoryMaxTxPwr(
 	}
 	else
 	{
-		DBGPRINT(RT_DEBUG_ERROR, ("%s: Unknow Country (%s)\n",
+		DBGPRINT(RT_DEBUG_ERROR, ("%s: Unknown country: %s\n",
 					__FUNCTION__, pCountry));
 		return 0xff;
 	}
 
 	for (RegulatoryClassLoop = 0;
-			RegulatoryClassLoop<MAX_NUM_OF_REGULATORY_CLASS;
+			RegulatoryClassLoop < MAX_NUM_OF_REGULATORY_CLASS;
 			RegulatoryClassLoop++)
 	{
 		PDOT11_CHANNEL_SET pChannelSet;
@@ -141,12 +139,12 @@ UINT8 GetRegulatoryMaxTxPwr(
 		RegulatoryClass = pAd->CommonCfg.RegulatoryClass[RegulatoryClassLoop];
 		if (RegulatoryClass >= MaxRegulatoryClassNum)
 		{
-			DBGPRINT(RT_DEBUG_ERROR, ("%s: %c%c Unknow Requlatory class (%d)\n",
+			DBGPRINT(RT_DEBUG_ERROR, ("%s: %c%c Unknown regulatory class: %d\n",
 						__FUNCTION__, pCountry[0], pCountry[1], RegulatoryClass));
 			return 0xff;
 		}
 		pChannelSet = &pRegulatoryClass[RegulatoryClass].ChannelSet;
-		for (ChIdx=0; ChIdx<pChannelSet->NumberOfChannels; ChIdx++)
+		for (ChIdx = 0; ChIdx<pChannelSet->NumberOfChannels; ChIdx++)
 		{
 			if (channel == pChannelSet->ChannelList[ChIdx])
 				return pChannelSet->MaxTxPwr;
@@ -155,7 +153,6 @@ UINT8 GetRegulatoryMaxTxPwr(
 		if (ChIdx == pChannelSet->NumberOfChannels)
 			return 0xff;
 	}
-
 	return 0xff;
 }
 
@@ -277,7 +274,7 @@ CHAR RTMP_GetTxPwr(
 	}
 
 
-	switch(HTTxMode.field.MODE)
+	switch (HTTxMode.field.MODE)
 	{
 		case MODE_CCK:
 		case MODE_OFDM:
@@ -316,8 +313,7 @@ CHAR RTMP_GetTxPwr(
 			&& (TxPwrCfg[Idx].MCS == HTTxMode.field.MCS))
 		{
 			Value = TxPwr[TxPwrCfg[Idx].req];
-			DaltaPwr = TxPwrRef - (CHAR)((Value & TxPwrCfg[Idx].BitMask)
-											>> TxPwrCfg[Idx].shift);
+			DaltaPwr = TxPwrRef - (CHAR)((Value & TxPwrCfg[Idx].BitMask) >> TxPwrCfg[Idx].shift);
 			CurTxPwr -= DaltaPwr;
 			break;
 		}
@@ -327,10 +323,10 @@ CHAR RTMP_GetTxPwr(
 }
 
 
-NDIS_STATUS	MeasureReqTabInit(
+NDIS_STATUS MeasureReqTabInit(
 	IN PRTMP_ADAPTER pAd)
 {
-	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
 
 	NdisAllocateSpinLock(pAd, &pAd->CommonCfg.MeasureReqTabLock);
 
@@ -362,7 +358,7 @@ VOID MeasureReqTabExit(
 
 PMEASURE_REQ_ENTRY MeasureReqLookUp(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken)
+	IN UINT8		DialogToken)
 {
 	UINT HashIdx;
 	PMEASURE_REQ_TAB pTab = pAd->CommonCfg.pMeasureReqTab;
@@ -406,7 +402,7 @@ PMEASURE_REQ_ENTRY MeasureReqInsert(
 	PMEASURE_REQ_ENTRY pEntry = NULL, pCurrEntry;
 	ULONG Now;
 
-	if(pTab == NULL)
+	if (pTab == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: pMeasureReqTab doesn't exist.\n", __FUNCTION__));
 		return NULL;
@@ -434,13 +430,9 @@ PMEASURE_REQ_ENTRY MeasureReqInsert(
 					if (pProbeEntry == pEntry)
 					{
 						if (pPrevEntry == NULL)
-						{
 							pTab->Hash[HashIdx] = pEntry->pNext;
-						}
 						else
-						{
 							pPrevEntry->pNext = pEntry->pNext;
-						}
 						break;
 					}
 
@@ -477,9 +469,7 @@ PMEASURE_REQ_ENTRY MeasureReqInsert(
 		{
 			HashIdx = MQ_DIALOGTOKEN_HASH_INDEX(DialogToken);
 			if (pTab->Hash[HashIdx] == NULL)
-			{
 				pTab->Hash[HashIdx] = pEntry;
-			}
 			else
 			{
 				pCurrEntry = pTab->Hash[HashIdx];
@@ -490,19 +480,19 @@ PMEASURE_REQ_ENTRY MeasureReqInsert(
 		}
 
 		RTMP_SEM_UNLOCK(&pAd->CommonCfg.MeasureReqTabLock);
-	} 
+	}
 
 	return pEntry;
 }
 
 VOID MeasureReqDelete(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken)
+	IN UINT8		DialogToken)
 {
 	PMEASURE_REQ_TAB pTab = pAd->CommonCfg.pMeasureReqTab;
 	PMEASURE_REQ_ENTRY pEntry = NULL;
 
-	if(pTab == NULL)
+	if (pTab == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: pMeasureReqTab doesn't exist.\n", __FUNCTION__));
 		return;
@@ -529,13 +519,9 @@ VOID MeasureReqDelete(
 			if (pProbeEntry == pEntry)
 			{
 				if (pPrevEntry == NULL)
-				{
 					pTab->Hash[HashIdx] = pEntry->pNext;
-				}
 				else
-				{
 					pPrevEntry->pNext = pEntry->pNext;
-				}
 				break;
 			}
 
@@ -632,7 +618,7 @@ static PTPC_REQ_ENTRY TpcReqInsert(
 	PTPC_REQ_ENTRY pEntry = NULL, pCurrEntry;
 	ULONG Now;
 
-	if(pTab == NULL)
+	if (pTab == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: pTpcReqTab doesn't exist.\n", __FUNCTION__));
 		return NULL;
@@ -660,13 +646,9 @@ static PTPC_REQ_ENTRY TpcReqInsert(
 					if (pProbeEntry == pEntry)
 					{
 						if (pPrevEntry == NULL)
-						{
 							pTab->Hash[HashIdx] = pEntry->pNext;
-						}
 						else
-						{
 							pPrevEntry->pNext = pEntry->pNext;
-						}
 						break;
 					}
 
@@ -703,9 +685,7 @@ static PTPC_REQ_ENTRY TpcReqInsert(
 		{
 			HashIdx = TPC_DIALOGTOKEN_HASH_INDEX(DialogToken);
 			if (pTab->Hash[HashIdx] == NULL)
-			{
 				pTab->Hash[HashIdx] = pEntry;
-			}
 			else
 			{
 				pCurrEntry = pTab->Hash[HashIdx];
@@ -728,7 +708,7 @@ static VOID TpcReqDelete(
 	PTPC_REQ_TAB pTab = pAd->CommonCfg.pTpcReqTab;
 	PTPC_REQ_ENTRY pEntry = NULL;
 
-	if(pTab == NULL)
+	if (pTab == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: pTpcReqTab doesn't exist.\n", __FUNCTION__));
 		return;
@@ -755,13 +735,9 @@ static VOID TpcReqDelete(
 			if (pProbeEntry == pEntry)
 			{
 				if (pPrevEntry == NULL)
-				{
 					pTab->Hash[HashIdx] = pEntry->pNext;
-				}
 				else
-				{
 					pPrevEntry->pNext = pEntry->pNext;
-				}
 				break;
 			}
 
@@ -781,7 +757,7 @@ static VOID TpcReqDelete(
 /*
 	==========================================================================
 	Description:
-		Get Current TimeS tamp.
+		Get Current Time Stamp.
 		
 	Parametrs:
 	
@@ -802,26 +778,16 @@ static UINT64 GetCurrentTimeStamp(
 		
 	Parametrs:
 	
-	Return	: Current Time Stamp.
+	Return	: Current Transmit Power.
 	==========================================================================
  */
 static UINT8 GetCurTxPwr(
 	IN PRTMP_ADAPTER pAd,
 	IN UINT8 Wcid)
 {
-	return 16; /* 16 dBm */
+	return 20; /* 20 dBm */
 }
 
-/*
-	==========================================================================
-	Description:
-		Get Current Transmit Power.
-		
-	Parametrs:
-	
-	Return	: Current Time Stamp.
-	==========================================================================
- */
 VOID InsertChannelRepIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
@@ -840,7 +806,7 @@ VOID InsertChannelRepIE(
 	{
 		if (RegulatoryClass >= USA_REGULATORY_INFO_SIZE)
 		{
-			DBGPRINT(RT_DEBUG_ERROR, ("%s: USA Unknow Requlatory class (%d)\n",
+			DBGPRINT(RT_DEBUG_ERROR, ("%s: USA Unknown Regulatory class (%d)\n",
 						__FUNCTION__, RegulatoryClass));
 			return;
 		}
@@ -850,7 +816,7 @@ VOID InsertChannelRepIE(
 	{
 		if (RegulatoryClass >= JP_REGULATORY_INFO_SIZE)
 		{
-			DBGPRINT(RT_DEBUG_ERROR, ("%s: JP Unknow Requlatory class (%d)\n",
+			DBGPRINT(RT_DEBUG_ERROR, ("%s: JP Unknown Regulatory class (%d)\n",
 						__FUNCTION__, RegulatoryClass));
 			return;
 		}
@@ -859,7 +825,7 @@ VOID InsertChannelRepIE(
 	}
 	else
 	{
-		DBGPRINT(RT_DEBUG_ERROR, ("%s: Unknow Country (%s)\n",
+		DBGPRINT(RT_DEBUG_ERROR, ("%s: Unknown Country (%s)\n",
 					__FUNCTION__, pCountry));
 		return;
 	}
@@ -877,12 +843,12 @@ VOID InsertChannelRepIE(
 
 	if (Len > 1)
 	{
-		MakeOutgoingFrame(pFrameBuf,	&TempLen,
-						1,				&IEId,
-						1,				&Len,
-						1,				&RegulatoryClass,
-						Len -1,			pChListPtr,
-						END_OF_ARGS);
+		MakeOutgoingFrame(pFrameBuf, &TempLen,
+					1, &IEId,
+					1, &Len,
+					1, &RegulatoryClass,
+					Len -1, pChListPtr,
+					END_OF_ARGS);
 
 		*pFrameLen = *pFrameLen + TempLen;
 	}
@@ -909,9 +875,9 @@ VOID InsertDialogToken(
 	IN UINT8 DialogToken)
 {
 	ULONG TempLen;
-	MakeOutgoingFrame(pFrameBuf,	&TempLen,
-					1,				&DialogToken,
-					END_OF_ARGS);
+	MakeOutgoingFrame(pFrameBuf, &TempLen,
+				1, &DialogToken,
+				END_OF_ARGS);
 
 	*pFrameLen = *pFrameLen + TempLen;
 
@@ -939,10 +905,10 @@ VOID InsertDialogToken(
 	UINT8 Len = 0;
 	UINT8 ElementID = IE_TPC_REQUEST;
 
-	MakeOutgoingFrame(pFrameBuf,					&TempLen,
-						1,							&ElementID,
-						1,							&Len,
-						END_OF_ARGS);
+	MakeOutgoingFrame(pFrameBuf, &TempLen,
+				1, &ElementID,
+				1, &Len,
+				END_OF_ARGS);
 
 	*pFrameLen = *pFrameLen + TempLen;
 
@@ -978,14 +944,13 @@ VOID InsertTpcReportIE(
 	TpcReportIE.TxPwr = TxPwr;
 	TpcReportIE.LinkMargin = LinkMargin;
 
-	MakeOutgoingFrame(pFrameBuf,					&TempLen,
-						1,							&ElementID,
-						1,							&Len,
-						Len,						&TpcReportIE,
-						END_OF_ARGS);
+	MakeOutgoingFrame(pFrameBuf, &TempLen,
+				1, &ElementID,
+				1, &Len,
+				Len, &TpcReportIE,
+				END_OF_ARGS);
 
 	*pFrameLen = *pFrameLen + TempLen;
-
 
 	return;
 }
@@ -1019,11 +984,11 @@ static VOID InsertMeasureReqIE(
 	ULONG TempLen;
 	UINT8 ElementID = IE_MEASUREMENT_REQUEST;
 
-	MakeOutgoingFrame(pFrameBuf,					&TempLen,
-						1,							&ElementID,
-						1,							&Len,
-						sizeof(MEASURE_REQ_INFO),	pMeasureReqIE,
-						END_OF_ARGS);
+	MakeOutgoingFrame(pFrameBuf, &TempLen,
+				1, &ElementID,
+				1, &Len,
+				sizeof(MEASURE_REQ_INFO), pMeasureReqIE,
+				END_OF_ARGS);
 
 	*pFrameLen = *pFrameLen + TempLen;
 
@@ -1061,19 +1026,19 @@ static VOID InsertMeasureReportIE(
 
 	Len = sizeof(MEASURE_REPORT_INFO) + ReportLnfoLen;
 		
-	MakeOutgoingFrame(pFrameBuf,					&TempLen,
-						1,							&ElementID,
-						1,							&Len,
-						Len,						pMeasureReportIE,
-						END_OF_ARGS);
+	MakeOutgoingFrame(pFrameBuf, &TempLen,
+				1, &ElementID,
+				1, &Len,
+				Len, pMeasureReportIE,
+				END_OF_ARGS);
 
 	*pFrameLen = *pFrameLen + TempLen;
 
 	if ((ReportLnfoLen > 0) && (pReportInfo != NULL))
 	{
-		MakeOutgoingFrame(pFrameBuf + *pFrameLen,		&TempLen,
-							ReportLnfoLen,				pReportInfo,
-							END_OF_ARGS);
+		MakeOutgoingFrame(pFrameBuf + *pFrameLen, &TempLen,
+					ReportLnfoLen,	pReportInfo,
+					END_OF_ARGS);
 
 		*pFrameLen = *pFrameLen + TempLen;
 	}
@@ -1115,9 +1080,9 @@ VOID MakeMeasurementReqFrame(
 	/* fill Number of repetitions. */
 	if (Category == CATEGORY_RM)
 	{
-		MakeOutgoingFrame((pOutBuffer+*pFrameLen),	&TempLen,
-						2,							&NumOfRepetitions,
-						END_OF_ARGS);
+		MakeOutgoingFrame((pOutBuffer + *pFrameLen), &TempLen,
+					2, &NumOfRepetitions,
+					END_OF_ARGS);
 
 		*pFrameLen += TempLen;
 	}
@@ -1127,8 +1092,7 @@ VOID MakeMeasurementReqFrame(
 	MeasureReqIE.Token = MeasureToken;
 	MeasureReqIE.ReqMode.word = MeasureReqMode;
 	MeasureReqIE.ReqType = MeasureReqType;
-	InsertMeasureReqIE(pAd, (pOutBuffer+*pFrameLen), pFrameLen,
-		TotalLen, &MeasureReqIE);
+	InsertMeasureReqIE(pAd, (pOutBuffer + *pFrameLen), pFrameLen, TotalLen, &MeasureReqIE);
 
 	return;
 }
@@ -1162,11 +1126,10 @@ VOID EnqueueMeasurementRep(
 	MEASURE_REPORT_INFO MeasureRepIE;
 
 	/* build action frame header.*/
-	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pDA,
-						pAd->CurrentAddress);
+	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pDA, pAd->CurrentAddress);
 
 	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
-	if(NStatus != NDIS_STATUS_SUCCESS)
+	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		return;
@@ -1216,11 +1179,10 @@ VOID EnqueueTPCReq(
 	HEADER_802_11 ActHdr;
 
 	/* build action frame header.*/
-	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pDA,
-						pAd->CurrentAddress);
+	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pDA, pAd->CurrentAddress);
 
 	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
-	if(NStatus != NDIS_STATUS_SUCCESS)
+	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		return;
@@ -1272,7 +1234,7 @@ VOID EnqueueTPCRep(
 						pAd->CurrentAddress);
 
 	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
-	if(NStatus != NDIS_STATUS_SUCCESS)
+	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		return;
@@ -1327,11 +1289,11 @@ static VOID InsertChSwAnnIE(
 	ChSwAnnIE.Channel = NewChannel;
 	ChSwAnnIE.ChSwCnt = ChSwCnt;
 
-	MakeOutgoingFrame(pFrameBuf,				&TempLen,
-						1,						&ElementID,
-						1,						&Len,
-						Len,					&ChSwAnnIE,
-						END_OF_ARGS);
+	MakeOutgoingFrame(pFrameBuf,	&TempLen,
+					1,			&ElementID,
+					1,			&Len,
+					Len,			&ChSwAnnIE,
+					END_OF_ARGS);
 
 	*pFrameLen = *pFrameLen + TempLen;
 
@@ -1370,7 +1332,7 @@ VOID EnqueueChSwAnn(
 						pAd->CurrentAddress);
 
 	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
-	if(NStatus != NDIS_STATUS_SUCCESS)
+	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		return;
@@ -1759,7 +1721,7 @@ static BOOLEAN PeerTpcReqSanity(
 		{
 			case IE_TPC_REQUEST:
 				result = TRUE;
-                break;
+                		break;
 
 			default:
 				break;
@@ -1890,7 +1852,7 @@ static VOID PeerMeasureReqAction(
 	MEASURE_REQ	MeasureReq;
 	MEASURE_REPORT_MODE ReportMode;
 
-	if(PeerMeasureReqSanity(pAd, Elem->Msg, Elem->MsgLen, &DialogToken, &MeasureReqInfo, &MeasureReq))
+	if (PeerMeasureReqSanity(pAd, Elem->Msg, Elem->MsgLen, &DialogToken, &MeasureReqInfo, &MeasureReq))
 	{
 		ReportMode.word = 0;
 		ReportMode.field.Incapable = 1;
@@ -2098,18 +2060,12 @@ VOID PeerSpectrumAction(
 					
 				/* 802.11n D3.03 adds secondary channel offset element in the end.*/
 				if (Elem->MsgLen ==  (LENGTH_802_11 + 2 + sizeof (CHA_SWITCH_ANNOUNCE_IE) + sizeof (SEC_CHA_OFFSET_IE)))
-				{
 					RTMPMoveMemory(&Secondary, &Elem->Msg[LENGTH_802_11+9], sizeof (SEC_CHA_OFFSET_IE));
-				}
 				else
-				{
 					Secondary.SecondaryChannelOffset = 0;
-				}
 
 				if ((Elem->Msg[LENGTH_802_11+2] == IE_CHANNEL_SWITCH_ANNOUNCEMENT) && (Elem->Msg[LENGTH_802_11+3] == 3))
-				{
 					ChannelSwitchAction(pAd, Elem->Wcid, ChannelSwitch.NewChannel, Secondary.SecondaryChannelOffset);
-				}
 			}
 #endif /* DOT11N_DRAFT3 */
 
@@ -2151,7 +2107,7 @@ INT Set_MeasureReq_Proc(
 	ULONG FrameLen;
 
 	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
-	if(NStatus != NDIS_STATUS_SUCCESS)
+	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		goto END_OF_MEASURE_REQ;
@@ -2283,7 +2239,7 @@ typedef struct __PWR_CONSTRAIN_CFG
 	CHAR DaltaPwr;
 
 	Value = (UINT) simple_strtol(arg, 0, 10);
-	MaxTxPwr = GetRegulatoryMaxTxPwr(pAd, pAd->CommonCfg.Channel) - (CHAR)Value;
+	MaxTxPwr = GetRegulatoryMaxTxPwr(pAd, pAd->CommonCfg.Channel) - Value;
 	CurTxPwr = RTMP_GetTxPwr(pAd, pAd->MacTab.Content[0].HTPhyMode);
 	DaltaPwr = CurTxPwr - MaxTxPwr;
 
@@ -2297,7 +2253,7 @@ typedef struct __PWR_CONSTRAIN_CFG
 		DaltaPwr += 6;
 	else if (pAd->CommonCfg.TxPowerPercentage > 9)	/* reduce Pwr for 9 dB. */
 		DaltaPwr += 9;
-	else											/* reduce Pwr for 12 dB. */
+	else						/* reduce Pwr for 12 dB. */
 		DaltaPwr += 12;
 
 	DBGPRINT(RT_DEBUG_OFF, ("MaxTxPwr=%d, CurTxPwr=%d, DaltaPwr=%d\n",
@@ -2378,10 +2334,10 @@ VOID RguClass_BuildBcnChList(
 		if (pRguClassRegion == NULL)
 			return;
 
-		MakeOutgoingFrame(pBuf + *pBufLen,		&TmpLen,
-							1,                 	&pChList->ChannelList[0],
-							1,                 	&pChList->NumberOfChannels,
-							1,                 	&pChList->MaxTxPwr,
+		MakeOutgoingFrame(pBuf + *pBufLen,	&TmpLen,
+							1,	&pChList->ChannelList[0],
+							1,	&pChList->NumberOfChannels,
+							1,	&pChList->MaxTxPwr,
 							END_OF_ARGS);
 
 		*pBufLen += TmpLen;

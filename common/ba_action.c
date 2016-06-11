@@ -558,21 +558,21 @@ VOID BAOriSessionSetUp(
 }
 
 VOID BAOriSessionAdd(
-			IN PRTMP_ADAPTER    pAd, 
-					IN MAC_TABLE_ENTRY  *pEntry,
-			IN PFRAME_ADDBA_RSP pFrame)
+	IN PRTMP_ADAPTER	pAd, 
+	IN MAC_TABLE_ENTRY	*pEntry,
+	IN PFRAME_ADDBA_RSP	pFrame)
 {
-	BA_ORI_ENTRY  *pBAEntry = NULL;
-	BOOLEAN       Cancelled;
-	UCHAR         TID;
-	USHORT        Idx;
-	PUCHAR          pOutBuffer2 = NULL;
-	NDIS_STATUS     NStatus;
-	ULONG           FrameLen;
-	FRAME_BAR       FrameBar;
-	UCHAR			MaxPeerBufSize;
+	BA_ORI_ENTRY	*pBAEntry = NULL;
+	BOOLEAN		Cancelled;
+	UCHAR		TID;
+	USHORT		Idx;
+	PUCHAR		pOutBuffer2 = NULL;
+	NDIS_STATUS	NStatus;
+	ULONG		FrameLen;
+	FRAME_BAR	FrameBar;
+	UCHAR		MaxPeerBufSize;
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR			apidx;
+	UCHAR		apidx;
 #endif /* CONFIG_AP_SUPPORT */
 
 	TID = pFrame->BaParm.TID;
@@ -722,14 +722,9 @@ BOOLEAN BARecSessionAdd(
 		DBGPRINT(RT_DEBUG_OFF, ("Start Seq = %08x\n",  pFrame->BaStartSeq.field.StartSeq));
 
 		if (pEntry->RXBAbitmap & (1<<TID))
-		{
 			RTMPCancelTimer(&pBAEntry->RECBATimer, &Cancelled);
-		}
 		else
-		{
 			RTMPInitTimer(pAd, &pBAEntry->RECBATimer, GET_TIMER_FUNCTION(BARecSessionIdleTimeout), pBAEntry, TRUE);
-		}
-
 
 		/* Set Bitmap flag.*/
 		pEntry->RXBAbitmap |= (1<<TID);

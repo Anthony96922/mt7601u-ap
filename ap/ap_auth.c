@@ -91,32 +91,32 @@ void APAuthStateMachineInit(
     ==========================================================================
  */
 static VOID APMlmeDeauthReqAction(
-    IN PRTMP_ADAPTER pAd, 
-    IN MLME_QUEUE_ELEM *Elem) 
+	IN PRTMP_ADAPTER pAd, 
+	IN MLME_QUEUE_ELEM *Elem) 
 {
-    MLME_DEAUTH_REQ_STRUCT	*pInfo;
-    HEADER_802_11			Hdr;
-    PUCHAR					pOutBuffer = NULL;
-    NDIS_STATUS				NStatus;
-    ULONG					FrameLen = 0;
-    MAC_TABLE_ENTRY			*pEntry;
-	UCHAR					apidx;
+	MLME_DEAUTH_REQ_STRUCT	*pInfo;
+	HEADER_802_11	Hdr;
+	PUCHAR		pOutBuffer = NULL;
+	NDIS_STATUS	NStatus;
+	ULONG		FrameLen = 0;
+	MAC_TABLE_ENTRY	*pEntry;
+	UCHAR		apidx;
 
 
-    pInfo = (MLME_DEAUTH_REQ_STRUCT *)Elem->Msg;
+	pInfo = (MLME_DEAUTH_REQ_STRUCT *)Elem->Msg;
 
-    if (Elem->Wcid < MAX_LEN_OF_MAC_TABLE)
-    {
+	if (Elem->Wcid < MAX_LEN_OF_MAC_TABLE)
+	{
 		pEntry = &pAd->MacTab.Content[Elem->Wcid];
 		if (!pEntry)
 			return;
 		
 #ifdef WAPI_SUPPORT
 		WAPI_InternalCmdAction(pAd, 
-							   pEntry->AuthMode, 
-							   pEntry->apidx, 
-							   pEntry->Addr, 
-							   WAI_MLME_DISCONNECT);		
+					   pEntry->AuthMode, 
+					   pEntry->apidx, 
+					   pEntry->Addr, 
+					   WAI_MLME_DISCONNECT);		
 #endif /* WAPI_SUPPORT */
 		
 		/* send wireless event - for deauthentication */
@@ -125,29 +125,30 @@ static VOID APMlmeDeauthReqAction(
 
 		apidx = pEntry->apidx;
 
-        /* 1. remove this STA from MAC table */
-        MacTableDeleteEntry(pAd, Elem->Wcid, pInfo->Addr);
+        	/* 1. remove this STA from MAC table */
+        	MacTableDeleteEntry(pAd, Elem->Wcid, pInfo->Addr);
 
-        /* 2. send out DE-AUTH request frame */
-        NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);
-        if (NStatus != NDIS_STATUS_SUCCESS) 
-            return;
+        	/* 2. send out DE-AUTH request frame */
+		NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);
+		if (NStatus != NDIS_STATUS_SUCCESS) 
+			return;
 
-        DBGPRINT(RT_DEBUG_TRACE,
+		DBGPRINT(RT_DEBUG_TRACE,
 				("AUTH - Send DE-AUTH req to %02x:%02x:%02x:%02x:%02x:%02x\n",
 				pInfo->Addr[0], pInfo->Addr[1], pInfo->Addr[2],
 				pInfo->Addr[3], pInfo->Addr[4], pInfo->Addr[5]));
-           		
-        MgtMacHeaderInit(pAd, &Hdr, SUBTYPE_DEAUTH, 0, pInfo->Addr,
-						pAd->ApCfg.MBSSID[apidx].Bssid);
-        MakeOutgoingFrame(pOutBuffer,				&FrameLen, 
-                          sizeof(HEADER_802_11),	&Hdr, 
-                          2,						&pInfo->Reason, 
-                          END_OF_ARGS);
-        MiniportMMRequest(pAd, 0, pOutBuffer, FrameLen);
 
-        MlmeFreeMemory(pAd, pOutBuffer);
-    }
+		MgtMacHeaderInit(pAd, &Hdr, SUBTYPE_DEAUTH, 0, pInfo->Addr,
+						pAd->ApCfg.MBSSID[apidx].Bssid);
+		MakeOutgoingFrame(pOutBuffer,
+					&FrameLen,
+					sizeof(HEADER_802_11),	&Hdr, 
+					2,	&pInfo->Reason,
+					END_OF_ARGS);
+		MiniportMMRequest(pAd, 0, pOutBuffer, FrameLen);
+
+		MlmeFreeMemory(pAd, pOutBuffer);
+	}
 }
 
 
@@ -162,7 +163,7 @@ static VOID APPeerDeauthReqAction(
 
 
 
-    if (! PeerDeauthReqSanity(pAd, Elem->Msg, Elem->MsgLen, Addr2, &SeqNum, &Reason)) 
+    if (!PeerDeauthReqSanity(pAd, Elem->Msg, Elem->MsgLen, Addr2, &SeqNum, &Reason)) 
         return;
 
 	pEntry = NULL;
@@ -538,14 +539,12 @@ VOID APCls2errAction(
 
 
 	if (Wcid < MAX_LEN_OF_MAC_TABLE)
-	{
 		pEntry = &(pAd->MacTab.Content[Wcid]);
-	}
 
-    if (pEntry && IS_ENTRY_CLIENT(pEntry))
-    {
-        /*ApLogEvent(pAd, pAddr, EVENT_DISASSOCIATED); */
-        MacTableDeleteEntry(pAd, pEntry->Aid, pHeader->Addr2);
+	if (pEntry && IS_ENTRY_CLIENT(pEntry))
+	{
+		/*ApLogEvent(pAd, pAddr, EVENT_DISASSOCIATED); */
+		MacTableDeleteEntry(pAd, pEntry->Aid, pHeader->Addr2);
 	}
 	else
 	{

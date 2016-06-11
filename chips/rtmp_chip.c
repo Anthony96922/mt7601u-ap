@@ -299,7 +299,7 @@ VOID RtmpChipBcnInit(
 	pChipCap->BcnMaxHwSize = 0x1000;
 
 #ifdef MT7601
-	if ( IS_MT7601(pAd))
+	if (IS_MT7601(pAd))
 	{
 		pChipCap->BcnBase[0] = 0xC000;
 		pChipCap->BcnBase[1] = 0xC200;
@@ -309,17 +309,18 @@ VOID RtmpChipBcnInit(
 		pChipCap->BcnBase[5] = 0xCA00;
 		pChipCap->BcnBase[6] = 0xCC00;
 		pChipCap->BcnBase[7] = 0xCE00;
-	} else
+	}
+	else
 #endif /* MT7601 */
 	{
-	pChipCap->BcnBase[0] = 0x7800;
-	pChipCap->BcnBase[1] = 0x7A00;
-	pChipCap->BcnBase[2] = 0x7C00;
-	pChipCap->BcnBase[3] = 0x7E00;
-	pChipCap->BcnBase[4] = 0x7200;
-	pChipCap->BcnBase[5] = 0x7400;
-	pChipCap->BcnBase[6] = 0x5DC0;
-	pChipCap->BcnBase[7] = 0x5BC0;
+		pChipCap->BcnBase[0] = 0x7800;
+		pChipCap->BcnBase[1] = 0x7A00;
+		pChipCap->BcnBase[2] = 0x7C00;
+		pChipCap->BcnBase[3] = 0x7E00;
+		pChipCap->BcnBase[4] = 0x7200;
+		pChipCap->BcnBase[5] = 0x7400;
+		pChipCap->BcnBase[6] = 0x5DC0;
+		pChipCap->BcnBase[7] = 0x5BC0;
 	}
 
 	/*
@@ -329,7 +330,7 @@ VOID RtmpChipBcnInit(
 		-	these wcid 222~237 are reserved for beacon#7(ra7).
 	*/
 #ifdef MT7601
-	if ( IS_MT7601(pAd))
+	if (IS_MT7601(pAd))
 		pChipCap->WcidHwRsvNum = 127;
 	else
 #endif
@@ -366,7 +367,7 @@ VOID rlt_bcn_buf_init(RTMP_ADAPTER *pAd)
 	pChipCap->FlgIsSupSpecBcnBuf = FALSE;
 	pChipCap->BcnMaxHwNum = 16;
 #ifdef MT7601
-	if ( IS_MT7601(pAd))
+	if (IS_MT7601(pAd))
 		pChipCap->WcidHwRsvNum = 127;
 	else
 #endif
@@ -498,16 +499,16 @@ VOID RtmpChipWriteMemory(
 
 #ifdef GREENAP_SUPPORT
 static VOID EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower)
-	{
+{
 	rtmp_bbp_set_mmps(pAd, ReduceCorePower);
 	rtmp_mac_set_mmps(pAd, ReduceCorePower);
 
 	DBGPRINT(RT_DEBUG_INFO, ("EnableAPMIMOPSNew, 30xx changes the # of antenna to 1\n"));
-	}
+}
 
 
 static VOID DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
-	{
+{
 	rtmp_bbp_set_mmps(pAd, FALSE);
 	rtmp_mac_set_mmps(pAd, FALSE);
 
@@ -520,13 +521,11 @@ static VOID EnableAPMIMOPSv1(
 	IN BOOLEAN ReduceCorePower)
 {
 	UCHAR	BBPR3 = 0,BBPR1 = 0;
-	ULONG	TxPinCfg = 0x00050F0A;/*Gary 2007/08/09 0x050A0A*/
-	UCHAR	BBPR4=0;
+	ULONG	TxPinCfg = 0x00050F0A; /*Gary 2007/08/09 0x050A0A*/
+	UCHAR	BBPR4 = 0;
 	UCHAR	CentralChannel;
 
-
-
-	if(pAd->CommonCfg.Channel>14)
+	if(pAd->CommonCfg.Channel > 14)
 		TxPinCfg=0x00050F05;
 		
 	TxPinCfg &= 0xFFFFFFF3;
@@ -547,8 +546,7 @@ static VOID EnableAPMIMOPSv1(
 		/*Tx/Rx Stream*/
 		rtmp_bbp_set_txdac(pAd, 0);
 		rtmp_bbp_set_rxpath(pAd, 1);
-		
-	RTMP_IO_WRITE32(pAd, TX_PIN_CFG, TxPinCfg);
+		RTMP_IO_WRITE32(pAd, TX_PIN_CFG, TxPinCfg);
 
 	}
 	AsicSwitchChannel(pAd, CentralChannel, FALSE);
@@ -560,22 +558,20 @@ static VOID EnableAPMIMOPSv1(
 static VOID DisableAPMIMOPSv1(
 	IN PRTMP_ADAPTER		pAd)
 {
-	UCHAR	BBPR3=0,BBPR1=0;
+	UCHAR	BBPR3 = 0,BBPR1 = 0;
 	ULONG	TxPinCfg = 0x00050F0A; /* Gary 2007/08/09 0x050A0A */
 	UCHAR	CentralChannel;
-	UINT32	Value=0;
+	UINT32	Value = 0;
 
-
-
-	if(pAd->CommonCfg.Channel>14)
-		TxPinCfg=0x00050F05;
+	if(pAd->CommonCfg.Channel > 14)
+		TxPinCfg = 0x00050F05;
 	/* Turn off unused PA or LNA when only 1T or 1R*/
 	if (pAd->Antenna.field.TxPath == 1)
 		TxPinCfg &= 0xFFFFFFF3;
 	if (pAd->Antenna.field.RxPath == 1)
 		TxPinCfg &= 0xFFFFF3FF;
 
-	pAd->ApCfg.bGreenAPActive=FALSE;
+	pAd->ApCfg.bGreenAPActive = FALSE;
 
 	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == BW_40) && (pAd->CommonCfg.Channel != 14))
 	{
@@ -620,14 +616,11 @@ static VOID RxSensitivityTuning(RTMP_ADAPTER *pAd)
 
 #ifdef RALINK_ATE
 	if (ATE_ON(pAd))
-	{
 		ATE_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R66, R66);
-	}
 	else
 #endif /* RALINK_ATE */
-	{
 		rtmp_bbp_set_agc(pAd, R66, RX_CHAIN_ALL);
-	}
+
 	DBGPRINT(RT_DEBUG_TRACE,("turn off R17 tuning, restore to 0x%02x\n", R66));
 }
 
@@ -663,19 +656,18 @@ static VOID ChipBBPAdjust(RTMP_ADAPTER *pAd)
 		bbp_val = (pAd->CommonCfg.Channel > 14) ? 0x40 : 0x38;
 	rtmp_bbp_set_agc(pAd, bbp_val, RX_CHAIN_ALL);
 
-
-	if (pAd->MACVersion == 0x28600100)
-	{
 #ifdef RT28xx
+	if (pAd->MACVersion == 0x28600100)
 		RT28xx_ch_tunning(pAd, BW_40);
-#endif /* RT28xx */
-	}
 	else
 	{
+#endif /* RT28xx */
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R69, 0x12);
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R70, 0x0A);
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R73, 0x10);
-	}	
+#ifdef RT28xx
+	}
+#endif /* RT28xx */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s(): BW_%s, ChannelWidth=%d, Channel=%d, ExtChanOffset=%d(%d) \n",
 					__FUNCTION__, (rf_bw == BW_40 ? "40" : "20"),
@@ -751,9 +743,6 @@ VOID NetDevNickNameInit(
 	IN PRTMP_ADAPTER		pAd)
 {
 }
-
-
-
 
 #ifdef HW_ANTENNA_DIVERSITY_SUPPORT
 UINT32 SetHWAntennaDivsersity(
@@ -837,9 +826,6 @@ UINT32 SetHWAntennaDivsersity(
 }
 #endif // HW_ANTENNA_DIVERSITY_SUPPORT // 
 
-
-
-
 INT WaitForAsicReady(
 	IN RTMP_ADAPTER *pAd)
 {
@@ -868,7 +854,6 @@ INT WaitForAsicReady(
 	
 	return TRUE;
 }
-
 
 INT AsicGetMacVersion(
 	IN RTMP_ADAPTER *pAd)
@@ -924,9 +909,6 @@ VOID RtmpChipOpsHook(VOID *pCB)
 
 	/* default init */
 	RTMP_DRS_ALG_INIT(pAd, RATE_ALG_LEGACY);
-
-
-
 
 #ifdef RT3290
 	if (IS_RT3290(pAd))
@@ -990,8 +972,7 @@ VOID RtmpChipOpsHook(VOID *pCB)
 	pChipCap->VcoPeriod = 10;
 	pChipCap->FlgIsVcoReCalMode = VCO_CAL_DISABLE;
 	pChipCap->WPDMABurstSIZE = 2; /* default 64B */
-	pChipCap->MBSSIDMode = MBSSID_MODE0; 
-
+	pChipCap->MBSSIDMode = MBSSID_MODE0;
 
 	RtmpChipBcnInit(pAd);
 
@@ -1030,7 +1011,6 @@ VOID RtmpChipOpsHook(VOID *pCB)
 
 
 	/* We depends on RfICType and MACVersion to assign the corresponding operation callbacks. */
-
 
 
 #if defined(RT3883) || defined(RT3290) || defined(RT65xx) || defined(MT7601)

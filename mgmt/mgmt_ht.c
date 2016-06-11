@@ -146,11 +146,11 @@ VOID RTMPSetHT(
 	IN RTMP_ADAPTER *pAd,
 	IN OID_SET_HT_PHYMODE *pHTPhyMode)
 {
-	UCHAR RxStream = pAd->CommonCfg.RxStream;
+	unsigned char RxStream = pAd->CommonCfg.RxStream;
 #ifdef CONFIG_AP_SUPPORT
-	INT apidx;
+	int apidx;
 #endif /* CONFIG_AP_SUPPORT */
-	INT bw;
+	int bw;
 	RT_HT_CAPABILITY *rt_ht_cap = &pAd->CommonCfg.DesiredHtPhy;
 	HT_CAPABILITY_IE *ht_cap= &pAd->CommonCfg.HtCapability;
 
@@ -722,7 +722,7 @@ VOID RTMPUpdateHTIE(
 	pHtCapability->HtCapInfo.AMsduSize = pRtHt->AmsduSize;
 	pHtCapability->HtCapParm.MaxRAmpduFactor = pRtHt->MaxRAmpduFactor;
 	pHtCapability->HtCapParm.MpduDensity = pRtHt->MpduDensity;
-	pAddHtInfo->AddHtInfo.ExtChanOffset = pRtHt->ExtChanOffset ;
+	pAddHtInfo->AddHtInfo.ExtChanOffset = pRtHt->ExtChanOffset;
 	pAddHtInfo->AddHtInfo.RecomWidth = pRtHt->RecomWidth;
 	pAddHtInfo->AddHtInfo2.OperaionMode = pRtHt->OperaionMode;
 	pAddHtInfo->AddHtInfo2.NonGfPresent = pRtHt->NonGfPresent;

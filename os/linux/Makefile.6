@@ -119,6 +119,8 @@ DAT_FILE_NAME = RT$(CHIPSET_DAT)AP.txt
 endif
 #endif // CONFIG_AP_SUPPORT //
 
+LINUX_VER = $(shell uname -r)
+
 obj-m := $(MOD_NAME).o
 
 #ifdef CONFIG_AP_SUPPORT
@@ -560,32 +562,32 @@ endif
 PHONY := clean install uninstall
 
 clean:
-	rm -f ../../common/*.o
-	rm -f ../../common/.*.{cmd,flags,d}
-	rm -f ../../os/linux/*.{o,ko,mod.{o,c}}
-	rm -f ../../os/linux/.*.{cmd,flags,d}
-	rm -fr ../../os/linux/.tmp_versions
+	@rm -f ../../common/*.o
+	@rm -f ../../common/.*.{cmd,flags,d}
+	@rm -f ../../os/linux/*.{o,ko,mod.{o,c}}
+	@rm -f ../../os/linux/.*.{cmd,flags,d}
+	@rm -fr ../../os/linux/.tmp_versions
 #Must clean Module.symvers; or you will suffer symbol version not match
 #when OS_ABL = YES.
-	rm -f ../../os/linux/Module.symvers
-	rm -f ../../os/linux/Modules.symvers
-	rm -f ../../os/linux/Module.markers
-	rm -f ../../os/linux/modules.order
-	rm -f ../../chips/*.o
-	rm -f ../../chips/.*.{cmd,flags,d}
+	@rm -f ../../os/linux/Module.symvers
+	@rm -f ../../os/linux/Modules.symvers
+	@rm -f ../../os/linux/Module.markers
+	@rm -f ../../os/linux/modules.order
+	@rm -f ../../chips/*.o
+	@rm -f ../../chips/.*.{cmd,flags,d}
 ifeq ($(RT28xx_MODE),AP)
-	rm -f ../../ap/*.o
-	rm -f ../../ap/.*.{cmd,flags,d}
+	@rm -f ../../ap/*.o
+	@rm -f ../../ap/.*.{cmd,flags,d}
 else
 ifeq ($(RT28xx_MODE),STA)
-	rm -f ../../sta/*.o
-	rm -f ../../sta/.*.{cmd,flags,d}
+	@rm -f ../../sta/*.o
+	@rm -f ../../sta/.*.{cmd,flags,d}
 else
 ifeq ($(RT28xx_MODE),APSTA)
-	rm -f ../../ap/*.o
-	rm -f ../../ap/.*.{cmd,flags,d}
-	rm -f ../../sta/*.o
-	rm -f ../../sta/.*.{cmd,flags,d}
+	@rm -f ../../ap/*.o
+	@rm -f ../../ap/.*.{cmd,flags,d}
+	@rm -f ../../sta/*.o
+	@rm -f ../../sta/.*.{cmd,flags,d}
 endif
 endif
 endif

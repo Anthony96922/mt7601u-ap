@@ -74,7 +74,7 @@ VOID RtmpPrepareHwNullFrame(
 
 	pNullFr = (PHEADER_802_11) pNullFrame;
 	frameLen = sizeof(HEADER_802_11);
-	
+
 	pNullFr->FC.Type = BTYPE_DATA;
 	pNullFr->FC.SubType = SUBTYPE_NULL_FUNC;
 	pNullFr->FC.ToDs = 1;
@@ -134,14 +134,14 @@ VOID RtmpPrepareHwNullFrame(
 #endif /* RT_BIG_ENDIAN */
 
 
-	for (i= 0; i< totalLen; i+=4)
+	for (i = 0; i < totalLen; i += 4)
 	{
 		longValue =  *ptr + (*(ptr + 1) << 8) + (*(ptr + 2) << 16) + (*(ptr + 3) << 24);
 		//hex_dump("null frame before",&longValue, 4);
 
 		if (Index == 0)
 			RTMP_IO_WRITE32(pAd, pAd->NullBufOffset[0] + i, longValue);
-		else if (Index == 1)
+		else
 			RTMP_IO_WRITE32(pAd, pAd->NullBufOffset[1] + i, longValue);
 
 		//RTMP_IO_WRITE32(pAd, 0xB700 + i, longValue);
@@ -149,9 +149,6 @@ VOID RtmpPrepareHwNullFrame(
 
 		ptr += 4;
 	}
-
-
-
 }
 
 
@@ -171,8 +168,7 @@ VOID RTMPHwSendNullFrame(
 #ifdef RT_BIG_ENDIAN
 	PUCHAR pNullFrame;
 #endif /* RT_BIG_ENDIAN */
-	UINT32 Data=0;
-
+	UINT32 Data = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s - Send NULL Frame @%d Mbps...%d \n", __FUNCTION__, RateIdToMbps[pAd->CommonCfg.TxRate],PwrMgmt));
 
@@ -261,9 +257,7 @@ VOID RtmpEnqueueLastNullFrame(
 	pEntry = MacTableLookup(pAd, pAddr);
 
 	if (pEntry == NULL)
-	{
 		return;
-	}
 
 	NdisZeroMemory(NullFrame, 48);
 	Length = sizeof(HEADER_802_11);
@@ -342,11 +336,7 @@ VOID ConcurrentP2PConnectTimeout(
 		pP2PCtrl->Dpid = DEV_PASS_ID_NOSPEC;
 
 		if (P2P_CLI_ON(pAd))
-		{
-
 			Set_P2pCli_Enable_Proc(pAd, "0");
-
-		}
 
 		Set_P2p_OpMode_Proc(pAd, "0");
 		pAd->ApCfg.ApCliTab[0].WscControl.WscConfStatus = WSC_SCSTATE_UNCONFIGURED;
@@ -389,22 +379,16 @@ static VOID MACBuffer_Change(
 
 	/* Disable EDCA or HCCA dequeue */
 	if (edca_to_hcca)
-	{
 			pAd->MultiChannelFlowCtl |= EDCA_AC0_DEQUEUE_DISABLE;// 1
-	}
-	if(hcca_to_edca)
-	{
+	if (hcca_to_edca)
 			pAd->MultiChannelFlowCtl |= HCCA_DEQUEUE_DISABLE;//16
-	}
-
 
 	RTMP_IO_READ32(pAd, WMM_CTRL, &Data);
 
-	if(edca_to_hcca)
-		Data |= 0x80000000;/* bit 31 set to 1 */   /*  WMM Channel switch to EDCA2 */
-	if(hcca_to_edca)
-		Data &= 0x7fffffff;/* bit 31 set to 0 */	/*  WMM Channel switch to EDCA1 */
-
+	if (edca_to_hcca)
+		Data |= 0x80000000; /* bit 31 set to 1 */	/*  WMM Channel switch to EDCA2 */
+	if (hcca_to_edca)
+		Data &= 0x7fffffff; /* bit 31 set to 0 */	/*  WMM Channel switch to EDCA1 */
 
 	RTMP_IO_WRITE32(pAd, WMM_CTRL, Data);
 
@@ -457,14 +441,14 @@ static VOID MACBuffer_Change(
 
 	}
 
-	if(edca_to_hcca)
-		RTMPHwSendNullFrame(pAd, 
+	if (edca_to_hcca)
+		RTMPHwSendNullFrame(pAd,
 							pAd->CommonCfg.TxRate, 
 							(pAd->CommonCfg.bWmmCapable & pAd->CommonCfg.APEdcaParm.bValid),
 							 PWR_SAVE, 0);
 
-	if(hcca_to_edca)
-			RTMPHwSendNullFrame(pAd, 
+	if (hcca_to_edca)
+			RTMPHwSendNullFrame(pAd,
 							pAd->CommonCfg.TxRate, 
 							(pAd->CommonCfg.bWmmCapable & pAd->CommonCfg.APEdcaParm.bValid),
 							PWR_SAVE, 1);
@@ -478,7 +462,7 @@ static VOID MACBuffer_Change(
 
 
 
-	if(hcca_to_edca)
+	if (hcca_to_edca)
 	{
 		if (pAd->StaCfg.BW == BW_40)
 		{
@@ -489,15 +473,13 @@ static VOID MACBuffer_Change(
 				ext_ch = EXTCHA_BELOW;	
 		}
 		else
-		{
 			ext_ch = EXTCHA_NONE;
-		}
 
 		AsicSetChannel(pAd, pAd->CommonCfg.CentralChannel, pAd->StaCfg.BW, ext_ch, FALSE);
 
 	}
 
-	if(edca_to_hcca)
+	if (edca_to_hcca)
 	{
 		if (pAd->P2pCfg.BW == BW_40)
 		{
@@ -508,9 +490,7 @@ static VOID MACBuffer_Change(
 	
 		}
 		else
-		{
 			ext_ch = EXTCHA_NONE;
-		}
 
 		AsicSetChannel(pAd, pAd->ApCliMlmeAux.CentralChannel, pAd->P2pCfg.BW, ext_ch, FALSE);
 
@@ -518,26 +498,26 @@ static VOID MACBuffer_Change(
 
 
 
-	if(edca_to_hcca)
+	if (edca_to_hcca)
 		RTMPHwSendNullFrame(pAd, 
-							pAd->CommonCfg.TxRate, 
-							(pAd->CommonCfg.bWmmCapable & pAd->CommonCfg.APEdcaParm.bValid),
-							 PWR_ACTIVE, 1);
+					pAd->CommonCfg.TxRate, 
+					(pAd->CommonCfg.bWmmCapable & pAd->CommonCfg.APEdcaParm.bValid),
+					 PWR_ACTIVE, 1);
 
-	if(hcca_to_edca)
-			RTMPHwSendNullFrame(pAd, 
-							pAd->CommonCfg.TxRate, 
-							(pAd->CommonCfg.bWmmCapable & pAd->CommonCfg.APEdcaParm.bValid),
-							PWR_ACTIVE, 0);
+	if (hcca_to_edca)
+		RTMPHwSendNullFrame(pAd,
+					pAd->CommonCfg.TxRate, 
+					(pAd->CommonCfg.bWmmCapable & pAd->CommonCfg.APEdcaParm.bValid),
+					PWR_ACTIVE, 0);
 
 	RTMP_IO_READ32(pAd, TSF_TIMER_DW0, &SwitchTime7);
 
 	/* Enable EDCA or EDCA2 Tx In-Q and Out-Q */
 	RTMP_IO_READ32(pAd, PBF_CFG, &Data);
-	if(edca_to_hcca)
+	if (edca_to_hcca)
 		Data |= ((1 << 3) | (1 << 13));/* bit 3 and bit 13 set to 1 */
 
-	if(hcca_to_edca)
+	if (hcca_to_edca)
 		Data |= ((1 << 2) | (1 << 12));/* bit 2  and bit 12 set to 1 */
 
 	RTMP_IO_WRITE32(pAd, PBF_CFG, Data);
@@ -549,20 +529,20 @@ static VOID MACBuffer_Change(
 		}
 
 		/* Enable EDCA or EDCA2 dequeue */
-	if(hcca_to_edca)
+	if (hcca_to_edca)
 		pAd->MultiChannelFlowCtl &= ~EDCA_AC0_DEQUEUE_DISABLE; // 0
 
-	if(edca_to_hcca)
+	if (edca_to_hcca)
 		pAd->MultiChannelFlowCtl &= ~HCCA_DEQUEUE_DISABLE; // 0
 
 	RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_DISABLE_DEQUEUEPACKET);
 
 //	RTMP_SEM_EVENT_WAIT(&pAd->reg_atomic2, ret);
 
-	if(hcca_to_edca)
+	if (hcca_to_edca)
 		RTMP_OS_NETDEV_WAKE_QUEUE(pAd->net_dev);
 
-	if(edca_to_hcca)
+	if (edca_to_hcca)
 		RTMP_OS_NETDEV_WAKE_QUEUE(pApCliEntry->dev);
 
 //	RTMP_SEM_EVENT_UP(&pAd->reg_atomic2);	
@@ -597,11 +577,7 @@ static VOID ProcessHCCAToEDCA(
 	BOOLEAN bBlockIn2Out=FALSE;
 	UINT32 Data;
 	
-	if (P2P_INF_ON(pAd) && P2P_GO_ON(pAd))
-	{
-		;//APUpdateAllBeaconFrame(pAd);
-	}
-	else
+	if (!P2P_INF_ON(pAd) && !P2P_GO_ON(pAd))
 	{
 		MAC_TABLE_ENTRY *pEntry = NULL;
 		PAPCLI_STRUCT pApCliEntry = NULL;
@@ -651,17 +627,17 @@ static INT MultiChannelTaskThread(
 				pAd->MultiChannelAction = EDCA_TO_HCCA;
 
 		} 
-		else if (INFRA_ON(pAd))
+		/*else if (INFRA_ON(pAd))
 		{
 			// reset to default switct to ra0
-	//		MultiChannelSwitchToRa(pAd);
+			//MultiChannelSwitchToRa(pAd);
 		} 
 		else if (P2P_CLI_ON(pAd))
 		{
 			// reset to default switch to p2p0
-	//  		MultiChannelSwitchToP2P(pAd);
+			//MultiChannelSwitchToP2P(pAd);
 
-		}
+		}*/
 
 	
 #ifdef RTMP_MAC_USB		
@@ -795,7 +771,7 @@ VOID MultiChannelSwitchToRa(
 	RTMP_IO_READ32(pAd, TSF_TIMER_DW0, &SwitchTime1);
 	RTMP_IO_READ32(pAd, WMM_CTRL, &Data);
 
-	Data &= 0x7fffffff;/* bit 31 set to 0 */	/*  WMM Channel switch to EDCA1 */
+	Data &= 0x7fffffff; /* bit 31 set to 0 */	/*  WMM Channel switch to EDCA1 */
 
 	RTMP_IO_WRITE32(pAd, WMM_CTRL, Data);
 	RTMP_IO_READ32(pAd, TSF_TIMER_DW0, &SwitchTime2);
@@ -851,9 +827,7 @@ VOID MultiChannelSwitchToRa(
 			ext_ch = EXTCHA_BELOW;	
 	}
 	else
-	{
 		ext_ch = EXTCHA_NONE;
-	}
 
 	AsicSetChannel(pAd, pAd->CommonCfg.CentralChannel, pAd->StaCfg.BW, ext_ch, FALSE);
 
@@ -950,7 +924,7 @@ VOID MultiChannelSwitchToP2P(
 	
 	if (MTxCycle >= 2000)
 	{
-			DBGPRINT(RT_DEBUG_ERROR, ("Polling EDCA Out-Q max(%x)\n", Data));
+		DBGPRINT(RT_DEBUG_ERROR, ("Polling EDCA Out-Q max(%x)\n", Data));
 	}
 
 
@@ -970,9 +944,7 @@ VOID MultiChannelSwitchToP2P(
 	
 	}
 	else
-	{
 		ext_ch = EXTCHA_NONE;
-	}
 
 	AsicSetChannel(pAd, pAd->ApCliMlmeAux.CentralChannel, pAd->P2pCfg.BW, ext_ch, FALSE);
 
@@ -982,7 +954,7 @@ VOID MultiChannelSwitchToP2P(
 	RTMPHwSendNullFrame(pAd, 
 				pAd->CommonCfg.TxRate, 
 				(pAd->CommonCfg.bWmmCapable & pAd->CommonCfg.APEdcaParm.bValid),
-				 PWR_ACTIVE, 1);
+				PWR_ACTIVE, 1);
 
 	/* Enable EDCA or EDCA2 Tx In-Q and Out-Q */
 	RTMP_IO_READ32(pAd, PBF_CFG, &Data);
@@ -1006,7 +978,4 @@ VOID MultiChannelSwitchToP2P(
 
 
 }
-
-
 #endif /* CONFIG_MULTI_CHANNEL */
-

@@ -4421,9 +4421,9 @@ NDIS_STATUS	RTMPSetProfileParameters(
 INT RTMPGetKeyParameter(
     IN PSTRING key,
     OUT PSTRING dest,
-    IN INT destsize,
+    IN int destsize,
     IN PSTRING buffer,
-    IN BOOLEAN bTrimSpace);
+    IN bool bTrimSpace);
 
 #ifdef WSC_INCLUDED
 VOID rtmp_read_wsc_user_parms_from_file(
@@ -4508,7 +4508,7 @@ VOID NICInitAsicFromEEPROM(
 
 NDIS_STATUS NICInitializeAdapter(
 	IN  PRTMP_ADAPTER   pAd,
-	IN   BOOLEAN    bHardReset);
+	IN  BOOLEAN    bHardReset);
 
 NDIS_STATUS NICInitializeAsic(
 	IN  PRTMP_ADAPTER   pAd,
@@ -4602,34 +4602,34 @@ VOID	RTMP_AllTimerListRelease(
 	IN	PRTMP_ADAPTER			pAd);
 
 VOID RTMPInitTimer(
-	IN  PRTMP_ADAPTER           pAd,
-	IN  PRALINK_TIMER_STRUCT    pTimer,
-	IN  PVOID                   pTimerFunc,
-	IN	PVOID					pData,
-	IN  BOOLEAN                 Repeat);
+	IN PRTMP_ADAPTER	pAd,
+	IN PRALINK_TIMER_STRUCT	pTimer,
+	IN PVOID		pTimerFunc,
+	IN PVOID		pData,
+	IN BOOLEAN		Repeat);
 
 VOID RTMPSetTimer(
-	IN  PRALINK_TIMER_STRUCT    pTimer,
-	IN  ULONG                   Value);
+	IN PRALINK_TIMER_STRUCT	pTimer,
+	IN ULONG		Value);
 
 
 VOID RTMPModTimer(
-	IN	PRALINK_TIMER_STRUCT	pTimer,
-	IN	ULONG					Value);
+	IN PRALINK_TIMER_STRUCT	pTimer,
+	IN ULONG		Value);
 
 VOID RTMPCancelTimer(
-	IN  PRALINK_TIMER_STRUCT    pTimer,
-	OUT BOOLEAN                 *pCancelled);
+	IN PRALINK_TIMER_STRUCT	pTimer,
+	OUT BOOLEAN		*pCancelled);
 
 VOID	RTMPReleaseTimer(
-	IN  PRALINK_TIMER_STRUCT    pTimer,
-	OUT BOOLEAN                 *pCancelled);
+	IN PRALINK_TIMER_STRUCT	pTimer,
+	OUT BOOLEAN		*pCancelled);
 
 VOID RTMPEnableRxTx(
 	IN PRTMP_ADAPTER	pAd);
 
 VOID AntCfgInit(
-	IN  PRTMP_ADAPTER   pAd);
+	IN PRTMP_ADAPTER	pAd);
 
 /* */
 /* prototype in action.c */

@@ -75,7 +75,6 @@ VOID dump_rxinfo(RTMP_ADAPTER *pAd, RXINFO_STRUC *pRxInfo)
 #endif /* RTMP_MAC */
 }
 
-
 #ifdef RLT_MAC
 VOID dumpRxFCEInfo(RTMP_ADAPTER *pAd, RXFCE_INFO *pRxFceInfo)
 {
@@ -219,7 +218,7 @@ static VOID dumpTxBlk(TX_BLK *pTxBlk)
 			pBuf = GET_OS_PKT_DATAPTR(pPacket);
 			DBGPRINT(RT_DEBUG_TRACE,("\t\t[%d]:ptr=0x%x, Len=%d!\n", i, (UINT32)(GET_OS_PKT_DATAPTR(pPacket)), GET_OS_PKT_LEN(pPacket)));
 			DBGPRINT(RT_DEBUG_TRACE,("\t\t"));
-			for (j =0 ; j < GET_OS_PKT_LEN(pPacket); j++)
+			for (j = 0; j < GET_OS_PKT_LEN(pPacket); j++)
 			{
 				DBGPRINT(RT_DEBUG_TRACE,("%02x ", (pBuf[j] & 0xff)));
 				if (j == 16)
@@ -304,8 +303,7 @@ NDIS_STATUS MiniportMMRequest(
 		if (RTMP_TEST_FLAG(pAd, (fRTMP_ADAPTER_RESET_IN_PROGRESS |
 								fRTMP_ADAPTER_HALT_IN_PROGRESS |
 								fRTMP_ADAPTER_NIC_NOT_EXIST)) ||
-			 !RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_START_UP)
-			)
+			!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_START_UP))
 		{
 			Status = NDIS_STATUS_FAILURE;
 			break;
@@ -314,9 +312,7 @@ NDIS_STATUS MiniportMMRequest(
 
 		/* Check Free priority queue*/
 		/* Since we use PBF Queue2 for management frame.  Its corresponding DMA ring should be using TxRing.*/
-		{
-			FreeNum = GET_MGMTRING_FREENO(pAd);
-		}
+		FreeNum = GET_MGMTRING_FREENO(pAd);
 
 		if ((FreeNum > 0))
 		{
@@ -333,9 +329,7 @@ NDIS_STATUS MiniportMMRequest(
 #ifdef CONFIG_AP_SUPPORT
 #ifdef UAPSD_SUPPORT
 			IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-			{
 				UAPSD_MR_QOS_NULL_HANDLE(pAd, pData, pPacket);
-			}
 #endif /* UAPSD_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 
@@ -420,7 +414,7 @@ void AP_QueuePsActionPacket(
 	*/
 /*    if ((pMacEntry->bAPSDDeliverEnabledPerAC[MgmtQid]) &&*/
 /*		(FlgIsDeltsFrame == 0))*/
-    if (pMacEntry->bAPSDDeliverEnabledPerAC[MgmtQid])
+	if (pMacEntry->bAPSDDeliverEnabledPerAC[MgmtQid])
 	{
 		/* queue the management frame to VO queue if VO is deliver-enabled */
 		DBGPRINT(RT_DEBUG_TRACE, ("ps> mgmt to UAPSD queue %d ... (IsDelts: %d)\n",
@@ -435,11 +429,9 @@ void AP_QueuePsActionPacket(
 		}
 		else
 #endif /* UAPSD_CC_FUNC_PS_MGMT_TO_LEGACY */
-		{
 			RTMP_SET_PACKET_UAPSD(pPacket, 1, MgmtQid);
-		}
 
-        UAPSD_PacketEnqueue(pAd, pMacEntry, pPacket, MgmtQid);
+		UAPSD_PacketEnqueue(pAd, pMacEntry, pPacket, MgmtQid);
 
 		if (pMacEntry->bAPSDAllAC)
 		{
@@ -464,36 +456,37 @@ void AP_QueuePsActionPacket(
 			}
 #endif /* UAPSD_CC_FUNC_PS_MGMT_TO_LEGACY */
 		}
-    }
-    else
+	}
+	else
 #endif /* UAPSD_SUPPORT */
-    {
+	{
 /*		DuplicatePkt = DuplicatePacket(get_netdev_from_bssid(pAd, pMacEntry->apidx), pPacket, pMacEntry->apidx);*/
 
 #ifdef UAPSD_CC_FUNC_PS_MGMT_TO_LEGACY
-Label_Legacy_PS:
+		Label_Legacy_PS:
 #endif /* UAPSD_CC_FUNC_PS_MGMT_TO_LEGACY */
 		if (pMacEntry->PsQueue.Number >= MAX_PACKETS_IN_PS_QUEUE)
 		{
 			RELEASE_NDIS_PACKET(pAd, pPacket, NDIS_STATUS_RESOURCES);
 			return;
 		}
-        else
-        {
-			ULONG IrqFlags=0;
+		else
+		{
+			ULONG IrqFlags = 0;
 
 			DBGPRINT(RT_DEBUG_TRACE, ("ps> mgmt to legacy ps queue... (%d)\n", FlgIsDeltsFrame));
 
 			if (FlgIsLocked == FALSE)
-				RTMP_IRQ_LOCK(&pAd->irq_lock, IrqFlags);
-		    InsertTailQueue(&pMacEntry->PsQueue, PACKET_TO_QUEUE_ENTRY(pPacket));
+			RTMP_IRQ_LOCK(&pAd->irq_lock, IrqFlags);
+
+			InsertTailQueue(&pMacEntry->PsQueue, PACKET_TO_QUEUE_ENTRY(pPacket));
 			if (FlgIsLocked == FALSE)
 				RTMP_IRQ_UNLOCK(&pAd->irq_lock, IrqFlags);
-        }
+		}
 
 		/* mark corresponding TIM bit in outgoing BEACON frame*/
 		WLAN_MR_TIM_BIT_SET(pAd, pMacEntry->apidx, pMacEntry->Aid);
-    }
+	}
 }
 #endif /* CONFIG_AP_SUPPORT */
 
@@ -634,11 +627,9 @@ NDIS_STATUS MlmeHardTransmit(
 								FlgIsLocked, MgmtQid);
 		return NDIS_STATUS_SUCCESS;
 	}
-    else
+	else
 #endif /* CONFIG_AP_SUPPORT */
-    {
-    		return MlmeHardTransmitMgmtRing(pAd,QueIdx,pPacket);
-    }
+		return MlmeHardTransmitMgmtRing(pAd,QueIdx,pPacket);
 }
 
 
@@ -666,7 +657,7 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 	if (pSrcBufVA == NULL)
 	{
 		/* The buffer shouldn't be NULL*/
-			RTMP_SEM_UNLOCK(&pAd->MgmtRingLock);
+		RTMP_SEM_UNLOCK(&pAd->MgmtRingLock);
 		return NDIS_STATUS_FAILURE;
 	}
 
@@ -675,13 +666,9 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 	pHeader_802_11 = (PHEADER_802_11) (pSrcBufVA + TXINFO_SIZE + TSO_SIZE + TXWISize);
 	
 	if (pHeader_802_11->Addr1[0] & 0x01)
-	{
 		MlmeRate = pAd->CommonCfg.BasicMlmeRate;
-	}
 	else
-	{
 		MlmeRate = pAd->CommonCfg.MlmeRate;
-	}
 	
 	/* Verify Mlme rate for a / g bands.*/
 	if ((pAd->LatchRfRegs.Channel > 14) && (MlmeRate < RATE_6)) /* 11A band*/
@@ -689,30 +676,22 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 
 	if ((pHeader_802_11->FC.Type == BTYPE_DATA) &&
 		(pHeader_802_11->FC.SubType == SUBTYPE_QOS_NULL))
-	{
 		pMacEntry = MacTableLookup(pAd, pHeader_802_11->Addr1);
-	}
 
 
 	/* Should not be hard code to set PwrMgmt to 0 (PWR_ACTIVE)*/
 	/* Snice it's been set to 0 while on MgtMacHeaderInit*/
 	/* By the way this will cause frame to be send on PWR_SAVE failed.*/
 	
-			pHeader_802_11->FC.PwrMgmt = PWR_ACTIVE; /* (pAd->StaCfg.Psm == PWR_SAVE);*/
-
-	
-
+	pHeader_802_11->FC.PwrMgmt = PWR_ACTIVE; /* (pAd->StaCfg.Psm == PWR_SAVE);*/
 
 #ifdef CONFIG_AP_SUPPORT
 	pHeader_802_11->FC.MoreData = RTMP_GET_PACKET_MOREDATA(pPacket);
 #endif /* CONFIG_AP_SUPPORT */
 
-
 	bInsertTimestamp = FALSE;
 	if (pHeader_802_11->FC.Type == BTYPE_CNTL) /* must be PS-POLL*/
-	{
 		bAckRequired = FALSE;
-	}
 	else /* BTYPE_MGMT or BTYPE_DATA(must be NULL frame)*/
 	{
 		if (pHeader_802_11->Addr1[0] & 0x01) /* MULTICAST, BROADCAST*/
@@ -730,9 +709,7 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 				bAckRequired = FALSE; /* Disable ACK to prevent retry 0x1f for Probe Response*/
 			}
 			else if ((pHeader_802_11->FC.SubType == SUBTYPE_PROBE_REQ) && (pHeader_802_11->FC.Type == BTYPE_MGMT))
-			{
 				bAckRequired = FALSE; /* Disable ACK to prevent retry 0x1f for Probe Request*/
-			}
 		}
 	}
 
@@ -779,22 +756,18 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 
 
 	if (pMacEntry == NULL)
-	{
 		RTMPWriteTxWI(pAd, pFirstTxWI, FALSE, FALSE, bInsertTimestamp, FALSE, bAckRequired, FALSE,
-						0, RESERVED_WCID, (SrcBufLen - TXINFO_SIZE - TXWISize - TSO_SIZE), PID, 0,
-						(UCHAR)pAd->CommonCfg.MlmeTransmit.field.MCS, IFS_BACKOFF, FALSE,
-						&pAd->CommonCfg.MlmeTransmit);
-	}
+					0, RESERVED_WCID, (SrcBufLen - TXINFO_SIZE - TXWISize - TSO_SIZE), PID, 0,
+					(UCHAR)pAd->CommonCfg.MlmeTransmit.field.MCS, IFS_BACKOFF, FALSE,
+					&pAd->CommonCfg.MlmeTransmit);
 	else
-	{
 		/* dont use low rate to send QoS Null data frame */
 		RTMPWriteTxWI(pAd, pFirstTxWI, FALSE, FALSE,
-					bInsertTimestamp, FALSE, bAckRequired, FALSE,
-					0, pMacEntry->Aid, (SrcBufLen - TXINFO_SIZE - TXWISize - TSO_SIZE),
-					pMacEntry->MaxHTPhyMode.field.MCS, 0,
-					(UCHAR)pMacEntry->MaxHTPhyMode.field.MCS,
-					IFS_BACKOFF, FALSE, &pMacEntry->MaxHTPhyMode);
-	}
+				bInsertTimestamp, FALSE, bAckRequired, FALSE,
+				0, pMacEntry->Aid, (SrcBufLen - TXINFO_SIZE - TXWISize - TSO_SIZE),
+				pMacEntry->MaxHTPhyMode.field.MCS, 0,
+				(UCHAR)pMacEntry->MaxHTPhyMode.field.MCS,
+				IFS_BACKOFF, FALSE, &pMacEntry->MaxHTPhyMode);
 
 #ifdef RT_BIG_ENDIAN
 	RTMPWIEndianChange(pAd, (PUCHAR)pFirstTxWI, TYPE_TXWI);
@@ -822,16 +795,16 @@ if (0) {
 
  ********************************************************************************/
 #define DEQUEUE_LOCK(lock, bIntContext, IrqFlags) 				\
-			do{													\
-				if (bIntContext == FALSE)						\
+			do {							\
+				if (bIntContext == FALSE)			\
 				RTMP_IRQ_LOCK((lock), IrqFlags);		\
-			}while(0)
+			} while(0)
 
 #define DEQUEUE_UNLOCK(lock, bIntContext, IrqFlags)				\
-			do{													\
-				if (bIntContext == FALSE)						\
+			do {							\
+				if (bIntContext == FALSE)			\
 					RTMP_IRQ_UNLOCK((lock), IrqFlags);	\
-			}while(0)
+			} while(0)
 
 
 /*
@@ -883,11 +856,11 @@ static UCHAR TxPktClassification(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET  pPacket)
 {
-	UCHAR			TxFrameType = TX_UNKOWN_FRAME;
-	UCHAR			Wcid;
+	UCHAR		TxFrameType = TX_UNKOWN_FRAME;
+	UCHAR		Wcid;
 	MAC_TABLE_ENTRY	*pMacEntry = NULL;
 #ifdef DOT11_N_SUPPORT
-	BOOLEAN			bHTRate = FALSE;
+	BOOLEAN		bHTRate = FALSE;
 #endif /* DOT11_N_SUPPORT */
 
 	Wcid = RTMP_GET_PACKET_WCID(pPacket);
@@ -899,9 +872,8 @@ static UCHAR TxPktClassification(
 	/* Handle for unicast packets*/
 	pMacEntry = &pAd->MacTab.Content[Wcid];
 	if (RTMP_GET_PACKET_LOWRATE(pPacket))
-	{	/* It's a specific packet need to force low rate, i.e., bDHCPFrame, bEAPOLFrame, bWAIFrame*/
+		/* It's a specific packet need to force low rate, i.e., bDHCPFrame, bEAPOLFrame, bWAIFrame*/
 		TxFrameType = TX_LEGACY_FRAME;
-	}
 #ifdef DOT11_N_SUPPORT
 	else if (IS_HT_RATE(pMacEntry))
 	{	/* it's a 11n capable packet*/
@@ -938,13 +910,10 @@ static UCHAR TxPktClassification(
 			(RTMP_GET_PACKET_TXRATE(pPacket) >= RATE_6) &&
 			(!(OPSTATUS_TEST_FLAG(pAd, fOP_STATUS_WMM_INUSED) && CLIENT_STATUS_TEST_FLAG(pMacEntry, fCLIENT_STATUS_WMM_CAPABLE)))
 		)
-		{	/* if peer support Ralink Aggregation, we use it.*/
+			/* if peer support Ralink Aggregation, we use it.*/
 			TxFrameType = TX_RALINK_FRAME;
-		}
 		else
-		{
 			TxFrameType = TX_LEGACY_FRAME;
-		}
 	}
 
 	/* Currently, our fragment only support when a unicast packet send as NOT-ARALINK, NOT-AMSDU and NOT-AMPDU.*/
@@ -1009,13 +978,11 @@ BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 				pTxBlk->pTransmit = &pAd->MacTab.Content[MCAST_WCID].HTPhyMode;
 		}
 		
-		TX_BLK_CLEAR_FLAG(pTxBlk, fTX_bAckRequired);	/* AckRequired = FALSE, when broadcast packet in Adhoc mode.*/
+		TX_BLK_CLEAR_FLAG(pTxBlk, fTX_bAckRequired); /* AckRequired = FALSE, when broadcast packet in Adhoc mode.*/
 		TX_BLK_CLEAR_FLAG(pTxBlk, fTX_bAllowFrag);
 		TX_BLK_CLEAR_FLAG(pTxBlk, fTX_bWMM);
 		if (RTMP_GET_PACKET_MOREDATA(pPacket))
-		{
 			TX_BLK_SET_FLAG(pTxBlk, fTX_bMoreData);
-		}
 	}
 	else
 	{
@@ -1040,9 +1007,7 @@ BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 			{
 #ifdef WDS_SUPPORT
 				if(IS_ENTRY_WDS(pMacEntry))
-				{
 					TX_BLK_SET_FLAG(pTxBlk, fTX_bWDSEntry);
-				}
 				else
 #endif /* WDS_SUPPORT */
 #ifdef APCLI_SUPPORT
@@ -1074,15 +1039,11 @@ BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 						&& !MAC_ADDR_EQUAL(pSA, pAd->ApCfg.MBSSID[pMacEntry->apidx].Bssid))
 						|| !MAC_ADDR_EQUAL(pDA, pMacEntry->Addr)
 						)
-					{
 						TX_BLK_SET_FLAG(pTxBlk, fTX_bClientWDSFrame);
-					}
 				}
 				else
 #endif /* CLIENT_WDS */
-				if (IS_ENTRY_CLIENT(pMacEntry))
-				{ }
-				else
+				if (!IS_ENTRY_CLIENT(pMacEntry))
 					return FALSE;
 					
 				/* If both of peer and us support WMM, enable it.*/
@@ -1125,26 +1086,19 @@ BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 #ifdef DOT11_N_SUPPORT
 			if ( (IS_HT_RATE(pMacEntry) == FALSE) &&
 				(CLIENT_STATUS_TEST_FLAG(pMacEntry, fCLIENT_STATUS_PIGGYBACK_CAPABLE)))
-			{	/* Currently piggy-back only support when peer is operate in b/g mode.*/
+				/* Currently piggy-back only support when peer is operate in b/g mode.*/
 				TX_BLK_SET_FLAG(pTxBlk, fTX_bPiggyBack);
-			}
 #endif /* DOT11_N_SUPPORT */
 
 			if (RTMP_GET_PACKET_MOREDATA(pPacket))
-			{
 				TX_BLK_SET_FLAG(pTxBlk, fTX_bMoreData);
-			}
 #ifdef UAPSD_SUPPORT
 			if (RTMP_GET_PACKET_EOSP(pPacket))
-			{
 				TX_BLK_SET_FLAG(pTxBlk, fTX_bWMM_UAPSD_EOSP);
-			}
 #endif /* UAPSD_SUPPORT */
 		}
 		else if (pTxBlk->TxFrameType == TX_FRAG_FRAME)
-		{
 			TX_BLK_SET_FLAG(pTxBlk, fTX_bAllowFrag);
-		}
 		
 		pMacEntry->DebugTxCount++;
 	}
@@ -1184,15 +1138,14 @@ BOOLEAN CanDoAggregateTransmit(
 	
 	if ((pTxBlk->TxFrameType == TX_AMSDU_FRAME) &&
 		((pTxBlk->TotalFrameLen + GET_OS_PKT_LEN(pPacket))> (RX_BUFFER_AGGRESIZE - 100)))
-	{	/* For AMSDU, allow the packets with total length < max-amsdu size*/
+		/* For AMSDU, allow the packets with total length < max-amsdu size*/
 		return FALSE;
-	}
 	
 	if ((pTxBlk->TxFrameType == TX_RALINK_FRAME) &&
 		(pTxBlk->TxPacketList.Number == 2))
-	{	/* For RALINK-Aggregation, allow two frames in one batch.*/
+		/* For RALINK-Aggregation, allow two frames in one batch.*/
 		return FALSE;
-	}
+	
 
 #ifdef CONFIG_AP_SUPPORT
 	if ((MAC_ADDR_EQUAL(GET_OS_PKT_DATAPTR(pTxBlk->pPacket), GET_OS_PKT_DATAPTR(pPacket))) && (pAd->OpMode == OPMODE_AP)) /* unicast to same STA*/
@@ -1248,7 +1201,6 @@ VOID RTMPDeQueuePacket(
 	RtmpDiagStruct	*pDiagStruct = &pAd->DiagStruct;
 #endif
 
-
 	if (QIdx == NUM_OF_TX_RING)
 	{
 		sQIdx = 0;
@@ -1260,13 +1212,11 @@ VOID RTMPDeQueuePacket(
 
 	}
 	else
-	{
 		sQIdx = eQIdx = QIdx;
-	}
 
 	for (QueIdx=sQIdx; QueIdx <= eQIdx; QueIdx++)
 	{
-		Count=0;
+		Count = 0;
 
 		RTMP_START_DEQUEUE(pAd, QueIdx, IrqFlags);
 
@@ -1284,18 +1234,14 @@ VOID RTMPDeQueuePacket(
 										fRTMP_ADAPTER_DISABLE_DEQUEUEPACKET |  
 #endif /* CONFIG_MULTI_CHANNEL */
 										fRTMP_ADAPTER_NIC_NOT_EXIST
-			)))
-
-				)
+			))))
 			{
 				RTMP_STOP_DEQUEUE(pAd, QueIdx, IrqFlags);
 				return;
 			}
 #ifdef CONFIG_MULTI_CHANNEL
 			if ((pAd->MultiChannelFlowCtl & (1 << QueIdx)) == (1 << QueIdx))
-			{
 				break;
-			}
 #endif /* CONFIG_MULTI_CHANNEL */
 
 			
@@ -1341,12 +1287,11 @@ VOID RTMPDeQueuePacket(
 
 				pEntry = RemoveHeadQueue(pQueue);
 
-					status = MlmeHardTransmitMgmtRing(pAd,QueIdx,pPacket);
+				status = MlmeHardTransmitMgmtRing(pAd,QueIdx,pPacket);
 
 				if (status != NDIS_STATUS_SUCCESS)
 				{
-					DBGPRINT(RT_DEBUG_ERROR,
-							("Transmit queued management frame error!\n"));
+					DBGPRINT(RT_DEBUG_ERROR, ("Transmit queued management frame error!\n"));
 					RELEASE_NDIS_PACKET(pAd, pPacket, NDIS_STATUS_FAILURE);
 				}
 

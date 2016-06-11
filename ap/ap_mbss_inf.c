@@ -90,7 +90,6 @@ VOID RT28xx_MBSS_Init(
 
 	RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_MBSS_INIT,
 						0, &netDevHook, 0);
-
 }
 
 
@@ -113,9 +112,7 @@ Note:
 VOID RT28xx_MBSS_Remove(
 	IN VOID 			*pAd)
 {
-
 	RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_MBSS_REMOVE, 0, NULL, 0);
-
 }
 
 
@@ -270,4 +267,3 @@ INT MBSS_VirtualIF_Ioctl(
 }
 
 #endif /* MBSS_SUPPORT */
-

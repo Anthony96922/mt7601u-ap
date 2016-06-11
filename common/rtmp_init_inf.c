@@ -719,15 +719,15 @@ err0:
 err0:
 #endif /* ST */
 
-	DBGPRINT(RT_DEBUG_ERROR, ("!!! rt28xx init fail !!!\n"));
+	DBGPRINT(RT_DEBUG_ERROR, ("rt28xx init fail\n"));
 	return FALSE;
 }
 
 
 VOID RTMPDrvOpen(
-	IN VOID			*pAdSrc)
+	IN VOID	*pAdSrc)
 {
-	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
+	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 
 	RTMP_CLEAR_PSFLAG(pAd, fRTMP_PS_MCU_SLEEP);
 
@@ -747,10 +747,10 @@ VOID RTMPDrvOpen(
 	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_START_UP);
 
 	{
-	UINT32 reg = 0;
-	RTMP_IO_READ32(pAd, 0x1300, &reg);  /* clear garbage interrupts*/
+		UINT32 reg = 0;
+		RTMP_IO_READ32(pAd, 0x1300, &reg);  /* clear garbage interrupts*/
 #ifdef DBG
-	printk("0x1300 = %08x\n", reg);
+		printk("0x1300 = %08x\n", reg);
 #endif /* DBG */
 	}
 
@@ -787,8 +787,7 @@ VOID RTMPDrvOpen(
 
 #ifdef WSC_INCLUDED
 #ifdef CONFIG_AP_SUPPORT
-	if ((pAd->OpMode == OPMODE_AP)
-		)
+	if (pAd->OpMode == OPMODE_AP)
 	{
 		INT index;
 		for (index = 0; index < pAd->ApCfg.BssidNum; index++)
@@ -840,12 +839,12 @@ VOID RTMPDrvOpen(
 
 
 VOID RTMPDrvClose(
-	IN VOID				*pAdSrc,
-	IN VOID				*net_dev)
+	IN VOID		*pAdSrc,
+	IN VOID		*net_dev)
 {
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
-	BOOLEAN 		Cancelled;
-	UINT32			i = 0;
+	BOOLEAN		Cancelled;
+	UINT32		i = 0;
 
 
 	Cancelled = FALSE;
@@ -863,8 +862,8 @@ VOID RTMPDrvClose(
 	if (pAd->WOW_Cfg.bEnable == FALSE)
 #endif /* ((defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)) && defined(WOW_IFDOWN_SUPPORT) */
 	{
-	RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_MCU_SEND_IN_BAND_CMD);
-	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS);
+		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_MCU_SEND_IN_BAND_CMD);
+		RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS);
 	}
 
 #ifdef EXT_BUILD_CHANNEL_LIST
@@ -875,17 +874,15 @@ VOID RTMPDrvClose(
 #endif /* EXT_BUILD_CHANNEL_LIST */
 	pAd->CommonCfg.bCountryFlag = FALSE;
 
-
-
 #ifdef WDS_SUPPORT
 	WdsDown(pAd);
 #endif /* WDS_SUPPORT */
 
-	for (i = 0 ; i < NUM_OF_TX_RING; i++)
+	for (i = 0; i < NUM_OF_TX_RING; i++)
 	{
 		while (pAd->DeQueueRunning[i] == TRUE)
 		{
-			DBGPRINT(RT_DEBUG_TRACE, ("Waiting for TxQueue[%d] done..........\n", i));
+			DBGPRINT(RT_DEBUG_TRACE, ("Waiting for TxQueue[%d] done\n", i));
 			RTMPusecDelay(1000);
 		}
 	}
@@ -921,8 +918,6 @@ VOID RTMPDrvClose(
 
 	/* Close net tasklets*/
 	RtmpNetTaskExit(pAd);
-
-
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -973,15 +968,13 @@ VOID RTMPDrvClose(
 
 	/* Free IRQ*/
 	if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE))
-	{
 		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE);
-	}
 
 #ifdef SINGLE_SKU_V2
 	{
 		CH_POWER *ch, *ch_temp;
 		ch = pAd->SingleSkuPwrList.pHead;
-		while (ch )
+		while (ch)
 		{
 			ch_temp = ch->pNext;
 			delEntryList(&pAd->SingleSkuPwrList, (PLIST_ENTRY)ch);
@@ -1038,9 +1031,9 @@ VOID RTMPDrvClose(
 
 
 VOID RTMPInfClose(
-	IN VOID				*pAdSrc)
+	IN VOID		*pAdSrc)
 {
-	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
+	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 
 
 #ifdef CONFIG_AP_SUPPORT
@@ -1061,7 +1054,7 @@ VOID RTMPInfClose(
 }
 
 PNET_DEV RtmpPhyNetDevMainCreate(
-	IN VOID				*pAdSrc)
+	IN VOID		*pAdSrc)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	PNET_DEV pDevNew;

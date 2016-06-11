@@ -243,7 +243,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 #endif /* WORKQUEUE_BH */
 		}
 		pAd->BeaconBuf = pBeaconBuf;
-		DBGPRINT(RT_DEBUG_OFF, ("\n\n=== pAd = %p, size = %d ===\n\n", pAd, (UINT32)sizeof(RTMP_ADAPTER)));
+		DBGPRINT(RT_DEBUG_OFF, ("=== pAd = %p, size = %d ===\n", pAd, (UINT32)sizeof(RTMP_ADAPTER)));
 
 		if (RtmpOsStatsAlloc(&pAd->stats, &pAd->iw_stats) == FALSE)
 		{
@@ -257,7 +257,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 #if defined(RT3290) || defined(RT65xx) || defined(MT7601)
 #endif /* defined(RT3290) || defined(RT65xx) || defined(MT7601) */
 
-		for (index =0 ; index < NUM_OF_TX_RING; index++)
+		for (index = 0; index < NUM_OF_TX_RING; index++)
 		{
 			NdisAllocateSpinLock(pAd, &pAd->TxSwQueueLock[index]);
 			NdisAllocateSpinLock(pAd, &pAd->DeQueueLock[index]);
@@ -279,10 +279,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 
 		NdisAllocateSpinLock(pAd, &pAd->irq_lock);
 
-
 		NdisAllocateSpinLock(pAd, &TimerSemLock);
-
-
 
 #ifdef RALINK_ATE
 #ifdef RTMP_MAC_USB
@@ -1939,14 +1936,14 @@ VOID NICUpdateRawCounters(
 	UINT32	OldValue;/*, Value2;*/
 	/*ULONG	PageSum, OneSecTransmitCount;*/
 	/*ULONG	TxErrorRatio, Retry, Fail;*/
-	RX_STA_CNT0_STRUC	 RxStaCnt0;
-#ifndef CONFIG_MICROWAVE_SUPPORT
-	RX_STA_CNT1_STRUC   RxStaCnt1;
-#endif /* CONFIG_MICROWAVE_SUPPORT */
-	RX_STA_CNT2_STRUC   RxStaCnt2;
-	TX_STA_CNT0_STRUC 	 TxStaCnt0;
-	TX_STA_CNT1_STRUC	 StaTx1;
-	TX_STA_CNT2_STRUC	 StaTx2;
+	RX_STA_CNT0_STRUC	RxStaCnt0;
+#ifndef MICROWAVE_OVEN_SUPPORT
+	RX_STA_CNT1_STRUC	RxStaCnt1;
+#endif /* MICROWAVE_OVEN_SUPPORT */
+	RX_STA_CNT2_STRUC	RxStaCnt2;
+	TX_STA_CNT0_STRUC 	TxStaCnt0;
+	TX_STA_CNT1_STRUC	StaTx1;
+	TX_STA_CNT2_STRUC	StaTx2;
 #ifdef STATS_COUNT_SUPPORT
 	TX_NAG_AGG_CNT_STRUC	TxAggCnt;
 	TX_AGG_CNT0_STRUC	TxAggCnt0;
@@ -3309,9 +3306,9 @@ VOID	RTMPModTimer(
 		
 	========================================================================
 */
-VOID	RTMPCancelTimer(
-	IN	PRALINK_TIMER_STRUCT	pTimer,
-	OUT	BOOLEAN					*pCancelled)
+VOID RTMPCancelTimer(
+	IN PRALINK_TIMER_STRUCT	pTimer,
+	OUT BOOLEAN		*pCancelled)
 {
 	RTMP_SEM_LOCK(&TimerSemLock);
 
@@ -3596,9 +3593,6 @@ extern UINT8  MC_CardUsed[MAX_NUM_OF_MULTIPLE_CARD];
 		MC_CardUsed[pAd->MC_RowID] = 0; /* not clear MAC address*/
 #endif /* MULTIPLE_CARD_SUPPORT */
 
-
-
-
 #ifdef RTMP_MAC_USB
 	RTMP_SEM_EVENT_DESTORY(&(pAd->UsbVendorReq_semaphore));
 	RTMP_SEM_EVENT_DESTORY(&(pAd->reg_atomic));
@@ -3624,16 +3618,12 @@ extern UINT8  MC_CardUsed[MAX_NUM_OF_MULTIPLE_CARD];
 
 #ifdef RT65xx
 	if (IS_RT6590(pAd) && (pAd->WlanFunCtrl.field.WLAN_EN == 1))
-	{	
 		ral_wlan_chip_onoff(pAd, FALSE, FALSE);
-	}
 #endif /* RT65xx */
 
 #ifdef MT7601
 	if (IS_MT7601(pAd) && (pAd->WlanFunCtrl.field.WLAN_EN == 1) )
-	{	
 		MT7601_WLAN_ChipOnOff(pAd, FALSE, FALSE);
-	}
 #endif /* MT7601 */
 
 	RTMPFreeAdapter(pAd);
@@ -3776,14 +3766,14 @@ IN  PRTMP_ADAPTER   pAd)
 #endif /* TXRX_SW_ANTDIV_SUPPORT */
 
 	{
-		if (pAd->NicConfig2.field.AntOpt== 1) /* ant selected by efuse */
+		if (pAd->NicConfig2.field.AntOpt == 1) /* ant selected by efuse */
 		{	
 			if (pAd->NicConfig2.field.AntDiversity == 0) /* main */
 			{
 				pAd->RxAnt.Pair1PrimaryRxAnt = 0;
 				pAd->RxAnt.Pair1SecondaryRxAnt = 1;
 			}
-			else/* aux */
+			else /* aux */
 			{
 				pAd->RxAnt.Pair1PrimaryRxAnt = 1;
 				pAd->RxAnt.Pair1SecondaryRxAnt = 0;
@@ -3795,7 +3785,7 @@ IN  PRTMP_ADAPTER   pAd)
 			pAd->RxAnt.Pair1SecondaryRxAnt = 1;
 		}
 		else if (pAd->NicConfig2.field.AntDiversity == 1)/* Ant div on */
-		{/* eeprom on, but sw ant div support is not enabled: default ant is main */
+		{ /* eeprom on, but sw ant div support is not enabled: default ant is main */
 			pAd->RxAnt.Pair1PrimaryRxAnt = 0;
 			pAd->RxAnt.Pair1SecondaryRxAnt = 1;
 		}
@@ -3847,4 +3837,3 @@ IN  PRTMP_ADAPTER   pAd)
 	return PLCPErrCnt;
 }
 #endif /* MICROWAVE_OVEN_SUPPORT */
-

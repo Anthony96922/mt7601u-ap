@@ -63,7 +63,7 @@ VOID RT28XXVendorSpecificCheck(
 {
 
 	RT_CMD_USB_MORE_FLAG_CONFIG Config = { dev->descriptor.idVendor,
-									dev->descriptor.idProduct };
+						dev->descriptor.idProduct };
 	RTMP_DRIVER_USB_MORE_FLAG_SET(pAd, &Config);
 }
 
@@ -98,7 +98,6 @@ static BOOLEAN USBDevConfigInit(
 	UINT32 i;
 	RT_CMD_USB_DEV_CONFIG Config, *pConfig = &Config;
 
-
 	iface_desc = &intf->altsetting[0];
 
 	/* get # of enpoints */
@@ -110,7 +109,7 @@ static BOOLEAN USBDevConfigInit(
 	BulkOutIdx = 0;
 	BulkInIdx = 0;
 
-	for(i=0; i<pConfig->NumberOfPipes; i++)
+	for(i = 0; i < pConfig->NumberOfPipes; i++)
 	{
 		if ((endpoint[i].bmAttributes == USB_ENDPOINT_XFER_BULK) && 
 			((endpoint[i].bEndpointAddress & USB_ENDPOINT_DIR_MASK) == USB_DIR_IN))
@@ -214,7 +213,7 @@ static BOOLEAN USBDevConfigInit(
 
 	/* get # of enpoints  */
 	pConfig->NumberOfPipes = iface_desc->desc.bNumEndpoints;
-	DBGPRINT(RT_DEBUG_TRACE, ("NumEndpoints = %d\n", iface_desc->desc.bNumEndpoints));		  
+	DBGPRINT(RT_DEBUG_TRACE, ("NumEndpoints = %d\n", iface_desc->desc.bNumEndpoints));
 
 	/* Configure Pipes */
 	BulkOutIdx = 0;
@@ -318,9 +317,8 @@ static int rtusb_probe (struct usb_interface *intf,
 
 static void rtusb_disconnect(struct usb_interface *intf)
 {
-	struct usb_device   *dev = interface_to_usbdev(intf);
-	VOID				*pAd;
-
+	struct usb_device *dev = interface_to_usbdev(intf);
+	VOID *pAd;
 
 	pAd = usb_get_intfdata(intf);
 #ifdef IFUP_IN_PROBE	
@@ -353,20 +351,20 @@ struct usb_driver rtusb_driver = {
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,15)
 	.owner = THIS_MODULE,
 #endif	
-	.name=RTMP_DRV_NAME,
-	.probe=rtusb_probe,
-	.disconnect=rtusb_disconnect,
-	.id_table=rtusb_dev_id,
+	.name = RTMP_DRV_NAME,
+	.probe = rtusb_probe,
+	.disconnect = rtusb_disconnect,
+	.id_table = rtusb_dev_id,
 
 #ifdef CONFIG_PM
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
 	.supports_autosuspend = 1,
 #endif /* USB_SUPPORT_SELECTIVE_SUSPEND */
-	suspend:	rt2870_suspend,
-	resume:		rt2870_resume,
+	suspend: rt2870_suspend,
+	resume:	 rt2870_resume,
 #endif /* CONFIG_PM */
 	.supports_autosuspend = 1,
-	};
+};
 
 #ifdef CONFIG_PM
 
@@ -421,11 +419,9 @@ static int rt2870_suspend(
 	else
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
 	{
-	RTMP_DRIVER_ADAPTER_RT28XX_USB_ASICRADIO_OFF(pAd);
-	RTMP_DRIVER_ADAPTER_SUSPEND_SET(pAd);
+		RTMP_DRIVER_ADAPTER_RT28XX_USB_ASICRADIO_OFF(pAd);
+		RTMP_DRIVER_ADAPTER_SUSPEND_SET(pAd);
 	}
-
-
 
 	DBGPRINT(RT_DEBUG_TRACE, ("rt2870_suspend()\n"));
 	return 0;
@@ -441,7 +437,7 @@ static int rt2870_resume(
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
 
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
-	INT 		pm_usage_cnt;
+	int pm_usage_cnt;
 	UCHAR Flag;
 #endif /* USB_SUPPORT_SELECTIVE_SUSPEND */
 
@@ -456,7 +452,7 @@ static int rt2870_resume(
 	pm_usage_cnt = intf->pm_usage_cnt;
 #endif
 
-	if(pm_usage_cnt  <= 0)
+	if(pm_usage_cnt <= 0)
 		usb_autopm_get_interface(intf);
 
 	DBGPRINT(RT_DEBUG_ERROR, ("rt2870_resume()\n"));
@@ -485,13 +481,9 @@ static int rt2870_resume(
 	else
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
 	{
-	RTMP_DRIVER_ADAPTER_SUSPEND_CLEAR(pAd);
-	RTMP_DRIVER_ADAPTER_RT28XX_USB_ASICRADIO_ON(pAd);
+		RTMP_DRIVER_ADAPTER_SUSPEND_CLEAR(pAd);
+		RTMP_DRIVER_ADAPTER_RT28XX_USB_ASICRADIO_ON(pAd);
 	}
-
-
-
-
 
 	DBGPRINT(RT_DEBUG_TRACE, ("rt2870_resume()\n"));
 	return 0;
@@ -549,9 +541,7 @@ static void rt2870_disconnect(struct usb_device *dev, VOID *pAd)
 	{
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,5,0)	/* kernel 2.4 series */
 		while(MOD_IN_USE > 0)
-		{
 			MOD_DEC_USE_COUNT;
-		}
 #else
 		usb_put_dev(dev);
 #endif /* LINUX_VERSION_CODE */
@@ -566,7 +556,6 @@ static void rt2870_disconnect(struct usb_device *dev, VOID *pAd)
 
 	/* for debug, wait to show some messages to /proc system */
 	udelay(1);
-
 
 	RTMP_DRIVER_NET_DEV_GET(pAd, &net_dev);
 
@@ -595,9 +584,7 @@ static void rt2870_disconnect(struct usb_device *dev, VOID *pAd)
 	/* release a use of the usb device structure */
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,5,0)	/* kernel 2.4 series */
 	while(MOD_IN_USE > 0)
-	{
 		MOD_DEC_USE_COUNT;
-	}
 #else
 	usb_put_dev(dev);
 #endif /* LINUX_VERSION_CODE */
@@ -734,7 +721,7 @@ static int rt2870_probe(
 #ifdef PRE_ASSIGN_MAC_ADDR
 	UCHAR PermanentAddress[MAC_ADDR_LEN];
 	RTMP_DRIVER_MAC_ADDR_GET(pAd, &PermanentAddress[0]);
-	DBGPRINT(RT_DEBUG_TRACE, ("%s MAC address: %02x:%02x:%02x:%02x:%02x:%02x\n", __FUNCTION__, PermanentAddress[0], PermanentAddress[1],PermanentAddress[2],PermanentAddress[3],PermanentAddress[4],PermanentAddress[5]));
+	DBGPRINT(RT_DEBUG_TRACE, ("%s MAC address: %02x:%02x:%02x:%02x:%02x:%02x\n", __FUNCTION__, PermanentAddress[0], PermanentAddress[1], PermanentAddress[2], PermanentAddress[3], PermanentAddress[4], PermanentAddress[5]));
 	/* Set up the Mac address */
 	RtmpOSNetDevAddrSet(OpMode, net_dev, &PermanentAddress[0], NULL);
 #endif /* PRE_ASSIGN_MAC_ADDR */
@@ -758,7 +745,6 @@ err_out:
 	*ppAd = NULL;
 
 	return -1;
-	
 }
 
 
@@ -838,7 +824,7 @@ VOID RtmpNetOpsInit(
 
 
 VOID RtmpNetOpsSet(
-	IN VOID			*pDrvNetOpsSrc)
+	IN VOID *pDrvNetOpsSrc)
 {
 	RTMP_NET_ABL_OPS *pDrvNetOps = (RTMP_NET_ABL_OPS *)pDrvNetOpsSrc;
 

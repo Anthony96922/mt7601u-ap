@@ -4,7 +4,7 @@ HAS_ATE=n
 # Support QA ATE function
 HAS_QA_SUPPORT=n
 
-HAS_RSSI_FEEDBACK=n
+HAS_RSSI_FEEDBACK=y
 
 # Support XLINK mode
 HAS_XLINK=n
@@ -24,7 +24,7 @@ HAS_WDS=n
 HAS_APCLI=n
 
 # Support Net interface block while Tx-Sw queue full
-HAS_BLOCK_NET_IF=n
+HAS_BLOCK_NET_IF=y
 
 #Support IGMP-Snooping function.
 HAS_IGMP_SNOOP_SUPPORT=n
@@ -39,7 +39,7 @@ HAS_CS_SUPPORT=n
 HAS_HE_BD_SUPPORT=n
 
 # Support user specific transmit rate of Multicast packet.
-HAS_MCAST_RATE_SPECIFIC_SUPPORT=n
+HAS_MCAST_RATE_SPECIFIC_SUPPORT=y
 
 # Support for Multiple Cards
 HAS_MC_SUPPORT=n
@@ -53,7 +53,7 @@ HAS_QOS_DLS_SUPPORT=y
 #Support for EXT_CHANNEL
 HAS_EXT_BUILD_CHANNEL_LIST=n
 
-#Support for IDS 
+#Support for IDS
 HAS_IDS_SUPPORT=n
 
 #Support for Net-SNMP

@@ -597,7 +597,7 @@ VOID RtmpOsAtomicDec(RTMP_OS_ATOMIC *pAtomic);
 VOID RtmpOsAtomicInterlockedExchange(RTMP_OS_ATOMIC *pAtomicSrc, LONG Value);
 
 /* OS Utility */
-void hex_dump(char *str, unsigned char *pSrcBufVA, unsigned int SrcBufLen);
+void hex_dump(char *str, PUCHAR pSrcBufVA, UINT SrcBufLen);
 
 typedef VOID (*RTMP_OS_SEND_WLAN_EVENT)(
 	IN	VOID					*pAdSrc,

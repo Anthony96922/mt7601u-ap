@@ -31,14 +31,10 @@ static inline INT GetABandChOffset(
 #ifdef A_BAND_SUPPORT
 	if ((Channel == 36) || (Channel == 44) || (Channel == 52) || (Channel == 60) || (Channel == 100) || (Channel == 108) ||
 	    (Channel == 116) || (Channel == 124) || (Channel == 132) || (Channel == 149) || (Channel == 157))
-	{
 		return 1;
-	}
 	else if ((Channel == 40) || (Channel == 48) || (Channel == 56) || (Channel == 64) || (Channel == 104) || (Channel == 112) ||
 			(Channel == 120) || (Channel == 128) || (Channel == 136) || (Channel == 153) || (Channel == 161))
-	{
 		return -1;
-	}
 #endif /* A_BAND_SUPPORT */
 	return 0;
 }
@@ -67,9 +63,7 @@ ULONG AutoChBssSearchWithSSID(
 			(SSID_EQUAL(pSsid, SsidLen, pBssInfoTab->BssEntry[i].Ssid, pBssInfoTab->BssEntry[i].SsidLen) ||
 			(NdisEqualMemory(pSsid, ZeroSsid, SsidLen)) || 
 			(NdisEqualMemory(pBssInfoTab->BssEntry[i].Ssid, ZeroSsid, pBssInfoTab->BssEntry[i].SsidLen))))
-		{ 
 			return i;
-		}
 	}
 	return (ULONG)BSS_NOT_FOUND;
 }
@@ -170,10 +164,8 @@ static inline INT GetChIdx(
 
 	Idx = -1;
 	for (Idx = 0; Idx < pAd->ChannelListNum; Idx++)
-	{
 		if (Channel == pAd->ChannelList[Idx].Channel)
 			break;
-	}
 
 	return Idx;
 }
@@ -182,13 +174,11 @@ static inline VOID AutoChannelSkipListSetDirty(
 	IN PRTMP_ADAPTER	pAd)
 {
 	UCHAR i;
-	for (i=0; i < pAd->ApCfg.AutoChannelSkipListNum ; i++)
+	for (i = 0; i < pAd->ApCfg.AutoChannelSkipListNum ; i++)
 	{
-			UCHAR channel_idx = GetChIdx(pAd, pAd->ApCfg.AutoChannelSkipList[i]);
-			if ( channel_idx != pAd->ChannelListNum )
-			{
-				pAd->pChannelInfo->SkipList[channel_idx] = TRUE;
-			}
+		UCHAR channel_idx = GetChIdx(pAd, pAd->ApCfg.AutoChannelSkipList[i]);
+		if (channel_idx != pAd->ChannelListNum)
+			pAd->pChannelInfo->SkipList[channel_idx] = TRUE;
 	}
 }
 
@@ -199,7 +189,7 @@ static inline BOOLEAN AutoChannelSkipListCheck(
 	UCHAR i;
 	BOOLEAN result = FALSE;
 
-	for (i=0; i < pAd->ApCfg.AutoChannelSkipListNum ; i++)
+	for (i = 0; i < pAd->ApCfg.AutoChannelSkipListNum ; i++)
 	{
 		if (Ch == pAd->ApCfg.AutoChannelSkipList[i])
 		{
@@ -271,10 +261,7 @@ static inline UCHAR SelectClearChannelRandom(
 			ch = TempChList[RadomIdx];
 		}
 		else
-		{
 			ch = FirstChannel(pAd);
-		}
-		
 	}
 	else
 	{
@@ -314,13 +301,13 @@ static inline UCHAR SelectClearChannelCCA(
 	UCHAR  ExChannel[2] = {0}, candidate_ExChannel[2] = {0};	
 	UCHAR base;
 
-	if(pBssInfoTab == NULL)
+	if (pBssInfoTab == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("pAd->pBssInfoTab equal NULL.\n"));
 		return (FirstChannel(pAd));
 	}
 
-	if(pChannelInfo == NULL)
+	if (pChannelInfo == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("pAd->pChannelInfo equal NULL.\n"));
 		return (FirstChannel(pAd));
@@ -376,7 +363,7 @@ static inline UCHAR SelectClearChannelCCA(
 			}
 
 			/* check neighbor channel */
-			for (loop = (channel_idx+1); loop <= (channel_idx+AboveBound); loop++)
+			for (loop = (channel_idx + 1); loop <= (channel_idx+AboveBound); loop++)
 			{
 				if (loop >= MAX_NUM_OF_CHANNELS)
 					break;
@@ -386,8 +373,8 @@ static inline UCHAR SelectClearChannelCCA(
 
 				pChannelInfo->dirtyness[loop] += ((9 - (loop - channel_idx)) * 4);
 			}
-            /* check neighbor channel */
-			for (loop=(channel_idx-1); loop >= (channel_idx-BelowBound); loop--)
+			/* check neighbor channel */
+			for (loop = (channel_idx - 1); loop >= (channel_idx-BelowBound); loop--)
 			{
 				if (loop < 0)
 					break;
@@ -403,9 +390,9 @@ static inline UCHAR SelectClearChannelCCA(
 		DBGPRINT(RT_DEBUG_TRACE,(" ch%d bssid=%02x:%02x:%02x:%02x:%02x:%02x\n",
 			pBss->Channel, pBss->Bssid[0], pBss->Bssid[1], pBss->Bssid[2], pBss->Bssid[3], pBss->Bssid[4], pBss->Bssid[5]));
 	}
-			
+
 	AutoChannelSkipListSetDirty(pAd);	
-	
+
 	DBGPRINT(RT_DEBUG_TRACE, ("=====================================================\n"));
 	for (channel_idx = 0; channel_idx < pAd->ChannelListNum; channel_idx++)
 	{
@@ -492,19 +479,19 @@ static inline UCHAR SelectClearChannelCCA(
 						{
 							dirtyness += pChannelInfo->dirtyness[channel_idx - 4];
 							ExChannel[ExChannel_idx++] = pAd->ChannelList[channel_idx - 4].Channel;
-					    }
+						}
 
 						if (((channel_idx + 4) >=0) && ((channel_idx + 4) < pAd->ChannelListNum))
 						{
-						    dirtyness += pChannelInfo->dirtyness[channel_idx + 4];
-						    ExChannel[ExChannel_idx++] = pAd->ChannelList[channel_idx + 4].Channel;
+							dirtyness += pChannelInfo->dirtyness[channel_idx + 4];
+							ExChannel[ExChannel_idx++] = pAd->ChannelList[channel_idx + 4].Channel;
 						}
 					}
 				}
 			}
 #endif /* DOT11_N_SUPPORT */
 
-			if ((min_dirty > dirtyness))
+			if (min_dirty > dirtyness)
 			{
 				min_dirty = dirtyness;
 				candidate_ch = channel_idx;
@@ -565,7 +552,7 @@ static inline UCHAR SelectClearChannelCCA(
 			}
 #endif /* AP_QLOAD_SUPPORT */
 
-			if ((min_falsecca > falsecca))
+			if (min_falsecca > falsecca)
 			{
 				min_falsecca = falsecca;
 				candidate_ch = channel_idx;
@@ -622,30 +609,28 @@ static inline UCHAR SelectClearChannelApCnt(
 	UCHAR channel_index = 0,dirty,base = 0;
 	UCHAR final_channel = 0;
 
- 
-	if(pChannelInfo == NULL)
+	if (pChannelInfo == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("pAd->pChannelInfo equal NULL.\n"));
 		return (FirstChannel(pAd));
 	}
-	
+
 	/* Calculate Dirtiness */
-	
-	for (channel_index=0 ; channel_index < pAd->ChannelListNum ; channel_index++)
+
+	for (channel_index = 0; channel_index < pAd->ChannelListNum ; channel_index++)
 	{
 		if (pChannelInfo->ApCnt[channel_index] > 0)
-	    {
-		    INT ll;
-		    pChannelInfo->dirtyness[channel_index] += 30;
+		{
+			INT ll;
+			pChannelInfo->dirtyness[channel_index] += 30;
+			/* 5G */
+			if (pChannelInfo->IsABand)
+			{
+				int Channel = pAd->ChannelList[channel_index].Channel;
 
-            /*5G */
-		    if (pChannelInfo->IsABand)
-		    {
-			    int Channel = pAd->ChannelList[channel_index].Channel;
-				
-			    /*Make secondary channel dirty */
-			    if(pAd->CommonCfg.RegTransmitSetting.field.BW == BW_40)
-			    {
+				/* Make secondary channel dirty */
+				if (pAd->CommonCfg.RegTransmitSetting.field.BW == BW_40)
+				{
 					if (Channel > 14)
 					{
 						if ((Channel == 36) || (Channel == 44) || (Channel == 52) || (Channel== 60) 
@@ -653,7 +638,7 @@ static inline UCHAR SelectClearChannelApCnt(
 							|| (Channel == 124) || (Channel == 132) || (Channel == 149) || (Channel == 157))
 						{
 							if (channel_index + 1 < MAX_NUM_OF_CHANNELS)
-								if(pAd->ChannelList[channel_index+1].Channel - pAd->ChannelList[channel_index].Channel == 4)
+								if (pAd->ChannelList[channel_index+1].Channel - pAd->ChannelList[channel_index].Channel == 4)
 									pChannelInfo->dirtyness[channel_index+1] += 1;
 						}
 						else if ((Channel == 40) || (Channel == 48) || (Channel == 56) || 
@@ -661,14 +646,14 @@ static inline UCHAR SelectClearChannelApCnt(
 								(Channel == 120) || (Channel == 128) || (Channel == 136) || 
 								(Channel== 153) || (Channel == 161))
 						{
-							if(channel_index - 1 >= 0)
+							if (channel_index - 1 >= 0)
 								if(pAd->ChannelList[channel_index].Channel - pAd->ChannelList[channel_index-1].Channel == 4)
 									pChannelInfo->dirtyness[channel_index-1] += 1;
 						}
 					}
 				}
 			}
-			/*2.4G */
+			/* 2.4G */
 			if (!pChannelInfo->IsABand)
 			{
 				int ChanOffset = 0;
@@ -717,14 +702,14 @@ static inline UCHAR SelectClearChannelApCnt(
 						pChannelInfo->dirtyness[ll]++;
 				}
 			}
-    	}       
-   }/* Calculate Dirtiness */
+		}       
+	}/* Calculate Dirtiness */
 
 	AutoChannelSkipListSetDirty(pAd);
 	
-   DBGPRINT(RT_DEBUG_TRACE, ("=====================================================\n"));
-   for (channel_index=0 ; channel_index < pAd->ChannelListNum ; channel_index++)
-   /* debug messages */
+	DBGPRINT(RT_DEBUG_TRACE, ("=====================================================\n"));
+	for (channel_index = 0; channel_index < pAd->ChannelListNum; channel_index++)
+	/* debug messages */
 		DBGPRINT(RT_DEBUG_TRACE, ("Channel %d : Dirty = %ld, ApCnt=%ld, Busy Time = %d, Skip Channel = %s\n", 
 				pAd->ChannelList[channel_index].Channel,
 				pChannelInfo->dirtyness[channel_index], 
@@ -757,8 +742,9 @@ static inline UCHAR SelectClearChannelApCnt(
 			pChannelInfo->chanbusytime[channel_index]) == FALSE)
 			continue;
 #endif /* AP_QLOAD_SUPPORT */
-		 
-		if (pChannelInfo->dirtyness[channel_index] == 0) break;
+
+		if (pChannelInfo->dirtyness[channel_index] == 0)
+			break;
 	}
 	if (channel_index < pAd->ChannelListNum)
 	{
@@ -808,7 +794,7 @@ static inline UCHAR SelectClearChannelApCnt(
 				if (candidate[channel_index] && (pChannelInfo->ApCnt[channel_index] < min_ApCnt))
 				{
 
-					if((pAd->CommonCfg.RegTransmitSetting.field.BW == BW_40)
+					if ((pAd->CommonCfg.RegTransmitSetting.field.BW == BW_40)
 						&& (BW40_ChannelCheck(pAd->ChannelList[channel_index].Channel) == FALSE))
 						continue;
 
@@ -955,7 +941,6 @@ void ChannelInfoDestroy(
 void CheckPhyModeIsABand(
 	IN PRTMP_ADAPTER pAd)
 {
-
 	pAd->pChannelInfo->IsABand = (WMODE_CAP_5G(pAd->CommonCfg.PhyMode)) ? TRUE : FALSE;
 
 	return;
@@ -976,7 +961,7 @@ UCHAR SelectBestChannel(
 		pAd->CommonCfg.MO_Cfg.bEnable = TRUE;
 #endif /* MICROWAVE_OVEN_SUPPORT */
 
-	switch ( Alg )
+	switch (Alg)
 	{
 		case ChannelAlgRandom:
 		case ChannelAlgApCnt:
@@ -1050,7 +1035,7 @@ UCHAR APAutoSelectChannel(
 	APAutoChannelInit(pAd);
 
 	if (( Alg == ChannelAlgRandom ) && (pAd->pChannelInfo->IsABand == TRUE))
-	{   /*for Dfs */
+	{	/*for Dfs */
 		ch = SelectClearChannelRandom(pAd);
 	}
 	else
@@ -1061,10 +1046,10 @@ UCHAR APAutoSelectChannel(
 #endif /* MICROWAVE_OVEN_SUPPORT */
 
 		/*find RSSI in each channel */
-		for (i=0; i<pAd->ChannelListNum; i++)
+		for (i = 0; i<pAd->ChannelListNum; i++)
 		{
 			AsicSwitchChannel(pAd, pAd->ChannelList[i].Channel, TRUE);
-			AsicLockChannel(pAd, pAd->ChannelList[i].Channel);/*do nothing */
+			AsicLockChannel(pAd, pAd->ChannelList[i].Channel); /* do nothing */
 			pAd->ApCfg.current_channel_index = i;
 
 			pAd->ApCfg.AutoChannel_Channel = pAd->ChannelList[i].Channel;
@@ -1076,9 +1061,7 @@ UCHAR APAutoSelectChannel(
 			}
 			else
 #endif /* AP_QLOAD_SUPPORT */
-			{
 				OS_WAIT(200); /* wait for 200 ms at each channel. */
-			}
 
 			UpdateChannelInfo(pAd, i,Alg);
 		}
@@ -1088,4 +1071,3 @@ UCHAR APAutoSelectChannel(
 		
 	return ch;
 }
-

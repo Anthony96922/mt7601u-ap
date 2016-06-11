@@ -113,8 +113,6 @@
 #include "mat.h"
 #endif /* MAT_SUPPORT */
 
-
-
 #ifdef BLOCK_NET_IF
 #include "netif_block.h"
 #endif /* BLOCK_NET_IF */
@@ -137,13 +135,9 @@
 #endif /* RALINK_ATE */
 #endif /* RALINK_QA */
 
-
-
 #ifdef WAPI_SUPPORT
 #include "wapi.h"
 #endif /* WAPI_SUPPORT */
-
-
 
 #if defined(AP_WSC_INCLUDED) || defined(STA_WSC_INCLUDED)
 #define WSC_INCLUDED
@@ -155,14 +149,11 @@
 //#endif /* WDS_SUPPORT */
 //#endif /* CONFIG_AP_SUPPORT */
 
-
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 #ifndef APCLI_SUPPORT
 #error "Build Apcli for being controlled by NetworkManager or wext, please set HAS_APCLI_SUPPORT=y and HAS_APCLI_WPA_SUPPLICANT=y"
 #endif /* APCLI_SUPPORT */
 #endif /* APCLI_WPA_SUPPLICANT_SUPPORT */
-
-
 
 #ifdef WSC_INCLUDED
 #include "crypt_biginteger.h"
@@ -170,19 +161,13 @@
 #include "wsc_tlv.h"
 #endif /* WSC_INCLUDED */
 
-
 #ifdef IKANOS_VX_1X0
 #include "vr_ikans.h"
 #endif /* IKANOS_VX_1X0 */
 
-
-
-
-
 #ifdef WAPI_SUPPORT
 #include "wapi.h"
 #endif /* WAPI_SUPPORT */
-
 
 #ifdef WFD_SUPPORT
 #include "wfd.h"
@@ -192,20 +177,14 @@
 #include "vht.h"
 #endif /* DOT11_VHT_AC */
 
-
-
-
 #ifdef WORKQUEUE_BH
 #include <linux/workqueue.h>
 #endif /* WORKQUEUE_BH / */
-
 
 #ifdef TXBF_SUPPORT
 #include "rt_txbf.h"
 #endif /* TXBF_SUPPORT */
 
-
 #include "mac_ral/fce.h"
 
 #endif	/* __RT_CONFIG_H__ */
-
