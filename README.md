@@ -1,12 +1,17 @@
 # mt7601u-ap
+
+(I do not maintain this project anymore!)
+
 AP driver for MT7601U chipset based adapters
 
-Many usb Wi-Fi adapters that claim to have an RT5370 chipset actually have an MT7601 chipset. There are no drivers in Linux that support this device. This driver can be used to set up a hotspot with these devices. This has compiled on the following kernels:
+Many usb Wi-Fi adapters that claim to have an RT5370 chipset actually have an MT7601 chipset. There are no drivers in Linux that support this device. This driver can be used to set up a hotspot with these devices. This has compiled and works on the following kernels:
 
-- 3.12.35+ (Raspberry Pi)
-- 3.18.16+ (Raspberry Pi)
+- 3.10.103 (Odroid C1/C1+)
+- 3.12.35 (Raspberry Pi)
+- 3.18.16 (Raspberry Pi)
+- 4.4.12 (Raspberry Pi)
 
-(4.x kernels are untested.)
+Please note that this kernel will only work properly on 32 bits. It will crash on 64 bits.
 
 ### How to use
 Get the sources for your kernel. You can do this by running:
@@ -15,7 +20,7 @@ $ sudo apt-get install linux-headers-generic
 ````
 Then download the source and compile:
 ````sh
-$ git clone https://github.com/anthony96922/mt7601u-ap
+$ git clone https://github.com/tanaka1892/mt7601u-ap
 $ cd mt7601u-ap
 $ make
 $ sudo make install
@@ -28,10 +33,10 @@ You can change the network name and the security by editing the file `/etc/wifi/
 #### Cross compiling
 You can cross compile this driver by setting `LINUX_SRC` to the kernel sources, `CROSS_COMPILE` to your compiler and `ARCH` to the arch you are compiling for. It is arm for the Raspberry Pi.
 
-#####Cross compiling on a virtual machine (Xubuntu 14.04 32 bits)
+##### Cross compiling on a virtual machine for Raspberry Pi (Xubuntu 14.04 32 bits)
 Download the kernel sources and cross compiler:
 ````sh
-$ git clone https://github.com/raspberrypi/linux -b rpi-3.18.y
+$ git clone https://github.com/raspberrypi/linux -b rpi-4.4.y
 $ git clone https://github.com/raspberrypi/tools
 $ sudo mv tools /opt/
 $ nano .bashrc
