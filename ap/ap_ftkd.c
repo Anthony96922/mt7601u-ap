@@ -77,4 +77,3 @@
 	8. Send a information broadcast to the LAN periodically.
 
 ***************************************************************************/
-

@@ -27,9 +27,6 @@
 */
 #include	"rt_config.h"
 
-
-
-
 #ifdef LINUX
 #ifdef OS_ABL_FUNC_SUPPORT
 /* Utilities provided from NET module */
@@ -37,17 +34,15 @@ RTMP_NET_ABL_OPS RtmpDrvNetOps, *pRtmpDrvNetOps = &RtmpDrvNetOps;
 RTMP_PCI_CONFIG RtmpPciConfig, *pRtmpPciConfig = &RtmpPciConfig;
 RTMP_USB_CONFIG RtmpUsbConfig, *pRtmpUsbConfig = &RtmpUsbConfig;
 
-VOID RtmpDrvOpsInit(
-	OUT VOID *pDrvOpsOrg,
-	INOUT VOID *pDrvNetOpsOrg,
-	IN RTMP_PCI_CONFIG *pPciConfig,
-	IN RTMP_USB_CONFIG *pUsbConfig)
+VOID RtmpDrvOpsInit(OUT VOID * pDrvOpsOrg,
+		    INOUT VOID * pDrvNetOpsOrg,
+		    IN RTMP_PCI_CONFIG * pPciConfig,
+		    IN RTMP_USB_CONFIG * pUsbConfig)
 {
-	RTMP_DRV_ABL_OPS *pDrvOps = (RTMP_DRV_ABL_OPS *)pDrvOpsOrg;
+	RTMP_DRV_ABL_OPS *pDrvOps = (RTMP_DRV_ABL_OPS *) pDrvOpsOrg;
 #ifdef RTMP_USB_SUPPORT
-	RTMP_NET_ABL_OPS *pDrvNetOps = (RTMP_NET_ABL_OPS *)pDrvNetOpsOrg;
-#endif /* RTMP_USB_SUPPORT */
-
+	RTMP_NET_ABL_OPS *pDrvNetOps = (RTMP_NET_ABL_OPS *) pDrvNetOpsOrg;
+#endif				/* RTMP_USB_SUPPORT */
 
 	/* init PCI/USB configuration in different OS */
 	if (pPciConfig != NULL)
@@ -66,18 +61,18 @@ VOID RtmpDrvOpsInit(
 	pDrvOps->RTMPSendPackets = RTMPSendPackets;
 #ifdef MBSS_SUPPORT
 	pDrvOps->MBSS_PacketSend = MBSS_PacketSend;
-#endif /* MBSS_SUPPORT */
+#endif				/* MBSS_SUPPORT */
 #ifdef WDS_SUPPORT
 	pDrvOps->WDS_PacketSend = WDS_PacketSend;
-#endif /* WDS_SUPPORT */
+#endif				/* WDS_SUPPORT */
 #ifdef APCLI_SUPPORT
 	pDrvOps->APC_PacketSend = APC_PacketSend;
-#endif /* APCLI_SUPPORT */
+#endif				/* APCLI_SUPPORT */
 
 	pDrvOps->RTMP_COM_IoctlHandle = RTMP_COM_IoctlHandle;
 #ifdef CONFIG_AP_SUPPORT
 	pDrvOps->RTMP_AP_IoctlHandle = RTMP_AP_IoctlHandle;
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 	pDrvOps->RTMPDrvOpen = RTMPDrvOpen;
 	pDrvOps->RTMPDrvClose = RTMPDrvClose;
@@ -87,33 +82,36 @@ VOID RtmpDrvOpsInit(
 	/* init operators provided from us and netif module */
 #ifdef RTMP_USB_SUPPORT
 	*pRtmpDrvNetOps = *pDrvNetOps;
-	pRtmpDrvNetOps->RtmpDrvUsbBulkOutDataPacketComplete = RTUSBBulkOutDataPacketComplete;
-	pRtmpDrvNetOps->RtmpDrvUsbBulkOutMLMEPacketComplete = RTUSBBulkOutMLMEPacketComplete;
-	pRtmpDrvNetOps->RtmpDrvUsbBulkOutNullFrameComplete = RTUSBBulkOutNullFrameComplete;
+	pRtmpDrvNetOps->RtmpDrvUsbBulkOutDataPacketComplete =
+	    RTUSBBulkOutDataPacketComplete;
+	pRtmpDrvNetOps->RtmpDrvUsbBulkOutMLMEPacketComplete =
+	    RTUSBBulkOutMLMEPacketComplete;
+	pRtmpDrvNetOps->RtmpDrvUsbBulkOutNullFrameComplete =
+	    RTUSBBulkOutNullFrameComplete;
 #ifdef CONFIG_MULTI_CHANNEL
-	pRtmpDrvNetOps->RtmpDrvUsbBulkOutHCCANullFrameComplete = RTUSBBulkOutHCCANullFrameComplete;
-#endif /* CONFIG_MULTI_CHANNEL */
+	pRtmpDrvNetOps->RtmpDrvUsbBulkOutHCCANullFrameComplete =
+	    RTUSBBulkOutHCCANullFrameComplete;
+#endif				/* CONFIG_MULTI_CHANNEL */
 
 /*	pRtmpDrvNetOps->RtmpDrvUsbBulkOutRTSFrameComplete = RTUSBBulkOutRTSFrameComplete;*/
-	pRtmpDrvNetOps->RtmpDrvUsbBulkOutPsPollComplete = RTUSBBulkOutPsPollComplete;
+	pRtmpDrvNetOps->RtmpDrvUsbBulkOutPsPollComplete =
+	    RTUSBBulkOutPsPollComplete;
 	pRtmpDrvNetOps->RtmpDrvUsbBulkRxComplete = RTUSBBulkRxComplete;
-	pRtmpDrvNetOps->RtmpDrvUsbBulkCmdRspEventComplete = RTUSBBulkCmdRspEventComplete;
+	pRtmpDrvNetOps->RtmpDrvUsbBulkCmdRspEventComplete =
+	    RTUSBBulkCmdRspEventComplete;
 	*pDrvNetOps = *pRtmpDrvNetOps;
-#endif /* RTMP_USB_SUPPORT */
+#endif				/* RTMP_USB_SUPPORT */
 }
 
 RTMP_BUILD_DRV_OPS_FUNCTION_BODY
-
-#endif /* OS_ABL_FUNC_SUPPORT */
-#endif /* LINUX */
-
-
-int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
+#endif				/* OS_ABL_FUNC_SUPPORT */
+#endif				/* LINUX */
+int rt28xx_init(VOID * pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 {
-	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
+	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *) pAdSrc;
 	UINT index;
 	NDIS_STATUS Status;
-	
+
 	if (pAd == NULL)
 		return FALSE;
 
@@ -121,38 +119,35 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 #ifdef RT6570
 	if (pAd->WlanFunCtrl.field.WLAN_EN == 0)
 		ral_wlan_chip_onoff(pAd, TRUE, FALSE);
-#endif /* RT6570 */
+#endif				/* RT6570 */
 
 #ifdef MT7601
 	if (IS_MT7601(pAd) && (pAd->WlanFunCtrl.field.WLAN_EN == 0))
 		MT7601_WLAN_ChipOnOff(pAd, TRUE, FALSE);
-#endif /* MT7601U */
+#endif				/* MT7601U */
 //---
 
 #ifdef RT3290
 	DBGPRINT(RT_DEBUG_OFF, ("MACVersion=0x%x\n", pAd->MACVersion));
-	if (IS_RT3290(pAd))
-	{
+	if (IS_RT3290(pAd)) {
 		UINT32 MacRegValue;
-		OSCCTL_STRUC osCtrl = {.word = 0};
-		CMB_CTRL_STRUC cmbCtrl = {.word = 0};
-		WLAN_FUN_CTRL_STRUC WlanFunCtrl = {.word = 0};
-			
+		OSCCTL_STRUC osCtrl = {.word = 0 };
+		CMB_CTRL_STRUC cmbCtrl = {.word = 0 };
+		WLAN_FUN_CTRL_STRUC WlanFunCtrl = {.word = 0 };
+
 		RTMPEnableWlan(pAd, TRUE, TRUE);
 
 		RTMP_IO_READ32(pAd, WLAN_FUN_CTRL, &WlanFunCtrl.word);
-		if (WlanFunCtrl.field.WLAN_EN == TRUE)
-		{
+		if (WlanFunCtrl.field.WLAN_EN == TRUE) {
 			WlanFunCtrl.field.PCIE_APP0_CLK_REQ = TRUE;
 			RTMP_IO_WRITE32(pAd, WLAN_FUN_CTRL, WlanFunCtrl.word);
 		}
-			
 		//Enable ROSC_EN first then CAL_REQ
 		RTMP_IO_READ32(pAd, OSCCTL, &osCtrl.word);
-		osCtrl.field.ROSC_EN = TRUE; /* HW force */
-		RTMP_IO_WRITE32(pAd, OSCCTL, osCtrl.word);	
-		
-		osCtrl.field.ROSC_EN = TRUE; /* HW force */
+		osCtrl.field.ROSC_EN = TRUE;	/* HW force */
+		RTMP_IO_WRITE32(pAd, OSCCTL, osCtrl.word);
+
+		osCtrl.field.ROSC_EN = TRUE;	/* HW force */
 		osCtrl.field.CAL_REQ = TRUE;
 		osCtrl.field.REF_CYCLE = 0x27;
 		RTMP_IO_WRITE32(pAd, OSCCTL, osCtrl.word);
@@ -167,108 +162,99 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 		RTMP_IO_WRITE32(pAd, COEXCFG0, MacRegValue);
 	}
 
-	if (IS_RT3290LE(pAd))
-	{
+	if (IS_RT3290LE(pAd)) {
 		PLL_CTRL_STRUC PllCtrl;
 		RTMP_IO_READ32(pAd, PLL_CTRL, &PllCtrl.word);
-		PllCtrl.field.VCO_FIXED_CURRENT_CONTROL = 0x1;			
+		PllCtrl.field.VCO_FIXED_CURRENT_CONTROL = 0x1;
 		RTMP_IO_WRITE32(pAd, PLL_CTRL, PllCtrl.word);
 	}
-#endif /* RT3290 */
+#endif				/* RT3290 */
 
-
-	/* reset Adapter flags*/
+	/* reset Adapter flags */
 	RTMP_CLEAR_FLAGS(pAd);
 
-	/* Init BssTab & ChannelInfo tabbles for auto channel select.*/
-#ifdef CONFIG_AP_SUPPORT	
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
+	/* Init BssTab & ChannelInfo tabbles for auto channel select. */
+#ifdef CONFIG_AP_SUPPORT
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
 		AutoChBssTableInit(pAd);
 		ChannelInfoInit(pAd);
 	}
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 #ifdef DOT11_N_SUPPORT
-	/* Allocate BA Reordering memory*/
-	if (ba_reordering_resource_init(pAd, MAX_REORDERING_MPDU_NUM) != TRUE)		
+	/* Allocate BA Reordering memory */
+	if (ba_reordering_resource_init(pAd, MAX_REORDERING_MPDU_NUM) != TRUE)
 		goto err1;
-#endif /* DOT11_N_SUPPORT */
+#endif				/* DOT11_N_SUPPORT */
 
-	/* Make sure MAC gets ready.*/
+	/* Make sure MAC gets ready. */
 	index = 0;
 	if (WaitForAsicReady(pAd) != TRUE)
 		goto err1;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("MAC[Ver:Rev=0x%08x]\n", pAd->MACVersion));
 
-
-	if (MAX_LEN_OF_MAC_TABLE > MAX_AVAILABLE_CLIENT_WCID(pAd))
-	{
-		DBGPRINT(RT_DEBUG_ERROR, ("MAX_LEN_OF_MAC_TABLE can not be larger than MAX_AVAILABLE_CLIENT_WCID!!!!\n"));
+	if (MAX_LEN_OF_MAC_TABLE > MAX_AVAILABLE_CLIENT_WCID(pAd)) {
+		DBGPRINT(RT_DEBUG_ERROR,
+			 ("MAX_LEN_OF_MAC_TABLE can not be larger than MAX_AVAILABLE_CLIENT_WCID!!!!\n"));
 		goto err1;
 	}
 
-
-	/* Disable DMA*/
+	/* Disable DMA */
 	RT28XXDMADisable(pAd);
 
 #ifdef RLT_MAC
 	/* Initialze MCU control before load fw */
 	MCUCtrlInit(pAd);
-#endif /* RLT_MAC */
+#endif				/* RLT_MAC */
 
-	/* Load MCU firmware*/
+	/* Load MCU firmware */
 	Status = NICLoadFirmware(pAd);
-	
-	if (Status != NDIS_STATUS_SUCCESS)
-	{
-		DBGPRINT_ERR(("NICLoadFirmware failed, Status[=0x%08x]\n", Status));
+
+	if (Status != NDIS_STATUS_SUCCESS) {
+		DBGPRINT_ERR(("NICLoadFirmware failed, Status[=0x%08x]\n",
+			      Status));
 		goto err1;
 	}
 
-	/* Disable interrupts here which is as soon as possible*/
-	/* This statement should never be true. We might consider to remove it later*/
+	/* Disable interrupts here which is as soon as possible */
+	/* This statement should never be true. We might consider to remove it later */
 
 #ifdef RESOURCE_PRE_ALLOC
 	Status = RTMPInitTxRxRingMemory(pAd);
 #else
 	Status = RTMPAllocTxRxRingMemory(pAd);
-#endif /* RESOURCE_PRE_ALLOC */
+#endif				/* RESOURCE_PRE_ALLOC */
 
-	if (Status != NDIS_STATUS_SUCCESS)
-	{
-		DBGPRINT_ERR(("RTMPAllocTxRxMemory failed, Status[=0x%08x]\n", Status));
+	if (Status != NDIS_STATUS_SUCCESS) {
+		DBGPRINT_ERR(("RTMPAllocTxRxMemory failed, Status[=0x%08x]\n",
+			      Status));
 		goto err2;
 	}
-
 #ifdef WLAN_SKB_RECYCLE
-    skb_queue_head_init(&pAd->rx0_recycle);
-#endif /* WLAN_SKB_RECYCLE */
+	skb_queue_head_init(&pAd->rx0_recycle);
+#endif				/* WLAN_SKB_RECYCLE */
 
 	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE);
 
-	/* initialize MLME*/
+	/* initialize MLME */
 	Status = RtmpMgmtTaskInit(pAd);
 	if (Status != NDIS_STATUS_SUCCESS)
 		goto err3;
 
 	Status = MlmeInit(pAd);
-	if (Status != NDIS_STATUS_SUCCESS)
-	{
+	if (Status != NDIS_STATUS_SUCCESS) {
 		DBGPRINT_ERR(("MlmeInit failed, Status[=0x%08x]\n", Status));
 		goto err4;
 	}
-
 #ifdef RMTP_RBUS_SUPPORT
 #ifdef VIDEO_TURBINE_SUPPORT
 	VideoConfigInit(pAd);
-#endif /* VIDEO_TURBINE_SUPPORT */
-#endif /* RMTP_RBUS_SUPPORT */
+#endif				/* VIDEO_TURBINE_SUPPORT */
+#endif				/* RMTP_RBUS_SUPPORT */
 
-	/* Initialize pAd->StaCfg, pAd->ApCfg, pAd->CommonCfg to manufacture default*/
+	/* Initialize pAd->StaCfg, pAd->ApCfg, pAd->CommonCfg to manufacture default */
 	UserCfgInit(pAd);
-
 
 	Status = RtmpNetTaskInit(pAd);
 	if (Status != NDIS_STATUS_SUCCESS)
@@ -278,55 +264,50 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-		APInitialize(pAd);
-#endif /* CONFIG_AP_SUPPORT */	
+	    APInitialize(pAd);
+#endif				/* CONFIG_AP_SUPPORT */
 
 #ifdef BLOCK_NET_IF
 	initblockQueueTab(pAd);
-#endif /* BLOCK_NET_IF */
+#endif				/* BLOCK_NET_IF */
 
 	Status = MeasureReqTabInit(pAd);
-	if (Status != NDIS_STATUS_SUCCESS)
-	{
-		DBGPRINT_ERR(("MeasureReqTabInit failed, Status[=0x%08x]\n",Status));
-		goto err6;	
+	if (Status != NDIS_STATUS_SUCCESS) {
+		DBGPRINT_ERR(("MeasureReqTabInit failed, Status[=0x%08x]\n",
+			      Status));
+		goto err6;
 	}
 	Status = TpcReqTabInit(pAd);
-	if (Status != NDIS_STATUS_SUCCESS)
-	{
-		DBGPRINT_ERR(("TpcReqTabInit failed, Status[=0x%08x]\n",Status));
-		goto err6;	
-	}
-
-	/* Init the hardware, we need to init asic before read registry, otherwise mac register will be reset*/
-	
-	Status = NICInitializeAdapter(pAd, TRUE);
-	if (Status != NDIS_STATUS_SUCCESS)
-	{
-		DBGPRINT_ERR(("NICInitializeAdapter failed, Status[=0x%08x]\n", Status));
-		if (Status != NDIS_STATUS_SUCCESS)
+	if (Status != NDIS_STATUS_SUCCESS) {
+		DBGPRINT_ERR(("TpcReqTabInit failed, Status[=0x%08x]\n",
+			      Status));
 		goto err6;
 	}
 
-#ifdef CONFIG_AP_SUPPORT
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
+	/* Init the hardware, we need to init asic before read registry, otherwise mac register will be reset */
+
+	Status = NICInitializeAdapter(pAd, TRUE);
+	if (Status != NDIS_STATUS_SUCCESS) {
+		DBGPRINT_ERR(("NICInitializeAdapter failed, Status[=0x%08x]\n",
+			      Status));
+		if (Status != NDIS_STATUS_SUCCESS)
+			goto err6;
 	}
-#endif /* CONFIG_AP_SUPPORT */
+#ifdef CONFIG_AP_SUPPORT
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
+	}
+#endif				/* CONFIG_AP_SUPPORT */
 
 	/* Read parameters from Config File */
 	/* unknown, it will be updated in NICReadEEPROMParameters */
 	pAd->RfIcType = RFIC_UNKNOWN;
 	Status = RTMPReadParametersHook(pAd);
 
-
 	DBGPRINT(RT_DEBUG_OFF, ("1. Phy Mode = %d\n", pAd->CommonCfg.PhyMode));
-	if (Status != NDIS_STATUS_SUCCESS)
-	{
-		DBGPRINT_ERR(("RTMPReadParametersHook failed, Status = [0x%08x]\n",Status));
+	if (Status != NDIS_STATUS_SUCCESS) {
+		DBGPRINT_ERR(("RTMPReadParametersHook failed, Status = [0x%08x]\n", Status));
 		goto err6;
 	}
-
 #ifdef RTMP_MAC_USB
 	pAd->CommonCfg.bMultipleIRP = FALSE;
 
@@ -334,50 +315,56 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 		pAd->CommonCfg.NumOfBulkInIRP = RX_RING_SIZE;
 	else
 		pAd->CommonCfg.NumOfBulkInIRP = 1;
-#endif /* RTMP_MAC_USB */
+#endif				/* RTMP_MAC_USB */
 
 #ifdef DOT11_N_SUPPORT
-   	/*Init Ba Capability parameters.*/
+	/*Init Ba Capability parameters. */
 /*	RT28XX_BA_INIT(pAd);*/
-	pAd->CommonCfg.DesiredHtPhy.MpduDensity = (UCHAR)pAd->CommonCfg.BACapability.field.MpduDensity;
-	pAd->CommonCfg.DesiredHtPhy.AmsduEnable = (USHORT)pAd->CommonCfg.BACapability.field.AmsduEnable;
-	pAd->CommonCfg.DesiredHtPhy.AmsduSize = (USHORT)pAd->CommonCfg.BACapability.field.AmsduSize;
-	pAd->CommonCfg.DesiredHtPhy.MimoPs = (USHORT)pAd->CommonCfg.BACapability.field.MMPSmode;
-	/* UPdata to HT IE*/
-	pAd->CommonCfg.HtCapability.HtCapInfo.MimoPs = (USHORT)pAd->CommonCfg.BACapability.field.MMPSmode;
-	pAd->CommonCfg.HtCapability.HtCapInfo.AMsduSize = (USHORT)pAd->CommonCfg.BACapability.field.AmsduSize;
-	pAd->CommonCfg.HtCapability.HtCapParm.MpduDensity = (UCHAR)pAd->CommonCfg.BACapability.field.MpduDensity;
-#endif /* DOT11_N_SUPPORT */
+	pAd->CommonCfg.DesiredHtPhy.MpduDensity =
+	    (UCHAR) pAd->CommonCfg.BACapability.field.MpduDensity;
+	pAd->CommonCfg.DesiredHtPhy.AmsduEnable =
+	    (USHORT) pAd->CommonCfg.BACapability.field.AmsduEnable;
+	pAd->CommonCfg.DesiredHtPhy.AmsduSize =
+	    (USHORT) pAd->CommonCfg.BACapability.field.AmsduSize;
+	pAd->CommonCfg.DesiredHtPhy.MimoPs =
+	    (USHORT) pAd->CommonCfg.BACapability.field.MMPSmode;
+	/* UPdata to HT IE */
+	pAd->CommonCfg.HtCapability.HtCapInfo.MimoPs =
+	    (USHORT) pAd->CommonCfg.BACapability.field.MMPSmode;
+	pAd->CommonCfg.HtCapability.HtCapInfo.AMsduSize =
+	    (USHORT) pAd->CommonCfg.BACapability.field.AmsduSize;
+	pAd->CommonCfg.HtCapability.HtCapParm.MpduDensity =
+	    (UCHAR) pAd->CommonCfg.BACapability.field.MpduDensity;
+#endif				/* DOT11_N_SUPPORT */
 
-	/* after reading Registry, we now know if in AP mode or STA mode*/
+	/* after reading Registry, we now know if in AP mode or STA mode */
 
 	DBGPRINT(RT_DEBUG_OFF, ("2. Phy Mode = %d\n", pAd->CommonCfg.PhyMode));
 
-	/* We should read EEPROM for all cases.  rt2860b*/
-	NICReadEEPROMParameters(pAd, (PSTRING)pDefaultMac);
+	/* We should read EEPROM for all cases.  rt2860b */
+	NICReadEEPROMParameters(pAd, (PSTRING) pDefaultMac);
 
 	DBGPRINT(RT_DEBUG_OFF, ("3. Phy Mode = %d\n", pAd->CommonCfg.PhyMode));
 
 #ifdef LED_CONTROL_SUPPORT
 	/* Send LED Setting to MCU */
-	RTMPInitLEDMode(pAd);	
-#endif /* LED_CONTROL_SUPPORT */
+	RTMPInitLEDMode(pAd);
+#endif				/* LED_CONTROL_SUPPORT */
 
-	NICInitAsicFromEEPROM(pAd); /* rt2860b */
+	NICInitAsicFromEEPROM(pAd);	/* rt2860b */
 
 #ifdef RALINK_ATE
-	if (ATEInit(pAd) != NDIS_STATUS_SUCCESS)
-	{
-		DBGPRINT(RT_DEBUG_ERROR, ("%s(): ATE initialization failed !\n", __FUNCTION__));
+	if (ATEInit(pAd) != NDIS_STATUS_SUCCESS) {
+		DBGPRINT(RT_DEBUG_ERROR,
+			 ("%s(): ATE initialization failed !\n", __FUNCTION__));
 		goto err6;
 	}
-#endif /* RALINK_ATE */
-
+#endif				/* RALINK_ATE */
 
 #ifdef RTMP_INTERNAL_TX_ALC
-	/* Initialize the desired TSSI table*/
+	/* Initialize the desired TSSI table */
 	RTMP_CHIP_ASIC_TSSI_TABLE_INIT(pAd);
-#endif /* RTMP_INTERNAL_TX_ALC */
+#endif				/* RTMP_INTERNAL_TX_ALC */
 
 #ifdef RTMP_TEMPERATURE_COMPENSATION
 	/* Temperature compensation, initialize the lookup table */
@@ -385,275 +372,266 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 
 	if (pAd->chipCap.bTempCompTxALC && pAd->bAutoTxAgcG)
 		InitLookupTable(pAd);
-#endif /* RTMP_TEMPERATURE_COMPENSATION */
+#endif				/* RTMP_TEMPERATURE_COMPENSATION */
 
-
-	/* Set PHY to appropriate mode*/
+	/* Set PHY to appropriate mode */
 	RTMPSetPhyMode(pAd, pAd->CommonCfg.PhyMode);
 
-	/* No valid channels.*/
-	if (pAd->ChannelListNum == 0)
-	{
-		DBGPRINT(RT_DEBUG_ERROR, ("Wrong configuration. No valid channel found. Check \"ContryCode\" and \"ChannelGeography\" setting.\n"));
+	/* No valid channels. */
+	if (pAd->ChannelListNum == 0) {
+		DBGPRINT(RT_DEBUG_ERROR,
+			 ("Wrong configuration. No valid channel found. Check \"ContryCode\" and \"ChannelGeography\" setting.\n"));
 		goto err6;
 	}
-
 #ifdef DOT11_N_SUPPORT
-	DBGPRINT(RT_DEBUG_OFF, ("MCS Set = %02x %02x %02x %02x %02x\n", pAd->CommonCfg.HtCapability.MCSSet[0],
-				pAd->CommonCfg.HtCapability.MCSSet[1], pAd->CommonCfg.HtCapability.MCSSet[2],
-				pAd->CommonCfg.HtCapability.MCSSet[3], pAd->CommonCfg.HtCapability.MCSSet[4]));
-#endif /* DOT11_N_SUPPORT */
-
+	DBGPRINT(RT_DEBUG_OFF,
+		 ("MCS Set = %02x %02x %02x %02x %02x\n",
+		  pAd->CommonCfg.HtCapability.MCSSet[0],
+		  pAd->CommonCfg.HtCapability.MCSSet[1],
+		  pAd->CommonCfg.HtCapability.MCSSet[2],
+		  pAd->CommonCfg.HtCapability.MCSSet[3],
+		  pAd->CommonCfg.HtCapability.MCSSet[4]));
+#endif				/* DOT11_N_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
 #ifdef AP_QLOAD_SUPPORT
 		QBSS_LoadInit(pAd);
-#endif /* AP_QLOAD_SUPPORT */
+#endif				/* AP_QLOAD_SUPPORT */
 	}
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
-	/* APInitialize(pAd);*/
+	/* APInitialize(pAd); */
 
 #ifdef IKANOS_VX_1X0
 	VR_IKANOS_FP_Init(pAd->ApCfg.BssidNum, pAd->PermanentAddress);
-#endif /* IKANOS_VX_1X0 */
+#endif				/* IKANOS_VX_1X0 */
 
 #ifdef RTMP_MAC_USB
 	AsicSendCommandToMcu(pAd, 0x31, 0xff, 0x00, 0x02, FALSE);
 	RTMPusecDelay(10000);
-#endif /* RTMP_MAC_USB */
+#endif				/* RTMP_MAC_USB */
 
 #ifdef RALINK_ATE
-#endif /* RALINK_ATE */
+#endif				/* RALINK_ATE */
 
 #ifdef CONFIG_AP_SUPPORT
-	
-	/* Initialize RF register to default value*/
-	
-	if (pAd->OpMode == OPMODE_AP)
-	{
+
+	/* Initialize RF register to default value */
+
+	if (pAd->OpMode == OPMODE_AP) {
 		AsicSwitchChannel(pAd, pAd->CommonCfg.Channel, FALSE);
 		AsicLockChannel(pAd, pAd->CommonCfg.Channel);
 	}
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 	/*
-		Some modules init must be called before APStartUp().
-		Or APStartUp() will make up beacon content and call
-		other modules API to get some information to fill.
-	*/
+	   Some modules init must be called before APStartUp().
+	   Or APStartUp() will make up beacon content and call
+	   other modules API to get some information to fill.
+	 */
 
-
-
-	if (pAd && (Status != NDIS_STATUS_SUCCESS))
-	{
-		if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE))
-		{
+	if (pAd && (Status != NDIS_STATUS_SUCCESS)) {
+		if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE)) {
 			RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE);
 		}
-	}
-	else if (pAd)
-	{
-		/* Microsoft HCT require driver send a disconnect event after driver initialization.*/
+	} else if (pAd) {
+		/* Microsoft HCT require driver send a disconnect event after driver initialization. */
 		OPSTATUS_CLEAR_FLAG(pAd, fOP_STATUS_MEDIA_STATE_CONNECTED);
 		OPSTATUS_CLEAR_FLAG(pAd, fOP_AP_STATUS_MEDIA_STATE_CONNECTED);
 		RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_MEDIA_STATE_CHANGE);
 
-		DBGPRINT(RT_DEBUG_TRACE, ("NDIS_STATUS_MEDIA_DISCONNECT Event B!\n"));
+		DBGPRINT(RT_DEBUG_TRACE,
+			 ("NDIS_STATUS_MEDIA_DISCONNECT Event B!\n"));
 
 #ifdef CONFIG_AP_SUPPORT
-		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-		{
-			if (pAd->ApCfg.bAutoChannelAtBootup || (pAd->CommonCfg.Channel == 0))
-			{	
-				/* Enable Interrupt first due to we need to scan channel to receive beacons.*/
+		IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
+			if (pAd->ApCfg.bAutoChannelAtBootup
+			    || (pAd->CommonCfg.Channel == 0)) {
+				/* Enable Interrupt first due to we need to scan channel to receive beacons. */
 				RTMP_IRQ_ENABLE(pAd);
 #ifdef RTMP_MAC_USB
-				RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_RESET_IN_PROGRESS);
-				RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_REMOVE_IN_PROGRESS);
+				RTMP_CLEAR_FLAG(pAd,
+						fRTMP_ADAPTER_RESET_IN_PROGRESS);
+				RTMP_CLEAR_FLAG(pAd,
+						fRTMP_ADAPTER_REMOVE_IN_PROGRESS);
 
-				
-				/* Support multiple BulkIn IRP,*/
-				/* the value on pAd->CommonCfg.NumOfBulkInIRP may be large than 1.*/
-				
-				for(index=0; index<pAd->CommonCfg.NumOfBulkInIRP; index++)
-				{
+				/* Support multiple BulkIn IRP, */
+				/* the value on pAd->CommonCfg.NumOfBulkInIRP may be large than 1. */
+
+				for (index = 0;
+				     index < pAd->CommonCfg.NumOfBulkInIRP;
+				     index++) {
 					RTUSBBulkReceive(pAd);
-					DBGPRINT(RT_DEBUG_TRACE, ("RTUSBBulkReceive!\n" ));
+					DBGPRINT(RT_DEBUG_TRACE,
+						 ("RTUSBBulkReceive!\n"));
 				}
 
-#endif /* RTMP_MAC_USB */
-				/* Now Enable RxTx*/
+#endif				/* RTMP_MAC_USB */
+				/* Now Enable RxTx */
 				RTMPEnableRxTx(pAd);
 				//RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_START_UP);
 
 				/* Let BBP register at 20MHz to do scan */
 				rtmp_bbp_set_bw(pAd, BW_20);
-				DBGPRINT(RT_DEBUG_ERROR, ("SYNC - BBP R4 to 20MHz.l\n"));
+				DBGPRINT(RT_DEBUG_ERROR,
+					 ("SYNC - BBP R4 to 20MHz.l\n"));
 
-				/* Now we can receive the beacon and do the listen beacon*/
-				/* use default BW to select channel*/
-				pAd->CommonCfg.Channel = AP_AUTO_CH_SEL(pAd, pAd->ApCfg.AutoChannelAlg);
+				/* Now we can receive the beacon and do the listen beacon */
+				/* use default BW to select channel */
+				pAd->CommonCfg.Channel =
+				    AP_AUTO_CH_SEL(pAd,
+						   pAd->ApCfg.AutoChannelAlg);
 				pAd->ApCfg.bAutoChannelAtBootup = FALSE;
 			}
-
 #ifdef DOT11_N_SUPPORT
 			/* If WMODE_CAP_N(phymode) and BW=40 check extension channel, after select channel  */
 			N_ChannelCheck(pAd);
 
 #ifdef DOT11N_DRAFT3
-        		/* 
-         			We only do this Overlapping BSS Scan when system up, for the 
-				other situation of channel changing, we depends on station's 
-				report to adjust ourself.
-			*/
-			if (pAd->CommonCfg.bForty_Mhz_Intolerant == TRUE)
-			{
-				DBGPRINT(RT_DEBUG_TRACE, ("Disable 20/40 BSSCoex Channel Scan(BssCoex=%d, 40MHzIntolerant=%d)\n", 
-											pAd->CommonCfg.bBssCoexEnable, 
-											pAd->CommonCfg.bForty_Mhz_Intolerant));
-			}
-			else if (pAd->CommonCfg.bBssCoexEnable == TRUE)
-			{
-				DBGPRINT(RT_DEBUG_TRACE, ("Enable 20/40 BSSCoex Channel Scan(BssCoex=%d)\n", 
-							pAd->CommonCfg.bBssCoexEnable));
+			/* 
+			   We only do this Overlapping BSS Scan when system up, for the 
+			   other situation of channel changing, we depends on station's 
+			   report to adjust ourself.
+			 */
+			if (pAd->CommonCfg.bForty_Mhz_Intolerant == TRUE) {
+				DBGPRINT(RT_DEBUG_TRACE,
+					 ("Disable 20/40 BSSCoex Channel Scan(BssCoex=%d, 40MHzIntolerant=%d)\n",
+					  pAd->CommonCfg.bBssCoexEnable,
+					  pAd->CommonCfg.
+					  bForty_Mhz_Intolerant));
+			} else if (pAd->CommonCfg.bBssCoexEnable == TRUE) {
+				DBGPRINT(RT_DEBUG_TRACE,
+					 ("Enable 20/40 BSSCoex Channel Scan(BssCoex=%d)\n",
+					  pAd->CommonCfg.bBssCoexEnable));
 				APOverlappingBSSScan(pAd);
 			}
 
 			RTMP_11N_D3_TimerInit(pAd);
 /*			RTMPInitTimer(pAd, &pAd->CommonCfg.Bss2040CoexistTimer, GET_TIMER_FUNCTION(Bss2040CoexistTimeOut), pAd, FALSE);*/
-#endif /* DOT11N_DRAFT3 */
-#endif /* DOT11_N_SUPPORT */
+#endif				/* DOT11N_DRAFT3 */
+#endif				/* DOT11_N_SUPPORT */
 
 			APStartUp(pAd);
-			DBGPRINT(RT_DEBUG_OFF, ("Main bssid = %02x:%02x:%02x:%02x:%02x:%02x\n",
-							PRINT_MAC(pAd->ApCfg.MBSSID[BSS0].Bssid)));
+			DBGPRINT(RT_DEBUG_OFF,
+				 ("Main bssid = %02x:%02x:%02x:%02x:%02x:%02x\n",
+				  PRINT_MAC(pAd->ApCfg.MBSSID[BSS0].Bssid)));
 		}
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 #ifdef RTMP_MAC_USB
 		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_RESET_IN_PROGRESS);
 		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_REMOVE_IN_PROGRESS);
 
-		/* Support multiple BulkIn IRP,*/
-		/* the value on pAd->CommonCfg.NumOfBulkInIRP may be large than 1.*/
-		for(index=0; index<pAd->CommonCfg.NumOfBulkInIRP; index++)
-		{
+		/* Support multiple BulkIn IRP, */
+		/* the value on pAd->CommonCfg.NumOfBulkInIRP may be large than 1. */
+		for (index = 0; index < pAd->CommonCfg.NumOfBulkInIRP; index++) {
 			RTUSBBulkReceive(pAd);
-			DBGPRINT(RT_DEBUG_TRACE, ("RTUSBBulkReceive!\n" ));
+			DBGPRINT(RT_DEBUG_TRACE, ("RTUSBBulkReceive!\n"));
 		}
-#endif /* RTMP_MAC_USB */
-	}/* end of else*/
+#endif				/* RTMP_MAC_USB */
+	}
 
-	/* Set up the Mac address*/
+	/* end of else */
+	/* Set up the Mac address */
 #ifdef CONFIG_AP_SUPPORT
-	RtmpOSNetDevAddrSet(pAd->OpMode, pAd->net_dev, &pAd->CurrentAddress[0], NULL);
-#endif /* CONFIG_AP_SUPPORT */
+	RtmpOSNetDevAddrSet(pAd->OpMode, pAd->net_dev, &pAd->CurrentAddress[0],
+			    NULL);
+#endif				/* CONFIG_AP_SUPPORT */
 
-	/* Various AP function init*/
+	/* Various AP function init */
 #ifdef CONFIG_AP_SUPPORT
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
 #ifdef MBSS_SUPPORT
 		/* the function can not be moved to RT2860_probe() even register_netdev()
 		   is changed as register_netdevice().
 		   Or in some PC, kernel will panic (Fedora 4) */
 /*		RT28xx_MBSS_Init(pAd, pAd->net_dev);  os abl move to rt_main_dev.c*/
-#endif /* MBSS_SUPPORT */
+#endif				/* MBSS_SUPPORT */
 
 #ifdef WDS_SUPPORT
 /*		RT28xx_WDS_Init(pAd, pAd->net_dev);*/
-#endif /* WDS_SUPPORT */
+#endif				/* WDS_SUPPORT */
 
 #ifdef APCLI_SUPPORT
 /*		RT28xx_ApCli_Init(pAd, pAd->net_dev);*/
-#endif /* APCLI_SUPPORT */
+#endif				/* APCLI_SUPPORT */
 	}
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 #ifdef UAPSD_SUPPORT
-        UAPSD_Init(pAd);
-#endif /* UAPSD_SUPPORT */
+	UAPSD_Init(pAd);
+#endif				/* UAPSD_SUPPORT */
 
-	/* assign function pointers*/
+	/* assign function pointers */
 #ifdef MAT_SUPPORT
 	/* init function pointers, used in OS_ABL */
 	RTMP_MATOpsInit(pAd);
-#endif /* MAT_SUPPORT */
-
-
-
+#endif				/* MAT_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
 #ifdef MAT_SUPPORT
 		MATEngineInit(pAd);
-#endif /* MAT_SUPPORT */
+#endif				/* MAT_SUPPORT */
 
 #ifdef CLIENT_WDS
 		CliWds_ProxyTabInit(pAd);
-#endif /* CLIENT_WDS */
+#endif				/* CLIENT_WDS */
 	}
-#endif /* CONFIG_AP_SUPPORT */
-
+#endif				/* CONFIG_AP_SUPPORT */
 
 	/* auto-fall back settings */
 #ifdef RANGE_EXTEND
 	RTMP_IO_WRITE32(pAd, HT_FBK_CFG1, 0xedcba980);
-#endif // RANGE_EXTEND //
+#endif				// RANGE_EXTEND //
 #ifdef DOT11N_SS3_SUPPORT
-	if (pAd->CommonCfg.TxStream >= 3)
-	{
+	if (pAd->CommonCfg.TxStream >= 3) {
 		RTMP_IO_WRITE32(pAd, TX_FBK_CFG_3S_0, 0x12111008);
 		RTMP_IO_WRITE32(pAd, TX_FBK_CFG_3S_1, 0x16151413);
 	}
-#endif /* DOT11N_SS3_SUPPORT */
+#endif				/* DOT11N_SS3_SUPPORT */
 
 #ifdef STREAM_MODE_SUPPORT
 	RtmpStreamModeInit(pAd);
-#endif /* STREAM_MODE_SUPPORT */
-
+#endif				/* STREAM_MODE_SUPPORT */
 
 #ifdef DOT11_N_SUPPORT
 #ifdef TXBF_SUPPORT
-	if (pAd->CommonCfg.ITxBfTimeout)
-	{
+	if (pAd->CommonCfg.ITxBfTimeout) {
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R179, 0x02);
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R180, 0);
-		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R182, pAd->CommonCfg.ITxBfTimeout & 0xFF);
+		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R182,
+					     pAd->CommonCfg.
+					     ITxBfTimeout & 0xFF);
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R180, 1);
-		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R182, (pAd->CommonCfg.ITxBfTimeout>>8) & 0xFF);
+		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R182,
+					     (pAd->CommonCfg.
+					      ITxBfTimeout >> 8) & 0xFF);
 	}
 
-	if (pAd->CommonCfg.ETxBfTimeout)
-	{
-		RTMP_IO_WRITE32(pAd, TX_TXBF_CFG_3, pAd->CommonCfg.ETxBfTimeout);
+	if (pAd->CommonCfg.ETxBfTimeout) {
+		RTMP_IO_WRITE32(pAd, TX_TXBF_CFG_3,
+				pAd->CommonCfg.ETxBfTimeout);
 	}
-#endif /* TXBF_SUPPORT */
-#endif /* DOT11_N_SUPPORT */
-
-
+#endif				/* TXBF_SUPPORT */
+#endif				/* DOT11_N_SUPPORT */
 
 #ifdef RT3290
-	if (IS_RT3290(pAd))
-	{
-		WLAN_FUN_CTRL_STRUC     WlanFunCtrl = {.word = 0};
-		RTMP_MAC_PWRSV_EN(pAd, TRUE, TRUE);	
+	if (IS_RT3290(pAd)) {
+		WLAN_FUN_CTRL_STRUC WlanFunCtrl = {.word = 0 };
+		RTMP_MAC_PWRSV_EN(pAd, TRUE, TRUE);
 		//
 		// Too much time for reading efuse(enter/exit L1), and our device will hang up
 		// Enable L1
 		//
 		RTMP_IO_READ32(pAd, WLAN_FUN_CTRL, &WlanFunCtrl.word);
-		if (WlanFunCtrl.field.WLAN_EN == TRUE)
-		{
+		if (WlanFunCtrl.field.WLAN_EN == TRUE) {
 			WlanFunCtrl.field.PCIE_APP0_CLK_REQ = FALSE;
 			RTMP_IO_WRITE32(pAd, WLAN_FUN_CTRL, WlanFunCtrl.word);
 		}
 	}
-#endif /* RT3290 */
+#endif				/* RT3290 */
 
 	DBGPRINT_S(Status, ("<==== rt28xx_init, Status=%x\n", Status));
 
@@ -661,97 +639,94 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 
 /*err7:
 	APStop(pAd);*/
-err6:
+ err6:
 
 #ifdef IGMP_SNOOP_SUPPORT
 	MultiCastFilterTableReset(&pAd->pMulticastFilterTable);
-#endif /* IGMP_SNOOP_SUPPORT */
+#endif				/* IGMP_SNOOP_SUPPORT */
 
 	MeasureReqTabExit(pAd);
 	TpcReqTabExit(pAd);
-err5:	
+ err5:
 	RtmpNetTaskExit(pAd);
 	UserCfgExit(pAd);
-err4:	
+ err4:
 	MlmeHalt(pAd);
 	//RTMP_TimerListRelease(pAd);
 	RTMP_AllTimerListRelease(pAd);
-err3:	
+ err3:
 	RtmpMgmtTaskExit(pAd);
 #ifdef RTMP_TIMER_TASK_SUPPORT
 	NdisFreeSpinLock(&pAd->TimerQLock);
-#endif /* RTMP_TIMER_TASK_SUPPORT */
-err2:
+#endif				/* RTMP_TIMER_TASK_SUPPORT */
+ err2:
 #ifdef RESOURCE_PRE_ALLOC
 	RTMPResetTxRxRingMemory(pAd);
 #else
 	RTMPFreeTxRxRingMemory(pAd);
-#endif /* RESOURCE_PRE_ALLOC */
+#endif				/* RESOURCE_PRE_ALLOC */
 
-err1:
+ err1:
 
 #ifdef RLT_MAC
 	MCUCtrlExit(pAd);
-#endif /* RLT_MAC */
+#endif				/* RLT_MAC */
 
 #ifdef CONFIG_AP_SUPPORT
-	/* Free BssTab & ChannelInfo tabbles.*/
+	/* Free BssTab & ChannelInfo tabbles. */
 	AutoChBssTableDestroy(pAd);
 	ChannelInfoDestroy(pAd);
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 #ifdef RT3290
 	if (IS_RT3290(pAd))
 		RTMPEnableWlan(pAd, FALSE, FALSE);
-#endif /* RT3290 */
+#endif				/* RT3290 */
 
 #ifdef DOT11_N_SUPPORT
-	if(pAd->mpdu_blk_pool.mem)
-		os_free_mem(pAd, pAd->mpdu_blk_pool.mem); /* free BA pool*/
-#endif /* DOT11_N_SUPPORT */
+	if (pAd->mpdu_blk_pool.mem)
+		os_free_mem(pAd, pAd->mpdu_blk_pool.mem);	/* free BA pool */
+#endif				/* DOT11_N_SUPPORT */
 
-	/* shall not set priv to NULL here because the priv didn't been free yet.*/
-	/*net_dev->priv = 0;*/
+	/* shall not set priv to NULL here because the priv didn't been free yet. */
+	/*net_dev->priv = 0; */
 #ifdef INF_AMAZON_SE
-err0:
-#endif /* INF_AMAZON_SE */
+ err0:
+#endif				/* INF_AMAZON_SE */
 #ifdef ST
-err0:
-#endif /* ST */
+ err0:
+#endif				/* ST */
 
 	DBGPRINT(RT_DEBUG_ERROR, ("rt28xx init fail\n"));
 	return FALSE;
 }
 
-
-VOID RTMPDrvOpen(
-	IN VOID	*pAdSrc)
+VOID RTMPDrvOpen(IN VOID * pAdSrc)
 {
-	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
+	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER) pAdSrc;
 
 	RTMP_CLEAR_PSFLAG(pAd, fRTMP_PS_MCU_SLEEP);
-
 
 #ifdef FPGA_MODE
 #ifdef CUSTOMER_DEMO
 	set_fpga_mode(pAd, "6");
-#endif /* CUSTOMER_DEMO */
-#endif /* FPGA_MODE */
+#endif				/* CUSTOMER_DEMO */
+#endif				/* FPGA_MODE */
 
-	/* Enable Interrupt*/
+	/* Enable Interrupt */
 	RTMP_IRQ_ENABLE(pAd);
 
-	/* Now Enable RxTx*/
+	/* Now Enable RxTx */
 	RTMPEnableRxTx(pAd);
 
 	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_START_UP);
 
 	{
 		UINT32 reg = 0;
-		RTMP_IO_READ32(pAd, 0x1300, &reg);  /* clear garbage interrupts*/
+		RTMP_IO_READ32(pAd, 0x1300, &reg);	/* clear garbage interrupts */
 #ifdef DBG
 		printk("0x1300 = %08x\n", reg);
-#endif /* DBG */
+#endif				/* DBG */
 	}
 
 /*	{
@@ -770,119 +745,121 @@ VOID RTMPDrvOpen(
 #ifdef CONFIG_AP_SUPPORT
 #ifdef BG_FT_SUPPORT
 	BG_FTPH_Init();
-#endif /* BG_FT_SUPPORT */
-#endif /* CONFIG_AP_SUPPORT */
-
+#endif				/* BG_FT_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 //+++Add by shiang for debug
-	DBGPRINT(RT_DEBUG_OFF, ("%s(1):Check if PDMA is idle!\n", __FUNCTION__));
+	DBGPRINT(RT_DEBUG_OFF,
+		 ("%s(1):Check if PDMA is idle!\n", __FUNCTION__));
 	AsicWaitPDMAIdle(pAd, 5, 10);
 //---Add by shiang for debug
 
 //+++Add by shiang for debug
-	DBGPRINT(RT_DEBUG_OFF, ("%s(2):Check if PDMA is idle!\n", __FUNCTION__));
+	DBGPRINT(RT_DEBUG_OFF,
+		 ("%s(2):Check if PDMA is idle!\n", __FUNCTION__));
 	AsicWaitPDMAIdle(pAd, 5, 10);
 //---Add by shiang for debug
-
 
 #ifdef WSC_INCLUDED
 #ifdef CONFIG_AP_SUPPORT
-	if (pAd->OpMode == OPMODE_AP)
-	{
+	if (pAd->OpMode == OPMODE_AP) {
 		INT index;
-		for (index = 0; index < pAd->ApCfg.BssidNum; index++)
-		{
+		for (index = 0; index < pAd->ApCfg.BssidNum; index++) {
 #ifdef HOSTAPD_SUPPORT
-			if (pAd->ApCfg.MBSSID[index].Hostapd == TRUE)
-			{
-				DBGPRINT(RT_DEBUG_TRACE, ("WPS is control by hostapd now.\n"));
-			}
-			else
-#endif /*HOSTAPD_SUPPORT*/
+			if (pAd->ApCfg.MBSSID[index].Hostapd == TRUE) {
+				DBGPRINT(RT_DEBUG_TRACE,
+					 ("WPS is control by hostapd now.\n"));
+			} else
+#endif				/*HOSTAPD_SUPPORT */
 			{
 				PWSC_CTRL pWscControl;
-				UCHAR zeros16[16]= {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+				UCHAR zeros16[16] =
+				    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0
+				};
 
-				pWscControl = &pAd->ApCfg.MBSSID[index].WscControl;
-				DBGPRINT(RT_DEBUG_TRACE, ("Generate UUID for apidx(%d)\n", index));
-				if (NdisEqualMemory(&pWscControl->Wsc_Uuid_E[0], zeros16, UUID_LEN_HEX))
-					WscGenerateUUID(pAd, &pWscControl->Wsc_Uuid_E[0], &pWscControl->Wsc_Uuid_Str[0], index, FALSE);
+				pWscControl =
+				    &pAd->ApCfg.MBSSID[index].WscControl;
+				DBGPRINT(RT_DEBUG_TRACE,
+					 ("Generate UUID for apidx(%d)\n",
+					  index));
+				if (NdisEqualMemory
+				    (&pWscControl->Wsc_Uuid_E[0], zeros16,
+				     UUID_LEN_HEX))
+					WscGenerateUUID(pAd,
+							&pWscControl->Wsc_Uuid_E
+							[0],
+							&pWscControl->
+							Wsc_Uuid_Str[0], index,
+							FALSE);
 				WscInit(pAd, FALSE, index);
 			}
 		}
 
 #ifdef APCLI_SUPPORT
-		for(index = 0; index < MAX_APCLI_NUM; index++)
-		{
-			PWSC_CTRL pWpsCtrl = &pAd->ApCfg.ApCliTab[index].WscControl;
+		for (index = 0; index < MAX_APCLI_NUM; index++) {
+			PWSC_CTRL pWpsCtrl =
+			    &pAd->ApCfg.ApCliTab[index].WscControl;
 
 			pWpsCtrl->pAd = pAd;
 			NdisZeroMemory(pWpsCtrl->EntryAddr, MAC_ADDR_LEN);
-			pWpsCtrl->WscConfigMethods= 0x018C;
-			RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_WSC_INIT, 0, (VOID *)&pAd->ApCfg.ApCliTab[index], index);
+			pWpsCtrl->WscConfigMethods = 0x018C;
+			RTMP_AP_IoctlHandle(pAd, NULL,
+					    CMD_RTPRIV_IOCTL_WSC_INIT, 0,
+					    (VOID *) & pAd->ApCfg.
+					    ApCliTab[index], index);
 		}
-#endif /* APCLI_SUPPORT */
+#endif				/* APCLI_SUPPORT */
 	}
-#endif /* CONFIG_AP_SUPPORT */
-
+#endif				/* CONFIG_AP_SUPPORT */
 
 	/* WSC hardware push button function 0811 */
 	WSC_HDR_BTN_Init(pAd);
-#endif /* WSC_INCLUDED */
+#endif				/* WSC_INCLUDED */
 
 #ifdef CONFIG_MULTI_CHANNEL
-		MultiChannelThreadInit(pAd);
-#endif /* CONFIG_MULTI_CHANNEL */
-
+	MultiChannelThreadInit(pAd);
+#endif				/* CONFIG_MULTI_CHANNEL */
 
 }
 
-
-VOID RTMPDrvClose(
-	IN VOID		*pAdSrc,
-	IN VOID		*net_dev)
+VOID RTMPDrvClose(IN VOID * pAdSrc, IN VOID * net_dev)
 {
-	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
-	BOOLEAN		Cancelled;
-	UINT32		i = 0;
-
+	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER) pAdSrc;
+	BOOLEAN Cancelled;
+	UINT32 i = 0;
 
 	Cancelled = FALSE;
-
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef BG_FT_SUPPORT
 	BG_FTPH_Remove();
-#endif /* BG_FT_SUPPORT */
-#endif /* CONFIG_AP_SUPPORT */
-
-
+#endif				/* BG_FT_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 #if ((defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)) && defined(WOW_IFDOWN_SUPPORT)
 	if (pAd->WOW_Cfg.bEnable == FALSE)
-#endif /* ((defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)) && defined(WOW_IFDOWN_SUPPORT) */
+#endif				/* ((defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)) && defined(WOW_IFDOWN_SUPPORT) */
 	{
 		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_MCU_SEND_IN_BAND_CMD);
 		RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS);
 	}
-
 #ifdef EXT_BUILD_CHANNEL_LIST
 	if (pAd->CommonCfg.pChDesp != NULL)
 		os_free_mem(NULL, pAd->CommonCfg.pChDesp);
 	pAd->CommonCfg.pChDesp = NULL;
 	pAd->CommonCfg.DfsType = MAX_RD_REGION;
-#endif /* EXT_BUILD_CHANNEL_LIST */
+#endif				/* EXT_BUILD_CHANNEL_LIST */
 	pAd->CommonCfg.bCountryFlag = FALSE;
 
 #ifdef WDS_SUPPORT
 	WdsDown(pAd);
-#endif /* WDS_SUPPORT */
+#endif				/* WDS_SUPPORT */
 
-	for (i = 0; i < NUM_OF_TX_RING; i++)
-	{
-		while (pAd->DeQueueRunning[i] == TRUE)
-		{
-			DBGPRINT(RT_DEBUG_TRACE, ("Waiting for TxQueue[%d] done\n", i));
+	for (i = 0; i < NUM_OF_TX_RING; i++) {
+		while (pAd->DeQueueRunning[i] == TRUE) {
+			DBGPRINT(RT_DEBUG_TRACE,
+				 ("Waiting for TxQueue[%d] done\n", i));
 			RTMPusecDelay(1000);
 		}
 	}
@@ -890,83 +867,79 @@ VOID RTMPDrvClose(
 #ifdef RTMP_MAC_USB
 	RtmpOsUsbEmptyUrbCheck(&pAd->wait, &pAd->BulkInLock, &pAd->PendingRx);
 
-#endif /* RTMP_MAC_USB */
+#endif				/* RTMP_MAC_USB */
 
 #ifdef CONFIG_AP_SUPPORT
 
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
 #ifdef RTMP_MAC_USB
 		RTMPCancelTimer(&pAd->CommonCfg.BeaconUpdateTimer, &Cancelled);
-#endif /* RTMP_MAC_USB */
+#endif				/* RTMP_MAC_USB */
 
 #ifdef DOT11N_DRAFT3
-		if (pAd->CommonCfg.Bss2040CoexistFlag & BSS_2040_COEXIST_TIMER_FIRED)
-		{
-			RTMPCancelTimer(&pAd->CommonCfg.Bss2040CoexistTimer, &Cancelled);
-			pAd->CommonCfg.Bss2040CoexistFlag  = 0;
+		if (pAd->CommonCfg.
+		    Bss2040CoexistFlag & BSS_2040_COEXIST_TIMER_FIRED) {
+			RTMPCancelTimer(&pAd->CommonCfg.Bss2040CoexistTimer,
+					&Cancelled);
+			pAd->CommonCfg.Bss2040CoexistFlag = 0;
 		}
-#endif /* DOT11N_DRAFT3 */
+#endif				/* DOT11N_DRAFT3 */
 
-		/* PeriodicTimer already been canceled by MlmeHalt() API.*/
-		/*RTMPCancelTimer(&pAd->PeriodicTimer,	&Cancelled);*/
+		/* PeriodicTimer already been canceled by MlmeHalt() API. */
+		/*RTMPCancelTimer(&pAd->PeriodicTimer,  &Cancelled); */
 	}
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
-	/* Stop Mlme state machine*/
+	/* Stop Mlme state machine */
 	MlmeHalt(pAd);
 
-	/* Close net tasklets*/
+	/* Close net tasklets */
 	RtmpNetTaskExit(pAd);
 
 #ifdef CONFIG_AP_SUPPORT
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
 #ifdef MAT_SUPPORT
 		MATEngineExit(pAd);
-#endif /* MAT_SUPPORT */
+#endif				/* MAT_SUPPORT */
 
 #ifdef CLIENT_WDS
 		CliWds_ProxyTabDestory(pAd);
-#endif /* CLIENT_WDS */
+#endif				/* CLIENT_WDS */
 		/* Shutdown Access Point function, release all related resources */
 		APShutdown(pAd);
 
 /*#ifdef AUTO_CH_SELECT_ENHANCE*/
-		/* Free BssTab & ChannelInfo tabbles.*/
+		/* Free BssTab & ChannelInfo tabbles. */
 /*		AutoChBssTableDestroy(pAd); */
 /*		ChannelInfoDestroy(pAd); */
 /*#endif  AUTO_CH_SELECT_ENHANCE */
 	}
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 	MeasureReqTabExit(pAd);
 	TpcReqTabExit(pAd);
 
 #ifdef LED_CONTROL_SUPPORT
 	RTMPExitLEDMode(pAd);
-#endif // LED_CONTROL_SUPPORT
+#endif				// LED_CONTROL_SUPPORT
 
-	/* Close kernel threads*/
+	/* Close kernel threads */
 	RtmpMgmtTaskExit(pAd);
 
-
 #ifdef CONFIG_AP_SUPPORT
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
 		/* must after RtmpMgmtTaskExit(); Or pAd->pChannelInfo will be NULL */
-		/* Free BssTab & ChannelInfo tabbles.*/
+		/* Free BssTab & ChannelInfo tabbles. */
 		AutoChBssTableDestroy(pAd);
 		ChannelInfoDestroy(pAd);
 	}
-#endif /* CONFIG_AP_SUPPORT */
-
+#endif				/* CONFIG_AP_SUPPORT */
 
 #ifdef RLT_MAC
 	MCUCtrlExit(pAd);
-#endif /* RLT_MAC */
+#endif				/* RLT_MAC */
 
-	/* Free IRQ*/
+	/* Free IRQ */
 	if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE))
 		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE);
 
@@ -974,38 +947,36 @@ VOID RTMPDrvClose(
 	{
 		CH_POWER *ch, *ch_temp;
 		ch = pAd->SingleSkuPwrList.pHead;
-		while (ch)
-		{
+		while (ch) {
 			ch_temp = ch->pNext;
-			delEntryList(&pAd->SingleSkuPwrList, (PLIST_ENTRY)ch);
+			delEntryList(&pAd->SingleSkuPwrList, (PLIST_ENTRY) ch);
 			os_free_mem(NULL, ch->Channel);
 			os_free_mem(NULL, ch);
 			ch = ch_temp;
 		}
 	}
-#endif /* SINGLE_SKU_V2 */
+#endif				/* SINGLE_SKU_V2 */
 
-	/* Free Ring or USB buffers*/
+	/* Free Ring or USB buffers */
 #ifdef RESOURCE_PRE_ALLOC
 	RTMPResetTxRxRingMemory(pAd);
 #else
-	/* Free Ring or USB buffers*/
+	/* Free Ring or USB buffers */
 	RTMPFreeTxRxRingMemory(pAd);
-#endif /* RESOURCE_PRE_ALLOC */
+#endif				/* RESOURCE_PRE_ALLOC */
 
 	RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS);
 
 #ifdef WLAN_SKB_RECYCLE
 	skb_queue_purge(&pAd->rx0_recycle);
-#endif /* WLAN_SKB_RECYCLE */
+#endif				/* WLAN_SKB_RECYCLE */
 
 #ifdef DOT11_N_SUPPORT
-	/* Free BA reorder resource*/
+	/* Free BA reorder resource */
 	ba_reordering_resource_release(pAd);
-#endif /* DOT11_N_SUPPORT */
+#endif				/* DOT11_N_SUPPORT */
 
-	UserCfgExit(pAd); /* must after ba_reordering_resource_release */
-
+	UserCfgExit(pAd);	/* must after ba_reordering_resource_release */
 
 	RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_START_UP);
 
@@ -1021,42 +992,35 @@ VOID RTMPDrvClose(
 	RTMP_AllTimerListRelease(pAd);
 
 #ifdef CONFIG_MULTI_CHANNEL
-		MultiChannelThreadExit(pAd);
-#endif /* CONFIG_MULTI_CHANNEL */
+	MultiChannelThreadExit(pAd);
+#endif				/* CONFIG_MULTI_CHANNEL */
 
 #ifdef RTMP_TIMER_TASK_SUPPORT
 	NdisFreeSpinLock(&pAd->TimerQLock);
-#endif /* RTMP_TIMER_TASK_SUPPORT */
+#endif				/* RTMP_TIMER_TASK_SUPPORT */
 }
 
-
-VOID RTMPInfClose(
-	IN VOID		*pAdSrc)
+VOID RTMPInfClose(IN VOID * pAdSrc)
 {
-	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
-
+	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER) pAdSrc;
 
 #ifdef CONFIG_AP_SUPPORT
 	pAd->ApCfg.MBSSID[MAIN_MBSSID].bBcnSntReq = FALSE;
 
-	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-	{
-		/* kick out all STAs behind the bss.*/
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd) {
+		/* kick out all STAs behind the bss. */
 		MbssKickOutStas(pAd, MAIN_MBSSID, REASON_DISASSOC_INACTIVE);
 	}
 
 	APMakeAllBssBeacon(pAd);
 	APUpdateAllBeaconFrame(pAd);
-#endif /* CONFIG_AP_SUPPORT */
-
-
+#endif				/* CONFIG_AP_SUPPORT */
 
 }
 
-PNET_DEV RtmpPhyNetDevMainCreate(
-	IN VOID		*pAdSrc)
+PNET_DEV RtmpPhyNetDevMainCreate(IN VOID * pAdSrc)
 {
-	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
+	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER) pAdSrc;
 	PNET_DEV pDevNew;
 	UINT32 MC_RowID = 0, IoctlIF = 0;
 
@@ -1064,17 +1028,18 @@ PNET_DEV RtmpPhyNetDevMainCreate(
 
 #ifdef MULTIPLE_CARD_SUPPORT
 	MC_RowID = pAd->MC_RowID;
-#endif /* MULTIPLE_CARD_SUPPORT */
+#endif				/* MULTIPLE_CARD_SUPPORT */
 #ifdef HOSTAPD_SUPPORT
 	IoctlIF = pAd->IoctlIF;
-#endif /* HOSTAPD_SUPPORT */
+#endif				/* HOSTAPD_SUPPORT */
 
-	pDevNew = RtmpOSNetDevCreate((INT32)MC_RowID, (UINT32 *)&IoctlIF,
-					INT_MAIN, 0, sizeof(PRTMP_ADAPTER), INF_MAIN_DEV_NAME);
+	pDevNew = RtmpOSNetDevCreate((INT32) MC_RowID, (UINT32 *) & IoctlIF,
+				     INT_MAIN, 0, sizeof(PRTMP_ADAPTER),
+				     INF_MAIN_DEV_NAME);
 
 #ifdef HOSTAPD_SUPPORT
 	pAd->IoctlIF = IoctlIF;
-#endif /* HOSTAPD_SUPPORT */
+#endif				/* HOSTAPD_SUPPORT */
 
 	return pDevNew;
 }

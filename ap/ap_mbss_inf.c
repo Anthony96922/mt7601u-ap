@@ -51,10 +51,8 @@
 #include "rt_os_util.h"
 #include "rt_os_net.h"
 
-
 /* --------------------------------- Public -------------------------------- */
-NET_DEV_STATS *RT28xx_get_ether_stats(
-    IN  PNET_DEV net_dev);
+NET_DEV_STATS *RT28xx_get_ether_stats(IN PNET_DEV net_dev);
 
 /*
 ========================================================================
@@ -75,11 +73,9 @@ Note:
 		it will not work! You must rmmod rt2860ap.ko and lsmod rt2860ap.ko again.
 ========================================================================
 */
-VOID RT28xx_MBSS_Init(
-	IN VOID *pAd,
-	IN PNET_DEV pDevMain)
+VOID RT28xx_MBSS_Init(IN VOID * pAd, IN PNET_DEV pDevMain)
 {
-	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
+	RTMP_OS_NETDEV_OP_HOOK netDevHook;
 
 	NdisZeroMemory(&netDevHook, sizeof(netDevHook));
 	netDevHook.open = MBSS_VirtualIF_Open;	/* device opem hook point */
@@ -89,9 +85,8 @@ VOID RT28xx_MBSS_Init(
 	netDevHook.get_stats = RT28xx_get_ether_stats;
 
 	RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_MBSS_INIT,
-						0, &netDevHook, 0);
+			    0, &netDevHook, 0);
 }
-
 
 /*
 ========================================================================
@@ -109,13 +104,11 @@ Note:
     Main BSS is not removed here.
 ========================================================================
 */
-VOID RT28xx_MBSS_Remove(
-	IN VOID 			*pAd)
+VOID RT28xx_MBSS_Remove(IN VOID * pAd)
 {
-	RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_MBSS_REMOVE, 0, NULL, 0);
+	RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_MBSS_REMOVE, 0, NULL,
+			    0);
 }
-
-
 
 /* --------------------------------- Private -------------------------------- */
 /*
@@ -133,13 +126,13 @@ Return Value:
 Note:
 ========================================================================
 */
-INT MBSS_VirtualIF_Open(
-	IN	PNET_DEV	pDev)
+INT MBSS_VirtualIF_Open(IN PNET_DEV pDev)
 {
 	VOID *pAd;
 
-
-	DBGPRINT(RT_DEBUG_TRACE, ("%s: ===> MBSSVirtualIF_open\n", RTMP_OS_NETDEV_GET_DEVNAME(pDev)));
+	DBGPRINT(RT_DEBUG_TRACE,
+		 ("%s: ===> MBSSVirtualIF_open\n",
+		  RTMP_OS_NETDEV_GET_DEVNAME(pDev)));
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(pDev);
 
@@ -156,7 +149,6 @@ INT MBSS_VirtualIF_Open(
 	return 0;
 }
 
-
 /*
 ========================================================================
 Routine Description:
@@ -172,16 +164,16 @@ Return Value:
 Note:
 ========================================================================
 */
-INT MBSS_VirtualIF_Close(
-	IN	PNET_DEV	pDev)
+INT MBSS_VirtualIF_Close(IN PNET_DEV pDev)
 {
 	VOID *pAd;
 
-
-	DBGPRINT(RT_DEBUG_TRACE, ("%s: ===> MBSSVirtualIF_close\n", RTMP_OS_NETDEV_GET_DEVNAME(pDev)));
+	DBGPRINT(RT_DEBUG_TRACE,
+		 ("%s: ===> MBSSVirtualIF_close\n",
+		  RTMP_OS_NETDEV_GET_DEVNAME(pDev)));
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(pDev);
-	
+
 	RTMP_OS_NETDEV_STOP_QUEUE(pDev);
 
 	RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_MBSS_CLOSE, 0, pDev, 0);
@@ -191,7 +183,6 @@ INT MBSS_VirtualIF_Close(
 	RT_MOD_DEC_USE_COUNT();
 	return 0;
 }
-
 
 /*
 ========================================================================
@@ -209,15 +200,12 @@ Return Value:
 Note:
 ========================================================================
 */
-INT MBSS_VirtualIF_PacketSend(
-	IN PNDIS_PACKET			pPktSrc, 
-	IN PNET_DEV				pDev)
+INT MBSS_VirtualIF_PacketSend(IN PNDIS_PACKET pPktSrc, IN PNET_DEV pDev)
 {
 
 	MEM_DBG_PKT_ALLOC_INC(pPktSrc);
 
-	if(!(RTMP_OS_NETDEV_STATE_RUNNING(pDev)))
-	{
+	if (!(RTMP_OS_NETDEV_STATE_RUNNING(pDev))) {
 		/* the interface is down */
 		RELEASE_NDIS_PACKET(NULL, pPktSrc, NDIS_STATUS_FAILURE);
 		return 0;
@@ -225,7 +213,6 @@ INT MBSS_VirtualIF_PacketSend(
 
 	return MBSS_PacketSend(pPktSrc, pDev, rt28xx_packet_xmit);
 }
-
 
 /*
 ========================================================================
@@ -246,10 +233,8 @@ Note:
                             report link failure activity.
 ========================================================================
 */
-INT MBSS_VirtualIF_Ioctl(
-	IN PNET_DEV				pDev, 
-	IN OUT VOID 			*pIoCtrl, 
-	IN INT 					Command)
+INT MBSS_VirtualIF_Ioctl(IN PNET_DEV pDev,
+			 IN OUT VOID * pIoCtrl, IN INT Command)
 {
 	VOID *pAd;
 
@@ -266,4 +251,4 @@ INT MBSS_VirtualIF_Ioctl(
 	return rt28xx_ioctl(pDev, pIoCtrl, Command);
 }
 
-#endif /* MBSS_SUPPORT */
+#endif				/* MBSS_SUPPORT */

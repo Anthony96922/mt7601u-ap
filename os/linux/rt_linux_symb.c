@@ -20,7 +20,6 @@
 #include "rtmp_osabl.h"
 #include "rt_os_util.h"
 
-
 #ifdef OS_ABL_FUNC_SUPPORT
 
 EXPORT_SYMBOL(RTDebugLevel);
@@ -72,17 +71,17 @@ EXPORT_SYMBOL(RtmpThreadPidKill);
 EXPORT_SYMBOL(RtmpOsPktRcvHandle);
 #ifdef IAPP_SUPPORT
 EXPORT_SYMBOL(RtmpOsPktIappMakeUp);
-#endif /* IAPP_SUPPORT */
+#endif				/* IAPP_SUPPORT */
 EXPORT_SYMBOL(RtmpOsPktInit);
 #ifdef CONFIG_AP_SUPPORT
 EXPORT_SYMBOL(VLAN_8023_Header_Copy);
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 EXPORT_SYMBOL(wlan_802_11_to_802_3_packet);
 EXPORT_SYMBOL(RtmpOsPktOffsetInit);
 
 #ifdef HDR_TRANS_SUPPORT
 EXPORT_SYMBOL(RtmpOsSetPacket);
-#endif /* HDR_TRANS_SUPPORT */
+#endif				/* HDR_TRANS_SUPPORT */
 
 EXPORT_SYMBOL(RtmpOSNetDevCreate);
 EXPORT_SYMBOL(RtmpOSNetDevClose);
@@ -155,7 +154,6 @@ EXPORT_SYMBOL(RtmpOsGetSystemUpTime);
 
 EXPORT_SYMBOL(RtmpOsDCacheFlush);
 
-
 EXPORT_SYMBOL(RtmpOsNtohs);
 EXPORT_SYMBOL(RtmpOsHtons);
 EXPORT_SYMBOL(RtmpOsNtohl);
@@ -199,7 +197,7 @@ EXPORT_SYMBOL(RtmpOsAtomicInterlockedExchange);
 #ifdef DBG
 EXPORT_SYMBOL(RtmpDrvAllMacPrint);
 EXPORT_SYMBOL(RtmpDrvAllE2PPrint);
-#endif /* DBG */
+#endif				/* DBG */
 
 EXPORT_SYMBOL(RtmpMeshDown);
 EXPORT_SYMBOL(RtmpOSIRQRelease);
@@ -221,7 +219,7 @@ EXPORT_SYMBOL(CFG80211OS_Scaning);
 EXPORT_SYMBOL(CFG80211OS_ScanEnd);
 EXPORT_SYMBOL(CFG80211OS_ConnectResultInform);
 EXPORT_SYMBOL(CFG80211OS_SupBandReInit);
-#endif /* RT_CFG80211_SUPPORT */
+#endif				/* RT_CFG80211_SUPPORT */
 
 /* global variables */
 EXPORT_SYMBOL(RTPktOffsetData);
@@ -231,12 +229,12 @@ EXPORT_SYMBOL(RTPktOffsetCB);
 #ifdef VENDOR_FEATURE4_SUPPORT
 EXPORT_SYMBOL(OS_NumOfMemAlloc);
 EXPORT_SYMBOL(OS_NumOfMemFree);
-#endif /* VENDOR_FEATURE4_SUPPORT */
+#endif				/* VENDOR_FEATURE4_SUPPORT */
 
 #ifdef VENDOR_FEATURE2_SUPPORT
 EXPORT_SYMBOL(OS_NumOfPktAlloc);
 EXPORT_SYMBOL(OS_NumOfPktFree);
-#endif /* VENDOR_FEATURE2_SUPPORT */
+#endif				/* VENDOR_FEATURE2_SUPPORT */
 
 /* only for AP */
 #ifdef CONFIG_AP_SUPPORT
@@ -244,10 +242,8 @@ EXPORT_SYMBOL(duplicate_pkt_with_VLAN);
 #ifdef BG_FT_SUPPORT
 EXPORT_SYMBOL(BG_FTPH_Init);
 EXPORT_SYMBOL(BG_FTPH_Remove);
-#endif /* BG_FT_SUPPORT */
-#endif /* CONFIG_AP_SUPPORT */
-
-
+#endif				/* BG_FT_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
 /* only for PCI */
 
@@ -265,14 +261,13 @@ EXPORT_SYMBOL(RtmpOsUsbStatusGet);
 EXPORT_SYMBOL(RtmpOsUsbDmaMapping);
 EXPORT_SYMBOL(RtmpOsGetUsbDevVendorID);
 EXPORT_SYMBOL(RtmpOsGetUsbDevProductID);
-#endif /* RTMP_MAC_USB */
+#endif				/* RTMP_MAC_USB */
 
 /* only for RBUS or flash-capable concurrent devices */
-#if defined(RTMP_RBUS_SUPPORT) || defined (RTMP_FLASH_SUPPORT) 
+#if defined(RTMP_RBUS_SUPPORT) || defined (RTMP_FLASH_SUPPORT)
 EXPORT_SYMBOL(RtmpFlashRead);
 EXPORT_SYMBOL(RtmpFlashWrite);
-#endif /* defined(RTMP_RBUS_SUPPORT) || defined (RTMP_FLASH_SUPPORT)  */
-
+#endif				/* defined(RTMP_RBUS_SUPPORT) || defined (RTMP_FLASH_SUPPORT)  */
 
 EXPORT_SYMBOL(RtPrivIoctlSetVal);
 
@@ -280,10 +275,10 @@ EXPORT_SYMBOL(RtPrivIoctlSetVal);
 EXPORT_SYMBOL(RtmpInitCompletion);
 EXPORT_SYMBOL(RtmpWaitForCompletionTimeout);
 EXPORT_SYMBOL(RtmpComplete);
-#endif /* RTMP_USB_SUPPORT */
+#endif				/* RTMP_USB_SUPPORT */
 EXPORT_SYMBOL(RtmpMsecsToJiffies);
 
 #ifdef DBG
 EXPORT_SYMBOL(RtmpDrvAllRFPrint);
-#endif /* DBG */
-#endif /* OS_ABL_SUPPORT */
+#endif				/* DBG */
+#endif				/* OS_ABL_SUPPORT */

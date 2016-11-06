@@ -5,5 +5,4 @@
 
 EXPORT_SYMBOL(RTMP_DRV_OPS_FUNCTION);
 
-#endif /* OS_ABL_SUPPORT */
-
+#endif				/* OS_ABL_SUPPORT */

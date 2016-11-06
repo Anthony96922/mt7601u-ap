@@ -46,7 +46,6 @@
 #define MODULE_MBSS
 #include "rt_config.h"
 
-
 /* --------------------------------- Public -------------------------------- */
 /*
 ========================================================================
@@ -68,18 +67,15 @@ Note:
 ========================================================================
 */
 
-extern void RtmpOSNetDevProtect(
-	IN BOOLEAN lock_it);
+extern void RtmpOSNetDevProtect(IN BOOLEAN lock_it);
 
-VOID MBSS_Init(
-	IN PRTMP_ADAPTER 		pAd,
-	IN RTMP_OS_NETDEV_OP_HOOK	*pNetDevOps)
+VOID MBSS_Init(IN PRTMP_ADAPTER pAd, IN RTMP_OS_NETDEV_OP_HOOK * pNetDevOps)
 {
 #define MBSS_MAX_DEV_NUM	32
 	PNET_DEV pDevNew;
 	INT32 IdBss, MaxNumBss;
 	INT status;
-	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
+	RTMP_OS_NETDEV_OP_HOOK netDevHook;
 
 	/* sanity check to avoid redundant virtual interfaces are created */
 	if (pAd->FlgMbssInit != FALSE)
@@ -91,43 +87,48 @@ VOID MBSS_Init(
 		MaxNumBss = MAX_MBSSID_NUM(pAd);
 
 	/* first IdBss must not be 0 (BSS0), must be 1 (BSS1) */
-	for(IdBss = FIRST_MBSSID; IdBss < MAX_MBSSID_NUM(pAd); IdBss++)
+	for (IdBss = FIRST_MBSSID; IdBss < MAX_MBSSID_NUM(pAd); IdBss++)
 		pAd->ApCfg.MBSSID[IdBss].MSSIDDev = NULL;
 
 	/* create virtual network interface */
-	for (IdBss = FIRST_MBSSID; IdBss < MaxNumBss; IdBss++)
-	{
+	for (IdBss = FIRST_MBSSID; IdBss < MaxNumBss; IdBss++) {
 		UINT32 MC_RowID = 0, IoctlIF = 0;
 #ifdef MULTIPLE_CARD_SUPPORT
 		MC_RowID = pAd->MC_RowID;
-#endif /* MULTIPLE_CARD_SUPPORT */
+#endif				/* MULTIPLE_CARD_SUPPORT */
 #ifdef HOSTAPD_SUPPORT
 		IoctlIF = pAd->IoctlIF;
-#endif /* HOSTAPD_SUPPORT */
-		pDevNew = RtmpOSNetDevCreate(MC_RowID, &IoctlIF, INT_MBSSID, IdBss, sizeof(PRTMP_ADAPTER), INF_MBSSID_DEV_NAME);
+#endif				/* HOSTAPD_SUPPORT */
+		pDevNew =
+		    RtmpOSNetDevCreate(MC_RowID, &IoctlIF, INT_MBSSID, IdBss,
+				       sizeof(PRTMP_ADAPTER),
+				       INF_MBSSID_DEV_NAME);
 #ifdef HOSTAPD_SUPPORT
 		pAd->IoctlIF = IoctlIF;
-#endif /* HOSTAPD_SUPPORT */
-		if (pDevNew == NULL)
-		{
+#endif				/* HOSTAPD_SUPPORT */
+		if (pDevNew == NULL) {
 			/* allocation fail, exit */
-			pAd->ApCfg.BssidNum = IdBss; /* re-assign new MBSS number */
-			DBGPRINT(RT_DEBUG_ERROR, ("Allocate network device fail (MBSS)...\n"));
+			pAd->ApCfg.BssidNum = IdBss;	/* re-assign new MBSS number */
+			DBGPRINT(RT_DEBUG_ERROR,
+				 ("Allocate network device fail (MBSS)...\n"));
 			break;
-		}
-		else
-			DBGPRINT(RT_DEBUG_TRACE, ("Register MBSSID IF (%s)\n", RTMP_OS_NETDEV_GET_DEVNAME(pDevNew)));
+		} else
+			DBGPRINT(RT_DEBUG_TRACE,
+				 ("Register MBSSID IF (%s)\n",
+				  RTMP_OS_NETDEV_GET_DEVNAME(pDevNew)));
 
 		RTMP_OS_NETDEV_SET_PRIV(pDevNew, pAd);
-		
+
 		/* init operation functions and flags */
 		NdisCopyMemory(&netDevHook, pNetDevOps, sizeof(netDevHook));
 
-		netDevHook.priv_flags = INT_MBSSID; /* We are virtual interface */
+		netDevHook.priv_flags = INT_MBSSID;	/* We are virtual interface */
 		netDevHook.needProtcted = TRUE;
 
 		/* Init MAC address of virtual network interface */
-		NdisMoveMemory(&netDevHook.devAddr[0], &pAd->ApCfg.MBSSID[IdBss].Bssid[0], MAC_ADDR_LEN);
+		NdisMoveMemory(&netDevHook.devAddr[0],
+			       &pAd->ApCfg.MBSSID[IdBss].Bssid[0],
+			       MAC_ADDR_LEN);
 
 		/* backup our virtual network interface */
 		pAd->ApCfg.MBSSID[IdBss].MSSIDDev = pDevNew;
@@ -138,7 +139,6 @@ VOID MBSS_Init(
 	}
 	pAd->FlgMbssInit = TRUE;
 }
-
 
 /*
 ========================================================================
@@ -156,20 +156,15 @@ Note:
     Main BSS is not removed here.
 ========================================================================
 */
-VOID MBSS_Remove(
-	IN PRTMP_ADAPTER 	pAd)
+VOID MBSS_Remove(IN PRTMP_ADAPTER pAd)
 {
 	MULTISSID_STRUCT *pMbss;
 	UINT IdBss;
 
-
-
-	for(IdBss=FIRST_MBSSID; IdBss<MAX_MBSSID_NUM(pAd); IdBss++)
-	{
+	for (IdBss = FIRST_MBSSID; IdBss < MAX_MBSSID_NUM(pAd); IdBss++) {
 		pMbss = &pAd->ApCfg.MBSSID[IdBss];
 		RtmpOSNetDevProtect(1);
-		if (pMbss->MSSIDDev)
-		{
+		if (pMbss->MSSIDDev) {
 			RtmpOSNetDevDetach(pMbss->MSSIDDev);
 			RtmpOSNetDevProtect(0);
 			RtmpOSNetDevFree(pMbss->MSSIDDev);
@@ -181,7 +176,6 @@ VOID MBSS_Remove(
 		RtmpOSNetDevProtect(0);
 	}
 }
-
 
 /*
 ========================================================================
@@ -199,17 +193,13 @@ Return Value:
 Note:
 ========================================================================
 */
-INT32 RT28xx_MBSS_IdxGet(
-	IN PRTMP_ADAPTER	pAd,
-	IN PNET_DEV			pDev)
+INT32 RT28xx_MBSS_IdxGet(IN PRTMP_ADAPTER pAd, IN PNET_DEV pDev)
 {
 	INT32 BssId = -1;
 	INT32 IdBss;
 
-	for (IdBss = 0; IdBss<pAd->ApCfg.BssidNum; IdBss++)
-	{
-		if (pAd->ApCfg.MBSSID[IdBss].MSSIDDev == pDev)
-		{
+	for (IdBss = 0; IdBss < pAd->ApCfg.BssidNum; IdBss++) {
+		if (pAd->ApCfg.MBSSID[IdBss].MSSIDDev == pDev) {
 			BssId = IdBss;
 			break;
 		}
@@ -217,7 +207,6 @@ INT32 RT28xx_MBSS_IdxGet(
 
 	return BssId;
 }
-
 
 /*
 ========================================================================
@@ -234,8 +223,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT MBSS_Open(
-	IN	PNET_DEV		pDev)
+INT MBSS_Open(IN PNET_DEV pDev)
 {
 	PRTMP_ADAPTER pAd;
 	INT BssId;
@@ -247,7 +235,6 @@ INT MBSS_Open(
 	pAd->ApCfg.MBSSID[BssId].bBcnSntReq = TRUE;
 	return 0;
 }
-
 
 /*
 ========================================================================
@@ -264,8 +251,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT MBSS_Close(
-	IN	PNET_DEV		pDev)
+INT MBSS_Close(IN PNET_DEV pDev)
 {
 	PRTMP_ADAPTER pAd;
 	INT BssId;
@@ -288,7 +274,6 @@ INT MBSS_Close(
 	return 0;
 }
 
-
 /*
 ========================================================================
 Routine Description:
@@ -305,49 +290,42 @@ Return Value:
 Note:
 ========================================================================
 */
-int MBSS_PacketSend(
-	IN	PNDIS_PACKET			pPktSrc, 
-	IN	PNET_DEV			pDev,
-	IN	RTMP_NET_PACKET_TRANSMIT	Func)
+int MBSS_PacketSend(IN PNDIS_PACKET pPktSrc,
+		    IN PNET_DEV pDev, IN RTMP_NET_PACKET_TRANSMIT Func)
 {
-	RTMP_ADAPTER     *pAd;
+	RTMP_ADAPTER *pAd;
 	MULTISSID_STRUCT *pMbss;
-	PNDIS_PACKET     pPkt = (PNDIS_PACKET)pPktSrc;
-	INT              IdBss;
-
+	PNDIS_PACKET pPkt = (PNDIS_PACKET) pPktSrc;
+	INT IdBss;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(pDev);
 	ASSERT(pAd);
 
 #ifdef RALINK_ATE
-	if (ATE_ON(pAd))
-	{
+	if (ATE_ON(pAd)) {
 		RELEASE_NDIS_PACKET(pAd, pPkt, NDIS_STATUS_FAILURE);
 		return 0;
 	}
-#endif /* RALINK_ATE */
+#endif				/* RALINK_ATE */
 
 	if ((RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_BSS_SCAN_IN_PROGRESS)) ||
-		(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RADIO_OFF))          ||
-		(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RESET_IN_PROGRESS)))
-	{
+	    (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RADIO_OFF)) ||
+	    (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RESET_IN_PROGRESS))) {
 		/* wlan is scanning/disabled/reset */
 		RELEASE_NDIS_PACKET(pAd, pPkt, NDIS_STATUS_FAILURE);
 		return 0;
 	}
 
-
 	/* 0 is main BSS, dont handle it here */
 	/* FIRST_MBSSID = 1 */
 	pMbss = pAd->ApCfg.MBSSID;
 
-	for(IdBss = FIRST_MBSSID; IdBss < pAd->ApCfg.BssidNum; IdBss++)
-	{
+	for (IdBss = FIRST_MBSSID; IdBss < pAd->ApCfg.BssidNum; IdBss++) {
 		/* find the device in our MBSS list */
-		if (pMbss[IdBss].MSSIDDev == pDev)
-		{
+		if (pMbss[IdBss].MSSIDDev == pDev) {
 /*			NdisZeroMemory((PUCHAR)&(RTPKT_TO_OSPKT(pPktSrc))->cb[CB_OFF], 15); */
-			NdisZeroMemory((PUCHAR)(GET_OS_PKT_CB(pPktSrc) + CB_OFF), 15);
+			NdisZeroMemory((PUCHAR)
+				       (GET_OS_PKT_CB(pPktSrc) + CB_OFF), 15);
 			RTMP_SET_PACKET_NET_DEVICE_MBSSID(pPktSrc, IdBss);
 /*			SET_OS_PKT_NETDEV(pPktSrc, pDev); */
 
@@ -362,5 +340,4 @@ int MBSS_PacketSend(
 	return 0;
 }
 
-
-#endif /* MBSS_SUPPORT */
+#endif				/* MBSS_SUPPORT */

@@ -27,8 +27,7 @@
 #include "rt_config.h"
 
 /*BaSizeArray follows the 802.11n definition as MaxRxFactor.  2^(13+factor) bytes. When factor =0, it's about Ba buffer size =8.*/
-UCHAR BaSizeArray[4] = {8,16,32,64};
-
+UCHAR BaSizeArray[4] = { 8, 16, 32, 64 };
 
 extern COUNTRY_REGION_CH_DESC Country_Region_ChDesc_2GHZ[];
 extern UINT16 const Country_Region_GroupNum_2GHZ;
@@ -47,25 +46,22 @@ extern UINT16 const Country_Region_GroupNum_5GHZ;
 	
 	==========================================================================
  */
-VOID BuildChannelList(
-	IN PRTMP_ADAPTER pAd)
+VOID BuildChannelList(IN PRTMP_ADAPTER pAd)
 {
-	UCHAR i, j, index=0, num=0;
+	UCHAR i, j, index = 0, num = 0;
 	PCH_DESC pChDesc = NULL;
 	BOOLEAN bRegionFound = FALSE;
 	PUCHAR pChannelList;
 	PUCHAR pChannelListFlag;
 
-	NdisZeroMemory(pAd->ChannelList, MAX_NUM_OF_CHANNELS * sizeof(CHANNEL_TX_POWER));
+	NdisZeroMemory(pAd->ChannelList,
+		       MAX_NUM_OF_CHANNELS * sizeof(CHANNEL_TX_POWER));
 
-	/* if not 11a-only mode, channel list starts from 2.4Ghz band*/
-	if (!WMODE_5G_ONLY(pAd->CommonCfg.PhyMode))
-	{
-		for (i = 0; i < Country_Region_GroupNum_2GHZ; i++)
-		{
+	/* if not 11a-only mode, channel list starts from 2.4Ghz band */
+	if (!WMODE_5G_ONLY(pAd->CommonCfg.PhyMode)) {
+		for (i = 0; i < Country_Region_GroupNum_2GHZ; i++) {
 			if ((pAd->CommonCfg.CountryRegion & 0x7f) ==
-				Country_Region_ChDesc_2GHZ[i].RegionIndex)
-			{
+			    Country_Region_ChDesc_2GHZ[i].RegionIndex) {
 				pChDesc = Country_Region_ChDesc_2GHZ[i].pChDesc;
 				num = TotalChNum(pChDesc);
 				bRegionFound = TRUE;
@@ -73,52 +69,62 @@ VOID BuildChannelList(
 			}
 		}
 
-		if (!bRegionFound)
-		{
-			DBGPRINT(RT_DEBUG_ERROR,("CountryRegion=%d not support", pAd->CommonCfg.CountryRegion));
-			return;		
+		if (!bRegionFound) {
+			DBGPRINT(RT_DEBUG_ERROR,
+				 ("CountryRegion=%d not support",
+				  pAd->CommonCfg.CountryRegion));
+			return;
 		}
 
-		if (num > 0)
-		{
-			os_alloc_mem(NULL, (UCHAR **)&pChannelList, num * sizeof(UCHAR));
+		if (num > 0) {
+			os_alloc_mem(NULL, (UCHAR **) & pChannelList,
+				     num * sizeof(UCHAR));
 
-			if (!pChannelList)
-			{
-				DBGPRINT(RT_DEBUG_ERROR,("%s:Allocate memory for ChannelList failed\n", __FUNCTION__));
+			if (!pChannelList) {
+				DBGPRINT(RT_DEBUG_ERROR,
+					 ("%s:Allocate memory for ChannelList failed\n",
+					  __FUNCTION__));
 				return;
 			}
 
-			os_alloc_mem(NULL, (UCHAR **)&pChannelListFlag, num * sizeof(UCHAR));
+			os_alloc_mem(NULL, (UCHAR **) & pChannelListFlag,
+				     num * sizeof(UCHAR));
 
-			if (!pChannelListFlag)
-			{
-				DBGPRINT(RT_DEBUG_ERROR,("%s:Allocate memory for ChannelListFlag failed\n", __FUNCTION__));
+			if (!pChannelListFlag) {
+				DBGPRINT(RT_DEBUG_ERROR,
+					 ("%s:Allocate memory for ChannelListFlag failed\n",
+					  __FUNCTION__));
 				os_free_mem(NULL, pChannelList);
-				return;	
+				return;
 			}
 
-			for (i = 0; i < num; i++)
-			{
+			for (i = 0; i < num; i++) {
 				pChannelList[i] = GetChannel_2GHZ(pChDesc, i);
-				pChannelListFlag[i] = GetChannelFlag(pChDesc, i);
+				pChannelListFlag[i] =
+				    GetChannelFlag(pChDesc, i);
 			}
 
-			for (i = 0; i < num; i++)
-			{
-				for (j = 0; j < MAX_NUM_OF_CHANNELS; j++)
-				{
-					if (pChannelList[i] == pAd->TxPower[j].Channel)
-						NdisMoveMemory(&pAd->ChannelList[index+i], &pAd->TxPower[j], sizeof(CHANNEL_TX_POWER));
-						pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
+			for (i = 0; i < num; i++) {
+				for (j = 0; j < MAX_NUM_OF_CHANNELS; j++) {
+					if (pChannelList[i] ==
+					    pAd->TxPower[j].Channel)
+						NdisMoveMemory(&pAd->ChannelList
+							       [index + i],
+							       &pAd->TxPower[j],
+							       sizeof
+							       (CHANNEL_TX_POWER));
+					pAd->ChannelList[index + i].Flags =
+					    pChannelListFlag[i];
 				}
 
 #ifdef DOT11_N_SUPPORT
-						if (N_ChannelGroupCheck(pAd, pAd->ChannelList[index + i].Channel))
-							pAd->ChannelList[index + i].Flags |= CHANNEL_40M_CAP;
-#endif /* DOT11_N_SUPPORT */
+				if (N_ChannelGroupCheck
+				    (pAd, pAd->ChannelList[index + i].Channel))
+					pAd->ChannelList[index + i].Flags |=
+					    CHANNEL_40M_CAP;
+#endif				/* DOT11_N_SUPPORT */
 
-				pAd->ChannelList[index+i].MaxTxPwr = 20;
+				pAd->ChannelList[index + i].MaxTxPwr = 20;
 			}
 
 			index += num;
@@ -130,13 +136,10 @@ VOID BuildChannelList(
 		num = 0;
 	}
 
-	if (WMODE_CAP_5G(pAd->CommonCfg.PhyMode))
-	{
-		for (i = 0; i < Country_Region_GroupNum_5GHZ; i++)
-		{
+	if (WMODE_CAP_5G(pAd->CommonCfg.PhyMode)) {
+		for (i = 0; i < Country_Region_GroupNum_5GHZ; i++) {
 			if ((pAd->CommonCfg.CountryRegionForABand & 0x7f) ==
-				Country_Region_ChDesc_5GHZ[i].RegionIndex)
-			{
+			    Country_Region_ChDesc_5GHZ[i].RegionIndex) {
 				pChDesc = Country_Region_ChDesc_5GHZ[i].pChDesc;
 				num = TotalChNum(pChDesc);
 				bRegionFound = TRUE;
@@ -144,98 +147,117 @@ VOID BuildChannelList(
 			}
 		}
 
-		if (!bRegionFound)
-		{
-			DBGPRINT(RT_DEBUG_ERROR,("CountryRegionABand=%d not support", pAd->CommonCfg.CountryRegionForABand));
+		if (!bRegionFound) {
+			DBGPRINT(RT_DEBUG_ERROR,
+				 ("CountryRegionABand=%d not support",
+				  pAd->CommonCfg.CountryRegionForABand));
 			return;
 		}
 
-		if (num > 0)
-		{
-			UCHAR RadarCh[15]={52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140};
+		if (num > 0) {
+			UCHAR RadarCh[15] =
+			    { 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124,
+				128, 132, 136, 140
+			};
 #ifdef CONFIG_AP_SUPPORT
-			UCHAR q=0;
-#endif /* CONFIG_AP_SUPPORT */
-			os_alloc_mem(NULL, (UCHAR **)&pChannelList, num * sizeof(UCHAR));
+			UCHAR q = 0;
+#endif				/* CONFIG_AP_SUPPORT */
+			os_alloc_mem(NULL, (UCHAR **) & pChannelList,
+				     num * sizeof(UCHAR));
 
-			if (!pChannelList)
-			{
-				DBGPRINT(RT_DEBUG_ERROR,("%s:Allocate memory for ChannelList failed\n", __FUNCTION__));
+			if (!pChannelList) {
+				DBGPRINT(RT_DEBUG_ERROR,
+					 ("%s:Allocate memory for ChannelList failed\n",
+					  __FUNCTION__));
 				return;
 			}
 
-			os_alloc_mem(NULL, (UCHAR **)&pChannelListFlag, num * sizeof(UCHAR));
+			os_alloc_mem(NULL, (UCHAR **) & pChannelListFlag,
+				     num * sizeof(UCHAR));
 
-			if (!pChannelListFlag)
-			{
-				DBGPRINT(RT_DEBUG_ERROR,("%s:Allocate memory for ChannelListFlag failed\n", __FUNCTION__));
+			if (!pChannelListFlag) {
+				DBGPRINT(RT_DEBUG_ERROR,
+					 ("%s:Allocate memory for ChannelListFlag failed\n",
+					  __FUNCTION__));
 				os_free_mem(NULL, pChannelList);
 				return;
 			}
 
-			for (i = 0; i < num; i++)
-			{
+			for (i = 0; i < num; i++) {
 				pChannelList[i] = GetChannel_5GHZ(pChDesc, i);
-				pChannelListFlag[i] = GetChannelFlag(pChDesc, i);
+				pChannelListFlag[i] =
+				    GetChannelFlag(pChDesc, i);
 			}
 
 #ifdef CONFIG_AP_SUPPORT
-			for (i = 0; i < num; i++)
-			{
-				if((pAd->CommonCfg.bIEEE80211H == 0)|| ((pAd->CommonCfg.bIEEE80211H == 1) && (pAd->CommonCfg.RDDurRegion != FCC)))			 	
-				{
-					pChannelList[q] = GetChannel_5GHZ(pChDesc, i);
-					pChannelListFlag[q] = GetChannelFlag(pChDesc, i);
+			for (i = 0; i < num; i++) {
+				if ((pAd->CommonCfg.bIEEE80211H == 0)
+				    || ((pAd->CommonCfg.bIEEE80211H == 1)
+					&& (pAd->CommonCfg.RDDurRegion != FCC))) {
+					pChannelList[q] =
+					    GetChannel_5GHZ(pChDesc, i);
+					pChannelListFlag[q] =
+					    GetChannelFlag(pChDesc, i);
 					q++;
 				}
-				/*Based on the requiremnt of FCC, some channles could not be used anymore when test DFS function.*/
+				/*Based on the requiremnt of FCC, some channles could not be used anymore when test DFS function. */
 				else if ((pAd->CommonCfg.bIEEE80211H == 1) &&
-						(pAd->CommonCfg.RDDurRegion == FCC) &&
-						(pAd->Dot11_H.bDFSIndoor == 1))
-				{
-					if((GetChannel_5GHZ(pChDesc, i) < 116) || (GetChannel_5GHZ(pChDesc, i) > 128))
-					{
-						pChannelList[q] = GetChannel_5GHZ(pChDesc, i);
-						pChannelListFlag[q] = GetChannelFlag(pChDesc, i);
+					 (pAd->CommonCfg.RDDurRegion == FCC) &&
+					 (pAd->Dot11_H.bDFSIndoor == 1)) {
+					if ((GetChannel_5GHZ(pChDesc, i) < 116)
+					    || (GetChannel_5GHZ(pChDesc, i) >
+						128)) {
+						pChannelList[q] =
+						    GetChannel_5GHZ(pChDesc, i);
+						pChannelListFlag[q] =
+						    GetChannelFlag(pChDesc, i);
 						q++;
 					}
-				}
-				else if ((pAd->CommonCfg.bIEEE80211H == 1) &&
-						(pAd->CommonCfg.RDDurRegion == FCC) &&
-						(pAd->Dot11_H.bDFSIndoor == 0))
-				{
-					if((GetChannel_5GHZ(pChDesc, i) < 100) || (GetChannel_5GHZ(pChDesc, i) > 140) )
-					{
-						pChannelList[q] = GetChannel_5GHZ(pChDesc, i);
-						pChannelListFlag[q] = GetChannelFlag(pChDesc, i);
+				} else if ((pAd->CommonCfg.bIEEE80211H == 1) &&
+					   (pAd->CommonCfg.RDDurRegion == FCC)
+					   && (pAd->Dot11_H.bDFSIndoor == 0)) {
+					if ((GetChannel_5GHZ(pChDesc, i) < 100)
+					    || (GetChannel_5GHZ(pChDesc, i) >
+						140)) {
+						pChannelList[q] =
+						    GetChannel_5GHZ(pChDesc, i);
+						pChannelListFlag[q] =
+						    GetChannelFlag(pChDesc, i);
 						q++;
 					}
 				}
 
 			}
 			num = q;
-#endif /* CONFIG_AP_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
 
-			for (i=0; i<num; i++)
-			{
-				for (j=0; j<MAX_NUM_OF_CHANNELS; j++)
-				{
-					if (pChannelList[i] == pAd->TxPower[j].Channel)
-						NdisMoveMemory(&pAd->ChannelList[index+i], &pAd->TxPower[j], sizeof(CHANNEL_TX_POWER));
-						pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
+			for (i = 0; i < num; i++) {
+				for (j = 0; j < MAX_NUM_OF_CHANNELS; j++) {
+					if (pChannelList[i] ==
+					    pAd->TxPower[j].Channel)
+						NdisMoveMemory(&pAd->ChannelList
+							       [index + i],
+							       &pAd->TxPower[j],
+							       sizeof
+							       (CHANNEL_TX_POWER));
+					pAd->ChannelList[index + i].Flags =
+					    pChannelListFlag[i];
 				}
 
 #ifdef DOT11_N_SUPPORT
-				if (N_ChannelGroupCheck(pAd, pAd->ChannelList[index + i].Channel))
-					pAd->ChannelList[index + i].Flags |= CHANNEL_40M_CAP;
-#endif /* DOT11_N_SUPPORT */	
+				if (N_ChannelGroupCheck
+				    (pAd, pAd->ChannelList[index + i].Channel))
+					pAd->ChannelList[index + i].Flags |=
+					    CHANNEL_40M_CAP;
+#endif				/* DOT11_N_SUPPORT */
 
-				for (j=0; j<15; j++)
-				{
+				for (j = 0; j < 15; j++) {
 					if (pChannelList[i] == RadarCh[j])
-						pAd->ChannelList[index+i].DfsReq = TRUE;
+						pAd->ChannelList[index +
+								 i].DfsReq =
+						    TRUE;
 				}
-				pAd->ChannelList[index+i].MaxTxPwr = 20;
+				pAd->ChannelList[index + i].MaxTxPwr = 20;
 			}
 			index += num;
 
@@ -244,31 +266,33 @@ VOID BuildChannelList(
 		}
 	}
 
-	pAd->ChannelListNum = index;	
-	DBGPRINT(RT_DEBUG_TRACE,("country code=%d/%d, RFIC=%d, PHY mode=%d, support %d channels\n", 
-		pAd->CommonCfg.CountryRegion, pAd->CommonCfg.CountryRegionForABand, pAd->RfIcType, pAd->CommonCfg.PhyMode, pAd->ChannelListNum));
+	pAd->ChannelListNum = index;
+	DBGPRINT(RT_DEBUG_TRACE,
+		 ("country code=%d/%d, RFIC=%d, PHY mode=%d, support %d channels\n",
+		  pAd->CommonCfg.CountryRegion,
+		  pAd->CommonCfg.CountryRegionForABand, pAd->RfIcType,
+		  pAd->CommonCfg.PhyMode, pAd->ChannelListNum));
 
 #ifdef RT_CFG80211_SUPPORT
-	for (i=0;i<pAd->ChannelListNum;i++)
-	{
-		CFG80211OS_ChanInfoInit(
-					pAd->pCfg80211_CB,
+	for (i = 0; i < pAd->ChannelListNum; i++) {
+		CFG80211OS_ChanInfoInit(pAd->pCfg80211_CB,
 					i,
 					pAd->ChannelList[i].Channel,
 					pAd->ChannelList[i].MaxTxPwr,
 					WMODE_CAP_N(pAd->CommonCfg.PhyMode),
-					(pAd->CommonCfg.RegTransmitSetting.field.BW == BW_20));
+					(pAd->CommonCfg.RegTransmitSetting.
+					 field.BW == BW_20));
 	}
-#endif /* RT_CFG80211_SUPPORT */
+#endif				/* RT_CFG80211_SUPPORT */
 
-#ifdef DBG	
-	for (i=0;i<pAd->ChannelListNum;i++)
-	{
-		DBGPRINT_RAW(RT_DEBUG_TRACE,("BuildChannel # %d :: Pwr0 = %d, Pwr1 =%d, Flags = %x\n ", 
-									 pAd->ChannelList[i].Channel, 
-									 pAd->ChannelList[i].Power, 
-									 pAd->ChannelList[i].Power2, 
-									 pAd->ChannelList[i].Flags));
+#ifdef DBG
+	for (i = 0; i < pAd->ChannelListNum; i++) {
+		DBGPRINT_RAW(RT_DEBUG_TRACE,
+			     ("BuildChannel # %d :: Pwr0 = %d, Pwr1 =%d, Flags = %x\n ",
+			      pAd->ChannelList[i].Channel,
+			      pAd->ChannelList[i].Power,
+			      pAd->ChannelList[i].Power2,
+			      pAd->ChannelList[i].Flags));
 	}
 #endif
 }
@@ -286,8 +310,7 @@ VOID BuildChannelList(
 
 	==========================================================================
  */
-UCHAR FirstChannel(
-	IN PRTMP_ADAPTER pAd)
+UCHAR FirstChannel(IN PRTMP_ADAPTER pAd)
 {
 	return pAd->ChannelList[0].Channel;
 }
@@ -303,36 +326,31 @@ UCHAR FirstChannel(
 		return 0 if no more next channel
 	==========================================================================
  */
-UCHAR NextChannel(
-	IN PRTMP_ADAPTER pAd, 
-	IN UCHAR channel)
+UCHAR NextChannel(IN PRTMP_ADAPTER pAd, IN UCHAR channel)
 {
 	int i;
 	UCHAR next_channel = 0;
-			
-	for (i = 0; i < (pAd->ChannelListNum - 1); i++)
-	{
-		if (channel == pAd->ChannelList[i].Channel)
-		{
+
+	for (i = 0; i < (pAd->ChannelListNum - 1); i++) {
+		if (channel == pAd->ChannelList[i].Channel) {
 #ifdef DOT11_N_SUPPORT
 #ifdef DOT11N_DRAFT3
-			/* Only scan effected channel if this is a SCAN_2040_BSS_COEXIST*/
-			/* 2009 PF#2: Nee to handle the second channel of AP fall into affected channel range.*/
-			if ((pAd->MlmeAux.ScanType == SCAN_2040_BSS_COEXIST) && (pAd->ChannelList[i+1].Channel >14))
-			{
-				channel = pAd->ChannelList[i+1].Channel;
+			/* Only scan effected channel if this is a SCAN_2040_BSS_COEXIST */
+			/* 2009 PF#2: Nee to handle the second channel of AP fall into affected channel range. */
+			if ((pAd->MlmeAux.ScanType == SCAN_2040_BSS_COEXIST)
+			    && (pAd->ChannelList[i + 1].Channel > 14)) {
+				channel = pAd->ChannelList[i + 1].Channel;
 				continue;
-			}
-			else
-#endif /* DOT11N_DRAFT3 */
-#endif /* DOT11_N_SUPPORT */
+			} else
+#endif				/* DOT11N_DRAFT3 */
+#endif				/* DOT11_N_SUPPORT */
 			{
-				/* Record this channel's idx in ChannelList array.*/
-			next_channel = pAd->ChannelList[i+1].Channel;
-			break;
-	}
+				/* Record this channel's idx in ChannelList array. */
+				next_channel = pAd->ChannelList[i + 1].Channel;
+				break;
+			}
 		}
-		
+
 	}
 	return next_channel;
 }
@@ -357,19 +375,18 @@ UCHAR NextChannel(
 		the minimum value or next lower value.
 	==========================================================================
  */
-VOID ChangeToCellPowerLimit(
-	IN PRTMP_ADAPTER pAd,
-	IN UCHAR         AironetCellPowerLimit)
+VOID ChangeToCellPowerLimit(IN PRTMP_ADAPTER pAd,
+			    IN UCHAR AironetCellPowerLimit)
 {
 	/*
-		valud 0xFF means that hasn't found power limit information
-		from the AP's Beacon/Probe response
-	*/
+	   valud 0xFF means that hasn't found power limit information
+	   from the AP's Beacon/Probe response
+	 */
 	if (AironetCellPowerLimit == 0xFF)
-		return;  
-	
-	if (AironetCellPowerLimit < 6) /*Used Lowest Power Percentage.*/
-		pAd->CommonCfg.TxPowerPercentage = 6; 
+		return;
+
+	if (AironetCellPowerLimit < 6)	/*Used Lowest Power Percentage. */
+		pAd->CommonCfg.TxPowerPercentage = 6;
 	else if (AironetCellPowerLimit < 9)
 		pAd->CommonCfg.TxPowerPercentage = 10;
 	else if (AironetCellPowerLimit < 12)
@@ -379,19 +396,20 @@ VOID ChangeToCellPowerLimit(
 	else if (AironetCellPowerLimit < 15)
 		pAd->CommonCfg.TxPowerPercentage = 75;
 	else
-		pAd->CommonCfg.TxPowerPercentage = 100; /*else used maximum*/
+		pAd->CommonCfg.TxPowerPercentage = 100;	/*else used maximum */
 
 	if (pAd->CommonCfg.TxPowerPercentage > pAd->CommonCfg.TxPowerDefault)
-		pAd->CommonCfg.TxPowerPercentage = pAd->CommonCfg.TxPowerDefault;
-	
+		pAd->CommonCfg.TxPowerPercentage =
+		    pAd->CommonCfg.TxPowerDefault;
+
 }
 
-
-CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, UCHAR rssi_idx, UCHAR AntSel, UCHAR BW)
+CHAR ConvertToRssi(RTMP_ADAPTER * pAd, CHAR Rssi, UCHAR rssi_idx, UCHAR AntSel,
+		   UCHAR BW)
 {
-	UCHAR	RssiOffset, LNAGain;
+	UCHAR RssiOffset, LNAGain;
 
-	/* Rssi equals to zero or rssi_idx larger than 3 should be an invalid value*/
+	/* Rssi equals to zero or rssi_idx larger than 3 should be an invalid value */
 	if (Rssi == 0 || rssi_idx >= 3)
 		return -99;
 
@@ -405,10 +423,9 @@ CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, UCHAR rssi_idx, UCHAR AntSel, U
 	if (IS_RT65XX(pAd))
 		return (Rssi - LNAGain - RssiOffset);
 	else
-#endif /* RT65xx */
+#endif				/* RT65xx */
 #ifdef MT7601
-	if ( IS_MT7601(pAd) )
-	{
+	if (IS_MT7601(pAd)) {
 		CHAR LNA, RSSI;
 		PCHAR LNATable;
 /*
@@ -425,70 +442,60 @@ CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, UCHAR rssi_idx, UCHAR AntSel, U
 		LNA = (Rssi >> 6) & 0x3;
 		RSSI = Rssi & 0x3F;
 
-		if ( (AntSel >> 7) == 0 )
-		{
+		if ((AntSel >> 7) == 0) {
 			if (BW == BW_40)
 				LNATable = MainBW40LNA;
 			else
 				LNATable = MainBW20LNA;
-		}
-		else
-		{
+		} else {
 			if (BW == BW_40)
 				LNATable = AuxBW40LNA;
 			else
 				LNATable = AuxBW20LNA;
 		}
 
-		if ( LNA == 3 )
+		if (LNA == 3)
 			LNA = LNATable[2];
-		else if ( LNA == 2 )
+		else if (LNA == 2)
 			LNA = LNATable[1];
 		else
 			LNA = LNATable[0];
 
-		return ( 8 - LNA - RSSI - LNAGain - RssiOffset );
-	}
-	else
-#endif /* MT7601 */
+		return (8 - LNA - RSSI - LNAGain - RssiOffset);
+	} else
+#endif				/* MT7601 */
 		return (-12 - RssiOffset - LNAGain - Rssi);
 }
 
-
-CHAR ConvertToSnr(RTMP_ADAPTER *pAd, UCHAR Snr)
+CHAR ConvertToSnr(RTMP_ADAPTER * pAd, UCHAR Snr)
 {
 	if (pAd->chipCap.SnrFormula == SNR_FORMULA2)
 		return (Snr * 3 + 8) >> 4;
 	else if (pAd->chipCap.SnrFormula == SNR_FORMULA3)
-		return (Snr * 3 / 16 ); /* * 0.1881 */
+		return (Snr * 3 / 16);	/* * 0.1881 */
 	else
-		return ((0xeb	- Snr) * 3) /	16 ;
+		return ((0xeb - Snr) * 3) / 16;
 }
-
-
-
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef DOT11_N_SUPPORT
 extern int DetectOverlappingPeriodicRound;
 
-VOID Handle_BSS_Width_Trigger_Events(
-	IN PRTMP_ADAPTER pAd) 
+VOID Handle_BSS_Width_Trigger_Events(IN PRTMP_ADAPTER pAd)
 {
 	ULONG Now32;
-	
+
 	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == BW_40) &&
-		(pAd->CommonCfg.Channel <=14))
-	{	
-		DBGPRINT(RT_DEBUG_TRACE, ("Rcv BSS Width Trigger Event: 40Mhz --> 20Mhz \n"));
-        NdisGetSystemUpTime(&Now32);
+	    (pAd->CommonCfg.Channel <= 14)) {
+		DBGPRINT(RT_DEBUG_TRACE,
+			 ("Rcv BSS Width Trigger Event: 40Mhz --> 20Mhz \n"));
+		NdisGetSystemUpTime(&Now32);
 		pAd->CommonCfg.LastRcvBSSWidthTriggerEventsTime = Now32;
 		pAd->CommonCfg.bRcvBSSWidthTriggerEvents = TRUE;
-		pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth = 0;	
+		pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth = 0;
 		pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset = 0;
-        DetectOverlappingPeriodicRound = 31;
+		DetectOverlappingPeriodicRound = 31;
 	}
 }
-#endif /* DOT11_N_SUPPORT */
-#endif /* CONFIG_AP_SUPPORT */
-
+#endif				/* DOT11_N_SUPPORT */
+#endif				/* CONFIG_AP_SUPPORT */
