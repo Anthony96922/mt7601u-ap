@@ -1,6 +1,6 @@
 # mt7601u-ap
 
-(I do not maintain this project anymore!)
+Feel free to create pull requests and I will gladly accept them!
 
 AP driver for MT7601U chipset based adapters
 
