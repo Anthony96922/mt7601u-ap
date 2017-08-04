@@ -94,7 +94,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER * pAd, INT apidx)
 	UCHAR DsLen = 1, SsidLen;
 	HEADER_802_11 BcnHdr;
 	LARGE_INTEGER FakeTimestamp;
-	ULONG FrameLen = 0;
+	ULONG FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
 	PUCHAR pBeaconFrame = (PUCHAR) pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	UCHAR *ptr;
 	UINT i;
@@ -137,7 +137,6 @@ VOID APMakeBssBeacon(RTMP_ADAPTER * pAd, INT apidx)
 
 	/* add country IE, power constraint IE */
 	if (pAd->CommonCfg.bCountryFlag) {
-		ULONG TmpLen, TmpLen2 = 0;
 		UCHAR *TmpFrame = NULL;
 		UCHAR CountryIe = IE_COUNTRY;
 
@@ -149,18 +148,14 @@ VOID APMakeBssBeacon(RTMP_ADAPTER * pAd, INT apidx)
 			BuildBeaconChList(pAd, TmpFrame, &TmpLen2);
 #else
 			{
-				UCHAR MaxTxPower = GetCountryMaxTxPwr(pAd,
-								      pAd->
-								      CommonCfg.
-								      Channel);
+				UCHAR MaxTxPower = GetCountryMaxTxPwr(pAd,pAd->CommonCfg.Channel);
 				MakeOutgoingFrame(TmpFrame + TmpLen2, &TmpLen,
-						  1,
-						  &pAd->ChannelList[0].Channel,
+						  1, &pAd->ChannelList[0].Channel,
 						  1, &pAd->ChannelListNum, 1,
 						  &MaxTxPower, END_OF_ARGS);
 				TmpLen2 += TmpLen;
 			}
-#endif				/* EXT_BUILD_CHANNEL_LIST */
+#endif /* EXT_BUILD_CHANNEL_LIST */
 
 			/* need to do the padding bit check, and concatenate it */
 			if ((TmpLen2 % 2) == 0) {
@@ -189,7 +184,6 @@ VOID APMakeBssBeacon(RTMP_ADAPTER * pAd, INT apidx)
 	}
 
 	if ((pAd->CommonCfg.ExtRateLen) && (PhyMode != WMODE_B)) {
-		ULONG TmpLen;
 		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
 				  1, &ExtRateIe,
 				  1, &pAd->CommonCfg.ExtRateLen,
@@ -295,6 +289,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 #endif				/* ifdef WSC_AP_SUPPORT */
 	UINT i;
 	HTTRANSMIT_SETTING BeaconTransmit = {.word = 0 };	/* MGMT frame PHY rate setting when operatin at Ht rate. */
+	ULONG TmpLen = 0;
 
 	pMbss = &pAd->ApCfg.MBSSID[apidx];
 	pComCfg = &pAd->CommonCfg;
@@ -364,9 +359,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 	   Only 802.11a APs that comply with 802.11h are required to include a
 	   Power Constrint Element(IE=32) in beacons and probe response frames
 	 */
-	if ((pComCfg->Channel > 14) && pComCfg->bIEEE80211H == TRUE)
-		) {
-		ULONG TmpLen;
+	if ((pComCfg->Channel > 14) && pComCfg->bIEEE80211H == TRUE)) {
 		UINT8 PwrConstraintIE = IE_POWER_CONSTRAINT;
 		UINT8 PwrConstraintLen = 1;
 		UINT8 PwrConstraint = pComCfg->PwrConstraint;
@@ -423,7 +416,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 #ifdef DOT11_N_SUPPORT
 	/* step 5. Update HT. Since some fields might change in the same BSS. */
 	if (WMODE_CAP_N(PhyMode) && (pMbss->DesiredHtPhyInfo.bHtEnable)) {
-		ULONG TmpLen;
 		UCHAR HtLen, HtLen1;
 		/*UCHAR i; */
 
@@ -489,7 +481,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 		if ((pComCfg->Channel <= 14) &&
 		    (pComCfg->HtCapability.HtCapInfo.ChannelWidth == 1)) {
 			OVERLAP_BSS_SCAN_IE OverlapScanParam;
-			ULONG TmpLen;
 			UCHAR OverlapScanIE, ScanIELen;
 
 			OverlapScanIE = IE_OVERLAPBSS_SCAN_PARM;
@@ -523,7 +514,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 
 		/* 7.3.2.27 Extended Capabilities IE */
 		{
-			ULONG TmpLen, infoPos;
+			ULONG infoPos;
 			PUCHAR pInfo;
 			UCHAR extInfoLen;
 			BOOLEAN bNeedAppendExtIE = FALSE;
@@ -631,7 +622,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 	/* Append RSN_IE when WPA OR WPAPSK, */
 	if ((pMbss->AuthMode == Ndis802_11AuthModeWPA1WPA2) ||
 	    (pMbss->AuthMode == Ndis802_11AuthModeWPA1PSKWPA2PSK)) {
-		ULONG TmpLen;
 		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
 				  1, &RSNIe,
 				  1, &pMbss->RSNIE_Len[0],
@@ -642,7 +632,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 				  END_OF_ARGS);
 		FrameLen += TmpLen;
 	} else if (pMbss->AuthMode >= Ndis802_11AuthModeWPA) {
-		ULONG TmpLen;
 		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
 				  1, &RSNIe,
 				  1, &pMbss->RSNIE_Len[0],
@@ -653,7 +642,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 
 	/* add WMM IE here */
 	if (pMbss->bWmmCapable) {
-		ULONG TmpLen;
 		UCHAR i;
 		UCHAR WmeParmIe[26] = {
 		IE_VENDOR_SPECIFIC, 24, 0x00, 0x50, 0xf2, 0x02, 0x01,
@@ -685,7 +673,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 
 	/* add Ralink-specific IE here - Byte0.b0=1 for aggregation, Byte0.b1=1 for piggy-back */
 	{
-		ULONG TmpLen;
 		UCHAR RalinkSpecificIe[9] = {
 		IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x00, 0x00,
 			    0x00, 0x00};
@@ -705,7 +692,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER * pAd, INT apidx)
 
 #ifdef DOT11_N_SUPPORT
 	if (WMODE_CAP_N(PhyMode) && (pMbss->DesiredHtPhyInfo.bHtEnable)) {
-		ULONG TmpLen;
 		UCHAR HtLen, HtLen1;
 		/*UCHAR i; */
 #ifdef RT_BIG_ENDIAN
