@@ -31,45 +31,51 @@
 
 #include "rt_config.h"
 
+
 BUILD_TIMER_FUNCTION(MlmePeriodicExec);
 /*BUILD_TIMER_FUNCTION(MlmeRssiReportExec);*/
 BUILD_TIMER_FUNCTION(AsicRxAntEvalTimeout);
 BUILD_TIMER_FUNCTION(APSDPeriodicExec);
 BUILD_TIMER_FUNCTION(EnqueueStartForPSKExec);
 
+
+
 #ifdef CONFIG_MULTI_CHANNEL
 BUILD_TIMER_FUNCTION(MCC_ChangeAction);
 BUILD_TIMER_FUNCTION(ConcurrentP2PConnectTimeout);
-#endif				/* CONFIG_MULTI_CHANNEL */
+#endif /* CONFIG_MULTI_CHANNEL */
+
 
 #ifdef RTMP_MAC_USB
 BUILD_TIMER_FUNCTION(BeaconUpdateExec);
-#endif				/* RTMP_MAC_USB */
+#endif /* RTMP_MAC_USB */
 
 #ifdef CONFIG_AP_SUPPORT
-extern VOID APDetectOverlappingExec(IN PVOID SystemSpecific1,
-				    IN PVOID FunctionContext,
-				    IN PVOID SystemSpecific2,
-				    IN PVOID SystemSpecific3);
+extern VOID APDetectOverlappingExec(
+				IN PVOID SystemSpecific1, 
+				IN PVOID FunctionContext, 
+				IN PVOID SystemSpecific2, 
+				IN PVOID SystemSpecific3);
 
 BUILD_TIMER_FUNCTION(APDetectOverlappingExec);
 
 #ifdef DOT11N_DRAFT3
 BUILD_TIMER_FUNCTION(Bss2040CoexistTimeOut);
-#endif				/* DOT11N_DRAFT3 */
+#endif /* DOT11N_DRAFT3 */
 
 BUILD_TIMER_FUNCTION(GREKEYPeriodicExec);
 BUILD_TIMER_FUNCTION(CMTimerExec);
 BUILD_TIMER_FUNCTION(WPARetryExec);
 #ifdef AP_SCAN_SUPPORT
 BUILD_TIMER_FUNCTION(APScanTimeout);
-#endif				/* AP_SCAN_SUPPORT */
+#endif /* AP_SCAN_SUPPORT */
 BUILD_TIMER_FUNCTION(APQuickResponeForRateUpExec);
 #ifdef IDS_SUPPORT
 BUILD_TIMER_FUNCTION(RTMPIdsPeriodicExec);
-#endif				/* IDS_SUPPORT */
+#endif /* IDS_SUPPORT */
 
-#endif				/* CONFIG_AP_SUPPORT */
+#endif /* CONFIG_AP_SUPPORT */
+
 
 #ifdef WSC_INCLUDED
 BUILD_TIMER_FUNCTION(WscEAPOLTimeOutAction);
@@ -83,81 +89,87 @@ BUILD_TIMER_FUNCTION(WscProfileRetryTimeout);
 #ifdef WSC_LED_SUPPORT
 BUILD_TIMER_FUNCTION(WscLEDTimer);
 BUILD_TIMER_FUNCTION(WscSkipTurnOffLEDTimer);
-#endif				/* WSC_LED_SUPPORT */
+#endif /* WSC_LED_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT
 BUILD_TIMER_FUNCTION(WscUpdatePortCfgTimeout);
 #ifdef WSC_V2_SUPPORT
 BUILD_TIMER_FUNCTION(WscSetupLockTimeout);
-#endif				/* WSC_V2_SUPPORT */
-#endif				/* CONFIG_AP_SUPPORT */
+#endif /* WSC_V2_SUPPORT */
+#endif /* CONFIG_AP_SUPPORT */
 
-#endif				/* WSC_INCLUDED */
+
+#endif /* WSC_INCLUDED */
+
+
 
 #ifdef TXBF_SUPPORT
 BUILD_TIMER_FUNCTION(eTxBfProbeTimerExec);
-#endif				/* TXBF_SUPPORT */
+#endif /* TXBF_SUPPORT */
+
 
 #ifdef RALINK_ATE
 BUILD_TIMER_FUNCTION(ATEPeriodicExec);
-#endif				/* RALINK_ATE */
+#endif /* RALINK_ATE */
 
 #ifdef RTMP_TIMER_TASK_SUPPORT
-static void RtmpTimerQHandle(RTMP_ADAPTER * pAd)
+static void RtmpTimerQHandle(RTMP_ADAPTER *pAd)
 {
 /*#ifndef KTHREAD_SUPPORT*/
 	int status;
 /*#endif*/
-	RALINK_TIMER_STRUCT *pTimer;
-	RTMP_TIMER_TASK_ENTRY *pEntry;
-	unsigned long irqFlag;
+	RALINK_TIMER_STRUCT	*pTimer;
+	RTMP_TIMER_TASK_ENTRY	*pEntry;
+	unsigned long	irqFlag;
 	RTMP_OS_TASK *pTask;
 
+
 	pTask = &pAd->timerTask;
-	while (!RTMP_OS_TASK_IS_KILLED(pTask)) {
+	while(!RTMP_OS_TASK_IS_KILLED(pTask))
+	{
 		pTimer = NULL;
 
-		if (RtmpOSTaskWait(pAd, pTask, &status) == FALSE) {
+		if (RtmpOSTaskWait(pAd, pTask, &status) == FALSE)
+		{
 			RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS);
 			break;
 		}
 
 		if (pAd->TimerQ.status == RTMP_TASK_STAT_STOPED)
 			break;
-
-		/* event happened. */
-		while (pAd->TimerQ.pQHead) {
+		
+		/* event happened.*/
+		while(pAd->TimerQ.pQHead)
+		{
 			RTMP_INT_LOCK(&pAd->TimerQLock, irqFlag);
 			pEntry = pAd->TimerQ.pQHead;
-			if (pEntry) {
+			if (pEntry)
+			{
 				pTimer = pEntry->pRaTimer;
 
-				/* update pQHead */
+				/* update pQHead*/
 				pAd->TimerQ.pQHead = pEntry->pNext;
 				if (pEntry == pAd->TimerQ.pQTail)
 					pAd->TimerQ.pQTail = NULL;
-
-				/* return this queue entry to timerQFreeList. */
+			
+				/* return this queue entry to timerQFreeList.*/
 				pEntry->pNext = pAd->TimerQ.pQPollFreeList;
 				pAd->TimerQ.pQPollFreeList = pEntry;
 			}
 			RTMP_INT_UNLOCK(&pAd->TimerQLock, irqFlag);
 
-			if (pTimer) {
-				if ((pTimer->handle != NULL)
-				    && (!pAd->PM_FlgSuspend))
-					pTimer->handle(NULL,
-						       (PVOID) pTimer->cookie,
-						       NULL, pTimer);
-				if ((pTimer->Repeat)
-				    && (pTimer->State == FALSE))
-					RTMP_OS_Add_Timer(&pTimer->TimerObj,
-							  pTimer->TimerValue);
+			if (pTimer)
+			{
+				if ((pTimer->handle != NULL) && (!pAd->PM_FlgSuspend))
+					pTimer->handle(NULL, (PVOID) pTimer->cookie, NULL, pTimer);
+				if ((pTimer->Repeat) && (pTimer->State == FALSE))
+					RTMP_OS_Add_Timer(&pTimer->TimerObj, pTimer->TimerValue);
 			}
 		}
-
+		
 /*#ifndef KTHREAD_SUPPORT*/
-		if (status != 0) {
+		if (status != 0)
+		{
 			pAd->TimerQ.status = RTMP_TASK_STAT_STOPED;
 			RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS);
 			break;
@@ -166,24 +178,28 @@ static void RtmpTimerQHandle(RTMP_ADAPTER * pAd)
 	}
 }
 
-INT RtmpTimerQThread(IN ULONG Context)
+
+INT RtmpTimerQThread(
+	IN ULONG Context)
 {
-	RTMP_OS_TASK *pTask;
-	PRTMP_ADAPTER pAd = NULL;
+	RTMP_OS_TASK	*pTask;
+	PRTMP_ADAPTER	pAd = NULL;
 
-	pTask = (RTMP_OS_TASK *) Context;
-	pAd = (PRTMP_ADAPTER) RTMP_OS_TASK_DATA_GET(pTask);
 
-	if (pAd == NULL) {
-		DBGPRINT(RT_DEBUG_ERROR, ("%s:: pAd is NULL!\n", __FUNCTION__));
+	pTask = (RTMP_OS_TASK *)Context;
+	pAd = (PRTMP_ADAPTER)RTMP_OS_TASK_DATA_GET(pTask);
+
+	if (pAd == NULL)
+	{
+		DBGPRINT(RT_DEBUG_ERROR,( "%s:: pAd is NULL!\n",__FUNCTION__));
 		return 0;
-	}
+	}	
 
 	RtmpOSTaskCustomize(pTask);
 
 	RtmpTimerQHandle(pAd);
 
-	DBGPRINT(RT_DEBUG_TRACE, ("<---%s\n", __FUNCTION__));
+	DBGPRINT(RT_DEBUG_TRACE,( "<---%s\n",__FUNCTION__));
 	/* notify the exit routine that we're actually exiting now 
 	 *
 	 * complete()/wait_for_completion() is similar to up()/down(),
@@ -199,21 +215,25 @@ INT RtmpTimerQThread(IN ULONG Context)
 	 * of execution immediately upon a complete().
 	 */
 	RtmpOSTaskNotifyToExit(pTask);
-
+	
 	return 0;
 
 }
 
-RTMP_TIMER_TASK_ENTRY *RtmpTimerQInsert(IN RTMP_ADAPTER * pAd,
-					IN RALINK_TIMER_STRUCT * pTimer)
+
+RTMP_TIMER_TASK_ENTRY *RtmpTimerQInsert(
+	IN RTMP_ADAPTER *pAd, 
+	IN RALINK_TIMER_STRUCT *pTimer)
 {
 	RTMP_TIMER_TASK_ENTRY *pQNode = NULL, *pQTail;
 	unsigned long irqFlags;
-	RTMP_OS_TASK *pTask = &pAd->timerTask;
+	RTMP_OS_TASK	*pTask = &pAd->timerTask;
 
 	RTMP_INT_LOCK(&pAd->TimerQLock, irqFlags);
-	if (pAd->TimerQ.status & RTMP_TASK_CAN_DO_INSERT) {
-		if (pAd->TimerQ.pQPollFreeList) {
+	if (pAd->TimerQ.status & RTMP_TASK_CAN_DO_INSERT)
+	{
+		if(pAd->TimerQ.pQPollFreeList)
+		{
 			pQNode = pAd->TimerQ.pQPollFreeList;
 			pAd->TimerQ.pQPollFreeList = pQNode->pNext;
 
@@ -230,57 +250,66 @@ RTMP_TIMER_TASK_ENTRY *RtmpTimerQInsert(IN RTMP_ADAPTER * pAd,
 	}
 	RTMP_INT_UNLOCK(&pAd->TimerQLock, irqFlags);
 
-	if (pQNode) {
+	if (pQNode)
+	{
 		RTMP_OS_TASK_WAKE_UP(pTask);
 	}
 
 	return pQNode;
 }
 
-BOOLEAN RtmpTimerQRemove(IN RTMP_ADAPTER * pAd, IN RALINK_TIMER_STRUCT * pTimer)
+
+BOOLEAN RtmpTimerQRemove(
+	IN RTMP_ADAPTER *pAd, 
+	IN RALINK_TIMER_STRUCT *pTimer)
 {
 	RTMP_TIMER_TASK_ENTRY *pNode, *pPrev = NULL;
 	unsigned long irqFlags;
 
 	RTMP_INT_LOCK(&pAd->TimerQLock, irqFlags);
-	if (pAd->TimerQ.status >= RTMP_TASK_STAT_INITED) {
+	if (pAd->TimerQ.status >= RTMP_TASK_STAT_INITED)
+	{
 		pNode = pAd->TimerQ.pQHead;
-		while (pNode) {
+		while (pNode)
+		{
 			if (pNode->pRaTimer == pTimer)
 				break;
 			pPrev = pNode;
 			pNode = pNode->pNext;
 		}
 
-		/* Now move it to freeList queue. */
-		if (pNode) {
+		/* Now move it to freeList queue.*/
+		if (pNode)
+		{	
 			if (pNode == pAd->TimerQ.pQHead)
 				pAd->TimerQ.pQHead = pNode->pNext;
 			if (pNode == pAd->TimerQ.pQTail)
 				pAd->TimerQ.pQTail = pPrev;
 			if (pPrev != NULL)
 				pPrev->pNext = pNode->pNext;
-
-			/* return this queue entry to timerQFreeList. */
+			
+			/* return this queue entry to timerQFreeList.*/
 			pNode->pNext = pAd->TimerQ.pQPollFreeList;
 			pAd->TimerQ.pQPollFreeList = pNode;
 		}
 	}
 	RTMP_INT_UNLOCK(&pAd->TimerQLock, irqFlags);
-
+			
 	return TRUE;
 }
 
-void RtmpTimerQExit(RTMP_ADAPTER * pAd)
+
+void RtmpTimerQExit(RTMP_ADAPTER *pAd)
 {
 	RTMP_TIMER_TASK_ENTRY *pTimerQ;
 	unsigned long irqFlags;
-
+	
 	RTMP_INT_LOCK(&pAd->TimerQLock, irqFlags);
-	while (pAd->TimerQ.pQHead) {
+	while (pAd->TimerQ.pQHead)
+	{
 		pTimerQ = pAd->TimerQ.pQHead;
 		pAd->TimerQ.pQHead = pTimerQ->pNext;
-		/* remove the timeQ */
+		/* remove the timeQ*/
 	}
 	pAd->TimerQ.pQPollFreeList = NULL;
 	os_free_mem(pAd, pAd->TimerQ.pTimerQPoll);
@@ -293,27 +322,27 @@ void RtmpTimerQExit(RTMP_ADAPTER * pAd)
 /*	NdisFreeSpinLock(&pAd->TimerQLock); */
 }
 
-void RtmpTimerQInit(RTMP_ADAPTER * pAd)
+
+void RtmpTimerQInit(RTMP_ADAPTER *pAd)
 {
-	int i;
+	int 	i;
 	RTMP_TIMER_TASK_ENTRY *pQNode, *pEntry;
 	unsigned long irqFlags;
-
+	
 	NdisAllocateSpinLock(pAd, &pAd->TimerQLock);
-
+	
 	NdisZeroMemory(&pAd->TimerQ, sizeof(pAd->TimerQ));
 
-	os_alloc_mem(pAd, &pAd->TimerQ.pTimerQPoll,
-		     sizeof(RTMP_TIMER_TASK_ENTRY) * TIMER_QUEUE_SIZE_MAX);
-	if (pAd->TimerQ.pTimerQPoll) {
+	os_alloc_mem(pAd, &pAd->TimerQ.pTimerQPoll, sizeof(RTMP_TIMER_TASK_ENTRY) * TIMER_QUEUE_SIZE_MAX);
+	if (pAd->TimerQ.pTimerQPoll)
+	{
 		pEntry = NULL;
-		pQNode = (RTMP_TIMER_TASK_ENTRY *) pAd->TimerQ.pTimerQPoll;
-		NdisZeroMemory(pAd->TimerQ.pTimerQPoll,
-			       sizeof(RTMP_TIMER_TASK_ENTRY) *
-			       TIMER_QUEUE_SIZE_MAX);
+		pQNode = (RTMP_TIMER_TASK_ENTRY *)pAd->TimerQ.pTimerQPoll;
+		NdisZeroMemory(pAd->TimerQ.pTimerQPoll, sizeof(RTMP_TIMER_TASK_ENTRY) * TIMER_QUEUE_SIZE_MAX);
 
 		RTMP_INT_LOCK(&pAd->TimerQLock, irqFlags);
-		for (i = 0; i < TIMER_QUEUE_SIZE_MAX; i++) {
+		for (i = 0 ;i <TIMER_QUEUE_SIZE_MAX; i++)
+		{
 			pQNode->pNext = pEntry;
 			pEntry = pQNode;
 			pQNode++;
@@ -325,4 +354,5 @@ void RtmpTimerQInit(RTMP_ADAPTER * pAd)
 		RTMP_INT_UNLOCK(&pAd->TimerQLock, irqFlags);
 	}
 }
-#endif				/* RTMP_TIMER_TASK_SUPPORT */
+#endif /* RTMP_TIMER_TASK_SUPPORT */
+

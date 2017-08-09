@@ -27,7 +27,8 @@
 */
 #include "rt_config.h"
 
-INT RtmpChipOpsEepromHook(RTMP_ADAPTER * pAd, INT infType)
+
+INT RtmpChipOpsEepromHook(RTMP_ADAPTER *pAd, INT infType)
 {
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 
@@ -36,44 +37,48 @@ INT RtmpChipOpsEepromHook(RTMP_ADAPTER * pAd, INT infType)
 	pChipOps->eeread = rtmp_ee_flash_read;
 	pChipOps->eewrite = rtmp_ee_flash_write;
 	return 0;
-#endif				/* RTMP_FLASH_SUPPORT */
+#endif /* RTMP_FLASH_SUPPORT */
 
 #ifdef RTMP_EFUSE_SUPPORT
 	efuse_probe(pAd);
-	if (pAd->bUseEfuse) {
+	if(pAd->bUseEfuse)
+	{
 		pChipOps->eeinit = eFuse_init;
 		pChipOps->eeread = rtmp_ee_efuse_read16;
 		pChipOps->eewrite = rtmp_ee_efuse_write16;
 		DBGPRINT(RT_DEBUG_OFF, ("NVM is EFUSE\n"));
 		DBGPRINT(RT_DEBUG_TRACE, ("Efuse Size=0x%x [Range:%x-%x] \n",
-					  pAd->chipCap.EFUSE_USAGE_MAP_SIZE,
-					  pAd->chipCap.EFUSE_USAGE_MAP_START,
-					  pAd->chipCap.EFUSE_USAGE_MAP_END));
+				pAd->chipCap.EFUSE_USAGE_MAP_SIZE,
+				pAd->chipCap.EFUSE_USAGE_MAP_START,
+				pAd->chipCap.EFUSE_USAGE_MAP_END));
 
-		return 0;
-	} else {
+		return 0 ;	
+	}
+	else
+	{
 		pAd->bFroceEEPROMBuffer = FALSE;
 		DBGPRINT(RT_DEBUG_OFF, ("NVM is EEPROM\n"));
 	}
-#endif				/* RTMP_EFUSE_SUPPORT */
+#endif /* RTMP_EFUSE_SUPPORT */
+			
+	switch(infType)
+	{
 
-	switch (infType) {
 
 #ifdef RTMP_USB_SUPPORT
-	case RTMP_DEV_INF_USB:
-		pChipOps->eeinit = NULL;
-		pChipOps->eeread = RTUSBReadEEPROM16;
-		pChipOps->eewrite = RTUSBWriteEEPROM16;
-		DBGPRINT(RT_DEBUG_OFF,
-			 ("pChipOps->eeread = RTUSBReadEEPROM16\n"));
-		DBGPRINT(RT_DEBUG_OFF,
-			 ("pChipOps->eewrite = RTUSBWriteEEPROM16\n"));
-		break;
-#endif				/* RTMP_USB_SUPPORT */
-	default:
-		DBGPRINT(RT_DEBUG_ERROR, ("RtmpChipOpsEepromHook() failed!\n"));
-		break;
+		case RTMP_DEV_INF_USB:
+			pChipOps->eeinit = NULL;
+			pChipOps->eeread = RTUSBReadEEPROM16;
+			pChipOps->eewrite = RTUSBWriteEEPROM16;
+			DBGPRINT(RT_DEBUG_OFF, ("pChipOps->eeread = RTUSBReadEEPROM16\n"));
+			DBGPRINT(RT_DEBUG_OFF, ("pChipOps->eewrite = RTUSBWriteEEPROM16\n"));
+			break;
+#endif /* RTMP_USB_SUPPORT */
+		default:
+			DBGPRINT(RT_DEBUG_ERROR, ("RtmpChipOpsEepromHook() failed!\n"));
+			break;
 	}
 
 	return 0;
 }
+

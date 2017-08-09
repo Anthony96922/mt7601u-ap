@@ -36,7 +36,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void dump_urb(VOID * purb_org)
+void dump_urb(VOID *purb_org)
 {
 #ifdef DBG
 	struct urb *purb = (struct urb *)purb_org;
@@ -47,30 +47,31 @@ void dump_urb(VOID * purb_org)
 	printk("\tpipe                  : 0x%08x\n", purb->pipe);
 	printk("\tstatus                : %d\n", purb->status);
 	printk("\ttransfer_flags        : 0x%08x\n", purb->transfer_flags);
-	printk("\ttransfer_buffer       : 0x%08lx\n",
-	       (unsigned long)purb->transfer_buffer);
+	printk("\ttransfer_buffer       : 0x%08lx\n", (unsigned long)purb->transfer_buffer);
 	printk("\ttransfer_buffer_length: %d\n", purb->transfer_buffer_length);
 	printk("\tactual_length         : %d\n", purb->actual_length);
-	printk("\tsetup_packet          : 0x%08lx\n",
-	       (unsigned long)purb->setup_packet);
+	printk("\tsetup_packet          : 0x%08lx\n", (unsigned long)purb->setup_packet);
 	printk("\tstart_frame           : %d\n", purb->start_frame);
 	printk("\tnumber_of_packets     : %d\n", purb->number_of_packets);
 	printk("\tinterval              : %d\n", purb->interval);
 	printk("\terror_count           : %d\n", purb->error_count);
-	printk("\tcontext               : 0x%08lx\n",
-	       (unsigned long)purb->context);
-	printk("\tcomplete              : 0x%08lx\n\n",
-	       (unsigned long)purb->complete);
+	printk("\tcontext               : 0x%08lx\n", (unsigned long)purb->context);
+	printk("\tcomplete              : 0x%08lx\n\n", (unsigned long)purb->complete);
 #else
 	return;
-#endif				/* DBG */
+#endif /* DBG */
 }
 #else
-void dump_urb(VOID * purb_org)
+void dump_urb(VOID *purb_org)
 {
 	return;
 }
-#endif				/* LINUX_VERSION_CODE */
+#endif /* LINUX_VERSION_CODE */
+
+
+
+
+
 
 #ifdef OS_ABL_SUPPORT
 /*
@@ -92,8 +93,8 @@ int rausb_register(VOID * new_driver)
 {
 	return usb_register((struct usb_driver *)new_driver);
 }
-
 EXPORT_SYMBOL(rausb_register);
+
 
 /*
 ========================================================================
@@ -113,8 +114,8 @@ void rausb_deregister(VOID * driver)
 {
 	usb_deregister((struct usb_driver *)driver);
 }
-
 EXPORT_SYMBOL(rausb_deregister);
+
 
 /*
 ========================================================================
@@ -136,10 +137,10 @@ struct urb *rausb_alloc_urb(int iso_packets)
 	return usb_alloc_urb(iso_packets, GFP_ATOMIC);
 #else
 	return usb_alloc_urb(iso_packets);
-#endif				/* LINUX_VERSION_CODE */
+#endif /* LINUX_VERSION_CODE */
 }
-
 EXPORT_SYMBOL(rausb_alloc_urb);
+
 
 /*
 ========================================================================
@@ -155,12 +156,12 @@ Return Value:
 Note:
 ========================================================================
 */
-void rausb_free_urb(VOID * urb)
+void rausb_free_urb(VOID *urb)
 {
 	usb_free_urb((struct urb *)urb);
 }
-
 EXPORT_SYMBOL(rausb_free_urb);
+
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
 /*
@@ -177,12 +178,12 @@ Return Value:
 Note:
 ========================================================================
 */
-void rausb_put_dev(VOID * dev)
+void rausb_put_dev(VOID *dev)
 {
 	usb_put_dev((struct usb_device *)dev);
 }
-
 EXPORT_SYMBOL(rausb_put_dev);
+
 
 /*
 ========================================================================
@@ -198,13 +199,13 @@ Return Value:
 Note:
 ========================================================================
 */
-struct usb_device *rausb_get_dev(VOID * dev)
+struct usb_device *rausb_get_dev(VOID *dev)
 {
 	return usb_get_dev((struct usb_device *)dev);
 }
-
 EXPORT_SYMBOL(rausb_get_dev);
-#endif				/* LINUX_VERSION_CODE */
+#endif /* LINUX_VERSION_CODE */
+
 
 /*
 ========================================================================
@@ -221,15 +222,14 @@ Return Value:
 Note:
 ========================================================================
 */
-int rausb_submit_urb(VOID * urb)
+int rausb_submit_urb(VOID *urb)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
 	return usb_submit_urb((struct urb *)urb, GFP_ATOMIC);
 #else
 	return usb_submit_urb((struct urb *)urb);
-#endif				/* LINUX_VERSION_CODE */
+#endif /* LINUX_VERSION_CODE */
 }
-
 EXPORT_SYMBOL(rausb_submit_urb);
 
 /*
@@ -248,10 +248,12 @@ Return Value:
 Note:
 ========================================================================
 */
-void *rausb_buffer_alloc(VOID * dev, size_t size, ra_dma_addr_t * dma)
+void *rausb_buffer_alloc(VOID *dev,
+							size_t size,
+							ra_dma_addr_t *dma)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
-	dma_addr_t DmaAddr = (dma_addr_t) (*dma);
+	dma_addr_t DmaAddr = (dma_addr_t)(*dma);
 	void *buf;
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,35)
@@ -259,15 +261,15 @@ void *rausb_buffer_alloc(VOID * dev, size_t size, ra_dma_addr_t * dma)
 #else
 	buf = usb_buffer_alloc(dev, size, GFP_ATOMIC, &DmaAddr);
 #endif
-	*dma = (ra_dma_addr_t) DmaAddr;
+	*dma = (ra_dma_addr_t)DmaAddr;
 	return buf;
 
 #else
 	return kmalloc(size, GFP_ATOMIC);
 #endif
 }
-
 EXPORT_SYMBOL(rausb_buffer_alloc);
+
 
 /*
 ========================================================================
@@ -286,10 +288,13 @@ Return Value:
 Note:
 ========================================================================
 */
-void rausb_buffer_free(VOID * dev, size_t size, void *addr, ra_dma_addr_t dma)
+void rausb_buffer_free(VOID *dev,
+							size_t size,
+							void *addr,
+							ra_dma_addr_t dma)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
-	dma_addr_t DmaAddr = (dma_addr_t) (dma);
+	dma_addr_t DmaAddr = (dma_addr_t)(dma);
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,35)
 	usb_free_coherent(dev, size, addr, DmaAddr);
@@ -300,7 +305,6 @@ void rausb_buffer_free(VOID * dev, size_t size, void *addr, ra_dma_addr_t dma)
 	kfree(addr);
 #endif
 }
-
 EXPORT_SYMBOL(rausb_buffer_free);
 
 /*
@@ -318,40 +322,40 @@ Return Value:
 Note:
 ========================================================================
 */
-int rausb_control_msg(VOID * dev,
-		      unsigned int pipe,
-		      __u8 request,
-		      __u8 requesttype,
-		      __u16 value,
-		      __u16 index, void *data, __u16 size, int timeout)
+int rausb_control_msg(VOID *dev,
+						unsigned int pipe,
+						__u8 request,
+						__u8 requesttype,
+						__u16 value,
+						__u16 index,
+						void *data,
+						__u16 size,
+						int timeout)
 {
 	int ret;
 
-	ret =
-	    usb_control_msg((struct usb_device *)dev, pipe, request,
-			    requesttype, value, index, data, size, timeout);
+	ret = usb_control_msg((struct usb_device *)dev, pipe, request, requesttype, value, index,
+							data, size, timeout);
 	if (ret == -ENODEV)
 		return RTMP_USB_CONTROL_MSG_ENODEV;
 	if (ret < 0)
 		return RTMP_USB_CONTROL_MSG_FAIL;
 	return ret;
 }
-
 EXPORT_SYMBOL(rausb_control_msg);
 
-unsigned int rausb_sndctrlpipe(VOID * dev, ULONG address)
+unsigned int rausb_sndctrlpipe(VOID *dev, ULONG address)
 {
 	return usb_sndctrlpipe(dev, address);
 }
-
 EXPORT_SYMBOL(rausb_sndctrlpipe);
 
-unsigned int rausb_rcvctrlpipe(VOID * dev, ULONG address)
+unsigned int rausb_rcvctrlpipe(VOID *dev, ULONG address)
 {
 	return usb_rcvctrlpipe(dev, address);
 }
-
 EXPORT_SYMBOL(rausb_rcvctrlpipe);
+
 
 /*
 ========================================================================
@@ -367,113 +371,136 @@ Return Value:
 Note:
 ========================================================================
 */
-void rausb_kill_urb(VOID * urb)
+void rausb_kill_urb(VOID *urb)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,7)
 	usb_kill_urb((struct urb *)urb);
 #else
 	usb_unlink_urb((struct urb *)urb);
-#endif				/* LINUX_VERSION_CODE */
+#endif /* LINUX_VERSION_CODE */
 }
-
 EXPORT_SYMBOL(rausb_kill_urb);
 
-#endif				/* OS_ABL_SUPPORT */
+#endif /* OS_ABL_SUPPORT */
 
-VOID RtmpOsUsbEmptyUrbCheck(IN VOID ** ppWait,
-			    IN NDIS_SPIN_LOCK * pBulkInLock,
-			    IN UCHAR * pPendingRx)
+
+VOID RtmpOsUsbEmptyUrbCheck(
+	IN	VOID				**ppWait,
+	IN	NDIS_SPIN_LOCK		*pBulkInLock,
+	IN	UCHAR				*pPendingRx)
 {
 	UINT32 i = 0;
-	DECLARE_WAIT_QUEUE_HEAD(unlink_wakeup);
+	DECLARE_WAIT_QUEUE_HEAD(unlink_wakeup); 
 	DECLARE_WAITQUEUE(wait, current);
 
+
 	/* ensure there are no more active urbs. */
-	add_wait_queue(&unlink_wakeup, &wait);
+	add_wait_queue (&unlink_wakeup, &wait);
 	*ppWait = &unlink_wakeup;
 
 	/* maybe wait for deletions to finish. */
 	i = 0;
 	/*while((i < 25) && atomic_read(&pAd->PendingRx) > 0) */
-	while (i < 25) {
+	while(i < 25)
+	{
 /*		unsigned long IrqFlags; */
 
 		RTMP_SEM_LOCK(pBulkInLock);
-		if (*pPendingRx == 0) {
+		if (*pPendingRx == 0)
+		{
 			RTMP_SEM_UNLOCK(pBulkInLock);
 			break;
 		}
 		RTMP_SEM_UNLOCK(pBulkInLock);
-
+		
 #if LINUX_VERSION_CODE > KERNEL_VERSION(2,6,9)
 		msleep(UNLINK_TIMEOUT_MS);	/*Time in millisecond */
 #else
-		RTMPusecDelay(UNLINK_TIMEOUT_MS * 1000);	/*Time in microsecond */
+		RTMPusecDelay(UNLINK_TIMEOUT_MS*1000);	/*Time in microsecond */
 #endif
 		i++;
 	}
 	*ppWait = NULL;
-	remove_wait_queue(&unlink_wakeup, &wait);
+	remove_wait_queue (&unlink_wakeup, &wait); 
 }
 
-VOID RtmpOsUsbInitHTTxDesc(IN VOID * pUrbSrc,
-			   IN VOID * pUsb_Dev,
-			   IN UINT BulkOutEpAddr,
-			   IN PUCHAR pSrc,
-			   IN ULONG BulkOutSize,
-			   IN USB_COMPLETE_HANDLER Func,
-			   IN VOID * pTxContext, IN ra_dma_addr_t TransferDma)
+
+VOID	RtmpOsUsbInitHTTxDesc(
+	IN	VOID			*pUrbSrc,
+	IN	VOID			*pUsb_Dev,
+	IN	UINT			BulkOutEpAddr,
+	IN	PUCHAR			pSrc,
+	IN	ULONG			BulkOutSize,
+	IN	USB_COMPLETE_HANDLER	Func,
+	IN	VOID			*pTxContext,
+	IN	ra_dma_addr_t		TransferDma)
 {
-	PURB pUrb = (PURB) pUrbSrc;
-	dma_addr_t DmaAddr = (dma_addr_t) (TransferDma);
+	PURB pUrb = (PURB)pUrbSrc;
+	dma_addr_t DmaAddr = (dma_addr_t)(TransferDma);
+
 
 	ASSERT(pUrb);
 
 	/*Initialize a tx bulk urb */
 	RTUSB_FILL_HTTX_BULK_URB(pUrb,
-				 pUsb_Dev,
-				 BulkOutEpAddr,
-				 pSrc,
-				 BulkOutSize,
-				 (usb_complete_t) Func, pTxContext, DmaAddr);
+						pUsb_Dev,
+						BulkOutEpAddr,
+						pSrc,
+						BulkOutSize,
+						(usb_complete_t)Func,
+						pTxContext,
+						DmaAddr);
 }
 
-VOID RtmpOsUsbInitRxDesc(IN VOID * pUrbSrc,
-			 IN VOID * pUsb_Dev,
-			 IN UINT BulkInEpAddr,
-			 IN UCHAR * pTransferBuffer,
-			 IN UINT32 BufSize,
-			 IN USB_COMPLETE_HANDLER Func,
-			 IN VOID * pRxContext, IN ra_dma_addr_t TransferDma)
+
+VOID	RtmpOsUsbInitRxDesc(
+	IN	VOID			*pUrbSrc,
+	IN	VOID			*pUsb_Dev,
+	IN	UINT			BulkInEpAddr,
+	IN	UCHAR			*pTransferBuffer,
+	IN	UINT32			BufSize,
+	IN	USB_COMPLETE_HANDLER	Func,
+	IN	VOID			*pRxContext,
+	IN	ra_dma_addr_t		TransferDma)
 {
-	PURB pUrb = (PURB) pUrbSrc;
-	dma_addr_t DmaAddr = (dma_addr_t) (TransferDma);
+	PURB pUrb = (PURB)pUrbSrc;
+	dma_addr_t DmaAddr = (dma_addr_t)(TransferDma);
+
 
 	ASSERT(pUrb);
 
 	/*Initialize a rx bulk urb */
 	RTUSB_FILL_RX_BULK_URB(pUrb,
-			       pUsb_Dev,
-			       BulkInEpAddr,
-			       pTransferBuffer,
-			       BufSize,
-			       (usb_complete_t) Func, pRxContext, DmaAddr);
+						pUsb_Dev,
+						BulkInEpAddr,
+						pTransferBuffer,
+						BufSize,
+						(usb_complete_t)Func,
+						pRxContext,
+						DmaAddr);
 }
 
-VOID *RtmpOsUsbContextGet(IN VOID * pUrb)
+
+VOID *RtmpOsUsbContextGet(
+	IN	VOID			*pUrb)
 {
-	return ((purbb_t) pUrb)->rtusb_urb_context;
+	return ((purbb_t)pUrb)->rtusb_urb_context;
 }
 
-NTSTATUS RtmpOsUsbStatusGet(IN VOID * pUrb)
+
+NTSTATUS RtmpOsUsbStatusGet(
+	IN	VOID			*pUrb)
 {
-	return ((purbb_t) pUrb)->rtusb_urb_status;
+	return ((purbb_t)pUrb)->rtusb_urb_status;
 }
 
-VOID RtmpOsUsbDmaMapping(IN VOID * pUrb)
+
+VOID RtmpOsUsbDmaMapping(
+	IN	VOID			*pUrb)
 {
-	RTUSB_URB_DMA_MAPPING(((purbb_t) pUrb));
+	RTUSB_URB_DMA_MAPPING(((purbb_t)pUrb));
 }
+
 
 /*
 ========================================================================
@@ -489,10 +516,12 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID *RtmpOsUsbUrbDataGet(IN VOID * pUrb)
+VOID *RtmpOsUsbUrbDataGet(
+	IN	VOID					*pUrb)
 {
 	return RTMP_USB_URB_DATA_GET(pUrb);
 }
+
 
 /*
 ========================================================================
@@ -508,10 +537,12 @@ Return Value:
 Note:
 ========================================================================
 */
-NTSTATUS RtmpOsUsbUrbStatusGet(IN VOID * pUrb)
+NTSTATUS RtmpOsUsbUrbStatusGet(
+	IN	VOID					*pUrb)
 {
 	return RTMP_USB_URB_STATUS_GET(pUrb);
 }
+
 
 /*
 ========================================================================
@@ -527,7 +558,8 @@ Return Value:
 Note:
 ========================================================================
 */
-ULONG RtmpOsUsbUrbLenGet(IN VOID * pUrb)
+ULONG RtmpOsUsbUrbLenGet(
+	IN	VOID					*pUrb)
 {
 	return RTMP_USB_URB_LEN_GET(pUrb);
 }
@@ -546,9 +578,8 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsGetUsbDevVendorID(IN VOID * pUsbDev)
-{
-	return ((struct usb_device *)pUsbDev)->descriptor.idVendor;
+UINT32 RtmpOsGetUsbDevVendorID(IN VOID *pUsbDev) {
+	return ((struct usb_device *) pUsbDev)->descriptor.idVendor;
 }
 
 /*
@@ -565,9 +596,9 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsGetUsbDevProductID(IN VOID * pUsbDev)
-{
-	return ((struct usb_device *)pUsbDev)->descriptor.idProduct;
+UINT32 RtmpOsGetUsbDevProductID(IN VOID *pUsbDev) {
+	return ((struct usb_device *) pUsbDev)->descriptor.idProduct;
 }
 
-#endif				/* RTMP_MAC_USB */
+#endif /* RTMP_MAC_USB */
+

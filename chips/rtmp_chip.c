@@ -26,42 +26,33 @@
 	--------    ----------    ----------------------------------------------
 */
 
+
 #include "rt_config.h"
 
-FREQUENCY_ITEM RtmpFreqItems3020[] = {
+
+
+FREQUENCY_ITEM RtmpFreqItems3020[] =
+{	
 	/* ISM : 2.4 to 2.483 GHz,  11g */
 	/*-CH---N-------R---K-----------*/
-	{1, 241, 2, 2}
-	,
-	{2, 241, 2, 7}
-	,
-	{3, 242, 2, 2}
-	,
-	{4, 242, 2, 7}
-	,
-	{5, 243, 2, 2}
-	,
-	{6, 243, 2, 7}
-	,
-	{7, 244, 2, 2}
-	,
-	{8, 244, 2, 7}
-	,
-	{9, 245, 2, 2}
-	,
-	{10, 245, 2, 7}
-	,
-	{11, 246, 2, 2}
-	,
-	{12, 246, 2, 7}
-	,
-	{13, 247, 2, 2}
-	,
-	{14, 248, 2, 4}
-	,
+	{1,    241,  2,  2},
+	{2,    241,	 2,  7},
+	{3,    242,	 2,  2},
+	{4,    242,	 2,  7},
+	{5,    243,	 2,  2},
+	{6,    243,	 2,  7},
+	{7,    244,	 2,  2},
+	{8,    244,	 2,  7},
+	{9,    245,	 2,  2},
+	{10,   245,	 2,  7},
+	{11,   246,	 2,  2},
+	{12,   246,	 2,  7},
+	{13,   247,	 2,  2},
+	{14,   248,	 2,  4},
 };
 
-FREQUENCY_ITEM FreqItems3020_Xtal20M[] = {
+FREQUENCY_ITEM FreqItems3020_Xtal20M[] =
+{	
 	/*
 	 * RF_R08:
 	 * <7:0>: pll_N<7:0>
@@ -73,268 +64,195 @@ FREQUENCY_ITEM FreqItems3020_Xtal20M[] = {
 	 *
 	 */
 	/*-CH---N--------R---N[7:4]K[3:0]------*/
-	{1, 0xE2, 2, 0x14}
-	,
-	{2, 0xE3, 2, 0x14}
-	,
-	{3, 0xE4, 2, 0x14}
-	,
-	{4, 0xE5, 2, 0x14}
-	,
-	{5, 0xE6, 2, 0x14}
-	,
-	{6, 0xE7, 2, 0x14}
-	,
-	{7, 0xE8, 2, 0x14}
-	,
-	{8, 0xE9, 2, 0x14}
-	,
-	{9, 0xEA, 2, 0x14}
-	,
-	{10, 0xEB, 2, 0x14}
-	,
-	{11, 0xEC, 2, 0x14}
-	,
-	{12, 0xED, 2, 0x14}
-	,
-	{13, 0xEE, 2, 0x14}
-	,
-	{14, 0xF0, 2, 0x18}
-	,
+	{1,    0xE2,     2,  0x14},
+	{2,    0xE3,	 2,  0x14},
+	{3,    0xE4,	 2,  0x14},
+	{4,    0xE5,	 2,  0x14},
+	{5,    0xE6,	 2,  0x14},
+	{6,    0xE7,	 2,  0x14},
+	{7,    0xE8,	 2,  0x14},
+	{8,    0xE9,	 2,  0x14},
+	{9,    0xEA,	 2,  0x14},
+	{10,   0xEB,	 2,  0x14},
+	{11,   0xEC,	 2,  0x14},
+	{12,   0xED,	 2,  0x14},
+	{13,   0xEE,	 2,  0x14},
+	{14,   0xF0,	 2,  0x18},
 };
 
-UCHAR NUM_OF_3020_CHNL = (sizeof(RtmpFreqItems3020) / sizeof(FREQUENCY_ITEM));
+UCHAR	NUM_OF_3020_CHNL = (sizeof(RtmpFreqItems3020) / sizeof(FREQUENCY_ITEM));
 
 FREQUENCY_ITEM *FreqItems3020 = RtmpFreqItems3020;
 
-#if defined(RT28xx) || defined(RT2883)
+#if defined(RT28xx) || defined(RT2883) 
 /* Reset the RFIC setting to new series    */
 RTMP_RF_REGS RF2850RegTable[] = {
-	/*      ch       R1              R2              R3(TX0~4=0) R4 */
-	{1, 0x98402ecc, 0x984c0786, 0x9816b455, 0x9800510b}
-	,
-	{2, 0x98402ecc, 0x984c0786, 0x98168a55, 0x9800519f}
-	,
-	{3, 0x98402ecc, 0x984c078a, 0x98168a55, 0x9800518b}
-	,
-	{4, 0x98402ecc, 0x984c078a, 0x98168a55, 0x9800519f}
-	,
-	{5, 0x98402ecc, 0x984c078e, 0x98168a55, 0x9800518b}
-	,
-	{6, 0x98402ecc, 0x984c078e, 0x98168a55, 0x9800519f}
-	,
-	{7, 0x98402ecc, 0x984c0792, 0x98168a55, 0x9800518b}
-	,
-	{8, 0x98402ecc, 0x984c0792, 0x98168a55, 0x9800519f}
-	,
-	{9, 0x98402ecc, 0x984c0796, 0x98168a55, 0x9800518b}
-	,
-	{10, 0x98402ecc, 0x984c0796, 0x98168a55, 0x9800519f}
-	,
-	{11, 0x98402ecc, 0x984c079a, 0x98168a55, 0x9800518b}
-	,
-	{12, 0x98402ecc, 0x984c079a, 0x98168a55, 0x9800519f}
-	,
-	{13, 0x98402ecc, 0x984c079e, 0x98168a55, 0x9800518b}
-	,
-	{14, 0x98402ecc, 0x984c07a2, 0x98168a55, 0x98005193}
-	,
+	/*	ch	 R1 		 R2 		 R3(TX0~4=0) R4*/
+		{1,  0x98402ecc, 0x984c0786, 0x9816b455, 0x9800510b},
+		{2,  0x98402ecc, 0x984c0786, 0x98168a55, 0x9800519f},
+		{3,  0x98402ecc, 0x984c078a, 0x98168a55, 0x9800518b},
+		{4,  0x98402ecc, 0x984c078a, 0x98168a55, 0x9800519f},
+		{5,  0x98402ecc, 0x984c078e, 0x98168a55, 0x9800518b},
+		{6,  0x98402ecc, 0x984c078e, 0x98168a55, 0x9800519f},
+		{7,  0x98402ecc, 0x984c0792, 0x98168a55, 0x9800518b},
+		{8,  0x98402ecc, 0x984c0792, 0x98168a55, 0x9800519f},
+		{9,  0x98402ecc, 0x984c0796, 0x98168a55, 0x9800518b},
+		{10, 0x98402ecc, 0x984c0796, 0x98168a55, 0x9800519f},
+		{11, 0x98402ecc, 0x984c079a, 0x98168a55, 0x9800518b},
+		{12, 0x98402ecc, 0x984c079a, 0x98168a55, 0x9800519f},
+		{13, 0x98402ecc, 0x984c079e, 0x98168a55, 0x9800518b},
+		{14, 0x98402ecc, 0x984c07a2, 0x98168a55, 0x98005193},
 
-	/* 802.11 UNI / HyperLan 2 */
-	{36, 0x98402ecc, 0x984c099a, 0x98158a55, 0x980ed1a3}
-	,
-	{38, 0x98402ecc, 0x984c099e, 0x98158a55, 0x980ed193}
-	,
-	{40, 0x98402ec8, 0x984c0682, 0x98158a55, 0x980ed183}
-	,
-	{44, 0x98402ec8, 0x984c0682, 0x98158a55, 0x980ed1a3}
-	,
-	{46, 0x98402ec8, 0x984c0686, 0x98158a55, 0x980ed18b}
-	,
-	{48, 0x98402ec8, 0x984c0686, 0x98158a55, 0x980ed19b}
-	,
-	{52, 0x98402ec8, 0x984c068a, 0x98158a55, 0x980ed193}
-	,
-	{54, 0x98402ec8, 0x984c068a, 0x98158a55, 0x980ed1a3}
-	,
-	{56, 0x98402ec8, 0x984c068e, 0x98158a55, 0x980ed18b}
-	,
-	{60, 0x98402ec8, 0x984c0692, 0x98158a55, 0x980ed183}
-	,
-	{62, 0x98402ec8, 0x984c0692, 0x98158a55, 0x980ed193}
-	,
-	{64, 0x98402ec8, 0x984c0692, 0x98158a55, 0x980ed1a3}
-	,			/* Plugfest#4, Day4, change RFR3 left4th 9->5. */
+		/* 802.11 UNI / HyperLan 2*/
+		{36, 0x98402ecc, 0x984c099a, 0x98158a55, 0x980ed1a3},
+		{38, 0x98402ecc, 0x984c099e, 0x98158a55, 0x980ed193},
+		{40, 0x98402ec8, 0x984c0682, 0x98158a55, 0x980ed183},
+		{44, 0x98402ec8, 0x984c0682, 0x98158a55, 0x980ed1a3},
+		{46, 0x98402ec8, 0x984c0686, 0x98158a55, 0x980ed18b},
+		{48, 0x98402ec8, 0x984c0686, 0x98158a55, 0x980ed19b},
+		{52, 0x98402ec8, 0x984c068a, 0x98158a55, 0x980ed193},
+		{54, 0x98402ec8, 0x984c068a, 0x98158a55, 0x980ed1a3},
+		{56, 0x98402ec8, 0x984c068e, 0x98158a55, 0x980ed18b},
+		{60, 0x98402ec8, 0x984c0692, 0x98158a55, 0x980ed183},
+		{62, 0x98402ec8, 0x984c0692, 0x98158a55, 0x980ed193},
+		{64, 0x98402ec8, 0x984c0692, 0x98158a55, 0x980ed1a3}, /* Plugfest#4, Day4, change RFR3 left4th 9->5.*/
 
-	/* 802.11 HyperLan 2 */
-	{100, 0x98402ec8, 0x984c06b2, 0x98178a55, 0x980ed783}
-	,
+		/* 802.11 HyperLan 2*/
+		{100, 0x98402ec8, 0x984c06b2, 0x98178a55, 0x980ed783},
+		
+		/* 2008.04.30 modified */
+		/* The system team has AN to improve the EVM value */
+		/* for channel 102 to 108 for the RT2850/RT2750 dual band solution.*/
+		{102, 0x98402ec8, 0x985c06b2, 0x98578a55, 0x980ed793},
+		{104, 0x98402ec8, 0x985c06b2, 0x98578a55, 0x980ed1a3},
+		{108, 0x98402ecc, 0x985c0a32, 0x98578a55, 0x980ed193},
 
-	/* 2008.04.30 modified */
-	/* The system team has AN to improve the EVM value */
-	/* for channel 102 to 108 for the RT2850/RT2750 dual band solution. */
-	{102, 0x98402ec8, 0x985c06b2, 0x98578a55, 0x980ed793}
-	,
-	{104, 0x98402ec8, 0x985c06b2, 0x98578a55, 0x980ed1a3}
-	,
-	{108, 0x98402ecc, 0x985c0a32, 0x98578a55, 0x980ed193}
-	,
+		{110, 0x98402ecc, 0x984c0a36, 0x98178a55, 0x980ed183},
+		{112, 0x98402ecc, 0x984c0a36, 0x98178a55, 0x980ed19b},
+		{116, 0x98402ecc, 0x984c0a3a, 0x98178a55, 0x980ed1a3},
+		{118, 0x98402ecc, 0x984c0a3e, 0x98178a55, 0x980ed193},
+		{120, 0x98402ec4, 0x984c0382, 0x98178a55, 0x980ed183},
+		{124, 0x98402ec4, 0x984c0382, 0x98178a55, 0x980ed193},
+		{126, 0x98402ec4, 0x984c0382, 0x98178a55, 0x980ed15b}, /* 0x980ed1bb->0x980ed15b required by Rory 20070927*/
+		{128, 0x98402ec4, 0x984c0382, 0x98178a55, 0x980ed1a3},
+		{132, 0x98402ec4, 0x984c0386, 0x98178a55, 0x980ed18b},
+		{134, 0x98402ec4, 0x984c0386, 0x98178a55, 0x980ed193},
+		{136, 0x98402ec4, 0x984c0386, 0x98178a55, 0x980ed19b},
+		{140, 0x98402ec4, 0x984c038a, 0x98178a55, 0x980ed183},
 
-	{110, 0x98402ecc, 0x984c0a36, 0x98178a55, 0x980ed183}
-	,
-	{112, 0x98402ecc, 0x984c0a36, 0x98178a55, 0x980ed19b}
-	,
-	{116, 0x98402ecc, 0x984c0a3a, 0x98178a55, 0x980ed1a3}
-	,
-	{118, 0x98402ecc, 0x984c0a3e, 0x98178a55, 0x980ed193}
-	,
-	{120, 0x98402ec4, 0x984c0382, 0x98178a55, 0x980ed183}
-	,
-	{124, 0x98402ec4, 0x984c0382, 0x98178a55, 0x980ed193}
-	,
-	{126, 0x98402ec4, 0x984c0382, 0x98178a55, 0x980ed15b}
-	,			/* 0x980ed1bb->0x980ed15b required by Rory 20070927 */
-	{128, 0x98402ec4, 0x984c0382, 0x98178a55, 0x980ed1a3}
-	,
-	{132, 0x98402ec4, 0x984c0386, 0x98178a55, 0x980ed18b}
-	,
-	{134, 0x98402ec4, 0x984c0386, 0x98178a55, 0x980ed193}
-	,
-	{136, 0x98402ec4, 0x984c0386, 0x98178a55, 0x980ed19b}
-	,
-	{140, 0x98402ec4, 0x984c038a, 0x98178a55, 0x980ed183}
-	,
+		/* 802.11 UNII*/
+		{149, 0x98402ec4, 0x984c038a, 0x98178a55, 0x980ed1a7},
+		{151, 0x98402ec4, 0x984c038e, 0x98178a55, 0x980ed187},
+		{153, 0x98402ec4, 0x984c038e, 0x98178a55, 0x980ed18f},
+		{157, 0x98402ec4, 0x984c038e, 0x98178a55, 0x980ed19f},
+		{159, 0x98402ec4, 0x984c038e, 0x98178a55, 0x980ed1a7},
+		{161, 0x98402ec4, 0x984c0392, 0x98178a55, 0x980ed187},
+		{165, 0x98402ec4, 0x984c0392, 0x98178a55, 0x980ed197},
+		{167, 0x98402ec4, 0x984c03d2, 0x98179855, 0x9815531f},
+		{169, 0x98402ec4, 0x984c03d2, 0x98179855, 0x98155327},
+		{171, 0x98402ec4, 0x984c03d6, 0x98179855, 0x98155307},
+		{173, 0x98402ec4, 0x984c03d6, 0x98179855, 0x9815530f},
 
-	/* 802.11 UNII */
-	{149, 0x98402ec4, 0x984c038a, 0x98178a55, 0x980ed1a7}
-	,
-	{151, 0x98402ec4, 0x984c038e, 0x98178a55, 0x980ed187}
-	,
-	{153, 0x98402ec4, 0x984c038e, 0x98178a55, 0x980ed18f}
-	,
-	{157, 0x98402ec4, 0x984c038e, 0x98178a55, 0x980ed19f}
-	,
-	{159, 0x98402ec4, 0x984c038e, 0x98178a55, 0x980ed1a7}
-	,
-	{161, 0x98402ec4, 0x984c0392, 0x98178a55, 0x980ed187}
-	,
-	{165, 0x98402ec4, 0x984c0392, 0x98178a55, 0x980ed197}
-	,
-	{167, 0x98402ec4, 0x984c03d2, 0x98179855, 0x9815531f}
-	,
-	{169, 0x98402ec4, 0x984c03d2, 0x98179855, 0x98155327}
-	,
-	{171, 0x98402ec4, 0x984c03d6, 0x98179855, 0x98155307}
-	,
-	{173, 0x98402ec4, 0x984c03d6, 0x98179855, 0x9815530f}
-	,
+		/* Japan*/
+		{184, 0x95002ccc, 0x9500491e, 0x9509be55, 0x950c0a0b},
+		{188, 0x95002ccc, 0x95004922, 0x9509be55, 0x950c0a13},
+		{192, 0x95002ccc, 0x95004926, 0x9509be55, 0x950c0a1b},
+		{196, 0x95002ccc, 0x9500492a, 0x9509be55, 0x950c0a23},
+		{208, 0x95002ccc, 0x9500493a, 0x9509be55, 0x950c0a13},
+		{212, 0x95002ccc, 0x9500493e, 0x9509be55, 0x950c0a1b},
+		{216, 0x95002ccc, 0x95004982, 0x9509be55, 0x950c0a23},
 
-	/* Japan */
-	{184, 0x95002ccc, 0x9500491e, 0x9509be55, 0x950c0a0b}
-	,
-	{188, 0x95002ccc, 0x95004922, 0x9509be55, 0x950c0a13}
-	,
-	{192, 0x95002ccc, 0x95004926, 0x9509be55, 0x950c0a1b}
-	,
-	{196, 0x95002ccc, 0x9500492a, 0x9509be55, 0x950c0a23}
-	,
-	{208, 0x95002ccc, 0x9500493a, 0x9509be55, 0x950c0a13}
-	,
-	{212, 0x95002ccc, 0x9500493e, 0x9509be55, 0x950c0a1b}
-	,
-	{216, 0x95002ccc, 0x95004982, 0x9509be55, 0x950c0a23}
-	,
-
-	/* still lack of MMAC(Japan) ch 34,38,42,46 */
+		/* still lack of MMAC(Japan) ch 34,38,42,46*/
 };
+UCHAR	NUM_OF_2850_CHNL = (sizeof(RF2850RegTable) / sizeof(RTMP_RF_REGS));
+#endif /* defined(RT28xx) || defined(RT2883) */
 
-UCHAR NUM_OF_2850_CHNL = (sizeof(RF2850RegTable) / sizeof(RTMP_RF_REGS));
-#endif				/* defined(RT28xx) || defined(RT2883) */
-
-#if defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION)
+#if defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) 
 
 /* The Tx power tuning entry*/
-const TX_POWER_TUNING_ENTRY_STRUCT TxPowerTuningTableOrg[] = {
+const TX_POWER_TUNING_ENTRY_STRUCT TxPowerTuningTableOrg[] = 
+{
 /*	idxTxPowerTable		Tx power control over RF			Tx power control over MAC*/
 /*	(zero-based array)		{ RF R12[4:0]: Tx0 ALC},			{MAC 0x1314~0x1324}*/
-/*	0	*/ {0x00, -15},
-/*	1	*/ {0x01, -15},
-/*	2	*/ {0x00, -14},
-/*	3	*/ {0x01, -14},
-/*	4	*/ {0x00, -13},
-/*	5	*/ {0x01, -13},
-/*	6	*/ {0x00, -12},
-/*	7	*/ {0x01, -12},
-/*	8	*/ {0x00, -11},
-/*	9	*/ {0x01, -11},
-/*	10	*/ {0x00, -10},
-/*	11	*/ {0x01, -10},
-/*	12	*/ {0x00, -9},
-/*	13	*/ {0x01, -9},
-/*	14	*/ {0x00, -8},
-/*	15	*/ {0x01, -8},
-/*	16	*/ {0x00, -7},
-/*	17	*/ {0x01, -7},
-/*	18	*/ {0x00, -6},
-/*	19	*/ {0x01, -6},
-/*	20	*/ {0x00, -5},
-/*	21	*/ {0x01, -5},
-/*	22	*/ {0x00, -4},
-/*	23	*/ {0x01, -4},
-/*	24	*/ {0x00, -3},
-/*	25	*/ {0x01, -3},
-/*	26	*/ {0x00, -2},
-/*	27	*/ {0x01, -2},
-/*	28	*/ {0x00, -1},
-/*	29	*/ {0x01, -1},
-/*	30	*/ {0x00, 0},
-/*	31	*/ {0x01, 0},
-/*	32	*/ {0x02, 0},
-/*	33	*/ {0x03, 0},
-/*	34	*/ {0x04, 0},
-/*	35	*/ {0x05, 0},
-/*	36	*/ {0x06, 0},
-/*	37	*/ {0x07, 0},
-/*	38	*/ {0x08, 0},
-/*	39	*/ {0x09, 0},
-/*	40	*/ {0x0A, 0},
-/*	41	*/ {0x0B, 0},
-/*	42	*/ {0x0C, 0},
-/*	43	*/ {0x0D, 0},
-/*	44	*/ {0x0E, 0},
-/*	45	*/ {0x0F, 0},
-/*	46	*/ {0x0F - 1, 1},
-/*	47	*/ {0x0F, 1},
-/*	48	*/ {0x0F - 1, 2},
-/*	49	*/ {0x0F, 2},
-/*	50	*/ {0x0F - 1, 3},
-/*	51	*/ {0x0F, 3},
-/*	52	*/ {0x0F - 1, 4},
-/*	53	*/ {0x0F, 4},
-/*	54	*/ {0x0F - 1, 5},
-/*	55	*/ {0x0F, 5},
-/*	56	*/ {0x0F - 1, 6},
-/*	57	*/ {0x0F, 6},
-/*	58	*/ {0x0F - 1, 7},
-/*	59	*/ {0x0F, 7},
-/*	60	*/ {0x0F - 1, 8},
-/*	61	*/ {0x0F, 8},
-/*	62	*/ {0x0F - 1, 9},
-/*	63	*/ {0x0F, 9},
-/*	64	*/ {0x0F - 1, 10},
-/*	65	*/ {0x0F, 10},
-/*	66	*/ {0x0F - 1, 11},
-/*	67	*/ {0x0F, 11},
-/*	68	*/ {0x0F - 1, 12},
-/*	69	*/ {0x0F, 12},
-/*	70	*/ {0x0F - 1, 13},
-/*	71	*/ {0x0F, 13},
-/*	72	*/ {0x0F - 1, 14},
-/*	73	*/ {0x0F, 14},
-/*	74	*/ {0x0F - 1, 15},
-/*	75	*/ {0x0F, 15},
+/*	0	*/				{0x00, 							-15}, 
+/*	1	*/				{0x01, 							-15}, 
+/*	2	*/				{0x00, 							-14}, 
+/*	3	*/				{0x01, 							-14}, 
+/*	4	*/				{0x00, 							-13}, 
+/*	5	*/				{0x01, 							-13}, 
+/*	6	*/				{0x00, 							-12}, 
+/*	7	*/				{0x01, 							-12}, 
+/*	8	*/				{0x00, 							-11}, 
+/*	9	*/				{0x01, 							-11}, 
+/*	10	*/				{0x00, 							-10}, 
+/*	11	*/				{0x01, 							-10}, 
+/*	12	*/				{0x00, 							-9}, 
+/*	13	*/				{0x01, 							-9}, 
+/*	14	*/				{0x00, 							-8}, 
+/*	15	*/				{0x01, 							-8}, 
+/*	16	*/				{0x00, 							-7}, 
+/*	17	*/				{0x01, 							-7}, 
+/*	18	*/				{0x00, 							-6}, 
+/*	19	*/				{0x01, 							-6}, 
+/*	20	*/				{0x00, 							-5}, 
+/*	21	*/				{0x01, 							-5}, 
+/*	22	*/				{0x00, 							-4}, 
+/*	23	*/				{0x01, 							-4}, 
+/*	24	*/				{0x00, 							-3}, 
+/*	25	*/				{0x01, 							-3}, 
+/*	26	*/				{0x00,							-2}, 
+/*	27	*/				{0x01, 							-2}, 
+/*	28	*/				{0x00, 							-1}, 
+/*	29	*/				{0x01, 							-1}, 
+/*	30	*/				{0x00,							0}, 
+/*	31	*/				{0x01,							0}, 
+/*	32	*/				{0x02,							0}, 
+/*	33	*/				{0x03,							0}, 
+/*	34	*/				{0x04,							0}, 
+/*	35	*/				{0x05,							0}, 
+/*	36	*/				{0x06,							0}, 
+/*	37	*/				{0x07,							0}, 
+/*	38	*/				{0x08,							0}, 
+/*	39	*/				{0x09,							0}, 
+/*	40	*/				{0x0A,							0}, 
+/*	41	*/				{0x0B,							0}, 
+/*	42	*/				{0x0C,							0}, 
+/*	43	*/				{0x0D,							0}, 
+/*	44	*/				{0x0E,							0}, 
+/*	45	*/				{0x0F,							0}, 
+/*	46	*/				{0x0F-1,							1}, 
+/*	47	*/				{0x0F,							1}, 
+/*	48	*/				{0x0F-1,							2}, 
+/*	49	*/				{0x0F,							2}, 
+/*	50	*/				{0x0F-1,							3}, 
+/*	51	*/				{0x0F,							3}, 
+/*	52	*/				{0x0F-1,							4}, 
+/*	53	*/				{0x0F,							4}, 
+/*	54	*/				{0x0F-1,							5}, 
+/*	55	*/				{0x0F,							5}, 
+/*	56	*/				{0x0F-1,							6}, 
+/*	57	*/				{0x0F,							6}, 
+/*	58	*/				{0x0F-1,							7}, 
+/*	59	*/				{0x0F,							7}, 
+/*	60	*/				{0x0F-1,							8}, 
+/*	61	*/				{0x0F,							8}, 
+/*	62	*/				{0x0F-1,							9}, 
+/*	63	*/				{0x0F,							9}, 
+/*	64	*/				{0x0F-1,							10}, 
+/*	65	*/				{0x0F,							10}, 
+/*	66	*/				{0x0F-1,							11}, 
+/*	67	*/				{0x0F,							11}, 
+/*	68	*/				{0x0F-1,							12}, 
+/*	69	*/				{0x0F,							12}, 
+/*	70	*/				{0x0F-1,							13}, 
+/*	71	*/				{0x0F,							13}, 
+/*	72	*/				{0x0F-1,							14}, 
+/*	73	*/				{0x0F,							14}, 
+/*	74	*/				{0x0F-1,							15}, 
+/*	75	*/				{0x0F,							15}, 
 };
-#endif				/* RTMP_INTERNAL_TX_ALC || RTMP_TEMPERATURE_COMPENSATION */
+#endif /* RTMP_INTERNAL_TX_ALC || RTMP_TEMPERATURE_COMPENSATION */
+
 
 /*
 ========================================================================
@@ -350,9 +268,10 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipBcnSpecInit(RTMP_ADAPTER * pAd)
+VOID RtmpChipBcnSpecInit(RTMP_ADAPTER *pAd)
 {
 }
+
 
 /*
 ========================================================================
@@ -368,18 +287,20 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipBcnInit(IN RTMP_ADAPTER * pAd)
+VOID RtmpChipBcnInit(
+	IN RTMP_ADAPTER *pAd)
 {
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
+
 	pChipCap->FlgIsSupSpecBcnBuf = FALSE;
 	pChipCap->BcnMaxHwNum = 8;
-	pChipCap->BcnMaxNum =
-	    (pChipCap->BcnMaxHwNum - MAX_MESH_NUM - MAX_APCLI_NUM);
+	pChipCap->BcnMaxNum = (pChipCap->BcnMaxHwNum - MAX_MESH_NUM - MAX_APCLI_NUM);
 	pChipCap->BcnMaxHwSize = 0x1000;
 
 #ifdef MT7601
-	if (IS_MT7601(pAd)) {
+	if (IS_MT7601(pAd))
+	{
 		pChipCap->BcnBase[0] = 0xC000;
 		pChipCap->BcnBase[1] = 0xC200;
 		pChipCap->BcnBase[2] = 0xC400;
@@ -388,8 +309,9 @@ VOID RtmpChipBcnInit(IN RTMP_ADAPTER * pAd)
 		pChipCap->BcnBase[5] = 0xCA00;
 		pChipCap->BcnBase[6] = 0xCC00;
 		pChipCap->BcnBase[7] = 0xCE00;
-	} else
-#endif				/* MT7601 */
+	}
+	else
+#endif /* MT7601 */
 	{
 		pChipCap->BcnBase[0] = 0x7800;
 		pChipCap->BcnBase[1] = 0x7A00;
@@ -402,11 +324,11 @@ VOID RtmpChipBcnInit(IN RTMP_ADAPTER * pAd)
 	}
 
 	/*
-	   If the MAX_MBSSID_NUM is larger than 6,
-	   it shall reserve some WCID space(wcid 222~253) for beacon frames.
-	   -    these wcid 238~253 are reserved for beacon#6(ra6).
-	   -    these wcid 222~237 are reserved for beacon#7(ra7).
-	 */
+		If the MAX_MBSSID_NUM is larger than 6,
+		it shall reserve some WCID space(wcid 222~253) for beacon frames.
+		-	these wcid 238~253 are reserved for beacon#6(ra6).
+		-	these wcid 222~237 are reserved for beacon#7(ra7).
+	*/
 #ifdef MT7601
 	if (IS_MT7601(pAd))
 		pChipCap->WcidHwRsvNum = 127;
@@ -421,6 +343,7 @@ VOID RtmpChipBcnInit(IN RTMP_ADAPTER * pAd)
 
 	pAd->chipOps.BeaconUpdate = RtmpChipWriteMemory;
 }
+
 
 #ifdef RLT_MAC
 /*
@@ -437,7 +360,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID rlt_bcn_buf_init(RTMP_ADAPTER * pAd)
+VOID rlt_bcn_buf_init(RTMP_ADAPTER *pAd)
 {
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
@@ -458,7 +381,7 @@ VOID rlt_bcn_buf_init(RTMP_ADAPTER * pAd)
 	pChipCap->BcnMaxNum = (8 - MAX_MESH_NUM);
 #else
 	pChipCap->BcnMaxNum = (pChipCap->BcnMaxHwNum - MAX_MESH_NUM);
-#endif				/* APCLI_SUPPORT */
+#endif /* APCLI_SUPPORT */
 
 	pChipCap->BcnMaxHwSize = 0x2000;
 
@@ -484,11 +407,12 @@ VOID rlt_bcn_buf_init(RTMP_ADAPTER * pAd)
 	//pAd->NullBufOffset[0] = 0xd000;
 	pAd->NullBufOffset[0] = 0xd000;
 	pAd->NullBufOffset[1] = 0xd200;
-#endif				/* CONFIG_MULTI_CHANNEL */
+#endif /* CONFIG_MULTI_CHANNEL */
 
 	pAd->chipOps.BeaconUpdate = RtmpChipWriteMemory;
 }
-#endif				/* RLT_MAC */
+#endif /* RLT_MAC */
+
 
 /*
 ========================================================================
@@ -508,28 +432,32 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipWriteHighMemory(IN RTMP_ADAPTER * pAd,
-			     IN USHORT Offset, IN UINT32 Value, IN UINT8 Unit)
+VOID RtmpChipWriteHighMemory(
+	IN RTMP_ADAPTER *pAd,
+	IN USHORT Offset,
+	IN UINT32 Value,
+	IN UINT8 Unit)
 {
 #ifdef RTMP_MAC_USB
-	switch (Unit) {
-	case 1:
-		RTUSBSingleWrite(pAd, Offset, Value, TRUE);
-		break;
-	case 2:
+	switch(Unit)
+	{
+		case 1:
+			RTUSBSingleWrite(pAd, Offset, Value, TRUE);
+			break;
+		case 2:
 		{
-			UINT16 ShortVal = (UINT16) Value;
-			RTUSBMultiWrite(pAd, Offset, (UCHAR *) & ShortVal, 2,
-					TRUE);
+			UINT16 ShortVal = (UINT16)Value;
+			RTUSBMultiWrite(pAd, Offset, (UCHAR *) &ShortVal, 2, TRUE);
 			break;
 		}
-	case 4:
-		RTUSBWriteMACRegister(pAd, Offset, Value, TRUE);
-	default:
-		break;
+		case 4:
+			RTUSBWriteMACRegister(pAd, Offset, Value, TRUE);
+		default:
+			break;
 	}
-#endif				/* RTMP_MAC_USB */
+#endif /* RTMP_MAC_USB */
 }
+
 
 /*
 ========================================================================
@@ -547,55 +475,62 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipWriteMemory(IN RTMP_ADAPTER * pAd,
-			 IN USHORT Offset, IN UINT32 Value, IN UINT8 Unit)
+VOID RtmpChipWriteMemory(
+	IN	RTMP_ADAPTER	*pAd,
+	IN	USHORT			Offset,
+	IN	UINT32			Value,
+	IN	UINT8			Unit)
 {
-	switch (Unit) {
-	case 1:
-		RTMP_IO_WRITE8(pAd, Offset, Value);
-		break;
-	case 2:
-		RTMP_IO_WRITE16(pAd, Offset, Value);
-		break;
-	case 4:
-		RTMP_IO_WRITE32(pAd, Offset, Value);
-	default:
-		break;
+	switch(Unit)
+	{
+		case 1:
+			RTMP_IO_WRITE8(pAd, Offset, Value);
+			break;
+		case 2:
+			RTMP_IO_WRITE16(pAd, Offset, Value);
+			break;
+		case 4:
+			RTMP_IO_WRITE32(pAd, Offset, Value);
+		default:
+			break;
 	}
 }
 
+
 #ifdef GREENAP_SUPPORT
-static VOID EnableAPMIMOPSv2(RTMP_ADAPTER * pAd, BOOLEAN ReduceCorePower)
+static VOID EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower)
 {
 	rtmp_bbp_set_mmps(pAd, ReduceCorePower);
 	rtmp_mac_set_mmps(pAd, ReduceCorePower);
 
-	DBGPRINT(RT_DEBUG_INFO,
-		 ("EnableAPMIMOPSNew, 30xx changes the # of antenna to 1\n"));
+	DBGPRINT(RT_DEBUG_INFO, ("EnableAPMIMOPSNew, 30xx changes the # of antenna to 1\n"));
 }
 
-static VOID DisableAPMIMOPSv2(RTMP_ADAPTER * pAd)
+
+static VOID DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
 {
 	rtmp_bbp_set_mmps(pAd, FALSE);
 	rtmp_mac_set_mmps(pAd, FALSE);
 
-	DBGPRINT(RT_DEBUG_INFO,
-		 ("DisableAPMIMOPSNew, 30xx reserve only one antenna\n"));
+	DBGPRINT(RT_DEBUG_INFO, ("DisableAPMIMOPSNew, 30xx reserve only one antenna\n"));
 }
 
-static VOID EnableAPMIMOPSv1(IN RTMP_ADAPTER * pAd, IN BOOLEAN ReduceCorePower)
+
+static VOID EnableAPMIMOPSv1(
+	IN RTMP_ADAPTER *pAd,
+	IN BOOLEAN ReduceCorePower)
 {
-	UCHAR BBPR3 = 0, BBPR1 = 0;
-	ULONG TxPinCfg = 0x00050F0A;	/*Gary 2007/08/09 0x050A0A */
-	UCHAR BBPR4 = 0;
-	UCHAR CentralChannel;
+	UCHAR	BBPR3 = 0,BBPR1 = 0;
+	ULONG	TxPinCfg = 0x00050F0A; /*Gary 2007/08/09 0x050A0A*/
+	UCHAR	BBPR4 = 0;
+	UCHAR	CentralChannel;
 
-	if (pAd->CommonCfg.Channel > 14)
-		TxPinCfg = 0x00050F05;
-
+	if(pAd->CommonCfg.Channel > 14)
+		TxPinCfg=0x00050F05;
+		
 	TxPinCfg &= 0xFFFFFFF3;
 	TxPinCfg &= 0xFFFFF3FF;
-	pAd->ApCfg.bGreenAPActive = TRUE;
+	pAd->ApCfg.bGreenAPActive=TRUE;
 
 	CentralChannel = pAd->CommonCfg.CentralChannel;
 	DBGPRINT(RT_DEBUG_INFO, ("Run with BW_20\n"));
@@ -606,8 +541,9 @@ static VOID EnableAPMIMOPSv1(IN RTMP_ADAPTER * pAd, IN BOOLEAN ReduceCorePower)
 	rtmp_bbp_set_bw(pAd, BW_20);
 
 	/* RF Bandwidth related registers would be set in AsicSwitchChannel() */
-	if (pAd->Antenna.field.RxPath > 1 || pAd->Antenna.field.TxPath > 1) {
-		/*Tx/Rx Stream */
+	if (pAd->Antenna.field.RxPath>1||pAd->Antenna.field.TxPath>1)
+	{
+		/*Tx/Rx Stream*/
 		rtmp_bbp_set_txdac(pAd, 0);
 		rtmp_bbp_set_rxpath(pAd, 1);
 		RTMP_IO_WRITE32(pAd, TX_PIN_CFG, TxPinCfg);
@@ -615,20 +551,21 @@ static VOID EnableAPMIMOPSv1(IN RTMP_ADAPTER * pAd, IN BOOLEAN ReduceCorePower)
 	}
 	AsicSwitchChannel(pAd, CentralChannel, FALSE);
 
-	DBGPRINT(RT_DEBUG_INFO,
-		 ("EnableAPMIMOPS, 305x/28xx changes the # of antenna to 1\n"));
+	DBGPRINT(RT_DEBUG_INFO, ("EnableAPMIMOPS, 305x/28xx changes the # of antenna to 1\n"));
 }
 
-static VOID DisableAPMIMOPSv1(IN PRTMP_ADAPTER pAd)
-{
-	UCHAR BBPR3 = 0, BBPR1 = 0;
-	ULONG TxPinCfg = 0x00050F0A;	/* Gary 2007/08/09 0x050A0A */
-	UCHAR CentralChannel;
-	UINT32 Value = 0;
 
-	if (pAd->CommonCfg.Channel > 14)
+static VOID DisableAPMIMOPSv1(
+	IN PRTMP_ADAPTER		pAd)
+{
+	UCHAR	BBPR3 = 0,BBPR1 = 0;
+	ULONG	TxPinCfg = 0x00050F0A; /* Gary 2007/08/09 0x050A0A */
+	UCHAR	CentralChannel;
+	UINT32	Value = 0;
+
+	if(pAd->CommonCfg.Channel > 14)
 		TxPinCfg = 0x00050F05;
-	/* Turn off unused PA or LNA when only 1T or 1R */
+	/* Turn off unused PA or LNA when only 1T or 1R*/
 	if (pAd->Antenna.field.TxPath == 1)
 		TxPinCfg &= 0xFFFFFFF3;
 	if (pAd->Antenna.field.RxPath == 1)
@@ -636,46 +573,44 @@ static VOID DisableAPMIMOPSv1(IN PRTMP_ADAPTER pAd)
 
 	pAd->ApCfg.bGreenAPActive = FALSE;
 
-	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == BW_40)
-	    && (pAd->CommonCfg.Channel != 14)) {
+	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == BW_40) && (pAd->CommonCfg.Channel != 14))
+	{
 		INT ext_ch = EXTCHA_NONE;
 
 		DBGPRINT(RT_DEBUG_INFO, ("Run with BW_40\n"));
 		/* Set CentralChannel to work for BW40 */
-		if (pAd->CommonCfg.RegTransmitSetting.field.EXTCHA ==
-		    EXTCHA_ABOVE) {
-			pAd->CommonCfg.CentralChannel =
-			    pAd->CommonCfg.Channel + 2;
+		if (pAd->CommonCfg.RegTransmitSetting.field.EXTCHA == EXTCHA_ABOVE)
+		{
+			pAd->CommonCfg.CentralChannel = pAd->CommonCfg.Channel + 2;
 			ext_ch = EXTCHA_ABOVE;
-		} else if ((pAd->CommonCfg.Channel > 2)
-			   && (pAd->CommonCfg.RegTransmitSetting.field.EXTCHA ==
-			       EXTCHA_BELOW)) {
-			pAd->CommonCfg.CentralChannel =
-			    pAd->CommonCfg.Channel - 2;
+		}
+		else if ((pAd->CommonCfg.Channel > 2) && (pAd->CommonCfg.RegTransmitSetting.field.EXTCHA == EXTCHA_BELOW))
+		{
+			pAd->CommonCfg.CentralChannel = pAd->CommonCfg.Channel - 2;
 			ext_ch = EXTCHA_BELOW;
 		}
 		CentralChannel = pAd->CommonCfg.CentralChannel;
 		AsicSetChannel(pAd, CentralChannel, BW_40, ext_ch, FALSE);
 	}
 
-	/*Tx Stream */
-	if (WMODE_CAP_N(pAd->CommonCfg.PhyMode)
-	    && (pAd->Antenna.field.TxPath == 2))
+	/*Tx Stream*/
+	if (WMODE_CAP_N(pAd->CommonCfg.PhyMode) && (pAd->Antenna.field.TxPath == 2))
 		rtmp_bbp_set_txdac(pAd, 2);
 	else
 		rtmp_bbp_set_txdac(pAd, 0);
 
-	/*Rx Stream */
+	/*Rx Stream*/
 	rtmp_bbp_set_rxpath(pAd, pAd->Antenna.field.RxPath);
 
 	RTMP_IO_WRITE32(pAd, TX_PIN_CFG, TxPinCfg);
 
-	DBGPRINT(RT_DEBUG_INFO,
-		 ("DisableAPMIMOPS, 305x/28xx reserve only one antenna\n"));
-}
-#endif				/* GREENAP_SUPPORT */
 
-static VOID RxSensitivityTuning(RTMP_ADAPTER * pAd)
+	DBGPRINT(RT_DEBUG_INFO, ("DisableAPMIMOPS, 305x/28xx reserve only one antenna\n"));
+}
+#endif /* GREENAP_SUPPORT */
+
+
+static VOID RxSensitivityTuning(RTMP_ADAPTER *pAd)
 {
 	UCHAR R66 = 0x26 + GET_LNA_GAIN(pAd);
 
@@ -683,21 +618,23 @@ static VOID RxSensitivityTuning(RTMP_ADAPTER * pAd)
 	if (ATE_ON(pAd))
 		ATE_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R66, R66);
 	else
-#endif				/* RALINK_ATE */
+#endif /* RALINK_ATE */
 		rtmp_bbp_set_agc(pAd, R66, RX_CHAIN_ALL);
 
-	DBGPRINT(RT_DEBUG_TRACE,
-		 ("turn off R17 tuning, restore to 0x%02x\n", R66));
+	DBGPRINT(RT_DEBUG_TRACE,("turn off R17 tuning, restore to 0x%02x\n", R66));
 }
 
-static VOID ChipBBPAdjust(RTMP_ADAPTER * pAd)
+
+
+
+static VOID ChipBBPAdjust(RTMP_ADAPTER *pAd)
 {
 	UCHAR rf_bw, ext_ch;
 	UCHAR bbp_val;
 
 #ifdef DOT11_N_SUPPORT
 	if (get_ht_cent_ch(pAd, &rf_bw, &ext_ch) == FALSE)
-#endif				/* DOT11_N_SUPPORT */
+#endif /* DOT11_N_SUPPORT */
 	{
 		rf_bw = BW_20;
 		ext_ch = EXTCHA_NONE;
@@ -710,36 +647,36 @@ static VOID ChipBBPAdjust(RTMP_ADAPTER * pAd)
 	rtmp_mac_set_ctrlch(pAd, ext_ch);
 	rtmp_bbp_set_ctrlch(pAd, ext_ch);
 
-	/* request by Gary 20070208 for middle and long range G Band */
+	/* request by Gary 20070208 for middle and long range G Band*/
 #ifdef DOT11_N_SUPPORT
 	if (rf_bw == BW_40)
 		bbp_val = (pAd->CommonCfg.Channel > 14) ? 0x48 : 0x38;
 	else
-#endif				/* DOT11_N_SUPPORT */
+#endif /* DOT11_N_SUPPORT */
 		bbp_val = (pAd->CommonCfg.Channel > 14) ? 0x40 : 0x38;
 	rtmp_bbp_set_agc(pAd, bbp_val, RX_CHAIN_ALL);
 
 #ifdef RT28xx
 	if (pAd->MACVersion == 0x28600100)
 		RT28xx_ch_tunning(pAd, BW_40);
-	else {
-#endif				/* RT28xx */
+	else
+	{
+#endif /* RT28xx */
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R69, 0x12);
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R70, 0x0A);
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R73, 0x10);
 #ifdef RT28xx
 	}
-#endif				/* RT28xx */
+#endif /* RT28xx */
 
-	DBGPRINT(RT_DEBUG_TRACE,
-		 ("%s(): BW_%s, ChannelWidth=%d, Channel=%d, ExtChanOffset=%d(%d) \n",
-		  __FUNCTION__, (rf_bw == BW_40 ? "40" : "20"),
-		  pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth,
-		  pAd->CommonCfg.Channel,
-		  pAd->CommonCfg.RegTransmitSetting.field.EXTCHA,
-		  pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset));
+	DBGPRINT(RT_DEBUG_TRACE, ("%s(): BW_%s, ChannelWidth=%d, Channel=%d, ExtChanOffset=%d(%d) \n",
+					__FUNCTION__, (rf_bw == BW_40 ? "40" : "20"),
+					pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth, 
+					pAd->CommonCfg.Channel, 
+					pAd->CommonCfg.RegTransmitSetting.field.EXTCHA,
+					pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset));
 
-	/* request by Gary 20070208 for middle and long range A Band */
+	/* request by Gary 20070208 for middle and long range A Band*/
 	if (pAd->CommonCfg.Channel > 14)
 		bbp_val = 0x1D;
 	else
@@ -747,41 +684,49 @@ static VOID ChipBBPAdjust(RTMP_ADAPTER * pAd)
 	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R62, 0x2D);
 	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R63, 0x2D);
 	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R64, 0x2D);
-	/*RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R86, 0x2D); */
+	/*RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R86, 0x2D);*/
 }
 
-static VOID Default_ChipSwitchChannel(IN PRTMP_ADAPTER pAd,
-				      IN UCHAR Channel, IN BOOLEAN bScan)
+
+static VOID Default_ChipSwitchChannel(
+	IN PRTMP_ADAPTER pAd,
+	IN UCHAR Channel,
+	IN BOOLEAN bScan) 
 {
-	DBGPRINT(RT_DEBUG_ERROR,
-		 ("%s(): dummy channel switch function!\n", __FUNCTION__));
+	DBGPRINT(RT_DEBUG_ERROR, ("%s(): dummy channel switch function!\n", __FUNCTION__));
 }
 
-static VOID Default_ChipAGCInit(RTMP_ADAPTER * pAd, UCHAR BandWidth)
+
+static VOID Default_ChipAGCInit(RTMP_ADAPTER *pAd, UCHAR BandWidth)
 {
 	UCHAR R66 = 0x30, lan_gain;
 
 	lan_gain = GET_LNA_GAIN(pAd);
-	if (pAd->LatchRfRegs.Channel <= 14) {	// BG band
+	if (pAd->LatchRfRegs.Channel <= 14)
+	{	// BG band
 		{
 			R66 = 0x2E + lan_gain;
 		}
-	} else {		//A band
-		{
+	}
+	else
+	{	//A band
+		{	
 			if (BandWidth == BW_20)
-				R66 = (UCHAR) (0x32 + (lan_gain * 5) / 3);
+				R66 = (UCHAR)(0x32 + (lan_gain * 5) / 3);
 #ifdef DOT11_N_SUPPORT
 			else
-				R66 = (UCHAR) (0x3A + (lan_gain * 5) / 3);
-#endif				// DOT11_N_SUPPORT //
+				R66 = (UCHAR)(0x3A + (lan_gain * 5) / 3);
+#endif // DOT11_N_SUPPORT //
 		}
 	}
 	rtmp_bbp_set_agc(pAd, R66, RX_CHAIN_ALL);
 
 }
 
-static VOID AsicAntennaDefaultReset(IN PRTMP_ADAPTER pAd,
-				    IN EEPROM_ANTENNA_STRUC * pAntenna)
+
+static VOID AsicAntennaDefaultReset(
+	IN PRTMP_ADAPTER		pAd,
+	IN EEPROM_ANTENNA_STRUC	*pAntenna)
 {
 	{
 
@@ -790,58 +735,65 @@ static VOID AsicAntennaDefaultReset(IN PRTMP_ADAPTER pAd,
 		pAntenna->field.TxPath = 1;
 		pAntenna->field.RxPath = 2;
 	}
-	DBGPRINT(RT_DEBUG_WARN,
-		 ("E2PROM error, hard code as 0x%04x\n", pAntenna->word));
+	DBGPRINT(RT_DEBUG_WARN, ("E2PROM error, hard code as 0x%04x\n", pAntenna->word));	
 }
 
-VOID NetDevNickNameInit(IN PRTMP_ADAPTER pAd)
+
+VOID NetDevNickNameInit(
+	IN PRTMP_ADAPTER		pAd)
 {
 }
 
 #ifdef HW_ANTENNA_DIVERSITY_SUPPORT
-UINT32 SetHWAntennaDivsersity(IN PRTMP_ADAPTER pAd, IN BOOLEAN Enable)
+UINT32 SetHWAntennaDivsersity(
+	IN PRTMP_ADAPTER		pAd,
+	IN BOOLEAN				Enable)
 {
-	if (Enable == TRUE) {
+	if (Enable == TRUE)
+	{
 		UINT8 BBPValue = 0, RFValue = 0;
 		USHORT value;
 
 		// RF_R29 bit7:6
 		RT28xx_EEPROM_READ16(pAd, EEPROM_RSSI_GAIN, value);
-
+		
 		RT30xxReadRFRegister(pAd, RF_R29, &RFValue);
-		RFValue &= 0x3f;	// clear bit7:6
-		RFValue |= (value << 6);
+		RFValue &= 0x3f; // clear bit7:6
+		RFValue |= (value << 6);			
 		RT30xxWriteRFRegister(pAd, RF_R29, RFValue);
 
 		// BBP_R47 bit7=1
 		RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R47, &BBPValue);
 		BBPValue |= 0x80;
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R47, BBPValue);
-
+	
 		BBPValue = 0xbe;
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R150, BBPValue);
-		BBPValue = 0xb0;
+		BBPValue = 0xb0;			
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R151, BBPValue);
-		BBPValue = 0x23;
+		BBPValue = 0x23;			
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R152, BBPValue);
-		BBPValue = 0x3a;
+		BBPValue = 0x3a;			
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R153, BBPValue);
-		BBPValue = 0x10;
+		BBPValue = 0x10;			
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R154, BBPValue);
-		BBPValue = 0x3b;
+		BBPValue = 0x3b;			
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R155, BBPValue);
-		BBPValue = 0x04;
+		BBPValue = 0x04;			
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R253, BBPValue);
 
 		DBGPRINT(RT_DEBUG_TRACE, ("HwAnDi> Enable!\n"));
-	} else {
+	}
+	else
+	{
 		UINT8 BBPValue = 0;
 
 		/*
-		   main antenna: BBP_R152 bit7=1
-		   aux antenna: BBP_R152 bit7=0
+			main antenna: BBP_R152 bit7=1
+			aux antenna: BBP_R152 bit7=0
 		 */
-		if (pAd->FixDefaultAntenna == 0) {
+		if (pAd->FixDefaultAntenna == 0)
+		{
 			/* fix to main antenna */
 			/* do not care BBP R153, R155, R253 */
 			BBPValue = 0x3e;
@@ -852,7 +804,9 @@ UINT32 SetHWAntennaDivsersity(IN PRTMP_ADAPTER pAd, IN BOOLEAN Enable)
 			RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R152, BBPValue);
 			BBPValue = 0x00;
 			RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R154, BBPValue);
-		} else {
+		}
+		else
+		{
 			/* fix to aux antenna */
 			/* do not care BBP R153, R155, R253 */
 			BBPValue = 0x3e;
@@ -870,21 +824,23 @@ UINT32 SetHWAntennaDivsersity(IN PRTMP_ADAPTER pAd, IN BOOLEAN Enable)
 
 	return 0;
 }
-#endif				// HW_ANTENNA_DIVERSITY_SUPPORT //
+#endif // HW_ANTENNA_DIVERSITY_SUPPORT // 
 
-INT WaitForAsicReady(IN RTMP_ADAPTER * pAd)
+INT WaitForAsicReady(
+	IN RTMP_ADAPTER *pAd)
 {
 	UINT32 mac_val = 0, reg = MAC_CSR0;
 	int idx = 0;
 
-#ifdef RT3290
+#ifdef RT3290	
 	if (IS_RT3290(pAd))
 		reg = ASIC_VERSION;
-#endif				/* RT3290 */
-	do {
-		if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST))
+#endif /* RT3290 */
+	do
+	{
+		if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST))			
 			return FALSE;
-
+		
 		RTMP_IO_READ32(pAd, reg, &mac_val);
 		if ((mac_val != 0x00) && (mac_val != 0xFFFFFFFF))
 			return TRUE;
@@ -893,30 +849,36 @@ INT WaitForAsicReady(IN RTMP_ADAPTER * pAd)
 	} while (idx++ < 100);
 
 	DBGPRINT(RT_DEBUG_ERROR,
-		 ("%s(0x%x):AsicNotReady!\n", __FUNCTION__, mac_val));
-
+				("%s(0x%x):AsicNotReady!\n",
+				__FUNCTION__, mac_val));
+	
 	return TRUE;
 }
 
-INT AsicGetMacVersion(IN RTMP_ADAPTER * pAd)
+INT AsicGetMacVersion(
+	IN RTMP_ADAPTER *pAd)
 {
 	UINT32 reg = MAC_CSR0;
 
 #ifdef RT3290
 	if (IS_RT3290(pAd))
 		reg = 0x0;
-#endif				/* RT3290 */
+#endif /* RT3290 */
 
-	if (WaitForAsicReady(pAd) == TRUE) {
+	if (WaitForAsicReady(pAd) == TRUE)
+	{
 		RTMP_IO_READ32(pAd, reg, &pAd->MACVersion);
 		DBGPRINT(RT_DEBUG_OFF, ("MACVersion[Ver:Rev]=0x%08x\n",
 					pAd->MACVersion));
 		return TRUE;
-	} else {
+	}
+	else
+	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s() failed!\n", __FUNCTION__));
 		return FALSE;
 	}
 }
+
 
 /*
 ========================================================================
@@ -932,53 +894,55 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipOpsHook(VOID * pCB)
+VOID RtmpChipOpsHook(VOID *pCB)
 {
-	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *) pCB;
+	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pCB;
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	UINT32 MacValue;
 
+
 	/* sanity check */
 	WaitForAsicReady(pAd);
 	RTMP_IO_READ32(pAd, MAC_CSR0, &MacValue);
-	pAd->MACVersion = MacValue;
+	pAd->MACVersion = MacValue;	
 
 	/* default init */
 	RTMP_DRS_ALG_INIT(pAd, RATE_ALG_LEGACY);
 
 #ifdef RT3290
-	if (IS_RT3290(pAd)) {
+	if (IS_RT3290(pAd))
+	{
 		RT3290_Init(pAd);
 		goto done;
 	}
-#endif				/* RT290 */
+#endif /* RT290 */
 
 #ifdef RT8592
 	if (IS_RT8592(pAd)) {
 		RT85592_Init(pAd);
 		goto done;
 	}
-#endif				/* RT8592 */
+#endif /* RT8592 */
 
 #ifdef RT65xx
 	if (IS_RT65XX(pAd)) {
 		RT6590_Init(pAd);
 		goto done;
 	}
-#endif				/* RT65xx */
+#endif /* RT65xx */
 
 #ifdef MT7601
 	if (IS_MT7601(pAd)) {
 		MT7601_Init(pAd);
 		goto done;
 	}
-#endif				/* MT7601 */
+#endif /* MT7601 */
 
 #ifdef GREENAP_SUPPORT
 	pChipOps->EnableAPMIMOPS = EnableAPMIMOPSv1;
 	pChipOps->DisableAPMIMOPS = DisableAPMIMOPSv1;
-#endif				/* GREENAP_SUPPORT */
+#endif /* GREENAP_SUPPORT */
 
 	/* init default value whatever chipsets */
 	/* default pChipOps content will be 0x00 */
@@ -993,21 +957,21 @@ VOID RtmpChipOpsHook(VOID * pCB)
 	pChipCap->TxPowerTuningTable_2G = TxPowerTuningTableOrg;
 #ifdef A_BAND_SUPPORT
 	pChipCap->TxPowerTuningTable_5G = TxPowerTuningTableOrg;
-#endif				/* A_BAND_SUPPORT */
-#endif				/* defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) */
+#endif /* A_BAND_SUPPORT */
+#endif /* defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) */
 	pChipOps->AsicMacInit = NULL;
 	pChipOps->AsicBbpInit = NULL;
 	pChipOps->AsicRfInit = NULL;
 
 #ifdef RTMP_EFUSE_SUPPORT
 	pChipCap->EFUSE_USAGE_MAP_START = 0x2d0;
-	pChipCap->EFUSE_USAGE_MAP_END = 0x2fc;
-	pChipCap->EFUSE_USAGE_MAP_SIZE = 45;
-#endif				/* RTMP_EFUSE_SUPPORT */
+	pChipCap->EFUSE_USAGE_MAP_END = 0x2fc;      
+       	pChipCap->EFUSE_USAGE_MAP_SIZE = 45;
+#endif /* RTMP_EFUSE_SUPPORT */
 
 	pChipCap->VcoPeriod = 10;
 	pChipCap->FlgIsVcoReCalMode = VCO_CAL_DISABLE;
-	pChipCap->WPDMABurstSIZE = 2;	/* default 64B */
+	pChipCap->WPDMABurstSIZE = 2; /* default 64B */
 	pChipCap->MBSSIDMode = MBSSID_MODE0;
 
 	RtmpChipBcnInit(pAd);
@@ -1034,25 +998,24 @@ VOID RtmpChipOpsHook(VOID * pCB)
 
 #ifdef RT28xx
 	pChipOps->ChipSwitchChannel = RT28xx_ChipSwitchChannel;
-#endif				/* RT28xx */
+#endif /* RT28xx */
 #ifdef CARRIER_DETECTION_SUPPORT
 	pChipCap->carrier_func = DISABLE_TONE_RADAR;
 	pChipOps->ToneRadarProgram = NULL;
-#endif				/* CARRIER_DETECTOIN_SUPPORT */
+#endif /* CARRIER_DETECTOIN_SUPPORT */
 #ifdef DFS_SUPPORT
 	pChipCap->DfsEngineNum = 4;
-#endif				/* DFS_SUPPORT */
+#endif /* DFS_SUPPORT */
 	pChipOps->CckMrcStatusCtrl = NULL;
 	pChipOps->RadarGLRTCompensate = NULL;
 
+
 	/* We depends on RfICType and MACVersion to assign the corresponding operation callbacks. */
 
+
 #if defined(RT3883) || defined(RT3290) || defined(RT65xx) || defined(MT7601)
- done:
-#endif				/* defined(RT3883) || defined(RT3290) || defined(RT65xx) || define(MT7601) */
-	DBGPRINT(RT_DEBUG_TRACE,
-		 ("Chip specific bbpRegTbSize=%d!\n", pChipCap->bbpRegTbSize));
-	DBGPRINT(RT_DEBUG_TRACE,
-		 ("Chip VCO calibration mode = %d!\n",
-		  pChipCap->FlgIsVcoReCalMode));
+done:
+#endif /* defined(RT3883) || defined(RT3290) || defined(RT65xx) || define(MT7601) */
+	DBGPRINT(RT_DEBUG_TRACE, ("Chip specific bbpRegTbSize=%d!\n", pChipCap->bbpRegTbSize));
+	DBGPRINT(RT_DEBUG_TRACE, ("Chip VCO calibration mode = %d!\n", pChipCap->FlgIsVcoReCalMode));
 }
