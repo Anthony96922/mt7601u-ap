@@ -51,7 +51,7 @@ HAS_MSI_SUPPORT=n
 HAS_QOS_DLS_SUPPORT=y
 
 #Support for EXT_CHANNEL
-HAS_EXT_BUILD_CHANNEL_LIST=y
+HAS_EXT_BUILD_CHANNEL_LIST=n
 
 #Support for IDS
 HAS_IDS_SUPPORT=n
@@ -166,7 +166,7 @@ HAS_WOW_SUPPORT=n
 HAS_WOW_IFDOWN_SUPPORT=n
 HAS_NEW_WOW_SUPPORT=n
 
-HAS_ANDES_FIRMWARE_SUPPORT=y
+HAS_ANDES_FIRMWARE_SUPPORT=n
 
 HAS_HDR_TRANS_SUPPORT=y
 
@@ -771,4 +771,13 @@ ifeq ($(HAS_LLTD),y)
 WFLAGS += -DLLTD_SUPPORT
 endif
 
+ifeq ($(PLATFORM),PC)
+ifneq ($(findstring 2.4,$(LINUX_SRC)),)
+# Linux 2.4
+CFLAGS := -D__KERNEL__ -I$(LINUX_SRC)/include -O2 -fomit-frame-pointer -fno-strict-aliasing -fno-common -pipe -mpreferred-stack-boundary=2 -march=i686 -DMODULE -DMODVERSIONS -include $(LINUX_SRC)/include/linux/modversions.h $(WFLAGS)
+export CFLAGS
+else
+# Linux 2.6
 EXTRA_CFLAGS := $(WFLAGS)
+endif
+endif

@@ -12,18 +12,18 @@
  * way altering the source code is stricitly prohibited, unless the prior
  * written consent of Ralink Technology, Inc. is obtained.
  ****************************************************************************
-
+     
      Module Name:
      sync.c
-
+     
      Abstract:
      Synchronization state machine related services
-
+     
      Revision History:
      Who         When          What
      --------    ----------    ----------------------------------------------
      John Chang  08-04-2003    created for 11g soft-AP
-
+     
  */
 
 #include "rt_config.h"
@@ -98,7 +98,7 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 	HEADER_802_11 ProbeRspHdr;
 	NDIS_STATUS NStatus;
 	PUCHAR pOutBuffer = NULL;
-	ULONG FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
+	ULONG FrameLen = 0, TmpLen;
 	LARGE_INTEGER FakeTimestamp;
 	UCHAR DsLen = 1, ErpIeLen = 1, apidx = 0, PhyMode, SupRateLen, RSNIe =
 	    IE_WPA, RSNIe2 = IE_WPA2;
@@ -154,18 +154,6 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 		MgtMacHeaderInit(pAd, &ProbeRspHdr, SUBTYPE_PROBE_RSP, 0, Addr2,
 				 pAd->ApCfg.MBSSID[apidx].Bssid);
 
-		if ((pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA) ||
-			(pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPAPSK))
-			RSNIe = IE_WPA;
-		else if ((pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA2) ||
-			(pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA2PSK))
-			RSNIe = IE_WPA2;
-#ifdef WAPI_SUPPORT
-		else if ((pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWAICERT) ||
-			(pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWAIPSK))
-			RSNIe = IE_WAPI;
-#endif /* WAPI_SUPPORT */
-
 		{
 			SupRateLen = pAd->CommonCfg.SupRateLen;
 			if (PhyMode == WMODE_B)
@@ -189,9 +177,11 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 
 		/* add country IE, power constraint IE */
 		if (pAd->CommonCfg.bCountryFlag) {
-			//ULONG TmpLen2 = 0;
+			ULONG TmpLen2 = 0;
 			UCHAR TmpFrame[256];
 			UCHAR CountryIe = IE_COUNTRY;
+			UCHAR MaxTxPower =
+			    GetCountryMaxTxPwr(pAd, pAd->CommonCfg.Channel);
 
 #ifdef A_BAND_SUPPORT
 			/* 
@@ -210,19 +200,14 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 #endif				/* A_BAND_SUPPORT */
 
 			NdisZeroMemory(TmpFrame, sizeof(TmpFrame));
+
 			/* prepare channel information */
-#ifdef EXT_BUILD_CHANNEL_LIST
-			BuildBeaconChList(pAd, TmpFrame, &TmpLen2);
-#else
-			{
-				UCHAR MaxTxPower = GetCountryMaxTxPwr(pAd, pAd->CommonCfg.Channel);
-				MakeOutgoingFrame(TmpFrame + TmpLen2, &TmpLen,
-						  1, &pAd->ChannelList[0].Channel,
-						  1, &pAd->ChannelListNum, 1,
-						  &MaxTxPower, END_OF_ARGS);
-				TmpLen2 += TmpLen;
-			}
-#endif /* EXT_BUILD_CHANNEL_LIST */
+			MakeOutgoingFrame(TmpFrame + TmpLen2,
+					  &TmpLen,
+					  1, &pAd->ChannelList[0].Channel,
+					  1, &pAd->ChannelListNum,
+					  1, &MaxTxPower, END_OF_ARGS);
+			TmpLen2 += TmpLen;
 
 			/* need to do the padding bit check, and concatenate it */
 			if ((TmpLen2 % 2) == 0) {
@@ -279,7 +264,7 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 #ifdef DOT11_N_SUPPORT
 		if (WMODE_CAP_N(PhyMode) &&
 		    (pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable)) {
-			//ULONG TmpLen;
+			ULONG TmpLen;
 			UCHAR HtLen, AddHtLen, NewExtLen;
 #ifdef RT_BIG_ENDIAN
 			HT_CAPABILITY_IE HtCapabilityTmp;
@@ -372,7 +357,7 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 		    (pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable) &&
 		    (pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == 1)) {
 			OVERLAP_BSS_SCAN_IE OverlapScanParam;
-			//ULONG TmpLen;
+			ULONG TmpLen;
 			UCHAR OverlapScanIE, ScanIELen;
 
 			OverlapScanIE = IE_OVERLAPBSS_SCAN_PARM;
@@ -408,7 +393,7 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 
 		/* 7.3.2.27 Extended Capabilities IE */
 		{
-			//ULONG TmpLen;
+			ULONG TmpLen;
 			EXT_CAP_INFO_ELEMENT extCapInfo;
 			UCHAR extInfoLen;
 
@@ -437,7 +422,7 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 
 		if (WMODE_CAP_N(PhyMode) &&
 		    (pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable)) {
-			//ULONG TmpLen;
+			ULONG TmpLen;
 			UCHAR HtLen, AddHtLen;	/*, NewExtLen; */
 #ifdef RT_BIG_ENDIAN
 			HT_CAPABILITY_IE HtCapabilityTmp;
@@ -533,23 +518,34 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 #endif				/* DOT11_N_SUPPORT */
 
 			/* Append RSN_IE when WPA OR WPAPSK, */
-			if ((pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA1WPA2) ||
-			    (pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA1PSKWPA2PSK)) {
-				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						  1, &RSNIe, 1,
-						  &pAd->ApCfg.MBSSID[apidx].RSNIE_Len[0],
-						  pAd->ApCfg.MBSSID[apidx].RSNIE_Len[0],
-						  pAd->ApCfg.MBSSID[apidx].RSN_IE[0], 1, &RSNIe2, 1,
-						  &pAd->ApCfg.MBSSID[apidx].RSNIE_Len[1],
-						  pAd->ApCfg.MBSSID[apidx].RSNIE_Len[1],
-						  pAd->ApCfg.MBSSID[apidx].RSN_IE[1], END_OF_ARGS);
+			if ((pAd->ApCfg.MBSSID[apidx].AuthMode ==
+			     Ndis802_11AuthModeWPA1WPA2) ||
+			    (pAd->ApCfg.MBSSID[apidx].AuthMode ==
+			     Ndis802_11AuthModeWPA1PSKWPA2PSK)) {
+				MakeOutgoingFrame(pOutBuffer + FrameLen,
+						  &TmpLen, 1, &RSNIe, 1,
+						  &pAd->ApCfg.MBSSID[apidx].
+						  RSNIE_Len[0],
+						  pAd->ApCfg.MBSSID[apidx].
+						  RSNIE_Len[0],
+						  pAd->ApCfg.MBSSID[apidx].
+						  RSN_IE[0], 1, &RSNIe2, 1,
+						  &pAd->ApCfg.MBSSID[apidx].
+						  RSNIE_Len[1],
+						  pAd->ApCfg.MBSSID[apidx].
+						  RSNIE_Len[1],
+						  pAd->ApCfg.MBSSID[apidx].
+						  RSN_IE[1], END_OF_ARGS);
 				FrameLen += TmpLen;
-			} else if (pAd->ApCfg.MBSSID[apidx].AuthMode >= Ndis802_11AuthModeWPA) {
-				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						  1, &RSNIe, 1,
-						  &pAd->ApCfg.MBSSID[apidx].RSNIE_Len[0],
-						  pAd->ApCfg.MBSSID[apidx].RSNIE_Len[0],
-						  pAd->ApCfg.MBSSID[apidx].RSN_IE[0], END_OF_ARGS);
+			} else {
+				MakeOutgoingFrame(pOutBuffer + FrameLen,
+						  &TmpLen, 1, &RSNIe, 1,
+						  &pAd->ApCfg.MBSSID[apidx].
+						  RSNIE_Len[0],
+						  pAd->ApCfg.MBSSID[apidx].
+						  RSNIE_Len[0],
+						  pAd->ApCfg.MBSSID[apidx].
+						  RSN_IE[0], END_OF_ARGS);
 				FrameLen += TmpLen;
 			}
 
@@ -596,7 +592,7 @@ VOID APPeerProbeReqAction(IN PRTMP_ADAPTER pAd, IN MLME_QUEUE_ELEM * Elem)
 			   Byte0.b3=1 for rssi-feedback
 			 */
 			{
-				//ULONG TmpLen;
+				ULONG TmpLen;
 				UCHAR RalinkSpecificIe[9] =
 				    { IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43,
 					0x00, 0x00, 0x00, 0x00

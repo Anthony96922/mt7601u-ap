@@ -5533,10 +5533,12 @@ INT	Show_Sat_Proc(
 	{
 		int apidx;
 
-		for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++) {
+		for (apidx=0; apidx < pAd->ApCfg.BssidNum; apidx++)
+		{
 
 #ifdef WSC_INCLUDED
-			if (pAd->ApCfg.MBSSID[apidx].WscControl.WscConfMode != WSC_DISABLE) {
+			if (pAd->ApCfg.MBSSID[apidx].WscControl.WscConfMode != WSC_DISABLE)
+			{
 				WSC_CTRL *pWscCtrl;
 
 				pWscCtrl = &pAd->ApCfg.MBSSID[apidx].WscControl;
@@ -5587,10 +5589,11 @@ INT	Show_Sat_Proc(
 			}
 		}
 	}
+}
 
 #ifdef DOT11_N_SUPPORT
 	/* Display Tx Aggregation statistics */
-	//DisplayTxAgg(pAd);
+	DisplayTxAgg(pAd);
 #endif /* DOT11_N_SUPPORT */
 #endif /* DBG */
 	return TRUE;
@@ -5699,7 +5702,7 @@ INT	Show_Sat_Reset_Proc(
 	}
 #ifdef DOT11_N_SUPPORT
 	/* Display Tx Aggregation statistics */
-	//DisplayTxAgg(pAd);
+	DisplayTxAgg(pAd);
 #endif /* DOT11_N_SUPPORT */
 #endif /* DBG */
 	return TRUE;

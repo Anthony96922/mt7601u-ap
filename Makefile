@@ -48,9 +48,12 @@ MAKE = make
 
 LINUX_VER = $(shell uname -r)
 
+ifeq ($(PLATFORM),PC)
 # Linux 2.6
-LINUX_SRC ?= /lib/modules/$(LINUX_VER)/build
+LINUX_SRC = /lib/modules/$(LINUX_VER)/build
 LINUX_SRC_MODULE = /lib/modules/$(LINUX_VER)/kernel/drivers/net/wireless
+CROSS_COMPILE = 
+endif
 
 export OSABL RT28xx_DIR RT28xx_MODE LINUX_SRC CROSS_COMPILE CROSS_COMPILE_INCLUDE PLATFORM RELEASE CHIPSET MODULE RTMP_SRC_DIR LINUX_SRC_MODULE TARGET HAS_WOW_SUPPORT
 
