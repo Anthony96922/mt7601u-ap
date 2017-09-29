@@ -25,7 +25,7 @@ include $(RT28xx_DIR)/os/linux/config.mk
 RTMP_SRC_DIR = $(RT28xx_DIR)/RT$(MODULE)
 
 #PLATFORM: Target platform
-PLATFORM = PC
+PLATFORM =
 
 #APSOC
 ifeq ($(MODULE),3050)
@@ -48,14 +48,9 @@ MAKE = make
 
 LINUX_VER = $(shell uname -r)
 
-ifeq ($(PLATFORM),PC)
 # Linux 2.6
-LINUX_SRC = /lib/modules/$(LINUX_VER)/build
-# Linux 2.4 Change to your local setting
-#LINUX_SRC = /usr/src/linux-2.4
+LINUX_SRC ?= /lib/modules/$(LINUX_VER)/build
 LINUX_SRC_MODULE = /lib/modules/$(LINUX_VER)/kernel/drivers/net/wireless
-CROSS_COMPILE = 
-endif
 
 export OSABL RT28xx_DIR RT28xx_MODE LINUX_SRC CROSS_COMPILE CROSS_COMPILE_INCLUDE PLATFORM RELEASE CHIPSET MODULE RTMP_SRC_DIR LINUX_SRC_MODULE TARGET HAS_WOW_SUPPORT
 
@@ -69,21 +64,6 @@ build_tools:
 	$(RT28xx_DIR)/tools/bin2h
 
 LINUX:
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-
-ifeq ($(OSABL),YES)
-	cp os/linux/Makefile.4.util $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux
-endif
-
-	cp os/linux/Makefile.4 $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux
-
-ifeq ($(OSABL),YES)
-	cp os/linux/Makefile.4.netif $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux
-endif
-endif
 
 ifeq ($(OSABL),YES)
 	@cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
@@ -122,11 +102,7 @@ ifeq ($(RT28xx_MODE),STA)
 endif	
 
 clean:
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.4 clean
-else
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 clean
-endif
 
 strip:
 	@$(MAKE) -C $(RT28xx_DIR)/os/linux strip
@@ -138,44 +114,24 @@ install:
 	$(MAKE) -C $(RT28xx_DIR)/os/linux install
 
 libwapi:
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	cp os/linux/Makefile.libwapi.4 $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux/
-else
 	cp os/linux/Makefile.libwapi.6 $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
-endif
 
 osutil:
 ifeq ($(OSABL),YES)
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	cp os/linux/Makefile.4.util $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux/
-else
 	cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
-endif
 endif
 
 osnet:
 ifeq ($(OSABL),YES)
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	cp os/linux/Makefile.4.netif $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux/
-else
 	cp os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
-endif
 
 osdrv:
-ifneq ($(findstring 2.4,$(LINUX_SRC)),)
-	cp os/linux/Makefile.4 $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(RT28xx_DIR)/os/linux/
-else
 	cp os/linux/Makefile.6 $(RT28xx_DIR)/os/linux/Makefile
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
-endif
 
 # Declare the contents of the .PHONY variable as phony. We keep that information in a variable
 .PHONY: $(PHONY)

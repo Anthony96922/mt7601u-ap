@@ -3545,28 +3545,24 @@ BOOLEAN RTMP_CardInfoRead(
 		return FALSE;
 
 	os_alloc_mem(NULL, (UCHAR **)&tmpbuf, MAX_PARAM_BUFFER_SIZE);
-	if(tmpbuf == NULL)
-	{
+	if (tmpbuf == NULL) {
 		os_free_mem(NULL, buffer);
 		return NDIS_STATUS_FAILURE;
 	}
 
 	/* get RF IC type*/
 	RTMP_IO_READ32(pAd, E2PROM_CSR, &data);
-	
+
 	RT28xx_EEPROM_READ16(pAd, EEPROM_NIC1_OFFSET, antenna.word);
 
 	if ((antenna.field.RfIcType == RFIC_2850) ||
-		(antenna.field.RfIcType == RFIC_2750) || 
-		(antenna.field.RfIcType == RFIC_2853) || 
+		(antenna.field.RfIcType == RFIC_2750) ||
+		(antenna.field.RfIcType == RFIC_2853) ||
 		(antenna.field.RfIcType == RFIC_3853) ||
-		(antenna.field.RfIcType == RFIC_5592))
-	{
+		(antenna.field.RfIcType == RFIC_5592)) {
 		/* ABGN card */
 		strcpy(RFIC_word, "abgn");
-	}
-	else
-	{
+	} else {
 		/* BGN card */
 		strcpy(RFIC_word, "bgn");
 	}
@@ -3588,8 +3584,7 @@ BOOLEAN RTMP_CardInfoRead(
 	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 	/* open card information file*/
 	srcf = RtmpOSFileOpen(CARD_INFO_PATH, O_RDONLY, 0);
-	if (IS_FILE_OPEN_ERR(srcf)) 
-	{
+	if (IS_FILE_OPEN_ERR(srcf)) {
 		/* card information file does not exist */
 		DBGPRINT(RT_DEBUG_TRACE, ("--> Error opening %s\n", CARD_INFO_PATH));
 		goto free_resource;
@@ -3598,19 +3593,15 @@ BOOLEAN RTMP_CardInfoRead(
 	/* card information file exists so reading the card information */
 	memset(buffer, 0x00, MAX_INI_BUFFER_SIZE);
 	retval = RtmpOSFileRead(srcf, buffer, MAX_INI_BUFFER_SIZE);
-	if (retval < 0)
-	{
+	if (retval < 0) {
 		/* read fail */
 		DBGPRINT(RT_DEBUG_TRACE, ("--> Read %s error %d\n", CARD_INFO_PATH, -retval));
-	}
-	else
-	{
+	} else {
 		/* get card selection method */
 		memset(tmpbuf, 0x00, MAX_PARAM_BUFFER_SIZE);
 		card_select_method = MC_SELECT_CARDTYPE; /* default*/
 
-		if (RTMPGetKeyParameter("SELECT", tmpbuf, 256, buffer, TRUE))
-		{
+		if (RTMPGetKeyParameter("SELECT", tmpbuf, 256, buffer, TRUE)) {
 			if (strcmp(tmpbuf, "CARDID") == 0)
 				card_select_method = MC_SELECT_CARDID;
 			else if (strcmp(tmpbuf, "MAC") == 0)
@@ -3628,27 +3619,20 @@ BOOLEAN RTMP_CardInfoRead(
 		card_match_id = -1;
 
 		/* search current card information records*/
-		for(card_index = 0; card_index < MAX_NUM_OF_MULTIPLE_CARD; card_index++)
-		{
+		for(card_index = 0; card_index < MAX_NUM_OF_MULTIPLE_CARD; card_index++) {
 			if ((*(UINT32 *)&MC_CardMac[card_index][0] == 0) &&
-				(*(UINT16 *)&MC_CardMac[card_index][4] == 0))
-			{
+				(*(UINT16 *)&MC_CardMac[card_index][4] == 0)) {
 				/* MAC is all-0 so the entry is available*/
 				MC_CardUsed[card_index] = 0;
 
 				if (card_free_id < 0)
 					card_free_id = card_index; /* 1st free entry*/
-			}
-			else
-			{
-				if (memcmp(MC_CardMac[card_index], mac, 6) == 0)
-				{
+			} else {
+				if (memcmp(MC_CardMac[card_index], mac, 6) == 0) {
 					/* we find the entry with same MAC*/
 					if (card_same_mac_id < 0)
 						card_same_mac_id = card_index; /* 1st same entry*/
-				}
-				else
-				{
+				} else {
 					/* MAC is not all-0 but used flag == 0*/
 					if ((MC_CardUsed[card_index] == 0) && (card_nouse_id < 0))
 						card_nouse_id = card_index; /* 1st available entry*/
@@ -3662,29 +3646,23 @@ BOOLEAN RTMP_CardInfoRead(
 
 		if ((card_same_mac_id >= 0) &&
 			((card_select_method == MC_SELECT_CARDID) ||
-			(card_select_method == MC_SELECT_CARDTYPE)))
-		{
+			(card_select_method == MC_SELECT_CARDTYPE))) {
 			/* same MAC entry is found*/
 			card_match_id = card_same_mac_id;
 
-			if (card_select_method == MC_SELECT_CARDTYPE)
-			{
+			if (card_select_method == MC_SELECT_CARDTYPE) {
 				/* for CARDTYPE*/
 				snprintf(card_id_buf, sizeof(card_id_buf), "%02dCARDTYPE%s",
 						card_match_id, RFIC_word);
 
-				if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL)
-				{
+				if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
 					/* we found the card ID*/
 					LETTER_CASE_TRANSLATE(start_ptr, card_id_buf);
 				}
 			}
-		}
-		else
-		{
+		} else {
 			/* the card is 1st plug-in, try to find the match card profile*/
-			switch(card_select_method)
-			{
+			switch(card_select_method) {
 				case MC_SELECT_CARDID: /* CARDID*/
 				default:
 					if (card_free_id >= 0)
@@ -3699,8 +3677,7 @@ BOOLEAN RTMP_CardInfoRead(
 							mac[3], mac[4], mac[5]);
 
 					/* try to find the key word in the card file */
-					if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL)
-					{
+					if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
 						LETTER_CASE_TRANSLATE(start_ptr, card_id_buf);
 
 						/* get the row ID (2 ASCII characters) */
@@ -3716,27 +3693,21 @@ BOOLEAN RTMP_CardInfoRead(
 				case MC_SELECT_CARDTYPE: /* CARDTYPE*/
 					card_nouse_id = -1;
 
-					for(card_index = 0; card_index<MAX_NUM_OF_MULTIPLE_CARD; card_index++)
-					{
+					for (card_index = 0; card_index<MAX_NUM_OF_MULTIPLE_CARD; card_index++) {
 						snprintf(card_id_buf, sizeof(card_id_buf), "%02dCARDTYPE%s",
 								card_index, RFIC_word);
 
-						if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL)
-						{
+						if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
 							LETTER_CASE_TRANSLATE(start_ptr, card_id_buf);
 
-							if (MC_CardUsed[card_index] == 0)
-							{
+							if (MC_CardUsed[card_index] == 0) {
 								/* current the card profile is not used */
 								if ((*(UINT32 *)&MC_CardMac[card_index][0] == 0) &&
-									(*(UINT16 *)&MC_CardMac[card_index][4] == 0))
-								{
+									(*(UINT16 *)&MC_CardMac[card_index][4] == 0)) {
 									/* find it and no previous card use it*/
 									card_match_id = card_index;
 									break;
-								}
-								else
-								{
+								} else {
 									/* ever a card use it*/
 									if (card_nouse_id < 0)
 										card_nouse_id = card_index;
@@ -3752,11 +3723,9 @@ BOOLEAN RTMP_CardInfoRead(
 			}
 		}
 
-		if (card_match_id >= 0)
-		{
+		if (card_match_id >= 0) {
 			/* make up search keyword*/
-			switch(card_select_method)
-			{
+			switch(card_select_method) {
 				case MC_SELECT_CARDID: /* CARDID*/
 					snprintf(card_id_buf, sizeof(card_id_buf), "%02dCARDID", card_match_id);
 					break;
@@ -3779,10 +3748,8 @@ BOOLEAN RTMP_CardInfoRead(
 			DBGPRINT(RT_DEBUG_TRACE, ("Search Keyword = %s\n", card_id_buf));
 
 			/* read card file path*/
-			if (RTMPGetKeyParameter(card_id_buf, tmpbuf, 256, buffer, TRUE))
-			{
-				if (strlen(tmpbuf) < sizeof(pAd->MC_FileName))
-				{
+			if (RTMPGetKeyParameter(card_id_buf, tmpbuf, 256, buffer, TRUE)) {
+				if (strlen(tmpbuf) < sizeof(pAd->MC_FileName)) {
 					/* backup card information*/
 					pAd->MC_RowID = card_match_id; /* base 0 */
 					MC_CardUsed[card_match_id] = 1;
@@ -3794,16 +3761,13 @@ BOOLEAN RTMP_CardInfoRead(
 					flg_match_ok = TRUE;
 
 					DBGPRINT(RT_DEBUG_TRACE, ("Card Profile Name = %s\n", pAd->MC_FileName));
-				}
-				else
+				} else
 					DBGPRINT(RT_DEBUG_ERROR, ("Card Profile Name length too large!\n"));
-			}
-			else
+			} else
 				DBGPRINT(RT_DEBUG_ERROR, ("Can not find search key word in card.dat!\n"));
 
 			if ((flg_match_ok != TRUE) &&
-				(card_match_id < MAX_NUM_OF_MULTIPLE_CARD))
-			{
+				(card_match_id < MAX_NUM_OF_MULTIPLE_CARD)) {
 				MC_CardUsed[card_match_id] = 0;
 				memset(MC_CardMac[card_match_id], 0, sizeof(mac));
 			}
@@ -3827,64 +3791,56 @@ free_resource:
 #ifdef WSC_INCLUDED
 void rtmp_read_wsc_user_parms(
 	PWSC_CTRL pWscControl,
-	STRING *tmpbuf, 
-	STRING *buffer)
-	{
-		if(RTMPGetKeyParameter("WscManufacturer", tmpbuf, WSC_MANUFACTURE_LEN, buffer,TRUE))
-		{
-			NdisZeroMemory(pWscControl->RegData.SelfInfo.Manufacturer, WSC_MANUFACTURE_LEN);
-			NdisMoveMemory(pWscControl->RegData.SelfInfo.Manufacturer, tmpbuf, strlen(tmpbuf));
-			if(pWscControl->RegData.SelfInfo.Manufacturer[0] != 0x00)
-				RTMP_SET_FLAG(pWscControl, 0x01);
-		}
-
-		/*WSC_User_ModelName*/
-		if(RTMPGetKeyParameter("WscModelName", tmpbuf, WSC_MODELNAME_LEN, buffer,TRUE))
-		{
-			NdisZeroMemory(pWscControl->RegData.SelfInfo.ModelName, WSC_MODELNAME_LEN);
-			NdisMoveMemory(pWscControl->RegData.SelfInfo.ModelName, tmpbuf, strlen(tmpbuf));
-			if(pWscControl->RegData.SelfInfo.ModelName[0] != 0x00)
-				RTMP_SET_FLAG(pWscControl, 0x02);
-		}
-
-		/*WSC_User_DeviceName*/
-		if(RTMPGetKeyParameter("WscDeviceName", tmpbuf, WSC_DEVICENAME_LEN, buffer,TRUE))
-		{
-			NdisZeroMemory(pWscControl->RegData.SelfInfo.DeviceName, WSC_DEVICENAME_LEN);
-			NdisMoveMemory(pWscControl->RegData.SelfInfo.DeviceName, tmpbuf, strlen(tmpbuf));
-			if(pWscControl->RegData.SelfInfo.DeviceName[0] != 0x00)
-				RTMP_SET_FLAG(pWscControl, 0x04);
-		}
-
-		/*WSC_User_ModelNumber*/
-		if(RTMPGetKeyParameter("WscModelNumber", tmpbuf, WSC_MODELNUNBER_LEN, buffer,TRUE))
-		{
-			NdisZeroMemory(pWscControl->RegData.SelfInfo.ModelNumber, WSC_MODELNUNBER_LEN);
-			NdisMoveMemory(pWscControl->RegData.SelfInfo.ModelNumber, tmpbuf, strlen(tmpbuf));
-			if(pWscControl->RegData.SelfInfo.ModelNumber[0] != 0x00)
-				RTMP_SET_FLAG(pWscControl, 0x08);
-		}
-
-		/*WSC_User_SerialNumber*/
-		if(RTMPGetKeyParameter("WscSerialNumber", tmpbuf, WSC_SERIALNUNBER_LEN, buffer,TRUE))
-		{
-			NdisZeroMemory(pWscControl->RegData.SelfInfo.SerialNumber, WSC_SERIALNUNBER_LEN);
-			NdisMoveMemory(pWscControl->RegData.SelfInfo.SerialNumber, tmpbuf, strlen(tmpbuf));
-			if(pWscControl->RegData.SelfInfo.SerialNumber[0] != 0x00)
-				RTMP_SET_FLAG(pWscControl, 0x10);
-		}
+	STRING *tmpbuf,
+	STRING *buffer) {
+	if (RTMPGetKeyParameter("WscManufacturer", tmpbuf, WSC_MANUFACTURE_LEN, buffer,TRUE)) {
+		NdisZeroMemory(pWscControl->RegData.SelfInfo.Manufacturer, WSC_MANUFACTURE_LEN);
+		NdisMoveMemory(pWscControl->RegData.SelfInfo.Manufacturer, tmpbuf, strlen(tmpbuf));
+		if (pWscControl->RegData.SelfInfo.Manufacturer[0] != 0x00)
+			RTMP_SET_FLAG(pWscControl, 0x01);
 	}
 
-	void rtmp_read_wsc_user_parms_from_file(IN	PRTMP_ADAPTER pAd, char *tmpbuf, char *buffer)
-	{
-		PWSC_CTRL pWscControl;
+	/*WSC_User_ModelName*/
+	if (RTMPGetKeyParameter("WscModelName", tmpbuf, WSC_MODELNAME_LEN, buffer,TRUE)) {
+		NdisZeroMemory(pWscControl->RegData.SelfInfo.ModelName, WSC_MODELNAME_LEN);
+		NdisMoveMemory(pWscControl->RegData.SelfInfo.ModelName, tmpbuf, strlen(tmpbuf));
+		if (pWscControl->RegData.SelfInfo.ModelName[0] != 0x00)
+			RTMP_SET_FLAG(pWscControl, 0x02);
+	}
+
+	/*WSC_User_DeviceName*/
+	if (RTMPGetKeyParameter("WscDeviceName", tmpbuf, WSC_DEVICENAME_LEN, buffer,TRUE)) {
+		NdisZeroMemory(pWscControl->RegData.SelfInfo.DeviceName, WSC_DEVICENAME_LEN);
+		NdisMoveMemory(pWscControl->RegData.SelfInfo.DeviceName, tmpbuf, strlen(tmpbuf));
+		if (pWscControl->RegData.SelfInfo.DeviceName[0] != 0x00)
+			RTMP_SET_FLAG(pWscControl, 0x04);
+	}
+
+	/*WSC_User_ModelNumber*/
+	if (RTMPGetKeyParameter("WscModelNumber", tmpbuf, WSC_MODELNUNBER_LEN, buffer,TRUE)) {
+		NdisZeroMemory(pWscControl->RegData.SelfInfo.ModelNumber, WSC_MODELNUNBER_LEN);
+		NdisMoveMemory(pWscControl->RegData.SelfInfo.ModelNumber, tmpbuf, strlen(tmpbuf));
+		if (pWscControl->RegData.SelfInfo.ModelNumber[0] != 0x00)
+			RTMP_SET_FLAG(pWscControl, 0x08);
+	}
+
+	/*WSC_User_SerialNumber*/
+	if (RTMPGetKeyParameter("WscSerialNumber", tmpbuf, WSC_SERIALNUNBER_LEN, buffer,TRUE)) {
+		NdisZeroMemory(pWscControl->RegData.SelfInfo.SerialNumber, WSC_SERIALNUNBER_LEN);
+		NdisMoveMemory(pWscControl->RegData.SelfInfo.SerialNumber, tmpbuf, strlen(tmpbuf));
+		if(pWscControl->RegData.SelfInfo.SerialNumber[0] != 0x00)
+			RTMP_SET_FLAG(pWscControl, 0x10);
+	}
+}
+
+void rtmp_read_wsc_user_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf, char *buffer) {
+	PWSC_CTRL pWscControl;
 
 #ifdef WSC_AP_SUPPORT
-		int i=0;
-		for(i = 0; i < MAX_MBSSID_NUM(pAd); i++)
-		{
-			pWscControl = &pAd->ApCfg.MBSSID[i].WscControl;
-			rtmp_read_wsc_user_parms(pWscControl, tmpbuf, buffer);
+	int i = 0;
+	for (i = 0; i < MAX_MBSSID_NUM(pAd); i++) {
+		pWscControl = &pAd->ApCfg.MBSSID[i].WscControl;
+		rtmp_read_wsc_user_parms(pWscControl, tmpbuf, buffer);
 	}
 #ifdef APCLI_SUPPORT
 	pWscControl = &pAd->ApCfg.ApCliTab[0].WscControl;
@@ -3911,14 +3867,12 @@ VOID rtmp_read_multest_from_file(
 	STRING	tok_str[16];
 	bool	bUsePrevFormat = FALSE;
 	UCHAR	macAddress[MAC_ADDR_LEN];
-	UCHAR	keyMaterial[40];	
+	UCHAR	keyMaterial[40];
 	UCHAR	KeyLen, CipherAlg = CIPHER_NONE, KeyIdx;
-		
+
 	/*WdsPhyMode */
-	if (RTMPGetKeyParameter("WdsPhyMode", tmpbuf, MAX_PARAM_BUFFER_SIZE, buffer, TRUE))
-	{	
-		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++) 
-		{
+	if (RTMPGetKeyParameter("WdsPhyMode", tmpbuf, MAX_PARAM_BUFFER_SIZE, buffer, TRUE)) {
+		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++) {
 			if ((strncmp(macptr, "CCK", 3) == 0) || (strncmp(macptr, "cck", 3) == 0))
 				pAd->MulTestTab.WdsEntry[i].PhyMode = MODE_CCK;
 			else if ((strncmp(macptr, "OFDM", 4) == 0) || (strncmp(macptr, "ofdm", 4) == 0))
@@ -3931,61 +3885,52 @@ VOID rtmp_read_multest_from_file(
 #endif /* DOT11_N_SUPPORT */
 			else
 				pAd->MulTestTab.WdsEntry[i].PhyMode = 0xff;
-		
+
 			DBGPRINT(RT_DEBUG_TRACE, ("If/wds%d - WdsPhyMode = %d\n", i, pAd->MulTestTab.WdsEntry[i].PhyMode));
 		}
 	}
-	
+
 	/*WdsList */
-	if (RTMPGetKeyParameter("WdsList", tmpbuf, MAX_PARAM_BUFFER_SIZE, buffer, TRUE))
-	{
-		for (i=0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++) 
-		{				
+	if (RTMPGetKeyParameter("WdsList", tmpbuf, MAX_PARAM_BUFFER_SIZE, buffer, TRUE)) {
+		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++) {
 			if (strlen(macptr) != 17) /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
-				continue; 
+				continue;
 			if (strcmp(macptr,"00:00:00:00:00:00") == 0)
-				continue; 
+				continue;
 			if (i >= MAX_WDS_ENTRY)
 				break; 
 
-			for (j=0; j<ETH_LENGTH_OF_ADDRESS; j++)
-			{
+			for (j = 0; j < ETH_LENGTH_OF_ADDRESS; j++) {
 				AtoH(macptr, &macAddress[j], 1);
 				macptr=macptr+3;
-			}	
+			}
 
 			{
 				INT iii;
 				LONG WdsTabIdx = -1;
-				
-				for (iii = 0; iii < MAX_WDS_ENTRY; iii++)
-				{
-					if (pAd->MulTestTab.WdsEntry[iii].Valid == FALSE)
-					{
+
+				for (iii = 0; iii < MAX_WDS_ENTRY; iii++) {
+					if (pAd->MulTestTab.WdsEntry[iii].Valid == FALSE) {
 						pAd->MulTestTab.WdsEntry[iii].Valid = TRUE;
 						pAd->MulTestTab.Size ++;
 						COPY_MAC_ADDR(pAd->MulTestTab.WdsEntry[iii].PeerWdsAddr, macAddress);
 						WdsTabIdx = iii;
 						break;
-					}
-					else if (MAC_ADDR_EQUAL(pAd->MulTestTab.WdsEntry[iii].PeerWdsAddr, macAddress))
-					{
+					} else if (MAC_ADDR_EQUAL(pAd->MulTestTab.WdsEntry[iii].PeerWdsAddr, macAddress)) {
 						WdsTabIdx = iii;
 						break;
 					}
 				}
-				
+
 				if (iii == MAX_WDS_ENTRY)
 					DBGPRINT(RT_DEBUG_ERROR, ("%s: Unable to allocate MulTestEntry.\n", __FUNCTION__));
-			}			
+			}
 		}
 	}
 
 	/*WdsEncrypType */
-	if (RTMPGetKeyParameter("WdsEncrypType", tmpbuf, 128, buffer, TRUE))
-	{				
-		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++)
-		{
+	if (RTMPGetKeyParameter("WdsEncrypType", tmpbuf, 128, buffer, TRUE)) {
+		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++) {
 			if ((strncmp(macptr, "NONE", 4) == 0) || (strncmp(macptr, "none", 4) == 0))
 				pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11WEPDisabled;
 			else if ((strncmp(macptr, "WEP", 3) == 0) || (strncmp(macptr, "wep", 3) == 0))
@@ -4003,14 +3948,12 @@ VOID rtmp_read_multest_from_file(
 
 			DBGPRINT(RT_DEBUG_TRACE, ("WdsEncrypType[%d] = %d(%s)\n", i, pAd->MulTestTab.WdsEntry[i].WepStatus, GetEncryptType(pAd->MulTestTab.WdsEntry[i].WepStatus)));
 		}
-		
+
 		/* Previous WDS only supports single encryption type. */
 		/* For backward compatible, other wds link encryption type shall be the same with the first. */
-		if (i == 1)
-		{
-			for (j = 1; j < MAX_WDS_ENTRY; j++)
-			{
-				pAd->MulTestTab.WdsEntry[j].WepStatus = pAd->MulTestTab.WdsEntry[0].WepStatus;	
+		if (i == 1) {
+			for (j = 1; j < MAX_WDS_ENTRY; j++) {
+				pAd->MulTestTab.WdsEntry[j].WepStatus = pAd->MulTestTab.WdsEntry[0].WepStatus;
 				DBGPRINT(RT_DEBUG_TRACE, ("@WdsEncrypType[%d] = %d(%s)\n", j, pAd->MulTestTab.WdsEntry[i].WepStatus, GetEncryptType(pAd->MulTestTab.WdsEntry[i].WepStatus)));	
 			}
 		}
@@ -4018,8 +3961,7 @@ VOID rtmp_read_multest_from_file(
 
 	/* WdsKey */
 	/* This is a previous parameter and it only stores WPA key material, not WEP key */
-	if (RTMPGetKeyParameter("WdsKey", tmpbuf, 255, buffer, FALSE))
-	{			
+	if (RTMPGetKeyParameter("WdsKey", tmpbuf, 255, buffer, FALSE)) {
 		for (i = 0; i < MAX_WDS_ENTRY; i++)
 			NdisZeroMemory(&pAd->MulTestTab.WdsEntry[i].WdsKey, sizeof(CIPHER_KEY));
 
@@ -4029,14 +3971,13 @@ VOID rtmp_read_multest_from_file(
 		/* check if the wds-0 link key material is valid */
 		if (((pAd->MulTestTab.WdsEntry[0].WepStatus == Ndis802_11Encryption2Enabled)
 				|| (pAd->MulTestTab.WdsEntry[0].WepStatus == Ndis802_11Encryption3Enabled))
-			&& (strlen(tmpbuf) >= 8) && (strlen(tmpbuf) <= 64))
-		{
+			&& (strlen(tmpbuf) >= 8) && (strlen(tmpbuf) <= 64)) {
 			RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (PUCHAR)RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
 			if (pAd->MulTestTab.WdsEntry[0].WepStatus == Ndis802_11Encryption3Enabled)
 				pAd->MulTestTab.WdsEntry[0].WdsKey.CipherAlg = CIPHER_AES;
 			else
 				pAd->MulTestTab.WdsEntry[0].WdsKey.CipherAlg = CIPHER_TKIP;
-			
+
 			NdisMoveMemory(&pAd->MulTestTab.WdsEntry[0].WdsKey.Key, keyMaterial, 16);
 			pAd->MulTestTab.WdsEntry[0].WdsKey.KeyLen = 16;
 			NdisMoveMemory(&pAd->MulTestTab.WdsEntry[0].WdsKey.RxMic, keyMaterial+16, 8);
@@ -4045,8 +3986,7 @@ VOID rtmp_read_multest_from_file(
 
 		/* Previous WDS only supports single key-material. */
 		/* For backward compatible, other wds link key-material shall be the same with the first. */
-		if (pAd->MulTestTab.WdsEntry[0].WdsKey.KeyLen == 16)
-		{
+		if (pAd->MulTestTab.WdsEntry[0].WdsKey.KeyLen == 16) {
 			for (j = 1; j < MAX_WDS_ENTRY; j++)
 				NdisMoveMemory(&pAd->MulTestTab.WdsEntry[j].WdsKey, &pAd->MulTestTab.WdsEntry[0].WdsKey, sizeof(CIPHER_KEY));
 		}
@@ -4054,112 +3994,89 @@ VOID rtmp_read_multest_from_file(
 
 	/* The parameters can provide different key information for each WDS-Link */
 	/* no matter WEP or WPA */
-	if (!bUsePrevFormat)
-	{
-		for (i = 0; i < MAX_WDS_ENTRY; i++)
-		{
+	if (!bUsePrevFormat) {
+		for (i = 0; i < MAX_WDS_ENTRY; i++) {
 			AP_WDS_KeyNameMakeUp(tok_str, sizeof(tok_str), i);
 
 			/* WdsXKey (X=0~MAX_WDS_ENTRY-1) */
-			if (RTMPGetKeyParameter(tok_str, tmpbuf, 128, buffer, FALSE))
-			{			
-				if (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11Encryption1Enabled)
-				{
+			if (RTMPGetKeyParameter(tok_str, tmpbuf, 128, buffer, FALSE)) {
+				if (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11Encryption1Enabled) {
 					/* Ascii type */
-					if (strlen(tmpbuf) == 5 || strlen(tmpbuf) == 13)
-					{		
+					if (strlen(tmpbuf) == 5 || strlen(tmpbuf) == 13) {
 						KeyLen = strlen(tmpbuf);
 						pAd->MulTestTab.WdsEntry[i].WdsKey.KeyLen = KeyLen;
 						NdisMoveMemory(pAd->MulTestTab.WdsEntry[i].WdsKey.Key, tmpbuf, KeyLen);
 						if (KeyLen == 5)
 							CipherAlg = CIPHER_WEP64;
 						else
-							CipherAlg = CIPHER_WEP128;	
+							CipherAlg = CIPHER_WEP128;
 
 						pAd->MulTestTab.WdsEntry[i].WdsKey.CipherAlg = CipherAlg;
 						DBGPRINT(RT_DEBUG_TRACE, ("IF/wds%d Key = %s ,type=Ascii, CipherAlg(%s)\n", i, tmpbuf, (CipherAlg == CIPHER_WEP64 ? "wep64" : "wep128")));
-					}
-					/* Hex type */
-					else if (strlen(tmpbuf) == 10 || strlen(tmpbuf) == 26)
-					{		
+					} /* Hex type */ else if (strlen(tmpbuf) == 10 || strlen(tmpbuf) == 26) {
 						KeyLen = strlen(tmpbuf);
 						pAd->MulTestTab.WdsEntry[i].WdsKey.KeyLen = KeyLen / 2;
-						AtoH(tmpbuf, pAd->MulTestTab.WdsEntry[i].WdsKey.Key, KeyLen / 2);						
+						AtoH(tmpbuf, pAd->MulTestTab.WdsEntry[i].WdsKey.Key, KeyLen / 2);
 						if (KeyLen == 10)
 							CipherAlg = CIPHER_WEP64;
 						else
-							CipherAlg = CIPHER_WEP128;	
+							CipherAlg = CIPHER_WEP128;
 
 						pAd->MulTestTab.WdsEntry[i].WdsKey.CipherAlg = CipherAlg;
 						DBGPRINT(RT_DEBUG_TRACE, ("IF/wds%d Key = %s ,type = Hex, CipherAlg(%s)\n", i, tmpbuf, (CipherAlg == CIPHER_WEP64 ? "wep64" : "wep128")));
-					}
-					/* Invalid type */
-					else
-					{
+					} /* Invalid type */ else {
 						pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11EncryptionDisabled;
 						NdisZeroMemory(&pAd->MulTestTab.WdsEntry[i].WdsKey, sizeof(CIPHER_KEY));
 						DBGPRINT(RT_DEBUG_TRACE, ("IF/wds%d has invalid key for WEP, reset encryption to OPEN\n", i));
 					}
-				}
-				else if ((pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11Encryption2Enabled)
+				} else if ((pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11Encryption2Enabled)
 					|| (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11Encryption3Enabled)
 #ifdef WAPI_SUPPORT
 					|| (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11EncryptionSMS4Enabled)
 #endif /* WAPI_SUPPORT */
-					)					
-				{
-					if ((strlen(tmpbuf) >= 8) && (strlen(tmpbuf) <= 64))
-					{
+					) {
+					if ((strlen(tmpbuf) >= 8) && (strlen(tmpbuf) <= 64)) {
 						RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (PUCHAR) RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
 
-						if (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11Encryption3Enabled)
-						{
+						if (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11Encryption3Enabled) {
 							pAd->MulTestTab.WdsEntry[i].WdsKey.CipherAlg = CIPHER_AES;
 							CipherAlg = CIPHER_AES;
 						}
 #ifdef WAPI_SUPPORT
-						else if (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11EncryptionSMS4Enabled)
-						{
+						else if (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11EncryptionSMS4Enabled) {
 							pAd->MulTestTab.WdsEntry[i].WdsKey.CipherAlg = CIPHER_SMS4;
 							CipherAlg = CIPHER_SMS4;
 						}
 #endif /* WAPI_SUPPORT */
-						else
-						{
+						else {
 							pAd->MulTestTab.WdsEntry[i].WdsKey.CipherAlg = CIPHER_TKIP;
 							CipherAlg = CIPHER_TKIP;
 						}
-						
+
 						NdisMoveMemory(&pAd->MulTestTab.WdsEntry[i].WdsKey.Key, keyMaterial, 16);
 						pAd->MulTestTab.WdsEntry[i].WdsKey.KeyLen = 16;
 						NdisMoveMemory(&pAd->MulTestTab.WdsEntry[i].WdsKey.RxMic, keyMaterial+16, 8);
 						NdisMoveMemory(&pAd->MulTestTab.WdsEntry[i].WdsKey.TxMic, keyMaterial+16, 8);
 						DBGPRINT(RT_DEBUG_TRACE, ("IF/wds%d Key = %s, CipherAlg(%s)\n", i, tmpbuf, (CipherAlg == CIPHER_AES ? "AES" : "TKIP")));
-					}
-					else
-					{
+					} else {
 						DBGPRINT(RT_DEBUG_TRACE, ("IF/wds%d has invalid key for WPA, reset encryption to OPEN\n", i));
 						pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11EncryptionDisabled;
 						NdisZeroMemory(&pAd->MulTestTab.WdsEntry[i].WdsKey, sizeof(CIPHER_KEY));
 					}
 
-				}
-				else
-				{									
+				} else {
 					pAd->MulTestTab.WdsEntry[i].WepStatus = Ndis802_11EncryptionDisabled;
 					NdisZeroMemory(&pAd->MulTestTab.WdsEntry[i].WdsKey, sizeof(CIPHER_KEY));
-				}								
+				}
 			}
 		}
 	}
 
 	/* WdsDefaultKeyID */
-	if(RTMPGetKeyParameter("WdsDefaultKeyID", tmpbuf, 10, buffer, TRUE))
-	{
-		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++)
-		{
+	if(RTMPGetKeyParameter("WdsDefaultKeyID", tmpbuf, 10, buffer, TRUE)) {
+		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL, ";"), i++) {
 			KeyIdx = (UCHAR) simple_strtol(macptr, 0, 10);
-			if((KeyIdx >= 1 ) && (KeyIdx <= 4))
+			if ((KeyIdx >= 1 ) && (KeyIdx <= 4))
 				pAd->MulTestTab.WdsEntry[i].KeyIdx = (UCHAR) (KeyIdx - 1);
 			else
 				pAd->MulTestTab.WdsEntry[i].KeyIdx = 0;
@@ -4169,7 +4086,7 @@ VOID rtmp_read_multest_from_file(
 				pAd->MulTestTab.WdsEntry[i].KeyIdx = 0;	
 
 			DBGPRINT(RT_DEBUG_TRACE, ("IF/wds%d - WdsDefaultKeyID(0~3) = %d\n", i, pAd->MulTestTab.WdsEntry[i].KeyIdx));	
-		}				
+		}
 	}
 }
 
@@ -4197,8 +4114,7 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 	/* open card information file*/
 	srcf = RtmpOSFileOpen(SINGLE_SKU_TABLE_FILE_NAME, O_RDONLY, 0);
-	if (IS_FILE_OPEN_ERR(srcf)) 
-	{
+	if (IS_FILE_OPEN_ERR(srcf)) {
 		/* card information file does not exist */
 		DBGPRINT(RT_DEBUG_TRACE, ("--> Error opening %s\n", SINGLE_SKU_TABLE_FILE_NAME));
 		goto free_resource;
@@ -4212,23 +4128,18 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 	/* card information file exists so reading the card information */
 	NdisZeroMemory(buffer, MAX_INI_BUFFER_SIZE);
 	retval = RtmpOSFileRead(srcf, buffer, MAX_INI_BUFFER_SIZE);
-	if (retval < 0)
-	{
+	if (retval < 0) {
 		/* read fail */
 		DBGPRINT(RT_DEBUG_TRACE,("--> Read %s error %d\n", SINGLE_SKU_TABLE_FILE_NAME, -retval));
-	}
-	else
-	{
+	} else {
 
-		for (readline = ptr = buffer, index=0; (ptr = strchr(readline, '\n')) != NULL; readline = ptr + 1, index++)
-		{
+		for (readline = ptr = buffer, index=0; (ptr = strchr(readline, '\n')) != NULL; readline = ptr + 1, index++) {
 			*ptr = '\0';
 
 			if (readline[0] == '#')
 				continue;
 
-			if (!strncmp(readline, "ch", 2))
-			{
+			if (!strncmp(readline, "ch", 2)) {
 
 				CH_POWER *pwr;
 
@@ -4239,87 +4150,68 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 				channel = simple_strtol(token, 0, 10);
 				pwr->StartChannel = channel;
 
-				for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++)
-				{
-					token = rstrtok(NULL ," ");
+				for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++) {
+					token = rstrtok(NULL, " ");
 					if (token == NULL)
 						break;
 					pwr->PwrCCK[i] = simple_strtol(token, 0, 10) * 2;
 				}
 
-				for (i = 0; i < SINGLE_SKU_TABLE_OFDM_LENGTH; i++)
-				{
-					token = rstrtok(NULL ," ");
-					if ( token == NULL )
+				for (i = 0; i < SINGLE_SKU_TABLE_OFDM_LENGTH; i++) {
+					token = rstrtok(NULL, " ");
+					if (token == NULL)
 						break;
 					pwr->PwrOFDM[i] = simple_strtol(token, 0, 10) *2;
 				}
 
-				for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
-				{
-					token = rstrtok(NULL ," ");
-					if ( token == NULL )
+				for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++) {
+					token = rstrtok(NULL, " ");
+					if (token == NULL)
 						break;
 					pwr->PwrHT20[i] = simple_strtol(token, 0, 10) *2;
 				}
 
-				for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
-				{
-					token = rstrtok(NULL ," ");
-					if ( token == NULL )
+				for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++) {
+					token = rstrtok(NULL, " ");
+					if (token == NULL)
 						break;
 					pwr->PwrHT40[i] = simple_strtol(token, 0, 10) *2;
 				}
-				
 
-				if (StartCh == NULL)
-				{
+				if (StartCh == NULL) {
 					StartCh = pwr;
 					insertTailList(&pAd->SingleSkuPwrList, (PLIST_ENTRY)pwr);
-				}
-				else
-				{
+				} else {
 					BOOLEAN isSame = TRUE;
 
-					for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++ )
-					{
-						if (StartCh->PwrCCK[i] != pwr->PwrCCK[i])
-						{
+					for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++) {
+						if (StartCh->PwrCCK[i] != pwr->PwrCCK[i]) {
 							isSame = FALSE;
 							break;
 						}
 					}
 
-					if (isSame == TRUE)
-					{
-						for (i = 0; i < SINGLE_SKU_TABLE_OFDM_LENGTH; i++)
-						{
-							if (StartCh->PwrOFDM[i] != pwr->PwrOFDM[i])
-							{
+					if (isSame == TRUE) {
+						for (i = 0; i < SINGLE_SKU_TABLE_OFDM_LENGTH; i++) {
+							if (StartCh->PwrOFDM[i] != pwr->PwrOFDM[i]) {
 								isSame = FALSE;
 								break;
 							}
 						}
 					}
 
-					if (isSame == TRUE)
-					{
-						for (i= 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
-						{
-							if (StartCh->PwrHT20[i] != pwr->PwrHT20[i])
-							{
+					if (isSame == TRUE) {
+						for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++) {
+							if (StartCh->PwrHT20[i] != pwr->PwrHT20[i]) {
 								isSame = FALSE;
 								break;
 							}
 						}
 					}
 
-					if (isSame == TRUE)
-					{
-						for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)
-						{
-							if (StartCh->PwrHT40[i] != pwr->PwrHT40[i])
-							{
+					if (isSame == TRUE) {
+						for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++) {
+							if (StartCh->PwrHT40[i] != pwr->PwrHT40[i]) {
 								isSame = FALSE;
 								break;
 							}
@@ -4328,8 +4220,7 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 
 					if (isSame == TRUE)
 						os_free_mem(NULL, pwr);
-					else
-					{
+					else {
 						StartCh = pwr;
 						insertTailList(&pAd->SingleSkuPwrList, (PLIST_ENTRY)StartCh);
 						pwr = NULL;
@@ -4339,8 +4230,7 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 
 				StartCh->num ++;
 				os_alloc_mem(pAd, (PUCHAR *)&temp, StartCh->num);
-				if ( StartCh->Channel != NULL )
-				{
+				if (StartCh->Channel != NULL) {
 					NdisMoveMemory(temp, StartCh->Channel, StartCh->num-1);
 					os_free_mem(pAd, StartCh->Channel);
 				}
@@ -4348,14 +4238,11 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 				StartCh->Channel[StartCh->num-1] = channel;
 			}
 		}
-
-
 	}
 	{
 		CH_POWER *ch;
 		ch = pAd->SingleSkuPwrList.pHead;
-		while (ch)
-		{
+		while (ch) {
 			int i;
 			DBGPRINT(RT_DEBUG_TRACE,("start ch = %d, ch->num = %d\n", ch->StartChannel, ch->num));
 
@@ -4409,8 +4296,7 @@ UCHAR GetSkuChannelBasePwr(
 	UINT8 i, j;
 
 	ch = pAd->SingleSkuPwrList.pHead;
-	while (ch)
-	{
+	while (ch) {
 		start_ch = ch->StartChannel;
 
 		if (channel >= start_ch)
@@ -4436,7 +4322,7 @@ UCHAR GetSkuChannelBasePwr(
 						if ( base_pwr > ch->PwrHT20[i] )
 							base_pwr = ch->PwrHT20[i];
 					}
-						
+
 					if (pAd->CommonCfg.BBPCurrentBW == BW_40)
 					{
 						for (i = 0; i < SINGLE_SKU_TABLE_HT_LENGTH; i++)

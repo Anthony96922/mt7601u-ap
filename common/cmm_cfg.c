@@ -244,7 +244,7 @@ UCHAR cfgmode_2_wmode(UCHAR cfg_mode)
 	DBGPRINT(RT_DEBUG_OFF, ("cfg_mode = %d\n", cfg_mode));
 	if (cfg_mode >= PHY_MODE_MAX)
 		cfg_mode =  PHY_MODE_MAX;
-	
+
 	return CFG_WMODE_MAP[cfg_mode * 2 + 1];
 }
 
@@ -254,8 +254,7 @@ UCHAR wmode_2_cfgmode(UCHAR wmode)
 	INT index;
 	DBGPRINT(RT_DEBUG_OFF, ("wmode = %d\n", wmode));
 
-	for (index = 0; index < PHY_MODE_MAX; index++ )
-	{
+	for (index = 0; index < PHY_MODE_MAX; index++ ) {
 		if (wmode == CFG_WMODE_MAP[index*2 + 1])
 			return CFG_WMODE_MAP[index*2];
 	}
@@ -267,8 +266,7 @@ static BOOLEAN wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
 {
 	if ((WMODE_CAP_5G(wmode) && (!PHY_CAP_5G(pAd->chipCap.phy_caps))) ||
 		(WMODE_CAP_2G(wmode) && (!PHY_CAP_2G(pAd->chipCap.phy_caps))) ||
-		(WMODE_CAP_N(wmode) && RTMP_TEST_MORE_FLAG(pAd, fRTMP_ADAPTER_DISABLE_DOT_11N))
-	)
+		(WMODE_CAP_N(wmode) && RTMP_TEST_MORE_FLAG(pAd, fRTMP_ADAPTER_DISABLE_DOT_11N)))
 		return FALSE;
 	else
 		return TRUE;
@@ -295,30 +293,30 @@ BOOLEAN wmode_band_equal(UCHAR smode, UCHAR tmode)
 {
 	BOOLEAN eq = FALSE;
 	UCHAR *str1, *str2;
-	
+
 	if ((WMODE_CAP_5G(smode) == WMODE_CAP_5G(tmode)) &&
 		(WMODE_CAP_2G(smode) == WMODE_CAP_2G(tmode)))
-		eq = TRUE; 
+		eq = TRUE;
 
 	str1 = wmode_2_str(smode);
 	str2 = wmode_2_str(tmode);
-	if (str1 && str2)
-	{
+	if (str1 && str2) {
 		DBGPRINT(RT_DEBUG_TRACE,
 			("Old WirelessMode:%s(0x%x), "
 			 "New WirelessMode:%s(0x%x)!\n",
 			str1, smode, str2, tmode));
 	}
+
 	if (str1)
 		os_free_mem(NULL, str1);
 	if (str2)
 		os_free_mem(NULL, str2);
-		
+
 	return eq;
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Wireless Mode
@@ -352,8 +350,7 @@ INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
 	pAd->CommonCfg.cfg_wmode = wmode;
 
 	mode_str = wmode_2_str(wmode);
-	if (mode_str)
-	{
+	if (mode_str) {
 		DBGPRINT(RT_DEBUG_TRACE, ("%s(): Set WMODE=%s(0x%x)\n",
 				__FUNCTION__, mode_str, wmode));
 		os_free_mem(NULL, mode_str);
@@ -372,11 +369,10 @@ static UCHAR RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
 	INT idx;
 	MULTISSID_STRUCT *wdev;
 
-	for(idx = 0; idx < pAd->ApCfg.BssidNum; idx++) {
+	for (idx = 0; idx < pAd->ApCfg.BssidNum; idx++) {
 		wdev = &pAd->ApCfg.MBSSID[idx];
 		mode_str = wmode_2_str(wdev->PhyMode);
-		if (mode_str)
-		{
+		if (mode_str) {
 			DBGPRINT(RT_DEBUG_TRACE, ("%s(BSS%d): wmode=%s(0x%x)\n",
 					__FUNCTION__, idx, mode_str, wdev->PhyMode));
 			os_free_mem(pAd, mode_str);
@@ -385,9 +381,8 @@ static UCHAR RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
 	}
 
 	mode_str = wmode_2_str(wmode);
-	if (mode_str)
-	{
-		DBGPRINT(RT_DEBUG_TRACE, ("%s(): Combined WirelessMode = %s(0x%x)\n", 
+	if (mode_str) {
+		DBGPRINT(RT_DEBUG_TRACE, ("%s(): Combined WirelessMode = %s(0x%x)\n",
 					__FUNCTION__, mode_str, wmode));
 		os_free_mem(pAd, mode_str);
 	}
@@ -395,7 +390,7 @@ static UCHAR RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Wireless Mode for MBSS
@@ -418,25 +413,20 @@ INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
 				BAND_STR[pAd->chipCap.phy_caps & 0x3]));
 		return FALSE;
 	}
-	
-	if (WMODE_CAP_5G(wmode) && WMODE_CAP_2G(wmode))
-	{
+
+	if (WMODE_CAP_5G(wmode) && WMODE_CAP_2G(wmode)) {
 		DBGPRINT(RT_DEBUG_ERROR, ("AP cannot support 2.4G/5G band mixed mode!\n"));
 		return FALSE;
 	}
 
-	if (pAd->ApCfg.BssidNum > 1)
-	{
+	if (pAd->ApCfg.BssidNum > 1) {
 		/* pAd->CommonCfg.PhyMode = maximum capability of all MBSS */
-		if (wmode_band_equal(pAd->CommonCfg.PhyMode, wmode) == TRUE)
-		{
+		if (wmode_band_equal(pAd->CommonCfg.PhyMode, wmode) == TRUE) {
 			wmode = RT_CfgMbssWirelessModeMaxGet(pAd);
 
 			DBGPRINT(RT_DEBUG_TRACE,
 					("mbss> Maximum phy mode = %d\n", wmode));
-		}
-		else
-		{
+		} else {
 			UINT32 IdBss;
 
 			/* replace all phy mode with the one with different band */
@@ -445,7 +435,7 @@ INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
 			DBGPRINT(RT_DEBUG_TRACE,
 					("mbss> Reset band of all BSS to the new one!\n"));
 
-			for(IdBss = 0; IdBss < pAd->ApCfg.BssidNum; IdBss++)
+			for (IdBss = 0; IdBss < pAd->ApCfg.BssidNum; IdBss++)
 				pAd->ApCfg.MBSSID[IdBss].PhyMode = wmode;
 		}
 	}
@@ -482,7 +472,7 @@ static BOOLEAN RT_isLegalCmdBeforeInfUp(
 
 
 INT RT_CfgSetShortSlot(
-	IN PRTMP_ADAPTER	pAd, 
+	IN PRTMP_ADAPTER	pAd,
 	IN PSTRING		arg)
 {
 	LONG ShortSlot;
@@ -500,7 +490,7 @@ INT RT_CfgSetShortSlot(
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set WEP KEY base on KeyIdx
@@ -509,7 +499,7 @@ INT RT_CfgSetShortSlot(
     ==========================================================================
 */
 INT	RT_CfgSetWepKey(
-	IN PRTMP_ADAPTER	pAd, 
+	IN PRTMP_ADAPTER	pAd,
 	IN PSTRING		keyString,
 	IN CIPHER_KEY		*pSharedKey,
 	IN INT			keyIdx)
@@ -522,41 +512,39 @@ INT	RT_CfgSetWepKey(
 	/* TODO: Shall we do memset for the original key info??*/
 	memset(pSharedKey, 0, sizeof(CIPHER_KEY));
 	KeyLen = strlen(keyString);
-	switch (KeyLen)
-	{
+	switch (KeyLen) {
 		case 5: /* wep 40 Ascii type */
 		case 13: /* wep 104 Ascii type */
 			bKeyIsHex = FALSE;
 			pSharedKey->KeyLen = KeyLen;
 			NdisMoveMemory(pSharedKey->Key, keyString, KeyLen);
 			break;
-			
+
 		case 10: /* wep 40 Hex type */
 		case 26: /* wep 104 Hex type */
-			for(i=0; i < KeyLen; i++)
-			{
-				if( !isxdigit(*(keyString+i)) )
+			for (i = 0; i < KeyLen; i++) {
+				if (!isxdigit(*(keyString+i)) )
 					return FALSE;  /* Not Hex value */
 			}
 			bKeyIsHex = TRUE;
 			pSharedKey->KeyLen = KeyLen/2 ;
 			AtoH(keyString, pSharedKey->Key, pSharedKey->KeyLen);
 			break;
-			
+
 		default: /* Invalid argument */
 			DBGPRINT(RT_DEBUG_TRACE, ("RT_CfgSetWepKey(keyIdx=%d):Invalid argument (arg=%s)\n", keyIdx, keyString));
 			return FALSE;
 	}
 
 	pSharedKey->CipherAlg = ((KeyLen % 5) ? CIPHER_WEP128 : CIPHER_WEP64);
-	DBGPRINT(RT_DEBUG_TRACE, ("RT_CfgSetWepKey:(KeyIdx=%d,type=%s, Alg=%s)\n", 
+	DBGPRINT(RT_DEBUG_TRACE, ("RT_CfgSetWepKey:(KeyIdx=%d,type=%s, Alg=%s)\n",
 					keyIdx, (bKeyIsHex == FALSE ? "Ascii" : "Hex"), CipherName[pSharedKey->CipherAlg]));
 
 	return TRUE;
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set WPA PSK key
@@ -573,7 +561,7 @@ INT	RT_CfgSetWepKey(
     ==========================================================================
 */
 INT RT_CfgSetWPAPSKKey(
-	IN RTMP_ADAPTER	*pAd, 
+	IN RTMP_ADAPTER	*pAd,
 	IN PSTRING	keyString,
 	IN INT		keyStringLen,
 	IN UCHAR	*pHashStr,
@@ -582,9 +570,8 @@ INT RT_CfgSetWPAPSKKey(
 {
 	UCHAR keyMaterial[40];
 
-	if ((keyStringLen < 8) || (keyStringLen > 64))
-	{
-		DBGPRINT(RT_DEBUG_TRACE, ("WPAPSK Key length(%d) error, required 8 ~ 64 characters!(keyStr=%s)\n", 
+	if ((keyStringLen < 8) || (keyStringLen > 64)) {
+		DBGPRINT(RT_DEBUG_TRACE, ("WPAPSK Key length(%d) error, required 8 ~ 64 characters!(keyStr=%s)\n",
 						keyStringLen, keyString));
 		return FALSE;
 	}
@@ -592,10 +579,9 @@ INT RT_CfgSetWPAPSKKey(
 	NdisZeroMemory(pPMKBuf, 32);
 	if (keyStringLen == 64)
 		AtoH(keyString, pPMKBuf, 32);
-	else
-	{
+	else {
 	    RtmpPasswordHash(keyString, pHashStr, hashStrLen, keyMaterial);
-	    NdisMoveMemory(pPMKBuf, keyMaterial, 32);		
+	    NdisMoveMemory(pPMKBuf, keyMaterial, 32);
 	}
 
 	return TRUE;
@@ -615,11 +601,9 @@ INT	RT_CfgSetFixedTxPhyMode(PSTRING arg)
 		fix_tx_mode = FIXED_TXMODE_HT;
 	else if (rtstrcasecmp(arg, "VHT") == TRUE)
 		fix_tx_mode = FIXED_TXMODE_VHT;
-	else
-	{
+	else {
 		value = simple_strtol(arg, 0, 10);
-		switch (value)
-		{
+		switch (value) {
 			case FIXED_TXMODE_CCK:
 			case FIXED_TXMODE_OFDM:
 			case FIXED_TXMODE_HT:
@@ -631,34 +615,30 @@ INT	RT_CfgSetFixedTxPhyMode(PSTRING arg)
 	}
 
 	return fix_tx_mode;
-					
-}	
+}
 
 INT	RT_CfgSetMacAddress(
 	IN PRTMP_ADAPTER	pAd,
 	IN PSTRING		arg)
 {
 	INT	i, mac_len;
-	
+
 	/* Mac address acceptable format 01:02:03:04:05:06 length 17 */
 	mac_len = strlen(arg);
-	if(mac_len != 17)  
-	{
+	if (mac_len != 17) {
 		DBGPRINT(RT_DEBUG_ERROR, ("%s : invalid length (%d)\n", __FUNCTION__, mac_len));
 		return FALSE;
 	}
 
-	if(strcmp(arg, "00:00:00:00:00:00") == 0)
-	{
+	if(strcmp(arg, "00:00:00:00:00:00") == 0) {
 		DBGPRINT(RT_DEBUG_ERROR, ("%s : invalid mac setting \n", __FUNCTION__));
 		return FALSE;
 	}
 
-	for (i = 0; i < MAC_ADDR_LEN; i++)
-	{
+	for (i = 0; i < MAC_ADDR_LEN; i++) {
 		AtoH(arg, &pAd->CurrentAddress[i], 1);
 		arg = arg + 3;
-	}	
+	}
 
 	pAd->bLocalAdminMAC = TRUE;
 	return TRUE;
@@ -668,14 +648,11 @@ INT	RT_CfgSetTxMCSProc(PSTRING arg, BOOLEAN *pAutoRate)
 {
 	INT	Value = simple_strtol(arg, 0, 10);
 	INT	TxMcs;
-	
-	if ((Value >= 0 && Value <= 23) || (Value == 32)) /* 3*3*/
-	{
+
+	if ((Value >= 0 && Value <= 23) || (Value == 32)) { /* 3*3*/
 		TxMcs = Value;
 		*pAutoRate = FALSE;
-	}
-	else
-	{		
+	} else {
 		TxMcs = MCS_AUTO;
 		*pAutoRate = TRUE;
 	}
@@ -693,7 +670,7 @@ INT	RT_CfgSetAutoFallBack(
 
 	RTMP_IO_READ32(pAd, TX_RTY_CFG, &tx_rty_cfg.word);
 	tx_rty_cfg.field.TxautoFBEnable = (AutoFallBack) ? 1 : 0;
-	RTMP_IO_WRITE32(pAd, TX_RTY_CFG, tx_rty_cfg.word);	
+	RTMP_IO_WRITE32(pAd, TX_RTY_CFG, tx_rty_cfg.word);
 	DBGPRINT(RT_DEBUG_TRACE, ("RT_CfgSetAutoFallBack::(tx_rty_cfg=0x%x)\n", tx_rty_cfg.word));
 	return TRUE;
 }
@@ -707,26 +684,20 @@ INT	RT_CfgSetWscPinCode(
 	UINT pinCode;
 
 	pinCode = (UINT) simple_strtol(pPinCodeStr, 0, 10); /* When PinCode is 03571361, return value is 3571361.*/
-	if (strlen(pPinCodeStr) == 4)
-	{
+	if (strlen(pPinCodeStr) == 4) {
 		pWscControl->WscEnrolleePinCode = pinCode;
 		pWscControl->WscEnrolleePinCodeLen = 4;
-	}
-	else if (ValidateChecksum(pinCode))
-	{
+	} else if (ValidateChecksum(pinCode)) {
 		pWscControl->WscEnrolleePinCode = pinCode;
 		pWscControl->WscEnrolleePinCodeLen = 8;
-	}
-	else
-	{
+	} else {
 		DBGPRINT(RT_DEBUG_ERROR, ("RT_CfgSetWscPinCode(): invalid Wsc PinCode (%d)\n", pinCode));
 		return FALSE;
 	}
-	
+
 	DBGPRINT(RT_DEBUG_TRACE, ("RT_CfgSetWscPinCode():Wsc PinCode=%d\n", pinCode));
-	
+
 	return TRUE;
-	
 }
 #endif /* WSC_INCLUDED */
 
@@ -751,10 +722,53 @@ INT RtmpIoctl_rt_ioctl_giwname(
 	IN	VOID		*pData,
 	IN	ULONG		Data)
 {
-	UCHAR CurOpMode = OPMODE_AP;
-
-	if (CurOpMode == OPMODE_AP)
-		strcpy(pData, "IEEE 802.11bgn");
+	strcpy(pData, "IEEE 802.11");
+	switch(pAd->CommonCfg.PhyMode) {
+	case (WMODE_B | WMODE_G):
+		strcat(pData, "bg");
+		break;
+	case (WMODE_B):
+		strcat(pData, "b");
+		break;
+	case (WMODE_G):
+		strcat(pData, "g");
+		break;
+#ifdef A_BAND_SUPPORT
+	case (WMODE_A):
+		strcat(pData, "a");
+		break;
+	case (WMODE_A | WMODE_B | WMODE_G):
+		strcat(pData, "abg");
+		break;
+#endif /* A_BAND_SUPPORT */
+#ifdef DOT11_N_SUPPORT
+#ifdef A_BAND_SUPPORT
+	case (WMODE_A | WMODE_B | WMODE_G | WMODE_GN | WMODE_AN):
+		strcat(pData, "abgn");
+		break;
+	case (WMODE_A | WMODE_AN):
+		strcat(pData, "an");
+		break;
+	case (WMODE_A | WMODE_G | WMODE_GN | WMODE_AN):
+		strcat(pData, "agn");
+		break;
+#endif /* A_BAND_SUPPORT */
+	case (WMODE_G | WMODE_GN):
+		strcat(pData, "gn");
+		break;
+	case (WMODE_B | WMODE_G | WMODE_GN):
+		strcat(pData, "bgn");
+		break;
+#ifdef A_BAND_SUPPORT
+	case (WMODE_AN):
+#endif /* A_BAND_SUPPORT */
+	case (WMODE_GN):
+		strcat(pData, "n");
+		break;
+#endif /* DOT11_N_SUPPORT */
+	default:
+		break;
+	}
 
 	return NDIS_STATUS_SUCCESS;
 }

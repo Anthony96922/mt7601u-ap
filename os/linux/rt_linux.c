@@ -917,7 +917,7 @@ static inline void __RtmpOSFSInfoChange(OS_FS_INFO * pOSFSInfo, BOOLEAN bSet)
 		pOSFSInfo->fsuid = current->fsuid;
 		pOSFSInfo->fsgid = current->fsgid;
 		current->fsuid = current->fsgid = 0;
-#elif LINUX_VERSION_CODE >= KERNEL_VERSION(3,13,0)
+#elif LINUX_VERSION_CODE >= KERNEL_VERSION(3,10,0)
 		pOSFSInfo->fsuid = current_fsuid().val;
 		pOSFSInfo->fsgid = current_fsgid().val;
 #else

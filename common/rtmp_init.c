@@ -2511,7 +2511,7 @@ VOID UserCfgInit(RTMP_ADAPTER *pAd)
 	pAd->HTCEnable = FALSE;
 	pAd->bBroadComHT = FALSE;
 	pAd->CommonCfg.bRdg = FALSE;
-	
+
 #ifdef DOT11N_DRAFT3
 	pAd->CommonCfg.Dot11OBssScanPassiveDwell = dot11OBSSScanPassiveDwell;	/* Unit : TU. 5~1000*/
 	pAd->CommonCfg.Dot11OBssScanActiveDwell = dot11OBSSScanActiveDwell;	/* Unit : TU. 10~1000*/
@@ -3439,7 +3439,7 @@ VOID RTMPEnableRxTx(
 
 void CfgInitHook(PRTMP_ADAPTER pAd)
 {
-	/*pAd->bBroadComHT = TRUE;*/
+	pAd->bBroadComHT = TRUE;
 }
 
 
@@ -3449,7 +3449,7 @@ static INT RtmpChipOpsRegister(
 {
 	RTMP_CHIP_OP	*pChipOps = &pAd->chipOps;
 	int status;
-	
+
 	memset(pChipOps, 0, sizeof(RTMP_CHIP_OP));
 
 	RtmpChipOpsHook(pAd);
