@@ -894,9 +894,15 @@ void RtmpOSFileSeek(RTMP_OS_FD osfd, int offset)
 
 int RtmpOSFileRead(RTMP_OS_FD osfd, char *pDataPtr, int readLen)
 {
+	DBGPRINT(RT_DEBUG_ERROR, ("add: %p %p\n", osfd->f_op, osfd->f_op->read));
+
 	/* The object must have a read method */
-	if (osfd->f_op && osfd->f_op->read) {
-		return osfd->f_op->read(osfd, pDataPtr, readLen, &osfd->f_pos);
+	if (osfd->f_op) {
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 9, 0)
+		return vfs_read(osfd, pDataPtr, readLen, &osfd->f_pos);
+#else
+		return kernel_read(osfd, pDataPtr, readLen, &osfd->f_pos);
+#endif
 	} else {
 		DBGPRINT(RT_DEBUG_ERROR, ("no file read method\n"));
 		return -1;
@@ -905,7 +911,11 @@ int RtmpOSFileRead(RTMP_OS_FD osfd, char *pDataPtr, int readLen)
 
 int RtmpOSFileWrite(RTMP_OS_FD osfd, char *pDataPtr, int writeLen)
 {
-	return osfd->f_op->write(osfd, pDataPtr, (size_t) writeLen, &osfd->f_pos);
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 9, 0)
+	return vfs_write(osfd, pDataPtr, (size_t) writeLen, &osfd->f_pos);
+#else
+	return kernel_write(osfd, pDataPtr, (size_t) writeLen, &osfd->f_pos);
+#endif
 }
 
 static inline void __RtmpOSFSInfoChange(OS_FS_INFO * pOSFSInfo, BOOLEAN bSet)

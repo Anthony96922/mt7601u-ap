@@ -184,6 +184,8 @@ STRIP := $(CROSS_COMPILE)strip
 
 WFLAGS := -DAGGREGATION_SUPPORT -DPIGGYBACK_SUPPORT -DWMM_SUPPORT -DLINUX -Wall -Wstrict-prototypes -Wno-trigraphs
 WFLAGS += -DSYSTEM_LOG_SUPPORT -DRT28xx_MODE=$(RT28xx_MODE) -DCHIPSET=$(MODULE) -DRESOURCE_PRE_ALLOC
+WFLAGS += -Wno-error=date-time
+WFLAGS += -Wno-error=incompatible-pointer-types
 #WFLAGS += -DFPGA_MODE
 WFLAGS += -I$(RT28xx_DIR)/include
 
