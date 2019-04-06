@@ -463,7 +463,11 @@ do {													\
 #define	THREAD_PID_INIT_VALUE	NULL
 /* TODO: Use this IOCTL carefully when linux kernel version larger than 2.6.27, because the PID only correct when the user space task do this ioctl itself. */
 /*#define RTMP_GET_OS_PID(_x, _y)    _x = get_task_pid(current, PIDTYPE_PID); */
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,19,0)
 #define RT_GET_OS_PID(_x, _y)		do { rcu_read_lock(); _x=(ULONG)current->pids[PIDTYPE_PID].pid; rcu_read_unlock(); } while(0)
+#else
+#define RT_GET_OS_PID(_x, _y)		do { rcu_read_lock(); _x=current->thread_pid; rcu_read_unlock(); } while(0)
+#endif
 #ifdef OS_ABL_FUNC_SUPPORT
 #define RTMP_GET_OS_PID(_a, _b)		RtmpOsGetPid(&_a, _b)
 #else
@@ -503,7 +507,11 @@ typedef struct tasklet_struct  *POS_NET_TASK_STRUCT;
 typedef struct timer_list	OS_NDIS_MINIPORT_TIMER;
 typedef struct timer_list	OS_TIMER;
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,15,0)
 typedef void (*TIMER_FUNCTION)(unsigned long);
+#else
+typedef void (*TIMER_FUNCTION)(struct timer_list *unused);
+#endif
 
 
 #define OS_WAIT(_time)									\
