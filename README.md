@@ -11,6 +11,7 @@ Many usb Wi-Fi adapters that claim to have an RT5370 chipset actually have an MT
 - 3.18.16 (Raspberry Pi)
 - 4.4.12 (Raspberry Pi)
 - 4.14.15 (Orange Pi Pc)
+- 4.19.20 (Orange Pi Zero)
 
 Please note that this kernel will only work properly on 32 bits. It will crash on 64 bits.
 
