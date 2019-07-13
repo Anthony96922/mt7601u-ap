@@ -8,7 +8,7 @@ Please create a pull request if you've worked on cleaning up some of the code as
 
 ### How to build
 ````sh
-$ git clone https://github.com/tanaka1892/mt7601u-ap
+$ git clone https://github.com/Anthony96922/mt7601u-ap
 $ cd mt7601u-ap
 $ make
 $ sudo make install
