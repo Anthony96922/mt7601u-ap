@@ -67,14 +67,14 @@ LINUX:
 
 ifeq ($(OSABL),YES)
 	@cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+	$(MAKE) -C $(LINUX_SRC) M=$(RT28xx_DIR)/os/linux modules
 endif
 	@cp os/linux/Makefile.6 $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+	$(MAKE) -C $(LINUX_SRC) M=$(RT28xx_DIR)/os/linux modules
 
 ifeq ($(OSABL),YES)
 	@cp os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+	$(MAKE) -C $(LINUX_SRC) M=$(RT28xx_DIR)/os/linux modules
 endif
 
 release: build_tools
@@ -115,23 +115,23 @@ install:
 
 libwapi:
 	cp os/linux/Makefile.libwapi.6 $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+	$(MAKE) -C $(LINUX_SRC) M=$(RT28xx_DIR)/os/linux modules
 
 osutil:
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.6.util $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+	$(MAKE) -C $(LINUX_SRC) M=$(RT28xx_DIR)/os/linux modules
 endif
 
 osnet:
 ifeq ($(OSABL),YES)
 	cp os/linux/Makefile.6.netif $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+	$(MAKE) -C $(LINUX_SRC) M=$(RT28xx_DIR)/os/linux modules
 endif
 
 osdrv:
 	cp os/linux/Makefile.6 $(RT28xx_DIR)/os/linux/Makefile
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+	$(MAKE) -C $(LINUX_SRC) M=$(RT28xx_DIR)/os/linux modules
 
 # Declare the contents of the .PHONY variable as phony. We keep that information in a variable
 .PHONY: $(PHONY)
