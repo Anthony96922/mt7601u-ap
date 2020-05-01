@@ -148,8 +148,6 @@ extern	const struct iw_handler_def rt28xx_ap_iw_handler_def;
 /***********************************************************************************
  *	Compiler related definitions
  ***********************************************************************************/
-#undef __inline
-#define __inline		static inline
 #define IN
 #define OUT
 #define INOUT
