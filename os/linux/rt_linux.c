@@ -938,10 +938,18 @@ static inline void __RtmpOSFSInfoChange(OS_FS_INFO * pOSFSInfo, BOOLEAN bSet)
 		pOSFSInfo->fsuid = current_fsuid();
 		pOSFSInfo->fsgid = current_fsgid();
 #endif
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 		pOSFSInfo->fs = get_fs();
 		set_fs(KERNEL_DS);
+#else
+     pOSFSInfo->fs = force_uaccess_begin();
+#endif 
 	} else {
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
 		set_fs(pOSFSInfo->fs);
+#else
+     force_uaccess_end(pOSFSInfo->fs);
+#endif 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,29)
 		current->fsuid = pOSFSInfo->fsuid;
 		current->fsgid = pOSFSInfo->fsgid;
