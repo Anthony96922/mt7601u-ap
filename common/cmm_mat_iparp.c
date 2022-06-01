@@ -485,7 +485,7 @@ static unsigned char * MATProto_ARP_Tx(
 	pSIP = (unsigned char *)(pSMac + MAC_ADDR_LEN);
 	
 	isUcastMac = IS_UCAST_MAC(pSMac);
-	isGoodIP = IS_GOOD_IP(get_unaligned32((PUINT) pSIP));
+	isGoodIP = IS_GOOD_IP(get_unaligned32((unsigned int *) pSIP));
 	
 /*	
 	DBGPRINT(RT_DEBUG_TRACE,("%s(): ARP Pkt=>senderIP=%d.%d.%d.%d, senderMac=%02x:%02x:%02x:%02x:%02x:%02x\n",
@@ -493,7 +493,7 @@ static unsigned char * MATProto_ARP_Tx(
 			pSMac[0],pSMac[1],pSMac[2],pSMac[3],pSMac[4],pSMac[5]));	
 */
 	if (isUcastMac && isGoodIP)
-		IPMacTableUpdate(pMatCfg, pSMac, get_unaligned32((PUINT) pSIP));
+		IPMacTableUpdate(pMatCfg, pSMac, get_unaligned32((unsigned int *) pSIP));
 
 	/*
 		For outgoing unicast mac, we need to replace the senderMAC as ourself to make
@@ -577,9 +577,9 @@ static unsigned char * MATProto_IP_Tx(
 	pSrcIP = pLayerHdr + 12;
 
 
-	needUpdate = NEED_UPDATE_IPMAC_TB(pSrcMac, get_unaligned32((PUINT)(pSrcIP)));
+	needUpdate = NEED_UPDATE_IPMAC_TB(pSrcMac, get_unaligned32((unsigned int *)(pSrcIP)));
 	if (needUpdate)
-		IPMacTableUpdate(pMatCfg, pSrcMac, get_unaligned32((PUINT)(pSrcIP)));
+		IPMacTableUpdate(pMatCfg, pSrcMac, get_unaligned32((unsigned int *)(pSrcIP)));
 
 	/*For UDP packet, we need to check about the DHCP packet, to modify the flag of DHCP discovey/request as broadcast. */
 	if (*(pLayerHdr + 9) == 0x11)

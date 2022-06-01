@@ -1578,7 +1578,7 @@ static NTSTATUS SetLEDStatusHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 /*WPS LED MODE 10*/
 static NTSTATUS LEDWPSMode10Hdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
-	UINT WPSLedMode10 = *((PUINT)(CMDQelmt->buffer));
+	UINT WPSLedMode10 = *((unsigned int *)(CMDQelmt->buffer));
 
 	DBGPRINT(RT_DEBUG_INFO, ("WPS LED mode 10::ON or Flash or OFF : %x\n", WPSLedMode10));
 

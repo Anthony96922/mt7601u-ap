@@ -7990,7 +7990,7 @@ BOOLEAN CmdRspEventCallbackHandle(PRTMP_ADAPTER pAd, unsigned char * pRspBuffer)
 /* remove LLC and get 802_3 Header */
 #define  RTMP_AP_802_11_REMOVE_LLC_AND_CONVERT_TO_802_3(_pRxBlk, _pHeader802_3)	\
 {																						\
-	unsigned char * _pRemovedLLCSNAP = NULL, _pDA, _pSA;                                 						\
+	unsigned char *_pRemovedLLCSNAP = NULL, *_pDA, *_pSA;                                 						\
 																				\
 																				\
 	if (RX_BLK_TEST_FLAG(_pRxBlk, fRX_WDS) || RX_BLK_TEST_FLAG(_pRxBlk, fRX_MESH)) 		\

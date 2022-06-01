@@ -75,7 +75,6 @@ typedef char *PSTRING;
 typedef CHAR *PCHAR;
 typedef USHORT *PUSHORT;
 typedef LONG *PLONG;
-typedef UINT *PUINT;
 
 typedef unsigned int NDIS_MEDIA_STATE;
 

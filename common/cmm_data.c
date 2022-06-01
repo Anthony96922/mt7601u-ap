@@ -1635,7 +1635,7 @@ VOID RTMPResumeMsduTransmission(
 UINT deaggregate_AMSDU_announce(
 	IN	PRTMP_ADAPTER	pAd,
 	PNDIS_PACKET		pPacket,
-	IN	unsigned char *			pData,
+	IN	unsigned char *pData,
 	IN	ULONG			DataSize,
 	IN	UCHAR			OpMode)
 {
@@ -1645,7 +1645,7 @@ UINT deaggregate_AMSDU_announce(
 	UINT			nMSDU;
     UCHAR			Header802_3[14];
 
-	unsigned char *			pPayload, pDA, pSA, pRemovedLLCSNAP;
+	unsigned char *pPayload, *pDA, *pSA, *pRemovedLLCSNAP;
 	PNDIS_PACKET	pClonePacket;
 
 #ifdef CONFIG_AP_SUPPORT

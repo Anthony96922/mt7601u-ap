@@ -1640,7 +1640,7 @@ INT eFuseWriteEeeppromBuf(
 
 
 VOID eFuseGetFreeBlockCount(IN PRTMP_ADAPTER pAd, 
-	PUINT EfuseFreeBlock)
+	unsigned int * EfuseFreeBlock)
 {
 	
 	USHORT i=0, StartBlock=0, EndBlock=0;

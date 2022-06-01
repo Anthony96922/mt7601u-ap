@@ -259,8 +259,8 @@ static VOID	WscParseEncrSettings(
 	if (RTMPEqualMemory(Hmac, Temp, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("WscParseEncrSettings --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Temp[0])), (UINT)cpu2be32(*((PUINT) &Temp[4]))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Hmac[0])), (UINT)cpu2be32(*((PUINT) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Temp[0])), (UINT)cpu2be32(*((unsigned int *) &Temp[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
 	}
 }
 
@@ -2864,8 +2864,8 @@ int ProcessMessageM2(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM2 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) KDK)), (UINT)cpu2be32(*((PUINT)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Hmac[0])), (UINT)cpu2be32(*((PUINT) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 
@@ -3158,8 +3158,8 @@ int ProcessMessageM3(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM3 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) KDK)), (UINT)cpu2be32(*((PUINT)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Hmac[0])), (UINT)cpu2be32(*((PUINT) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 
@@ -3340,8 +3340,8 @@ int ProcessMessageM4(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM4 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) KDK)), (UINT)cpu2be32(*((PUINT)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Hmac[0])), (UINT)cpu2be32(*((PUINT) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 	
@@ -3516,8 +3516,8 @@ int ProcessMessageM5(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM5 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) KDK)), (UINT)cpu2be32(*((PUINT)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Hmac[0])), (UINT)cpu2be32(*((PUINT) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 	if( FieldCheck[0] || FieldCheck[1] || FieldCheck[2] || FieldCheck[3] || FieldCheck[4] || FieldCheck[5] || FieldCheck[6] )
@@ -3689,8 +3689,8 @@ int ProcessMessageM6(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM6 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) KDK)), (UINT)cpu2be32(*((PUINT)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Hmac[0])), (UINT)cpu2be32(*((PUINT) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 	
@@ -3836,8 +3836,8 @@ int ProcessMessageM7(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM7 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) KDK)), (UINT)cpu2be32(*((PUINT)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Hmac[0])), (UINT)cpu2be32(*((PUINT) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 
@@ -3984,8 +3984,8 @@ int ProcessMessageM8(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM8 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) KDK)), (UINT)cpu2be32(*((PUINT)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((PUINT) &Hmac[0])), (UINT)cpu2be32(*((PUINT) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 	
