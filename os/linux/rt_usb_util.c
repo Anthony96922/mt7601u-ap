@@ -428,7 +428,7 @@ VOID RtmpOsUsbEmptyUrbCheck(
 VOID	RtmpOsUsbInitHTTxDesc(
 	IN	VOID			*pUrbSrc,
 	IN	VOID			*pUsb_Dev,
-	IN	UINT			BulkOutEpAddr,
+	IN	unsigned int			BulkOutEpAddr,
 	IN	unsigned char *			pSrc,
 	IN	unsigned long			BulkOutSize,
 	IN	USB_COMPLETE_HANDLER	Func,
@@ -456,7 +456,7 @@ VOID	RtmpOsUsbInitHTTxDesc(
 VOID	RtmpOsUsbInitRxDesc(
 	IN	VOID			*pUrbSrc,
 	IN	VOID			*pUsb_Dev,
-	IN	UINT			BulkInEpAddr,
+	IN	unsigned int			BulkInEpAddr,
 	IN	unsigned char			*pTransferBuffer,
 	IN	unsigned int			BufSize,
 	IN	USB_COMPLETE_HANDLER	Func,

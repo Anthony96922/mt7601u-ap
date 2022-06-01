@@ -375,7 +375,7 @@ void tbtt_tasklet(unsigned long data)
 		{
 			PQUEUE_ENTRY    pEntry;
 			BOOLEAN			bPS = FALSE;
-			UINT 			count = 0;
+			unsigned int 			count = 0;
 			unsigned long 		IrqFlags;
 
 /*			NdisAcquireSpinLock(&pAd->MacTabLock); */
@@ -408,7 +408,7 @@ void tbtt_tasklet(unsigned long data)
 /*			NdisReleaseSpinLock(&pAd->MacTabLock); */
 			if (pAd->MacTab.McastPsQueue.Number == 0)
 			{			
-		                UINT bss_index;
+		                unsigned int bss_index;
 
                 		/* clear MCAST/BCAST backlog bit for all BSS */
 				for(bss_index=BSS0; bss_index<pAd->ApCfg.BssidNum; bss_index++)
@@ -576,7 +576,7 @@ VOID	RTMPFreeAdapter(
 int	RTMPSendPackets(
 	IN NDIS_HANDLE dev_hnd,
 	IN PPNDIS_PACKET ppPacketArray,
-	IN UINT NumberOfPackets,
+	IN unsigned int NumberOfPackets,
 	IN unsigned int PktTotalLen,
 	IN RTMP_NET_ETH_CONVERT_DEV_SEARCH Func)
 {

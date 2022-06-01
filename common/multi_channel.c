@@ -58,7 +58,7 @@ VOID RtmpPrepareHwNullFrame(
 	unsigned int frameLen;
 	unsigned int totalLen;
 	unsigned char *ptr;
-	UINT i;
+	unsigned int i;
 	unsigned int longValue;
 	unsigned char MlmeRate;
 
@@ -358,7 +358,7 @@ static VOID MACBuffer_Change(
 {
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	PAPCLI_STRUCT pApCliEntry = NULL;
-	UINT i = 0;
+	unsigned int i = 0;
 	unsigned int MacValue, Data, Data2;
 	INT ret;
 	unsigned int MTxCycle;
@@ -871,7 +871,7 @@ VOID MultiChannelSwitchToP2P(
 	INT ext_ch;
 
 	MAC_TABLE_ENTRY *pEntry = NULL;
-	UINT i = 0;
+	unsigned int i = 0;
 	unsigned int MacValue, Data, Data2;
 	INT ret;
 	unsigned int MTxCycle;

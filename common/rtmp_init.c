@@ -2322,7 +2322,7 @@ VOID RTMPMoveMemory(
 {
 	unsigned char *	pMem1;
 	unsigned char *	pMem2;
-	UINT	Index;
+	unsigned int	Index;
 
 	ASSERT((Length==0) || (pDest && pSrc));
 
@@ -2366,12 +2366,12 @@ VOID UserCfgExit(
 */
 VOID UserCfgInit(RTMP_ADAPTER *pAd)
 {
-	UINT i;
+	unsigned int i;
 #ifdef CONFIG_AP_SUPPORT
-	UINT j;
+	unsigned int j;
 #endif /* CONFIG_AP_SUPPORT */
 /*	EDCA_PARM DefaultEdcaParm;*/
-    UINT key_index, bss_index;
+    unsigned int key_index, bss_index;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> UserCfgInit\n"));    

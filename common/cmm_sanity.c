@@ -2014,10 +2014,10 @@ BOOLEAN PeerProbeReqSanity(
 	unsigned char       Addr1[MAC_ADDR_LEN];
 #ifdef WSC_INCLUDED
 	unsigned char		*pPeerWscIe = NULL;
-	UINT		PeerWscIeLen = 0;
+	unsigned int		PeerWscIeLen = 0;
 #endif /* WSC_INCLUDED */
 #endif /* CONFIG_AP_SUPPORT */
-	UINT		total_ie_len = 0;	
+	unsigned int		total_ie_len = 0;	
 
     /* to prevent caller from using garbage output value*/
 #ifdef CONFIG_AP_SUPPORT

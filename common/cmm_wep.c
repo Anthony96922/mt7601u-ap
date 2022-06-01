@@ -28,7 +28,7 @@
 
 #include	"rt_config.h"
 
-UINT FCSTAB_32[256] = 
+unsigned int FCSTAB_32[256] = 
 {
 	0x00000000, 0x77073096, 0xee0e612c, 0x990951ba,
 	0x076dc419, 0x706af48f, 0xe963a535, 0x9e6495a3,
@@ -108,7 +108,7 @@ UINT FCSTAB_32[256] =
 		Len         the length of the data
 		
 	Return Value:
-		UINT - FCS 32 bits
+		unsigned int - FCS 32 bits
 		        
 	IRQL = DISPATCH_LEVEL
 
@@ -116,8 +116,8 @@ UINT FCSTAB_32[256] =
 	
 	========================================================================
 */
-UINT	RTMP_CALC_FCS32(
-	IN	UINT	Fcs,
+unsigned int	RTMP_CALC_FCS32(
+	IN	unsigned int	Fcs,
 	IN	unsigned char *	Cp,
 	IN	INT		Len)
 {
@@ -233,7 +233,7 @@ BOOLEAN	RTMPSoftEncryptWEP(
 	IN 		unsigned long			DataByteCnt)
 {
 	ARC4_CTX_STRUC *ARC4_CTX = NULL;
-	UINT 	FCSCRC32;
+	unsigned int 	FCSCRC32;
 
 	os_alloc_mem(NULL, (unsigned char **)&ARC4_CTX, sizeof(ARC4_CTX_STRUC));
 	if (ARC4_CTX == NULL)
@@ -303,8 +303,8 @@ BOOLEAN	RTMPSoftDecryptWEP(
 	unsigned short			plaintext_len;
 	unsigned char *			ciphertext_ptr;
 	unsigned short			ciphertext_len;
-	UINT			trailfcs;
-	UINT    		crc32;
+	unsigned int			trailfcs;
+	unsigned int    		crc32;
 	
 	os_alloc_mem(NULL, (unsigned char **)&ARC4_CTX, sizeof(ARC4_CTX_STRUC));
 	if (ARC4_CTX == NULL)

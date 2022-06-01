@@ -79,12 +79,12 @@ INT Set_CarrierDetect_Proc(
 {
     POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
     unsigned char apidx = pObj->ioctl_if;
-	UINT Enable;
+	unsigned int Enable;
 
 	if (apidx != MAIN_MBSSID)
 		return FALSE;
 
-	Enable = (UINT) simple_strtol(arg, 0, 10);
+	Enable = (unsigned int) simple_strtol(arg, 0, 10);
 
 	pAd->CommonCfg.CarrierDetect.Enable = (BOOLEAN)(Enable == 0 ? FALSE : TRUE);
 	

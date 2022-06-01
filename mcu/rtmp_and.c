@@ -1686,10 +1686,10 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 			Value = (Value & ~0x80000000) | 0x80000000;
 
 			/* RF bank */
-			Value = (Value & ~0x00ff0000) | (va_arg(argptr, UINT) << 16);
+			Value = (Value & ~0x00ff0000) | (va_arg(argptr,  unsigned int) << 16);
 
 			/* RF Index */
-			Value = (Value & ~0x000000ff) | va_arg(argptr, UINT);
+			Value = (Value & ~0x000000ff) | va_arg(argptr,  unsigned int);
 			
 			//printk("Value = %x RF Bank = %d and Index = %d\n", Value, RegPair[i + CurIndex].Bank, RegPair[i + CurIndex].Register);
 
@@ -1699,7 +1699,7 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 
 			Value = 0;
 			/* UpdateData */
-			Value = (Value & ~0x000000ff) | va_arg(argptr, UINT);
+			Value = (Value & ~0x000000ff) | va_arg(argptr,  unsigned int);
 
 			Value = cpu2le32(Value);
 			NdisMoveMemory(Pos, &Value, 4);
@@ -1847,7 +1847,7 @@ INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 			Value = (Value & ~0x40000000) | 0x40000000;
 
 			/* BBP Index */
-			Value = (Value & ~0x000000ff) | va_arg(argptr, UINT);
+			Value = (Value & ~0x000000ff) | va_arg(argptr,  unsigned int);
 			
 			Value = cpu2le32(Value);
 			NdisMoveMemory(Pos, &Value, 4);
@@ -1855,7 +1855,7 @@ INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 
 			Value = 0;
 			/* UpdateData */
-			Value = (Value & ~0x000000ff) | va_arg(argptr, UINT);
+			Value = (Value & ~0x000000ff) | va_arg(argptr,  unsigned int);
 
 			Value = cpu2le32(Value);
 			NdisMoveMemory(Pos, &Value, 4);

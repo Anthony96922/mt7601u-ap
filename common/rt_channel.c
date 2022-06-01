@@ -1987,7 +1987,7 @@ unsigned char GetCountryMaxTxPwr(
 #ifdef SINGLE_SKU
 	if (pAd->CommonCfg.bSKUMode == TRUE)
 	{
-		UINT deltaTxStreamPwr = 0;
+		unsigned int deltaTxStreamPwr = 0;
 
 #ifdef DOT11_N_SUPPORT
 		if (WMODE_CAP_N(pAd->CommonCfg.PhyMode) && (pAd->CommonCfg.TxStream == 2))

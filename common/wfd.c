@@ -362,7 +362,7 @@ unsigned long InsertWfdSubelmtTlv(
 	IN unsigned char			SubId,
 	IN unsigned char *			pInBuffer,
 	IN unsigned char *			pOutBuffer,
-	IN UINT				Action)
+	IN unsigned int				Action)
 {
 	PRT_WFD_CONFIG	pWFDCtrl = &pAd->StaCfg.WfdCfg;
 	unsigned char *	pDest;

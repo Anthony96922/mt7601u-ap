@@ -74,8 +74,8 @@ int wpi_sms4_ofb_engine(
 	unsigned char * pcw_out);
 
 VOID RTMPInsertWapiIe(
-	IN	UINT			AuthMode,
-	IN	UINT			WepStatus,
+	IN	unsigned int			AuthMode,
+	IN	unsigned int			WepStatus,
 	OUT	unsigned char *			pWIe,
 	OUT	unsigned char			*w_len);
 
@@ -156,7 +156,7 @@ VOID RTMPCancelWapiRekeyTimerAction(
 
 VOID RTMPGetWapiTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
-	IN	UINT			Wcid,
+	IN	unsigned int			Wcid,
 	OUT	unsigned char			*tx_tsc);
 
 VOID WAPIInstallPairwiseKey(

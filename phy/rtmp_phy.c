@@ -471,7 +471,7 @@ NDIS_STATUS MT7601_BBP_write(
 	IN unsigned char value)
 {
 	BBP_CSR_CFG_STRUC  BbpCsr = { { 0 } };
-	UINT i = 0;
+	unsigned int i = 0;
 	NDIS_STATUS	 ret;
 
 #ifdef MT7601FPGA
@@ -544,7 +544,7 @@ NDIS_STATUS MT7601_BBP_read(
 	IN unsigned char *pValue)
 {
 	BBP_CSR_CFG_STRUC  BbpCsr = { { 0 } };
-	UINT i=0, k=0;
+	unsigned int i=0, k=0;
 	NDIS_STATUS	 ret = STATUS_UNSUCCESSFUL;
 
 

@@ -1091,7 +1091,7 @@ VOID AsicEnableIbssSync(
 {
 	BCN_TIME_CFG_STRUC csr9;
 	unsigned char *			ptr;
-	UINT i;
+	unsigned int i;
 	unsigned long beaconBaseLocation = 0;
 	unsigned short			beaconLen = (unsigned short) pAd->BeaconTxWI.TxWIMPDUByteCnt;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;

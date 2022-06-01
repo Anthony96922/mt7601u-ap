@@ -274,9 +274,9 @@ typedef struct _DFS_SW_DETECT_PARAM{
 	unsigned long dfs_w_counter;
 	DFS_EVENT PreDfsEvent;		/* previous radar event */
 	unsigned int EvtDropAdjTime;		/* timing threshold for adjacent event */
-	UINT sw_idx[NEW_DFS_MAX_CHANNEL];
-	UINT hw_idx[NEW_DFS_MAX_CHANNEL];
-	UINT pr_idx[NEW_DFS_MAX_CHANNEL];	
+	unsigned int sw_idx[NEW_DFS_MAX_CHANNEL];
+	unsigned int hw_idx[NEW_DFS_MAX_CHANNEL];
+	unsigned int pr_idx[NEW_DFS_MAX_CHANNEL];	
 	unsigned short dfs_t_idx[NEW_DFS_MAX_CHANNEL];	
 	unsigned short dfs_w_idx[NEW_DFS_MAX_CHANNEL];
 	unsigned short dfs_w_last_idx[NEW_DFS_MAX_CHANNEL];

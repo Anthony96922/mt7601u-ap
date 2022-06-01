@@ -197,7 +197,7 @@ INT ATESetUpFrame(
 	IN unsigned int TxIdx)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UINT pos = 0;
+	unsigned int pos = 0;
 	PTX_CONTEXT	pNullContext;
 	unsigned char *			pDest;
 	HTTRANSMIT_SETTING	TxHTPhyMode;
@@ -484,7 +484,7 @@ VOID ATE_RTUSBCancelPendingBulkInIRP(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PRX_CONTEXT		pRxContext = NULL;
-	UINT			rx_ring_index;
+	unsigned int			rx_ring_index;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--->ATE_RTUSBCancelPendingBulkInIRP\n"));
 

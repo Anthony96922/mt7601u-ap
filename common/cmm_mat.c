@@ -171,7 +171,7 @@ VOID dumpPkt(unsigned char * pHeader, int len)
 unsigned char * MATEngineTxHandle(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET	    pPkt,
-	IN UINT				ifIdx,
+	IN unsigned int				ifIdx,
 	IN unsigned char    OpMode)
 {
 	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL,  pMacAddr = NULL;
@@ -253,7 +253,7 @@ unsigned char * MATEngineTxHandle(
 unsigned char * MATEngineRxHandle(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET		pPkt,
-	IN UINT				infIdx)
+	IN unsigned int				infIdx)
 {
 	unsigned char *				pMacAddr = NULL;
 	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL;

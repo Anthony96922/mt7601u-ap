@@ -281,7 +281,7 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 				else
 				{
 					PCIPHER_KEY  pKey;	
-					UINT	default_key = pAd->ApCfg.ApCliTab[ifIndex].DefaultKeyId;
+					unsigned int	default_key = pAd->ApCfg.ApCliTab[ifIndex].DefaultKeyId;
 
 					pKey = &pAd->ApCfg.ApCliTab[ifIndex].SharedKey[default_key];
 

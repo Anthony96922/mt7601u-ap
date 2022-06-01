@@ -248,10 +248,10 @@ Note:
 VOID RT_MD5_Append (
     IN  MD5_CTX_STRUC *pMD5_CTX, 
     IN  const unsigned char Message[], 
-    IN  UINT MessageLen)
+    IN  unsigned int MessageLen)
 {
-    UINT appendLen = 0;
-    UINT diffLen = 0;
+    unsigned int appendLen = 0;
+    unsigned int diffLen = 0;
     
     while (appendLen != MessageLen) {
         diffLen = MessageLen - appendLen;
@@ -295,7 +295,7 @@ VOID RT_MD5_End (
     IN  MD5_CTX_STRUC *pMD5_CTX, 
     OUT unsigned char DigestMessage[])
 {
-    UINT index;
+    unsigned int index;
     unsigned long long message_length_bits;
 
     /* append 1 bits to end of the message */
@@ -338,7 +338,7 @@ Note:
 */
 VOID RT_MD5 (
     IN  const unsigned char Message[], 
-    IN  UINT MessageLen, 
+    IN  unsigned int MessageLen, 
     OUT unsigned char DigestMessage[])
 {
     MD5_CTX_STRUC md5_ctx;

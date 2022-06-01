@@ -14,7 +14,7 @@ NDIS_STATUS rlt_rf_write(
 	IN unsigned char value)
 {
 	RLT_RF_CSR_CFG rfcsr = { { 0 } };
-	UINT i = 0;
+	unsigned int i = 0;
 	NDIS_STATUS	 ret;
 
 #ifdef MT7601FPGA
@@ -102,7 +102,7 @@ NDIS_STATUS rlt_rf_read(
 	IN unsigned char *pValue)
 {
 	RLT_RF_CSR_CFG rfcsr = { { 0 } };
-	UINT i=0, k=0;
+	unsigned int i=0, k=0;
 	NDIS_STATUS	 ret = STATUS_UNSUCCESSFUL;
 
 

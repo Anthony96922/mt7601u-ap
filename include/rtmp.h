@@ -823,7 +823,7 @@ typedef struct _FRAGMENT_FRAME {
 /* Tkip Key structure which RC4 key & MIC calculation */
 /* */
 typedef struct _TKIP_KEY_INFO {
-	UINT nBytesInM;		/* # bytes in M for MICKEY */
+	unsigned int nBytesInM;		/* # bytes in M for MICKEY */
 	unsigned long IV16;
 	unsigned long IV32;
 	unsigned long K0;		/* for MICKEY Low */
@@ -840,9 +840,9 @@ typedef struct _TKIP_KEY_INFO {
 /* Private / Misc data, counters for driver internal use */
 /* */
 typedef struct __PRIVATE_STRUC {
-	UINT SystemResetCnt;	/* System reset counter */
-	UINT TxRingFullCnt;	/* Tx ring full occurrance number */
-	UINT PhyRxErrCnt;	/* PHY Rx error count, for debug purpose, might move to global counter */
+	unsigned int SystemResetCnt;	/* System reset counter */
+	unsigned int TxRingFullCnt;	/* Tx ring full occurrance number */
+	unsigned int PhyRxErrCnt;	/* PHY Rx error count, for debug purpose, might move to global counter */
 	/* Variables for WEP encryption / decryption in rtmp_wep.c */
 	/* Tkip stuff */
 	TKIP_KEY_INFO Tx;
@@ -997,7 +997,7 @@ typedef struct _MLME_STRUCT {
 	NDIS_SPIN_LOCK TaskLock;
 	MLME_QUEUE Queue;
 
-	UINT ShiftReg;
+	unsigned int ShiftReg;
 
 	RALINK_TIMER_STRUCT PeriodicTimer;
 	RALINK_TIMER_STRUCT APSDPeriodicTimer;
@@ -1146,7 +1146,7 @@ typedef union _BACAP_STRUC {
 		unsigned int b2040CoexistScanSup:1;	/*As Sta, support do 2040 coexistence scan for AP. As Ap, support monitor trigger event to check if can use BW 40MHz. */
 		unsigned int bHtAdhoc:1;	/* adhoc can use ht rate. */
 		unsigned int MMPSmode:2;	/* MIMO power save more, 0:static, 1:dynamic, 2:rsv, 3:mimo enable */
-		unsigned int AmsduSize:1;	/* 0:3839, 1:7935 bytes. UINT  MSDUSizeToBytes[]        = { 3839, 7935}; */
+		unsigned int AmsduSize:1;	/* 0:3839, 1:7935 bytes. unsigned int  MSDUSizeToBytes[]        = { 3839, 7935}; */
 		unsigned int AmsduEnable:1;	/*Enable AMSDU transmisstion */
 		unsigned int MpduDensity:3;
 		unsigned int Policy:2;	/* 0: DELAY_BA 1:IMMED_BA  (//BA Policy subfiled value in ADDBA frame)   2:BA-not use */
@@ -1162,7 +1162,7 @@ typedef union _BACAP_STRUC {
 		unsigned int Policy:2;	/* 0: DELAY_BA 1:IMMED_BA  (//BA Policy subfiled value in ADDBA frame)   2:BA-not use */
 		unsigned int MpduDensity:3;
 		unsigned int AmsduEnable:1;	/*Enable AMSDU transmisstion */
-		unsigned int AmsduSize:1;	/* 0:3839, 1:7935 bytes. UINT  MSDUSizeToBytes[]        = { 3839, 7935}; */
+		unsigned int AmsduSize:1;	/* 0:3839, 1:7935 bytes. unsigned int  MSDUSizeToBytes[]        = { 3839, 7935}; */
 		unsigned int MMPSmode:2;	/* MIMO power save more, 0:static, 1:dynamic, 2:rsv, 3:mimo enable */
 		unsigned int bHtAdhoc:1;	/* adhoc can use ht rate. */
 		unsigned int b2040CoexistScanSup:1;	/*As Sta, support do 2040 coexistence scan for AP. As Ap, support monitor trigger event to check if can use BW 40MHz. */
@@ -1422,8 +1422,8 @@ typedef struct _MULTISSID_STRUCT {
 
 #ifdef WAPI_SUPPORT
 	unsigned char WAPIPassPhrase[64];	/* WAPI PSK pass phrase */
-	UINT WAPIPassPhraseLen;	/* the length of WAPI PSK pass phrase */
-	UINT WapiPskType;	/* 0 - Hex, 1 - ASCII */
+	unsigned int WAPIPassPhraseLen;	/* the length of WAPI PSK pass phrase */
+	unsigned int WapiPskType;	/* 0 - Hex, 1 - ASCII */
 	unsigned char WAPI_BK[16];	/* WAPI base key */
 
 	unsigned char NMK[LEN_WAPI_NMK];
@@ -2043,13 +2043,13 @@ typedef struct _MAC_TABLE_ENTRY {
 	BOOLEAN bSendBAR;
 	unsigned short NoBADataCountDown;
 
-	unsigned int CachedBuf[16];	/* UINT (4 bytes) for alignment */
+	unsigned int CachedBuf[16];	/* unsigned int (4 bytes) for alignment */
 
 #ifdef TXBF_SUPPORT
 	COUNTER_TXBF TxBFCounters;		/* TxBF Statistics */
-	UINT LastETxCount;		/* Used to compute %BF statistics */
-	UINT LastITxCount;
-	UINT LastTxCount;
+	unsigned int LastETxCount;		/* Used to compute %BF statistics */
+	unsigned int LastITxCount;
+	unsigned int LastTxCount;
 #endif /* TXBF_SUPPORT */
 #endif /* DOT11_N_SUPPORT */
 
@@ -2057,15 +2057,15 @@ typedef struct _MAC_TABLE_ENTRY {
 	unsigned int StreamModeMACReg;	/* MAC reg used to control stream mode for this client. 0=>No stream mode */
 #endif // STREAM_MODE_SUPPORT //
 
-	UINT FIFOCount;
-	UINT DebugFIFOCount;
-	UINT DebugTxCount;
+	unsigned int FIFOCount;
+	unsigned int DebugFIFOCount;
+	unsigned int DebugTxCount;
 	BOOLEAN bDlsInit;
 
 /*==================================================== */
 /*WDS entry needs these */
 /* If ValidAsWDS==TRUE, MatchWDSTabIdx is the index in WdsTab.MacTab */
-	UINT MatchWDSTabIdx;
+	unsigned int MatchWDSTabIdx;
 	unsigned char MaxSupportedRate;
 	unsigned char CurrTxRate;
 	unsigned char CurrTxRateIndex;
@@ -2158,7 +2158,7 @@ typedef struct _MAC_TABLE_ENTRY {
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef APCLI_SUPPORT
-	UINT MatchAPCLITabIdx;	/* indicate the index in ApCfg.ApCliTab. */
+	unsigned int MatchAPCLITabIdx;	/* indicate the index in ApCfg.ApCliTab. */
 #endif				/* APCLI_SUPPORT */
 #endif				/* CONFIG_AP_SUPPORT */
 
@@ -2479,12 +2479,12 @@ typedef struct _APCLI_STRUCT {
 	BOOLEAN				bRSN_IE_FromWpaSupplicant;
 	BOOLEAN				bLostAp;
 	unsigned char				*pWpsProbeReqIe;
-	UINT				WpsProbeReqIeLen;
+	unsigned int				WpsProbeReqIeLen;
 	unsigned char				*pWpaAssocIe;
-	UINT				WpaAssocIeLen;
+	unsigned int				WpaAssocIeLen;
 	BOOLEAN			    bScanReqIsFromWebUI;
 	BSSID_INFO	SavedPMK[PMKID_NO];
-	UINT		SavedPMKNum;			// Saved PMKID number
+	unsigned int		SavedPMKNum;			// Saved PMKID number
 	BOOLEAN		bConfigChanged;
 	NDIS_802_11_ASSOCIATION_INFORMATION     AssocInfo;
 	unsigned short       ReqVarIELen;                // Length of next VIE include EID & Length
@@ -2649,7 +2649,7 @@ typedef struct _MEMBER_ENTRY {
 typedef struct _MULTICAST_FILTER_TABLE_ENTRY {
 	BOOLEAN Valid;
 	MulticastFilterEntryType type;	/* 0: static, 1: dynamic. */
-	UINT lastTime;
+	unsigned int lastTime;
 	PNET_DEV net_dev;
 	unsigned char Addr[MAC_ADDR_LEN];
 	LIST_HEADER MemberList;
@@ -3049,7 +3049,7 @@ struct _RTMP_ADAPTER {
 /*	struct usb_config_descriptor		*config; */
 	VOID *config;
 
-	UINT NumberOfPipes;
+	unsigned int NumberOfPipes;
 	unsigned short BulkOutMaxPacketSize;
 	unsigned short BulkInMaxPacketSize;
 	unsigned char BulkOutEpAddr[6];
@@ -3709,7 +3709,7 @@ struct _RTMP_ADAPTER {
 	/* used in OS_ABL */
 	BOOLEAN (*MATPktRxNeedConvert) (RTMP_ADAPTER *pAd, PNET_DEV net_dev);
 
-	unsigned char * (*MATEngineRxHandle)(RTMP_ADAPTER *pAd, PNDIS_PACKET pPkt, UINT infIdx);
+	unsigned char * (*MATEngineRxHandle)(RTMP_ADAPTER *pAd, PNDIS_PACKET pPkt, unsigned int infIdx);
 #endif /* MAT_SUPPORT */
 #endif /* OS_ABL_SUPPORT */
 
@@ -4009,7 +4009,7 @@ typedef struct _TX_BLK_
 	PNDIS_PACKET		pPacket;
 	unsigned char *				pSrcBufHeader;				/* Reference to the head of sk_buff->data */
 	unsigned char *				pSrcBufData;				/* Reference to the sk_buff->data, will changed depends on hanlding progresss */
-	UINT				SrcBufLen;					/* Length of packet payload which not including Layer 2 header */
+	unsigned int				SrcBufLen;					/* Length of packet payload which not including Layer 2 header */
 
 	unsigned char *				pExtraLlcSnapEncap;			/* NULL means no extra LLC/SNAP is required */
 #ifndef VENDOR_FEATURE1_SUPPORT
@@ -4040,7 +4040,7 @@ typedef struct _TX_BLK_
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef APCLI_SUPPORT
-	UINT				ApCliIfidx;
+	unsigned int				ApCliIfidx;
 	PAPCLI_STRUCT		pApCliEntry;
 #endif /* APCLI_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
@@ -4481,7 +4481,7 @@ VOID AsicUpdateMulTestEncryption(
 MAC_TABLE_ENTRY *MacTableInsertMulTestEntry(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  unsigned char * pAddr,
-	UINT WdsTabIdx);
+	unsigned int WdsTabIdx);
 
 
 
@@ -4820,7 +4820,7 @@ BOOLEAN QosBADataParse(
 	IN unsigned short Sequence,
 	IN unsigned char DataOffset, 
 	IN unsigned short Datasize,
-	IN UINT   CurRxIndex);
+	IN unsigned int   CurRxIndex);
 
 #ifdef DOT11_N_SUPPORT
 BOOLEAN CntlEnqueueForRecv(
@@ -4872,7 +4872,7 @@ NDIS_STATUS STASendPacket(
 VOID STASendPackets(
 	IN  NDIS_HANDLE     MiniportAdapterContext,
 	IN  PPNDIS_PACKET   ppPacketArray,
-	IN  UINT            NumberOfPackets);
+	IN  unsigned int            NumberOfPackets);
 
 VOID RTMPDeQueuePacket(
 	IN RTMP_ADAPTER *pAd,
@@ -4962,7 +4962,7 @@ NDIS_STATUS MiniportMMRequest(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN unsigned char *pData,
-	IN UINT Length);
+	IN unsigned int Length);
 
 VOID RTMPSendNullFrame(
 	IN RTMP_ADAPTER *pAd,
@@ -4996,7 +4996,7 @@ BOOLEAN RTMPCheckEtherType(
 
 VOID RTMPCckBbpTuning(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	UINT			TxRate);
+	IN	unsigned int			TxRate);
 /* */
 /* MLME routines */
 /* */
@@ -6352,7 +6352,7 @@ BOOLEAN RTMPTkipCompareMICValue(
 	IN  unsigned char *          pSA,
 	IN  unsigned char *          pMICKey,
 	IN	unsigned char			UserPriority,
-	IN  UINT            Len);
+	IN  unsigned int            Len);
 
 VOID    RTMPCalculateMICValue(
 	IN  PRTMP_ADAPTER   pAd,
@@ -6368,7 +6368,7 @@ VOID    RTMPTkipAppendByte(
 VOID    RTMPTkipAppend( 
 	IN  PTKIP_KEY_INFO  pTkip,  
 	IN  unsigned char *          pSrc,
-	IN  UINT            nBytes);
+	IN  unsigned int            nBytes);
 
 VOID    RTMPTkipGetMIC( 
 	IN  PTKIP_KEY_INFO  pTkip);
@@ -6569,7 +6569,7 @@ MAC_TABLE_ENTRY *PACInquiry(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  unsigned long           Wcid);
 
-UINT	APValidateRSNIE(
+unsigned int	APValidateRSNIE(
 	IN PRTMP_ADAPTER    pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char *			pRsnIe,
@@ -6617,7 +6617,7 @@ VOID PeerGroupMsg2Action(
 	IN  PRTMP_ADAPTER    pAd, 
 	IN  PMAC_TABLE_ENTRY pEntry,
 	IN  VOID             *Msg,
-	IN  UINT             MsgLen);
+	IN  unsigned int             MsgLen);
 
 VOID CMTimerExec(
 	IN void * SystemSpecific1, 
@@ -6716,7 +6716,7 @@ BOOLEAN RTMP_FillTxBlkInfo(
 	IN	unsigned char			OpMode);
 
 #ifdef DOT11_N_SUPPORT
-UINT BA_Reorder_AMSDU_Annnounce(
+unsigned int BA_Reorder_AMSDU_Annnounce(
 	IN	PRTMP_ADAPTER	pAd, 	
 	IN	PNDIS_PACKET	pPacket,
 	IN	unsigned char			OpMode);
@@ -6764,9 +6764,9 @@ BOOLEAN ba_reordering_resource_init(PRTMP_ADAPTER pAd, int num);
 void ba_reordering_resource_release(PRTMP_ADAPTER pAd);
 
 INT ComputeChecksum(
-	IN UINT PIN);
+	IN unsigned int PIN);
 
-UINT GenerateWpsPinCode(
+unsigned int GenerateWpsPinCode(
 	IN	PRTMP_ADAPTER	pAd,
     IN  BOOLEAN         bFromApcli,
 	IN	unsigned char	apidx);
@@ -6922,7 +6922,7 @@ int WscSendUPnPConfReqMsg(
 	IN unsigned char * ssidStr,
 	IN unsigned char * macAddr,
 	IN INT	  Status,
-	IN UINT   eventID,
+	IN unsigned int   eventID,
 	IN unsigned char  CurOpMode);
 
 	
@@ -6933,15 +6933,15 @@ int WscSendUPnPMessage(
 	IN	unsigned short				msgSubType,
 	IN	unsigned char *				pData,
 	IN	INT					dataLen,
-	IN	UINT				eventID,
-	IN	UINT				toIPAddr,
+	IN	unsigned int				eventID,
+	IN	unsigned int				toIPAddr,
 	IN	unsigned char *				pMACAddr,
 	IN  unsigned char				CurOpMode);
 
 VOID WscUPnPErrHandle(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PWSC_CTRL		pWscControl,
-	IN UINT 			eventID);
+	IN unsigned int 			eventID);
 
 VOID    WscBuildBeaconIE(
 	IN	PRTMP_ADAPTER	pAdapter, 
@@ -6978,7 +6978,7 @@ VOID WscBuildAssocRespIE(
 VOID	WscSelectedRegistrar(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *	RegInfo,
-	IN	UINT	length,
+	IN	unsigned int	length,
 	IN  unsigned char 	apidx);
 
 VOID    WscInformFromWPA(
@@ -7025,12 +7025,12 @@ VOID WscInit(
 	IN  unsigned char       	BssIndex);
 
 BOOLEAN	ValidateChecksum(
-	IN UINT PIN);
+	IN unsigned int PIN);
 
-UINT	WscRandomGen4digitPinCode(
+unsigned int	WscRandomGen4digitPinCode(
 	IN	PRTMP_ADAPTER	pAd);
 
-UINT WscRandomGeneratePinCode(
+unsigned int WscRandomGeneratePinCode(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char	apidx);
 
@@ -7175,7 +7175,7 @@ int     AppendWSCTLV(
 
 VOID    WscGetRegDataPIN(
     IN  PRTMP_ADAPTER   pAd,
-    IN  UINT            PinCode,
+    IN  unsigned int            PinCode,
     IN  PWSC_CTRL       pWscControl);
 
 VOID    WscPushPBCAction(
@@ -7939,7 +7939,7 @@ VOID Indicate_EAPOL_Packet(
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID);
 
-UINT deaggregate_AMSDU_announce(
+unsigned int deaggregate_AMSDU_announce(
 	IN	PRTMP_ADAPTER	pAd,
 	PNDIS_PACKET		pPacket,
 	IN	unsigned char *			pData,
@@ -8113,13 +8113,13 @@ NDIS_STATUS MATEngineExit(
 unsigned char * MATEngineRxHandle(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET		pPkt,
-	IN UINT				infIdx);
+	IN unsigned int				infIdx);
 
 
 unsigned char * MATEngineTxHandle(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET     pPkt,
-	IN UINT				infIdx,
+	IN unsigned int				infIdx,
 	IN unsigned char                  OpMode);
 
 BOOLEAN MATPktRxNeedConvert(
@@ -8388,7 +8388,7 @@ VOID AsicRxAntEvalAction(
 void append_pkt(
 	IN RTMP_ADAPTER *pAd, 
 	IN unsigned char *pHeader802_3,
-	IN UINT HdrLen,
+	IN unsigned int HdrLen,
 	IN unsigned char *pData,
 	IN unsigned long DataSize,
 	OUT PNDIS_PACKET *ppPacket);
@@ -8461,7 +8461,7 @@ int RtmpUSBMgmtKickOut(
 	IN unsigned char 			QueIdx,
 	IN PNDIS_PACKET		pPacket,
 	IN unsigned char *			pSrcBufVA,
-	IN UINT 			SrcBufLen);
+	IN unsigned int 			SrcBufLen);
 
 VOID RtmpUSBNullFrameKickOut(
 	IN RTMP_ADAPTER *pAd,
@@ -8738,7 +8738,7 @@ NDIS_STATUS RTEnqueueInternalCmd(
 VOID ieee80211_notify_michael_failure(
 	IN	PRTMP_ADAPTER    pAd,
 	IN	PHEADER_802_11   pHeader,
-	IN	UINT            keyix,
+	IN	unsigned int            keyix,
 	IN	INT              report);
 
 const CHAR* ether_sprintf(const unsigned char *mac);
@@ -8795,7 +8795,7 @@ void  getRate(
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 VOID    ApcliSendAssocIEsToWpaSupplicant( 
     IN  PRTMP_ADAPTER pAd,
-    IN UINT ifIndex);
+    IN unsigned int ifIndex);
 
 INT	    ApcliWpaCheckEapCode(
 	IN  PRTMP_ADAPTER   		pAd,

@@ -160,7 +160,7 @@ VOID MBSS_Remove(
 	IN PRTMP_ADAPTER 	pAd)
 {
 	MULTISSID_STRUCT *pMbss;
-	UINT IdBss;
+	unsigned int IdBss;
 
 
 

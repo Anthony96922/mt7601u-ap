@@ -983,7 +983,7 @@ int RtmpUSBMgmtKickOut(
 	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket,
 	IN unsigned char *pSrcBufVA,
-	IN UINT SrcBufLen)
+	IN unsigned int SrcBufLen)
 {
 	TXINFO_STRUC *pTxInfo;
 	unsigned long BulkOutSize;

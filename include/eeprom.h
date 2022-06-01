@@ -293,7 +293,7 @@ VOID rtmp_ee_flash_write_all(struct _RTMP_ADAPTER *pAd, unsigned short *Data);
 #ifdef RTMP_EFUSE_SUPPORT
 INT eFuseLoadEEPROM(struct _RTMP_ADAPTER *pAd);
 INT eFuseWriteEeeppromBuf(struct _RTMP_ADAPTER *pAd);
-VOID eFuseGetFreeBlockCount(struct _RTMP_ADAPTER *pAd, UINT *EfuseFreeBlock);
+VOID eFuseGetFreeBlockCount(struct _RTMP_ADAPTER *pAd, unsigned int *EfuseFreeBlock);
 
 int rtmp_ee_efuse_read16(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pVal);
 int rtmp_ee_efuse_write16(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short data);

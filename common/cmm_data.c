@@ -263,7 +263,7 @@ NDIS_STATUS MiniportMMRequest(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN unsigned char *pData,
-	IN UINT Length)
+	IN unsigned int Length)
 {
 	PNDIS_PACKET pPacket;
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
@@ -529,7 +529,7 @@ NDIS_STATUS MlmeHardTransmit(
 #endif /* CONFIG_AP_SUPPORT */
 	PACKET_INFO 	PacketInfo;
 	unsigned char *			pSrcBufVA;
-	UINT			SrcBufLen;
+	unsigned int			SrcBufLen;
 
 	if ((pAd->Dot11_H.RDMode != RD_NORMAL_MODE)
 #ifdef CARRIER_DETECTION_SUPPORT
@@ -640,7 +640,7 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 {
 	PACKET_INFO PacketInfo;
 	unsigned char *pSrcBufVA;
-	UINT SrcBufLen;
+	unsigned int SrcBufLen;
 	HEADER_802_11 *pHeader_802_11;
 	BOOLEAN bAckRequired, bInsertTimestamp;
 	unsigned char MlmeRate;
@@ -1632,7 +1632,7 @@ VOID RTMPResumeMsduTransmission(
 
 
 #ifdef DOT11_N_SUPPORT
-UINT deaggregate_AMSDU_announce(
+unsigned int deaggregate_AMSDU_announce(
 	IN	PRTMP_ADAPTER	pAd,
 	PNDIS_PACKET		pPacket,
 	IN	unsigned char *pData,
@@ -1642,7 +1642,7 @@ UINT deaggregate_AMSDU_announce(
 	unsigned short 			PayloadSize;
 	unsigned short 			SubFrameSize;
 	PHEADER_802_3 	pAMSDUsubheader;
-	UINT			nMSDU;
+	unsigned int			nMSDU;
     unsigned char			Header802_3[14];
 
 	unsigned char *pPayload, *pDA, *pSA, *pRemovedLLCSNAP;
@@ -1767,14 +1767,14 @@ UINT deaggregate_AMSDU_announce(
 }
 
 
-UINT BA_Reorder_AMSDU_Annnounce(
+unsigned int BA_Reorder_AMSDU_Annnounce(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNDIS_PACKET	pPacket,
 	IN	unsigned char			OpMode)
 {
 	unsigned char *			pData;
 	unsigned short			DataSize;
-	UINT			nMSDU = 0;
+	unsigned int			nMSDU = 0;
 
 	pData = (unsigned char *) GET_OS_PKT_DATAPTR(pPacket);
 	DataSize = (unsigned short) GET_OS_PKT_LEN(pPacket);
@@ -1789,7 +1789,7 @@ VOID Indicate_AMSDU_Packet(
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID)
 {
-	UINT			nMSDU;
+	unsigned int			nMSDU;
 
 	RTMP_UPDATE_OS_PACKET_INFO(pAd, pRxBlk, FromWhichBSSID);
 	RTMP_SET_PACKET_IF(pRxBlk->pRxPacket, FromWhichBSSID);
@@ -3018,7 +3018,7 @@ MAC_TABLE_ENTRY *MulTestTableLookup(
 MAC_TABLE_ENTRY *MacTableInsertMulTestEntry(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  unsigned char * pAddr,
-	UINT WdsTabIdx)
+	unsigned int WdsTabIdx)
 {
 	PMAC_TABLE_ENTRY pEntry = NULL;
 	HTTRANSMIT_SETTING HTPhyMode;
@@ -3253,7 +3253,7 @@ MAC_TABLE_ENTRY *MacTableInsertMulTestEntry(
 VOID AsicUpdateMulTestRxWCIDTable(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT index;
+	unsigned int index;
 
 	for(index = 0; index < MAX_WDS_ENTRY; index++)
 	{
@@ -3270,7 +3270,7 @@ VOID AsicUpdateMulTestEncryption(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char wcid)
 {
-	UINT WdsIdex;
+	unsigned int WdsIdex;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 
 	do

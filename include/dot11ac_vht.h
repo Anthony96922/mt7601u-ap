@@ -382,7 +382,7 @@ typedef struct GNU_PACKED _VHT_OP_IE{
 */
 typedef struct GNU_PACKED _WIDE_BW_CH_SWITCH_IE{
 	unsigned char e_id;
-	UINT len;
+	unsigned int len;
 	unsigned char new_ch_width;
 	unsigned char center_freq_1;
 	unsigned char center_freq_2;

@@ -861,8 +861,8 @@ VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 	BOOLEAN	bRdgActive;
 	BOOLEAN bRalinkBurstMode;
 #endif /* DOT11_N_SUPPORT */
-	UINT	fAnyStationPortSecured[HW_BEACON_MAX_NUM];
- 	UINT 	bss_index;
+	unsigned int	fAnyStationPortSecured[HW_BEACON_MAX_NUM];
+ 	unsigned int 	bss_index;
 	MAC_TABLE *pMacTable;
 #if defined(PRE_ANT_SWITCH) || defined(CFO_TRACK)
 	int lastClient = 0;
@@ -1269,7 +1269,7 @@ VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 	/*    DtimCount==0, the only case to let them stale is surprise removal of the NIC, */
 	/*    so that ASIC-based Tbcn interrupt stops and DtimCount dead. */
 	if (pMacTable->McastPsQueue.Head) {
-		UINT bss_index;
+		unsigned int bss_index;
 
 		pMacTable->PsQIdleCount ++;
 		if (pMacTable->PsQIdleCount > 1) {

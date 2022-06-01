@@ -353,9 +353,9 @@ NDIS_STATUS RTMPAllocateNdisPacket(
 	IN VOID *pReserved,
 	OUT PNDIS_PACKET *ppPacket,
 	IN unsigned char *pHeader,
-	IN UINT HeaderLen,
+	IN unsigned int HeaderLen,
 	IN unsigned char *pData,
-	IN UINT DataLen)
+	IN unsigned int DataLen)
 {
 	struct sk_buff *pPacket;
 
@@ -425,7 +425,7 @@ void RTMP_QueryPacketInfo(
 	IN PNDIS_PACKET pPacket,
 	OUT PACKET_INFO *info,
 	OUT unsigned char **pSrcBufVA,
-	OUT UINT *pSrcBufLen)
+	OUT unsigned int *pSrcBufLen)
 {
 	info->BufferCount = 1;
 	info->pFirstBuffer = (PNDIS_BUFFER) GET_OS_PKT_DATAPTR(pPacket);
@@ -486,7 +486,7 @@ PNDIS_PACKET DuplicatePacket(
 PNDIS_PACKET duplicate_pkt(
 	IN PNET_DEV pNetDev,
 	IN unsigned char * pHeader802_3,
-	IN UINT HdrLen,
+	IN unsigned int HdrLen,
 	IN unsigned char * pData,
 	IN unsigned long DataSize,
 	IN unsigned char FromWhichBSSID)
@@ -545,7 +545,7 @@ PNDIS_PACKET duplicate_pkt_with_VLAN(
 	IN unsigned short VLAN_VID,
 	IN unsigned short VLAN_Priority,
 	IN unsigned char * pHeader802_3,
-	IN UINT HdrLen,
+	IN unsigned int HdrLen,
 	IN unsigned char * pData,
 	IN unsigned long DataSize,
 	IN unsigned char FromWhichBSSID,
@@ -782,7 +782,7 @@ VOID RtmpOsSetPacket(
 #endif /* HDR_TRANS_SUPPORT */
 
 
-void hex_dump(char *str, unsigned char *pSrcBufVA, UINT SrcBufLen)
+void hex_dump(char *str, unsigned char *pSrcBufVA, unsigned int SrcBufLen)
 {
 #ifdef DBG
 	unsigned char *pt;
@@ -1671,7 +1671,7 @@ unsigned char VLAN_8023_Header_Copy(
 	IN unsigned short VLAN_VID,
 	IN unsigned short VLAN_Priority,
 	IN unsigned char * pHeader802_3,
-	IN UINT HdrLen,
+	IN unsigned int HdrLen,
 	OUT unsigned char * pData,
 	IN unsigned char FromWhichBSSID,
 	IN unsigned char *TPID)
@@ -1770,7 +1770,7 @@ NDIS_STATUS AdapterBlockAllocateMemory(VOID *handle, VOID **ppAd, unsigned int S
 
 /* ========================================================================== */
 
-UINT RtmpOsWirelessExtVerGet(VOID)
+unsigned int RtmpOsWirelessExtVerGet(VOID)
 {
 	return WIRELESS_EXT;
 }
@@ -4879,7 +4879,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsPktTailAdjust(PNDIS_PACKET pNetPkt, UINT removedTagLen)
+VOID RtmpOsPktTailAdjust(PNDIS_PACKET pNetPkt, unsigned int removedTagLen)
 {
 	OS_PKT_TAIL_ADJUST(pNetPkt, removedTagLen);
 }
@@ -4900,7 +4900,7 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned char * RtmpOsPktTailBufExtend(PNDIS_PACKET pNetPkt, UINT Len)
+unsigned char * RtmpOsPktTailBufExtend(PNDIS_PACKET pNetPkt, unsigned int Len)
 {
 	return OS_PKT_TAIL_BUF_EXTEND(pNetPkt, Len);
 }
@@ -4921,7 +4921,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsPktReserve(PNDIS_PACKET pNetPkt, UINT Len)
+VOID RtmpOsPktReserve(PNDIS_PACKET pNetPkt, unsigned int Len)
 {
 	OS_PKT_RESERVE(pNetPkt, Len);
 }
@@ -4942,7 +4942,7 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned char * RtmpOsPktHeadBufExtend(PNDIS_PACKET pNetPkt, UINT Len)
+unsigned char * RtmpOsPktHeadBufExtend(PNDIS_PACKET pNetPkt, unsigned int Len)
 {
 	return OS_PKT_HEAD_BUF_EXTEND(pNetPkt, Len);
 }

@@ -58,9 +58,9 @@
 BOOLEAN APBridgeToWirelessSta(
     IN  PRTMP_ADAPTER   pAd,
     IN  unsigned char *          pHeader,
-    IN  UINT            HdrLen,
+    IN  unsigned int            HdrLen,
     IN  unsigned char *          pData,
-    IN  UINT            DataLen,
+    IN  unsigned int            DataLen,
     IN  unsigned long           fromwdsidx);
 
 VOID RTMP_BASetup(
@@ -71,7 +71,7 @@ VOID RTMP_BASetup(
 VOID	APSendPackets(
 	IN	NDIS_HANDLE		MiniportAdapterContext,
 	IN	PPNDIS_PACKET	ppPacketArray,
-	IN	UINT			NumberOfPackets);
+	IN	unsigned int			NumberOfPackets);
 
 NDIS_STATUS APSendPacket(
     IN  PRTMP_ADAPTER   pAd,

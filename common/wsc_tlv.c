@@ -259,8 +259,8 @@ static VOID	WscParseEncrSettings(
 	if (RTMPEqualMemory(Hmac, Temp, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("WscParseEncrSettings --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Temp[0])), (UINT)cpu2be32(*((unsigned int *) &Temp[4]))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Temp[0])), (unsigned int)cpu2be32(*((unsigned int *) &Temp[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Hmac[0])), (unsigned int)cpu2be32(*((unsigned int *) &Hmac[4]))));
 	}
 }
 
@@ -400,7 +400,7 @@ static BOOLEAN	WscProcessCredential(
 	}
 
 	/* Svae the total number */
-	pProfile->ProfileCnt = (UINT)Cnt;
+	pProfile->ProfileCnt = (unsigned int)Cnt;
 
 #ifdef WSC_V2_SUPPORT
 	if (pWscControl->WscV2Info.bEnableWpsV2)
@@ -766,7 +766,7 @@ int BuildMessageM2(
 	    pReg->Pke, sizeof(pReg->Pke),
 	    WPS_DH_P_VALUE, sizeof(WPS_DH_P_VALUE),
 	    pReg->EnrolleeRandom,  sizeof(pReg->EnrolleeRandom),
-	    pReg->SecretKey, (UINT *) &DH_Len);
+	    pReg->SecretKey, (unsigned int *) &DH_Len);
 	RT_SHA256(&pReg->SecretKey[0], 192, &DHKey[0]);
 
 	/* 1. Version */
@@ -1418,7 +1418,7 @@ int BuildMessageM4(
 	/* 6b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_144 - 16;
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (unsigned int *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, &IV_EncrData[0], 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -1558,7 +1558,7 @@ int BuildMessageM5(
 	/* 4b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_144 - 16;
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (unsigned int *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, &IV_EncrData[0], 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -1694,7 +1694,7 @@ int BuildMessageM6(
 	/* 4b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_144 - 16;
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (unsigned int *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, &IV_EncrData[0], 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -1868,7 +1868,7 @@ int BuildMessageM7(
 	/* 4b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_512 - 16;
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (unsigned int *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, IV_EncrData, 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -2073,7 +2073,7 @@ int BuildMessageM8(
 	/* 4b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_512 - 16;    
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (unsigned int *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, IV_EncrData, 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -2375,7 +2375,7 @@ int ProcessMessageM1(
         WPS_DH_G_VALUE, sizeof(WPS_DH_G_VALUE),
 	    WPS_DH_P_VALUE, sizeof(WPS_DH_P_VALUE),
 	    pWscControl->RegData.EnrolleeRandom, sizeof(pWscControl->RegData.EnrolleeRandom),
-	    pReg->Pkr, (UINT *) &DH_Len);
+	    pReg->Pkr, (unsigned int *) &DH_Len);
 
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_VERSION))] |= (1 << WSC_TLV_BYTE1(WSC_ID_VERSION));
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_MSG_TYPE))] |= (1 << WSC_TLV_BYTE1(WSC_ID_MSG_TYPE));
@@ -2826,7 +2826,7 @@ int ProcessMessageM2(
    	    pReg->Pkr, sizeof(pReg->Pkr),
    	    WPS_DH_P_VALUE, sizeof(WPS_DH_P_VALUE),
    	    pReg->EnrolleeRandom,  sizeof(pReg->EnrolleeRandom),
-   	    pReg->SecretKey, (UINT *) &DH_Len);
+   	    pReg->SecretKey, (unsigned int *) &DH_Len);
 
 	/* Compute the DHKey based on the DH secret */
 	RT_SHA256(&pReg->SecretKey[0], 192, &DHKey[0]);
@@ -2864,8 +2864,8 @@ int ProcessMessageM2(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM2 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) KDK)), (unsigned int)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Hmac[0])), (unsigned int)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 
@@ -3158,8 +3158,8 @@ int ProcessMessageM3(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM3 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) KDK)), (unsigned int)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Hmac[0])), (unsigned int)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 
@@ -3285,7 +3285,7 @@ int ProcessMessageM4(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen);
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (unsigned int *) &EncrLen);
 				DBGPRINT(RT_DEBUG_TRACE, ("M4 ApEncrSettings len = %d\n ", EncrLen));
 
 				/* Parse encryption settings */
@@ -3340,8 +3340,8 @@ int ProcessMessageM4(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM4 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) KDK)), (unsigned int)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Hmac[0])), (unsigned int)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 	
@@ -3459,7 +3459,7 @@ int ProcessMessageM5(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen);
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (unsigned int *) &EncrLen);
 				DBGPRINT(RT_DEBUG_TRACE, ("M5 ApEncrSettings len = %d\n ", EncrLen));
 
 				/* Parse encryption settings */
@@ -3516,8 +3516,8 @@ int ProcessMessageM5(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM5 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) KDK)), (unsigned int)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Hmac[0])), (unsigned int)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 	if( FieldCheck[0] || FieldCheck[1] || FieldCheck[2] || FieldCheck[3] || FieldCheck[4] || FieldCheck[5] || FieldCheck[6] )
@@ -3634,7 +3634,7 @@ int ProcessMessageM6(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen); 
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (unsigned int *) &EncrLen); 
 				DBGPRINT(RT_DEBUG_TRACE, ("M6 ApEncrSettings len = %d\n ", EncrLen));
 
 				/* Parse encryption settings */
@@ -3689,8 +3689,8 @@ int ProcessMessageM6(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM6 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) KDK)), (unsigned int)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Hmac[0])), (unsigned int)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 	
@@ -3799,7 +3799,7 @@ int ProcessMessageM7(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen);                 
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (unsigned int *) &EncrLen);                 
 				DBGPRINT(RT_DEBUG_TRACE, ("M7 ApEncrSettings len = %d\n ", EncrLen));
 
 
@@ -3836,8 +3836,8 @@ int ProcessMessageM7(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM7 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) KDK)), (unsigned int)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Hmac[0])), (unsigned int)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 
@@ -3943,7 +3943,7 @@ int ProcessMessageM8(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen);                 
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (unsigned int *) &EncrLen);                 
 				DBGPRINT(RT_DEBUG_TRACE, ("M8 ApEncrSettings len = %d\n ", EncrLen));
 
 				/* Parse encryption settings */
@@ -3984,8 +3984,8 @@ int ProcessMessageM8(
 	if (RTMPEqualMemory(Hmac, KDK, 8) != 1)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("ProcessMessageM8 --> HMAC not match\n"));
-		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) KDK)), (UINT)cpu2be32(*((unsigned int *)(KDK + 4)))));
-		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (UINT)cpu2be32(*((unsigned int *) &Hmac[0])), (UINT)cpu2be32(*((unsigned int *) &Hmac[4]))));
+		DBGPRINT(RT_DEBUG_TRACE, ("MD --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) KDK)), (unsigned int)cpu2be32(*((unsigned int *)(KDK + 4)))));
+		DBGPRINT(RT_DEBUG_TRACE, ("calculated --> 0x%08x-%08x\n", (unsigned int)cpu2be32(*((unsigned int *) &Hmac[0])), (unsigned int)cpu2be32(*((unsigned int *) &Hmac[4]))));
 		ret = WSC_ERROR_HMAC_FAIL;
 	}
 	

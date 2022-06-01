@@ -43,8 +43,6 @@
 typedef short INT16;
 typedef int INT32;
 typedef long long INT64;
-
-typedef unsigned int UINT;
 #endif /* LINUX */
 
 /* modified for fixing compile warning on Sigma 8634 platform */
@@ -68,9 +66,9 @@ typedef union _LARGE_INTEGER {
 	struct {
 #ifdef RT_BIG_ENDIAN
 		INT32 HighPart;
-		UINT LowPart;
+		unsigned int LowPart;
 #else
-		UINT LowPart;
+		unsigned int LowPart;
 		INT32 HighPart;
 #endif
 	} u;

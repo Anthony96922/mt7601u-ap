@@ -48,7 +48,7 @@ static unsigned char * MATProto_ARP_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb,un
 
 typedef struct _IPMacMappingEntry
 {
-	UINT	ipAddr;	/* In network order */
+	unsigned int	ipAddr;	/* In network order */
 	unsigned char	macAddr[MAC_ADDR_LEN];
 	unsigned long	lastTime;
 	struct _IPMacMappingEntry *pNext;
@@ -130,7 +130,7 @@ VOID dumpIPMacTb(
 
 static inline NDIS_STATUS getDstIPFromIpPkt(
 	IN unsigned char * pIpHdr, 
-	IN UINT *dstIP)
+	IN unsigned int *dstIP)
 {
 	
 	if (!pIpHdr)
@@ -144,7 +144,7 @@ static inline NDIS_STATUS getDstIPFromIpPkt(
 
 static inline NDIS_STATUS getSrcIPFromIpPkt(
 	IN unsigned char * pIpHdr,
-	IN UINT   *pSrcIP)
+	IN unsigned int   *pSrcIP)
 {
 	
 	if (!pIpHdr)
@@ -160,9 +160,9 @@ static inline NDIS_STATUS getSrcIPFromIpPkt(
 static NDIS_STATUS IPMacTableUpdate(
 	IN MAT_STRUCT		*pMatCfg,
 	IN unsigned char *			pMacAddr,
-	IN UINT				ipAddr)
+	IN unsigned int				ipAddr)
 {
-	UINT 				hashIdx;
+	unsigned int 				hashIdx;
 	IPMacMappingTable *pIPMacTable;
 	IPMacMappingEntry	*pEntry = NULL, *pPrev = NULL, *pNewEntry =NULL;
 	unsigned long			now;
@@ -255,10 +255,10 @@ static NDIS_STATUS IPMacTableUpdate(
 
 static unsigned char * IPMacTableLookUp(
 	IN MAT_STRUCT	*pMatCfg,
-	IN UINT			ipAddr)
+	IN unsigned int			ipAddr)
 {
 	IPMacMappingTable *pIPMacTable;
-	UINT 				hashIdx, ip;
+	unsigned int 				hashIdx, ip;
 	IPMacMappingEntry	*pEntry = NULL;
 	unsigned char *				pGroupMacAddr;
 
@@ -435,11 +435,11 @@ static unsigned char * MATProto_ARP_Rx(
 	isUcastMac &= ((tgtMac[0] & 0x1)==0);
 
 	/* isGoodIP = ip address is not 0.0.0.0 */
-	isGoodIP = (*(UINT *)tgtIP != 0);
+	isGoodIP = (*(unsigned int *)tgtIP != 0);
 	
 		
 	if (isUcastMac && isGoodIP)
-		pRealMac = IPMacTableLookUp(pMatCfg, *(UINT *)tgtIP);
+		pRealMac = IPMacTableLookUp(pMatCfg, *(unsigned int *)tgtIP);
 		
 	/*
 		For need replaced mac, we need to replace the targetMAC as correct one to make
@@ -550,7 +550,7 @@ static unsigned char * MATProto_IP_Rx(
 	IN unsigned char * 			pDevMacAdr)
 {
 	unsigned char *	 pMacAddr;
-	UINT   	dstIP;
+	unsigned int   	dstIP;
 	
 	/* Fetch the IP addres from the packet header. */
 	getDstIPFromIpPkt(pLayerHdr, &dstIP);

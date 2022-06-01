@@ -190,7 +190,7 @@ static NDIS_STATUS IPv6MacTableUpdate(
 	IN unsigned char *			pMacAddr,
 	IN char *			pIPv6Addr)
 {
-	UINT 				hashIdx;
+	unsigned int 				hashIdx;
 	IPv6MacMappingTable	*pIPv6MacTable;
 	IPv6MacMappingEntry	*pEntry = NULL, *pPrev = NULL, *pNewEntry =NULL;
 	unsigned long				now;
@@ -280,7 +280,7 @@ static unsigned char * IPv6MacTableLookUp(
 	IN	MAT_STRUCT		*pMatCfg,
 	IN	unsigned char *			pIPv6Addr)
 {
-    UINT 				hashIdx;
+    unsigned int 				hashIdx;
 	IPv6MacMappingTable	*pIPv6MacTable;
     IPv6MacMappingEntry	*pEntry = NULL;
 	unsigned char * 				pGroupMacAddr;

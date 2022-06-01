@@ -74,7 +74,7 @@ VOID RT28XXVendorSpecificCheck(
 /*tested for kernel 2.4 series */
 /**************************************************************************/
 /**************************************************************************/
-static void *rtusb_probe(struct usb_device *dev, UINT interface,
+static void *rtusb_probe(struct usb_device *dev, unsigned int interface,
 						const USB_DEVICE_ID *id_table);
 static void rtusb_disconnect(struct usb_device *dev, void *ptr);
 
@@ -148,7 +148,7 @@ static BOOLEAN USBDevConfigInit(
 	return TRUE;
 }
 
-static void *rtusb_probe(struct usb_device *dev, UINT interface,
+static void *rtusb_probe(struct usb_device *dev, unsigned int interface,
 						const USB_DEVICE_ID *id)
 {
 	struct usb_interface *intf;

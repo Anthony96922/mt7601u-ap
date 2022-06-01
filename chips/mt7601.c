@@ -771,7 +771,7 @@ VOID MT7601_WLAN_ChipOnOff(
 	}
 
 	if (bOn == TRUE) {
-		UINT index = 0;
+		unsigned int index = 0;
 		CMB_CTRL_STRUC CmbCtrl;
 
 		CmbCtrl.word = 0;
@@ -830,7 +830,7 @@ VOID MT7601_WLAN_ChipOnOff(
 VOID MT7601_RXDC_CAL(RTMP_ADAPTER *pAd)
 {
 #define MAX_RXDCOC_RETRY_CNT	20
-	UINT count;
+	unsigned int count;
 	unsigned char RValue;
 	unsigned int Mac_R1004;
 
@@ -1985,8 +1985,8 @@ VOID MT7601_AsicExtraPowerOverMAC(
 	RTMP_IO_WRITE32(pAd, TX_PWR_CFG_9, ExtraPwrOverTxPwrCfg9);
 
 	DBGPRINT(RT_DEBUG_INFO, ("Offset = 0x13D4, TxPwr = 0x%08X, Offset = 0x13DC, TxPwr = 0x%08X\n",
-		(UINT)ExtraPwrOverTxPwrCfg7,
-		(UINT)ExtraPwrOverTxPwrCfg9));
+		(unsigned int)ExtraPwrOverTxPwrCfg7,
+		(unsigned int)ExtraPwrOverTxPwrCfg9));
 }
 
 

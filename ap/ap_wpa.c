@@ -476,13 +476,13 @@ BOOLEAN RTMPCheckAUTH(
 		status code
     ==========================================================================
 */
-UINT	APValidateRSNIE(
+unsigned int	APValidateRSNIE(
 	IN PRTMP_ADAPTER    pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char *			pRsnIe,
 	IN unsigned char			rsnie_len)
 {
-	UINT StatusCode = MLME_SUCCESS;
+	unsigned int StatusCode = MLME_SUCCESS;
 	PEID_STRUCT  eid_ptr;
 	INT	apidx;
 	PMULTISSID_STRUCT pMbss;
@@ -635,7 +635,7 @@ VOID CMTimerExec(
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3) 
 {
-    UINT            i,j=0;
+    unsigned int            i,j=0;
     PRTMP_ADAPTER   pAd = (PRTMP_ADAPTER)FunctionContext;
         
     pAd->ApCfg.BANClass3Data = FALSE;
@@ -757,7 +757,7 @@ VOID GREKEYPeriodicExec(
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3) 
 {
-    UINT            i, apidx;
+    unsigned int            i, apidx;
     unsigned long           temp_counter = 0;
     PRTMP_ADAPTER   pAd = (PRTMP_ADAPTER)FunctionContext;
 	PRALINK_TIMER_STRUCT 	pTimer = (PRALINK_TIMER_STRUCT) SystemSpecific3;
@@ -1518,7 +1518,7 @@ VOID RTMPHandleSTAKey(
 VOID ieee80211_notify_michael_failure(
 	IN	PRTMP_ADAPTER    pAd,
 	IN	PHEADER_802_11   pHeader,
-	IN	UINT            keyix,
+	IN	unsigned int            keyix,
 	IN	INT              report)
 {
 	static const char *tag = "MLME-MICHAELMICFAILURE.indication";

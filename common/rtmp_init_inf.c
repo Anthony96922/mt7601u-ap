@@ -111,7 +111,7 @@ RTMP_BUILD_DRV_OPS_FUNCTION_BODY
 int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
-	UINT index;
+	unsigned int index;
 	NDIS_STATUS Status;
 	
 	if (pAd == NULL)

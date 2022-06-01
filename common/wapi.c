@@ -96,8 +96,8 @@ static void kd_hmac_sha256(
 	========================================================================
 */
 VOID RTMPInsertWapiIe(	
-	IN	UINT			AuthMode,
-	IN	UINT			WepStatus,
+	IN	unsigned int			AuthMode,
+	IN	unsigned int			WepStatus,
 	OUT	unsigned char *			pWIe,
 	OUT	unsigned char			*w_len)
 {			
@@ -787,7 +787,7 @@ VOID RTMPWapiMskRekeyPeriodicExec(
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3) 
 {
-    UINT            i;
+    unsigned int            i;
     unsigned int          tmp_cnt = 0;    
     PRTMP_ADAPTER   pAd = (PRTMP_ADAPTER)FunctionContext;
 
@@ -817,11 +817,11 @@ VOID RTMPWapiMskRekeyPeriodicExec(
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		{
 			INT apidx = 0;
-    		UINT cnt;
+    		unsigned int cnt;
 			
 			for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
 			{				
-				UINT m_wcid;
+				unsigned int m_wcid;
 			
 				pAd->ApCfg.MBSSID[apidx].DefaultKeyId = pAd->ApCfg.MBSSID[apidx].DefaultKeyId == 0 ? 1 : 0;
 				inc_iv_byte(pAd->ApCfg.MBSSID[apidx].key_announce_flag, LEN_WAPI_TSC, 1);
@@ -1013,7 +1013,7 @@ BOOLEAN WAPI_InternalCmdAction(
 
 VOID RTMPGetWapiTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
-	IN	UINT			Wcid,
+	IN	unsigned int			Wcid,
 	OUT	unsigned char			*tx_tsc)
 {
 	unsigned short			offset;	

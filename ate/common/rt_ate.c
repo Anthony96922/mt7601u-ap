@@ -3383,12 +3383,12 @@ VOID DefaultATEAsicExtraPowerOverMAC(
 		ExtraPwrOverTxPwrCfg8 |= (ExtraPwrOverMAC & 0x0000FF00) >> 8; /* Get Tx power for HT MCS 15 */
 		RTMP_IO_WRITE32(pAd, TX_PWR_CFG_8, ExtraPwrOverTxPwrCfg8);
 		
-		DBGPRINT(RT_DEBUG_TRACE, ("Offset =0x13D8, TxPwr = 0x%08X, ", (UINT)ExtraPwrOverTxPwrCfg8));
+		DBGPRINT(RT_DEBUG_TRACE, ("Offset =0x13D8, TxPwr = 0x%08X, ", (unsigned int)ExtraPwrOverTxPwrCfg8));
 	}
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("Offset = 0x13D4, TxPwr = 0x%08X, Offset = 0x13DC, TxPwr = 0x%08X\n", 
-		(UINT)ExtraPwrOverTxPwrCfg7, 
-		(UINT)ExtraPwrOverTxPwrCfg9));
+		(unsigned int)ExtraPwrOverTxPwrCfg7, 
+		(unsigned int)ExtraPwrOverTxPwrCfg9));
 }
 
 

@@ -214,7 +214,7 @@ VOID WpaEAPOLKeyAction(
     PHEADER_802_11      pHeader;
     PEAPOL_PACKET       pEapol_packet;	
 	KEY_INFO			peerKeyInfo;
-	UINT				eapol_len;
+	unsigned int				eapol_len;
 
 
     DBGPRINT(RT_DEBUG_TRACE, ("WpaEAPOLKeyAction ===>\n"));
@@ -484,9 +484,9 @@ VOID RTMPToWirelessSta(
     IN  PRTMP_ADAPTER   	pAd,
     IN  PMAC_TABLE_ENTRY 	pEntry,
     IN  unsigned char *          	pHeader802_3,
-    IN  UINT            	HdrLen,
+    IN  unsigned int            	HdrLen,
     IN  unsigned char *          	pData,
-    IN  UINT            	DataLen,
+    IN  unsigned int            	DataLen,
     IN	BOOLEAN				bClearFrame)
 {
     PNDIS_PACKET    pPacket;
@@ -643,7 +643,7 @@ BOOLEAN PeerWpaMessageSanity(
 	if (MsgType != EAPOL_PAIR_MSG_1)
 	{
 		unsigned char			rcvd_mic[LEN_KEY_DESC_MIC];
-		UINT			eapol_len = CONV_ARRARY_TO_UINT16(pMsg->Body_Len) + 4;
+		unsigned int			eapol_len = CONV_ARRARY_TO_UINT16(pMsg->Body_Len) + 4;
 
 		/* Record the received MIC for check later*/
 		NdisMoveMemory(rcvd_mic, pMsg->KeyDesc.KeyMic, LEN_KEY_DESC_MIC);
@@ -660,7 +660,7 @@ BOOLEAN PeerWpaMessageSanity(
         }
                 else if (EapolKeyInfo.KeyDescVer == KEY_DESC_EXT)	/* AES-128 */        
                 {                
-                        UINT mlen = AES_KEY128_LENGTH;
+                        unsigned int mlen = AES_KEY128_LENGTH;
                         AES_CMAC((unsigned char *)pMsg, eapol_len, pEntry->PTK, LEN_PTK_KCK, mic, &mlen);			
                 }        
         
@@ -697,7 +697,7 @@ BOOLEAN PeerWpaMessageSanity(
 		{					
 			if((EapolKeyInfo.KeyDescVer == KEY_DESC_EXT) || (EapolKeyInfo.KeyDescVer == KEY_DESC_AES))
 			{
-				UINT aes_unwrap_len = 0;
+				unsigned int aes_unwrap_len = 0;
 				
 				/* AES */
 				AES_Key_Unwrap(pMsg->KeyDesc.KeyData, 
@@ -927,7 +927,7 @@ VOID PeerPairMsg1Action(
 	unsigned char				PTK[80];
 	unsigned char               Header802_3[14];
 	PEAPOL_PACKET		pMsg1;
-	UINT            	MsgLen;	
+	unsigned int            	MsgLen;	
 	unsigned char   			*mpool;
     PEAPOL_PACKET		pEapolFrame;
 	unsigned char *				pCurrentAddr = NULL;
@@ -950,7 +950,7 @@ VOID PeerPairMsg1Action(
 #ifdef APCLI_SUPPORT
 		if (IS_ENTRY_APCLI(pEntry))
 		{
-			UINT				IfIndex = 0;
+			unsigned int				IfIndex = 0;
 			
 			IfIndex = pEntry->MatchAPCLITabIdx;
 			if (IfIndex >= MAX_APCLI_NUM)
@@ -1059,7 +1059,7 @@ VOID PeerPairMsg2Action(
 	unsigned char   			*mpool;
 	PEAPOL_PACKET		pEapolFrame;
 	PEAPOL_PACKET       pMsg2;
-	UINT            	MsgLen;
+	unsigned int            	MsgLen;
     unsigned char               Header802_3[LENGTH_802_3];
 	unsigned char 				TxTsc[6];	
 	unsigned char *				pBssid = NULL;
@@ -1241,7 +1241,7 @@ VOID PeerPairMsg3Action(
 	unsigned char				*mpool;
 	PEAPOL_PACKET		pEapolFrame;
 	PEAPOL_PACKET		pMsg3;
-	UINT            	MsgLen;				
+	unsigned int            	MsgLen;				
 	unsigned char *				pCurrentAddr = NULL;
 	unsigned char				group_cipher = Ndis802_11WEPDisabled;
 
@@ -1259,7 +1259,7 @@ VOID PeerPairMsg3Action(
 #ifdef APCLI_SUPPORT
 		if (IS_ENTRY_APCLI(pEntry))
 		{
-			UINT				IfIndex = 0;
+			unsigned int				IfIndex = 0;
 		
 			IfIndex = pEntry->MatchAPCLITabIdx;
 			if (IfIndex >= MAX_APCLI_NUM)
@@ -1395,7 +1395,7 @@ VOID PeerPairMsg4Action(
 {    
 	PEAPOL_PACKET   	pMsg4;    
     PHEADER_802_11      pHeader;
-    UINT            	MsgLen;
+    unsigned int            	MsgLen;
     BOOLEAN             Cancelled;
 	unsigned char		group_cipher = Ndis802_11WEPDisabled;
 
@@ -1614,7 +1614,7 @@ VOID	PeerGroupMsg1Action(
 	unsigned char				*mpool;
 	PEAPOL_PACKET		pEapolFrame;
 	PEAPOL_PACKET		pGroup;
-	UINT            	MsgLen;
+	unsigned int            	MsgLen;
 	unsigned char				default_key = 0;
 	unsigned char				group_cipher = Ndis802_11WEPDisabled;
 	unsigned char *				pCurrentAddr = NULL;
@@ -1633,7 +1633,7 @@ VOID	PeerGroupMsg1Action(
 #ifdef APCLI_SUPPORT
 		if (IS_ENTRY_APCLI(pEntry))
 		{
-			UINT				IfIndex = 0;
+			unsigned int				IfIndex = 0;
 		
 			IfIndex = pEntry->MatchAPCLITabIdx;
 			if (IfIndex >= MAX_APCLI_NUM)
@@ -1825,9 +1825,9 @@ VOID PeerGroupMsg2Action(
     IN PRTMP_ADAPTER    pAd, 
     IN MAC_TABLE_ENTRY  *pEntry,
     IN VOID             *Msg,
-    IN UINT             MsgLen) 
+    IN unsigned int             MsgLen) 
 {
-    UINT            	Len;
+    unsigned int            	Len;
     unsigned char *          	pData;
     BOOLEAN         	Cancelled;
 	PEAPOL_PACKET       pMsg2;	
@@ -1956,7 +1956,7 @@ BOOLEAN	WpaMsgTypeSubst(
  * rolling over to more significant bytes if the byte was incremented from
  * 0xff to 0x00.
  */
-void inc_iv_byte(unsigned char *iv, UINT len, UINT cnt)
+void inc_iv_byte(unsigned char *iv, unsigned int len, unsigned int cnt)
 {
 	int 	pos = 0;
 	int 	carry = 0;
@@ -2160,7 +2160,7 @@ VOID	KDF(
     unsigned char   *input;
 	INT		currentindex = 0;
 	INT		total_len;
-	UINT	len_in_bits = (len << 3);
+	unsigned int	len_in_bits = (len << 3);
 
 	os_alloc_mem(NULL, (unsigned char * *)&input, 1024);
 	
@@ -2276,10 +2276,10 @@ VOID WpaDerivePTK(
 	IN	unsigned char	*SNonce,
 	IN	unsigned char	*SA,
 	OUT	unsigned char	*output,
-	IN	UINT	len)
+	IN	unsigned int	len)
 {	
 	unsigned char	concatenation[76];
-	UINT	CurrPos = 0;
+	unsigned int	CurrPos = 0;
 	unsigned char	temp[32];
 	unsigned char	Prefix[] = {'P', 'a', 'i', 'r', 'w', 'i', 's', 'e', ' ', 'k', 'e', 'y', ' ', 
 						'e', 'x', 'p', 'a', 'n', 's', 'i', 'o', 'n'};
@@ -2337,10 +2337,10 @@ VOID WpaDeriveGTK(
     IN  unsigned char   *GNonce,
     IN  unsigned char   *AA,
     OUT unsigned char   *output,
-    IN  UINT    len)
+    IN  unsigned int    len)
 {
     unsigned char   concatenation[76];
-    UINT    CurrPos=0;
+    unsigned int    CurrPos=0;
     unsigned char   Prefix[19];
     unsigned char   temp[80];   
 
@@ -2456,7 +2456,7 @@ VOID	GenRandom(
 static VOID RTMPMakeRsnIeCipher(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	unsigned char			ElementID,	
-	IN	UINT			WepStatus,
+	IN	unsigned int			WepStatus,
 	IN	unsigned char			apidx,
 	IN	BOOLEAN			bMixCipher,
 	IN	unsigned char			FlexibleCipher,
@@ -2613,7 +2613,7 @@ static VOID RTMPMakeRsnIeCipher(
 static VOID RTMPMakeRsnIeAKM(	
 	IN  PRTMP_ADAPTER   pAd,	
 	IN	unsigned char			ElementID,	
-	IN	UINT			AuthMode,
+	IN	unsigned int			AuthMode,
 	IN	unsigned char			apidx,
 	OUT	unsigned char *			pRsnIe,
 	OUT	unsigned char			*rsn_len)
@@ -2770,8 +2770,8 @@ static VOID RTMPMakeRsnIeCap(
 */
 VOID RTMPMakeRSNIE(
     IN  PRTMP_ADAPTER   pAd,
-    IN  UINT            AuthMode,
-    IN  UINT            WepStatus,
+    IN  unsigned int            AuthMode,
+    IN  unsigned int            WepStatus,
 	IN	unsigned char			apidx)
 {
 	unsigned char *		pRsnIe = NULL;			/* primary RSNIE*/
@@ -2796,7 +2796,7 @@ VOID RTMPMakeRSNIE(
 #ifdef APCLI_SUPPORT	
 		if (apidx >= MIN_NET_DEVICE_FOR_APCLI)
 		{
-			UINT	apcliIfidx = 0;
+			unsigned int	apcliIfidx = 0;
 
 			/* Only support WPAPSK or WPA2PSK for AP-Client mode */
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
@@ -3756,7 +3756,7 @@ VOID	ConstructEapolKeyData(
 		{
 			unsigned char 	remainder = 0;
 			unsigned char	pad_len = 0;			
-			UINT	wrap_len =0;
+			unsigned int	wrap_len =0;
 
 			/* Key Descriptor Version 2 or 3: AES key wrap, defined in IETF RFC 3394, */
 			/* shall be used to encrypt the Key Data field using the KEK field from */
@@ -3778,7 +3778,7 @@ VOID	ConstructEapolKeyData(
 				data_offset += pad_len;
 			}
 		
-			AES_Key_Wrap(Key_Data, (UINT) data_offset, 
+			AES_Key_Wrap(Key_Data, (unsigned int) data_offset, 
 						 &pEntry->PTK[LEN_PTK_KCK], LEN_PTK_KEK, 
 						 eGTK, &wrap_len);	
 			data_offset = wrap_len;
@@ -3866,7 +3866,7 @@ VOID	CalculateMIC(
 	}
 	else if (KeyDescVer == KEY_DESC_EXT)
 	{
-		UINT	mlen = AES_KEY128_LENGTH;
+		unsigned int	mlen = AES_KEY128_LENGTH;
 		AES_CMAC(OutBuffer, FrameLen, PTK, LEN_PTK_KCK, mic, &mlen);
 	}        
 
@@ -4148,7 +4148,7 @@ VOID RTMPSoftEncryptionAction(
 
 unsigned char *	WPA_ExtractSuiteFromRSNIE(
 		IN 	unsigned char *	rsnie,
-		IN 	UINT	rsnie_len,
+		IN 	unsigned int	rsnie_len,
 		IN	unsigned char	type,
 		OUT	unsigned char	*count)
 {
@@ -4399,7 +4399,7 @@ out:
 
 VOID WpaShowAllsuite(
 	IN 	unsigned char *	rsnie,
-	IN 	UINT	rsnie_len)
+	IN 	unsigned int	rsnie_len)
 {
 	unsigned char * pSuite = NULL;
 	unsigned char count;

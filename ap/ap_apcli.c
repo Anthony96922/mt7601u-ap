@@ -71,7 +71,7 @@ Note:
 VOID RT28xx_ApCli_Close(
 	IN PRTMP_ADAPTER ad_p)
 {
-	UINT index;
+	unsigned int index;
 
 
 	for(index = 0; index < MAX_APCLI_NUM; index++)
@@ -2084,7 +2084,7 @@ VOID APCli_Init(
 VOID ApCli_Remove(
 	IN PRTMP_ADAPTER 	pAd)
 {
-	UINT index;
+	unsigned int index;
 
 	for(index = 0; index < MAX_APCLI_NUM; index++)
 	{

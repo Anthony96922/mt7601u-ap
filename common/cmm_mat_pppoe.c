@@ -334,7 +334,7 @@ static PUidMacMappingEntry UidMacTableUpdate(
 	IN unsigned short			tagLen,
 	IN unsigned short			isServer)
 {
-	UINT 				hashIdx, i=0, uIDAddByUs = 0;
+	unsigned int 				hashIdx, i=0, uIDAddByUs = 0;
 	UidMacMappingTable 	*pUidMacTable;
 	UidMacMappingEntry	*pEntry = NULL, *pPrev = NULL, *pNewEntry =NULL;
 	unsigned char 				hashVal = 0;
@@ -456,7 +456,7 @@ static PUidMacMappingEntry UidMacTableLookUp(
 	IN unsigned char *			pTagInfo,
 	IN unsigned short			tagLen)
 {
-    UINT 				hashIdx;
+    unsigned int 				hashIdx;
 	unsigned short				len;
 	unsigned char				hashValue = 0;
     UidMacMappingEntry	*pEntry = NULL;
@@ -742,7 +742,7 @@ static unsigned char * MATProto_PPPoEDis_Rx(
 			if (pEntry->uIDAddByUs)
 			{
 				unsigned char * tagHead, nextTagHead;
-				UINT removedTagLen, tailLen;
+				unsigned int removedTagLen, tailLen;
 
 				removedTagLen = 4 + tagLen;  	/*The total length tag ID/info we want to remove. */
 				tagHead = pTagContent - 4;	/*The start address of the tag we want to remove in sk bufffer */

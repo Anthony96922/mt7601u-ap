@@ -763,9 +763,9 @@ INT Set_IgmpSn_Enable_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg)
 {
-	UINT Enable;
+	unsigned int Enable;
 
-	Enable = (UINT) simple_strtol(arg, 0, 10);
+	Enable = (unsigned int) simple_strtol(arg, 0, 10);
 
 	pAd->ApCfg.IgmpSnoopEnable = (BOOLEAN)(Enable == 0 ? FALSE : TRUE);
 	DBGPRINT(RT_DEBUG_TRACE, ("%s:: %s\n", __FUNCTION__, Enable == TRUE ? "Enable IGMP Snooping":"Disable IGMP Snooping"));

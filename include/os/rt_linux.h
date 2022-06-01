@@ -573,7 +573,7 @@ struct os_cookie {
 #endif /* RTMP_MAC_USB */
 
 #ifdef WORKQUEUE_BH
-	UINT			pAd_va;
+	unsigned int			pAd_va;
 #endif /* WORKQUEUE_BH */
 
 	RTMP_NET_TASK_STRUCT rx_done_task;

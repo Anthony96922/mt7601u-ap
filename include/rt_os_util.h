@@ -107,9 +107,9 @@ NDIS_STATUS RTMPAllocateNdisPacket(
 	IN	VOID					*pReserved,
 	OUT PNDIS_PACKET			*ppPacket,
 	IN	unsigned char *					pHeader,
-	IN	UINT					HeaderLen,
+	IN	unsigned int					HeaderLen,
 	IN	unsigned char *					pData,
-	IN	UINT					DataLen);
+	IN	unsigned int					DataLen);
 
 VOID RTMPFreeNdisPacket(
 	IN	VOID					*pReserved,
@@ -125,7 +125,7 @@ void RTMP_QueryPacketInfo(
 	IN  PNDIS_PACKET			pPacket,
 	OUT PACKET_INFO  			*pPacketInfo,
 	OUT unsigned char *		 			*pSrcBufVA,
-	OUT	UINT		 			*pSrcBufLen);
+	OUT	unsigned int		 			*pSrcBufLen);
 
 PNDIS_PACKET DuplicatePacket(
 	IN	PNET_DEV				pNetDev,
@@ -135,7 +135,7 @@ PNDIS_PACKET DuplicatePacket(
 PNDIS_PACKET duplicate_pkt(
 	IN	PNET_DEV				pNetDev,
 	IN	unsigned char *					pHeader802_3,
-    IN  UINT            		HdrLen,
+    IN  unsigned int            		HdrLen,
 	IN	unsigned char *					pData,
 	IN	unsigned long					DataSize,
 	IN	unsigned char					FromWhichBSSID);
@@ -149,7 +149,7 @@ PNDIS_PACKET duplicate_pkt_with_VLAN(
 	IN	unsigned short					VLAN_VID,
 	IN	unsigned short					VLAN_Priority,
 	IN	unsigned char *					pHeader802_3,
-    IN  UINT            		HdrLen,
+    IN  unsigned int            		HdrLen,
 	IN	unsigned char *					pData,
 	IN	unsigned long					DataSize,
 	IN	unsigned char					FromWhichBSSID,
@@ -225,7 +225,7 @@ unsigned char VLAN_8023_Header_Copy(
 	IN	unsigned short					VLAN_VID,
 	IN	unsigned short					VLAN_Priority,
 	IN	unsigned char *					pHeader802_3,
-	IN	UINT            		HdrLen,
+	IN	unsigned int            		HdrLen,
 	OUT unsigned char *					pData,
 	IN	unsigned char					FromWhichBSSID,
 	IN	unsigned char					*TPID);
@@ -255,19 +255,19 @@ VOID RtmpOsPktLenAssign(
 
 VOID RtmpOsPktTailAdjust(
 	IN	PNDIS_PACKET			pNetPkt,
-	IN	UINT					removedTagLen);
+	IN	unsigned int					removedTagLen);
 
 unsigned char * RtmpOsPktTailBufExtend(
 	IN	PNDIS_PACKET			pNetPkt,
-	IN	UINT					Len);
+	IN	unsigned int					Len);
 
 unsigned char * RtmpOsPktHeadBufExtend(
 	IN	PNDIS_PACKET			pNetPkt,
-	IN	UINT					Len);
+	IN	unsigned int					Len);
 
 VOID RtmpOsPktReserve(
 	IN	PNDIS_PACKET			pNetPkt,
-	IN	UINT					Len);
+	IN	unsigned int					Len);
 
 VOID RtmpOsPktProtocolAssign(
 	IN	PNDIS_PACKET			pNetPkt);
@@ -597,7 +597,7 @@ VOID RtmpOsAtomicDec(RTMP_OS_ATOMIC *pAtomic);
 VOID RtmpOsAtomicInterlockedExchange(RTMP_OS_ATOMIC *pAtomicSrc, LONG Value);
 
 /* OS Utility */
-void hex_dump(char *str, unsigned char * pSrcBufVA, UINT SrcBufLen);
+void hex_dump(char *str, unsigned char * pSrcBufVA, unsigned int SrcBufLen);
 
 typedef VOID (*RTMP_OS_SEND_WLAN_EVENT)(
 	IN	VOID					*pAdSrc,
@@ -638,7 +638,7 @@ int RtmpOSWrielessEventSendExt(
 	IN	unsigned int					dataLen,
 	IN	unsigned int					family);
 
-UINT RtmpOsWirelessExtVerGet(VOID);
+unsigned int RtmpOsWirelessExtVerGet(VOID);
 
 #ifdef DBG
 VOID RtmpDrvAllMacPrint(
@@ -740,7 +740,7 @@ unsigned long RtmpMsecsToJiffies(unsigned int msecs);
 /* ============================ rt_rbus_pci_util.c ========================== */
 void RtmpAllocDescBuf(
 	IN PPCI_DEV pPciDev,
-	IN UINT Index,
+	IN unsigned int Index,
 	IN unsigned long Length,
 	IN BOOLEAN Cached,
 	OUT VOID **VirtualAddress,
@@ -754,7 +754,7 @@ void RtmpFreeDescBuf(
 
 void RTMP_AllocateFirstTxBuffer(
 	IN PPCI_DEV pPciDev,
-	IN UINT Index,
+	IN unsigned int Index,
 	IN unsigned long Length,
 	IN BOOLEAN Cached,
 	OUT VOID **VirtualAddress,
@@ -839,7 +839,7 @@ typedef VOID (*USB_COMPLETE_HANDLER)(VOID *);
 VOID	RtmpOsUsbInitHTTxDesc(
 	IN	VOID			*pUrbSrc,
 	IN	VOID			*pUsb_Dev,
-	IN	UINT			BulkOutEpAddr,
+	IN	unsigned int			BulkOutEpAddr,
 	IN	unsigned char *			pSrc,
 	IN	unsigned long			BulkOutSize,
 	IN	USB_COMPLETE_HANDLER	Func,
@@ -849,7 +849,7 @@ VOID	RtmpOsUsbInitHTTxDesc(
 VOID	RtmpOsUsbInitRxDesc(
 	IN	VOID			*pUrbSrc,
 	IN	VOID			*pUsb_Dev,
-	IN	UINT			BulkInEpAddr,
+	IN	unsigned int			BulkInEpAddr,
 	IN	unsigned char			*pTransferBuffer,
 	IN	unsigned int			BufSize,
 	IN	USB_COMPLETE_HANDLER	Func,

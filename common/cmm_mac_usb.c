@@ -75,7 +75,7 @@ static NDIS_STATUS RTMPFreeUsbBulkBufStruct(
 VOID RTMPResetTxRxRingMemory(
 	IN RTMP_ADAPTER * pAd)
 {
-	UINT index, i, acidx;
+	unsigned int index, i, acidx;
 	PTX_CONTEXT pNullContext   = &pAd->NullContext[0];
 	PTX_CONTEXT pPsPollContext = &pAd->PsPollContext;
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
@@ -202,7 +202,7 @@ Note:
 VOID	RTMPFreeTxRxRingMemory(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UINT                i, acidx;
+	unsigned int                i, acidx;
 	PTX_CONTEXT			pNullContext   = &pAd->NullContext[0];
 	PTX_CONTEXT			pPsPollContext = &pAd->PsPollContext;
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
@@ -1150,7 +1150,7 @@ Note:
 VOID	RTMPFreeTxRxRingMemory(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UINT                i, acidx;
+	unsigned int                i, acidx;
 	PTX_CONTEXT			pNullContext   = &pAd->NullContext;
 	PTX_CONTEXT			pPsPollContext = &pAd->PsPollContext;
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &(pAd->CmdRspEventContext);
@@ -1404,7 +1404,7 @@ VOID RT28xx_UpdateBeaconToAsic(
 {
 	unsigned char *        	pBeaconFrame = NULL;
 	unsigned char  			*ptr;
-	UINT  			i, padding;
+	unsigned int  			i, padding;
 	BEACON_SYNC_STRUCT	*pBeaconSync = pAd->CommonCfg.pBeaconSync;
 	unsigned int			longValue;
 /*	unsigned short			shortValue;*/
@@ -1843,7 +1843,7 @@ VOID RT28xxUsbMlmeRadioOFF(
 {
 #ifdef WSC_INCLUDED
 #ifdef WSC_LED_SUPPORT
-	UINT	WPSLedMode10;
+	unsigned int	WPSLedMode10;
 #endif /* WSC_LED_SUPPORT */
 #endif /* WSC_INCLUDED */
 	
@@ -1930,7 +1930,7 @@ VOID RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
 {
 	unsigned int MACValue = 0;
 	BOOLEAN brc;
-	UINT RetryRound = 0;
+	unsigned int RetryRound = 0;
 	unsigned int rx_filter_flag;
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 

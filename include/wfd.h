@@ -133,7 +133,7 @@ unsigned long InsertWfdSubelmtTlv(
 	IN unsigned char			SubId,
 	IN unsigned char *			pInBuffer,
 	IN unsigned char *			pOutBuffer,
-	IN UINT				Action);
+	IN unsigned int				Action);
 
 VOID WfdParseSubElmt(
 	IN PRTMP_ADAPTER 	pAd, 

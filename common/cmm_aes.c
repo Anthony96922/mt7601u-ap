@@ -437,23 +437,23 @@ BOOLEAN RTMPSoftDecryptAES(
 	IN unsigned long	DataByteCnt, 
 	IN PCIPHER_KEY	pWpaKey)
 {
-	UINT			HeaderLen;
+	unsigned int			HeaderLen;
 	unsigned char			PN[6];
-	UINT			payload_len;	
-	UINT			num_blocks;
-	UINT			payload_remainder;
+	unsigned int			payload_len;	
+	unsigned int			num_blocks;
+	unsigned int			payload_remainder;
 	unsigned short			fc;
 	unsigned char			fc0;
 	unsigned char			fc1;	
-	UINT			frame_type;
-	UINT			frame_subtype;
-	UINT			from_ds;
-	UINT			to_ds;
+	unsigned int			frame_type;
+	unsigned int			frame_subtype;
+	unsigned int			from_ds;
+	unsigned int			to_ds;
 	INT				a4_exists;
 	INT				qc_exists;
 	unsigned char			aes_out[16];
 	int 			payload_index;
-	UINT 			i;
+	unsigned int 			i;
 	unsigned char 			ctr_preload[16];
 	unsigned char 			chain_buffer[16];
 	unsigned char 			padded_buffer[16];
@@ -666,9 +666,9 @@ VOID RTMPConstructCCMPAAD(
 	IN unsigned char a4_exists,
 	IN unsigned char qc_exists,
 	OUT unsigned char *aad_hdr,
-	OUT UINT *aad_len)
+	OUT unsigned int *aad_len)
 {
-	UINT len = 0;
+	unsigned int len = 0;
 
 	/* Frame control -
 		Subtype bits (bits 4 5 6) in a Data MPDU masked to 0
@@ -746,9 +746,9 @@ VOID RTMPConstructCCMPNonce(
 	IN BOOLEAN isMgmtFrame,
 	IN unsigned char *pn,		
 	OUT unsigned char *nonce_hdr,
-	OUT UINT *nonce_hdr_len)
+	OUT unsigned int *nonce_hdr_len)
 {
-	UINT n_offset = 0;
+	unsigned int n_offset = 0;
 	INT i;
 
 	/* Decide the Priority Octet 
@@ -835,7 +835,7 @@ BOOLEAN RTMPSoftEncryptCCMP(
 	unsigned char from_ds, to_ds;
 	unsigned char a4_exists, qc_exists;
 	unsigned char aad_hdr[30];
-	UINT aad_len = 0;
+	unsigned int aad_len = 0;
 	unsigned char nonce_hdr[13];	
 	unsigned int nonce_hdr_len = 0;
 	unsigned int out_len = DataLen + 8;
@@ -926,7 +926,7 @@ BOOLEAN RTMPSoftDecryptCCMP(
 	unsigned char from_ds, to_ds;
 	unsigned char a4_exists, qc_exists;
 	unsigned char aad_hdr[30];
-	UINT aad_len = 0;
+	unsigned int aad_len = 0;
 	unsigned char pn[LEN_PN];	
 	unsigned char * cipherData_ptr;
 	unsigned int cipherData_len;
@@ -1059,7 +1059,7 @@ VOID CCMP_test_vector(
 					0x0c, 0x3c, 0x04, 0xd0, 0x19, 0x78, 0x45,
 					0xce, 0x0b, 0x16, 0xf9, 0x76, 0x23};
 	unsigned char res_buf[100];
-	UINT res_len = 0;
+	unsigned int res_len = 0;
 
 	printk("== CCMP test vector == \n");
 

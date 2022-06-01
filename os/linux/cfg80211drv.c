@@ -604,7 +604,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
         HTTRANSMIT_SETTING      BeaconTransmit;   /* MGMT frame PHY rate setting when operatin at Ht rate. */
         BCN_TIME_CFG_STRUC csr9;
         unsigned char  *ptr;
-        UINT  i;
+        unsigned int  i;
         unsigned int longValue;
         unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned int rx_filter_flag;
@@ -957,7 +957,7 @@ BOOLEAN CFG80211DRV_OpsExtraIesSet(
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	
 	CFG80211_CB *pCfg80211_CB = pAd->pCfg80211_CB;
-	UINT ie_len = pCfg80211_CB->pCfg80211_ScanReq->ie_len;
+	unsigned int ie_len = pCfg80211_CB->pCfg80211_ScanReq->ie_len;
     CFG80211DBG(RT_DEBUG_ERROR, ("80211> CFG80211DRV_OpsExtraIesSet ==> %d\n", ie_len)); 
 
 	if (pAd->StaCfg.pWpsProbeReqIe)
@@ -1583,7 +1583,7 @@ BOOLEAN CFG80211_SupBandReInit(
 INT CFG80211_StaPortSecured(
 	IN VOID                                         *pAdCB,
 	IN unsigned char 					*pMac,
-	IN UINT						flag)
+	IN unsigned int						flag)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 	MAC_TABLE_ENTRY *pEntry;
@@ -1639,7 +1639,7 @@ INT CFG80211_ApStaDel(
 //CMD_RTPRIV_IOCTL_80211_KEY_DEFAULT_SET:
 INT CFG80211_setDefaultKey(
 	IN VOID                                         *pAdCB,
-	IN UINT 					Data
+	IN unsigned int 					Data
 )
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;

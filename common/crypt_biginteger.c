@@ -141,7 +141,7 @@ static unsigned char WPS_DH_RRModP_VALUE[192] =
 static unsigned char Value_0[1] = {0x00};
 static unsigned char Value_1[1] = {0x01};
 static PBIG_INTEGER pBI_U = NULL, pBI_S = NULL, pBI_O = NULL;
-static UINT Bits_Of_R = 0;
+static unsigned int Bits_Of_R = 0;
 
 
 VOID BigInteger_Print (
@@ -213,7 +213,7 @@ VOID BigInteger_AllocSize (
     IN PBIG_INTEGER *pBI,
     IN INT Length)
 {
-    UINT ArrayLength = 0;
+    unsigned int ArrayLength = 0;
 
     if (Length <= 0)
         return;
@@ -281,7 +281,7 @@ VOID BigInteger_ClearHighBits (
 VOID BigInteger_BI2Bin (
     IN PBIG_INTEGER pBI, 
     OUT unsigned char *pValue,
-    OUT UINT *Length)
+    OUT unsigned int *Length)
 {
     INT  ValueIndex, BIArrayIndex, ShiftIndex;
     unsigned int  Number;
@@ -325,7 +325,7 @@ VOID BigInteger_BI2Bin (
 
 VOID BigInteger_Bin2BI (
     IN unsigned char *pValue,
-    IN UINT Length,
+    IN unsigned int Length,
     OUT PBIG_INTEGER *pBI)
 {
     INT  ValueIndex, BIArrayIndex, ShiftIndex;
@@ -356,7 +356,7 @@ VOID BigInteger_Bin2BI (
 /* Calculate the bits of BigInteger, the highest bit is 1 */
 VOID BigInteger_BitsOfBI (
     IN PBIG_INTEGER pBI,
-    OUT UINT *Bits_Of_P)
+    OUT unsigned int *Bits_Of_P)
 {
     unsigned int Number, Index;
 
@@ -372,10 +372,10 @@ VOID BigInteger_BitsOfBI (
 
 INT BigInteger_GetBitValue (
     IN PBIG_INTEGER pBI,
-    IN UINT Index)
+    IN unsigned int Index)
 {
-    UINT Array = 0;
-    UINT Shift = 0;
+    unsigned int Array = 0;
+    unsigned int Shift = 0;
 
     if (Index > 0) {
         Array = (Index - 1) >> 0x5;
@@ -390,10 +390,10 @@ INT BigInteger_GetBitValue (
 
 unsigned char BigInteger_GetByteValue (
     IN PBIG_INTEGER pBI,
-    IN UINT Index)
+    IN unsigned int Index)
 {
-    UINT Array = 0;
-    UINT Shift = 0;
+    unsigned int Array = 0;
+    unsigned int Shift = 0;
 
     if (Index > 0) {
         Array = (Index - 1) >> 0x2;
@@ -801,7 +801,7 @@ VOID BigInteger_Div (
     INT CompareResult;
     INT Index, MulIndex, ComputeSize;
     unsigned int MulStart;
-    UINT AllocLength, ArrayIndex, ShiftIndex;
+    unsigned int AllocLength, ArrayIndex, ShiftIndex;
     PBIG_INTEGER pTempBI = NULL, pTempBI2 = NULL, pMulBI = NULL;
     unsigned char SecondHighByte;
 
@@ -842,7 +842,7 @@ VOID BigInteger_Div (
     BigInteger_AllocSize(pBI_Result, pFirstOperand->IntegerLength - pSecondOperand->IntegerLength + 1);
     BigInteger_AllocSize(pBI_Remainder, pSecondOperand->IntegerLength);
 
-    AllocLength = (UINT) (pFirstOperand->IntegerLength << 1);
+    AllocLength = (unsigned int) (pFirstOperand->IntegerLength << 1);
     BigInteger_AllocSize(&pTempBI, AllocLength);
     BigInteger_AllocSize(&pTempBI2, AllocLength);
     BigInteger_AllocSize(&pMulBI, AllocLength);
@@ -858,7 +858,7 @@ VOID BigInteger_Div (
             BigInteger_AllocSize(&pMulBI, Index + 1);
             ArrayIndex = 0;
             if (Index > 0)
-                ArrayIndex = (UINT) (Index - 1) >> 2 ;
+                ArrayIndex = (unsigned int) (Index - 1) >> 2 ;
             ShiftIndex = (Index & 0x03);
             if (ShiftIndex == 0)
                 ShiftIndex = 4;
@@ -877,7 +877,7 @@ VOID BigInteger_Div (
             for (MulIndex = (INT) MulStart;MulIndex <= 0x101;MulIndex++) { /* 0xFFFF / 0xFF = 0x101 */
                 if ((MulIndex > 0xFF) && (ShiftIndex == 3))
                         pMulBI->pIntegerArray[ArrayIndex + 1] = 0x01;
-                pMulBI->pIntegerArray[ArrayIndex] = ((UINT) MulIndex << (8*ShiftIndex));
+                pMulBI->pIntegerArray[ArrayIndex] = ((unsigned int) MulIndex << (8*ShiftIndex));
                 BigInteger_Mul(pSecondOperand, pMulBI , &pTempBI);
                 CompareResult = BigInteger_UnsignedCompare(*pBI_Remainder, pTempBI);
                 if (CompareResult < 1) {
@@ -885,7 +885,7 @@ VOID BigInteger_Div (
                         if (CompareResult != 0) {                            
                             if ((MulIndex == 0x100) && (ShiftIndex == 3))
                                    pMulBI->pIntegerArray[ArrayIndex + 1] = 0;
-                            pMulBI->pIntegerArray[ArrayIndex] = ((UINT) (MulIndex - 1) << (8*ShiftIndex));
+                            pMulBI->pIntegerArray[ArrayIndex] = ((unsigned int) (MulIndex - 1) << (8*ShiftIndex));
                         } /* End of if */
                         
                         BigInteger_Mul(pSecondOperand, pMulBI, &pTempBI);                        
@@ -979,7 +979,7 @@ VOID BigInteger_Montgomery_ExpMod (
     IN PBIG_INTEGER pBI_P,
     OUT PBIG_INTEGER *pBI_Result)
 {
-    UINT Bits_Of_P;
+    unsigned int Bits_Of_P;
     unsigned int Index, Index2, AllocLength;
 	unsigned int Sliding_Value , Sliding_HighValue, Sliding_LowValue;
     PBIG_INTEGER pBI_Temp1 = NULL, pBI_Temp2 = NULL;

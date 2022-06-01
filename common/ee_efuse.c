@@ -926,7 +926,7 @@ INT set_eFuseGetFreeBlockCount_Proc(
    	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	UINT efusefreenum = 0;
+	unsigned int efusefreenum = 0;
 	if (pAd->bUseEfuse == FALSE && pAd->bFroceEEPROMBuffer == FALSE)
 		return FALSE;
 	eFuseGetFreeBlockCount(pAd,&efusefreenum);
@@ -1485,7 +1485,7 @@ INT set_eFuseBufferModeWriteBack_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	UINT Enable;
+	unsigned int Enable;
 	
 
  	if(strlen(arg)>0)	
@@ -1751,7 +1751,7 @@ VOID eFuseGetFreeBlockCount(IN PRTMP_ADAPTER pAd,
 
 INT eFuse_init(RTMP_ADAPTER *pAd)
 {
-	UINT EfuseFreeBlock=0;
+	unsigned int EfuseFreeBlock=0;
 
 	/*RT3572 means 3062/3562/3572*/
 	/*3593 means 3593*/
@@ -1869,8 +1869,8 @@ INT Set_LoadEepromBufferFromEfuse_Proc(
 	IN PRTMP_ADAPTER	pAd,
 	IN char *			arg)
 {
-	UINT bEnable = simple_strtol(arg, 0, 10);
-	UINT free_blk = 0;
+	unsigned int bEnable = simple_strtol(arg, 0, 10);
+	unsigned int free_blk = 0;
 	
 	if (bEnable < 0)
 		return FALSE;

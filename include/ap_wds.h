@@ -80,7 +80,7 @@ VOID WdsEntryDel(
 MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  unsigned char * pAddr,
-	UINT WdsTabIdx);
+	unsigned int WdsTabIdx);
 
 BOOLEAN MacTableDeleteWDSEntry(
 	IN PRTMP_ADAPTER pAd,

@@ -1304,7 +1304,7 @@ VOID WscEapEnrolleeAction(
     unsigned char *  WscData = NULL;
     BOOLEAN bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
 	WSC_UPNP_NODE_INFO *pWscUPnPInfo = &pWscControl->WscUPnPNodeInfo;
-	UINT	MaxWscDataLen = WSC_MAX_DATA_LEN;
+	unsigned int	MaxWscDataLen = WSC_MAX_DATA_LEN;
 	unsigned char	CurOpMode = 0xFF;
 
     DBGPRINT(RT_DEBUG_TRACE, ("WscEapEnrolleeAction Enter!\n"));
@@ -1378,7 +1378,7 @@ VOID WscEapEnrolleeAction(
 	}
 
 #ifdef WSC_V2_SUPPORT 
-	MaxWscDataLen = MaxWscDataLen + (UINT)pWscControl->WscV2Info.ExtraTlv.TlvLen;
+	MaxWscDataLen = MaxWscDataLen + (unsigned int)pWscControl->WscV2Info.ExtraTlv.TlvLen;
 #endif /* WSC_V2_SUPPORT */
 	os_alloc_mem(NULL, (unsigned char **)&WscData, MaxWscDataLen);
 /*	if( (WscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC)) == NULL) */
@@ -1408,7 +1408,7 @@ VOID WscEapEnrolleeAction(
                     WPS_DH_G_VALUE, sizeof(WPS_DH_G_VALUE),
             	    WPS_DH_P_VALUE, sizeof(WPS_DH_P_VALUE),
             	    pWscControl->RegData.EnrolleeRandom, sizeof(pWscControl->RegData.EnrolleeRandom),
-            	    pWscControl->RegData.Pke, (UINT *) &DH_Len);
+            	    pWscControl->RegData.Pke, (unsigned int *) &DH_Len);
 				
 				pWscControl->RegData.ReComputePke = 0;
 			}
@@ -1877,7 +1877,7 @@ VOID WscEapApProxyAction(
 	BOOLEAN sendToUPnP = FALSE, bUPnPStatus = FALSE, Cancelled;
 	int reqID = 0;
     WSC_UPNP_NODE_INFO *pWscUPnPInfo = &pWscControl->WscUPnPNodeInfo;
-	UINT	MaxWscDataLen = WSC_MAX_DATA_LEN;
+	unsigned int	MaxWscDataLen = WSC_MAX_DATA_LEN;
 		
     DBGPRINT(RT_DEBUG_TRACE, ("WscEapApProxyAction Enter!\n"));
 
@@ -1898,7 +1898,7 @@ VOID WscEapApProxyAction(
 	}
 
 #ifdef WSC_V2_SUPPORT 
-	MaxWscDataLen = MaxWscDataLen + (UINT)pWscControl->WscV2Info.ExtraTlv.TlvLen;
+	MaxWscDataLen = MaxWscDataLen + (unsigned int)pWscControl->WscV2Info.ExtraTlv.TlvLen;
 #endif /* WSC_V2_SUPPORT */
 	os_alloc_mem(NULL, (unsigned char **)&WscData, MaxWscDataLen);
 /*	if ((WscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC)) == NULL) */
@@ -1928,7 +1928,7 @@ VOID WscEapApProxyAction(
 					DBGPRINT(RT_DEBUG_TRACE, ("%s():registrarID=0x%x!\n", __FUNCTION__, pWscUPnPInfo->registrarID));
 					bUPnPStatus = WscSendUPnPMessage(pAdapter, (pWscControl->EntryIfIdx & 0x0F), 
 														WSC_OPCODE_UPNP_MGMT, WSC_UPNP_MGMT_SUB_REG_SELECT, 
-														(unsigned char *)(&pWscUPnPInfo->registrarID), sizeof(UINT), 0, 0, NULL, AP_MODE);
+														(unsigned char *)(&pWscUPnPInfo->registrarID), sizeof(unsigned int), 0, 0, NULL, AP_MODE);
 					
 					/*Reset the UPnP timer and status. */
 					if (pWscControl->bM2DTimerRunning == TRUE)
@@ -2067,7 +2067,7 @@ VOID WscEapRegistrarAction(
 	unsigned char   *WscData = NULL;    
 	BOOLEAN bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
 	WSC_UPNP_NODE_INFO *pWscUPnPInfo = &pWscControl->WscUPnPNodeInfo;
-	UINT	MaxWscDataLen = WSC_MAX_DATA_LEN;
+	unsigned int	MaxWscDataLen = WSC_MAX_DATA_LEN;
 	unsigned char	CurOpMode = 0xFF;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("WscEapRegistrarAction Enter!\n"));
@@ -2105,7 +2105,7 @@ VOID WscEapRegistrarAction(
 	}
 
 #ifdef WSC_V2_SUPPORT 
-	MaxWscDataLen = MaxWscDataLen + (UINT)pWscControl->WscV2Info.ExtraTlv.TlvLen;
+	MaxWscDataLen = MaxWscDataLen + (unsigned int)pWscControl->WscV2Info.ExtraTlv.TlvLen;
 #endif /* WSC_V2_SUPPORT */
 	os_alloc_mem(NULL, (unsigned char **)&WscData, MaxWscDataLen);
 /*	if( (WscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC)) == NULL) */
@@ -2606,7 +2606,7 @@ VOID WscEAPOLTimeOutAction(
     PMAC_TABLE_ENTRY    pEntry = NULL;
     PWSC_CTRL           pWscControl = NULL;
 	PRTMP_ADAPTER pAd = NULL;
-	UINT				MaxWscDataLen = WSC_MAX_DATA_LEN;
+	unsigned int				MaxWscDataLen = WSC_MAX_DATA_LEN;
 	unsigned char				CurOpMode = 0xFF;
     
     DBGPRINT(RT_DEBUG_TRACE, ("-----> WscEAPOLTimeOutAction\n"));
@@ -2681,7 +2681,7 @@ VOID WscEAPOLTimeOutAction(
     }
 
 #ifdef WSC_V2_SUPPORT
-	MaxWscDataLen = MaxWscDataLen + (UINT)pWscControl->WscV2Info.ExtraTlv.TlvLen;
+	MaxWscDataLen = MaxWscDataLen + (unsigned int)pWscControl->WscV2Info.ExtraTlv.TlvLen;
 #endif /* WSC_V2_SUPPORT */
 	os_alloc_mem(NULL, (unsigned char **)&WscData, MaxWscDataLen);
 /*    if ((WscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC))!= NULL) */
@@ -3711,7 +3711,7 @@ out:
 VOID WscUPnPErrHandle(
 	IN PRTMP_ADAPTER pAd,
 	IN  PWSC_CTRL	pWscControl,
-	IN UINT eventID)
+	IN unsigned int eventID)
 {
 	int dataLen;
 	unsigned char *pWscData;
@@ -3766,7 +3766,7 @@ int WscSendUPnPConfReqMsg(
 	IN unsigned char * ssidStr,
 	IN unsigned char * macAddr,
 	IN INT	  Status,
-	IN UINT   eventID,
+	IN unsigned int   eventID,
 	IN unsigned char  CurOpMode)
 {
 	unsigned char pData[39] = {0};
@@ -3816,8 +3816,8 @@ int WscSendUPnPMessage(
 	IN unsigned short			msgSubType,
 	IN unsigned char *			pData,
 	IN INT				dataLen,
-	IN UINT				eventID,
-	IN UINT				toIPAddr,
+	IN unsigned int				eventID,
+	IN unsigned int				toIPAddr,
 	IN unsigned char *			pMACAddr,
 	IN unsigned char			CurOpMode)
 {
@@ -4692,7 +4692,7 @@ VOID WscBuildAssocRespIE(
 VOID WscSelectedRegistrar(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *	pReginfo,
-	IN	UINT	Length,
+	IN	unsigned int	Length,
 	IN  unsigned char	apidx)
 {
 	unsigned char *	pData;
@@ -5001,9 +5001,9 @@ VOID WscScanTimeOutAction(
 }
 
 BOOLEAN ValidateChecksum(
-	IN UINT PIN)
+	IN unsigned int PIN)
 {
-	UINT accum = 0;
+	unsigned int accum = 0;
 
 	accum += 3 * ((PIN / 10000000) % 10); 
 	accum += 1 * ((PIN / 1000000) % 10); 
@@ -5020,10 +5020,10 @@ BOOLEAN ValidateChecksum(
 /*
 	Generate 4-digit random number, ex:1234
 */
-UINT WscRandomGen4digitPinCode(
+unsigned int WscRandomGen4digitPinCode(
 							 IN  PRTMP_ADAPTER   pAd)
 {
-	UINT    iPin;
+	unsigned int    iPin;
 
 	iPin = RandomByte2(pAd) * 256 * 256 + RandomByte2(pAd) * 256 + RandomByte2(pAd);
 	iPin = iPin % 10000;
@@ -5031,12 +5031,12 @@ UINT WscRandomGen4digitPinCode(
 	return iPin;
 }
 
-UINT WscRandomGeneratePinCode(
+unsigned int WscRandomGeneratePinCode(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char			apidx)
 {
-	UINT 	iPin;
-	UINT	checksum;
+	unsigned int 	iPin;
+	unsigned int	checksum;
 
 	iPin = RandomByte(pAd) * 256 * 256 + RandomByte(pAd) * 256 + RandomByte(pAd);
 
@@ -5820,7 +5820,7 @@ BOOLEAN WscCheckNonce(
 
 VOID    WscGetRegDataPIN(
     IN  PRTMP_ADAPTER   pAdapter,
-    IN  UINT            PinCode,
+    IN  unsigned int            PinCode,
     IN  PWSC_CTRL       pWscControl)
 {
 	unsigned char	tempPIN[9] = {0};

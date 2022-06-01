@@ -582,7 +582,7 @@ NTSTATUS	RTUSBWriteRFRegister(
 	IN	unsigned int			Value)
 {
 	RF_CSR_CFG0_STRUC PhyCsr4;
-	UINT			i = 0;
+	unsigned int			i = 0;
 	NTSTATUS		status;
 
 	NdisZeroMemory(&PhyCsr4, sizeof(RF_CSR_CFG0_STRUC));
@@ -1578,7 +1578,7 @@ static NTSTATUS SetLEDStatusHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 /*WPS LED MODE 10*/
 static NTSTATUS LEDWPSMode10Hdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
-	UINT WPSLedMode10 = *((unsigned int *)(CMDQelmt->buffer));
+	unsigned int WPSLedMode10 = *((unsigned int *)(CMDQelmt->buffer));
 
 	DBGPRINT(RT_DEBUG_INFO, ("WPS LED mode 10::ON or Flash or OFF : %x\n", WPSLedMode10));
 

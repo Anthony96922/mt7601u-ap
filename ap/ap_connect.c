@@ -99,7 +99,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
 	unsigned char * pBeaconFrame = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	unsigned char *ptr;
-	UINT i;
+	unsigned int i;
 	unsigned int longValue, reg_base;
 	HTTRANSMIT_SETTING BeaconTransmit = {.word = 0}; /* MGMT frame PHY rate setting when operatin at Ht rate. */
 	unsigned char PhyMode, SupRateLen;
@@ -286,7 +286,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 #ifdef WSC_AP_SUPPORT
 	BOOLEAN bHasWpsIE = FALSE;
 #endif /* ifdef WSC_AP_SUPPORT */
-	UINT i;
+	unsigned int i;
 	HTTRANSMIT_SETTING BeaconTransmit = {.word = 0}; /* MGMT frame PHY rate setting when operatin at Ht rate. */
 	unsigned long TmpLen = 0;
 

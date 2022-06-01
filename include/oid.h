@@ -426,7 +426,7 @@ typedef enum _NDIS_802_11_NETWORK_TYPE {
 } NDIS_802_11_NETWORK_TYPE, *PNDIS_802_11_NETWORK_TYPE;
 
 typedef struct _NDIS_802_11_NETWORK_TYPE_LIST {
-	UINT NumberOfItems;	/* in list below, at least 1 */
+	unsigned int NumberOfItems;	/* in list below, at least 1 */
 	NDIS_802_11_NETWORK_TYPE NetworkType[1];
 } NDIS_802_11_NETWORK_TYPE_LIST, *PNDIS_802_11_NETWORK_TYPE_LIST;
 
@@ -552,10 +552,10 @@ typedef struct GNU_PACKED _DOT1X_IDLE_TIMEOUT {
 
 #ifdef CONFIG_AP_SUPPORT
 typedef struct _NDIS_AP_802_11_KEY {
-	UINT Length;		/* Length of this structure */
+	unsigned int Length;		/* Length of this structure */
 	unsigned char addr[6];
-	UINT KeyIndex;
-	UINT KeyLength;		/* length of key in bytes */
+	unsigned int KeyIndex;
+	unsigned int KeyLength;		/* length of key in bytes */
 	unsigned char KeyMaterial[1];	/* variable length depending on above field */
 } NDIS_AP_802_11_KEY, *PNDIS_AP_802_11_KEY;
 #endif /* CONFIG_AP_SUPPORT */
@@ -564,9 +564,9 @@ typedef struct _NDIS_AP_802_11_KEY {
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 typedef struct _NDIS_APCLI_802_11_KEY
 {
-    UINT           Length;             
-    UINT           KeyIndex;           
-    UINT           KeyLength;         
+    unsigned int           Length;             
+    unsigned int           KeyIndex;           
+    unsigned int           KeyLength;         
     NDIS_802_11_MAC_ADDRESS BSSID;
     NDIS_802_11_KEY_RSC KeyRSC;
     unsigned char           KeyMaterial[1];     
@@ -576,16 +576,16 @@ typedef struct _NDIS_APCLI_802_11_KEY
 
 
 typedef struct _NDIS_802_11_REMOVE_KEY {
-	UINT Length;		/* Length of this structure */
-	UINT KeyIndex;
+	unsigned int Length;		/* Length of this structure */
+	unsigned int KeyIndex;
 	NDIS_802_11_MAC_ADDRESS BSSID;
 } NDIS_802_11_REMOVE_KEY, *PNDIS_802_11_REMOVE_KEY;
 
 typedef struct _NDIS_802_11_WEP {
-	UINT Length;		/* Length of this structure */
-	UINT KeyIndex;		/* 0 is the per-client key, 1-N are the */
+	unsigned int Length;		/* Length of this structure */
+	unsigned int KeyIndex;		/* 0 is the per-client key, 1-N are the */
 	/* global keys */
-	UINT KeyLength;		/* length of key in bytes */
+	unsigned int KeyLength;		/* length of key in bytes */
 	unsigned char KeyMaterial[1];	/* variable length depending on above field */
 } NDIS_802_11_WEP, *PNDIS_802_11_WEP;
 
@@ -613,7 +613,7 @@ typedef unsigned char NDIS_802_11_RATES[NDIS_802_11_LENGTH_RATES];	/* Set of 8 d
 typedef unsigned char NDIS_802_11_RATES_EX[NDIS_802_11_LENGTH_RATES_EX];	/* Set of 16 data rates */
 
 typedef struct GNU_PACKED _NDIS_802_11_SSID {
-	UINT SsidLength;	/* length of SSID field below, in bytes; */
+	unsigned int SsidLength;	/* length of SSID field below, in bytes; */
 	/* this can be zero. */
 	unsigned char Ssid[NDIS_802_11_LENGTH_SSID];	/* SSID information field */
 } NDIS_802_11_SSID, *PNDIS_802_11_SSID;
@@ -632,7 +632,7 @@ typedef struct GNU_PACKED _NDIS_WLAN_BSSID {
 } NDIS_WLAN_BSSID, *PNDIS_WLAN_BSSID;
 
 typedef struct GNU_PACKED _NDIS_802_11_BSSID_LIST {
-	UINT NumberOfItems;	/* in list below, at least 1 */
+	unsigned int NumberOfItems;	/* in list below, at least 1 */
 	NDIS_WLAN_BSSID Bssid[1];
 } NDIS_802_11_BSSID_LIST, *PNDIS_802_11_BSSID_LIST;
 
@@ -650,7 +650,7 @@ typedef struct GNU_PACKED _NDIS_WLAN_BSSID_EX {
 	unsigned char WpsAP; /* 0x00: not support WPS, 0x01: support normal WPS, 0x02: support Ralink auto WPS, 0x04: support Samsung WAC */
 	CHAR MinSNR;
 	NDIS_802_11_SSID Ssid;	/* SSID */
-	UINT Privacy;		/* WEP encryption requirement */
+	unsigned int Privacy;		/* WEP encryption requirement */
 	NDIS_802_11_RSSI Rssi;	/* receive signal */
 	/* strength in dBm */
 	NDIS_802_11_NETWORK_TYPE NetworkTypeInUse;
@@ -663,7 +663,7 @@ typedef struct GNU_PACKED _NDIS_WLAN_BSSID_EX {
 } NDIS_WLAN_BSSID_EX, *PNDIS_WLAN_BSSID_EX;
 
 typedef struct GNU_PACKED _NDIS_802_11_BSSID_LIST_EX {
-	UINT NumberOfItems;	/* in list below, at least 1 */
+	unsigned int NumberOfItems;	/* in list below, at least 1 */
 	NDIS_WLAN_BSSID_EX Bssid[1];
 } NDIS_802_11_BSSID_LIST_EX, *PNDIS_802_11_BSSID_LIST_EX;
 
@@ -784,8 +784,8 @@ typedef struct _BSSID_INFO {
 } BSSID_INFO, *PBSSID_INFO;
 
 typedef struct _NDIS_802_11_PMKID {
-	UINT Length;
-	UINT BSSIDInfoCount;
+	unsigned int Length;
+	unsigned int BSSIDInfoCount;
 	BSSID_INFO BSSIDInfo[1];
 } NDIS_802_11_PMKID, *PNDIS_802_11_PMKID;
 #endif /* defined(CONFIG_STA_SUPPORT) || defined(APCLI_WPA_SUPPLICANT_SUPPORT) */
@@ -794,8 +794,8 @@ typedef struct _NDIS_802_11_PMKID {
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 typedef struct _NDIS_APCLI_802_11_PMKID
 {
-    UINT    Length;
-    UINT    BSSIDInfoCount;
+    unsigned int    Length;
+    unsigned int    BSSIDInfoCount;
     BSSID_INFO BSSIDInfo[1];
 } NDIS_APCLI_802_11_PMKID, *PNDIS_APCLI_802_11_PMKID;
 #endif/*APCLI_WPA_SUPPLICANT_SUPPORT*/
@@ -1150,7 +1150,7 @@ typedef struct _OID_BACAP_STRUC {
 	unsigned char Policy;		/* 0: DELAY_BA 1:IMMED_BA  (//BA Policy subfiled value in ADDBA frame)   2:BA-not use. other value invalid */
 	unsigned char MpduDensity;	/* 0: DELAY_BA 1:IMMED_BA  (//BA Policy subfiled value in ADDBA frame)   2:BA-not use. other value invalid */
 	unsigned char AmsduEnable;	/*Enable AMSDU transmisstion */
-	unsigned char AmsduSize;	/* 0:3839, 1:7935 bytes. UINT  MSDUSizeToBytes[]        = { 3839, 7935}; */
+	unsigned char AmsduSize;	/* 0:3839, 1:7935 bytes. unsigned int  MSDUSizeToBytes[]        = { 3839, 7935}; */
 	unsigned char MMPSmode;		/* MIMO power save more, 0:static, 1:dynamic, 2:rsv, 3:mimo enable */
 	BOOLEAN AutoBA;		/* Auto BA will automatically */
 } OID_BACAP_STRUC, *POID_BACAP_STRUC;
@@ -1255,8 +1255,8 @@ typedef struct _WSC_CREDENTIAL {
 
 /* WSC configured profiles */
 typedef struct _WSC_PROFILE {
-	UINT ProfileCnt;
-	UINT ApplyProfileIdx;	/* add by johnli, fix WPS test plan 5.1.1 */
+	unsigned int ProfileCnt;
+	unsigned int ApplyProfileIdx;	/* add by johnli, fix WPS test plan 5.1.1 */
 	WSC_CREDENTIAL Profile[8];	/* Support up to 8 profiles */
 } WSC_PROFILE, *PWSC_PROFILE;
 

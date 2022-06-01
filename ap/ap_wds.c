@@ -159,7 +159,7 @@ from index MAX_AID_BA.
 MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  unsigned char * pAddr,
-	UINT WdsTabIdx)
+	unsigned int WdsTabIdx)
 {
 	PMAC_TABLE_ENTRY pEntry = NULL;
 	HTTRANSMIT_SETTING HTPhyMode;
@@ -465,7 +465,7 @@ VOID WdsTableMaintenance(
 VOID RT28xx_WDS_Close(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT index;
+	unsigned int index;
 
 	for(index = 0; index < MAX_WDS_ENTRY; index++)
 	{
@@ -493,7 +493,7 @@ VOID WdsDown(
 VOID AsicUpdateWdsRxWCIDTable(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT index;
+	unsigned int index;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 
 	for(index = 0; index < MAX_WDS_ENTRY; index++)
@@ -547,7 +547,7 @@ VOID AsicUpdateWdsEncryption(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char wcid)
 {
-	UINT WdsIdex;
+	unsigned int WdsIdex;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 
 	do
@@ -1293,7 +1293,7 @@ int WDS_PacketSend(
 VOID WDS_Remove(
 	IN	PRTMP_ADAPTER		pAd)
 {
-	UINT index;
+	unsigned int index;
 
 	for(index = 0; index < MAX_WDS_ENTRY; index++)
 	{

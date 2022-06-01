@@ -1911,9 +1911,9 @@ int SWRadarCheck(
  */
 static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, unsigned char dfs_channel)
 {
-	UINT T1=0, T2=0, T3=0, T_all=0, F1, F2, F3 = 0, Fmax = 0, freq_diff_min, freq_diff_max;
+	unsigned int T1=0, T2=0, T3=0, T_all=0, F1, F2, F3 = 0, Fmax = 0, freq_diff_min, freq_diff_max;
 	unsigned char  dfs_stg2=0, dfs_typ5=0; /*, bbp141=0;*/
-	UINT F_MAX, F_MID, F_MIN;
+	unsigned int F_MAX, F_MID, F_MIN;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--->StagerRadarCheck()\n"));
 	{
@@ -1985,7 +1985,7 @@ static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, unsigned char dfs_channel)
 	/*3.	According to decision of stagger and type do period check */
 	if (dfs_stg2 == 1)
 	{
-        UINT freq_diff = (F1 - F2);
+        unsigned int freq_diff = (F1 - F2);
         	
         DBGPRINT(RT_DEBUG_TRACE, ("StagerRadarCheck freq_diff_min=%d freq_diff_max=%d \n", freq_diff_min, freq_diff_max));	
         DBGPRINT(RT_DEBUG_TRACE, ("StagerRadarCheck dfs_stg2, dff=%d  \n", freq_diff));		
@@ -2001,8 +2001,8 @@ static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, unsigned char dfs_channel)
 	}
 	else /* dfs_stg3 */
 	{
-        UINT freq_diff_1 = (F1 - F2);
-        UINT freq_diff_2 = (F2 - F3);
+        unsigned int freq_diff_1 = (F1 - F2);
+        unsigned int freq_diff_2 = (F2 - F3);
         
         	
         DBGPRINT(RT_DEBUG_TRACE, ("StagerRadarCheck freq_diff_min=%d freq_diff_max=%d \n", freq_diff_min, freq_diff_max));		
@@ -2463,7 +2463,7 @@ static VOID ChannelSelectOnRadarDetection(
 		IN PRTMP_ADAPTER pAd)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;	
-	UINT i;
+	unsigned int i;
 
 	if (pAd->Dot11_H.RDMode == RD_SWITCHING_MODE)
 		return;

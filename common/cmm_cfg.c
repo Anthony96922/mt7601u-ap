@@ -54,10 +54,10 @@ static BOOLEAN RT_isLegalCmdBeforeInfUp(
        IN char * SetCmd);
 
 INT ComputeChecksum(
-	IN UINT PIN)
+	IN unsigned int PIN)
 {
 	INT digit_s;
-	UINT accum = 0;
+	unsigned int accum = 0;
 
 	PIN *= 10;
 	accum += 3 * ((PIN / 10000000) % 10);
@@ -72,14 +72,14 @@ INT ComputeChecksum(
 	return ((10 - digit_s) % 10);
 } /* ComputeChecksum*/
 
-UINT GenerateWpsPinCode(
+unsigned int GenerateWpsPinCode(
 	IN PRTMP_ADAPTER	pAd,
 	IN BOOLEAN		bFromApcli,
 	IN unsigned char		apidx)
 {
 	unsigned char	macAddr[MAC_ADDR_LEN];
-	UINT 	iPin;
-	UINT	checksum;
+	unsigned int 	iPin;
+	unsigned int	checksum;
 
 	NdisZeroMemory(macAddr, MAC_ADDR_LEN);
 
@@ -681,9 +681,9 @@ INT	RT_CfgSetWscPinCode(
 	IN char *	pPinCodeStr,
 	OUT PWSC_CTRL   pWscControl)
 {
-	UINT pinCode;
+	unsigned int pinCode;
 
-	pinCode = (UINT) simple_strtol(pPinCodeStr, 0, 10); /* When PinCode is 03571361, return value is 3571361.*/
+	pinCode = (unsigned int) simple_strtol(pPinCodeStr, 0, 10); /* When PinCode is 03571361, return value is 3571361.*/
 	if (strlen(pPinCodeStr) == 4) {
 		pWscControl->WscEnrolleePinCode = pinCode;
 		pWscControl->WscEnrolleePinCodeLen = 4;
@@ -1036,7 +1036,7 @@ INT RTMP_COM_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_INF_PPA_EXIT:
 			if (ppa_hook_directpath_register_dev_fn && pAd->PPAEnable==TRUE) 
 			{
-				UINT status;
+				unsigned int status;
 				status=ppa_hook_directpath_register_dev_fn(&pAd->g_if_id, pAd->net_dev, NULL, 0);
 				DBGPRINT(RT_DEBUG_TRACE, ("unregister PPA:g_if_id=%d status=%d\n",pAd->g_if_id,status));
 			}

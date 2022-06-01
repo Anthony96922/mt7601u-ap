@@ -60,7 +60,7 @@ VOID SoftwareFlowControl(
 {
 	BOOLEAN ResetBulkOutSize=FALSE;
 	unsigned char i=0,RunningQueueNo=0,QueIdx=0,HighWorkingAcCount=0;
-	UINT PacketsInQueueSize=0;
+	unsigned int PacketsInQueueSize=0;
 	unsigned char Priority[]={1,0,2,3};
 	
 	for (i=0;i<NUM_OF_TX_RING;i++)
@@ -1566,7 +1566,7 @@ VOID	RTUSBCancelPendingBulkInIRP(
 {
 	PRX_CONTEXT		pRxContext;
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
-	UINT			i;
+	unsigned int			i;
 
 	DBGPRINT_RAW(RT_DEBUG_TRACE, ("RTUSBCancelPendingBulkInIRP\n"));
 	for ( i = 0; i < (RX_RING_SIZE); i++)
@@ -1613,7 +1613,7 @@ VOID	RTUSBCancelPendingBulkOutIRP(
 	PTX_CONTEXT			pMLMEContext;
 	PTX_CONTEXT			pNullContext;
 	PTX_CONTEXT			pPsPollContext;
-	UINT				i, Idx;
+	unsigned int				i, Idx;
 /*	unsigned int 		IrqFlags;*/
 /*	NDIS_SPIN_LOCK		*pLock;*/
 /*	BOOLEAN				*pPending;*/

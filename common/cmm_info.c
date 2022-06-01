@@ -601,7 +601,7 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 	IN	unsigned char *			arg)
 {
 	unsigned long aggre;
-	UINT status;
+	unsigned int status;
 
 	aggre = simple_strtol(arg, 0, 10);
 
@@ -1572,7 +1572,7 @@ VOID RTMPSetPhyMode(
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
-		UINT	apidx;
+		unsigned int	apidx;
 		
 		for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
 		{
@@ -1824,7 +1824,7 @@ VOID	RTMPCommSiteSurveyData(
 	IN  unsigned int		MsgLen)
 {
 	INT         Rssi = 0;
-	UINT        Rssi_Quality = 0;
+	unsigned int        Rssi_Quality = 0;
 	NDIS_802_11_NETWORK_TYPE    wireless_mode;
 	CHAR		Ssid[MAX_LEN_OF_SSID +1];
 	STRING		SecurityStr[32] = {0};
@@ -1955,9 +1955,9 @@ VOID	RTMPCommSiteSurveyData(
 		if (Rssi >= -50)
 			Rssi_Quality = 100;
 		else if (Rssi >= -80)    /* between -50 ~ -80dbm*/
-			Rssi_Quality = (UINT)(24 + ((Rssi + 80) * 26)/10);
+			Rssi_Quality = (unsigned int)(24 + ((Rssi + 80) * 26)/10);
 		else if (Rssi >= -90)   /* between -80 ~ -90dbm*/
-			Rssi_Quality = (UINT)(((Rssi + 90) * 26)/10);
+			Rssi_Quality = (unsigned int)(((Rssi + 90) * 26)/10);
 		else    /* < -84 dbm*/
 			Rssi_Quality = 0;
 		sprintf(msg+strlen(msg),"%-9d", Rssi_Quality);

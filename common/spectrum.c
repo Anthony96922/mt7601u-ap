@@ -360,7 +360,7 @@ PMEASURE_REQ_ENTRY MeasureReqLookUp(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char		DialogToken)
 {
-	UINT HashIdx;
+	unsigned int HashIdx;
 	PMEASURE_REQ_TAB pTab = pAd->CommonCfg.pMeasureReqTab;
 	PMEASURE_REQ_ENTRY pEntry = NULL;
 	PMEASURE_REQ_ENTRY pPrevEntry = NULL;
@@ -575,7 +575,7 @@ static PTPC_REQ_ENTRY TpcReqLookUp(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			DialogToken)
 {
-	UINT HashIdx;
+	unsigned int HashIdx;
 	PTPC_REQ_TAB pTab = pAd->CommonCfg.pTpcReqTab;
 	PTPC_REQ_ENTRY pEntry = NULL;
 	PTPC_REQ_ENTRY pPrevEntry = NULL;
@@ -2089,8 +2089,8 @@ INT Set_MeasureReq_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UINT Aid = 1;
-	UINT ArgIdx;
+	unsigned int Aid = 1;
+	unsigned int ArgIdx;
 	char * thisChar;
 
 	MEASURE_REQ_MODE MeasureReqMode;
@@ -2176,7 +2176,7 @@ INT Set_MeasureReq_Proc(
 		FrameLen += TempLen;
 	}
 
-	MiniportMMRequest(pAd, QID_AC_BE, pOutBuffer, (UINT)FrameLen);
+	MiniportMMRequest(pAd, QID_AC_BE, pOutBuffer, (unsigned int)FrameLen);
 
 END_OF_MEASURE_REQ:
 	MlmeFreeMemory(pAd, pOutBuffer);
@@ -2188,11 +2188,11 @@ INT Set_TpcReq_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UINT Aid;
+	unsigned int Aid;
 
 	unsigned char TpcReqToken = RandomByte(pAd);
 
-	Aid = (UINT) simple_strtol(arg, 0, 16);
+	Aid = (unsigned int) simple_strtol(arg, 0, 16);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s::Aid = %d\n", __FUNCTION__, Aid));
 	if (!VALID_WCID(Aid))
@@ -2238,7 +2238,7 @@ typedef struct __PWR_CONSTRAIN_CFG
 	CHAR CurTxPwr;
 	CHAR DaltaPwr;
 
-	Value = (UINT) simple_strtol(arg, 0, 10);
+	Value = (unsigned int) simple_strtol(arg, 0, 10);
 	MaxTxPwr = GetRegulatoryMaxTxPwr(pAd, pAd->CommonCfg.Channel) - Value;
 	CurTxPwr = RTMP_GetTxPwr(pAd, pAd->MacTab.Content[0].HTPhyMode);
 	DaltaPwr = CurTxPwr - MaxTxPwr;

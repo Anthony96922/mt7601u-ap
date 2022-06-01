@@ -159,7 +159,7 @@ BOOLEAN WscGetXmlSSID(
 		return FALSE;
 	}
 
-	pSsid->SsidLength = (UINT)(ptr - pBuffer);
+	pSsid->SsidLength = (unsigned int)(ptr - pBuffer);
 	RTMPZeroMemory(pSsid->Ssid, NDIS_802_11_LENGTH_SSID);
 	if ((pSsid->SsidLength > 0) && (pSsid->SsidLength < 33))
 	{
@@ -181,7 +181,7 @@ BOOLEAN WscGetXmlAuth(
 {
 	STRING	*ptr, *pBuffer = pXmlData;
 	STRING	AuthStr[10] = {0};
-	UINT	AuthStrLen = 0;
+	unsigned int	AuthStrLen = 0;
 
 	*pAuthType = 0;
 	ptr = rtstrstr(pBuffer, (char *)XML_AUTH_START);
@@ -200,7 +200,7 @@ BOOLEAN WscGetXmlAuth(
 		return FALSE;
 	}
 
-	AuthStrLen = (UINT)(ptr - pBuffer);
+	AuthStrLen = (unsigned int)(ptr - pBuffer);
 	if ((AuthStrLen > 0) && (AuthStrLen <= 10))
 	{
 		RTMPMoveMemory(AuthStr, pBuffer, AuthStrLen);
@@ -225,7 +225,7 @@ BOOLEAN WscGetXmlEncr(
 {
 	STRING	*ptr, *pBuffer = pXmlData;
 	STRING	EncrStr[10] = {0};
-	UINT	EncrStrLen = 0;
+	unsigned int	EncrStrLen = 0;
 
 	*pEncrType = 0;
 	ptr = rtstrstr(pBuffer, (char *)XML_ENCR_START);
@@ -244,7 +244,7 @@ BOOLEAN WscGetXmlEncr(
 		return FALSE;
 	}
 
-	EncrStrLen = (UINT)(ptr - pBuffer);
+	EncrStrLen = (unsigned int)(ptr - pBuffer);
 	if ((EncrStrLen > 0) && (EncrStrLen <= 10))
 	{
 		RTMPMoveMemory(EncrStr, pBuffer, EncrStrLen);
@@ -269,7 +269,7 @@ BOOLEAN WscGetXmlKey(
 	OUT unsigned short	*pKeyLen)
 {
 	STRING	*ptr, *pBuffer = pXmlData;
-	UINT	KeyLen = 0;
+	unsigned int	KeyLen = 0;
 
 	ptr = rtstrstr(pBuffer, (char *)XML_KEY_START);
 	if (ptr == NULL)
@@ -293,7 +293,7 @@ BOOLEAN WscGetXmlKey(
 		return FALSE;
 	}
 
-	KeyLen = (UINT)(ptr - pBuffer);
+	KeyLen = (unsigned int)(ptr - pBuffer);
 	if ((KeyLen >= 8) && (KeyLen <= 64))
 	{
 		RTMPMoveMemory(pKey, pBuffer, KeyLen);

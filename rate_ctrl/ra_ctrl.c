@@ -1396,9 +1396,9 @@ VOID MlmeRALog(
 	IN unsigned long			TxTotalCnt)
 {
 #ifdef TXBF_SUPPORT
-	UINT ETxCount = pEntry->TxBFCounters.ETxSuccessCount + pEntry->TxBFCounters.ETxFailCount;
-	UINT ITxCount = pEntry->TxBFCounters.ITxSuccessCount + pEntry->TxBFCounters.ITxFailCount;
-	UINT TxCount = pEntry->TxBFCounters.TxSuccessCount + pEntry->TxBFCounters.TxFailCount + ETxCount + ITxCount;
+	unsigned int ETxCount = pEntry->TxBFCounters.ETxSuccessCount + pEntry->TxBFCounters.ETxFailCount;
+	unsigned int ITxCount = pEntry->TxBFCounters.ITxSuccessCount + pEntry->TxBFCounters.ITxFailCount;
+	unsigned int TxCount = pEntry->TxBFCounters.TxSuccessCount + pEntry->TxBFCounters.TxFailCount + ETxCount + ITxCount;
 	unsigned long bfRatio = 0;
 #endif /*  TXBF_SUPPORT */
 #ifdef TIMESTAMP_RA_LOG
@@ -1742,7 +1742,7 @@ VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 	if (pAd->CommonCfg.StreamMode!=0 &&
 		pEntry->StreamModeMACReg!=0)
 	{
-		UINT streamWord;
+		unsigned int streamWord;
 		BOOLEAN mcsDisable;
 
 		/* OFDM: depends on StreamModeMCS, CCK: always applies stream-mode */

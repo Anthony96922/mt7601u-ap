@@ -214,8 +214,8 @@ VOID WPA_APSetGroupRekeyAction(
   ========================================*/
 void inc_iv_byte(
 	unsigned char *iv,
-	UINT len,
-	UINT cnt);
+	unsigned int len,
+	unsigned int cnt);
 
 BOOLEAN WpaMsgTypeSubst(
 	IN unsigned char EAPType,
@@ -249,13 +249,13 @@ int RtmpPasswordHash(
 
 unsigned char * WPA_ExtractSuiteFromRSNIE(
 	IN unsigned char * rsnie,
-	IN UINT rsnie_len,
+	IN unsigned int rsnie_len,
 	IN unsigned char type,
 	OUT unsigned char *count);
 
 VOID WpaShowAllsuite(
 	IN unsigned char * rsnie,
-	IN UINT rsnie_len);
+	IN unsigned int rsnie_len);
 
 VOID RTMPInsertRSNIE(
 	IN unsigned char * pFrameBuf,
@@ -274,9 +274,9 @@ VOID RTMPToWirelessSta(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char * pHeader802_3,
-	IN UINT HdrLen,
+	IN unsigned int HdrLen,
 	IN unsigned char * pData,
-	IN UINT DataLen,
+	IN unsigned int DataLen,
 	IN BOOLEAN bClearFrame);
 
 VOID WpaDerivePTK(
@@ -287,14 +287,14 @@ VOID WpaDerivePTK(
 	IN unsigned char *SNonce,
 	IN unsigned char *SA,
 	OUT unsigned char *output,
-	IN UINT len);
+	IN unsigned int len);
 
 VOID WpaDeriveGTK(
 	IN unsigned char *PMK,
 	IN unsigned char *GNonce,
 	IN unsigned char *AA,
 	OUT unsigned char *output,
-	IN UINT len);
+	IN unsigned int len);
 
 VOID GenRandom(
 	IN PRTMP_ADAPTER pAd,
@@ -376,8 +376,8 @@ VOID RTMPSoftEncryptionAction(
 
 VOID RTMPMakeRSNIE(
 	IN PRTMP_ADAPTER pAd,
-	IN UINT AuthMode,
-	IN UINT WepStatus,
+	IN unsigned int AuthMode,
+	IN unsigned int WepStatus,
 	IN unsigned char apidx);
 
 VOID WPAInstallPairwiseKey(
@@ -418,8 +418,8 @@ char * GetEapolMsgType(
  	function prototype in cmm_wep.c
  =====================================	
 */
-UINT RTMP_CALC_FCS32(
-	IN UINT Fcs,
+unsigned int RTMP_CALC_FCS32(
+	IN unsigned int Fcs,
 	IN unsigned char * Cp,
 	IN INT Len);
 

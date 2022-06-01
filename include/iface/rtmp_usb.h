@@ -65,7 +65,7 @@ extern unsigned char EpToQueue[6];
 
 
 #define PIRP		void *
-/*#define NDIS_OID	UINT */
+/*#define NDIS_OID	unsigned int */
 #ifndef USB_ST_NOERROR
 #define USB_ST_NOERROR     0
 #endif

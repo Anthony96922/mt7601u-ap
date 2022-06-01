@@ -184,7 +184,7 @@ typedef struct _TX_CONTEXT
 	unsigned char			Header_802_3[LENGTH_802_3];
 	unsigned char			Rsv[2];
 	unsigned long			DataOffset;
-	UINT			TxRate;
+	unsigned int			TxRate;
 	ra_dma_addr_t		data_dma;
 
 #ifdef CONFIG_AP_SUPPORT
@@ -216,7 +216,7 @@ typedef struct _HT_TX_CONTEXT
 	unsigned long			CurWriteRealPos;		/* Indicate the buffer offset which packet now are writing to. */
 	unsigned long			NextBulkOutPosition;	/* Indicate the buffer start offset of a bulk-transmission */
 	unsigned long			ENextBulkOutPosition;	/* Indicate the buffer end offset of a bulk-transmission */
-	UINT			TxRate;
+	unsigned int			TxRate;
 	ra_dma_addr_t		data_dma;		/* urb dma on linux */
 #ifdef USB_BULK_BUF_ALIGMENT
 	unsigned long 			CurWriteIdx;	/* pointer to next 32k bytes position when wirte tx resource or when bulk out sizze not > 0x6000 */

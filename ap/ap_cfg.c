@@ -1307,7 +1307,7 @@ INT RTMPAPSetInformation(
 
 #ifdef SNMP_SUPPORT
 	/*snmp */
-	UINT			KeyIdx = 0;
+	unsigned int			KeyIdx = 0;
 	PNDIS_AP_802_11_KEY	pKey = NULL;
 	TX_RTY_CFG_STRUC	tx_rty_cfg;
 	unsigned long			ShortRetryLimit, LongRetryLimit;
@@ -1428,13 +1428,13 @@ INT RTMPAPSetInformation(
 			else
 			{
 				PBSSID_INFO	pBssIdInfo;
-				UINT		BssIdx;
-				UINT		CachedIdx;
+				unsigned int		BssIdx;
+				unsigned int		CachedIdx;
 
 				for (BssIdx = 0; BssIdx < pPmkId->BSSIDInfoCount; BssIdx++)
 				{
 					/* point to the indexed BSSID_INFO structure */
-					pBssIdInfo = (PBSSID_INFO) ((unsigned char *) pPmkId + 2 * sizeof(UINT) + BssIdx * sizeof(BSSID_INFO));
+					pBssIdInfo = (PBSSID_INFO) ((unsigned char *) pPmkId + 2 * sizeof(unsigned int) + BssIdx * sizeof(BSSID_INFO));
 					/* Find the entry in the saved data base. */
 					for (CachedIdx = 0; CachedIdx < pAd->ApCfg.ApCliTab[ifIndex].SavedPMKNum; CachedIdx++)
 					{
@@ -1522,7 +1522,7 @@ INT RTMPAPSetInformation(
 				}
 				else
 				{
-					UINT KeyIdx;
+					unsigned int KeyIdx;
 					BssIdx = pAd->ApCfg.BssidNum + MAX_MESH_NUM + ifIndex;
 					KeyIdx = pRemoveKey->KeyIndex;
 
@@ -1582,7 +1582,7 @@ INT RTMPAPSetInformation(
 			}
 			else
 			{
-				UINT KeyIdx;
+				unsigned int KeyIdx;
 			        KeyIdx = pWepKey->KeyIndex & 0x0fffffff;
 				/* KeyIdx must be 0 ~ 3 */
 				if (KeyIdx > 4)
@@ -1996,7 +1996,7 @@ INT RTMPAPSetInformation(
 			{
 				RTMP_WSC_U2KMSG_HDR *msgHdr = NULL;
 				unsigned char * pUPnPMsg = NULL;
-				UINT msgLen = 0, Machine = 0, msgType = 0;
+				unsigned int msgLen = 0, Machine = 0, msgType = 0;
 				int retVal, senderID = 0;
 #ifdef HOSTAPD_SUPPORT
 				unsigned char	    apidx = pObj->ioctl_if;
@@ -2019,7 +2019,7 @@ INT RTMPAPSetInformation(
 					{
 						int HeaderLen;
 						char * pWpsMsg;
-						UINT WpsMsgLen;
+						unsigned int WpsMsgLen;
 						PWSC_CTRL pWscControl;
 						BOOLEAN	bGetDeviceInfo = FALSE;
 
@@ -2224,7 +2224,7 @@ INT RTMPAPSetInformation(
 
 		case OID_802_11_WEPDEFAULTKEYVALUE:
 			{
-				UINT KeyIdx;
+				unsigned int KeyIdx;
 				DBGPRINT(RT_DEBUG_TRACE, ("Set::OID_802_11_WEPDEFAULTKEYVALUE\n"));
 /*				pKey = kmalloc(wrq->u.data.length, GFP_KERNEL); */
 				os_alloc_mem(pAd, (unsigned char **)&pKey, wrq->u.data.length);
@@ -2572,10 +2572,10 @@ INT RTMPAPSetInformation(
 
 		case HOSTAPD_OID_SET_KEY:
 			{
-				UINT KeyIdx;
+				unsigned int KeyIdx;
 				Status  = -EINVAL;
 				pObj = (POS_COOKIE) pAd->OS_Cookie;
-				UINT apidx = pObj->ioctl_if;
+				unsigned int apidx = pObj->ioctl_if;
 				if (wrq->u.data.length != sizeof(struct ieee80211req_key) || !wrq->u.data.pointer)
 					break;
 				Status = copy_from_user(&Key, wrq->u.data.pointer, wrq->u.data.length);
@@ -2774,7 +2774,7 @@ INT RTMPAPSetInformation(
 
 		case HOSTAPD_OID_STATIC_WEP_COPY:
 		{
-			UINT KeyIdx;
+			unsigned int KeyIdx;
 			INT	 apidx;
 			if (wrq->u.data.length != sizeof(struct ieee80211req_mlme))
 				Status  = -EINVAL;
@@ -2986,7 +2986,7 @@ INT RTMPAPQueryInformation(
 	unsigned char	apidx = pObj->ioctl_if;
 #endif
 #ifdef WSC_AP_SUPPORT
-	UINT		WscPinCode = 0;
+	unsigned int		WscPinCode = 0;
 	PWSC_PROFILE	pProfile;
 	PWSC_CTRL	pWscControl;
 #endif /* WSC_AP_SUPPORT */
@@ -3022,7 +3022,7 @@ INT RTMPAPQueryInformation(
 	MAC_TABLE_ENTRY			*pMacEntry = (MAC_TABLE_ENTRY *)NULL;
 	PAPCLI_STRUCT			pApCliEntry = NULL;
 	NDIS_802_11_SSID		Ssid;
-	UINT				we_version_compiled;
+	unsigned int				we_version_compiled;
 #endif/*APCLI_WPA_SUPPLICANT_SUPPORT*/
 #endif/*APCLI_SUPPORT*/
 
@@ -3063,7 +3063,7 @@ INT RTMPAPQueryInformation(
 	}
 
 	case RT_OID_WE_VERSION_COMPILED:
-		wrq->u.data.length = sizeof(UINT);
+		wrq->u.data.length = sizeof(unsigned int);
 		we_version_compiled = RtmpOsWirelessExtVerGet();
 		Status = copy_to_user(wrq->u.data.pointer, &we_version_compiled, wrq->u.data.length);
 		break;
@@ -3318,7 +3318,7 @@ INT RTMPAPQueryInformation(
 		}
 		case RT_OID_WSC_PIN_CODE:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_WSC_PIN_CODE \n"));
-			wrq->u.data.length = sizeof(UINT);
+			wrq->u.data.length = sizeof(unsigned int);
 			/*WscPinCode = GenerateWpsPinCode(pAd, FALSE, apidx); */
 			pWscControl = &pAd->ApCfg.MBSSID[apidx].WscControl;
 			
@@ -3329,7 +3329,7 @@ INT RTMPAPQueryInformation(
 #ifdef APCLI_SUPPORT
 		case RT_OID_APCLI_WSC_PIN_CODE:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_APCLI_WSC_PIN_CODE \n"));
-			wrq->u.data.length = sizeof(UINT);
+			wrq->u.data.length = sizeof(unsigned int);
 			/*WscPinCode = GenerateWpsPinCode(pAd, TRUE, apidx); */
 			WscPinCode = pAd->ApCfg.ApCliTab[0].WscControl.WscEnrolleePinCode;
 
@@ -7352,7 +7352,7 @@ VOID RTMPIoctlStatistics(
 	INT i;
 #endif
 #ifdef RTMP_EFUSE_SUPPORT
-	UINT efusefreenum=0;
+	unsigned int efusefreenum=0;
 #endif /* RTMP_EFUSE_SUPPORT */
 
 /*	msg = (char *)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
@@ -7682,7 +7682,7 @@ INT Set_ApCli_Enable_Proc(
 	IN  PRTMP_ADAPTER pAd, 
 	IN  char * arg)
 {
-	UINT Enable;
+	unsigned int Enable;
 	POS_COOKIE pObj;
 	unsigned char ifIndex;
 	
@@ -8719,7 +8719,7 @@ INT	Set_AP_WscPinCode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UINT        PinCode = 0;
+	unsigned int        PinCode = 0;
 	BOOLEAN     validatePin, bFromApCli = FALSE;
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	unsigned char       apidx = pObj->ioctl_if, mac_addr[MAC_ADDR_LEN];
@@ -9698,7 +9698,7 @@ INT	Set_WscExtraTlvData_Proc(
 	IN	char *			arg)
 {
 	POS_COOKIE		pObj = (POS_COOKIE) pAd->OS_Cookie;
-	UINT			DataLen = (UINT)strlen(arg);
+	unsigned int			DataLen = (unsigned int)strlen(arg);
 	PWSC_TLV		pWscTLV = &pAd->ApCfg.MBSSID[pObj->ioctl_if].WscControl.WscV2Info.ExtraTlv;
 	INT				i;
 
@@ -9762,7 +9762,7 @@ INT	Set_WscSetupLockTime_Proc(
 	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
-	UINT		SetupLockTime = (UINT)simple_strtol(arg, 0, 10);	
+	unsigned int		SetupLockTime = (unsigned int)simple_strtol(arg, 0, 10);	
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_WscSetupLockTime_Proc::(SetupLockTime=%d)\n", SetupLockTime));
 	pAd->ApCfg.MBSSID[pObj->ioctl_if].WscControl.SetupLockTime = SetupLockTime;
@@ -10143,7 +10143,7 @@ INT Set_OBSSScanParam_Proc(
 	IN char *			arg)
 {
 	INT ObssScanValue;
-	UINT Idx;
+	unsigned int Idx;
 	char * thisChar;
 	
 	Idx = 0;
@@ -10798,9 +10798,9 @@ INT RTMP_AP_IoctlHandle(
 				{
 					if(pData != NULL)
 					{
-						UINT modetmp = 0;
+						unsigned int modetmp = 0;
 						DBGPRINT(RT_DEBUG_TRACE, ("Query::Get phy mode (%02X) \n", pAd->CommonCfg.PhyMode));
-						modetmp = (UINT) pAd->CommonCfg.PhyMode;
+						modetmp = (unsigned int) pAd->CommonCfg.PhyMode;
 						wrq->u.data.length = 1;
 						/**(unsigned long *)pData = (unsigned long)pAd->CommonCfg.PhyMode; */
 						if (copy_to_user(pData, &modetmp, wrq->u.data.length))
@@ -11304,7 +11304,7 @@ INT	Set_TestTxFrameProc(
 			FrameLen = FrameLen + TmpLen1;
 		}
 
-		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (UINT)FrameLen, FALSE);
+		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (unsigned int)FrameLen, FALSE);
 
 		MlmeFreeMemory(pAd, pOutBuffer);
 	}
@@ -11518,7 +11518,7 @@ INT	Set_TestTxFrame1Proc(
 			FrameLen += TmpLen;
 		}
 
-		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (UINT)FrameLen, FALSE);
+		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (unsigned int)FrameLen, FALSE);
 
 		MlmeFreeMemory(pAd, pOutBuffer);
 	}
@@ -11587,7 +11587,7 @@ INT	Set_TestTxFrame2Proc(
 			FrameLen += TmpLen;
 		}
 
-		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (UINT)FrameLen, FALSE);
+		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (unsigned int)FrameLen, FALSE);
 
 		MlmeFreeMemory(pAd, pOutBuffer);
 	}
@@ -11657,7 +11657,7 @@ INT	Set_TestTxFrame3Proc(
 			FrameLen += TmpLen;
 		}
 
-		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (UINT)FrameLen, FALSE);
+		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (unsigned int)FrameLen, FALSE);
 
 		MlmeFreeMemory(pAd, pOutBuffer);
 	}
@@ -11728,7 +11728,7 @@ INT	Set_TestTxFrame4Proc(
 		}
 
 		pAd->TestMulMac = TRUE;
-		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (UINT)FrameLen, FALSE);
+		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (unsigned int)FrameLen, FALSE);
 
 		MlmeFreeMemory(pAd, pOutBuffer);
 	}
@@ -11825,7 +11825,7 @@ INT	Set_TestWAPIFrameProc(
 			FrameLen += TmpLen;
 		}
 
-		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (UINT)FrameLen, FALSE);
+		RTMPToWirelessSta(pAd, pMacEntry, Header802_3, LENGTH_802_3, pOutBuffer, (unsigned int)FrameLen, FALSE);
 
 		MlmeFreeMemory(pAd, pOutBuffer);
 	}

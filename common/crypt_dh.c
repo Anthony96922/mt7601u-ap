@@ -54,13 +54,13 @@ Note:
 */
 void DH_PublicKey_Generate (
     IN unsigned char GValue[],
-    IN UINT GValueLength,
+    IN unsigned int GValueLength,
     IN unsigned char PValue[],
-    IN UINT PValueLength,
+    IN unsigned int PValueLength,
     IN unsigned char PrivateKey[],
-    IN UINT PrivateKeyLength,
+    IN unsigned int PrivateKeyLength,
     OUT unsigned char PublicKey[],
-    INOUT UINT *PublicKeyLength)
+    INOUT unsigned int *PublicKeyLength)
 {
     PBIG_INTEGER pBI_G = NULL;
     PBIG_INTEGER pBI_P = NULL;
@@ -152,13 +152,13 @@ Note:
 */
 void DH_SecretKey_Generate (
     IN unsigned char PublicKey[],
-    IN UINT PublicKeyLength,
+    IN unsigned int PublicKeyLength,
     IN unsigned char PValue[],
-    IN UINT PValueLength,
+    IN unsigned int PValueLength,
     IN unsigned char PrivateKey[],
-    IN UINT PrivateKeyLength,
+    IN unsigned int PrivateKeyLength,
     OUT unsigned char SecretKey[],
-    INOUT UINT *SecretKeyLength)
+    INOUT unsigned int *SecretKeyLength)
 {
     PBIG_INTEGER pBI_P = NULL;
     PBIG_INTEGER pBI_SecretKey = NULL;

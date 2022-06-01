@@ -67,7 +67,7 @@ typedef	struct GNU_PACKED _WSC_IE
 typedef	struct GNU_PACKED _WSC_FRAME
 {
 	unsigned char	SMI[3];
-	UINT	VendorType;
+	unsigned int	VendorType;
 	unsigned char	OpCode;
 	unsigned char	Flags;
 }	WSC_FRAME, *PWSC_FRAME;
@@ -457,8 +457,8 @@ typedef struct	_WSC_DEV_INFO
 	unsigned char	ModelNumber[32];
 	unsigned char	SerialNumber[32];
 	unsigned char	RfBand;
-	UINT	OsVersion;
-	UINT	FeatureId;
+	unsigned int	OsVersion;
+	unsigned int	FeatureId;
 	unsigned short	AssocState;
 	unsigned short	DevPwdId;
 	unsigned short	ConfigError;
@@ -528,7 +528,7 @@ typedef struct _WSC_UPNP_NODE_INFO{
 	BOOLEAN				bUPnPInProgress;
 	BOOLEAN				bUPnPMsgTimerRunning;
 	BOOLEAN				bUPnPMsgTimerPending;
-	UINT				registrarID;
+	unsigned int				registrarID;
 	RALINK_TIMER_STRUCT   UPnPMsgTimer;
 }WSC_UPNP_NODE_INFO, *PWSC_UPNP_NODE_INFO;
 
@@ -581,10 +581,10 @@ typedef	struct	_WSC_CTRL
 	unsigned short			WscConfigMethods;  /* Registrar support list. The List is bitwise. PBC:0x0080 Lable:0x0004 Display:0x0008 */
 	INT             WscStatus;      /* for user to monitor the status */
 	INT             WscState;    	/* WSC Protocl State: M1 to M8 */
-	UINT            WscPinCode;     /* record the UI's PIN code input when we are registrar */
+	unsigned int            WscPinCode;     /* record the UI's PIN code input when we are registrar */
 	unsigned char			WscPinCodeLen;	/* record the UI's PIN code input length when we are registrar */
 	BOOLEAN         WscEnrollee4digitPinCode;  /* flag to use 4 or 8 digit Device own PIN code. */
-	UINT            WscEnrolleePinCode; /* recored Device own PIN code. */
+	unsigned int            WscEnrolleePinCode; /* recored Device own PIN code. */
 	unsigned char			WscEnrolleePinCodeLen; /* recored Device own PIN code length */
 	INT             WscSelReg;     /* record the UI's PIN code input when we are registrar */
 	NDIS_802_11_SSID	    WscSsid;		        /* select a desired ssid to connect for PIN mode */
@@ -629,7 +629,7 @@ typedef	struct	_WSC_CTRL
     INT                 WpaPskLen;
     BOOLEAN             bWscTrigger;        /* TRUE: AP-Enrollee & AP-Registrar work, FALSE: AP-Enrollee & AP-Registrar stop working */
     void *               pAd;
-    UINT                WscLastPinFromEnrollee;
+    unsigned int                WscLastPinFromEnrollee;
     BOOLEAN             WscRejectSamePinFromEnrollee;
 #ifdef CONFIG_AP_SUPPORT
 	NDIS_802_11_SSID	    WscDefaultSsid;		/* Default WPS SSID after WPS process complete with Enrollee when AP is un-configured Registrar. */
@@ -659,7 +659,7 @@ typedef	struct	_WSC_CTRL
 	BOOLEAN				bSetupLock;
 	unsigned char				PinAttackCount;
 	unsigned char				MaxPinAttack;
-	UINT				SetupLockTime; /* unit: minute */
+	unsigned int				SetupLockTime; /* unit: minute */
 #endif /* CONFIG_AP_SUPPORT */
 	BOOLEAN				bWscAutoTigeer;
 	BOOLEAN				bWscFragment;
@@ -697,9 +697,9 @@ typedef struct GNU_PACKED _RTMP_WSC_NLMSG_HDR{
 	unsigned char	signature[8];	/* Signature used to identify that this's a Ralink specific NETLINK message. 
 								MUST be "RAWSCMSG" currently.
 							*/
-	UINT	envID;			/* Unique event Identification assigned by sender. */
-	UINT	ackID;			/* Notify that this message is a repsone for the message whose event identifier is "ackID". */
-	UINT	msgLen;			/* Totally length for this message. This message may seperate in serveral packets. */
+	unsigned int	envID;			/* Unique event Identification assigned by sender. */
+	unsigned int	ackID;			/* Notify that this message is a repsone for the message whose event identifier is "ackID". */
+	unsigned int	msgLen;			/* Totally length for this message. This message may seperate in serveral packets. */
 	unsigned short	flags;			
 	unsigned short	segLen;			/* The "segLen" means the actual data length in this one msg packet.
 								Because the NETLINK socket just support 256bytes for "IWCUSTOM" typed message, so we may 
@@ -717,8 +717,8 @@ typedef struct GNU_PACKED _RTMP_WSC_NLMSG_HDR{
 typedef struct GNU_PACKED _RTMP_WSC_MSG_HDR{
 	unsigned short	msgType;
 	unsigned short	msgSubType;
-	UINT   ipAddr;
-	UINT   msgLen;		/*Not include this header. */
+	unsigned int   ipAddr;
+	unsigned int   msgLen;		/*Not include this header. */
 }RTMP_WSC_MSG_HDR;
 
 #define WSC_MSG_TYPE_ENROLLEE    0x1
@@ -739,7 +739,7 @@ char *   WscGetEncryTypeStr(
 
 #define WSC_U2KMSG_HDR_LEN	41
 typedef	struct GNU_PACKED _RTMP_WSC_U2KMSG_HDR{
-	UINT			envID;					/*Event ID. */
+	unsigned int			envID;					/*Event ID. */
 	unsigned char			Addr1[MAC_ADDR_LEN];	/*RA, should be the MAC address of the AP. */
 	unsigned char			Addr2[MAC_ADDR_LEN];	/*TA, should be the ipAddress of remote UPnP Device/CotrnolPoint. */
 	unsigned char			Addr3[MAC_ADDR_LEN];	/*DA, Not used now. */

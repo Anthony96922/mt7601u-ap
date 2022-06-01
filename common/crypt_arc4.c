@@ -43,9 +43,9 @@ Arguments:
 VOID ARC4_INIT (
     IN ARC4_CTX_STRUC *pARC4_CTX,
     IN unsigned char * pKey,
-	IN UINT KeyLength)
+	IN unsigned int KeyLength)
 {
-    UINT BlockIndex = 0, SWAPIndex = 0, KeyIndex = 0;
+    unsigned int BlockIndex = 0, SWAPIndex = 0, KeyIndex = 0;
     unsigned char TempValue = 0;
 
     /*Initialize the block value*/
@@ -84,10 +84,10 @@ Return Value:
 VOID ARC4_Compute (
     IN ARC4_CTX_STRUC *pARC4_CTX,
     IN unsigned char InputBlock[],
-    IN UINT InputBlockSize,
+    IN unsigned int InputBlockSize,
     OUT unsigned char OutputBlock[])
 {
-    UINT InputIndex = 0;
+    unsigned int InputIndex = 0;
     unsigned char TempValue = 0;
 
     for (InputIndex = 0; InputIndex < InputBlockSize; InputIndex++)
@@ -119,9 +119,9 @@ Arguments:
 */
 VOID ARC4_Discard_KeyLength (
     IN ARC4_CTX_STRUC *pARC4_CTX,
-    IN UINT Length)    
+    IN unsigned int Length)    
 {
-    UINT Index = 0;
+    unsigned int Index = 0;
     unsigned char TempValue = 0;
     
     for (Index = 0; Index < Length; Index++)

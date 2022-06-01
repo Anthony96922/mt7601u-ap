@@ -670,7 +670,7 @@ BOOLEAN BARecSessionAdd(
 	unsigned char                   TID;
 	unsigned char                   BAWinSize;
 	/*unsigned int                  Value;*/
-	/*UINT                    offset;*/
+	/*unsigned int                    offset;*/
 
 
 	ASSERT(pEntry);

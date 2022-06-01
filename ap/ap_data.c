@@ -79,7 +79,7 @@ static inline BOOLEAN ApAllowToSendPacket(
 {
 	PACKET_INFO 	PacketInfo;
 	unsigned char *			pSrcBufVA;
-	UINT			SrcBufLen;
+	unsigned int			SrcBufLen;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 	SST 			Sst;
 	unsigned short			Aid;
@@ -130,7 +130,7 @@ Routine Description:
 Arguments:
     NDIS_HANDLE 	MiniportAdapterContext	Pointer refer to the device handle, i.e., the pAd.
 	PPNDIS_PACKET	ppPacketArray			The packet array need to do transmission.
-	UINT			NumberOfPackets			Number of packet in packet array.
+	unsigned int			NumberOfPackets			Number of packet in packet array.
 	
 Return Value:
 	NONE					
@@ -140,13 +140,13 @@ Note:
 	You only can put OS-depened & AP related code in here.
 ========================================================================
 */
-VOID APSendPackets(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, UINT pkt_cnt)
+VOID APSendPackets(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, unsigned int pkt_cnt)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *) dev_hnd;
 	PNDIS_PACKET pPacket;
 	BOOLEAN allowToSend;
 	unsigned char wcid = MCAST_WCID;
-	UINT Index;
+	unsigned int Index;
 
 
 	
@@ -236,8 +236,8 @@ NDIS_STATUS APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 {
 	PACKET_INFO PacketInfo;
 	unsigned char *pSrcBufVA;
-	UINT SrcBufLen;
-	UINT AllowFragSize;
+	unsigned int SrcBufLen;
+	unsigned int AllowFragSize;
 	unsigned char NumberOfFrag;
 	unsigned char RTSRequired;
 	unsigned char QueIdx, UserPriority, apidx = MAIN_MBSSID;
@@ -1281,7 +1281,7 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	MAC_TABLE_ENTRY *pMacEntry;
 	PQUEUE_ENTRY pQEntry;
 	BOOLEAN	 bHTCPlus = FALSE;
-	UINT hdr_offset;
+	unsigned int hdr_offset;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 
@@ -2670,7 +2670,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	unsigned short EncryptionOverhead = 0;	
 	unsigned int FreeMpduSize, SrcRemainingBytes;
 	unsigned short AckDuration;
-	UINT NextMpduSize;
+	unsigned int NextMpduSize;
 	BOOLEAN bVLANPkt;
 	PQUEUE_ENTRY pQEntry;
 	PACKET_INFO PacketInfo;
@@ -2970,7 +2970,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 		{	/* more fragment is required */
 			pTxBlk->SrcBufLen = FreeMpduSize;
 			
-			NextMpduSize = min(((UINT)SrcRemainingBytes - pTxBlk->SrcBufLen), ((UINT)pAd->CommonCfg.FragmentThreshold));
+			NextMpduSize = min(((unsigned int)SrcRemainingBytes - pTxBlk->SrcBufLen), ((unsigned int)pAd->CommonCfg.FragmentThreshold));
 			pHeader_802_11->FC.MoreFrag = 1;
 			pHeader_802_11->Duration = (3 * pAd->CommonCfg.Dsifs) + (2 * AckDuration) + RTMPCalcDuration(pAd, pTxBlk->TxRate, NextMpduSize + EncryptionOverhead);
 		}

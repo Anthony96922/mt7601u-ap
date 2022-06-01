@@ -784,7 +784,7 @@ static VOID ApCliAssocPostProc(
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 VOID    ApcliSendAssocIEsToWpaSupplicant( 
     IN  PRTMP_ADAPTER pAd,
-    IN UINT ifIndex)
+    IN unsigned int ifIndex)
 {
 	STRING custom[IW_CUSTOM_MAX] = {0};
 

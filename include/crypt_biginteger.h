@@ -35,9 +35,9 @@ typedef struct _BIG_INTEGER_STRUC
 {
 	STRING Name[10];
 	unsigned int *pIntegerArray;
-	UINT AllocSize;
-	UINT ArrayLength;
-	UINT IntegerLength;
+	unsigned int AllocSize;
+	unsigned int ArrayLength;
+	unsigned int IntegerLength;
 	INT  Signed;
 } BIG_INTEGER, *PBIG_INTEGER;
 
@@ -65,24 +65,24 @@ VOID BigInteger_ClearHighBits (
 VOID BigInteger_BI2Bin (
     IN PBIG_INTEGER pBI, 
     OUT unsigned char *pValue,
-    OUT UINT *Length);
+    OUT unsigned int *Length);
 
 VOID BigInteger_Bin2BI (
     IN unsigned char *pValue,
-    IN UINT Length,
+    IN unsigned int Length,
     OUT PBIG_INTEGER *pBI);
 
 VOID BigInteger_BitsOfBI (
     IN PBIG_INTEGER pBI,
-    OUT UINT *Bits_Of_P);
+    OUT unsigned int *Bits_Of_P);
 
 INT BigInteger_GetBitValue (
     IN PBIG_INTEGER pBI,
-    IN UINT Index);
+    IN unsigned int Index);
 
 unsigned char BigInteger_GetByteValue (
     IN PBIG_INTEGER pBI,
-    IN UINT Index);
+    IN unsigned int Index);
 
 VOID BigInteger_Copy (
     IN PBIG_INTEGER pBI_Copied,

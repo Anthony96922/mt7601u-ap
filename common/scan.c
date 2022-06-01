@@ -310,10 +310,10 @@ VOID ScanNextChannel(
 	IN unsigned char OpMode) 
 {
 	unsigned char ScanType = pAd->MlmeAux.ScanType;
-	UINT ScanTimeIn5gChannel = SHORT_CHANNEL_TIME;
+	unsigned int ScanTimeIn5gChannel = SHORT_CHANNEL_TIME;
 	BOOLEAN ScanPending = FALSE;
 	RALINK_TIMER_STRUCT *sc_timer;
-	UINT stay_time = 0;
+	unsigned int stay_time = 0;
 
 
 #ifdef RALINK_ATE

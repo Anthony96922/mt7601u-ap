@@ -85,34 +85,34 @@
 typedef	union _RLT_RF_CSR_CFG {
 #ifdef RT_BIG_ENDIAN
 	struct {
-		UINT RF_CSR_KICK:1;
-		UINT RF_CSR_WR:1;
-		UINT rsv:12;
+		unsigned int RF_CSR_KICK:1;
+		unsigned int RF_CSR_WR:1;
+		unsigned int rsv:12;
 #ifdef MT7601
-		UINT RF_CSR_REG_BANK:4;
-		UINT RF_CSR_REG_ID:6;
+		unsigned int RF_CSR_REG_BANK:4;
+		unsigned int RF_CSR_REG_ID:6;
 #else
-		UINT RF_CSR_REG_BANK:3;
-		UINT RF_CSR_REG_ID:7;
+		unsigned int RF_CSR_REG_BANK:3;
+		unsigned int RF_CSR_REG_ID:7;
 #endif /* MT7601 */
-		UINT RF_CSR_DATA:8;
+		unsigned int RF_CSR_DATA:8;
 	} field;
 #else
 	struct {
-		UINT RF_CSR_DATA:8;
+		unsigned int RF_CSR_DATA:8;
 #ifdef MT7601
-		UINT RF_CSR_REG_ID:6;
-		UINT RF_CSR_REG_BANK:4;
+		unsigned int RF_CSR_REG_ID:6;
+		unsigned int RF_CSR_REG_BANK:4;
 #else
-		UINT RF_CSR_REG_ID:7;
-		UINT RF_CSR_REG_BANK:3;
+		unsigned int RF_CSR_REG_ID:7;
+		unsigned int RF_CSR_REG_BANK:3;
 #endif /* MT7601 */
-		UINT rsv:12;
-		UINT RF_CSR_WR:1;
-		UINT RF_CSR_KICK:1;
+		unsigned int rsv:12;
+		unsigned int RF_CSR_WR:1;
+		unsigned int RF_CSR_KICK:1;
 	} field;
 #endif /* RT_BIG_ENDIAN */
-	UINT word;
+	unsigned int word;
 }RLT_RF_CSR_CFG;
 #endif /* RLT_RF */
 
