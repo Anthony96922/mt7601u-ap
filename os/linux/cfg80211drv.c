@@ -115,10 +115,10 @@ INT CFG80211DRV_IoctlHandle(
 			if (!active)
 			{
 				RTMPSetLED(pAd, LED_RADIO_OFF);
-				*(UINT8 *)pData = 0;
+				*(unsigned char *)pData = 0;
 			}
 			else
-				*(UINT8 *)pData = 1;
+				*(unsigned char *)pData = 1;
 		}
 			break;
 #endif /* RFKILL_HW_SUPPORT */
@@ -483,9 +483,9 @@ BOOLEAN CFG80211DRV_OpsSetChannel(
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	CMD_RTPRIV_IOCTL_80211_CHAN *pChan;
-	UINT8 ChanId;
-	UINT8 IfType;
-	UINT8 ChannelType;
+	unsigned char ChanId;
+	unsigned char IfType;
+	unsigned char ChannelType;
 	STRING ChStr[5] = { 0 };
 #ifdef DOT11_N_SUPPORT
 	UCHAR BW_Old;
@@ -569,7 +569,7 @@ BOOLEAN CFG80211DRV_OpsSetChannel(
 BOOLEAN CFG80211DRV_OpsChgVirtualInf(
 	VOID						*pAdOrg,
 	VOID						*pFlgFilter,
-	UINT8						IfType)
+	unsigned char						IfType)
 {
 
 	return TRUE;
@@ -606,7 +606,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
         UCHAR  *ptr;
         UINT  i;
         unsigned int longValue;
-        UINT8 TXWISize = pAd->chipCap.TXWISize;
+        unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned int rx_filter_flag;
 	BOOLEAN TxPreamble, SpectrumMgmt = FALSE;
 	BOOLEAN	bWmmCapable = FALSE;

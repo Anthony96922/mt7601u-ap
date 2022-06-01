@@ -205,7 +205,7 @@ INT ATESetUpFrame(
 	TXINFO_STRUC *pTxInfo;	
 	unsigned int			TransferBufferLength, OrgBufferLength = 0;
 	UCHAR			padLen = 0;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 #ifdef RALINK_QA
 	PHEADER_802_11	pHeader80211 = NULL;
 #endif /* RALINK_QA */

@@ -263,40 +263,40 @@
 #define IWEVEXPIRED	0x8C04
 
 struct ieee80211req_mlme {
-	UINT8 im_op;		/* operation to perform */
-	UINT8 im_ssid_len;	/* length of optional ssid */
+	unsigned char im_op;		/* operation to perform */
+	unsigned char im_ssid_len;	/* length of optional ssid */
 	unsigned short im_reason;	/* 802.11 reason code */
-	UINT8 im_macaddr[IEEE80211_ADDR_LEN];
-	UINT8 im_ssid[IEEE80211_NWID_LEN];
+	unsigned char im_macaddr[IEEE80211_ADDR_LEN];
+	unsigned char im_ssid[IEEE80211_NWID_LEN];
 };
 
 struct ieee80211req_key {
-	UINT8 ik_type;		/* key/cipher type */
-	UINT8 ik_pad;
+	unsigned char ik_type;		/* key/cipher type */
+	unsigned char ik_pad;
 	unsigned short ik_keyix;	/* key index */
-	UINT8 ik_keylen;	/* key length in bytes */
-	UINT8 ik_flags;
-	UINT8 ik_macaddr[IEEE80211_ADDR_LEN];
+	unsigned char ik_keylen;	/* key length in bytes */
+	unsigned char ik_flags;
+	unsigned char ik_macaddr[IEEE80211_ADDR_LEN];
 	unsigned long long ik_keyrsc;	/* key receive sequence counter */
 	unsigned long long ik_keytsc;	/* key transmit sequence counter */
-	UINT8 ik_keydata[IEEE80211_KEYBUF_SIZE + IEEE80211_MICBUF_SIZE];
+	unsigned char ik_keydata[IEEE80211_KEYBUF_SIZE + IEEE80211_MICBUF_SIZE];
 	int txkey;
 };
 
 struct ieee80211req_del_key {
-	UINT8 idk_keyix;	/* key index */
-	UINT8 idk_macaddr[IEEE80211_ADDR_LEN];
+	unsigned char idk_keyix;	/* key index */
+	unsigned char idk_macaddr[IEEE80211_ADDR_LEN];
 };
 
 struct default_group_key {
 	unsigned short ik_keyix;	/* key index */
-	UINT8 ik_keylen;	/* key length in bytes */
-	UINT8 ik_keydata[IEEE80211_KEYBUF_SIZE + IEEE80211_MICBUF_SIZE];
+	unsigned char ik_keylen;	/* key length in bytes */
+	unsigned char ik_keydata[IEEE80211_KEYBUF_SIZE + IEEE80211_MICBUF_SIZE];
 };
 
 struct ieee80211req_wpaie {
-	UINT8 wpa_macaddr[IEEE80211_ADDR_LEN];
-	UINT8 rsn_ie[IEEE80211_MAX_OPT_IE];
+	unsigned char wpa_macaddr[IEEE80211_ADDR_LEN];
+	unsigned char rsn_ie[IEEE80211_MAX_OPT_IE];
 };
 
 struct hostapd_wpa_psk {

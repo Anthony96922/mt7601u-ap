@@ -66,11 +66,11 @@ typedef struct _TSO_INFO_{
  * R: R11[1:0] (eg. R=1 => 0x0, R=3 => 0x2)
  */
 typedef struct _RT8592_FREQ_ITEM {
-	UINT8 Channel;
+	unsigned char Channel;
 	unsigned short N;
-	UINT8 K;
-	UINT8 mod;
-	UINT8 R;
+	unsigned char K;
+	unsigned char mod;
+	unsigned char R;
 } RT8592_FREQ_ITEM;
 
 #define RT6590_RF_VER	"MT7650_WiFi_RF_Register_20120516.xls"
@@ -90,17 +90,17 @@ typedef struct _RT8592_FREQ_ITEM {
 		Pll_LDO: R16 [6:4] = <010>
 */
 typedef struct _RT6590_FREQ_ITEM {
-	UINT8 Channel;
-	UINT8 Band;
+	unsigned char Channel;
+	unsigned char Band;
 	unsigned short PLL_N;
-	UINT8 PLL_K;
-	UINT8 Rdiv;
-	UINT8 NonSigma;
-	UINT8 Den;
-	UINT8 LFC_R33;
-	UINT8 LFC_R34;
+	unsigned char PLL_K;
+	unsigned char Rdiv;
+	unsigned char NonSigma;
+	unsigned char Den;
+	unsigned char LFC_R33;
+	unsigned char LFC_R34;
 	unsigned int Pll_idiv;
-	UINT8 Pll_LDO; // 5G only
+	unsigned char Pll_LDO; // 5G only
 } RT6590_FREQ_ITEM;
 
 #define RF_G_BAND 		0x01

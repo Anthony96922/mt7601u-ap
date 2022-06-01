@@ -1896,7 +1896,7 @@ error:
 
 INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLevel, 
 					unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
-					UINT8 TIMByteOffset, UINT8 TIMBytePattern)
+					unsigned char TIMByteOffset, unsigned char TIMBytePattern)
 {
 	struct CMD_UNIT CmdUnit;
 	CHAR *Pos, *Buf;

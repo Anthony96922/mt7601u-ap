@@ -46,13 +46,13 @@ VOID ARC4_INIT (
 	IN UINT KeyLength)
 {
     UINT BlockIndex = 0, SWAPIndex = 0, KeyIndex = 0;
-    UINT8 TempValue = 0;
+    unsigned char TempValue = 0;
 
     /*Initialize the block value*/
     pARC4_CTX->BlockIndex1 = 0;
     pARC4_CTX->BlockIndex2 = 0;
     for (BlockIndex = 0; BlockIndex < ARC4_KEY_BLOCK_SIZE; BlockIndex++)
-        pARC4_CTX->KeyBlock[BlockIndex] = (UINT8) BlockIndex;
+        pARC4_CTX->KeyBlock[BlockIndex] = (unsigned char) BlockIndex;
 
     /*Key schedule*/
     for (BlockIndex = 0; BlockIndex < ARC4_KEY_BLOCK_SIZE; BlockIndex++)
@@ -83,12 +83,12 @@ Return Value:
 */
 VOID ARC4_Compute (
     IN ARC4_CTX_STRUC *pARC4_CTX,
-    IN UINT8 InputBlock[],
+    IN unsigned char InputBlock[],
     IN UINT InputBlockSize,
-    OUT UINT8 OutputBlock[])
+    OUT unsigned char OutputBlock[])
 {
     UINT InputIndex = 0;
-    UINT8 TempValue = 0;
+    unsigned char TempValue = 0;
 
     for (InputIndex = 0; InputIndex < InputBlockSize; InputIndex++)
     {
@@ -122,7 +122,7 @@ VOID ARC4_Discard_KeyLength (
     IN UINT Length)    
 {
     UINT Index = 0;
-    UINT8 TempValue = 0;
+    unsigned char TempValue = 0;
     
     for (Index = 0; Index < Length; Index++)
     {

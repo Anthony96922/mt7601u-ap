@@ -135,36 +135,36 @@ typedef struct GNU_PACKED _WAPIIE_MCAST {
 /* the relative to wapi daemon */
 typedef struct GNU_PACKED _COMMON_WAPI_INFO
 {	
-	UINT8			wapi_ifname[WAPI_IFNAMSIZ];		/* wai negotiation */
-	UINT8			wapi_ifname_len;			
-	UINT8 			preauth_ifname[WAPI_IFNAMSIZ];	/* pre-authentication */
-	UINT8			preauth_ifname_len;
-	UINT8			as_cert_no;
-	UINT8			as_cert_path[MAX_ID_NO][128];			/* the path of as certification */
-	UINT8			as_cert_path_len[MAX_ID_NO];
-	UINT8			ca_cert_path[128];			/* the path of ca certification */
-	UINT8			ca_cert_path_len;
-	UINT8			user_cert_path[128];		/* the path of local user certification */
-	UINT8			user_cert_path_len;		
+	unsigned char			wapi_ifname[WAPI_IFNAMSIZ];		/* wai negotiation */
+	unsigned char			wapi_ifname_len;			
+	unsigned char 			preauth_ifname[WAPI_IFNAMSIZ];	/* pre-authentication */
+	unsigned char			preauth_ifname_len;
+	unsigned char			as_cert_no;
+	unsigned char			as_cert_path[MAX_ID_NO][128];			/* the path of as certification */
+	unsigned char			as_cert_path_len[MAX_ID_NO];
+	unsigned char			ca_cert_path[128];			/* the path of ca certification */
+	unsigned char			ca_cert_path_len;
+	unsigned char			user_cert_path[128];		/* the path of local user certification */
+	unsigned char			user_cert_path_len;		
 	unsigned int			wapi_as_ip;					/* the ip address of authentication server */
 	unsigned int			wapi_as_port;				/* the port of authentication server */
 } COMMON_WAPI_INFO, *PCOMMON_WAPI_INFO;
 
 typedef struct GNU_PACKED _MBSS_WAPI_INFO
 {	
-	UINT8			ifname[WAPI_IFNAMSIZ];
-	UINT8			ifname_len;
-	UINT8			auth_mode;	
-    UINT8       	psk[64];
-	UINT8			psk_len;	
-	UINT8			wie[128];
-	UINT8			wie_len;
+	unsigned char			ifname[WAPI_IFNAMSIZ];
+	unsigned char			ifname_len;
+	unsigned char			auth_mode;	
+    unsigned char       	psk[64];
+	unsigned char			psk_len;	
+	unsigned char			wie[128];
+	unsigned char			wie_len;
 } MBSS_WAPI_INFO, *PMBSS_WAPI_INFO;
 
 /* It's used by wapi daemon to require relative configuration */
 typedef struct GNU_PACKED _WAPI_CONF
 {
-    UINT8				mbss_num;					/* indicate multiple BSS number */
+    unsigned char				mbss_num;					/* indicate multiple BSS number */
 	COMMON_WAPI_INFO	comm_wapi_info;		
 	MBSS_WAPI_INFO		mbss_wapi_info[MAX_WAPI_MBSSID_NUM];
 } WAPI_CONF, *PWAPI_CONF;

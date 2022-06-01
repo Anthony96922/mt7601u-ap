@@ -2277,7 +2277,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			{
 				STRING tok_str[32];
 				int index;
-				UINT8 DfsEngineNum = pAd->chipCap.DfsEngineNum;
+				unsigned char DfsEngineNum = pAd->chipCap.DfsEngineNum;
 				index = (k%DfsEngineNum);
 				if (((k-k%DfsEngineNum)/DfsEngineNum) == 0)
 					snprintf(tok_str, sizeof(tok_str), "FCCParamCh%d", index);
@@ -3489,9 +3489,9 @@ NDIS_STATUS RTMPSetProfileParameters(
 
 #ifdef MULTIPLE_CARD_SUPPORT
 /* record whether the card in the card list is used in the card file*/
-UINT8 MC_CardUsed[MAX_NUM_OF_MULTIPLE_CARD];
+unsigned char MC_CardUsed[MAX_NUM_OF_MULTIPLE_CARD];
 /* record used card mac address in the card list*/
-static UINT8 MC_CardMac[MAX_NUM_OF_MULTIPLE_CARD][6];
+static unsigned char MC_CardMac[MAX_NUM_OF_MULTIPLE_CARD][6];
 
 /*
 ========================================================================
@@ -3534,7 +3534,7 @@ BOOLEAN RTMP_CardInfoRead(
 	INT32 card_free_id, card_nouse_id, card_same_mac_id, card_match_id;
 	EEPROM_ANTENNA_STRUC antenna;
 	USHORT addr01, addr23, addr45;
-	UINT8 mac[6];
+	unsigned char mac[6];
 	unsigned int data, card_index;
 	UCHAR *start_ptr;
 	RTMP_OS_FS_INFO osFSInfo;
@@ -4293,7 +4293,7 @@ UCHAR GetSkuChannelBasePwr(
 	CH_POWER *ch;
 	UCHAR start_ch;
 	UCHAR base_pwr = pAd->DefaultTargetPwr;
-	UINT8 i, j;
+	unsigned char i, j;
 
 	ch = pAd->SingleSkuPwrList.pHead;
 	while (ch) {
@@ -4455,7 +4455,7 @@ UCHAR GetSkuRatePwr(
 	IN UCHAR 			channel,
 	IN UCHAR			bw)
 {
-	UINT8 i;
+	unsigned char i;
 	CH_POWER *ch;
 	UCHAR start_ch;
 	UCHAR rate_pwr = pAd->DefaultTargetPwr;

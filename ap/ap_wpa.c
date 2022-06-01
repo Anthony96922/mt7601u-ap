@@ -1183,7 +1183,7 @@ VOID RTMPGetTxTscFromAsic(
 VOID	WPA_APSetGroupRekeyAction(
 	IN  PRTMP_ADAPTER   pAd)
 {
-	UINT8	apidx = 0;
+	unsigned char	apidx = 0;
 
 	for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
 	{
@@ -1547,7 +1547,7 @@ VOID ieee80211_notify_michael_failure(
 }
 
 
-const CHAR* ether_sprintf(const UINT8 *mac)
+const CHAR* ether_sprintf(const unsigned char *mac)
 {
     static char etherbuf[18];
     snprintf(etherbuf,sizeof(etherbuf),"%02x:%02x:%02x:%02x:%02x:%02x",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5]);

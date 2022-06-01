@@ -13,7 +13,7 @@ INT get_pkt_phymode_by_rxwi(RXWI_STRUC *rxwi)
 
 INT get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, CHAR *rssi)
 {
-	if (size < sizeof(rxwi->RXWI_N.rssi)/ sizeof(UINT8))
+	if (size < sizeof(rxwi->RXWI_N.rssi)/ sizeof(unsigned char))
 		NdisMoveMemory(rssi, &rxwi->RXWI_N.rssi[0], size);
 
 	return 0;

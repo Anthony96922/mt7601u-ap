@@ -756,7 +756,7 @@ VOID RTMPDrvOpen(
 
 /*	{
 	u32 reg;
-	UINT8  byte;
+	unsigned char  byte;
 	u16 tmp;
 
 	RTMP_IO_READ32(pAd, XIFS_TIME_CFG, &reg);

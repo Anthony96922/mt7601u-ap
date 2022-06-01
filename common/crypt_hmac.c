@@ -49,17 +49,17 @@ Note:
 ========================================================================
 */
 VOID RT_HMAC_SHA1 (
-    IN  const UINT8 Key[], 
+    IN  const unsigned char Key[], 
     IN  UINT KeyLen, 
-    IN  const UINT8 Message[], 
+    IN  const unsigned char Message[], 
     IN  UINT MessageLen, 
-    OUT UINT8 MAC[],
+    OUT unsigned char MAC[],
     IN  UINT MACLen)    
 {
     SHA1_CTX_STRUC sha_ctx1;
     SHA1_CTX_STRUC sha_ctx2;
-    UINT8 K0[SHA1_BLOCK_SIZE];
-    UINT8 Digest[SHA1_DIGEST_SIZE];    
+    unsigned char K0[SHA1_BLOCK_SIZE];
+    unsigned char Digest[SHA1_DIGEST_SIZE];    
     UINT index;
 
     NdisZeroMemory(&sha_ctx1, sizeof(SHA1_CTX_STRUC));
@@ -132,17 +132,17 @@ Note:
 ========================================================================
 */
 VOID RT_HMAC_SHA256 (
-    IN  const UINT8 Key[], 
+    IN  const unsigned char Key[], 
     IN  UINT KeyLen, 
-    IN  const UINT8 Message[], 
+    IN  const unsigned char Message[], 
     IN  UINT MessageLen, 
-    OUT UINT8 MAC[],
+    OUT unsigned char MAC[],
     IN  UINT MACLen)
 {
     SHA256_CTX_STRUC sha_ctx1;
     SHA256_CTX_STRUC sha_ctx2;
-    UINT8 K0[SHA256_BLOCK_SIZE];
-    UINT8 Digest[SHA256_DIGEST_SIZE];
+    unsigned char K0[SHA256_BLOCK_SIZE];
+    unsigned char Digest[SHA256_DIGEST_SIZE];
     UINT index;
 
     NdisZeroMemory(&sha_ctx1, sizeof(SHA256_CTX_STRUC));
@@ -216,17 +216,17 @@ Note:
 ========================================================================
 */
 VOID RT_HMAC_MD5(
-    IN  const UINT8 Key[], 
+    IN  const unsigned char Key[], 
     IN  UINT KeyLen, 
-    IN  const UINT8 Message[], 
+    IN  const unsigned char Message[], 
     IN  UINT MessageLen, 
-    OUT UINT8 MAC[],
+    OUT unsigned char MAC[],
     IN  UINT MACLen)    
 {
     MD5_CTX_STRUC md5_ctx1;
     MD5_CTX_STRUC md5_ctx2;
-    UINT8 K0[MD5_BLOCK_SIZE];
-    UINT8 Digest[MD5_DIGEST_SIZE];    
+    unsigned char K0[MD5_BLOCK_SIZE];
+    unsigned char Digest[MD5_DIGEST_SIZE];    
     UINT index;
 
     NdisZeroMemory(&md5_ctx1, sizeof(MD5_CTX_STRUC));

@@ -44,7 +44,7 @@ static VOID APFindCipherAlgorithm(
 VOID RTMP_BASetup(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pMacEntry,
-	IN UINT8 UserPriority)
+	IN unsigned char UserPriority)
 {
 	if (pMacEntry && (pMacEntry->NoBADataCountDown == 0) && IS_HT_STA(pMacEntry))
 	{
@@ -895,7 +895,7 @@ static inline VOID APBuildWifiInfo(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  TX_BLK          *pTxBlk)
 {
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	PWIFI_INFO_STRUC pWI;
 
 
@@ -940,7 +940,7 @@ static inline VOID APBuildWifiInfo(
 static inline VOID APBuildCommon802_11Header(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	HEADER_802_11 *wifi_hdr;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 	/*
 		MAKE A COMMON 802.11 HEADER
@@ -1041,7 +1041,7 @@ static inline unsigned char * AP_Build_ARalink_Frame_Header(
 	PNDIS_PACKET	pNextPacket;
 	unsigned int			nextBufLen;
 	PQUEUE_ENTRY	pQEntry;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 		
 	APFindCipherAlgorithm(pAd, pTxBlk);
 	APBuildCommon802_11Header(pAd, pTxBlk);
@@ -1130,7 +1130,7 @@ static inline unsigned char * AP_Build_AMSDU_Frame_Header(
 {
 	UCHAR *pHeaderBufPtr;
 	HEADER_802_11 *pHeader_802_11;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 
 	APFindCipherAlgorithm(pAd, pTxBlk);
@@ -1282,7 +1282,7 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	PQUEUE_ENTRY pQEntry;
 	BOOLEAN	 bHTCPlus = FALSE;
 	UINT hdr_offset;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 
 	ASSERT(pTxBlk);
@@ -1739,7 +1739,7 @@ VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
 	USHORT			FreeNumber = 1; /* no use */
 	MAC_TABLE_ENTRY	*pMacEntry;
 	PQUEUE_ENTRY	pQEntry;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	PWIFI_INFO_STRUC pWI;
 	
 	ASSERT(pTxBlk);
@@ -2135,7 +2135,7 @@ VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	USHORT freeCnt = 1;
 	BOOLEAN bVLANPkt;
 	QUEUE_ENTRY *pQEntry;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 
 	ASSERT(pTxBlk);
@@ -2495,7 +2495,7 @@ VOID AP_Legacy_Frame_Tx_Hdr_Trns(
 	USHORT			FreeNumber = 1; /* no use */
 	BOOLEAN			bVLANPkt;
 	PQUEUE_ENTRY	pQEntry;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	PWIFI_INFO_STRUC pWI;
 	
 	ASSERT(pTxBlk);
@@ -2679,7 +2679,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	unsigned int buf_offset = 0;
 #endif /* SOFT_ENCRYPT */
 	HTTRANSMIT_SETTING	*pTransmit;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	
 	ASSERT(pTxBlk);
 
@@ -5691,7 +5691,7 @@ BOOLEAN APRxDoneInterruptHandle(RTMP_ADAPTER *pAd)
 	PHEADER_802_11 pHeader;
 	RX_BLK rxblk, *pRxBlk;
 	MULTISSID_STRUCT *pMbss;
-	UINT8 RXWISize = pAd->chipCap.RXWISize;
+	unsigned char RXWISize = pAd->chipCap.RXWISize;
 #ifdef WDS_SUPPORT
 	MAC_TABLE_ENTRY *pEntry = NULL;
 #endif

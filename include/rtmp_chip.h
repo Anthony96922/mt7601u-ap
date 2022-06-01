@@ -528,23 +528,23 @@ struct _RTMP_CHIP_CAP_ {
 
 	/* beacon */
 	BOOLEAN FlgIsSupSpecBcnBuf;	/* SPECIFIC_BCN_BUF_SUPPORT */
-	UINT8 BcnMaxNum;	/* software use */
-	UINT8 BcnMaxHwNum;	/* hardware limitation */
-	UINT8 WcidHwRsvNum;	/* hardware available WCID number */
+	unsigned char BcnMaxNum;	/* software use */
+	unsigned char BcnMaxHwNum;	/* hardware limitation */
+	unsigned char WcidHwRsvNum;	/* hardware available WCID number */
 	unsigned short BcnMaxHwSize;	/* hardware maximum beacon size */
 	unsigned short BcnBase[HW_BEACON_MAX_NUM];	/* hardware beacon base address */
 	
 	/* function */
-	/* use UINT8, not bit-or to speed up driver */
+	/* use unsigned char, not bit-or to speed up driver */
 	BOOLEAN FlgIsHwWapiSup;
 
 	/* VCO calibration mode */
-	UINT8	VcoPeriod; /* default 10s */
+	unsigned char	VcoPeriod; /* default 10s */
 #define VCO_CAL_DISABLE		0	/* not support */
 #define VCO_CAL_MODE_1		1	/* toggle RF7[0] */
 #define VCO_CAL_MODE_2		2	/* toggle RF3[7] */
 #define VCO_CAL_MODE_3		3	/* toggle RF4[7] */	
-	UINT8	FlgIsVcoReCalMode;
+	unsigned char	FlgIsVcoReCalMode;
 
 	BOOLEAN FlgIsHwAntennaDiversitySup;
 	BOOLEAN FlgSwBasedPPAD;
@@ -570,19 +570,19 @@ struct _RTMP_CHIP_CAP_ {
 #define SNR_FORMULA1		0	/* ((0xeb     - pAd->StaCfg.LastSNR0) * 3) / 16; */
 #define SNR_FORMULA2		1	/* (pAd->StaCfg.LastSNR0 * 3 + 8) >> 4; */
 #define SNR_FORMULA3		2	/* (pAd->StaCfg.LastSNR0) * 3) / 16; */
-	UINT8 SnrFormula;
+	unsigned char SnrFormula;
 
-	UINT8 MaxNss;			/* maximum Nss, 3 for 3883 or 3593 */
+	unsigned char MaxNss;			/* maximum Nss, 3 for 3883 or 3593 */
 
 	BOOLEAN bTempCompTxALC;
 
 	BOOLEAN bLimitPowerRange; /* TSSI compensation range limit */
 
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION)
-	UINT8 TxAlcTxPowerUpperBound_2G;
+	unsigned char TxAlcTxPowerUpperBound_2G;
 	const TX_POWER_TUNING_ENTRY_STRUCT *TxPowerTuningTable_2G;
 #ifdef A_BAND_SUPPORT
-	UINT8 TxAlcTxPowerUpperBound_5G;
+	unsigned char TxAlcTxPowerUpperBound_5G;
 	const TX_POWER_TUNING_ENTRY_STRUCT *TxPowerTuningTable_5G;
 #endif /* A_BAND_SUPPORT */
 
@@ -606,14 +606,14 @@ struct _RTMP_CHIP_CAP_ {
 	INT32	CurrentTemperature;					// (BBP_R49 - Ref25C) * offset
 #endif /* MT7601 */
 	/* ---------------------------- packet ---------------------------------- */
-	UINT8 TXWISize;
-	UINT8 RXWISize;
+	unsigned char TXWISize;
+	unsigned char RXWISize;
 
 	/* ---------------------------- others ---------------------------------- */
 #ifdef RTMP_EFUSE_SUPPORT
 	unsigned short EFUSE_USAGE_MAP_START;
 	unsigned short EFUSE_USAGE_MAP_END;
-	UINT8 EFUSE_USAGE_MAP_SIZE;
+	unsigned char EFUSE_USAGE_MAP_SIZE;
 	UCHAR *EFUSE_DEFAULT_BIN;
 	unsigned short EFUSE_DEFAULT_BIN_SIZE;
 #endif /* RTMP_EFUSE_SUPPORT */
@@ -626,7 +626,7 @@ struct _RTMP_CHIP_CAP_ {
 	UCHAR carrier_func;
 #endif /* CARRIER_DETECTION_SUPPORT */
 #ifdef DFS_SUPPORT
-	UINT8 DfsEngineNum;
+	unsigned char DfsEngineNum;
 #endif /* DFS_SUPPORT */
 
 	/*
@@ -636,7 +636,7 @@ struct _RTMP_CHIP_CAP_ {
 		2 : 16 DWORD (64 bytes)
 		3 : 32 DWORD (128 bytes)
 	*/
-	UINT8 WPDMABurstSIZE;
+	unsigned char WPDMABurstSIZE;
 
 	/* 
  	 * 0: MBSSID_MODE0 
@@ -644,7 +644,7 @@ struct _RTMP_CHIP_CAP_ {
  	 * 1: MBSSID_MODE1
  	 * (The multiple MAC_ADDR/BSSID are distinguished by [bit4:bit2] of byte0) 
  	 */
-	UINT8 MBSSIDMode;
+	unsigned char MBSSIDMode;
 
 
 
@@ -655,7 +655,7 @@ struct _RTMP_CHIP_CAP_ {
 #ifdef CONFIG_ANDES_SUPPORT
 	unsigned int WlanMemmapOffset;
 	unsigned int InbandPacketMaxLen;
-	UINT8 CmdRspRxRing;
+	unsigned char CmdRspRxRing;
 	BOOLEAN IsComboChip;
 #endif
 
@@ -665,11 +665,11 @@ struct _RTMP_CHIP_CAP_ {
 #endif /* SINGLE_SKU_V2 */
 
 #ifdef RTMP_USB_SUPPORT
-	UINT8 DataBulkInAddr;
-	UINT8 CommandRspBulkInAddr;
-	UINT8 WMM0ACBulkOutAddr[4];
-	UINT8 WMM1ACBulkOutAddr;
-	UINT8 CommandBulkOutAddr;
+	unsigned char DataBulkInAddr;
+	unsigned char CommandRspBulkInAddr;
+	unsigned char WMM0ACBulkOutAddr[4];
+	unsigned char WMM1ACBulkOutAddr;
+	unsigned char CommandBulkOutAddr;
 #endif
 	
 	enum MCU_TYPE MCUType;
@@ -718,7 +718,7 @@ struct _RTMP_CHIP_OP_ {
 	VOID (*RxSensitivityTuning)(IN struct _RTMP_ADAPTER *pAd);
 
 	/* MAC */
-	VOID (*BeaconUpdate)(struct _RTMP_ADAPTER *pAd, USHORT Offset, unsigned int Value, UINT8 Unit);
+	VOID (*BeaconUpdate)(struct _RTMP_ADAPTER *pAd, USHORT Offset, unsigned int Value, unsigned char Unit);
 
 	/* BBP adjust */
 	VOID (*ChipBBPAdjust)(IN struct _RTMP_ADAPTER *pAd);
@@ -806,7 +806,7 @@ struct _RTMP_CHIP_OP_ {
 
 	INT (*PwrSavingOP)(struct _RTMP_ADAPTER *pAd, unsigned int PwrOP, unsigned int PwrLevel, 
 							unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
-							UINT8 TIMByteOffset, UINT8 TIMBytePattern);
+							unsigned char TIMByteOffset, unsigned char TIMBytePattern);
 
 #ifdef MICROWAVE_OVEN_SUPPORT
 	VOID (*AsicMeasureFalseCCA)(IN struct _RTMP_ADAPTER *pAd);
@@ -1056,13 +1056,13 @@ VOID RtmpChipWriteHighMemory(
 	IN	struct _RTMP_ADAPTER *pAd,
 	IN	USHORT			Offset,
 	IN	unsigned int			Value,
-	IN	UINT8			Unit);
+	IN	unsigned char			Unit);
 
 VOID RtmpChipWriteMemory(
 	IN	struct _RTMP_ADAPTER *pAd,
 	IN	USHORT			Offset,
 	IN	unsigned int			Value,
-	IN	UINT8			Unit);
+	IN	unsigned char			Unit);
 
 VOID RTMPReadChannelPwr(struct _RTMP_ADAPTER *pAd);
 VOID RTMPReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);

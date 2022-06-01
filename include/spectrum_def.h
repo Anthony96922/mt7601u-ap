@@ -50,8 +50,8 @@ typedef struct _MEASURE_REQ_ENTRY
 	struct _MEASURE_REQ_ENTRY *pNext;
 	ULONG lastTime;
 	BOOLEAN	Valid;
-	UINT8 DialogToken;
-	UINT8 MeasureDialogToken[3];	/* 0:basic measure, 1: CCA measure, 2: RPI_Histogram measure. */
+	unsigned char DialogToken;
+	unsigned char MeasureDialogToken[3];	/* 0:basic measure, 1: CCA measure, 2: RPI_Histogram measure. */
 } MEASURE_REQ_ENTRY, *PMEASURE_REQ_ENTRY;
 
 typedef struct _MEASURE_REQ_TAB
@@ -66,7 +66,7 @@ typedef struct _TPC_REQ_ENTRY
 	struct _TPC_REQ_ENTRY *pNext;
 	ULONG lastTime;
 	BOOLEAN Valid;
-	UINT8 DialogToken;
+	unsigned char DialogToken;
 } TPC_REQ_ENTRY, *PTPC_REQ_ENTRY;
 
 typedef struct _TPC_REQ_TAB
@@ -81,7 +81,7 @@ typedef struct _TPC_REQ_TAB
 typedef struct _DOT11_CHANNEL_SET
 {
 	UCHAR NumberOfChannels;
-	UINT8 MaxTxPwr;
+	unsigned char MaxTxPwr;
 	UCHAR ChannelList[16];
 } DOT11_CHANNEL_SET, *PDOT11_CHANNEL_SET;
 
@@ -105,15 +105,15 @@ typedef struct _DOT11_REGULATORY_INFORMATION
 
 typedef struct GNU_PACKED _TPC_REPORT_INFO
 {
-	UINT8 TxPwr;
-	UINT8 LinkMargin;
+	unsigned char TxPwr;
+	unsigned char LinkMargin;
 } TPC_REPORT_INFO, *PTPC_REPORT_INFO;
 
 typedef struct GNU_PACKED _CH_SW_ANN_INFO
 {
-	UINT8 ChSwMode;
-	UINT8 Channel;
-	UINT8 ChSwCnt;
+	unsigned char ChSwMode;
+	unsigned char Channel;
+	unsigned char ChSwCnt;
 } CH_SW_ANN_INFO, *PCH_SW_ANN_INFO;
 
 typedef union GNU_PACKED _MEASURE_REQ_MODE
@@ -122,40 +122,40 @@ typedef union GNU_PACKED _MEASURE_REQ_MODE
 	struct GNU_PACKED
 	{
 
-		UINT8 :3;
-		UINT8 DurationMandatory:1;
-		UINT8 Report:1;
-		UINT8 Request:1;
-		UINT8 Enable:1;
-		UINT8 Parallel:1;
+		unsigned char :3;
+		unsigned char DurationMandatory:1;
+		unsigned char Report:1;
+		unsigned char Request:1;
+		unsigned char Enable:1;
+		unsigned char Parallel:1;
 	} field;
 #else
 	struct GNU_PACKED
 	{
-		UINT8 Parallel:1;
-		UINT8 Enable:1;
-		UINT8 Request:1;
-		UINT8 Report:1;
-		UINT8 DurationMandatory:1;
-		UINT8 :3;
+		unsigned char Parallel:1;
+		unsigned char Enable:1;
+		unsigned char Request:1;
+		unsigned char Report:1;
+		unsigned char DurationMandatory:1;
+		unsigned char :3;
 	} field;
 #endif /* RT_BIG_ENDIAN */
-	UINT8 word;
+	unsigned char word;
 } MEASURE_REQ_MODE, *PMEASURE_REQ_MODE;
 
 typedef struct GNU_PACKED _MEASURE_REQ
 {
-	UINT8 ChNum;
+	unsigned char ChNum;
 	unsigned long long MeasureStartTime;
 	unsigned short MeasureDuration;
 } MEASURE_REQ, *PMEASURE_REQ;
 
 typedef struct GNU_PACKED _MEASURE_REQ_INFO
 {
-	UINT8 Token;
+	unsigned char Token;
 	MEASURE_REQ_MODE ReqMode;
-	UINT8 ReqType;
-	UINT8 Oct[0];
+	unsigned char ReqType;
+	unsigned char Oct[0];
 } MEASURE_REQ_INFO, *PMEASURE_REQ_INFO;
 
 typedef union GNU_PACKED _MEASURE_BASIC_REPORT_MAP
@@ -163,32 +163,32 @@ typedef union GNU_PACKED _MEASURE_BASIC_REPORT_MAP
 #ifdef RT_BIG_ENDIAN
 	struct GNU_PACKED
 	{
-		UINT8 Rev:3;
+		unsigned char Rev:3;
 
-		UINT8 Unmeasure:1;
-		UINT8 Radar:1;
-		UINT8 UnidentifiedSignal:1;
-		UINT8 OfdmPreamble:1;
-		UINT8 BSS:1;
+		unsigned char Unmeasure:1;
+		unsigned char Radar:1;
+		unsigned char UnidentifiedSignal:1;
+		unsigned char OfdmPreamble:1;
+		unsigned char BSS:1;
 	} field;
 #else
 	struct GNU_PACKED
 	{
-		UINT8 BSS:1;
+		unsigned char BSS:1;
 
-		UINT8 OfdmPreamble:1;
-		UINT8 UnidentifiedSignal:1;
-		UINT8 Radar:1;
-		UINT8 Unmeasure:1;
-		UINT8 Rev:3;
+		unsigned char OfdmPreamble:1;
+		unsigned char UnidentifiedSignal:1;
+		unsigned char Radar:1;
+		unsigned char Unmeasure:1;
+		unsigned char Rev:3;
 	} field;
 #endif /* RT_BIG_ENDIAN */
-	UINT8 word;
+	unsigned char word;
 } MEASURE_BASIC_REPORT_MAP, *PMEASURE_BASIC_REPORT_MAP;
 
 typedef struct GNU_PACKED _MEASURE_BASIC_REPORT
 {
-	UINT8 ChNum;
+	unsigned char ChNum;
 	unsigned long long MeasureStartTime;
 	unsigned short MeasureDuration;
 	MEASURE_BASIC_REPORT_MAP Map;
@@ -196,18 +196,18 @@ typedef struct GNU_PACKED _MEASURE_BASIC_REPORT
 
 typedef struct GNU_PACKED _MEASURE_CCA_REPORT
 {
-	UINT8 ChNum;
+	unsigned char ChNum;
 	unsigned long long MeasureStartTime;
 	unsigned short MeasureDuration;
-	UINT8 CCA_Busy_Fraction;
+	unsigned char CCA_Busy_Fraction;
 } MEASURE_CCA_REPORT, *PMEASURE_CCA_REPORT;
 
 typedef struct GNU_PACKED _MEASURE_RPI_REPORT
 {
-	UINT8 ChNum;
+	unsigned char ChNum;
 	unsigned long long MeasureStartTime;
 	unsigned short MeasureDuration;
-	UINT8 RPI_Density[8];
+	unsigned char RPI_Density[8];
 } MEASURE_RPI_REPORT, *PMEASURE_RPI_REPORT;
 
 typedef union GNU_PACKED _MEASURE_REPORT_MODE
@@ -215,32 +215,32 @@ typedef union GNU_PACKED _MEASURE_REPORT_MODE
 	struct GNU_PACKED
 	{
 #ifdef RT_BIG_ENDIAN
-		UINT8 Rev:5;
-		UINT8 Refused:1;
-		UINT8 Incapable:1;
-		UINT8 Late:1;
+		unsigned char Rev:5;
+		unsigned char Refused:1;
+		unsigned char Incapable:1;
+		unsigned char Late:1;
 #else
-		UINT8 Late:1;
-		UINT8 Incapable:1;
-		UINT8 Refused:1;
-		UINT8 Rev:5;
+		unsigned char Late:1;
+		unsigned char Incapable:1;
+		unsigned char Refused:1;
+		unsigned char Rev:5;
 #endif /* RT_BIG_ENDIAN */
 	} field;
-	UINT8 word;
+	unsigned char word;
 } MEASURE_REPORT_MODE, *PMEASURE_REPORT_MODE;
 
 typedef struct GNU_PACKED _MEASURE_REPORT_INFO
 {
-	UINT8 Token;
-	UINT8 ReportMode;
-	UINT8 ReportType;
-	UINT8 Octect[0];
+	unsigned char Token;
+	unsigned char ReportMode;
+	unsigned char ReportType;
+	unsigned char Octect[0];
 } MEASURE_REPORT_INFO, *PMEASURE_REPORT_INFO;
 
 typedef struct GNU_PACKED _QUIET_INFO
 {
-	UINT8 QuietCnt;
-	UINT8 QuietPeriod;
+	unsigned char QuietCnt;
+	unsigned char QuietPeriod;
 	unsigned short QuietDuration;
 	unsigned short QuietOffset;
 } QUIET_INFO, *PQUIET_INFO;

@@ -226,7 +226,7 @@ static inline UCHAR SelectClearChannelRandom(
 {
 	UCHAR cnt, ch = 0, i, RadomIdx;
 	/*BOOLEAN bFindIt = FALSE;*/
-	UINT8 TempChList[MAX_NUM_OF_CHANNELS] = {0};
+	unsigned char TempChList[MAX_NUM_OF_CHANNELS] = {0};
 	
 	if (pAd->CommonCfg.bIEEE80211H)
 	{

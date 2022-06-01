@@ -97,13 +97,13 @@ DOT11_REGULATORY_INFORMATION JapanRegulatoryInfo[] =
 #define JP_REGULATORY_INFO_SIZE (sizeof(JapanRegulatoryInfo) / sizeof(DOT11_REGULATORY_INFORMATION))
 
 
-UINT8 GetRegulatoryMaxTxPwr(
+unsigned char GetRegulatoryMaxTxPwr(
 	IN PRTMP_ADAPTER pAd,
-	IN UINT8 channel)
+	IN unsigned char channel)
 {
 	ULONG RegulatoryClassLoop, ChIdx;
-	UINT8 RegulatoryClass;
-	UINT8 MaxRegulatoryClassNum;
+	unsigned char RegulatoryClass;
+	unsigned char MaxRegulatoryClassNum;
 	PDOT11_REGULATORY_INFORMATION pRegulatoryClass;
 	char * pCountry = (char *)(pAd->CommonCfg.CountryCode);
 
@@ -158,10 +158,10 @@ UINT8 GetRegulatoryMaxTxPwr(
 
 typedef struct __TX_PWR_CFG
 {
-	UINT8 Mode;
-	UINT8 MCS;
+	unsigned char Mode;
+	unsigned char MCS;
 	unsigned short req;
-	UINT8 shift;
+	unsigned char shift;
 	unsigned int BitMask;
 } TX_PWR_CFG;
 
@@ -207,9 +207,9 @@ CHAR RTMP_GetTxPwr(
 {
 	unsigned int Value;
 	INT Idx;
-	UINT8 PhyMode;
+	unsigned char PhyMode;
 	CHAR CurTxPwr;
-	UINT8 TxPwrRef = 0;
+	unsigned char TxPwrRef = 0;
 	CHAR DaltaPwr;
 	ULONG TxPwr[5];
 
@@ -358,7 +358,7 @@ VOID MeasureReqTabExit(
 
 PMEASURE_REQ_ENTRY MeasureReqLookUp(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8		DialogToken)
+	IN unsigned char		DialogToken)
 {
 	UINT HashIdx;
 	PMEASURE_REQ_TAB pTab = pAd->CommonCfg.pMeasureReqTab;
@@ -394,7 +394,7 @@ PMEASURE_REQ_ENTRY MeasureReqLookUp(
 
 PMEASURE_REQ_ENTRY MeasureReqInsert(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken)
+	IN unsigned char			DialogToken)
 {
 	INT i;
 	ULONG HashIdx;
@@ -487,7 +487,7 @@ PMEASURE_REQ_ENTRY MeasureReqInsert(
 
 VOID MeasureReqDelete(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8		DialogToken)
+	IN unsigned char		DialogToken)
 {
 	PMEASURE_REQ_TAB pTab = pAd->CommonCfg.pMeasureReqTab;
 	PMEASURE_REQ_ENTRY pEntry = NULL;
@@ -573,7 +573,7 @@ VOID TpcReqTabExit(
 
 static PTPC_REQ_ENTRY TpcReqLookUp(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken)
+	IN unsigned char			DialogToken)
 {
 	UINT HashIdx;
 	PTPC_REQ_TAB pTab = pAd->CommonCfg.pTpcReqTab;
@@ -610,7 +610,7 @@ static PTPC_REQ_ENTRY TpcReqLookUp(
 
 static PTPC_REQ_ENTRY TpcReqInsert(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken)
+	IN unsigned char			DialogToken)
 {
 	INT i;
 	ULONG HashIdx;
@@ -703,7 +703,7 @@ static PTPC_REQ_ENTRY TpcReqInsert(
 
 static VOID TpcReqDelete(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken)
+	IN unsigned char			DialogToken)
 {
 	PTPC_REQ_TAB pTab = pAd->CommonCfg.pTpcReqTab;
 	PTPC_REQ_ENTRY pEntry = NULL;
@@ -781,9 +781,9 @@ static unsigned long long GetCurrentTimeStamp(
 	Return	: Current Transmit Power.
 	==========================================================================
  */
-static UINT8 GetCurTxPwr(
+static unsigned char GetCurTxPwr(
 	IN PRTMP_ADAPTER pAd,
-	IN UINT8 Wcid)
+	IN unsigned char Wcid)
 {
 	return 20; /* 20 dBm */
 }
@@ -793,11 +793,11 @@ VOID InsertChannelRepIE(
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN char * pCountry,
-	IN UINT8 RegulatoryClass)
+	IN unsigned char RegulatoryClass)
 {
 	ULONG TempLen;
-	UINT8 Len;
-	UINT8 IEId = IE_AP_CHANNEL_REPORT;
+	unsigned char Len;
+	unsigned char IEId = IE_AP_CHANNEL_REPORT;
 	unsigned char * pChListPtr = NULL;
 	PDOT11_CHANNEL_SET pChannelSet = NULL;
 
@@ -872,7 +872,7 @@ VOID InsertDialogToken(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 DialogToken)
+	IN unsigned char DialogToken)
 {
 	ULONG TempLen;
 	MakeOutgoingFrame(pFrameBuf, &TempLen,
@@ -902,8 +902,8 @@ VOID InsertDialogToken(
 	OUT unsigned long * pFrameLen)
 {
 	ULONG TempLen;
-	UINT8 Len = 0;
-	UINT8 ElementID = IE_TPC_REQUEST;
+	unsigned char Len = 0;
+	unsigned char ElementID = IE_TPC_REQUEST;
 
 	MakeOutgoingFrame(pFrameBuf, &TempLen,
 				1, &ElementID,
@@ -933,12 +933,12 @@ VOID InsertTpcReportIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 TxPwr,
-	IN UINT8 LinkMargin)
+	IN unsigned char TxPwr,
+	IN unsigned char LinkMargin)
 {
 	ULONG TempLen;
-	UINT8 Len = sizeof(TPC_REPORT_INFO);
-	UINT8 ElementID = IE_TPC_REPORT;
+	unsigned char Len = sizeof(TPC_REPORT_INFO);
+	unsigned char ElementID = IE_TPC_REPORT;
 	TPC_REPORT_INFO TpcReportIE;
 
 	TpcReportIE.TxPwr = TxPwr;
@@ -978,11 +978,11 @@ static VOID InsertMeasureReqIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 Len,
+	IN unsigned char Len,
 	IN PMEASURE_REQ_INFO pMeasureReqIE)
 {
 	ULONG TempLen;
-	UINT8 ElementID = IE_MEASUREMENT_REQUEST;
+	unsigned char ElementID = IE_MEASUREMENT_REQUEST;
 
 	MakeOutgoingFrame(pFrameBuf, &TempLen,
 				1, &ElementID,
@@ -1017,12 +1017,12 @@ static VOID InsertMeasureReportIE(
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN PMEASURE_REPORT_INFO pMeasureReportIE,
-	IN UINT8 ReportLnfoLen,
+	IN unsigned char ReportLnfoLen,
 	IN unsigned char * pReportInfo)
 {
 	ULONG TempLen;
-	UINT8 Len;
-	UINT8 ElementID = IE_MEASUREMENT_REPORT;
+	unsigned char Len;
+	unsigned char ElementID = IE_MEASUREMENT_REPORT;
 
 	Len = sizeof(MEASURE_REPORT_INFO) + ReportLnfoLen;
 		
@@ -1061,12 +1061,12 @@ VOID MakeMeasurementReqFrame(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pOutBuffer,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 TotalLen,
-	IN UINT8 Category,
-	IN UINT8 Action,
-	IN UINT8 MeasureToken, 
-	IN UINT8 MeasureReqMode,
-	IN UINT8 MeasureReqType,
+	IN unsigned char TotalLen,
+	IN unsigned char Category,
+	IN unsigned char Action,
+	IN unsigned char MeasureToken, 
+	IN unsigned char MeasureReqMode,
+	IN unsigned char MeasureReqType,
 	IN unsigned short NumOfRepetitions)
 {
 	ULONG TempLen;
@@ -1112,11 +1112,11 @@ VOID MakeMeasurementReqFrame(
 VOID EnqueueMeasurementRep(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
-	IN UINT8 DialogToken,
-	IN UINT8 MeasureToken, 
-	IN UINT8 MeasureReqMode,
-	IN UINT8 MeasureReqType,
-	IN UINT8 ReportInfoLen,
+	IN unsigned char DialogToken,
+	IN unsigned char MeasureToken, 
+	IN unsigned char MeasureReqMode,
+	IN unsigned char MeasureReqType,
+	IN unsigned char ReportInfoLen,
 	IN unsigned char * pReportInfo)
 {
 	unsigned char * pOutBuffer = NULL;
@@ -1219,9 +1219,9 @@ VOID EnqueueTPCReq(
 VOID EnqueueTPCRep(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
-	IN UINT8 DialogToken,
-	IN UINT8 TxPwr,
-	IN UINT8 LinkMargin)
+	IN unsigned char DialogToken,
+	IN unsigned char TxPwr,
+	IN unsigned char LinkMargin)
 {
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
@@ -1276,13 +1276,13 @@ static VOID InsertChSwAnnIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 ChSwMode,
-	IN UINT8 NewChannel,
-	IN UINT8 ChSwCnt)
+	IN unsigned char ChSwMode,
+	IN unsigned char NewChannel,
+	IN unsigned char ChSwCnt)
 {
 	ULONG TempLen;
 	ULONG Len = sizeof(CH_SW_ANN_INFO);
-	UINT8 ElementID = IE_CHANNEL_SWITCH_ANNOUNCEMENT;
+	unsigned char ElementID = IE_CHANNEL_SWITCH_ANNOUNCEMENT;
 	CH_SW_ANN_INFO ChSwAnnIE;
 
 	ChSwAnnIE.ChSwMode = ChSwMode;
@@ -1318,8 +1318,8 @@ static VOID InsertChSwAnnIE(
 VOID EnqueueChSwAnn(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA, 
-	IN UINT8 ChSwMode,
-	IN UINT8 NewCh)
+	IN unsigned char ChSwMode,
+	IN unsigned char NewCh)
 {
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
@@ -1353,7 +1353,7 @@ VOID EnqueueChSwAnn(
 
 static BOOLEAN DfsRequirementCheck(
 	IN PRTMP_ADAPTER pAd,
-	IN UINT8 Channel)
+	IN unsigned char Channel)
 {
 	BOOLEAN Result = FALSE;
 	INT i;
@@ -1389,8 +1389,8 @@ VOID NotifyChSwAnnToPeerAPs(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pRA,
 	IN unsigned char * pTA,
-	IN UINT8 ChSwMode,
-	IN UINT8 Channel)
+	IN unsigned char ChSwMode,
+	IN unsigned char Channel)
 {
 #ifdef WDS_SUPPORT
 	if (!((pRA[0] & 0xff) == 0xff)) /* is pRA a broadcase address.*/
@@ -1418,7 +1418,7 @@ VOID NotifyChSwAnnToPeerAPs(
 static VOID StartDFSProcedure(
 	IN PRTMP_ADAPTER pAd,
 	IN UCHAR Channel,
-	IN UINT8 ChSwMode)
+	IN unsigned char ChSwMode)
 {
 	/* start DFS procedure*/
 	pAd->CommonCfg.Channel = Channel;
@@ -1847,7 +1847,7 @@ static VOID PeerMeasureReqAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	PFRAME_802_11 pFr = (PFRAME_802_11)Elem->Msg;
-	UINT8 DialogToken;
+	unsigned char DialogToken;
 	MEASURE_REQ_INFO MeasureReqInfo;
 	MEASURE_REQ	MeasureReq;
 	MEASURE_REPORT_MODE ReportMode;
@@ -1879,7 +1879,7 @@ static VOID PeerMeasureReportAction(
 {
 	MEASURE_REPORT_INFO MeasureReportInfo;
 	PFRAME_802_11 pFr = (PFRAME_802_11)Elem->Msg;
-	UINT8 DialogToken;
+	unsigned char DialogToken;
 	unsigned char * pMeasureReportInfo;
 
 /*	if (pAd->CommonCfg.bIEEE80211H != TRUE)*/
@@ -1947,9 +1947,9 @@ static VOID PeerTpcReqAction(
 {
 	PFRAME_802_11 pFr = (PFRAME_802_11)Elem->Msg;
 	unsigned char * pFramePtr = pFr->Octet;
-	UINT8 DialogToken;
-	UINT8 TxPwr = GetCurTxPwr(pAd, Elem->Wcid);
-	UINT8 LinkMargin = 0;
+	unsigned char DialogToken;
+	unsigned char TxPwr = GetCurTxPwr(pAd, Elem->Wcid);
+	unsigned char LinkMargin = 0;
 	CHAR RealRssi;
 
 	/* link margin: Ratio of the received signal power to the minimum desired by the station (STA). The*/
@@ -1988,7 +1988,7 @@ static VOID PeerTpcRepAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	UINT8 DialogToken;
+	unsigned char DialogToken;
 	TPC_REPORT_INFO TpcRepInfo;
 	PTPC_REQ_ENTRY pEntry = NULL;
 
@@ -2094,12 +2094,12 @@ INT Set_MeasureReq_Proc(
 	char * thisChar;
 
 	MEASURE_REQ_MODE MeasureReqMode;
-	UINT8 MeasureReqToken = RandomByte(pAd);
-	UINT8 MeasureReqType = RM_BASIC;
-	UINT8 MeasureCh = 1;
+	unsigned char MeasureReqToken = RandomByte(pAd);
+	unsigned char MeasureReqType = RM_BASIC;
+	unsigned char MeasureCh = 1;
 	unsigned long long MeasureStartTime = GetCurrentTimeStamp(pAd);
 	MEASURE_REQ MeasureReq;
-	UINT8 TotalLen;
+	unsigned char TotalLen;
 
 	HEADER_802_11 ActHdr;
 	unsigned char * pOutBuffer = NULL;
@@ -2119,7 +2119,7 @@ INT Set_MeasureReq_Proc(
 		switch(ArgIdx)
 		{
 			case 1:	/* Aid.*/
-				Aid = (UINT8) simple_strtol(thisChar, 0, 16);
+				Aid = (unsigned char) simple_strtol(thisChar, 0, 16);
 				break;
 
 			case 2: /* Measurement Request Type.*/
@@ -2132,7 +2132,7 @@ INT Set_MeasureReq_Proc(
 				break;
 
 			case 3: /* Measurement channel.*/
-				MeasureCh = (UINT8) simple_strtol(thisChar, 0, 16);
+				MeasureCh = (unsigned char) simple_strtol(thisChar, 0, 16);
 				break;
 		}
 		ArgIdx++;
@@ -2190,7 +2190,7 @@ INT Set_TpcReq_Proc(
 {
 	UINT Aid;
 
-	UINT8 TpcReqToken = RandomByte(pAd);
+	unsigned char TpcReqToken = RandomByte(pAd);
 
 	Aid = (UINT) simple_strtol(arg, 0, 16);
 
@@ -2284,7 +2284,7 @@ typedef struct __PWR_CONSTRAIN_CFG
 
 static PDOT11_REGULATORY_INFORMATION GetRugClassRegion(
 	IN char * pCountryCode,
-	IN UINT8 RugClass)
+	IN unsigned char RugClass)
 {
 	PDOT11_REGULATORY_INFORMATION pRugClass;
 

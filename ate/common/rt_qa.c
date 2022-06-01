@@ -989,8 +989,8 @@ static  INT DO_RACFG_CMD_TX_START(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	USHORT *p;
 	USHORT	err = 1;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
-	UINT8 TxInfoSize = 4;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TxInfoSize = 4;
 
 	if ((pATEInfo->TxStatus != 0) && (pATEInfo->Mode & ATE_TXFRAME))
 	{

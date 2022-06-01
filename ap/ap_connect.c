@@ -103,7 +103,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 	unsigned int longValue, reg_base;
 	HTTRANSMIT_SETTING BeaconTransmit = {.word = 0}; /* MGMT frame PHY rate setting when operatin at Ht rate. */
 	UCHAR PhyMode, SupRateLen;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 	if(!BeaconTransmitRequired(pAd, apidx, &pAd->ApCfg.MBSSID[apidx]))
 		return;
@@ -359,9 +359,9 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 	*/
 	if ((pComCfg->Channel > 14) && pComCfg->bIEEE80211H == TRUE))
 	{
-		UINT8 PwrConstraintIE = IE_POWER_CONSTRAINT;
-		UINT8 PwrConstraintLen = 1;
-		UINT8 PwrConstraint = pComCfg->PwrConstraint;
+		unsigned char PwrConstraintIE = IE_POWER_CONSTRAINT;
+		unsigned char PwrConstraintLen = 1;
+		unsigned char PwrConstraint = pComCfg->PwrConstraint;
 
 		/* prepare power constraint IE */
 		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
@@ -786,7 +786,7 @@ VOID APMakeAllBssBeacon(
 	unsigned int regValue;
 	UCHAR NumOfMacs;
 	UCHAR NumOfBcns;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 	/* before MakeBssBeacon, clear all beacon TxD's valid bit */
 	/* Note: can not use MAX_MBSSID_NUM here, or

@@ -265,7 +265,7 @@ BOOLEAN PeerAssocReqCmmSanity(
 					if (pEntry)
 					{
 						UAPSD_AssocParse(pAd,
-									pEntry, (UINT8 *)&eid_ptr->Octet[6],
+									pEntry, (unsigned char *)&eid_ptr->Octet[6],
 									pAd->ApCfg.MBSSID[\
 										pEntry->apidx].UapsdInfo.bAPSDCapable);
 					}

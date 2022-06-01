@@ -70,11 +70,11 @@ Note:
 ========================================================================
 */
 void VR_IKANOS_FP_Init(
-	IN UINT8 BssNum,
-	IN UINT8 *pApMac)
+	IN unsigned char BssNum,
+	IN unsigned char *pApMac)
 {
 	unsigned int i;
-	UINT8 mac[6];
+	unsigned char mac[6];
 
 
 	memcpy(mac, pApMac, 6);

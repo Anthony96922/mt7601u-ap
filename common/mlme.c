@@ -578,7 +578,7 @@ VOID MlmePeriodicExec(
 	//printk("MO_Cfg.bEnable=%d \n", pAd->CommonCfg.MO_Cfg.bEnable);
 	if (pAd->CommonCfg.MO_Cfg.bEnable)
 	{
-		UINT8 stage = pAd->Mlme.PeriodicRound%10;
+		unsigned char stage = pAd->Mlme.PeriodicRound%10;
 
 		if (stage == MO_MEAS_PERIOD)
 		{

@@ -26,7 +26,7 @@
 #define UINT64_HBITS(value)	(((value) >> 0x20) & 0xffffffff)
 #define UINT64_LBITS(value)	((value) & 0xffffffff)
 
-static UINT8 WPS_DH_P_VALUE[192] = 
+static unsigned char WPS_DH_P_VALUE[192] = 
 {
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
     0xC9, 0x0F, 0xDA, 0xA2, 0x21, 0x68, 0xC2, 0x34,
@@ -54,7 +54,7 @@ static UINT8 WPS_DH_P_VALUE[192] =
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 };
 
-static UINT8 WPS_DH_R_VALUE[193] = 
+static unsigned char WPS_DH_R_VALUE[193] = 
 {
     0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -83,7 +83,7 @@ static UINT8 WPS_DH_R_VALUE[193] =
     0x00,
 }; 
  
-static UINT8 WPS_DH_X_VALUE[184] = 
+static unsigned char WPS_DH_X_VALUE[184] = 
 {
     0x36, 0xf0, 0x25, 0x5d, 0xde, 0x97, 0x3d, 0xcb,
     0x3b, 0x39, 0x9d, 0x74, 0x7f, 0x23, 0xe3, 0x2e,
@@ -110,7 +110,7 @@ static UINT8 WPS_DH_X_VALUE[184] =
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
 };
 
-static UINT8 WPS_DH_RRModP_VALUE[192] = 
+static unsigned char WPS_DH_RRModP_VALUE[192] = 
 {
 	0xe3, 0xb3, 0x3c, 0x72, 0x59, 0x54, 0x1c, 0x01,
 	0xee, 0x9c, 0x9a, 0x21, 0x6c, 0xc1, 0xeb, 0xd2,
@@ -138,8 +138,8 @@ static UINT8 WPS_DH_RRModP_VALUE[192] =
 	0xf1, 0x15, 0xd2, 0x7d, 0x32, 0xc6, 0x95, 0xe0,
 };
 
-static UINT8 Value_0[1] = {0x00};
-static UINT8 Value_1[1] = {0x01};
+static unsigned char Value_0[1] = {0x00};
+static unsigned char Value_1[1] = {0x01};
 static PBIG_INTEGER pBI_U = NULL, pBI_S = NULL, pBI_O = NULL;
 static UINT Bits_Of_R = 0;
 
@@ -249,7 +249,7 @@ VOID BigInteger_ClearHighBits (
     IN PBIG_INTEGER pBI)
 {
     INT BIArrayIndex, ShiftIndex = 0;
-    UINT8 value;
+    unsigned char value;
 
     if ((pBI == NULL) || (pBI->pIntegerArray == NULL))
         return;
@@ -280,7 +280,7 @@ VOID BigInteger_ClearHighBits (
 
 VOID BigInteger_BI2Bin (
     IN PBIG_INTEGER pBI, 
-    OUT UINT8 *pValue,
+    OUT unsigned char *pValue,
     OUT UINT *Length)
 {
     INT  ValueIndex, BIArrayIndex, ShiftIndex;
@@ -292,7 +292,7 @@ VOID BigInteger_BI2Bin (
         return;
     } /* End of if */
   
-    if (*Length < (sizeof(UINT8) * pBI->IntegerLength)) {
+    if (*Length < (sizeof(unsigned char) * pBI->IntegerLength)) {
         DEBUGPRINT("BigInteger_BI2Bin: length(%d) is not enough.\n", *Length);
         *Length = 0;
         return;
@@ -312,7 +312,7 @@ VOID BigInteger_BI2Bin (
     Number = pBI->pIntegerArray[BIArrayIndex];
     while (ValueIndex < pBI->IntegerLength)
     {
-        pValue[ValueIndex++] = (UINT8) unsigned int_GETBYTE(Number, ShiftIndex - 1);
+        pValue[ValueIndex++] = (unsigned char) unsigned int_GETBYTE(Number, ShiftIndex - 1);
         if ((--ShiftIndex) == 0) {
             ShiftIndex = 4;
             BIArrayIndex--;
@@ -324,7 +324,7 @@ VOID BigInteger_BI2Bin (
 
 
 VOID BigInteger_Bin2BI (
-    IN UINT8 *pValue,
+    IN unsigned char *pValue,
     IN UINT Length,
     OUT PBIG_INTEGER *pBI)
 {
@@ -341,7 +341,7 @@ VOID BigInteger_Bin2BI (
         ValueIndex = 0;
         while (ValueIndex < Length)
         {
-            Number = (Number << 8) | (UINT8) pValue[ValueIndex++];
+            Number = (Number << 8) | (unsigned char) pValue[ValueIndex++];
             if ((--ShiftIndex) == 0) {
                 (*pBI)->pIntegerArray[BIArrayIndex] = Number;
                 ShiftIndex = 4;
@@ -388,7 +388,7 @@ INT BigInteger_GetBitValue (
 } /* End of BigInteger_GetBitValue */
 
 
-UINT8 BigInteger_GetByteValue (
+unsigned char BigInteger_GetByteValue (
     IN PBIG_INTEGER pBI,
     IN UINT Index)
 {
@@ -403,7 +403,7 @@ UINT8 BigInteger_GetByteValue (
         return 0;
 
 
-    return (UINT8) unsigned int_GETBYTE(pBI->pIntegerArray[Array], Shift - 1);
+    return (unsigned char) unsigned int_GETBYTE(pBI->pIntegerArray[Array], Shift - 1);
 } /* End of BigInteger_GetByteValue */
 
 
@@ -803,7 +803,7 @@ VOID BigInteger_Div (
     unsigned int MulStart;
     UINT AllocLength, ArrayIndex, ShiftIndex;
     PBIG_INTEGER pTempBI = NULL, pTempBI2 = NULL, pMulBI = NULL;
-    UINT8 SecondHighByte;
+    unsigned char SecondHighByte;
 
     if  ((pFirstOperand == NULL) || (pFirstOperand->pIntegerArray == NULL)
       || (pSecondOperand == NULL) || (pSecondOperand->pIntegerArray == NULL)) {
@@ -985,7 +985,7 @@ VOID BigInteger_Montgomery_ExpMod (
     PBIG_INTEGER pBI_Temp1 = NULL, pBI_Temp2 = NULL;
     PBIG_INTEGER pBI_X = NULL, pBI_R = NULL, pBI_RR = NULL, pBI_1 = NULL;
     BIG_INTEGER *pBI_A[SLIDING_WINDOW];
-    UINT8 *pRValue = NULL;
+    unsigned char *pRValue = NULL;
 
     AllocLength = (pBI_G->IntegerLength + pBI_E->IntegerLength + pBI_P->IntegerLength + 300);
     BigInteger_AllocSize(&pBI_Temp1, AllocLength);
@@ -1042,15 +1042,15 @@ VOID BigInteger_Montgomery_ExpMod (
         } else {
             AllocLength = pBI_P->IntegerLength;
         } /* End of if */
-/*        pRValue = (UINT8 *) kmalloc(sizeof(UINT8)*AllocLength, GFP_ATOMIC); */
-		os_alloc_mem(NULL, (UCHAR **)&pRValue, sizeof(UINT8)*AllocLength);
+/*        pRValue = (unsigned char *) kmalloc(sizeof(unsigned char)*AllocLength, GFP_ATOMIC); */
+		os_alloc_mem(NULL, (UCHAR **)&pRValue, sizeof(unsigned char)*AllocLength);
 	if (pRValue == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():Alloc memory failed\n", __FUNCTION__));
 		goto memory_free;
 	}
-        NdisZeroMemory(pRValue, sizeof(UINT8)*AllocLength);
-        pRValue[0] = (UINT8) (1 << (Bits_Of_P & 0x7));
+        NdisZeroMemory(pRValue, sizeof(unsigned char)*AllocLength);
+        pRValue[0] = (unsigned char) (1 << (Bits_Of_P & 0x7));
         BigInteger_Bin2BI(pRValue, AllocLength , &pBI_R);
 
         BigInteger_Mul(pBI_R, pBI_R, &pBI_Temp1);

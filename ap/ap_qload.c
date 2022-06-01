@@ -31,8 +31,8 @@
 
 typedef struct GNU_PACKED _ELM_QBSS_LOAD{
 
-	UINT8 ElementId;
-	UINT8 Length;
+	unsigned char ElementId;
+	unsigned char Length;
 
 	/* the total number of STAs currently associated with this QBSS */
 	unsigned short StationCount;
@@ -43,7 +43,7 @@ typedef struct GNU_PACKED _ELM_QBSS_LOAD{
 		This percentage is computed using the formula:
 			((channel busy time / (dot11ChannelUtilizationBeaconIntervals *
 			dot11BeaconPeriod * 1024)) * 255) */
-	UINT8 ChanUtil;
+	unsigned char ChanUtil;
 
 	/*	specifies the remaining amount of medium time available via explicit
 		admission control, in units of 32 microsecond periods per 1 second.
@@ -496,7 +496,7 @@ Note:
 */
 unsigned int QBSS_LoadElementAppend(
  	IN		RTMP_ADAPTER	*pAd,
-	OUT		UINT8			*pBeaconBuf)
+	OUT		unsigned char			*pBeaconBuf)
 {
 	ELM_QBSS_LOAD load, *pLoad = &load;
 	ULONG ElmLen;
@@ -679,7 +679,7 @@ VOID QBSS_LoadUpdate(
 
 		ChanUtilDe <<= 10; /* ms to us */
 
-		pAd->QloadChanUtil = (UINT8)(ChanUtilNu/ChanUtilDe);
+		pAd->QloadChanUtil = (unsigned char)(ChanUtilNu/ChanUtilDe);
 
 		/* re-accumulate channel busy time */
 		pAd->QloadChanUtilBeaconCnt = 0;

@@ -250,8 +250,8 @@ int RtmpPasswordHash(
 unsigned char * WPA_ExtractSuiteFromRSNIE(
 	IN unsigned char * rsnie,
 	IN UINT rsnie_len,
-	IN UINT8 type,
-	OUT UINT8 *count);
+	IN unsigned char type,
+	OUT unsigned char *count);
 
 VOID WpaShowAllsuite(
 	IN unsigned char * rsnie,
@@ -261,9 +261,9 @@ VOID RTMPInsertRSNIE(
 	IN unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN unsigned char * rsnie_ptr,
-	IN UINT8 rsnie_len,
+	IN unsigned char rsnie_len,
 	IN unsigned char * pmkid_ptr,
-	IN UINT8 pmkid_len);
+	IN unsigned char pmkid_len);
 
 /* 
  =====================================	
@@ -327,8 +327,8 @@ BOOLEAN RTMPParseEapolKeyData(
 	IN MAC_TABLE_ENTRY *pEntry);
 
 VOID WPA_ConstructKdeHdr(
-	IN UINT8 data_type,
-	IN UINT8 data_len,
+	IN unsigned char data_type,
+	IN unsigned char data_len,
 	OUT unsigned char * pBuf);
 
 VOID ConstructEapolMsg(
@@ -362,7 +362,7 @@ VOID RTMPSoftConstructIVHdr(
 	IN UCHAR key_id,
 	IN unsigned char * pTxIv,
 	OUT unsigned char * pHdrIv,
-	OUT UINT8 *hdr_iv_len);
+	OUT unsigned char *hdr_iv_len);
 
 VOID RTMPSoftEncryptionAction(
 	IN PRTMP_ADAPTER pAd,
@@ -372,7 +372,7 @@ VOID RTMPSoftEncryptionAction(
 	IN unsigned int SrcBufLen,
 	IN UCHAR KeyIdx,
 	IN PCIPHER_KEY pKey,
-	OUT UINT8 *ext_len);
+	OUT unsigned char *ext_len);
 
 VOID RTMPMakeRSNIE(
 	IN PRTMP_ADAPTER pAd,
@@ -382,27 +382,27 @@ VOID RTMPMakeRSNIE(
 
 VOID WPAInstallPairwiseKey(
 	PRTMP_ADAPTER pAd,
-	UINT8 BssIdx,
+	unsigned char BssIdx,
 	PMAC_TABLE_ENTRY pEntry,
 	BOOLEAN bAE);
 
 VOID WPAInstallSharedKey(
 	PRTMP_ADAPTER pAd,
-	UINT8 GroupCipher,
-	UINT8 BssIdx,
-	UINT8 KeyIdx,
-	UINT8 Wcid,
+	unsigned char GroupCipher,
+	unsigned char BssIdx,
+	unsigned char KeyIdx,
+	unsigned char Wcid,
 	BOOLEAN bAE,
 	unsigned char * pGtk,
-	UINT8 GtkLen);
+	unsigned char GtkLen);
 
 VOID RTMPSetWcidSecurityInfo(
 	PRTMP_ADAPTER pAd,
-	UINT8 BssIdx,
-	UINT8 KeyIdx,
-	UINT8 CipherAlg,
-	UINT8 Wcid,
-	UINT8 KeyTabFlag);
+	unsigned char BssIdx,
+	unsigned char KeyIdx,
+	unsigned char CipherAlg,
+	unsigned char Wcid,
+	unsigned char KeyTabFlag);
 
 VOID CalculateMIC(
 	IN UCHAR KeyDescVer,
@@ -424,7 +424,7 @@ UINT RTMP_CALC_FCS32(
 	IN INT Len);
 
 VOID RTMPConstructWEPIVHdr(
-	IN UINT8 key_idx,
+	IN unsigned char key_idx,
 	IN UCHAR *pn,
 	OUT UCHAR *iv_hdr);
 
@@ -480,7 +480,7 @@ BOOLEAN RTMPSoftDecryptAES(
 	IN PCIPHER_KEY pWpaKey);
 
 VOID RTMPConstructCCMPHdr(
-	IN UINT8 key_idx,
+	IN unsigned char key_idx,
 	IN UCHAR *pn,
 	OUT UCHAR *ccmp_hdr);
 

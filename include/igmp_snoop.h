@@ -91,7 +91,7 @@ VOID IGMPSnooping(
 BOOLEAN isMldPkt(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader,
-	OUT UINT8 *pProtoType,
+	OUT unsigned char *pProtoType,
 	OUT unsigned char * *pMldHeader);
 
 BOOLEAN IPv6MulticastFilterExcluded(
@@ -148,7 +148,7 @@ NDIS_STATUS IgmpPktClone(
 	IN INT IgmpPktInGroup,
 	IN PMULTICAST_FILTER_TABLE_ENTRY pGroupEntry,
 	IN UCHAR QueIdx,
-	IN UINT8 UserPriority,
+	IN unsigned char UserPriority,
 	IN PNET_DEV pNetDev);
 
 #endif /* __RTMP_IGMP_SNOOP_H__ */

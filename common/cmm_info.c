@@ -5484,7 +5484,7 @@ INT	Set_ETxBfEnCond_Proc(
 {
 	UCHAR i, enableETxBf;
 	MAC_TABLE_ENTRY		*pEntry;
-	UINT8	byteValue;
+	unsigned char	byteValue;
 
 	enableETxBf = simple_strtol(arg, 0, 10);
 
@@ -5604,7 +5604,7 @@ INT	Set_ITxBfEn_Proc(
 	UCHAR i;
 	UCHAR enableITxBF;
 	BOOLEAN bCalibrated;
-	UINT8 byteValue;
+	unsigned char byteValue;
 
 	enableITxBF = simple_strtol(arg, 0, 10);
 

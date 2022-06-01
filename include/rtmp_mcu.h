@@ -52,7 +52,7 @@ struct CMD_UNIT {
 			UCHAR Arg1;
 		} MCU51;
 		struct {
-			UINT8 Type;
+			unsigned char Type;
 			USHORT CmdPayloadLen;
 			unsigned char * CmdPayload;
 			USHORT RspPayloadLen;

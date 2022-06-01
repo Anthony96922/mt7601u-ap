@@ -436,7 +436,7 @@ VOID RtmpChipWriteHighMemory(
 	IN RTMP_ADAPTER *pAd,
 	IN USHORT Offset,
 	IN unsigned int Value,
-	IN UINT8 Unit)
+	IN unsigned char Unit)
 {
 #ifdef RTMP_MAC_USB
 	switch(Unit)
@@ -479,7 +479,7 @@ VOID RtmpChipWriteMemory(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	USHORT			Offset,
 	IN	unsigned int			Value,
-	IN	UINT8			Unit)
+	IN	unsigned char			Unit)
 {
 	switch(Unit)
 	{
@@ -751,7 +751,7 @@ unsigned int SetHWAntennaDivsersity(
 {
 	if (Enable == TRUE)
 	{
-		UINT8 BBPValue = 0, RFValue = 0;
+		unsigned char BBPValue = 0, RFValue = 0;
 		USHORT value;
 
 		// RF_R29 bit7:6
@@ -786,7 +786,7 @@ unsigned int SetHWAntennaDivsersity(
 	}
 	else
 	{
-		UINT8 BBPValue = 0;
+		unsigned char BBPValue = 0;
 
 		/*
 			main antenna: BBP_R152 bit7=1

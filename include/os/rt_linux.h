@@ -1133,8 +1133,8 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 #define RTMP_GET_PACKET_5VT(_p)         (RTPKT_TO_OSPKT(_p)->cb[CB_OFF+22])
 
 #define RTMP_SET_PACKET_PROTOCOL(_p, _protocol) {\
-	(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+23] = (UINT8)((_protocol) & 0x00ff)); \
-	(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+24] = (UINT8)(((_protocol) & 0xff00) >> 8)); \
+	(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+23] = (unsigned char)((_protocol) & 0x00ff)); \
+	(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+24] = (unsigned char)(((_protocol) & 0xff00) >> 8)); \
 }
 
 #define RTMP_GET_PACKET_PROTOCOL(_p) \

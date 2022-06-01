@@ -62,8 +62,8 @@ extern int CFG_commit(int id);
 #define CFG_commit(a)   {}
 #endif /*__ECOS && BRANCH_ADV */
 
-UINT8 WPS_DH_G_VALUE[1] = {0x02};
-UINT8 WPS_DH_P_VALUE[192] = 
+unsigned char WPS_DH_G_VALUE[1] = {0x02};
+unsigned char WPS_DH_P_VALUE[192] = 
 {
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
     0xC9, 0x0F, 0xDA, 0xA2, 0x21, 0x68, 0xC2, 0x34,
@@ -4175,7 +4175,7 @@ VOID WscBuildBeaconIE(
 	Len   += templen;
 
 	/* 2. Simple Config State */
-	templen = AppendWSCTLV(WSC_ID_SC_STATE, pData, (UINT8 *)&b_configured, 0);
+	templen = AppendWSCTLV(WSC_ID_SC_STATE, pData, (unsigned char *)&b_configured, 0);
 	pData += templen;
 	Len   += templen;
 	
@@ -4184,7 +4184,7 @@ VOID WscBuildBeaconIE(
 	if ((CurOpMode == AP_MODE) && pWpsCtrl->bSetupLock)
 	{
 		// AP Setup Lock
-		templen = AppendWSCTLV(WSC_ID_AP_SETUP_LOCKED, pData, (UINT8 *)&pWpsCtrl->bSetupLock, 0);
+		templen = AppendWSCTLV(WSC_ID_AP_SETUP_LOCKED, pData, (unsigned char *)&pWpsCtrl->bSetupLock, 0);
 		pData += templen;
 		Len   += templen;
 	}
@@ -4194,20 +4194,20 @@ VOID WscBuildBeaconIE(
 	if ( b_selRegistrar )
 	{
 		/* 3.Selected Registrar */
-		templen = AppendWSCTLV(WSC_ID_SEL_REGISTRAR, pData, (UINT8 *)&b_selRegistrar, 0);
+		templen = AppendWSCTLV(WSC_ID_SEL_REGISTRAR, pData, (unsigned char *)&b_selRegistrar, 0);
 		pData += templen;
 		Len   += templen;
 
 		/*4. Device Password ID */
 		tempVal = htons(devPwdId);
-		templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (UINT8 *)&tempVal, 0);
+		templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (unsigned char *)&tempVal, 0);
 		pData += templen;
 		Len   += templen;
 
 		/* 5. Selected Registrar Config Methods */
 		tempVal = selRegCfgMethods;
 		tempVal = htons(tempVal);
-		templen = AppendWSCTLV(WSC_ID_SEL_REG_CFG_METHODS, pData, (UINT8 *)&tempVal, 0);
+		templen = AppendWSCTLV(WSC_ID_SEL_REG_CFG_METHODS, pData, (unsigned char *)&tempVal, 0);
 		pData += templen;
 		Len   += templen;
 	}
@@ -4236,7 +4236,7 @@ VOID WscBuildBeaconIE(
 #ifdef RT_BIG_ENDIAN
 	tempVal = SWAP16(tempVal);
 #endif /* RT_BIG_ENDIAN */
-	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (UINT8 *)&tempVal, 0);
+	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (unsigned char *)&tempVal, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -4255,7 +4255,7 @@ VOID WscBuildBeaconIE(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -4336,7 +4336,7 @@ VOID WscBuildProbeRespIE(
 	Len   += templen;
 
 	/* 2. Simple Config State */
-	templen = AppendWSCTLV(WSC_ID_SC_STATE, pData, (UINT8 *)&scState, 0);
+	templen = AppendWSCTLV(WSC_ID_SC_STATE, pData, (unsigned char *)&scState, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -4345,7 +4345,7 @@ VOID WscBuildProbeRespIE(
 	if ((CurOpMode == AP_MODE) && pWpsCtrl->bSetupLock)
 	{
 		// AP Setup Lock
-		templen = AppendWSCTLV(WSC_ID_AP_SETUP_LOCKED, pData, (UINT8 *)&pWpsCtrl->bSetupLock, 0);
+		templen = AppendWSCTLV(WSC_ID_AP_SETUP_LOCKED, pData, (unsigned char *)&pWpsCtrl->bSetupLock, 0);
 		pData += templen;
 		Len   += templen;
 	}
@@ -4355,26 +4355,26 @@ VOID WscBuildProbeRespIE(
 	if ( b_selRegistrar )
 	{
 		/* 3. Selected Registrar */
-		templen = AppendWSCTLV(WSC_ID_SEL_REGISTRAR, pData, (UINT8 *)&b_selRegistrar, 0);
+		templen = AppendWSCTLV(WSC_ID_SEL_REGISTRAR, pData, (unsigned char *)&b_selRegistrar, 0);
 		pData += templen;
 		Len   += templen;
 
 		/* 4. Device Password ID */
 		tempVal = htons(devPwdId);
-		templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (UINT8 *)&tempVal, 0);
+		templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (unsigned char *)&tempVal, 0);
 		pData += templen;
 		Len   += templen;
 
 		/* 5. Selected Registrar Config Methods */
 		tempVal = htons(selRegCfgMethods);
-		templen = AppendWSCTLV(WSC_ID_SEL_REG_CFG_METHODS, pData, (UINT8 *)&tempVal, 0);
+		templen = AppendWSCTLV(WSC_ID_SEL_REG_CFG_METHODS, pData, (unsigned char *)&tempVal, 0);
 		pData += templen;
 		Len   += templen;
 
 	}
 
 	/* 6. Response Type WSC_ID_RESP_TYPE */
-	templen = AppendWSCTLV(WSC_ID_RESP_TYPE, pData, (UINT8 *)&respType, 0);
+	templen = AppendWSCTLV(WSC_ID_RESP_TYPE, pData, (unsigned char *)&respType, 0);
    	pData += templen;
    	Len   += templen;
 
@@ -4435,7 +4435,7 @@ VOID WscBuildProbeRespIE(
 	}
 
 	tempVal = htons(tempVal);
-	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (UINT8 *)&tempVal, 0);
+	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (unsigned char *)&tempVal, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -4458,7 +4458,7 @@ VOID WscBuildProbeRespIE(
 #ifdef RT_BIG_ENDIAN
 	tempVal =SWAP16(tempVal);
 #endif /* RT_BIG_ENDIAN */
-	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (UINT8 *)&tempVal, 0);
+	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (unsigned char *)&tempVal, 0);
 	pData += templen;
 	Len   += templen;
      
@@ -4477,7 +4477,7 @@ VOID WscBuildProbeRespIE(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -4630,7 +4630,7 @@ VOID WscBuildAssocRespIE(
 	UCHAR 			*Data = NULL;
 	unsigned char *			pData;
 	INT				Len = 0, templen = 0;
-	UINT8			tempVal = 0;
+	unsigned char			tempVal = 0;
     PWSC_REG_DATA	pReg = (PWSC_REG_DATA) &pAd->ApCfg.MBSSID[ApIdx].WscControl.RegData;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscBuildAssocRespIE\n"));
@@ -4660,7 +4660,7 @@ VOID WscBuildAssocRespIE(
 
 	/* Request Type */
 	tempVal = WSC_MSGTYPE_AP_WLAN_MGR;
-	templen = AppendWSCTLV(WSC_ID_RESP_TYPE, pData, (UINT8 *)&tempVal, 0);
+	templen = AppendWSCTLV(WSC_ID_RESP_TYPE, pData, (unsigned char *)&tempVal, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -5783,7 +5783,7 @@ BOOLEAN WscCheckNonce(
 		WSC_IE	TLV_Recv;
         char ZeroNonce[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -5906,7 +5906,7 @@ VOID    WscGetConfigErrFromNack(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;

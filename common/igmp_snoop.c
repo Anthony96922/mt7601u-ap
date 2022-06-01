@@ -1028,7 +1028,7 @@ NDIS_STATUS IgmpPktClone(
 	IN INT IgmpPktInGroup,
 	IN PMULTICAST_FILTER_TABLE_ENTRY pGroupEntry,
 	IN UCHAR QueIdx,
-	IN UINT8 UserPriority,
+	IN unsigned char UserPriority,
 	IN PNET_DEV pNetDev)
 {
 	PNDIS_PACKET pSkbClone = NULL;
@@ -1208,7 +1208,7 @@ static inline BOOLEAN isMldMacAddr(
 }
 
 static inline BOOLEAN IsSupportedMldMsg(
-	IN UINT8 MsgType) 
+	IN unsigned char MsgType) 
 {
 	BOOLEAN result = FALSE;
 	switch(MsgType)
@@ -1229,7 +1229,7 @@ static inline BOOLEAN IsSupportedMldMsg(
 BOOLEAN isMldPkt(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader,
-	OUT UINT8 *pProtoType,
+	OUT unsigned char *pProtoType,
 	OUT unsigned char * *pMldHeader)
 {
 	BOOLEAN result = FALSE;
@@ -1246,7 +1246,7 @@ BOOLEAN isMldPkt(
 	do
 	{
 		PRT_IPV6_HDR pIpv6Hdr = (PRT_IPV6_HDR)(pIpHeader);
-		UINT8 nextProtocol = pIpv6Hdr->nextHdr;
+		unsigned char nextProtocol = pIpv6Hdr->nextHdr;
 		unsigned int offset = IPV6_HDR_LEN;
 
 		while(nextProtocol != IPV6_NEXT_HEADER_ICMPV6)
@@ -1279,7 +1279,7 @@ BOOLEAN IPv6MulticastFilterExcluded(
 	BOOLEAN result = FALSE;
 	unsigned short IpProtocol = ntohs(*((unsigned short *)(pIpHeader)));
 	INT idx;
-	UINT8 nextProtocol;
+	unsigned char nextProtocol;
 
 	if(!IS_IPV6_MULTICAST_MAC_ADDR(pDstMacAddr))
 		return FALSE;
@@ -1429,7 +1429,7 @@ VOID MLDSnooping(
 	UCHAR GroupMacAddr[6];
 	unsigned char * pGroupMacAddr = (unsigned char *)&GroupMacAddr;
 
-	UINT8 MldType;
+	unsigned char MldType;
 	unsigned char * pMldHeader;
 
 	if(isMldPkt(pDstMacAddr, pIpHeader, &MldType, &pMldHeader) == TRUE)

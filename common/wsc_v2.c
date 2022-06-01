@@ -278,7 +278,7 @@ BOOLEAN	WscGenV2Msg(
 			}
 		}
 
-		templen = AppendWSCTLV(WSC_ID_VENDOR_EXT, (*pOutBuf), (UINT8 *)pWscV2Msg, WscV2MsgLen);
+		templen = AppendWSCTLV(WSC_ID_VENDOR_EXT, (*pOutBuf), (unsigned char *)pWscV2Msg, WscV2MsgLen);
 		(*pOutBuf) += templen;
 		(*pOutBufLen)   += templen;
 

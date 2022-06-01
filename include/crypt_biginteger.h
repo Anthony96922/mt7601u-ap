@@ -64,11 +64,11 @@ VOID BigInteger_ClearHighBits (
 
 VOID BigInteger_BI2Bin (
     IN PBIG_INTEGER pBI, 
-    OUT UINT8 *pValue,
+    OUT unsigned char *pValue,
     OUT UINT *Length);
 
 VOID BigInteger_Bin2BI (
-    IN UINT8 *pValue,
+    IN unsigned char *pValue,
     IN UINT Length,
     OUT PBIG_INTEGER *pBI);
 
@@ -80,7 +80,7 @@ INT BigInteger_GetBitValue (
     IN PBIG_INTEGER pBI,
     IN UINT Index);
 
-UINT8 BigInteger_GetByteValue (
+unsigned char BigInteger_GetByteValue (
     IN PBIG_INTEGER pBI,
     IN UINT Index);
 

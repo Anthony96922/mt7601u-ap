@@ -2207,15 +2207,15 @@ VOID APOverlappingBSSScan(
 BOOLEAN DOT1X_InternalCmdAction(
     IN  PRTMP_ADAPTER	pAd,
     IN  MAC_TABLE_ENTRY *pEntry,
-    IN	UINT8			cmd)
+    IN	unsigned char			cmd)
 {
 	INT			apidx = MAIN_MBSSID;	
 	UCHAR 			RalinkIe[9] = {221, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
 	UCHAR			s_addr[MAC_ADDR_LEN];
 	UCHAR			EAPOL_IE[] = {0x88, 0x8e};
-	UINT8			frame_len = LENGTH_802_3 + sizeof(RalinkIe);
+	unsigned char			frame_len = LENGTH_802_3 + sizeof(RalinkIe);
 	UCHAR			FrameBuf[frame_len];
-	UINT8			offset = 0;
+	unsigned char			offset = 0;
 	
 	/* Init the frame buffer */
 	NdisZeroMemory(FrameBuf, frame_len);
@@ -2274,9 +2274,9 @@ BOOLEAN DOT1X_EapTriggerAction(
 {
 	INT			apidx = MAIN_MBSSID;
 	UCHAR 			eapol_start_1x_hdr[4] = {0x01, 0x01, 0x00, 0x00};
-	UINT8			frame_len = LENGTH_802_3 + sizeof(eapol_start_1x_hdr);
+	unsigned char			frame_len = LENGTH_802_3 + sizeof(eapol_start_1x_hdr);
 	UCHAR			FrameBuf[frame_len];
-	UINT8			offset = 0;
+	unsigned char			offset = 0;
 
 	if ((pEntry->AuthMode == Ndis802_11AuthModeWPA) || (pEntry->AuthMode == Ndis802_11AuthModeWPA2) || (pAd->ApCfg.MBSSID[apidx].IEEE8021X == TRUE))
 	{

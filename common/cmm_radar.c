@@ -182,9 +182,9 @@ INT Set_ChMovingTime_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
-	UINT8 Value;
+	unsigned char Value;
 
-	Value = (UINT8) simple_strtol(arg, 0, 10);
+	Value = (unsigned char) simple_strtol(arg, 0, 10);
 
 	pAd->Dot11_H.ChMovingTime = Value;
 
@@ -234,7 +234,7 @@ INT	Set_RadarShow_Proc(
 {
 #ifdef DFS_SUPPORT
 	int i;
-	UINT8 idx;
+	unsigned char idx;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pRadarDetect->DfsProgramParam;
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pRadarDetect->DfsSwParam;

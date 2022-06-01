@@ -268,7 +268,7 @@ NDIS_STATUS MiniportMMRequest(
 	PNDIS_PACKET pPacket;
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
 	ULONG FreeNum;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	UCHAR rtmpHwHdr[40];
 	BOOLEAN bUseDataQ = FALSE, FlgDataQForce = FALSE, FlgIsLocked = FALSE;
 	int retryCnt = 0, hw_len = TXINFO_SIZE + TXWISize + TSO_SIZE;
@@ -525,7 +525,7 @@ NDIS_STATUS MlmeHardTransmit(
 #ifdef CONFIG_AP_SUPPORT
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	PHEADER_802_11	pHeader_802_11;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 #endif /* CONFIG_AP_SUPPORT */
 	PACKET_INFO 	PacketInfo;
 	unsigned char *			pSrcBufVA;
@@ -598,7 +598,7 @@ NDIS_STATUS MlmeHardTransmit(
 			(pHeader_802_11->FC.SubType == SUBTYPE_ACTION_NO_ACK))))
 	{
 		/* the peer is in PS mode, we need to queue the management frame */
-		UINT8 FlgIsDeltsFrame = 0, MgmtQid = QID_AC_VO;
+		unsigned char FlgIsDeltsFrame = 0, MgmtQid = QID_AC_VO;
 
 		/*
 			1. Data & Not QoS Null, or
@@ -647,7 +647,7 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 	TXWI_STRUC *pFirstTxWI;
 	MAC_TABLE_ENTRY *pMacEntry = NULL;
 	UCHAR PID;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 
 	RTMP_QueryPacketInfo(pPacket, &PacketInfo, &pSrcBufVA, &SrcBufLen);

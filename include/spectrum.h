@@ -6,9 +6,9 @@
 #include "spectrum_def.h"
 
 
-UINT8 GetRegulatoryMaxTxPwr(
+unsigned char GetRegulatoryMaxTxPwr(
 	IN PRTMP_ADAPTER pAd,
-	IN UINT8 channel);
+	IN unsigned char channel);
 
 CHAR RTMP_GetTxPwr(
 	IN PRTMP_ADAPTER pAd,
@@ -30,12 +30,12 @@ VOID MakeMeasurementReqFrame(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pOutBuffer,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 TotalLen,
-	IN UINT8 Category,
-	IN UINT8 Action,
-	IN UINT8 MeasureToken, 
-	IN UINT8 MeasureReqMode,
-	IN UINT8 MeasureReqType,
+	IN unsigned char TotalLen,
+	IN unsigned char Category,
+	IN unsigned char Action,
+	IN unsigned char MeasureToken, 
+	IN unsigned char MeasureReqMode,
+	IN unsigned char MeasureReqType,
 	IN unsigned short NumOfRepetitions);
 
 /*
@@ -53,11 +53,11 @@ VOID MakeMeasurementReqFrame(
 VOID EnqueueMeasurementRep(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
-	IN UINT8 DialogToken,
-	IN UINT8 MeasureToken, 
-	IN UINT8 MeasureReqMode,
-	IN UINT8 MeasureReqType,
-	IN UINT8 ReportInfoLen,
+	IN unsigned char DialogToken,
+	IN unsigned char MeasureToken, 
+	IN unsigned char MeasureReqMode,
+	IN unsigned char MeasureReqType,
+	IN unsigned char ReportInfoLen,
 	IN unsigned char * pReportInfo);
 
 /*
@@ -92,9 +92,9 @@ VOID EnqueueTPCReq(
 VOID EnqueueTPCRep(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
-	IN UINT8 DialogToken,
-	IN UINT8 TxPwr,
-	IN UINT8 LinkMargin);
+	IN unsigned char DialogToken,
+	IN unsigned char TxPwr,
+	IN unsigned char LinkMargin);
 
 #ifdef WDS_SUPPORT
 /*
@@ -114,8 +114,8 @@ VOID EnqueueTPCRep(
 VOID EnqueueChSwAnn(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA, 
-	IN UINT8 ChSwMode,
-	IN UINT8 NewCh);
+	IN unsigned char ChSwMode,
+	IN unsigned char NewCh);
 #endif /* WDS_SUPPORT */
 
 /*
@@ -164,35 +164,35 @@ VOID MeasureReqTabExit(
 
 PMEASURE_REQ_ENTRY MeasureReqLookUp(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken);
+	IN unsigned char			DialogToken);
 
 PMEASURE_REQ_ENTRY MeasureReqInsert(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken);
+	IN unsigned char			DialogToken);
 
 VOID MeasureReqDelete(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8			DialogToken);
+	IN unsigned char			DialogToken);
 
 VOID InsertChannelRepIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN char * pCountry,
-	IN UINT8 RegulatoryClass);
+	IN unsigned char RegulatoryClass);
 
 VOID InsertTpcReportIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 TxPwr,
-	IN UINT8 LinkMargin);
+	IN unsigned char TxPwr,
+	IN unsigned char LinkMargin);
 
 VOID InsertDialogToken(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 DialogToken);
+	IN unsigned char DialogToken);
 
 NDIS_STATUS	TpcReqTabInit(
 	IN PRTMP_ADAPTER pAd);
@@ -204,8 +204,8 @@ VOID NotifyChSwAnnToPeerAPs(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pRA,
 	IN unsigned char * pTA,
-	IN UINT8 ChSwMode,
-	IN UINT8 Channel);
+	IN unsigned char ChSwMode,
+	IN unsigned char Channel);
 
 VOID RguClass_BuildBcnChList(
 	IN PRTMP_ADAPTER pAd,

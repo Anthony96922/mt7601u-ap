@@ -839,7 +839,7 @@ VOID AP_E2PROM_IOCTL_PostCtrl(
 
 VOID IAPP_L2_UpdatePostCtrl(
 	IN PRTMP_ADAPTER	pAd,
-    IN UINT8 *mac_p,
+    IN unsigned char *mac_p,
     IN INT  bssid)
 {
 }

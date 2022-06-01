@@ -1325,7 +1325,7 @@ INT RTMPAPSetInformation(
 
 	struct ieee80211req_key		Key;
 	struct ieee80211req_del_key	delkey;
-	UINT8				Wcid;
+	unsigned char				Wcid;
 	PMULTISSID_STRUCT		pMbss;
 	WSC_LV_INFO		WscIEBeacon;
 	WSC_LV_INFO		WscIEProbeResp;
@@ -2667,7 +2667,7 @@ INT RTMPAPSetInformation(
 
 					RTMPSetWcidSecurityInfo(pAd,
 						pEntry->apidx,
-						(UINT8)KeyIdx,
+						(unsigned char)KeyIdx,
 						pEntry->PairwiseKey.CipherAlg,
 						pEntry->Aid,
 						PAIRWISEKEYTABLE);
@@ -2712,7 +2712,7 @@ INT RTMPAPSetInformation(
 						&pAd->SharedKey[apidx][pMbss->DefaultKeyId]);
 					GET_GroupKey_WCID(pAd, Wcid, apidx);
 
-					RTMPSetWcidSecurityInfo(pAd, apidx,(UINT8)KeyIdx, 
+					RTMPSetWcidSecurityInfo(pAd, apidx,(unsigned char)KeyIdx, 
 									pAd->SharedKey[apidx][pMbss->DefaultKeyId].CipherAlg, Wcid, SHAREDKEYTABLE);
 
 					/*RTMPAddWcidAttributeEntry(pAd, apidx,
@@ -5379,7 +5379,7 @@ INT	Set_ACLClearAll_Proc(
 }
 
 #ifdef DBG
-static void _rtmp_hexdump(int level, const char *title, const UINT8 *buf,
+static void _rtmp_hexdump(int level, const char *title, const unsigned char *buf,
 			 size_t len, int show)
 {
 	size_t i;
@@ -5395,7 +5395,7 @@ static void _rtmp_hexdump(int level, const char *title, const UINT8 *buf,
 	printk("\n");
 }
 
-void rtmp_hexdump(int level, const char *title, const UINT8 *buf, size_t len)
+void rtmp_hexdump(int level, const char *title, const unsigned char *buf, size_t len)
 {
 	_rtmp_hexdump(level, title, buf, len, 1);
 }
@@ -6205,7 +6205,7 @@ VOID RTMPIoctlAddWPAKey(
 			/* it is a shared key */
 			if (pKey->KeyIndex & 0x80000000)
 			{
-				UINT8	Wcid;
+				unsigned char	Wcid;
 							
 				DBGPRINT(RT_DEBUG_TRACE, ("RTMPIoctlAddWPAKey-IF(ra%d) : Set Group Key\n", apidx));
 
@@ -6231,12 +6231,12 @@ VOID RTMPIoctlAddWPAKey(
 				Key = pAd->SharedKey[apidx][KeyIdx].Key;
 
 				/* Set Group key material to Asic */
-				AsicAddSharedKeyEntry(pAd, apidx, (UINT8)KeyIdx, &pAd->SharedKey[apidx][KeyIdx]);
+				AsicAddSharedKeyEntry(pAd, apidx, (unsigned char)KeyIdx, &pAd->SharedKey[apidx][KeyIdx]);
 		
 				/* Get a specific WCID to record this MBSS key attribute */
 				GET_GroupKey_WCID(pAd, Wcid, apidx);
 												
-				RTMPSetWcidSecurityInfo(pAd, apidx,(UINT8)KeyIdx, 
+				RTMPSetWcidSecurityInfo(pAd, apidx,(unsigned char)KeyIdx, 
 									CipherAlg, Wcid, SHAREDKEYTABLE);												
 			}
 			else	/* For Pairwise key setting */
@@ -6265,7 +6265,7 @@ VOID RTMPIoctlAddWPAKey(
 					/* update WCID attribute table and IVEIV table for this entry */
 					RTMPSetWcidSecurityInfo(pAd, 
 										pEntry->apidx, 
-										(UINT8)KeyIdx,
+										(unsigned char)KeyIdx,
 										pEntry->PairwiseKey.CipherAlg, 
 										pEntry->Aid,
 										PAIRWISEKEYTABLE);
@@ -6390,7 +6390,7 @@ VOID RTMPIoctlStaticWepCopy(
 				/* update WCID attribute table and IVEIV table for this entry */
 				RTMPSetWcidSecurityInfo(pAd, 
 							pEntry->apidx, 
-							(UINT8)KeyIdx, 
+							(unsigned char)KeyIdx, 
                 					pEntry->PairwiseKey.CipherAlg, 
 							pEntry->Aid, 
 							PAIRWISEKEYTABLE);
@@ -9346,7 +9346,7 @@ BOOLEAN WscCheckEnrolleeNonceFromUpnp(
 		WSC_IE	TLV_Recv;
         char ZeroNonce[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -10710,20 +10710,20 @@ VOID RtmpHostapdSecuritySet(
 
 		DBGPRINT(RT_DEBUG_TRACE,("ioctl SIOCSIWGENIE pAd->IoctlIF=%d\n",apidx));
 
-		RSNIe[0]=*(UINT8 *)wrqin->u.data.pointer;
+		RSNIe[0]=*(unsigned char *)wrqin->u.data.pointer;
 		if(IE_WPA != RSNIe[0] && IE_RSN != RSNIe[0] )
 		{
 			DBGPRINT(RT_DEBUG_TRACE,("IE %02x != 0x30/0xdd\n",RSNIe[0]));
 			Status = -EINVAL;
 			break;
 		}
-		RSNIE_Len[0]=*((UINT8 *)wrqin->u.data.pointer + 1);
+		RSNIE_Len[0]=*((unsigned char *)wrqin->u.data.pointer + 1);
 		if(wrqin->u.data.length != RSNIE_Len[0]+2)
 		{
 			DBGPRINT(RT_DEBUG_TRACE,("IE use WPA1 WPA2\n"));
 			NdisZeroMemory(pAd->ApCfg.MBSSID[apidx].RSN_IE[1], MAX_LEN_OF_RSNIE);
-			RSNIe[1]=*(UINT8 *)wrqin->u.data.pointer;
-			RSNIE_Len[1]=*((UINT8 *)wrqin->u.data.pointer + 1);
+			RSNIe[1]=*(unsigned char *)wrqin->u.data.pointer;
+			RSNIE_Len[1]=*((unsigned char *)wrqin->u.data.pointer + 1);
 			DBGPRINT(RT_DEBUG_TRACE,( "IE1 %02x %02x\n",RSNIe[1],RSNIE_Len[1]));
 			pAd->ApCfg.MBSSID[apidx].RSNIE_Len[1] = RSNIE_Len[1];
 			NdisMoveMemory(pAd->ApCfg.MBSSID[apidx].RSN_IE[1], (UCHAR *)(wrqin->u.data.pointer)+2, RSNIE_Len[1]);
@@ -10733,8 +10733,8 @@ VOID RtmpHostapdSecuritySet(
 			DBGPRINT(RT_DEBUG_TRACE,("IE use only %02x\n",RSNIe[0]));
 
 		NdisZeroMemory(pAd->ApCfg.MBSSID[apidx].RSN_IE[0], MAX_LEN_OF_RSNIE);
-		RSNIe[0]=*(((UINT8 *)wrqin->u.data.pointer)+offset_next_ie);
-		RSNIE_Len[0]=*(((UINT8 *)wrqin->u.data.pointer) + offset_next_ie + 1);
+		RSNIe[0]=*(((unsigned char *)wrqin->u.data.pointer)+offset_next_ie);
+		RSNIE_Len[0]=*(((unsigned char *)wrqin->u.data.pointer) + offset_next_ie + 1);
 		if(IE_WPA != RSNIe[0] && IE_RSN != RSNIe[0] )
 		{
 			Status = -EINVAL;

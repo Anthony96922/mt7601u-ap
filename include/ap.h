@@ -66,7 +66,7 @@ BOOLEAN APBridgeToWirelessSta(
 VOID RTMP_BASetup(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pMacEntry,
-	IN UINT8 UserPriority);
+	IN unsigned char UserPriority);
 
 VOID	APSendPackets(
 	IN	NDIS_HANDLE		MiniportAdapterContext,
@@ -436,7 +436,7 @@ INT	Set_PreAuthIfName_Proc(
 BOOLEAN DOT1X_InternalCmdAction(
     IN  PRTMP_ADAPTER	pAd,
     IN  MAC_TABLE_ENTRY *pEntry,
-    IN	UINT8			cmd);
+    IN	unsigned char			cmd);
 
 BOOLEAN DOT1X_EapTriggerAction(
     IN  PRTMP_ADAPTER	pAd,
@@ -450,5 +450,5 @@ VOID AP_E2PROM_IOCTL_PostCtrl(
 
 VOID IAPP_L2_UpdatePostCtrl(
 	IN PRTMP_ADAPTER	pAd,
-    IN UINT8 *mac_p,
+    IN unsigned char *mac_p,
     IN INT  bssid);

@@ -560,7 +560,7 @@ static USHORT APBuildAssociation(
 */
 static BOOLEAN IAPP_L2_Update_Frame_Send(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT8 *mac_p,
+	IN unsigned char *mac_p,
 	IN INT bssid)
 {
 	NDIS_PACKET *pNetBuf;
@@ -602,7 +602,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	BOOLEAN bACLReject = FALSE;
 #ifdef DOT1X_SUPPORT
 	unsigned char * pPmkid = NULL;
-	UINT8 pmkid_count = 0;
+	unsigned char pmkid_count = 0;
 #endif /* DOT1X_SUPPORT */	
 	MULTISSID_STRUCT *wdev;
 

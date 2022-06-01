@@ -272,7 +272,7 @@ static void dfs_sw_init(
 
 static BOOLEAN StagerRadarCheck(
 		IN PRTMP_ADAPTER pAd,
-		UINT8 dfs_channel);
+		unsigned char dfs_channel);
 
 static BOOLEAN ChirpRadarCheck(
 		IN PRTMP_ADAPTER pAd);
@@ -287,7 +287,7 @@ static VOID DfsCheckBusyIdle(
 
 static BOOLEAN DfsChannelCheck(
 		IN PRTMP_ADAPTER pAd,
-		IN UINT8 DfsChannel);
+		IN unsigned char DfsChannel);
 
 static VOID ChannelSelectOnRadarDetection(
 		IN PRTMP_ADAPTER pAd);
@@ -830,7 +830,7 @@ INT	Set_EventExpire_Proc(
 	IN      char *                 arg) 
 {
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
-	UINT8 dfs_channel, bbp_val;
+	unsigned char dfs_channel, bbp_val;
 	unsigned int EventExpiration = 0;
        STRING StrBuf[64];
 	char * SubStr = NULL;
@@ -841,7 +841,7 @@ INT	Set_EventExpire_Proc(
 		*SubStr = '\0';
 		SubStr++;
 		EventExpiration = (unsigned int) simple_strtol(SubStr, 0, 16);
-		dfs_channel = (UINT8) simple_strtol(StrBuf, 0, 16);
+		dfs_channel = (unsigned char) simple_strtol(StrBuf, 0, 16);
 		DBGPRINT(RT_DEBUG_TRACE, 
 			("%s(): dfs_channel = %u, EventExpiration = 0x%08x\n",
 			__FUNCTION__, dfs_channel, EventExpiration));
@@ -1909,10 +1909,10 @@ int SWRadarCheck(
     Note:
     ==========================================================================
  */
-static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, UINT8 dfs_channel)
+static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, unsigned char dfs_channel)
 {
 	UINT T1=0, T2=0, T3=0, T_all=0, F1, F2, F3 = 0, Fmax = 0, freq_diff_min, freq_diff_max;
-	UINT8  dfs_stg2=0, dfs_typ5=0; /*, bbp141=0;*/
+	unsigned char  dfs_stg2=0, dfs_typ5=0; /*, bbp141=0;*/
 	UINT F_MAX, F_MID, F_MIN;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--->StagerRadarCheck()\n"));
@@ -2141,10 +2141,10 @@ static VOID DfsCheckBusyIdle(
 
 static BOOLEAN DfsChannelCheck(
 			IN PRTMP_ADAPTER pAd,
-			IN UINT8 DfsChannel)
+			IN unsigned char DfsChannel)
 {
 	pNewDFSTable pDFS2Table;
-	UINT8 i;
+	unsigned char i;
 	unsigned int W, T;
 	BOOLEAN radarDeclared = 0;
 	/*UCHAR BBP_1 = 0, BBP_2 = 0, BBP_3 = 0, BBP_4 = 0;*/
@@ -2234,8 +2234,8 @@ static BOOLEAN DfsEventDataFetch(
 
 VOID NewRadarDetectionProgram(PRTMP_ADAPTER pAd, pNewDFSTable pDFS2Table)
 {
-	UINT8 idx, TalbeIdx, DFSR3;
-	UINT8 DfsEngineNum = pAd->chipCap.DfsEngineNum;
+	unsigned char idx, TalbeIdx, DFSR3;
+	unsigned char DfsEngineNum = pAd->chipCap.DfsEngineNum;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pRadarDetect->DfsProgramParam;
 
@@ -2398,7 +2398,7 @@ VOID NewRadarDetectionProgram(PRTMP_ADAPTER pAd, pNewDFSTable pDFS2Table)
 BOOLEAN DfsSwCheckOnHwDetection(
 	 IN PRTMP_ADAPTER pAd,
 	 IN pNewDFSTable pDFS2Table,
-	 IN UINT8 DfsChannel,
+	 IN unsigned char DfsChannel,
 	 IN ULONG RadarPeriod,
 	 IN ULONG RadarWidth)
 {
@@ -2693,7 +2693,7 @@ void modify_table1(PRTMP_ADAPTER pAd, ULONG idx, ULONG value)
 {
 	pNewDFSTable pDFS2Table;
 	ULONG x, y;	
-	UINT8 DfsEngineNum = pAd->chipCap.DfsEngineNum;
+	unsigned char DfsEngineNum = pAd->chipCap.DfsEngineNum;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pRadarDetect->DfsProgramParam;
 

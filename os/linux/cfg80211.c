@@ -560,7 +560,7 @@ Note:
 static int CFG80211_OpsStaGet(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							*pMac,
+	IN unsigned char							*pMac,
 	IN struct station_info				*pSinfo)
 {
 	VOID *pAd;
@@ -640,7 +640,7 @@ static int CFG80211_OpsStaDump(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
 	IN int								Idx,
-	IN UINT8							*pMac,
+	IN unsigned char							*pMac,
 	IN struct station_info				*pSinfo)
 {
 	VOID *pAd;
@@ -708,17 +708,17 @@ Note:
 static int CFG80211_OpsKeyAdd(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							KeyIdx,
+	IN unsigned char							KeyIdx,
 	IN bool								Pairwise,
-	IN const UINT8						*pMacAddr,
+	IN const unsigned char						*pMacAddr,
 	IN struct key_params				*pParams)
 #else
 
 static int CFG80211_OpsKeyAdd(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							KeyIdx,
-	IN const UINT8						*pMacAddr,
+	IN unsigned char							KeyIdx,
+	IN const unsigned char						*pMacAddr,
 	IN struct key_params				*pParams)
 #endif /* LINUX_VERSION_CODE */
 {
@@ -730,7 +730,7 @@ static int CFG80211_OpsKeyAdd(
 	MAC80211_PAD_GET(pAd, pWiphy);
 
 #ifdef RT_CFG80211_DEBUG
-	hex_dump("KeyBuf=", (UINT8 *)pParams->key, pParams->key_len);
+	hex_dump("KeyBuf=", (unsigned char *)pParams->key, pParams->key_len);
 #endif /* RT_CFG80211_DEBUG */
 
 	CFG80211DBG(RT_DEBUG_ERROR, ("80211> KeyIdx = %d\n", KeyIdx));
@@ -778,9 +778,9 @@ Note:
 static int CFG80211_OpsKeyGet(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							KeyIdx,
+	IN unsigned char							KeyIdx,
 	IN bool								Pairwise,
-	IN const UINT8						*pMacAddr,
+	IN const unsigned char						*pMacAddr,
 	IN void								*pCookie,
 	IN void								(*pCallback)(void *cookie,
 												 struct key_params *))
@@ -789,8 +789,8 @@ static int CFG80211_OpsKeyGet(
 static int CFG80211_OpsKeyGet(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							KeyIdx,
-	IN const UINT8						*pMacAddr,
+	IN unsigned char							KeyIdx,
+	IN const unsigned char						*pMacAddr,
 	IN void								*pCookie,
 	IN void								(*pCallback)(void *cookie,
 												 struct key_params *))
@@ -825,16 +825,16 @@ Note:
 static int CFG80211_OpsKeyDel(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							KeyIdx,
+	IN unsigned char							KeyIdx,
 	IN bool								Pairwise,
-	IN const UINT8						*pMacAddr)
+	IN const unsigned char						*pMacAddr)
 #else
 
 static int CFG80211_OpsKeyDel(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							KeyIdx,
-	IN const UINT8						*pMacAddr)
+	IN unsigned char							KeyIdx,
+	IN const unsigned char						*pMacAddr)
 #endif /* LINUX_VERSION_CODE */
 {
 	CFG80211DBG(RT_DEBUG_ERROR, ("80211> %s ==>\n", __FUNCTION__));
@@ -863,7 +863,7 @@ Note:
 static int CFG80211_OpsKeyDefaultSet(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							KeyIdx,
+	IN unsigned char							KeyIdx,
 	IN bool								Unicast,
 	IN bool								Multicast)
 #else
@@ -871,7 +871,7 @@ static int CFG80211_OpsKeyDefaultSet(
 static int CFG80211_OpsKeyDefaultSet(
 	IN struct wiphy						*pWiphy,
 	IN struct net_device				*pNdev,
-	IN UINT8							KeyIdx)
+	IN unsigned char							KeyIdx)
 #endif /* LINUX_VERSION_CODE */
 {
 	VOID *pAd;

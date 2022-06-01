@@ -1357,7 +1357,7 @@ NTSTATUS MT7601DisableTxRx(
 	unsigned int MTxCycle;
 	BOOLEAN bResetWLAN = FALSE;
 	BOOLEAN bFree = TRUE;
-	UINT8 CheckFreeTimes = 0;
+	unsigned char CheckFreeTimes = 0;
 	unsigned int MaxRetry;
 
 	if (!IS_MT7601(pAd))
@@ -3189,7 +3189,7 @@ VOID MT7601_AsicMeasureFalseCCA(
 VOID MT7601_AsicMitigateMicrowave(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT8	RegValue;
+	unsigned char	RegValue;
 	//printk("Detect Microwave...\n");
 	/* set middle gain */
 

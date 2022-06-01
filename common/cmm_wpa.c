@@ -390,7 +390,7 @@ VOID WpaEAPOLKeyAction(
 	                /* Need to check KeyType for groupkey or pairwise key update, refer to 8021i P.114, */
 	                if (peerKeyInfo.KeyType == GROUPKEY)
 	                {
-						UINT8		Wcid;
+						unsigned char		Wcid;
 						PMULTISSID_STRUCT	pMbssEntry;
 	            
 	                    DBGPRINT(RT_DEBUG_TRACE, ("REQUEST=1, ERROR=0, update group key\n"));
@@ -2225,7 +2225,7 @@ VOID RTMPDerivePMKID(
 	OUT	unsigned char *			pPMKID)
 {
 	UCHAR	digest[80], text_buf[20];
-	UINT8	text_len;
+	unsigned char	text_len;
 			
 	/* Concatenate the text for PMKID calculation*/
 	NdisMoveMemory(&text_buf[0], "PMK Name", 8);	
@@ -3412,8 +3412,8 @@ BOOLEAN RTMPParseEapolKeyData(
 	========================================================================
 */
 VOID WPA_ConstructKdeHdr(
-	IN 	UINT8	data_type,	
-	IN 	UINT8 	data_len,
+	IN 	unsigned char	data_type,	
+	IN 	unsigned char 	data_len,
 	OUT unsigned char * 	pBuf)
 {
 	PKDE_HDR	pHdr;
@@ -3696,7 +3696,7 @@ VOID	ConstructEapolKeyData(
 	if (RSNIE_LEN && ((MsgType == EAPOL_PAIR_MSG_2) || (MsgType == EAPOL_PAIR_MSG_3)))
 	{
 		unsigned char *	pmkid_ptr = NULL;
-		UINT8 	pmkid_len = 0;
+		unsigned char 	pmkid_len = 0;
 
 
 		RTMPInsertRSNIE(&Key_Data[data_offset], 
@@ -3712,7 +3712,7 @@ VOID	ConstructEapolKeyData(
 	/* Only for pairwise_msg3_WPA2 and group_msg1*/
 	if ((MsgType == EAPOL_PAIR_MSG_3 && bWPA2Capable) || (MsgType == EAPOL_GROUP_MSG_1))
 	{
-		UINT8	gtk_len;
+		unsigned char	gtk_len;
 
 		/* Decide the GTK length */ 
 		if (GroupKeyWepStatus == Ndis802_11Encryption3Enabled)
@@ -3878,7 +3878,7 @@ VOID	CalculateMIC(
 
 UCHAR	RTMPExtractKeyIdxFromIVHdr(	
 	IN	unsigned char *			pIV,
-	IN	UINT8			CipherAlg)
+	IN	unsigned char			CipherAlg)
 {
 	UCHAR	keyIdx = 0xFF;
 
@@ -3910,7 +3910,7 @@ PCIPHER_KEY RTMPSwCipherKeySelection(
 {
 	PCIPHER_KEY pKey = NULL;	
 	UCHAR keyIdx = 0;
-	UINT8 CipherAlg = Ndis802_11EncryptionDisabled;
+	unsigned char CipherAlg = Ndis802_11EncryptionDisabled;
 
 	if ((pEntry == NULL) ||
 		(RX_BLK_TEST_FLAG(pRxBlk, fRX_APCLI)) || 
@@ -4054,7 +4054,7 @@ VOID RTMPSoftConstructIVHdr(
 	IN	UCHAR			key_id,
 	IN	unsigned char *			pTxIv,
 	OUT unsigned char * 			pHdrIv,
-	OUT	UINT8			*hdr_iv_len)
+	OUT	unsigned char			*hdr_iv_len)
 {
 	*hdr_iv_len = 0;
 
@@ -4092,7 +4092,7 @@ VOID RTMPSoftEncryptionAction(
 	IN	unsigned int			SrcBufLen,
 	IN	UCHAR			KeyIdx,
 	IN	PCIPHER_KEY		pKey,
-	OUT	UINT8			*ext_len)
+	OUT	unsigned char			*ext_len)
 {
 	*ext_len = 0;
 
@@ -4149,8 +4149,8 @@ VOID RTMPSoftEncryptionAction(
 unsigned char *	WPA_ExtractSuiteFromRSNIE(
 		IN 	unsigned char *	rsnie,
 		IN 	UINT	rsnie_len,
-		IN	UINT8	type,
-		OUT	UINT8	*count)
+		IN	unsigned char	type,
+		OUT	unsigned char	*count)
 {
 	PEID_STRUCT pEid;
 	INT			len;
@@ -4402,7 +4402,7 @@ VOID WpaShowAllsuite(
 	IN 	UINT	rsnie_len)
 {
 	unsigned char * pSuite = NULL;
-	UINT8 count;
+	unsigned char count;
 
 	hex_dump("RSNIE", rsnie, rsnie_len);
 	
@@ -4436,16 +4436,16 @@ VOID RTMPInsertRSNIE(
 	IN unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN unsigned char * rsnie_ptr,
-	IN UINT8  rsnie_len,
+	IN unsigned char  rsnie_len,
 	IN unsigned char * pmkid_ptr,
-	IN UINT8  pmkid_len)
+	IN unsigned char  pmkid_len)
 {
 	unsigned char *	pTmpBuf;
 	ULONG 	TempLen = 0;
-	UINT8 	extra_len = 0;
+	unsigned char 	extra_len = 0;
 	unsigned short 	pmk_count = 0;
 	UCHAR	ie_num;
-	UINT8 	total_len = 0;	
+	unsigned char 	total_len = 0;	
     UCHAR	WPA2_OUI[3]={0x00,0x0F,0xAC};
 
 	pTmpBuf = pFrameBuf;
@@ -4506,7 +4506,7 @@ VOID RTMPInsertRSNIE(
 
 VOID WPAInstallPairwiseKey(
 	PRTMP_ADAPTER		pAd,
-	UINT8				BssIdx,
+	unsigned char				BssIdx,
 	PMAC_TABLE_ENTRY	pEntry,
 	BOOLEAN				bAE)
 {
@@ -4569,13 +4569,13 @@ VOID WPAInstallPairwiseKey(
 
 VOID WPAInstallSharedKey(
 	PRTMP_ADAPTER		pAd,
-	UINT8				GroupCipher,
-	UINT8				BssIdx,
-	UINT8				KeyIdx,
-	UINT8				Wcid,
+	unsigned char				GroupCipher,
+	unsigned char				BssIdx,
+	unsigned char				KeyIdx,
+	unsigned char				Wcid,
 	BOOLEAN				bAE,
 	unsigned char *				pGtk,
-	UINT8				GtkLen)
+	unsigned char				GtkLen)
 {
 	PCIPHER_KEY 	pSharedKey;
 	
@@ -4670,14 +4670,14 @@ VOID WPAInstallSharedKey(
 
 VOID RTMPSetWcidSecurityInfo(
 	PRTMP_ADAPTER		pAd,
-	UINT8				BssIdx,
-	UINT8				KeyIdx,
-	UINT8				CipherAlg,
-	UINT8				Wcid,
-	UINT8				KeyTabFlag)
+	unsigned char				BssIdx,
+	unsigned char				KeyIdx,
+	unsigned char				CipherAlg,
+	unsigned char				Wcid,
+	unsigned char				KeyTabFlag)
 {
 	unsigned int			IV = 0;
-	UINT8			IV_KEYID = 0;
+	unsigned char			IV_KEYID = 0;
 	
 	/* Prepare initial IV value */
 	if (CipherAlg == CIPHER_WEP64 || CipherAlg == CIPHER_WEP128)

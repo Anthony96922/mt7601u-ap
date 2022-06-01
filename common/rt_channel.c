@@ -1971,9 +1971,9 @@ UCHAR N_SetCenCh(RTMP_ADAPTER *pAd, UCHAR prim_ch)
 #endif /* DOT11_N_SUPPORT */
 
 
-UINT8 GetCountryMaxTxPwr(
+unsigned char GetCountryMaxTxPwr(
 	IN PRTMP_ADAPTER pAd,
-	IN UINT8 channel)
+	IN unsigned char channel)
 {
 	int i;
 	for (i = 0; i < pAd->ChannelListNum; i++)

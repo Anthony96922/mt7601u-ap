@@ -50,7 +50,7 @@ VOID RtmpPrepareHwNullFrame(
 	IN BOOLEAN bWaitACK,
 	IN CHAR Index)
 {
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	TXWI_STRUC *pTxWI;
 	TXINFO_STRUC *pTxInfo;
 	unsigned char * pNullFrame;
@@ -160,7 +160,7 @@ VOID RTMPHwSendNullFrame(
 	IN CHAR Index)
 {
 
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
 	UCHAR *ptr;

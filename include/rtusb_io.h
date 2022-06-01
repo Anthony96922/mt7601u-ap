@@ -108,12 +108,12 @@ typedef struct _RT_ASIC_WCID_SEC_INFO {
 	UCHAR BssIdx;
 	UCHAR KeyIdx;
 	UCHAR CipherAlg;
-	UINT8 Wcid;
-	UINT8 KeyTabFlag;
+	unsigned char Wcid;
+	unsigned char KeyTabFlag;
 } RT_ASIC_WCID_SEC_INFO, *PRT_ASIC_WCID_SEC_INFO;
 
 typedef struct _RT_ASIC_WCID_IVEIV_ENTRY {
-	UINT8 Wcid;
+	unsigned char Wcid;
 	unsigned int Iv;
 	unsigned int Eiv;
 } RT_ASIC_WCID_IVEIV_ENTRY, *PRT_ASIC_WCID_IVEIV_ENTRY;
@@ -122,12 +122,12 @@ typedef struct _RT_ASIC_WCID_ATTR_ENTRY {
 	UCHAR BssIdx;
 	UCHAR KeyIdx;
 	UCHAR CipherAlg;
-	UINT8 Wcid;
-	UINT8 KeyTabFlag;
+	unsigned char Wcid;
+	unsigned char KeyTabFlag;
 } RT_ASIC_WCID_ATTR_ENTRY, *PRT_ASIC_WCID_ATTR_ENTRY;
 
 typedef struct _RT_ASIC_PAIRWISE_KEY {
-	UINT8 WCID;
+	unsigned char WCID;
 	CIPHER_KEY CipherKey;
 } RT_ASIC_PAIRWISE_KEY, *PRT_ASIC_PAIRWISE_KEY;
 

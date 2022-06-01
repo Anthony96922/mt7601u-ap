@@ -153,8 +153,8 @@ static WSC_TLV_0B wsc_tlv_0b[]=
 	/*<Unavailable> 0x000 ¡V 0x0FFF,0x2000 ¡V 0xFFFF*/
 };
 
-extern UINT8 WPS_DH_G_VALUE[1];
-extern UINT8 WPS_DH_P_VALUE[192];
+extern unsigned char WPS_DH_G_VALUE[1];
+extern unsigned char WPS_DH_P_VALUE[192];
 
 int AppendWSCTLV(USHORT index, OUT UCHAR * obuf, IN UCHAR * ibuf, IN USHORT varlen)
 {
@@ -210,7 +210,7 @@ static VOID	WscParseEncrSettings(
 	while (PlainLength > 4)
 	{
 		WSC_IE	TLV_Encr;
-		memcpy((UINT8 *)&TLV_Encr, pData, 4);
+		memcpy((unsigned char *)&TLV_Encr, pData, 4);
 		WscType = be2cpu16(TLV_Encr.Type);
 		WscLen  = be2cpu16(TLV_Encr.Length);
 		pData  += 4;
@@ -312,7 +312,7 @@ static BOOLEAN	WscProcessCredential(
 	while (PlainLength > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -344,12 +344,12 @@ static BOOLEAN	WscProcessCredential(
 								
 			case WSC_ID_AUTH_TYPE:
 				tmpVal = get_unaligned((unsigned short *) pData);
-				pProfile->Profile[CurrentIdx].AuthType = cpu2be16(tmpVal); /*cpu2be16(*((unsigned short *) pData));//(UINT8 *)&pReg->RegistrarInfo.AuthTypeFlags */
+				pProfile->Profile[CurrentIdx].AuthType = cpu2be16(tmpVal); /*cpu2be16(*((unsigned short *) pData));//(unsigned char *)&pReg->RegistrarInfo.AuthTypeFlags */
 				break;
 								
 			case WSC_ID_ENCR_TYPE:
 				tmpVal = get_unaligned((unsigned short *) pData);
-				pProfile->Profile[CurrentIdx].EncrType = cpu2be16(tmpVal);/*cpu2be16(*((unsigned short *) pData));//(UINT8 *)&pReg->RegistrarInfo.EncrTypeFlags */
+				pProfile->Profile[CurrentIdx].EncrType = cpu2be16(tmpVal);/*cpu2be16(*((unsigned short *) pData));//(unsigned char *)&pReg->RegistrarInfo.EncrTypeFlags */
 				break;
 
 			case WSC_ID_NW_KEY_INDEX:
@@ -558,17 +558,17 @@ int BuildMessageM1(
 	Len   += templen;
 
 	/* 7. Authentication Type Flags */
-	templen = AppendWSCTLV(WSC_ID_AUTH_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.AuthTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_AUTH_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.AuthTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 	
 	/* 8. Encryption Type Flags */
-	templen = AppendWSCTLV(WSC_ID_ENCR_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.EncrTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_ENCR_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.EncrTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 	
 	/* 9. Connection Type Flag ESS */
-	templen = AppendWSCTLV(WSC_ID_CONN_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.ConnTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_CONN_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.ConnTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -598,14 +598,14 @@ int BuildMessageM1(
 	}
 
 	ConfigMethods = cpu2be16(ConfigMethods);
-	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (UINT8 *)&ConfigMethods, 0);
+	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (unsigned char *)&ConfigMethods, 0);
 	pData += templen;
 	Len   += templen;
 	
 	/*11. Simple Config State (Not Configured) */
 	if (CurOpMode == AP_MODE)
 		pReg->SelfInfo.ScState = pWscControl->WscConfStatus;
-	templen = AppendWSCTLV(WSC_ID_SC_STATE, pData, (UINT8 *)&pReg->SelfInfo.ScState, 0);
+	templen = AppendWSCTLV(WSC_ID_SC_STATE, pData, (unsigned char *)&pReg->SelfInfo.ScState, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -640,27 +640,27 @@ int BuildMessageM1(
 	Len   += templen;
 	
 	/*18. RF Band */
-	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (UINT8 *)&pReg->SelfInfo.RfBand, 0);
+	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (unsigned char *)&pReg->SelfInfo.RfBand, 0);
 	pData += templen;
 	Len   += templen;
 
 	/*19. Associate state (Not associated) */
-	templen = AppendWSCTLV(WSC_ID_ASSOC_STATE, pData, (UINT8 *)&pReg->SelfInfo.AssocState, 0);
+	templen = AppendWSCTLV(WSC_ID_ASSOC_STATE, pData, (unsigned char *)&pReg->SelfInfo.AssocState, 0);
 	pData += templen;
 	Len   += templen;
 
 	/*20. Device Password ID */
-	templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (UINT8 *)&pReg->SelfInfo.DevPwdId, 0);
+	templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (unsigned char *)&pReg->SelfInfo.DevPwdId, 0);
 	pData += templen;
 	Len   += templen;
 
 	/*21. Configure Error */
-	templen = AppendWSCTLV(WSC_ID_CONFIG_ERROR, pData, (UINT8 *)&ConfigError, 0);
+	templen = AppendWSCTLV(WSC_ID_CONFIG_ERROR, pData, (unsigned char *)&ConfigError, 0);
 	pData += templen;
 	Len   += templen;
 
 	/*22. OS Version Not associated) */
-	templen = AppendWSCTLV(WSC_ID_OS_VERSION, pData, (UINT8 *)&pReg->SelfInfo.OsVersion, 0);
+	templen = AppendWSCTLV(WSC_ID_OS_VERSION, pData, (unsigned char *)&pReg->SelfInfo.OsVersion, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -678,7 +678,7 @@ int BuildMessageM1(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -691,7 +691,7 @@ int BuildMessageM1(
 	/* Extra attribute that is not defined in WSC Sepc. */
 	if (pWscControl->WscV2Info.bEnableWpsV2 && pWscTLV->pTlvData && pWscTLV->TlvLen)
 	{
-		templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+		templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 		pData += templen;
 		Len   += templen;
 	}
@@ -809,17 +809,17 @@ int BuildMessageM2(
 	Len   += templen;
 
 	/* Authentication Type Flags */
-	templen = AppendWSCTLV(WSC_ID_AUTH_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.AuthTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_AUTH_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.AuthTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Encrypt Type */
-	templen = AppendWSCTLV(WSC_ID_ENCR_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.EncrTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_ENCR_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.EncrTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Connection Type */
-	templen = AppendWSCTLV(WSC_ID_CONN_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.ConnTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_CONN_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.ConnTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -843,7 +843,7 @@ int BuildMessageM2(
 		ConfigMethods = (pWscControl->WscConfigMethods & 0x00FF);
 #endif /* WSC_V2_SUPPORT */
 	ConfigMethods = cpu2be16(ConfigMethods);
-	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (UINT8 *)&ConfigMethods, 0);
+	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (unsigned char *)&ConfigMethods, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -878,27 +878,27 @@ int BuildMessageM2(
 	Len   += templen;
 
 	/* RF Band */
-	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (UINT8 *)&pReg->SelfInfo.RfBand, 0);
+	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (unsigned char *)&pReg->SelfInfo.RfBand, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Assoc State */
-	templen = AppendWSCTLV(WSC_ID_ASSOC_STATE, pData, (UINT8 *)&pReg->SelfInfo.AssocState, 0);
+	templen = AppendWSCTLV(WSC_ID_ASSOC_STATE, pData, (unsigned char *)&pReg->SelfInfo.AssocState, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Config Error */
-	templen = AppendWSCTLV(WSC_ID_CONFIG_ERROR, pData, (UINT8 *)&pReg->SelfInfo.ConfigError, 0);
+	templen = AppendWSCTLV(WSC_ID_CONFIG_ERROR, pData, (unsigned char *)&pReg->SelfInfo.ConfigError, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Device Password ID */
-	templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (UINT8 *)&pReg->SelfInfo.DevPwdId, 0);
+	templen = AppendWSCTLV(WSC_ID_DEVICE_PWD_ID, pData, (unsigned char *)&pReg->SelfInfo.DevPwdId, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* OS Version */
-	templen = AppendWSCTLV(WSC_ID_OS_VERSION, pData, (UINT8 *)&pReg->SelfInfo.OsVersion, 0);
+	templen = AppendWSCTLV(WSC_ID_OS_VERSION, pData, (unsigned char *)&pReg->SelfInfo.OsVersion, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -918,7 +918,7 @@ int BuildMessageM2(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -1032,22 +1032,22 @@ int BuildMessageM2D(
 
 
 	/* 7. Authentication Type Flags */
-	templen = AppendWSCTLV(WSC_ID_AUTH_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.AuthTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_AUTH_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.AuthTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Encrypt Type */
-	templen = AppendWSCTLV(WSC_ID_ENCR_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.EncrTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_ENCR_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.EncrTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Connection Type */
-	templen = AppendWSCTLV(WSC_ID_CONN_TYPE_FLAGS, pData, (UINT8 *)&pReg->SelfInfo.ConnTypeFlags, 0);
+	templen = AppendWSCTLV(WSC_ID_CONN_TYPE_FLAGS, pData, (unsigned char *)&pReg->SelfInfo.ConnTypeFlags, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Config Methods */
-	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (UINT8 *)&pReg->SelfInfo.ConfigMethods, 0);
+	templen = AppendWSCTLV(WSC_ID_CONFIG_METHODS, pData, (unsigned char *)&pReg->SelfInfo.ConfigMethods, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -1082,22 +1082,22 @@ int BuildMessageM2D(
 	Len   += templen;
 
 	/* RF Band */
-	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (UINT8 *)&pReg->SelfInfo.RfBand, 0);
+	templen = AppendWSCTLV(WSC_ID_RF_BAND, pData, (unsigned char *)&pReg->SelfInfo.RfBand, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Assoc State */
-	templen = AppendWSCTLV(WSC_ID_ASSOC_STATE, pData, (UINT8 *)&pReg->SelfInfo.AssocState, 0);
+	templen = AppendWSCTLV(WSC_ID_ASSOC_STATE, pData, (unsigned char *)&pReg->SelfInfo.AssocState, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* Config Error */
-	templen = AppendWSCTLV(WSC_ID_CONFIG_ERROR, pData, (UINT8 *)&pReg->SelfInfo.ConfigError, 0);
+	templen = AppendWSCTLV(WSC_ID_CONFIG_ERROR, pData, (unsigned char *)&pReg->SelfInfo.ConfigError, 0);
 	pData += templen;
 	Len   += templen;
 
 	/* OS Version */
-	templen = AppendWSCTLV(WSC_ID_OS_VERSION, pData, (UINT8 *)&pReg->SelfInfo.OsVersion, 0);
+	templen = AppendWSCTLV(WSC_ID_OS_VERSION, pData, (unsigned char *)&pReg->SelfInfo.OsVersion, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -1116,7 +1116,7 @@ int BuildMessageM2D(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -1250,7 +1250,7 @@ int BuildMessageM3(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -1418,7 +1418,7 @@ int BuildMessageM4(
 	/* 6b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_144 - 16;
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (UINT8 *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, &IV_EncrData[0], 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -1438,7 +1438,7 @@ int BuildMessageM4(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -1558,7 +1558,7 @@ int BuildMessageM5(
 	/* 4b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_144 - 16;
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (UINT8 *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, &IV_EncrData[0], 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -1578,7 +1578,7 @@ int BuildMessageM5(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -1694,7 +1694,7 @@ int BuildMessageM6(
 	/* 4b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_144 - 16;
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (UINT8 *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, &IV_EncrData[0], 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -1714,7 +1714,7 @@ int BuildMessageM6(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -1855,8 +1855,8 @@ int BuildMessageM7(
         encyType = cpu2be16(encyType);
         PlainLen += AppendWSCTLV(WSC_ID_SSID, &Plain[PlainLen], pCredential->SSID.Ssid, pCredential->SSID.SsidLength);
     	PlainLen += AppendWSCTLV(WSC_ID_MAC_ADDR, &Plain[PlainLen], pCredential->MacAddr, 0);
-    	PlainLen += AppendWSCTLV(WSC_ID_AUTH_TYPE, &Plain[PlainLen], (UINT8 *)&authType, 0);
-    	PlainLen += AppendWSCTLV(WSC_ID_ENCR_TYPE, &Plain[PlainLen], (UINT8 *)&encyType, 0);
+    	PlainLen += AppendWSCTLV(WSC_ID_AUTH_TYPE, &Plain[PlainLen], (unsigned char *)&authType, 0);
+    	PlainLen += AppendWSCTLV(WSC_ID_ENCR_TYPE, &Plain[PlainLen], (unsigned char *)&encyType, 0);
     	PlainLen += AppendWSCTLV(WSC_ID_NW_KEY_INDEX, &Plain[PlainLen], &pCredential->KeyIndex, 0);
     	PlainLen += AppendWSCTLV(WSC_ID_NW_KEY, &Plain[PlainLen], pCredential->Key, pCredential->KeyLength);
     }
@@ -1868,7 +1868,7 @@ int BuildMessageM7(
 	/* 4b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_512 - 16;
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (UINT8 *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, IV_EncrData, 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -1888,7 +1888,7 @@ int BuildMessageM7(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -2052,8 +2052,8 @@ int BuildMessageM8(
     AuthType = cpu2be16(AuthType);
     EncrType = cpu2be16(EncrType);
     CerLen += AppendWSCTLV(WSC_ID_SSID, &TB[CerLen], pCredential->SSID.Ssid, pCredential->SSID.SsidLength);
-	CerLen += AppendWSCTLV(WSC_ID_AUTH_TYPE, &TB[CerLen], (UINT8 *)&AuthType, 0);
-	CerLen += AppendWSCTLV(WSC_ID_ENCR_TYPE, &TB[CerLen], (UINT8 *)&EncrType, 0);
+	CerLen += AppendWSCTLV(WSC_ID_AUTH_TYPE, &TB[CerLen], (unsigned char *)&AuthType, 0);
+	CerLen += AppendWSCTLV(WSC_ID_ENCR_TYPE, &TB[CerLen], (unsigned char *)&EncrType, 0);
 	CerLen += AppendWSCTLV(WSC_ID_NW_KEY_INDEX, &TB[CerLen], &pCredential->KeyIndex, 0);
 	CerLen += AppendWSCTLV(WSC_ID_NW_KEY, &TB[CerLen], pCredential->Key, pCredential->KeyLength);
 	CerLen += AppendWSCTLV(WSC_ID_MAC_ADDR, &TB[CerLen], pCredential->MacAddr, 0);
@@ -2073,7 +2073,7 @@ int BuildMessageM8(
 	/* 4b. Encrypted Settings */
 	/* Encrypt data */
     EncrLen = IV_ENCR_DATA_LEN_512 - 16;    
-    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (UINT8 *) &IV_EncrData[16], (UINT *) &EncrLen);
+    AES_CBC_Encrypt(Plain, PlainLen,pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),&IV_EncrData[0], 16, (unsigned char *) &IV_EncrData[16], (UINT *) &EncrLen);
 	templen = AppendWSCTLV(WSC_ID_ENCR_SETTINGS, pData, IV_EncrData, 16 + EncrLen);/*IVLen + EncrLen */
 	pData += templen;
 	Len   += templen;
@@ -2093,7 +2093,7 @@ int BuildMessageM8(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -2184,7 +2184,7 @@ int BuildMessageDONE(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -2244,7 +2244,7 @@ int BuildMessageACK(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -2292,7 +2292,7 @@ int BuildMessageNACK(
 	Len   += templen;
 
 	/* 5. Error */
-	templen = AppendWSCTLV(WSC_ID_CONFIG_ERROR, pData, (UINT8 *)&ConfigError, 0);
+	templen = AppendWSCTLV(WSC_ID_CONFIG_ERROR, pData, (unsigned char *)&ConfigError, 0);
 	pData += templen;
 	Len   += templen;
 
@@ -2310,7 +2310,7 @@ int BuildMessageNACK(
 		/* Extra attribute that is not defined in WSC Sepc. */
 		if (pWscTLV->pTlvData && pWscTLV->TlvLen)
 		{
-			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (UINT8 *)pWscTLV->pTlvData, pWscTLV->TlvLen);
+			templen = AppendWSCTLV(pWscTLV->TlvTag, pData, (unsigned char *)pWscTLV->pTlvData, pWscTLV->TlvLen);
 			pData += templen;
 			Len   += templen;
 		}
@@ -2411,7 +2411,7 @@ int ProcessMessageM1(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -2667,7 +2667,7 @@ int ProcessMessageM2(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -2919,7 +2919,7 @@ int ProcessMessageM2D(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -3090,7 +3090,7 @@ int ProcessMessageM3(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -3235,7 +3235,7 @@ int ProcessMessageM4(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -3285,7 +3285,7 @@ int ProcessMessageM4(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (UINT8 *) pReg->ApEncrSettings, (UINT *) &EncrLen);
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen);
 				DBGPRINT(RT_DEBUG_TRACE, ("M4 ApEncrSettings len = %d\n ", EncrLen));
 
 				/* Parse encryption settings */
@@ -3419,7 +3419,7 @@ int ProcessMessageM5(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -3459,7 +3459,7 @@ int ProcessMessageM5(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (UINT8 *) pReg->ApEncrSettings, (UINT *) &EncrLen);
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen);
 				DBGPRINT(RT_DEBUG_TRACE, ("M5 ApEncrSettings len = %d\n ", EncrLen));
 
 				/* Parse encryption settings */
@@ -3594,7 +3594,7 @@ int ProcessMessageM6(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = cpu2be16(TLV_Recv.Type);
 		WscLen  = cpu2be16(TLV_Recv.Length);
 		pData  += 4;
@@ -3634,7 +3634,7 @@ int ProcessMessageM6(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (UINT8 *) pReg->ApEncrSettings, (UINT *) &EncrLen); 
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen); 
 				DBGPRINT(RT_DEBUG_TRACE, ("M6 ApEncrSettings len = %d\n ", EncrLen));
 
 				/* Parse encryption settings */
@@ -3760,7 +3760,7 @@ int ProcessMessageM7(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -3799,7 +3799,7 @@ int ProcessMessageM7(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (UINT8 *) pReg->ApEncrSettings, (UINT *) &EncrLen);                 
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen);                 
 				DBGPRINT(RT_DEBUG_TRACE, ("M7 ApEncrSettings len = %d\n ", EncrLen));
 
 
@@ -3904,7 +3904,7 @@ int ProcessMessageM8(
 	while (Length > 4)
 	{
 		WSC_IE	TLV_Recv;
-		memcpy((UINT8 *)&TLV_Recv, pData, 4);
+		memcpy((unsigned char *)&TLV_Recv, pData, 4);
 		WscType = be2cpu16(TLV_Recv.Type);
 		WscLen  = be2cpu16(TLV_Recv.Length);
 		pData  += 4;
@@ -3943,7 +3943,7 @@ int ProcessMessageM8(
 				}
 				NdisMoveMemory(IV_DecrData, pData, WscLen);
                 EncrLen = sizeof(pReg->ApEncrSettings);
-                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (UINT8 *) pReg->ApEncrSettings, (UINT *) &EncrLen);                 
+                AES_CBC_Decrypt(IV_DecrData + 16, (WscLen - 16),pReg->KeyWrapKey,sizeof(pReg->KeyWrapKey),IV_DecrData, 16, (unsigned char *) pReg->ApEncrSettings, (UINT *) &EncrLen);                 
 				DBGPRINT(RT_DEBUG_TRACE, ("M8 ApEncrSettings len = %d\n ", EncrLen));
 
 				/* Parse encryption settings */

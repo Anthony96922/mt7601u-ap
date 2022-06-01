@@ -721,12 +721,12 @@ BOOLEAN RTMPSoftDecryptTKIP(
 	IN 		unsigned short			*DataByteCnt)
 {
 	PHEADER_802_11	pFrame;
-	UINT8			frame_type;
-	UINT8			frame_subtype;
-	UINT8			from_ds;
-    UINT8			to_ds;
-	UINT8			a4_exists;
-	UINT8			qc_exists;
+	unsigned char			frame_type;
+	unsigned char			frame_subtype;
+	unsigned char			from_ds;
+    unsigned char			to_ds;
+	unsigned char			a4_exists;
+	unsigned char			qc_exists;
 	UCHAR			TA[MAC_ADDR_LEN];
 	UCHAR			DA[MAC_ADDR_LEN];
 	UCHAR			SA[MAC_ADDR_LEN];	

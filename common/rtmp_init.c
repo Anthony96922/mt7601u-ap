@@ -2372,7 +2372,7 @@ VOID UserCfgInit(RTMP_ADAPTER *pAd)
 #endif /* CONFIG_AP_SUPPORT */
 /*	EDCA_PARM DefaultEdcaParm;*/
     UINT key_index, bss_index;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> UserCfgInit\n"));    
 	 
@@ -3465,7 +3465,7 @@ static INT RtmpChipOpsRegister(
 
 
 #ifdef RTMP_MAC_USB
-BOOLEAN PairEP(RTMP_ADAPTER *pAd, UINT8 EP, UINT8 Index, UINT8 InOut)
+BOOLEAN PairEP(RTMP_ADAPTER *pAd, unsigned char EP, unsigned char Index, unsigned char InOut)
 {
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
@@ -3513,7 +3513,7 @@ BOOLEAN PairEP(RTMP_ADAPTER *pAd, UINT8 EP, UINT8 Index, UINT8 InOut)
 INT RtmpRaDevCtrlInit(VOID *pAdSrc, RTMP_INF_TYPE infType)
 {
 	RTMP_ADAPTER *pAd = (PRTMP_ADAPTER)pAdSrc;
-	UINT8 i;
+	unsigned char i;
 
 	/* Assign the interface type. We need use it when do register/EEPROM access.*/
 	pAd->infType = infType;
@@ -3587,7 +3587,7 @@ BOOLEAN RtmpRaDevCtrlExit(IN VOID *pAdSrc)
 	INT index;
 	
 #ifdef MULTIPLE_CARD_SUPPORT
-extern UINT8  MC_CardUsed[MAX_NUM_OF_MULTIPLE_CARD];
+extern unsigned char  MC_CardUsed[MAX_NUM_OF_MULTIPLE_CARD];
 
 	if ((pAd->MC_RowID >= 0) && (pAd->MC_RowID <= MAX_NUM_OF_MULTIPLE_CARD))
 		MC_CardUsed[pAd->MC_RowID] = 0; /* not clear MAC address*/
@@ -3657,7 +3657,7 @@ VOID RTMP_IO_WRITE32(
 VOID RTMP_BBP_IO_READ8_BY_REG_ID(
 	PRTMP_ADAPTER pAd,
 	unsigned int Offset,
-	UINT8 *pValue)
+	unsigned char *pValue)
 {
 #ifdef RT8592
 	if (IS_RT8592(pAd))
@@ -3679,7 +3679,7 @@ VOID RTMP_BBP_IO_READ8_BY_REG_ID(
 VOID RTMP_BBP_IO_READ8(
 	PRTMP_ADAPTER pAd,
 	UCHAR Offset,
-	UINT8 *pValue,
+	unsigned char *pValue,
 	BOOLEAN FlgValidMCR)
 {
 #ifdef RT8592
@@ -3703,7 +3703,7 @@ VOID RTMP_BBP_IO_READ8(
 VOID RTMP_BBP_IO_WRITE8_BY_REG_ID(
 	PRTMP_ADAPTER pAd,
 	unsigned int Offset,
-	UINT8 Value)
+	unsigned char Value)
 {
 #ifdef RT8592
 	if (IS_RT8592(pAd))
@@ -3726,7 +3726,7 @@ VOID RTMP_BBP_IO_WRITE8_BY_REG_ID(
 VOID RTMP_BBP_IO_WRITE8(
 	PRTMP_ADAPTER pAd,
 	UCHAR Offset,
-	UINT8 Value,
+	unsigned char Value,
 	BOOLEAN FlgValidMCR)
 {
 #ifdef RT8592

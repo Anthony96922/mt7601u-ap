@@ -276,18 +276,18 @@ typedef enum _CMD_RTPRIV_IOCTL_COMMON {
 #ifdef RT_CFG80211_SUPPORT
 typedef struct __CMD_RTPRIV_IOCTL_80211_CHAN {
 
-	UINT8 ChanId;
+	unsigned char ChanId;
 
 #define RT_CMD_80211_IFTYPE_STATION		0x00
 #define RT_CMD_80211_IFTYPE_ADHOC		0x01
 #define RT_CMD_80211_IFTYPE_MONITOR		0x02
-	UINT8 IfType;
+	unsigned char IfType;
 
 #define RT_CMD_80211_CHANTYPE_NOHT		0x00
 #define RT_CMD_80211_CHANTYPE_HT20		0x01
 #define RT_CMD_80211_CHANTYPE_HT40MINUS	0X02
 #define RT_CMD_80211_CHANTYPE_HT40PLUS	0X03
-	UINT8 ChanType;
+	unsigned char ChanType;
 
 	unsigned int MonFilterFlag;
 } CMD_RTPRIV_IOCTL_80211_CHAN;
@@ -305,7 +305,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_IBSS {
 
 typedef struct __CMD_RTPRIV_IOCTL_80211_STA {
 
-	UINT8 MAC[6];
+	unsigned char MAC[6];
 	ULONG DataRate;
 
 #define RT_CMD_80211_TXRATE_LEGACY		0x01
@@ -323,14 +323,14 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_KEY {
 
 #define RT_CMD_80211_KEY_WEP			0x00
 #define RT_CMD_80211_KEY_WPA			0x01
-	UINT8 KeyType;
-	UINT8 KeyBuf[50];
-	UINT8 KeyId;
+	unsigned char KeyType;
+	unsigned char KeyBuf[50];
+	unsigned char KeyId;
 } CMD_RTPRIV_IOCTL_80211_KEY;
 
 typedef struct __CMD_RTPRIV_IOCTL_80211_CONNECT {
 
-	UINT8 WpaVer;
+	unsigned char WpaVer;
 	BOOLEAN FlgIs8021x;
 	BOOLEAN FlgIsAuthOpen;
 
@@ -338,14 +338,14 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_CONNECT {
 #define RT_CMD_80211_CONN_ENCRYPT_WEP	0x02
 #define RT_CMD_80211_CONN_ENCRYPT_TKIP	0x04
 #define RT_CMD_80211_CONN_ENCRYPT_CCMP	0x08
-	UINT8 PairwiseEncrypType;
-	UINT8 GroupwiseEncrypType;
+	unsigned char PairwiseEncrypType;
+	unsigned char GroupwiseEncrypType;
 
-	UINT8 *pKey;
+	unsigned char *pKey;
 	unsigned int KeyLen;
-	UINT8 KeyIdx;
+	unsigned char KeyIdx;
 
-	UINT8 *pSsid;
+	unsigned char *pSsid;
 	unsigned int SsidLen;
 } CMD_RTPRIV_IOCTL_80211_CONNECT;
 
@@ -403,9 +403,9 @@ typedef struct __RT_CMD_USB_MORE_FLAG_CONFIG {
 
 typedef struct __RT_CMD_USB_DEV_CONFIG {
 	IN UINT NumberOfPipes;
-	IN UINT8 BulkInEpAddr[2];
+	IN unsigned char BulkInEpAddr[2];
 	IN USHORT BulkInMaxPacketSize;
-	IN UINT8 BulkOutEpAddr[6];
+	IN unsigned char BulkOutEpAddr[6];
 	IN USHORT BulkOutMaxPacketSize;
 	IN VOID *pConfig;
 } RT_CMD_USB_DEV_CONFIG;
@@ -458,10 +458,10 @@ typedef struct __RT_CMD_IW_STATS {
 
 	VOID *pStats;		/* point to pAd->iw_stats */
 
-	UINT8 qual;
-	UINT8 level;
-	UINT8 noise;
-	UINT8 updated;
+	unsigned char qual;
+	unsigned char level;
+	unsigned char noise;
+	unsigned char updated;
 } RT_CMD_IW_STATS;
 
 typedef struct __RT_CMD_PCIE_INIT {

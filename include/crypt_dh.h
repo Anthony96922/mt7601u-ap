@@ -33,30 +33,30 @@
 
 /* DH operations */
 void DH_PublicKey_Generate (
-    IN UINT8 GValue[],
+    IN unsigned char GValue[],
     IN UINT GValueLength,
-    IN UINT8 PValue[],
+    IN unsigned char PValue[],
     IN UINT PValueLength,
-    IN UINT8 PrivateKey[],
+    IN unsigned char PrivateKey[],
     IN UINT PrivateKeyLength,
-    OUT UINT8 PublicKey[],
+    OUT unsigned char PublicKey[],
     INOUT UINT *PublicKeyLength);
 
 void DH_SecretKey_Generate (
-    IN UINT8 PublicKey[],
+    IN unsigned char PublicKey[],
     IN UINT PublicKeyLength,
-    IN UINT8 PValue[],
+    IN unsigned char PValue[],
     IN UINT PValueLength,
-    IN UINT8 PrivateKey[],
+    IN unsigned char PrivateKey[],
     IN UINT PrivateKeyLength,
-    OUT UINT8 SecretKey[],
+    OUT unsigned char SecretKey[],
     INOUT UINT *SecretKeyLength);
 
 #define RT_DH_PublicKey_Generate(GK, GKL, PV, PVL, PriK, PriKL, PubK, PubKL) \
-    DH_PublicKey_Generate((GK), (GKL), (PV), (PVL), (PriK), (PriKL), (UINT8 *) (PubK), (UINT *) (PubKL))
+    DH_PublicKey_Generate((GK), (GKL), (PV), (PVL), (PriK), (PriKL), (unsigned char *) (PubK), (UINT *) (PubKL))
 
 #define RT_DH_SecretKey_Generate(PubK, PubKL, PV, PVL, PriK, PriKL, SecK, SecKL) \
-    DH_SecretKey_Generate((PubK), (PubKL), (PV), (PVL), (PriK), (PriKL), (UINT8 *) (SecK), (UINT *) (SecKL))
+    DH_SecretKey_Generate((PubK), (PubKL), (PV), (PVL), (PriK), (PriKL), (unsigned char *) (SecK), (UINT *) (SecKL))
 
 #define RT_DH_FREE_ALL()
 

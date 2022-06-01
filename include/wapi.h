@@ -107,7 +107,7 @@ VOID RTMPDeriveWapiGTK(
 	OUT	unsigned char *			gtk_ptr);
 
 VOID RT_SMS4_TEST(
-	IN UINT8			test);
+	IN unsigned char			test);
 
 INT SMS4_TEST(void);
 
@@ -166,10 +166,10 @@ VOID WAPIInstallPairwiseKey(
 
 VOID WAPIInstallSharedKey(
 	PRTMP_ADAPTER		pAd,
-	UINT8				GroupCipher,
-	UINT8				BssIdx,
-	UINT8				KeyIdx,
-	UINT8				Wcid,
+	unsigned char				GroupCipher,
+	unsigned char				BssIdx,
+	unsigned char				KeyIdx,
+	unsigned char				Wcid,
 	unsigned char *				pGtk);
 
 BOOLEAN WAPI_InternalCmdAction(

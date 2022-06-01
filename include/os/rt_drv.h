@@ -644,10 +644,10 @@ extern ULONG RtmpOsGetUnalignedlong(
 #define CB_OFF  10
 
 #define PACKET_CB_ASSIGN(_p, _offset)	\
-	(*((UINT8 *)_p + RTPktOffsetCB + _offset))
+	(*((unsigned char *)_p + RTPktOffsetCB + _offset))
 
 #define PACKET_CB(_p, _offset)	\
-	(*((UINT8 *)_p + RTPktOffsetCB + CB_OFF + _offset))
+	(*((unsigned char *)_p + RTPktOffsetCB + CB_OFF + _offset))
 
 /* User Priority */
 #define RTMP_SET_PACKET_UP(_p, _prio)			(PACKET_CB(_p, 0) = _prio)
@@ -828,8 +828,8 @@ extern ULONG RtmpOsGetUnalignedlong(
 #define RTMP_GET_PACKET_5VT(_p)         (PACKET_CB(_p, 22))
 
 #define RTMP_SET_PACKET_PROTOCOL(_p, _protocol) {\
-	(PACKET_CB(_p, 23) = (UINT8)((_protocol) & 0x00ff)); \
-	(PACKET_CB(_p, 24) = (UINT8)(((_protocol) & 0xff00) >> 8)); \
+	(PACKET_CB(_p, 23) = (unsigned char)((_protocol) & 0x00ff)); \
+	(PACKET_CB(_p, 24) = (unsigned char)(((_protocol) & 0xff00) >> 8)); \
 }
 
 #define RTMP_GET_PACKET_PROTOCOL(_p) \

@@ -630,7 +630,7 @@ VOID RTMPDisableDesiredHtInfo(
 	IN	PRTMP_ADAPTER		pAd)
 {
 #ifdef CONFIG_AP_SUPPORT
-	UINT8				apidx = 0;
+	unsigned char				apidx = 0;
 #endif /* CONFIG_AP_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT

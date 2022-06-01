@@ -36,9 +36,9 @@ Routine Description:
     Diffie-Hellman public key generation
 
 Arguments:
-    GValue           Array in UINT8
+    GValue           Array in unsigned char
     GValueLength     The length of G in bytes
-    PValue           Array in UINT8
+    PValue           Array in unsigned char
     PValueLength     The length of P in bytes
     PrivateKey       Private key
     PrivateKeyLength The length of Private key in bytes
@@ -53,13 +53,13 @@ Note:
 ========================================================================
 */
 void DH_PublicKey_Generate (
-    IN UINT8 GValue[],
+    IN unsigned char GValue[],
     IN UINT GValueLength,
-    IN UINT8 PValue[],
+    IN unsigned char PValue[],
     IN UINT PValueLength,
-    IN UINT8 PrivateKey[],
+    IN unsigned char PrivateKey[],
     IN UINT PrivateKeyLength,
-    OUT UINT8 PublicKey[],
+    OUT unsigned char PublicKey[],
     INOUT UINT *PublicKeyLength)
 {
     PBIG_INTEGER pBI_G = NULL;
@@ -136,7 +136,7 @@ Routine Description:
 Arguments:
     PublicKey        Public key
     PublicKeyLength  The length of Public key in bytes
-    PValue           Array in UINT8
+    PValue           Array in unsigned char
     PValueLength     The length of P in bytes
     PrivateKey       Private key
     PrivateKeyLength The length of Private key in bytes
@@ -151,13 +151,13 @@ Note:
 ========================================================================
 */
 void DH_SecretKey_Generate (
-    IN UINT8 PublicKey[],
+    IN unsigned char PublicKey[],
     IN UINT PublicKeyLength,
-    IN UINT8 PValue[],
+    IN unsigned char PValue[],
     IN UINT PValueLength,
-    IN UINT8 PrivateKey[],
+    IN unsigned char PrivateKey[],
     IN UINT PrivateKeyLength,
-    OUT UINT8 SecretKey[],
+    OUT unsigned char SecretKey[],
     INOUT UINT *SecretKeyLength)
 {
     PBIG_INTEGER pBI_P = NULL;

@@ -71,10 +71,10 @@ VOID RTMPAPIoctlMAC(
 VOID RtmpDrvMaxRateGet(
 	IN	VOID					*pReserved,
 /*	IN	PHTTRANSMIT_SETTING		pHtPhyMode, */
-	IN	UINT8					MODE,
-	IN	UINT8					ShortGI,
-	IN	UINT8					BW,
-	IN	UINT8					MCS,
+	IN	unsigned char					MODE,
+	IN	unsigned char					ShortGI,
+	IN	unsigned char					BW,
+	IN	unsigned char					MCS,
 	OUT	unsigned int					*pRate);
 
 #ifdef WSC_AP_SUPPORT

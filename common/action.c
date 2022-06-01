@@ -1110,8 +1110,8 @@ VOID InsertActField(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN UINT8 Category,
-	IN UINT8 ActCode)
+	IN unsigned char Category,
+	IN unsigned char ActCode)
 {
 	ULONG TempLen;
 

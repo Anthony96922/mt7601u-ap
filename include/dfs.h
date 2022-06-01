@@ -252,7 +252,7 @@ typedef struct _NewDFSDebugResult
 #endif
 
 typedef struct _DFS_EVENT{
-	UINT8  EngineId;
+	unsigned char  EngineId;
 	unsigned int TimeStamp;
 	unsigned short Width;
 }DFS_EVENT, *PDFS_EVENT;
@@ -407,7 +407,7 @@ VOID NewRadarDetectionProgram(
 BOOLEAN DfsSwCheckOnHwDetection(
 	 IN PRTMP_ADAPTER pAd,
 	 IN pNewDFSTable pDFS2Table,
-	 IN UINT8 DfsChannel,
+	 IN unsigned char DfsChannel,
 	 IN ULONG RadarPeriod,
 	 IN ULONG RadarWidth);
 

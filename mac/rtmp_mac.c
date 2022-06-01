@@ -53,7 +53,7 @@ VOID RTMPWriteTxWI(
 {
 	PMAC_TABLE_ENTRY pMac = NULL;
 	TXWI_STRUC TxWI, *pTxWI;
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 	if (WCID < MAX_LEN_OF_MAC_TABLE)
 		pMac = &pAd->MacTab.Content[WCID];
@@ -181,7 +181,7 @@ VOID RTMPWriteTxWI_Data(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI, TX_BLK *pTxBlk)
 #ifdef DOT11_N_SUPPORT
 	UCHAR BASize;
 #endif /* DOT11_N_SUPPORT */
-	UINT8 TXWISize = pAd->chipCap.TXWISize;
+	unsigned char TXWISize = pAd->chipCap.TXWISize;
 #ifdef WFA_VHT_PF
 	BOOLEAN amsdu_in_ampdu = FALSE;
 #endif /* WFA_VHT_PF */

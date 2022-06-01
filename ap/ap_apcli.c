@@ -1794,7 +1794,7 @@ VOID APCliInstallPairwiseKey(
 	IN  MAC_TABLE_ENTRY *pEntry)
 {
 	UCHAR	IfIdx;
-	UINT8	BssIdx;
+	unsigned char	BssIdx;
 
 	IfIdx = pEntry->MatchAPCLITabIdx;
 	BssIdx = pAd->ApCfg.BssidNum + MAX_MESH_NUM + IfIdx;

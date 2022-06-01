@@ -157,7 +157,7 @@ VOID	RTMPInitWepEngine(
 {	
 /*	UCHAR   seed[16];*/
 	unsigned char *	seed = NULL;
-	UINT8	seed_len;
+	unsigned char	seed_len;
 		
 	os_alloc_mem(NULL, (UCHAR **)&seed, sizeof(UCHAR)*16);
 	if (seed == NULL)
@@ -196,7 +196,7 @@ VOID	RTMPInitWepEngine(
 	========================================================================
 */
 VOID RTMPConstructWEPIVHdr(
-	IN	UINT8 			key_idx,
+	IN	unsigned char 			key_idx,
 	IN	UCHAR			*pn,	
 	OUT	UCHAR			*iv_hdr)
 {	

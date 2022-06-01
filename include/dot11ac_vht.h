@@ -342,9 +342,9 @@ typedef struct GNU_PACKED _VHT_CAP_IE{
 			which the VHT BSS operates. Reserved otherwise.
 */
 typedef struct GNU_PACKED _VHT_OP_INFO{
-	UINT8 ch_width;
-	UINT8 center_freq_1;
-	UINT8 center_freq_2;
+	unsigned char ch_width;
+	unsigned char center_freq_1;
+	unsigned char center_freq_2;
 }VHT_OP_INFO;
 
 
@@ -381,11 +381,11 @@ typedef struct GNU_PACKED _VHT_OP_IE{
 	The definition of upper subfields is the same as "VHT_OP_INFO"
 */
 typedef struct GNU_PACKED _WIDE_BW_CH_SWITCH_IE{
-	UINT8 e_id;
+	unsigned char e_id;
 	UINT len;
-	UINT8 new_ch_width;
-	UINT8 center_freq_1;
-	UINT8 center_freq_2;
+	unsigned char new_ch_width;
+	unsigned char center_freq_1;
+	unsigned char center_freq_2;
 }WIDE_BW_CH_SWITCH_IE;
 
 
@@ -396,8 +396,8 @@ typedef struct GNU_PACKED _WIDE_BW_CH_SWITCH_IE{
 	
 */
 typedef struct GNU_PACKED _CH_SEG_PAIR{
-	UINT8 ch_center_freq;
-	UINT8 seg_ch_width;
+	unsigned char ch_center_freq;
+	unsigned char seg_ch_width;
 }CH_SEG_PAIR;
 
 
@@ -416,9 +416,9 @@ typedef struct GNU_PACKED _CH_SEG_PAIR{
 		ch_seg_width: Segment Channel Width
 */
 typedef struct GNU_PACKED _VHT_TXPWR_ENV_IE{
-	UINT8 e_id;
-	UINT8 len;
-	UINT8 max_txpwr;
+	unsigned char e_id;
+	unsigned char len;
+	unsigned char max_txpwr;
 	CH_SEG_PAIR ch_seg_pair[0];
 }VHT_TXPWR_ENV_IE;
 
@@ -466,9 +466,9 @@ typedef struct  GNU_PACKED _VHT_CONTROL{
 typedef struct GNU_PACKED _NDPA_PKT{
 	USHORT frm_ctrl;
 	USHORT duration;
-	UINT8 ra[MAC_ADDR_LEN];
-	UINT8 ta[MAC_ADDR_LEN];
-	UINT8 snd_seq;
+	unsigned char ra[MAC_ADDR_LEN];
+	unsigned char ta[MAC_ADDR_LEN];
+	unsigned char snd_seq;
 }DNPA_PKT;
 
 

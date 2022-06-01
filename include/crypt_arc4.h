@@ -35,7 +35,7 @@
 typedef struct {
 	UINT BlockIndex1;
 	UINT BlockIndex2;
-	UINT8 KeyBlock[256];
+	unsigned char KeyBlock[256];
 } ARC4_CTX_STRUC, *PARC4_CTX_STRUC;
 
 /* ARC4 operations */
@@ -46,9 +46,9 @@ VOID ARC4_INIT(
 
 VOID ARC4_Compute(
 	IN ARC4_CTX_STRUC * pARC4_CTX,
-	IN UINT8 InputBlock[],
+	IN unsigned char InputBlock[],
 	IN UINT InputBlockSize,
-	OUT UINT8 OutputBlock[]);
+	OUT unsigned char OutputBlock[]);
 
 VOID ARC4_Discard_KeyLength(
 	IN ARC4_CTX_STRUC * pARC4_CTX,

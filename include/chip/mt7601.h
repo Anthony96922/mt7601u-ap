@@ -208,11 +208,11 @@ typedef struct _TSO_INFO_{
  * R_R20[7:0]: sdm_n[7:0]
  */
 typedef struct _MT7601_FREQ_ITEM {
-	UINT8 Channel;
-	UINT8 K_R17;
-	UINT8 K_R18;
-	UINT8 K_R19;
-	UINT8 N_R20;
+	unsigned char Channel;
+	unsigned char K_R17;
+	unsigned char K_R18;
+	unsigned char K_R19;
+	unsigned char N_R20;
 } MT7601_FREQ_ITEM;
 
 #define RF_G_BAND 		0x01
