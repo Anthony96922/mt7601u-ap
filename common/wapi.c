@@ -350,7 +350,7 @@ void rtmp_read_wapi_parms_from_file(
 		char * tmpbuf, 
 		char * buffer)
 {	
-	UINT32					ip_addr;
+	unsigned int					ip_addr;
 #ifdef CONFIG_AP_SUPPORT	
 	INT						apidx = 0;
 #endif /* CONFIG_AP_SUPPORT */
@@ -743,7 +743,7 @@ VOID RTMPWapiUskRekeyPeriodicExec(
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3) 
 {
-    UINT32          	tmp_cnt = 0;    
+    unsigned int          	tmp_cnt = 0;    
     PMAC_TABLE_ENTRY 	pEntry = (PMAC_TABLE_ENTRY)FunctionContext;
 	PRTMP_ADAPTER 		pAd = (PRTMP_ADAPTER)pEntry->pAd;
 	
@@ -788,7 +788,7 @@ VOID RTMPWapiMskRekeyPeriodicExec(
     IN void * SystemSpecific3) 
 {
     UINT            i;
-    UINT32          tmp_cnt = 0;    
+    unsigned int          tmp_cnt = 0;    
     PRTMP_ADAPTER   pAd = (PRTMP_ADAPTER)FunctionContext;
 
 
@@ -1081,7 +1081,7 @@ VOID WAPIInstallPairwiseKey(
 	/* HW_WAPI is supported in RT3883 or later */
 	if (IS_HW_WAPI_SUPPORT(pAd))
 	{
-		UINT32	CONST_WAPI_PN = 0x5C365C36;
+		unsigned int	CONST_WAPI_PN = 0x5C365C36;
 	
 		/* Set unicast packet's PN to Asic. */
 		if (bAE)
@@ -1117,7 +1117,7 @@ VOID WAPIInstallSharedKey(
 	UINT8				Wcid,
 	unsigned char *				pGtk)
 {
-	UINT32			CONST_WAPI_PN = 0x5C365C36;
+	unsigned int			CONST_WAPI_PN = 0x5C365C36;
 	PCIPHER_KEY 	pSharedKey;
 	
 	if (BssIdx >= MAX_MBSSID_NUM(pAd) + MAX_P2P_NUM)

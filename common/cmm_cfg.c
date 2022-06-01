@@ -427,7 +427,7 @@ INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 			DBGPRINT(RT_DEBUG_TRACE,
 					("mbss> Maximum phy mode = %d\n", wmode));
 		} else {
-			UINT32 IdBss;
+			unsigned int IdBss;
 
 			/* replace all phy mode with the one with different band */
 			DBGPRINT(RT_DEBUG_TRACE,
@@ -920,7 +920,7 @@ INT RTMP_COM_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_CHAN_LIST_GET:
 			{
-				UINT32 i;
+				unsigned int i;
 				UCHAR *pChannel = (UCHAR *)pData;
 
 				for (i = 1; i <= pAd->ChannelListNum; i++)
@@ -933,9 +933,9 @@ INT RTMP_COM_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_FREQ_LIST_GET:
 			{
-				UINT32 i;
-				UINT32 *pFreq = (UINT32 *)pData;
-				UINT32 m;
+				unsigned int i;
+				unsigned int *pFreq = (unsigned int *)pData;
+				unsigned int m;
 
 				for (i = 1; i <= pAd->ChannelListNum; i++)
 				{
@@ -959,7 +959,7 @@ INT RTMP_COM_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_USB_MORE_FLAG_SET:
 		{
 			RT_CMD_USB_MORE_FLAG_CONFIG *pConfig;
-			UINT32 VendorID, ProductID;
+			unsigned int VendorID, ProductID;
 
 
 			pConfig = (RT_CMD_USB_MORE_FLAG_CONFIG *)pData;
@@ -987,7 +987,7 @@ INT RTMP_COM_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_USB_CONFIG_INIT:
 		{
 			RT_CMD_USB_DEV_CONFIG *pConfig;
-			UINT32 i;
+			unsigned int i;
 			pConfig = (RT_CMD_USB_DEV_CONFIG *)pData;
 			pAd->NumberOfPipes = pConfig->NumberOfPipes;
 			pAd->BulkInMaxPacketSize = pConfig->BulkInMaxPacketSize;
@@ -1320,7 +1320,7 @@ INT RTMP_COM_IoctlHandle(
 			}
 			RtmpDrvMaxRateGet(pAd, HtPhyMode.field.MODE, HtPhyMode.field.ShortGI,
 							HtPhyMode.field.BW, HtPhyMode.field.MCS,
-							(UINT32 *)&pRate->BitRate);
+							(unsigned int *)&pRate->BitRate);
 		}
 			break;
 #endif /* CONFIG_AP_SUPPORT */

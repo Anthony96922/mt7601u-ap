@@ -369,7 +369,7 @@ VOID RTMPSoftEncryptionAction(
 	IN UCHAR CipherAlg,
 	IN unsigned char * pHdr,
 	IN unsigned char * pSrcBufData,
-	IN UINT32 SrcBufLen,
+	IN unsigned int SrcBufLen,
 	IN UCHAR KeyIdx,
 	IN PCIPHER_KEY pKey,
 	OUT UINT8 *ext_len);
@@ -458,14 +458,14 @@ VOID TKIP_GTK_KEY_WRAP(
 	IN UCHAR *key,
 	IN UCHAR *iv,
 	IN UCHAR *input_text,
-	IN UINT32 input_len,
+	IN unsigned int input_len,
 	OUT UCHAR *output_text);
 
 VOID TKIP_GTK_KEY_UNWRAP(
 	IN UCHAR *key,
 	IN UCHAR *iv,
 	IN UCHAR *input_text,
-	IN UINT32 input_len,
+	IN unsigned int input_len,
 	OUT UCHAR *output_text);
 
 /* 
@@ -490,7 +490,7 @@ BOOLEAN RTMPSoftEncryptCCMP(
 	IN unsigned char * pIV,
 	IN unsigned char * pKey,
 	INOUT unsigned char * pData,
-	IN UINT32 DataLen);
+	IN unsigned int DataLen);
 
 BOOLEAN RTMPSoftDecryptCCMP(
 	IN PRTMP_ADAPTER pAd,

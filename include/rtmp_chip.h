@@ -513,14 +513,14 @@ typedef struct _TX_POWER_TUNING_ENTRY_STRUCT {
 */
 
 struct _RTMP_CHIP_CAP_ {
-	UINT32 ChipID;
+	unsigned int ChipID;
 	/* register */
 	REG_PAIR *pRFRegTable;
 	REG_PAIR *pBBPRegTable;
 	UCHAR bbpRegTbSize;
 
-	UINT32 MaxNumOfRfId;
-	UINT32 MaxNumOfBbpId;
+	unsigned int MaxNumOfRfId;
+	unsigned int MaxNumOfBbpId;
 
 #define RF_REG_WT_METHOD_NONE			0
 #define RF_REG_WT_METHOD_STEP_ON		1
@@ -649,12 +649,12 @@ struct _RTMP_CHIP_CAP_ {
 
 
 #ifdef RT5592EP_SUPPORT
-	UINT32 Priv; /* Flag for RT5592 EP */
+	unsigned int Priv; /* Flag for RT5592 EP */
 #endif /* RT5592EP_SUPPORT */
 
 #ifdef CONFIG_ANDES_SUPPORT
-	UINT32 WlanMemmapOffset;
-	UINT32 InbandPacketMaxLen;
+	unsigned int WlanMemmapOffset;
+	unsigned int InbandPacketMaxLen;
 	UINT8 CmdRspRxRing;
 	BOOLEAN IsComboChip;
 #endif
@@ -718,7 +718,7 @@ struct _RTMP_CHIP_OP_ {
 	VOID (*RxSensitivityTuning)(IN struct _RTMP_ADAPTER *pAd);
 
 	/* MAC */
-	VOID (*BeaconUpdate)(struct _RTMP_ADAPTER *pAd, USHORT Offset, UINT32 Value, UINT8 Unit);
+	VOID (*BeaconUpdate)(struct _RTMP_ADAPTER *pAd, USHORT Offset, unsigned int Value, UINT8 Unit);
 
 	/* BBP adjust */
 	VOID (*ChipBBPAdjust)(IN struct _RTMP_ADAPTER *pAd);
@@ -734,7 +734,7 @@ struct _RTMP_CHIP_OP_ {
 	VOID (*ChipIQCalibration)(struct _RTMP_ADAPTER *pAd, UCHAR Channel);
 
 	/* TX ALC */
-	UINT32 (*TSSIRatio)(INT32 delta_power);
+	unsigned int (*TSSIRatio)(INT32 delta_power);
 	VOID (*InitDesiredTSSITable)(IN struct _RTMP_ADAPTER *pAd);
 	int (*ATETssiCalibration)(struct _RTMP_ADAPTER *pAd, char * arg);
 	int (*ATETssiCalibrationExtend)(struct _RTMP_ADAPTER *pAd, char * arg);
@@ -780,23 +780,23 @@ struct _RTMP_CHIP_OP_ {
 	VOID (*CckMrcStatusCtrl)(struct _RTMP_ADAPTER *pAd);
 	VOID (*RadarGLRTCompensate)(struct _RTMP_ADAPTER *pAd);
 	
-	VOID (*Calibration)(struct _RTMP_ADAPTER *pAd, UINT32 CalibrationID, UINT32 Parameter);
+	VOID (*Calibration)(struct _RTMP_ADAPTER *pAd, unsigned int CalibrationID, unsigned int Parameter);
 
-	INT (*BurstWrite)(struct _RTMP_ADAPTER *pAd, UINT32 Offset, UINT32 *Data, UINT32 Cnt);
+	INT (*BurstWrite)(struct _RTMP_ADAPTER *pAd, unsigned int Offset, unsigned int *Data, unsigned int Cnt);
 
-	INT (*BurstRead)(struct _RTMP_ADAPTER *pAd, UINT32 Offset, UINT32 Cnt, UINT32 *Data);
+	INT (*BurstRead)(struct _RTMP_ADAPTER *pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data);
 
-	INT (*RandomRead)(struct _RTMP_ADAPTER *pAd, RTMP_REG_PAIR *RegPair, UINT32 Num);
+	INT (*RandomRead)(struct _RTMP_ADAPTER *pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
 
-	INT (*RFRandomRead)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, UINT32 Num);
+	INT (*RFRandomRead)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
 
-	INT (*ReadModifyWrite)(struct _RTMP_ADAPTER *pAd, R_M_W_REG *RegPair, UINT32 Num);
+	INT (*ReadModifyWrite)(struct _RTMP_ADAPTER *pAd, R_M_W_REG *RegPair, unsigned int Num);
 
-	INT (*RFReadModifyWrite)(struct _RTMP_ADAPTER *pAd, RF_R_M_W_REG *RegPair, UINT32 Num);
+	INT (*RFReadModifyWrite)(struct _RTMP_ADAPTER *pAd, RF_R_M_W_REG *RegPair, unsigned int Num);
 
-	INT (*RandomWrite)(struct _RTMP_ADAPTER *pAd, RTMP_REG_PAIR *RegPair, UINT32 Num);
+	INT (*RandomWrite)(struct _RTMP_ADAPTER *pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
 
-	INT (*RFRandomWrite)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, UINT32 Num);
+	INT (*RFRandomWrite)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
 
 	VOID (*DisableTxRx)(struct _RTMP_ADAPTER *pAd, UCHAR Level);
 
@@ -804,8 +804,8 @@ struct _RTMP_CHIP_OP_ {
 
 	VOID (*AsicRadioOff)(struct _RTMP_ADAPTER *pAd, UCHAR Stage);
 
-	INT (*PwrSavingOP)(struct _RTMP_ADAPTER *pAd, UINT32 PwrOP, UINT32 PwrLevel, 
-							UINT32 ListenInterval, UINT32 PreTBTTLeadTime,
+	INT (*PwrSavingOP)(struct _RTMP_ADAPTER *pAd, unsigned int PwrOP, unsigned int PwrLevel, 
+							unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
 							UINT8 TIMByteOffset, UINT8 TIMBytePattern);
 
 #ifdef MICROWAVE_OVEN_SUPPORT
@@ -1055,13 +1055,13 @@ VOID rlt_bcn_buf_init(struct _RTMP_ADAPTER *pAd);
 VOID RtmpChipWriteHighMemory(
 	IN	struct _RTMP_ADAPTER *pAd,
 	IN	USHORT			Offset,
-	IN	UINT32			Value,
+	IN	unsigned int			Value,
 	IN	UINT8			Unit);
 
 VOID RtmpChipWriteMemory(
 	IN	struct _RTMP_ADAPTER *pAd,
 	IN	USHORT			Offset,
-	IN	UINT32			Value,
+	IN	unsigned int			Value,
 	IN	UINT8			Unit);
 
 VOID RTMPReadChannelPwr(struct _RTMP_ADAPTER *pAd);

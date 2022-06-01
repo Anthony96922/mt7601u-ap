@@ -577,7 +577,7 @@ int	RTMPSendPackets(
 	IN NDIS_HANDLE dev_hnd,
 	IN PPNDIS_PACKET ppPacketArray,
 	IN UINT NumberOfPackets,
-	IN UINT32 PktTotalLen,
+	IN unsigned int PktTotalLen,
 	IN RTMP_NET_ETH_CONVERT_DEV_SEARCH Func)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)dev_hnd;
@@ -849,7 +849,7 @@ VOID IAPP_L2_UpdatePostCtrl(
 //#ifdef WDS_SUPPORT
 VOID AP_WDS_KeyNameMakeUp(
 	IN	STRING						*pKey,
-	IN	UINT32						KeyMaxSize,
+	IN	unsigned int						KeyMaxSize,
 	IN	INT							KeyId)
 {
 	snprintf(pKey, KeyMaxSize, "Wds%dKey", KeyId);

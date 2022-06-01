@@ -140,8 +140,8 @@ VOID APShutdown(
 VOID APStartUp(
 	IN PRTMP_ADAPTER pAd) 
 {
-	UINT32		/*offset,*/ i;
-	//UINT32		Value = 0;
+	unsigned int		/*offset,*/ i;
+	//unsigned int		Value = 0;
 	BOOLEAN		bWmmCapable = FALSE;
 	UCHAR		apidx;
 	BOOLEAN		TxPreamble, SpectrumMgmt = FALSE;
@@ -392,8 +392,8 @@ VOID APStartUp(
 	*/
 #ifdef MT7601U
 	{
-		UINT32 MACValue[128 * 2];
-		UINT32 Index;
+		unsigned int MACValue[128 * 2];
+		unsigned int Index;
 
 		for (Index = 0; Index < 128 * 2; Index+=2) {
 			MACValue[Index] = 0;
@@ -731,7 +731,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 VOID APStop(
 	IN PRTMP_ADAPTER pAd) {
 	BOOLEAN     Cancelled;
-	UINT32		Value;
+	unsigned int		Value;
 	INT			apidx;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("!!! APStop !!!\n"));
@@ -1172,7 +1172,7 @@ VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 	// TODO: shiang-6590, fix me after chip fix this issue !!
 	if (0)//IS_RT8592(pAd)) {
 		if (pMacTable->Size == 1) {
-			UINT32 bbp_reg, bbp_val;
+			unsigned int bbp_reg, bbp_val;
 
 			RTMP_BBP_IO_READ32(pAd, AGC1_R20, &bbp_reg);
 			if ((bbp_reg & 0xff) > 0xE5)
@@ -1295,11 +1295,11 @@ VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 }
 
 
-UINT32 MacTableAssocStaNumGet(
+unsigned int MacTableAssocStaNumGet(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT32 num = 0;
-	UINT32 i;
+	unsigned int num = 0;
+	unsigned int i;
 
 
 	for (i = 1; i < MAX_LEN_OF_MAC_TABLE; i++) {

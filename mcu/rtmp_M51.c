@@ -120,7 +120,7 @@ unsigned char BitReverse(unsigned char x)
 INT RtmpAsicEraseFirmware(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT32 i;
+	unsigned int i;
 
 	for(i = 0; i < MAX_FIRMWARE_IMAGE_SIZE; i += 4)
 		RTMP_IO_WRITE32(pAd, FIRMWARE_IMAGE_BASE + i, 0);
@@ -133,7 +133,7 @@ NDIS_STATUS isMCUNeedToLoadFIrmware(
 {
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	ULONG			Index;
-	UINT32			MacReg;
+	unsigned int			MacReg;
 	
 	Index = 0;
 
@@ -160,7 +160,7 @@ NDIS_STATUS isMCUnotReady(
 {
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	ULONG			Index;
-	UINT32			MacReg;
+	unsigned int			MacReg;
 
 #ifdef RT65xx
 	// TODO: shiang-6590, fix me, currently firmware is not ready yet, so ignore it!
@@ -227,7 +227,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	INT 				retval, i;
 	unsigned char *			pFirmwareImage;
 	INT				FileLength = 0;
-	UINT32			MacReg;
+	unsigned int			MacReg;
 	ULONG			Index;
 	ULONG			firm;
 	BOOLEAN			flg_default_firm_use = FALSE;
@@ -396,10 +396,10 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	unsigned char *			pFirmwareImage;
 	ULONG			FileLength;
-	UINT32			Version = (pAd->MACVersion >> 16);
+	unsigned int			Version = (pAd->MACVersion >> 16);
 #ifdef RTMP_MAC_USB
 	BOOLEAN			Equal = TRUE;
-	UINT32			MacReg1 = 0;
+	unsigned int			MacReg1 = 0;
 	UCHAR			FVer;
 	UINT16			FCS;
 #endif

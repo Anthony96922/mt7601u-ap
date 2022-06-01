@@ -32,7 +32,7 @@
 #include "rt_config.h"
 
 extern MT7601_FREQ_ITEM MT7601_Frequency_Plan[];
-extern UINT32 NUM_OF_MT7601_CHNL;
+extern unsigned int NUM_OF_MT7601_CHNL;
 extern RTMP_REG_PAIR MT7601_BBP_BW20RegTb[];
 extern UCHAR MT7601_BBP_BW20RegTb_Size;
 extern RTMP_REG_PAIR MT7601_BBP_BW40RegTb[];
@@ -50,7 +50,7 @@ VOID MT7601ATEAsicSwitchChannel(
     IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UINT32 Value = 0;
+	unsigned int Value = 0;
 	CHAR TxPwer = 0;
 	UCHAR index = 0, Channel = 0;
 	/* added to prevent RF register reading error */
@@ -169,7 +169,7 @@ INT MT7601ATETxPwrHandler(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	CHAR TxPower = 0;
 	UCHAR MaxPower;
-	UINT32 RegValue = 0;
+	unsigned int RegValue = 0;
 	UCHAR Channel = pATEInfo->Channel;
 
 #ifdef RALINK_QA
@@ -651,7 +651,7 @@ VOID MT7601ATEAsicTxAlcGetAutoAgcOffset(
 	UCHAR TssiLinear0, TssiLinear1;
 	CHAR tssi_offset;
 	INT16 tssi_db, tssi_m_dc;
-	UINT32 value;
+	unsigned int value;
 	UCHAR ch = 0;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 	//PATE_INFO pATEInfo = &(pAd->ate);

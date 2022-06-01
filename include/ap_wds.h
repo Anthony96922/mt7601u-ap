@@ -108,7 +108,7 @@ MAC_TABLE_ENTRY *FindWdsEntry(
 	IN PRTMP_ADAPTER	pAd,
 	IN UCHAR 			Wcid,
 	IN unsigned char *			pAddr,
-	IN UINT32			PhyMode);
+	IN unsigned int			PhyMode);
 
 VOID WdsTableMaintenance(
     IN PRTMP_ADAPTER    pAd);
@@ -167,7 +167,7 @@ BOOLEAN WDS_StatsGet(
 
 VOID AP_WDS_KeyNameMakeUp(
 	IN	STRING						*pKey,
-	IN	UINT32						KeyMaxSize,
+	IN	unsigned int						KeyMaxSize,
 	IN	INT							KeyId);
 
 /*

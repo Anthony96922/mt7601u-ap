@@ -91,7 +91,7 @@ VOID RTMPConstructWPIIVHdr(
 extern INT	RTMPSoftEncryptSMS4(
 		IN	unsigned char *			pHeader,
 		IN  unsigned char *			pData,
-		IN	UINT32			data_len,				
+		IN	unsigned int			data_len,				
 		IN	UCHAR			key_id,
 		IN	unsigned char * 			pKey,
 		IN	unsigned char *			pIv);

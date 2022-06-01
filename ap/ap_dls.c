@@ -90,7 +90,7 @@ VOID APPeerDlsReqAction(
 	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
 	UINT16				Status;
-	UINT32				FrameLen = 0;
+	unsigned int				FrameLen = 0;
 	HEADER_802_11		DlsRspHdr;
 	UCHAR				Category = CATEGORY_DLS;
 	UCHAR				Action = ACTION_DLS_RESPONSE;
@@ -211,7 +211,7 @@ VOID APPeerDlsRspAction(
 	UINT16				StatusCode;
 	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
-	UINT32				FrameLen = 0;
+	unsigned int				FrameLen = 0;
     UCHAR				SupportedRatesLen = 0;
     UCHAR				SupportedRates[MAX_LEN_OF_SUPPORTED_RATES];
 	UCHAR				HtCapabilityLen;
@@ -292,7 +292,7 @@ VOID APPeerDlsTearDownAction(
 	UINT16				ReasonCode;
 	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
-	UINT32				FrameLen = 0;
+	unsigned int				FrameLen = 0;
 
 
 	/* frame sanity check */

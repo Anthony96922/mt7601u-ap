@@ -375,7 +375,7 @@ MAC_TABLE_ENTRY *FindWdsEntry(
 	IN PRTMP_ADAPTER	pAd,
 	IN UCHAR 			Wcid,
 	IN unsigned char *			pAddr,
-	IN UINT32			PhyMode)
+	IN unsigned int			PhyMode)
 {
 	MAC_TABLE_ENTRY *pEntry;
 
@@ -1190,7 +1190,7 @@ VOID WDS_Init(
 
 	for(index = 0; index < MAX_WDS_ENTRY; index++)
 	{
-		UINT32 MC_RowID = 0, IoctlIF = 0;
+		unsigned int MC_RowID = 0, IoctlIF = 0;
 #ifdef MULTIPLE_CARD_SUPPORT
 		MC_RowID = pAd->MC_RowID;
 #endif /* MULTIPLE_CARD_SUPPORT */

@@ -22,7 +22,7 @@
 #include "rtmp_osabl.h"
 
 
-UINT32 RalinkRate[256] =
+unsigned int RalinkRate[256] =
 	{2,  4, 11, 22, 12, 18,   24,  36, 48, 72, 96, 108, 109, 110, 111, 112,
 	13, 26,   39,  52,  78, 104, 117, 130, 26,  52,  78, 104, 156, 208, 234, 260,
 	39, 78,  117, 156, 234, 312, 351, 390,
@@ -45,7 +45,7 @@ VOID RtmpDrvMaxRateGet(
 	IN	UINT8					ShortGI,
 	IN	UINT8					BW,
 	IN	UINT8					MCS,
-	OUT	UINT32					*pRate)
+	OUT	unsigned int					*pRate)
 {
 	int rate_index = 0;
 
@@ -93,8 +93,8 @@ VOID RtmpMeshDown(
 
 	
 BOOLEAN RtmpOsCmdDisplayLenCheck(
-	IN UINT32 LenSrc,
-	IN UINT32 Offset)
+	IN unsigned int LenSrc,
+	IN unsigned int Offset)
 {
 	if (LenSrc > (IW_PRIV_SIZE_MASK - Offset))
 		return FALSE;
@@ -153,7 +153,7 @@ VOID RtmpComplete(VOID *Completion)
 }
 #endif /* RTMP_USB_SUPPORT */
 
-ULONG RtmpMsecsToJiffies(UINT32 msecs)
+ULONG RtmpMsecsToJiffies(unsigned int msecs)
 {
 	return msecs_to_jiffies(msecs);
 }

@@ -654,7 +654,7 @@ VOID AsicCompensatePowerViaBBP(
 #ifdef RT65xx
 	if (IS_RT65XX(pAd))
 	{
-		UINT32 bbp_val = 0;
+		unsigned int bbp_val = 0;
 
 		RTMP_BBP_IO_READ32(pAd, TXBE_R4, &bbp_val);
 		bbp_val &= (~0x3);
@@ -963,7 +963,7 @@ VOID RTMPReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 */
 VOID RTMPReadChannelPwr(RTMP_ADAPTER *pAd)
 {
-	UINT32					i, choffset;
+	unsigned int					i, choffset;
 	EEPROM_TX_PWR_STRUC	    Power;
 	EEPROM_TX_PWR_STRUC	    Power2;
 

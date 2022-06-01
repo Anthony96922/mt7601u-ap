@@ -87,7 +87,7 @@ typedef struct _NET_PRO_IP_HDR{
 	UCHAR	protocol;
 	UINT16	check;
 	UINT16	saddr;
-	UINT32	daddr;
+	unsigned int	daddr;
 } NET_PRO_IP_HDR; 
 /*#endif  //endif of __LINUX__ */
 
@@ -126,7 +126,7 @@ typedef struct _NET_PRO_IP_HDR{
 #define MAT_IP_ADDR_HASH_INDEX(Addr)	(MAT_IP_ADDR_HASH(Addr) % MAT_MAX_HASH_ENTRY_SUPPORT)
 
 #define IS_GOOD_IP(IP)	(IP!= 0)
-#define IS_MULTICAST_IP(IP)	(((UINT32)(IP) & 0xf0000000) == 0xe0000000)
+#define IS_MULTICAST_IP(IP)	(((unsigned int)(IP) & 0xf0000000) == 0xe0000000)
 
 /* IPv6 related definition */
 #define IPV6MAC_TB_HASH_ENTRY_NUM 		(MAT_MAX_HASH_ENTRY_SUPPORT+1)	/* One entry for broadcast address */
@@ -170,7 +170,7 @@ typedef struct _MAT_STRUCT_
 #ifdef KMALLOC_BATCH
 	UCHAR 				*pMATNodeEntryPoll;
 #endif
-	UINT32				nodeCount;		/* the number of nodes which connect to Internet via us. */
+	unsigned int				nodeCount;		/* the number of nodes which connect to Internet via us. */
 	VOID				*pPriv;
 }MAT_STRUCT;
 
@@ -197,7 +197,7 @@ VOID dumpPkt(unsigned char * pHeader, int len);
 
 unsigned char * MATDBEntryAlloc(
 	IN MAT_STRUCT 	*pMatStruct, 
-	IN UINT32 		size);
+	IN unsigned int 		size);
 
 NDIS_STATUS MATDBEntryFree(
 	IN MAT_STRUCT 	*pMatStruct, 

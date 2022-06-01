@@ -63,15 +63,15 @@
 UCHAR gUAPSD_FlgNotQueueMaintain;
 
 #ifdef UAPSD_DEBUG
-UINT32 gUAPSD_SP_CloseAbnormalNum;
+unsigned int gUAPSD_SP_CloseAbnormalNum;
 #endif /* UAPSD_DEBUG */
 
 #ifdef UAPSD_TIMING_RECORD_FUNC
 /* all unit: us */
 
 UCHAR  gUAPSD_TimingFlag;
-UINT32 gUAPSD_TimingIndexUapsd;
-UINT32 gUAPSD_TimingLoopIndex;
+unsigned int gUAPSD_TimingIndexUapsd;
+unsigned int gUAPSD_TimingLoopIndex;
 
 /* ISR start timestamp */
 unsigned long long gUAPSD_TimingIsr[UAPSD_TIMING_RECORD_MAX];
@@ -83,9 +83,9 @@ unsigned long long gUAPSD_TimingTrgRcv[UAPSD_TIMING_RECORD_MAX];
 unsigned long long gUAPSD_TimingMov2Tx[UAPSD_TIMING_RECORD_MAX];
 unsigned long long gUAPSD_TimingTx2Air[UAPSD_TIMING_RECORD_MAX];
 
-UINT32 gUAPSD_TimingSumIsr2Tasklet;
-UINT32 gUAPSD_TimingSumTrig2Txqueue;
-UINT32 gUAPSD_TimingSumTxqueue2Air;
+unsigned int gUAPSD_TimingSumIsr2Tasklet;
+unsigned int gUAPSD_TimingSumTrig2Txqueue;
+unsigned int gUAPSD_TimingSumTxqueue2Air;
 #endif /* UAPSD_TIMING_RECORD_FUNC */
 
 
@@ -394,7 +394,7 @@ VOID UAPSD_AssocParse(
 {
 	PQBSS_STA_INFO_PARM  pQosInfo;
 	UCHAR UAPSD[4];
-	UINT32 IdApsd;
+	unsigned int IdApsd;
 
 
     /* check if the station enables UAPSD function */
@@ -485,7 +485,7 @@ VOID UAPSD_PacketEnqueue(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
 	IN	PNDIS_PACKET		pPacket,
-	IN	UINT32				IdAc)
+	IN	unsigned int				IdAc)
 {
 	/*
 		1. the STATION is UAPSD STATION;
@@ -565,7 +565,7 @@ VOID UAPSD_QueueMaintenance(
 	IN	MAC_TABLE_ENTRY		*pEntry)
 {
 	QUEUE_HEADER *pQue;
-	UINT32 IdAc;
+	unsigned int IdAc;
 	BOOLEAN FlgUapsdPkt, FlgEospPkt;
 #ifdef RTMP_MAC_USB
 	ULONG IrqFlags;
@@ -900,7 +900,7 @@ Note:
 VOID UAPSD_SP_CloseInRVDone(
 	IN	PRTMP_ADAPTER		pAd)
 {
-	UINT32 IdEntry;
+	unsigned int IdEntry;
 	int		FirstWcid = 0;
 
 
@@ -965,7 +965,7 @@ Note:
 ========================================================================
 */
 VOID UAPSD_TimingRecordCtrl(
-	IN	UINT32				Flag)
+	IN	unsigned int				Flag)
 {
 	if (gUAPSD_TimingFlag == UAPSD_TIMING_CTRL_SUSPEND)
 		return;
@@ -997,9 +997,9 @@ Note:
 */
 VOID UAPSD_TimingRecord(
 	IN	PRTMP_ADAPTER		pAd,
-	IN	UINT32				Type)
+	IN	unsigned int				Type)
 {
-	UINT32 Index;
+	unsigned int Index;
 
 	if (gUAPSD_TimingFlag == UAPSD_TIMING_CTRL_STOP)
 		return;
@@ -1055,11 +1055,11 @@ VOID UAPSD_TimingRecord(
 
 			/* sum the delay */
 			gUAPSD_TimingSumIsr2Tasklet += \
-				(UINT32)(gUAPSD_TimingTasklet[Index] - gUAPSD_TimingIsr[Index]);
+				(unsigned int)(gUAPSD_TimingTasklet[Index] - gUAPSD_TimingIsr[Index]);
 			gUAPSD_TimingSumTrig2Txqueue += \
-				(UINT32)(gUAPSD_TimingMov2Tx[Index] - gUAPSD_TimingTrgRcv[Index]);
+				(unsigned int)(gUAPSD_TimingMov2Tx[Index] - gUAPSD_TimingTrgRcv[Index]);
 			gUAPSD_TimingSumTxqueue2Air += \
-				(UINT32)(gUAPSD_TimingTx2Air[Index] - gUAPSD_TimingMov2Tx[Index]);
+				(unsigned int)(gUAPSD_TimingTx2Air[Index] - gUAPSD_TimingMov2Tx[Index]);
 
 			/* display average delay */
 			if ((Index % UAPSD_TIMING_RECORD_DISPLAY_TIMES) == 0)
@@ -1087,9 +1087,9 @@ VOID UAPSD_TimingRecord(
 			gUAPSD_TimingFlag = UAPSD_TIMING_CTRL_STOP;
 
 			DBGPRINT(RT_DEBUG_TRACE, ("sam> Isr->Tasklet:%d, Trig->TxQueue:%d, TxQueue->TxDone:%d\n",
-				(UINT32)(gUAPSD_TimingTasklet[Index] - gUAPSD_TimingIsr[Index]),
-				(UINT32)(gUAPSD_TimingMov2Tx[Index] - gUAPSD_TimingTrgRcv[Index]),
-				(UINT32)(gUAPSD_TimingTx2Air[Index] - gUAPSD_TimingMov2Tx[Index])));
+				(unsigned int)(gUAPSD_TimingTasklet[Index] - gUAPSD_TimingIsr[Index]),
+				(unsigned int)(gUAPSD_TimingMov2Tx[Index] - gUAPSD_TimingTrgRcv[Index]),
+				(unsigned int)(gUAPSD_TimingTx2Air[Index] - gUAPSD_TimingMov2Tx[Index])));
 			break;
 	} /* End of switch */
 } /* End of UAPSD_TimingRecord */
@@ -1111,7 +1111,7 @@ Note:
 ========================================================================
 */
 VOID UAPSD_TimeingRecordLoopIndex(
-	IN	UINT32				LoopIndex)
+	IN	unsigned int				LoopIndex)
 {
 	gUAPSD_TimingLoopIndex = LoopIndex;
 } /* End of UAPSD_TimeingRecordLoopIndex */
@@ -1143,18 +1143,18 @@ BOOLEAN UAPSD_PsPollHandle(
 	QUEUE_HEADER	*pAcSwQue;
 	PQUEUE_ENTRY	pQuedEntry;
 	PNDIS_PACKET	pQuedPkt;
-	UINT32	AcQueId;
+	unsigned int	AcQueId;
     /*
 		AC ID          = VO > VI > BK > BE
 		so we need to change BE & BK
 		=> AC priority = VO > VI > BE > BK
 	*/
-	UINT32	AcPriority[WMM_NUM_OF_AC] = { 1, 0, 2, 3 };
+	unsigned int	AcPriority[WMM_NUM_OF_AC] = { 1, 0, 2, 3 };
 	UCHAR	QueIdList[WMM_NUM_OF_AC] = { QID_AC_BE, QID_AC_BK,
                                             QID_AC_VI, QID_AC_VO };
 	BOOLEAN	FlgQueEmpty;
 	INT32	IdAc; /* must be signed, can not use unsigned */
-	UINT32	Aid, QueId;
+	unsigned int	Aid, QueId;
 
 
 	/* sanity check */
@@ -1354,22 +1354,22 @@ VOID UAPSD_TriggerFrameHandle(
 	PQUEUE_ENTRY	pQuedEntry;
 	PNDIS_PACKET	pQuedPkt;
 
-	UINT32	AcQueId;
-	UINT32	TxPktNum, SpMaxLen;
+	unsigned int	AcQueId;
+	unsigned int	TxPktNum, SpMaxLen;
     /*
 		AC ID          = VO > VI > BK > BE
 		so we need to change BE & BK
 		=> AC priority = VO > VI > BE > BK
 	*/
-	UINT32	AcPriority[WMM_NUM_OF_AC] = { 1, 0, 2, 3 };
+	unsigned int	AcPriority[WMM_NUM_OF_AC] = { 1, 0, 2, 3 };
 	/* 0: deliver all U-APSD packets */
-	UINT32	SpLenMap[WMM_NUM_OF_AC] = { 0, 2, 4, 6 };
+	unsigned int	SpLenMap[WMM_NUM_OF_AC] = { 0, 2, 4, 6 };
 	UCHAR	QueIdList[WMM_NUM_OF_AC] = { QID_AC_BE, QID_AC_BK,
                                             QID_AC_VI, QID_AC_VO };
 	BOOLEAN	FlgQueEmpty;
 	BOOLEAN	FlgNullSnd;
 	BOOLEAN	FlgMgmtFrame;
-	UINT32	Aid, QueId;
+	unsigned int	Aid, QueId;
 	INT32	IdAc; /* must be signed, can not use unsigned */
 /*	ULONG    FlgIrq; */
 
@@ -1852,7 +1852,7 @@ VOID UAPSD_TagFrame(
 	IN	RTMP_ADAPTER		*pAd,
 	IN	NDIS_PACKET			*pPkt,
 	IN	UCHAR				Wcid,
-	IN	UINT32				PktOffset)
+	IN	unsigned int				PktOffset)
 {
 	MAC_TABLE_ENTRY *pEntry;
 	UCHAR AcQueId;
@@ -1906,12 +1906,12 @@ Note:
 VOID UAPSD_UnTagFrame(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	UCHAR			AcQueId,
-	IN	UINT32			bulkStartPos,
-	IN	UINT32			bulkEnPos)
+	IN	unsigned int			bulkStartPos,
+	IN	unsigned int			bulkEnPos)
 {
 	MAC_TABLE_ENTRY *pEntry;
-	UINT32 IdEntry;
-	UINT32 TxPktTagOffset;
+	unsigned int IdEntry;
+	unsigned int TxPktTagOffset;
 	UINT16 QueId;
 	int		FirstWcid = 1;
 

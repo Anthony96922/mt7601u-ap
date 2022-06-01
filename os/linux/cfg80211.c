@@ -161,7 +161,7 @@ static const UCHAR Cfg80211_Chan[] = {
 };
 
 
-static const UINT32 CipherSuites[] = {
+static const unsigned int CipherSuites[] = {
 	WLAN_CIPHER_SUITE_WEP40,
 	WLAN_CIPHER_SUITE_WEP104,
 	WLAN_CIPHER_SUITE_TKIP,
@@ -244,7 +244,7 @@ static int CFG80211_OpsChannelSet(
 	VOID *pAd;
 	CFG80211_CB *p80211CB;
 	CMD_RTPRIV_IOCTL_80211_CHAN ChanInfo;
-	UINT32 ChanId;
+	unsigned int ChanId;
 
 
 	CFG80211DBG(RT_DEBUG_ERROR, ("80211> %s ==>\n", __FUNCTION__));
@@ -332,7 +332,7 @@ static int CFG80211_OpsVirtualInfChg(
 	VOID *pAd;
 	CFG80211_CB *pCfg80211_CB;
 	struct net_device *pNetDev;
-	UINT32 Filter;
+	unsigned int Filter;
 
 
 	CFG80211DBG(RT_DEBUG_ERROR, ("80211> %s ==>\n", __FUNCTION__));
@@ -676,7 +676,7 @@ Note:
 */
 static int CFG80211_OpsWiphyParamsSet(
 	IN struct wiphy						*pWiphy,
-	IN UINT32							Changed)
+	IN unsigned int							Changed)
 {
 	CFG80211DBG(RT_DEBUG_ERROR, ("80211> %s ==>\n", __FUNCTION__));
 	return -EOPNOTSUPP;
@@ -1469,7 +1469,7 @@ static INT32 CFG80211_RegNotifier(
 	struct device *pDev = pWiphy->dev.parent;
 	struct net_device *pNetDev = dev_get_drvdata(pDev);
 	VOID *pAd = (VOID *)RTMP_OS_NETDEV_GET_PRIV(pNetDev);
-	UINT32 ReqType = Request;
+	unsigned int ReqType = Request;
 
 
 	/* sanity check */

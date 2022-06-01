@@ -95,7 +95,7 @@ static BOOLEAN USBDevConfigInit(
 	struct usb_endpoint_descriptor *endpoint;
 	ULONG BulkOutIdx;
 	ULONG BulkInIdx;
-	UINT32 i;
+	unsigned int i;
 	RT_CMD_USB_DEV_CONFIG Config, *pConfig = &Config;
 
 	iface_desc = &intf->altsetting[0];
@@ -205,7 +205,7 @@ static BOOLEAN USBDevConfigInit(
 	struct usb_host_interface *iface_desc;
 	ULONG BulkOutIdx;
 	ULONG BulkInIdx;
-	UINT32 i;
+	unsigned int i;
 	RT_CMD_USB_DEV_CONFIG Config, *pConfig = &Config;
 	
 	/* get the active interface descriptor */

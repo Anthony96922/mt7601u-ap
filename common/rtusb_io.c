@@ -126,7 +126,7 @@ NTSTATUS RTUSBFirmwareWrite(
 	IN unsigned char *pFwImage,
 	IN ULONG		FwLen)
 {
-	UINT32		MacReg;
+	unsigned int		MacReg;
 	NTSTATUS 	Status;
 /*	ULONG 		i;*/
 	USHORT		writeLen;
@@ -379,7 +379,7 @@ NTSTATUS	RTUSBReadMACRegister(
 	OUT	unsigned int *pValue)
 {
 	NTSTATUS	Status = 0;
-	UINT32		localVal;
+	unsigned int		localVal;
 
 	Status = RTUSB_VendorRequest(
 		pAd,
@@ -419,11 +419,11 @@ NTSTATUS	RTUSBReadMACRegister(
 NTSTATUS	RTUSBWriteMACRegister(
 	IN RTMP_ADAPTER *pAd,
 	IN USHORT Offset,
-	IN UINT32 Value,
+	IN unsigned int Value,
 	IN BOOLEAN bWriteHigh)
 {
 	NTSTATUS Status;
-	UINT32 localVal;
+	unsigned int localVal;
 
 	localVal = Value;
 	Status = RTUSBSingleWrite(pAd, Offset, (USHORT)(localVal & 0xffff), bWriteHigh);
@@ -579,7 +579,7 @@ NTSTATUS RTUSBWriteBBPRegister(
 */
 NTSTATUS	RTUSBWriteRFRegister(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UINT32			Value)
+	IN	unsigned int			Value)
 {
 	RF_CSR_CFG0_STRUC PhyCsr4;
 	UINT			i = 0;
@@ -741,7 +741,7 @@ NTSTATUS RTUSBWriteEEPROM16(
 VOID RTUSBPutToSleep(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UINT32		value;
+	unsigned int		value;
 
 	/* Timeout 0x40 x 50us*/
 	value = (SLEEPCID<<16)+(OWNERMCU<<24)+ (0x40<<8)+1;
@@ -805,7 +805,7 @@ NDIS_STATUS	RTUSBEnqueueCmdFromNdis(
 	IN	NDIS_OID		Oid,
 	IN	BOOLEAN			SetInformation,
 	IN	void *			pInformationBuffer,
-	IN	UINT32			InformationBufferLength)
+	IN	unsigned int			InformationBufferLength)
 {
 	NDIS_STATUS	status;
 	PCmdQElmt	cmdqelmt = NULL;
@@ -909,13 +909,13 @@ NDIS_STATUS	RTUSBEnqueueCmdFromNdis(
 */
 NTSTATUS    RTUSB_VendorRequest(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UINT32			TransferFlags,
+	IN	unsigned int			TransferFlags,
 	IN	UCHAR			RequestType,
 	IN	UCHAR			Request,
 	IN	USHORT			Value,
 	IN	USHORT			Index,
 	IN	void *			TransferBuffer,
-	IN	UINT32			TransferBufferLength)
+	IN	unsigned int			TransferBufferLength)
 {
 	int				RET = 0;
 	POS_COOKIE		pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -1209,7 +1209,7 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 /* All transfers must be aborted or cancelled before attempting to reset the pipe.*/
 static NTSTATUS ResetBulkInHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
-	UINT32 MACValue;
+	unsigned int MACValue;
 	NTSTATUS ntStatus;
 
 	DBGPRINT_RAW(RT_DEBUG_TRACE, ("CmdThread : CMDTHREAD_RESET_BULK_IN === >\n"));
@@ -1326,7 +1326,7 @@ static NTSTATUS SetAsicWcidHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
 	RT_SET_ASIC_WCID	SetAsicWcid;
 	USHORT		offset;
-	UINT32		MACValue, MACRValue = 0;
+	unsigned int		MACValue, MACRValue = 0;
 	SetAsicWcid = *((PRT_SET_ASIC_WCID)(CMDQelmt->buffer));
 
 	if (SetAsicWcid.WCID >= MAX_LEN_OF_MAC_TABLE)
@@ -1858,7 +1858,7 @@ VOID RTUSBWatchDog(IN RTMP_ADAPTER *pAd)
 	ULONG				irqFlags;
 	PURB		   		pUrb;
 	BOOLEAN				needDumpSeq = FALSE;
-	UINT32          	MACValue;
+	unsigned int          	MACValue;
 
 
 	return;

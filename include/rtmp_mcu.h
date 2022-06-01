@@ -76,7 +76,7 @@ struct MCU_CTRL {
 struct CMD_RSP_EVENT {
 	DL_LIST List;
 	UCHAR CmdSeq;	
-	UINT32 Timeout;
+	unsigned int Timeout;
 	BOOLEAN NeedWait;
 	void *	AckDone;
 	UCHAR **RspPayload;

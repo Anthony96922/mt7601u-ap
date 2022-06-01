@@ -97,7 +97,7 @@ NDIS_STATUS MATDBEntryFree(
 
 }
 
-unsigned char * MATDBEntryAlloc(IN MAT_STRUCT *pMatStruct, IN UINT32 size)
+unsigned char * MATDBEntryAlloc(IN MAT_STRUCT *pMatStruct, IN unsigned int size)
 {
 #ifdef KMALLOC_BATCH
 	MATNodeEntry *pPtr = NULL, *pMATNodeEntryPoll;

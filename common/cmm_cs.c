@@ -195,7 +195,7 @@ VOID CarrierDetectionPeriodicStateCtrl(
 */
 VOID RTMPHandleRadarInterrupt(PRTMP_ADAPTER  pAd)
 {
-	UINT32 value, delta;
+	unsigned int value, delta;
 	UCHAR bbp=0;
 	PCARRIER_DETECTION_STRUCT pCarrierDetect = &pAd->CommonCfg.CarrierDetect;
 
@@ -327,7 +327,7 @@ INT Set_CarrierCriteria_Proc(
 	IN PRTMP_ADAPTER 	pAd, 
 	IN char *			arg)
 {
-	UINT32 Value;
+	unsigned int Value;
 
 	Value = simple_strtol(arg, 0, 10);
 

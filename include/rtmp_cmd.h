@@ -16,7 +16,7 @@ typedef struct _CmdQ {
 	UINT size;
 	CmdQElmt *head;
 	CmdQElmt *tail;
-	UINT32 CmdQState;
+	unsigned int CmdQState;
 } CmdQ, *PCmdQ;
 
 #define EnqueueCmd(cmdq, cmdqelmt)		\
@@ -289,7 +289,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_CHAN {
 #define RT_CMD_80211_CHANTYPE_HT40PLUS	0X03
 	UINT8 ChanType;
 
-	UINT32 MonFilterFlag;
+	unsigned int MonFilterFlag;
 } CMD_RTPRIV_IOCTL_80211_CHAN;
 
 #define RT_CMD_80211_FILTER_FCSFAIL		0x01
@@ -299,7 +299,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_CHAN {
 
 typedef struct __CMD_RTPRIV_IOCTL_80211_IBSS {
 
-	UINT32 BeaconInterval;
+	unsigned int BeaconInterval;
 	UCHAR *pSsid;
 } CMD_RTPRIV_IOCTL_80211_IBSS;
 
@@ -311,12 +311,12 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_STA {
 #define RT_CMD_80211_TXRATE_LEGACY		0x01
 #define RT_CMD_80211_TXRATE_BW_40		0x02
 #define RT_CMD_80211_TXRATE_SHORT_GI	0x04
-	UINT32 TxRateFlags;
+	unsigned int TxRateFlags;
 	
-	UINT32 TxRateMCS;
+	unsigned int TxRateMCS;
 	INT32 Signal;
-	UINT32 TxPacketCnt;
-	UINT32 InactiveTime;
+	unsigned int TxPacketCnt;
+	unsigned int InactiveTime;
 } CMD_RTPRIV_IOCTL_80211_STA;
 
 typedef struct __CMD_RTPRIV_IOCTL_80211_KEY {
@@ -342,11 +342,11 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_CONNECT {
 	UINT8 GroupwiseEncrypType;
 
 	UINT8 *pKey;
-	UINT32 KeyLen;
+	unsigned int KeyLen;
 	UINT8 KeyIdx;
 
 	UINT8 *pSsid;
-	UINT32 SsidLen;
+	unsigned int SsidLen;
 } CMD_RTPRIV_IOCTL_80211_CONNECT;
 
 typedef struct __CMD_RTPRIV_IOCTL_80211_REG_NOTIFY {
@@ -377,8 +377,8 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_SURVEY {
 #define RT_WLAN_EVENT_PIN							0x07
 
 typedef struct __RT_CMD_RATE_SET {
-	IN UINT32 Rate;
-	IN UINT32 Fixed;
+	IN unsigned int Rate;
+	IN unsigned int Fixed;
 } RT_CMD_RATE_SET;
 
 typedef struct __RT_CMD_PARAM_SET {
@@ -397,8 +397,8 @@ typedef struct __RT_CMD_MBSS_KICKOUT {
 } RT_CMD_MBSS_KICKOUT;
 
 typedef struct __RT_CMD_USB_MORE_FLAG_CONFIG {
-	IN UINT32 VendorID;
-	IN UINT32 ProductID;
+	IN unsigned int VendorID;
+	IN unsigned int ProductID;
 } RT_CMD_USB_MORE_FLAG_CONFIG;
 
 typedef struct __RT_CMD_USB_DEV_CONFIG {
@@ -467,9 +467,9 @@ typedef struct __RT_CMD_IW_STATS {
 typedef struct __RT_CMD_PCIE_INIT {
 
 	IN VOID *pPciDev;
-	IN UINT32 ConfigDeviceID;
-	IN UINT32 ConfigSubsystemVendorID;
-	IN UINT32 ConfigSubsystemID;
+	IN unsigned int ConfigDeviceID;
+	IN unsigned int ConfigSubsystemVendorID;
+	IN unsigned int ConfigSubsystemID;
 } RT_CMD_PCIE_INIT;
 
 typedef struct __RT_CMD_AP_IOCTL_CONFIG {
@@ -493,7 +493,7 @@ typedef struct __RT_CMD_AP_IOCTL_SSID {
 
 typedef struct __RT_CMD_IOCTL_RATE {
 	IN ULONG priv_flags;
-	OUT UINT32 BitRate;
+	OUT unsigned int BitRate;
 } RT_CMD_IOCTL_RATE;
 
 #define RTMP_CMD_STA_MODE_AUTO			0x00
@@ -514,14 +514,14 @@ typedef struct __RT_CMD_STA_IOCTL_BSS {
 } RT_CMD_STA_IOCTL_BSS;
 
 typedef struct __RT_CMD_STA_IOCTL_BSS_LIST {
-	IN UINT32 MaxNum;
-	OUT UINT32 BssNum;
+	IN unsigned int MaxNum;
+	OUT unsigned int BssNum;
 	OUT RT_CMD_STA_IOCTL_BSS *pList;
 } RT_CMD_STA_IOCTL_BSS_LIST;
 
 typedef struct __RT_CMD_STA_IOCTL_SCAN {
 	IN UCHAR FlgScanThisSsid;
-	IN UINT32 SsidLen;
+	IN unsigned int SsidLen;
 	IN CHAR *pSsid;
 	OUT INT32 Status;
 } RT_CMD_STA_IOCTL_SCAN;
@@ -559,14 +559,14 @@ typedef struct __RT_CMD_STA_IOCTL_BSS_TABLE {
 
 typedef struct __RT_CMD_STA_IOCTL_SCAN_TABLE {
 	IN ULONG priv_flags;
-	OUT UINT32 BssNr;
+	OUT unsigned int BssNr;
 	OUT RT_CMD_STA_IOCTL_BSS_TABLE *pBssTable;	/* must be freed by caller */
 	OUT UCHAR MainSharedKey[4][16];
 } RT_CMD_STA_IOCTL_SCAN_TABLE;
 
 typedef struct __RT_CMD_STA_IOCTL_SSID {
 	IN UCHAR FlgAnySsid;
-	INOUT UINT32 SsidLen;
+	INOUT unsigned int SsidLen;
 	INOUT CHAR *pSsid;
 	OUT INT32 Status;
 } RT_CMD_STA_IOCTL_SSID;
@@ -586,7 +586,7 @@ typedef struct __RT_CMD_STA_IOCTL_SECURITY {
 #define RT_CMD_STA_IOCTL_SECURITY_ALG_WEP		0x02
 #define RT_CMD_STA_IOCTL_SECURITY_ALG_TKIP		0x03
 #define RT_CMD_STA_IOCTL_SECURITY_ALG_CCMP		0x04
-	IN UINT32 Alg;
+	IN unsigned int Alg;
 
 #define RT_CMD_STA_IOCTL_SECURTIY_EXT_SET_TX_KEY	0x01
 #define RT_CMD_STA_IOCTL_SECURTIY_EXT_GROUP_KEY		0x02
@@ -604,22 +604,22 @@ typedef struct __RT_CMD_STA_IOCTL_SECURITY {
 } RT_CMD_STA_IOCTL_SECURITY;
 
 typedef struct __RT_CMD_STA_IOCTL_WSC_U32_ITEM {
-	IN UINT32 *pUWrq;
+	IN unsigned int *pUWrq;
 	OUT INT32 Status;
 } RT_CMD_STA_IOCTL_WSC_U32_ITEM;
 
 typedef struct __RT_CMD_STA_IOCTL_WSC_STR_ITEM {
-	IN UINT32 Subcmd;
+	IN unsigned int Subcmd;
 	IN CHAR *pData;
-	IN UINT32 length;
+	IN unsigned int length;
 
 	OUT INT32 Status;
 } RT_CMD_STA_IOCTL_WSC_STR_ITEM;
 
 typedef struct __RT_CMD_STA_IOCTL_SHOW {
 	IN CHAR *pData;
-	IN UINT32 MaxSize;
-	IN UINT32 InfType;
+	IN unsigned int MaxSize;
+	IN unsigned int InfType;
 } RT_CMD_STA_IOCTL_SHOW;
 
 #define RT_CMD_STA_IOCTL_IW_MLME_DEAUTH		0x01
@@ -662,12 +662,12 @@ typedef struct __RT_CMD_STA_IOCTL_SECURITY_ADV {
 
 #define RT_CMD_STA_IOCTL_WPA_AUTH_COUNTERMEASURES			0xA0
 
-	IN UINT32 flags;
-	IN UINT32 value;
+	IN unsigned int flags;
+	IN unsigned int value;
 } RT_CMD_STA_IOCTL_SECURITY_ADV;
 
 typedef struct __RT_CMD_STA_IOCTL_RSN_IE {
-	INOUT UINT32 length;
+	INOUT unsigned int length;
 	INOUT UCHAR *pRsnIe;
 } RT_CMD_STA_IOCTL_RSN_IE;
 
@@ -675,7 +675,7 @@ typedef struct __RT_CMD_STA_IOCTL_PMA_SA {
 #define RT_CMD_STA_IOCTL_PMA_SA_FLUSH					0x01
 #define RT_CMD_STA_IOCTL_PMA_SA_REMOVE					0x02
 #define RT_CMD_STA_IOCTL_PMA_SA_ADD						0x03
-	IN UINT32 Cmd;
+	IN unsigned int Cmd;
 	IN UCHAR *pBssid;
 	IN UCHAR *pPmkid;
 } RT_CMD_STA_IOCTL_PMA_SA;

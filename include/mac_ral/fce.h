@@ -21,39 +21,39 @@
 typedef	union _L2_STUFFING_STRUC
 {
 	struct	{
-	    UINT32  RSV:6;
-	    UINT32  OTHER_PORT:2;
-		UINT32  TS_LENGTH_EN:8;
-		UINT32  TS_CMD_QSEL_EN:8;
-		UINT32  RSV2:2;
-		UINT32  MVINF_BYTE_SWP:1;
-		UINT32  FS_WR_MPDU_LEN_EN:1;
-		UINT32  TX_L2_DE_STUFFING_EN:1;
-		UINT32  RX_L2_STUFFING_EN:1;
-		UINT32  QoS_L2_EN:1;
-		UINT32  HT_L2_EN:1;
+	    unsigned int  RSV:6;
+	    unsigned int  OTHER_PORT:2;
+		unsigned int  TS_LENGTH_EN:8;
+		unsigned int  TS_CMD_QSEL_EN:8;
+		unsigned int  RSV2:2;
+		unsigned int  MVINF_BYTE_SWP:1;
+		unsigned int  FS_WR_MPDU_LEN_EN:1;
+		unsigned int  TX_L2_DE_STUFFING_EN:1;
+		unsigned int  RX_L2_STUFFING_EN:1;
+		unsigned int  QoS_L2_EN:1;
+		unsigned int  HT_L2_EN:1;
 	}	field;
 	
-	UINT32 word;
+	unsigned int word;
 } L2_STUFFING_STRUC, *PL2_STUFFING_STRUC;
 #else
 typedef	union _L2_STUFFING_STRUC
 {
 	struct	{
-		UINT32  HT_L2_EN:1;
-		UINT32  QoS_L2_EN:1;
-		UINT32  RX_L2_STUFFING_EN:1;
-		UINT32  TX_L2_DE_STUFFING_EN:1;
-		UINT32  FS_WR_MPDU_LEN_EN:1;
-		UINT32  MVINF_BYTE_SWP:1;
-		UINT32  RSV2:2;
-		UINT32  TS_CMD_QSEL_EN:8;
-		UINT32  TS_LENGTH_EN:8;
-		UINT32  OTHER_PORT:2;
-		UINT32  RSV:6;
+		unsigned int  HT_L2_EN:1;
+		unsigned int  QoS_L2_EN:1;
+		unsigned int  RX_L2_STUFFING_EN:1;
+		unsigned int  TX_L2_DE_STUFFING_EN:1;
+		unsigned int  FS_WR_MPDU_LEN_EN:1;
+		unsigned int  MVINF_BYTE_SWP:1;
+		unsigned int  RSV2:2;
+		unsigned int  TS_CMD_QSEL_EN:8;
+		unsigned int  TS_LENGTH_EN:8;
+		unsigned int  OTHER_PORT:2;
+		unsigned int  RSV:6;
 	}	field;
 	
-	UINT32 word;
+	unsigned int word;
 } L2_STUFFING_STRUC, *PL2_STUFFING_STRUC;
 #endif
 

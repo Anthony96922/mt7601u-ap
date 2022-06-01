@@ -41,7 +41,7 @@
 #endif
 
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
-/*UINT32 CW_MAX_IN_BITS;*/
+/*unsigned int CW_MAX_IN_BITS;*/
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 /*---------------------------------------------------------------------*/

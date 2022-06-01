@@ -43,52 +43,52 @@
 #ifdef RT_BIG_ENDIAN
 typedef union _PBF_SYS_CTRL_STRUC {
 	struct {
-		UINT32 Reserved5:12; /* Reserved */
-		UINT32 SHR_MSEL:1; /* Shared memory access selection */
-		UINT32 PBF_MSEL:2; /* Packet buffer memory access selection */
-		UINT32 HST_PM_SEL:1; /* The write selection of the host program RAM */
-		UINT32 Reserved4:1; /* Reserved */
-		UINT32 CAP_MODE:1; /* Packet buffer capture mode */
-		UINT32 Reserved3:1; /* Reserved */
-		UINT32 CLK_SEL:1; /* MAC/PBF clock source selection */
-		UINT32 PBF_CLK_EN:1; /* PBF clock enable */
-		UINT32 MAC_CLK_EN:1; /* MAC clock enable */
-		UINT32 DMA_CLK_EN:1; /* DMA clock enable */
-		UINT32 Reserved2:1; /* Reserved */
-		UINT32 MCU_READY:1; /* MCU ready */
-		UINT32 Reserved1:2; /* Reserved */
-		UINT32 ASY_RESET:1; /* ASYNC interface reset */
-		UINT32 PBF_RESET:1; /* PBF hardware reset */
-		UINT32 MAC_RESET:1; /* MAC hardware reset */
-		UINT32 DMA_RESET:1; /* DMA hardware reset */
-		UINT32 MCU_RESET:1; /* MCU hardware reset */
+		unsigned int Reserved5:12; /* Reserved */
+		unsigned int SHR_MSEL:1; /* Shared memory access selection */
+		unsigned int PBF_MSEL:2; /* Packet buffer memory access selection */
+		unsigned int HST_PM_SEL:1; /* The write selection of the host program RAM */
+		unsigned int Reserved4:1; /* Reserved */
+		unsigned int CAP_MODE:1; /* Packet buffer capture mode */
+		unsigned int Reserved3:1; /* Reserved */
+		unsigned int CLK_SEL:1; /* MAC/PBF clock source selection */
+		unsigned int PBF_CLK_EN:1; /* PBF clock enable */
+		unsigned int MAC_CLK_EN:1; /* MAC clock enable */
+		unsigned int DMA_CLK_EN:1; /* DMA clock enable */
+		unsigned int Reserved2:1; /* Reserved */
+		unsigned int MCU_READY:1; /* MCU ready */
+		unsigned int Reserved1:2; /* Reserved */
+		unsigned int ASY_RESET:1; /* ASYNC interface reset */
+		unsigned int PBF_RESET:1; /* PBF hardware reset */
+		unsigned int MAC_RESET:1; /* MAC hardware reset */
+		unsigned int DMA_RESET:1; /* DMA hardware reset */
+		unsigned int MCU_RESET:1; /* MCU hardware reset */
 	} field;
-	UINT32 word;
+	unsigned int word;
 } PBF_SYS_CTRL_STRUC;
 #else
 typedef union _PBF_SYS_CTRL_STRUC {
 	struct {
-		UINT32 MCU_RESET:1;
-		UINT32 DMA_RESET:1;
-		UINT32 MAC_RESET:1;
-		UINT32 PBF_RESET:1;
-		UINT32 ASY_RESET:1;
-		UINT32 Reserved1:2;
-		UINT32 MCU_READY:1;
-		UINT32 Reserved2:1;
-		UINT32 DMA_CLK_EN:1;
-		UINT32 MAC_CLK_EN:1;
-		UINT32 PBF_CLK_EN:1;
-		UINT32 CLK_SEL:1;
-		UINT32 Reserved3:1;
-		UINT32 CAP_MODE:1;
-		UINT32 Reserved4:1;
-		UINT32 HST_PM_SEL:1;
-		UINT32 PBF_MSEL:2;
-		UINT32 SHR_MSEL:1;
-		UINT32 Reserved5:12;
+		unsigned int MCU_RESET:1;
+		unsigned int DMA_RESET:1;
+		unsigned int MAC_RESET:1;
+		unsigned int PBF_RESET:1;
+		unsigned int ASY_RESET:1;
+		unsigned int Reserved1:2;
+		unsigned int MCU_READY:1;
+		unsigned int Reserved2:1;
+		unsigned int DMA_CLK_EN:1;
+		unsigned int MAC_CLK_EN:1;
+		unsigned int PBF_CLK_EN:1;
+		unsigned int CLK_SEL:1;
+		unsigned int Reserved3:1;
+		unsigned int CAP_MODE:1;
+		unsigned int Reserved4:1;
+		unsigned int HST_PM_SEL:1;
+		unsigned int PBF_MSEL:2;
+		unsigned int SHR_MSEL:1;
+		unsigned int Reserved5:12;
 	}field;
-	UINT32 word;
+	unsigned int word;
 } PBF_SYS_CTRL_STRUC;
 #endif
 

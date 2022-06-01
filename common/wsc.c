@@ -205,7 +205,7 @@ INT WscGenerateUUID(
 	
 
 	
-	uuid_t.timeLow = (UINT32)uuid_time & 0xFFFFFFFF;
+	uuid_t.timeLow = (unsigned int)uuid_time & 0xFFFFFFFF;
 	uuid_t.timeMid = (UINT16)((uuid_time >>32) & 0xFFFF);
 	uuid_t.timeHi_Version = (UINT16)((uuid_time >> 48) & 0x0FFF);
 	uuid_t.timeHi_Version |= (1 << 12);
@@ -944,7 +944,7 @@ VOID WscEAPAction(
 	}
 	else if (MsgType == WSC_MSG_M1)
 	{
-		UINT32 rv = 0;
+		unsigned int rv = 0;
 		/*
 			If Buffalo WPS STA doesn't receive M2D from AP, Buffalo WPS STA will stop to do WPS.
 			Therefore we need to receive M1 and send M2D without trigger.
@@ -5936,7 +5936,7 @@ INT	WscSetAuthMode(
 #ifdef CONFIG_AP_SUPPORT
 	if (CurOpMode == AP_MODE)
 	{
-		UINT32	i;
+		unsigned int	i;
 
 		if ((strcmp(arg, "WEPAUTO") == 0) || (strcmp(arg, "wepauto") == 0))
 			pAd->ApCfg.MBSSID[apidx].AuthMode = Ndis802_11AuthModeAutoSwitch;

@@ -1406,7 +1406,7 @@ VOID RT28xx_UpdateBeaconToAsic(
 	UCHAR  			*ptr;
 	UINT  			i, padding;
 	BEACON_SYNC_STRUCT	*pBeaconSync = pAd->CommonCfg.pBeaconSync;
-	UINT32			longValue;
+	unsigned int			longValue;
 /*	USHORT			shortValue;*/
 	BOOLEAN			bBcnReq = FALSE;
 	UCHAR			bcn_idx = 0;
@@ -1694,7 +1694,7 @@ VOID BeaconUpdateExec(
 {
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)FunctionContext;
 	LARGE_INTEGER	tsfTime_a;/*, tsfTime_b, deltaTime_exp, deltaTime_ab;*/
-	UINT32			delta, delta2MS, period2US, remain, remain_low, remain_high;
+	unsigned int			delta, delta2MS, period2US, remain, remain_low, remain_high;
 /*	BOOLEAN			positive;*/
 
 	if (pAd->CommonCfg.IsUpdateBeacon==TRUE)
@@ -1884,7 +1884,7 @@ VOID RT28xxUsbMlmeRadioOFF(
 VOID RT28xxUsbAsicRadioOff(RTMP_ADAPTER *pAd)
 {
 	WPDMA_GLO_CFG_STRUC GloCfg;
-	UINT32 Value;
+	unsigned int Value;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> %s\n", __FUNCTION__));
@@ -1928,10 +1928,10 @@ VOID RT28xxUsbAsicRadioOff(RTMP_ADAPTER *pAd)
 
 VOID RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
 {
-	UINT32 MACValue = 0;
+	unsigned int MACValue = 0;
 	BOOLEAN brc;
 	UINT RetryRound = 0;
-	UINT32 rx_filter_flag;
+	unsigned int rx_filter_flag;
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 
 
@@ -2046,8 +2046,8 @@ BOOLEAN AsicCheckCommandOk(
 	IN PRTMP_ADAPTER pAd,
 	IN UCHAR		 Command)
 {
-	UINT32	CmdStatus, CID, i;
-	UINT32	ThisCIDMask = 0;
+	unsigned int	CmdStatus, CID, i;
+	unsigned int	ThisCIDMask = 0;
 	INT ret;
 
 
@@ -2119,7 +2119,7 @@ BOOLEAN AsicCheckCommandOk(
 VOID RT28xxUsbAsicWOWEnable(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT32 Value;
+	unsigned int Value;
 	
 	/* load WOW-enable firmware */
 	AsicLoadWOWFirmware(pAd, TRUE);
@@ -2140,7 +2140,7 @@ VOID RT28xxUsbAsicWOWEnable(
 VOID RT28xxUsbAsicWOWDisable(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT32 Value;
+	unsigned int Value;
 	/* load normal firmware */
 	AsicLoadWOWFirmware(pAd, FALSE);
 	/* for suspend/resume, needs to restore RX Queue operation mode to auto mode */

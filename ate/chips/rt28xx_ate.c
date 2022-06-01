@@ -49,10 +49,10 @@ VOID RT28xxATEAsicSwitchChannel(
     IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UINT32 Value = 0;
+	unsigned int Value = 0;
 	CHAR TxPwer = 0, TxPwer2 = 0;
 	UCHAR index = 0, BbpValue = 0, Channel = 0;
-	UINT32 R2 = 0, R3 = DEFAULT_RF_TX_POWER, R4 = 0;
+	unsigned int R2 = 0, R3 = DEFAULT_RF_TX_POWER, R4 = 0;
 	RTMP_RF_REGS *RFRegTable = NULL;
 
 	SYNC_CHANNEL_WITH_QA(pATEInfo, &Channel);
@@ -251,7 +251,7 @@ VOID RT28xxATEAsicSwitchChannel(
 	/* Change BBP setting during switch from a->g, g->a */
 	if (Channel <= 14)
 	{
-		UINT32 TxPinCfg = 0x00050F0A;/* 2007.10.09 by Brian : 0x0005050A ==> 0x00050F0A */
+		unsigned int TxPinCfg = 0x00050F0A;/* 2007.10.09 by Brian : 0x0005050A ==> 0x00050F0A */
 
 		ATE_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R62, (0x37 - GET_LNA_GAIN(pAd)));
 		ATE_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R63, (0x37 - GET_LNA_GAIN(pAd)));
@@ -303,7 +303,7 @@ VOID RT28xxATEAsicSwitchChannel(
 	/* channel > 14 */
 	else
 	{
-	    UINT32	TxPinCfg = 0x00050F05;/* 2007.10.09 by Brian : 0x00050505 ==> 0x00050F05 */
+	    unsigned int	TxPinCfg = 0x00050F05;/* 2007.10.09 by Brian : 0x00050505 ==> 0x00050F05 */
 		
 		ATE_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R62, (0x37 - GET_LNA_GAIN(pAd)));
 		ATE_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R63, (0x37 - GET_LNA_GAIN(pAd)));

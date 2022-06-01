@@ -1247,7 +1247,7 @@ BOOLEAN isMldPkt(
 	{
 		PRT_IPV6_HDR pIpv6Hdr = (PRT_IPV6_HDR)(pIpHeader);
 		UINT8 nextProtocol = pIpv6Hdr->nextHdr;
-		UINT32 offset = IPV6_HDR_LEN;
+		unsigned int offset = IPV6_HDR_LEN;
 
 		while(nextProtocol != IPV6_NEXT_HEADER_ICMPV6)
 		{
@@ -1292,7 +1292,7 @@ BOOLEAN IPv6MulticastFilterExcluded(
 	do
 	{
 		PRT_IPV6_HDR pIpv6Hdr = (PRT_IPV6_HDR)(pIpHeader);
-		UINT32 offset = IPV6_HDR_LEN;
+		unsigned int offset = IPV6_HDR_LEN;
 
 		nextProtocol = pIpv6Hdr->nextHdr;
 		while(nextProtocol == IPV6_NEXT_HEADER_HOP_BY_HOP)

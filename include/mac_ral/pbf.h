@@ -48,36 +48,36 @@
 #ifdef RT_BIG_ENDIAN
 typedef	union _WPDMA_GLO_CFG_STRUC	{
 	struct	{
-		UINT32 rx_2b_offset:1;
-		UINT32 clk_gate_dis:1;
-		UINT32 rsv:14;
-		UINT32 HDR_SEG_LEN:8;
-		UINT32 BigEndian:1;
-		UINT32 EnTXWriteBackDDONE:1;
-		UINT32 WPDMABurstSIZE:2;
-		UINT32 RxDMABusy:1;
-		UINT32 EnableRxDMA:1;
-		UINT32 TxDMABusy:1;
-		UINT32 EnableTxDMA:1;
+		unsigned int rx_2b_offset:1;
+		unsigned int clk_gate_dis:1;
+		unsigned int rsv:14;
+		unsigned int HDR_SEG_LEN:8;
+		unsigned int BigEndian:1;
+		unsigned int EnTXWriteBackDDONE:1;
+		unsigned int WPDMABurstSIZE:2;
+		unsigned int RxDMABusy:1;
+		unsigned int EnableRxDMA:1;
+		unsigned int TxDMABusy:1;
+		unsigned int EnableTxDMA:1;
 	}	field;
-	UINT32 word;
+	unsigned int word;
 }WPDMA_GLO_CFG_STRUC, *PWPDMA_GLO_CFG_STRUC;
 #else
 typedef	union _WPDMA_GLO_CFG_STRUC	{
 	struct {
-		UINT32 EnableTxDMA:1;
-		UINT32 TxDMABusy:1;
-		UINT32 EnableRxDMA:1;
-		UINT32 RxDMABusy:1;
-		UINT32 WPDMABurstSIZE:2;
-		UINT32 EnTXWriteBackDDONE:1;
-		UINT32 BigEndian:1;
-		UINT32 HDR_SEG_LEN:8;
-		UINT32 rsv:14;
-		UINT32 clk_gate_dis:1;
-		UINT32 rx_2b_offset:1;
+		unsigned int EnableTxDMA:1;
+		unsigned int TxDMABusy:1;
+		unsigned int EnableRxDMA:1;
+		unsigned int RxDMABusy:1;
+		unsigned int WPDMABurstSIZE:2;
+		unsigned int EnTXWriteBackDDONE:1;
+		unsigned int BigEndian:1;
+		unsigned int HDR_SEG_LEN:8;
+		unsigned int rsv:14;
+		unsigned int clk_gate_dis:1;
+		unsigned int rx_2b_offset:1;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } WPDMA_GLO_CFG_STRUC, *PWPDMA_GLO_CFG_STRUC;
 #endif
 

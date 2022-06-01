@@ -55,7 +55,7 @@ UCHAR RxwiMCSToOfdmRate[12] = {
 
 
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
-UINT32 CW_MAX_IN_BITS;
+unsigned int CW_MAX_IN_BITS;
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 
@@ -534,8 +534,8 @@ VOID MlmeResetRalinkCounters(
 #endif /* RALINK_ATE */
 		/* for performace enchanement */
 		NdisZeroMemory(&pAd->RalinkCounters,
-						(UINT32)&pAd->RalinkCounters.OneSecEnd -
-						(UINT32)&pAd->RalinkCounters.OneSecStart);
+						(unsigned int)&pAd->RalinkCounters.OneSecEnd -
+						(unsigned int)&pAd->RalinkCounters.OneSecStart);
 
 	return;
 }
@@ -793,7 +793,7 @@ VOID MlmePeriodicExec(
 			{
 				int count = 0;
 				BOOLEAN MAC_ready = FALSE;
-				UINT32	MacCsr12 = 0;
+				unsigned int	MacCsr12 = 0;
 			
 				/* Disable MAC*/
 				RTMP_IO_WRITE32(pAd, MAC_SYS_CTRL, 0x0);
@@ -913,11 +913,11 @@ VOID MlmeCalculateChannelQuality(
 	UCHAR NorRssi;
 	CHAR  MaxRssi;
 	RSSI_SAMPLE *pRssiSample = NULL;
-	UINT32 OneSecTxNoRetryOkCount = 0;
-	UINT32 OneSecTxRetryOkCount = 0;
-	UINT32 OneSecTxFailCount = 0;
-	UINT32 OneSecRxOkCnt = 0;
-	UINT32 OneSecRxFcsErrCnt = 0;
+	unsigned int OneSecTxNoRetryOkCount = 0;
+	unsigned int OneSecTxRetryOkCount = 0;
+	unsigned int OneSecTxFailCount = 0;
+	unsigned int OneSecRxOkCnt = 0;
+	unsigned int OneSecRxFcsErrCnt = 0;
 	ULONG ChannelQuality = 0;  /* 0..100, Channel Quality Indication for Roaming*/
 
 
@@ -3319,7 +3319,7 @@ UCHAR RandomByte(
 UCHAR RandomByte2(
         IN PRTMP_ADAPTER pAd)
 {
-	UINT32 a,b;
+	unsigned int a,b;
 	UCHAR value, seed = 0;
 
 	/*MAC statistic related*/
@@ -3978,10 +3978,10 @@ Note:
 */
 BOOLEAN CHAN_PropertyCheck(
 	IN PRTMP_ADAPTER	pAd,
-	IN UINT32			ChanNum,
+	IN unsigned int			ChanNum,
 	IN UCHAR			Property)
 {
-	UINT32 IdChan;
+	unsigned int IdChan;
 
 
 	/* look for all registered channels */

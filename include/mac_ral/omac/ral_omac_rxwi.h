@@ -37,87 +37,87 @@
 #ifdef RT_BIG_ENDIAN
 typedef	struct GNU_PACKED _RXWI_OMAC{
 	/* Word 0 */
-	UINT32		tid:4;
-	UINT32		MPDUtotalByteCnt:12;
-	UINT32		UDF:3;
-	UINT32		bss_idx:3;
-	UINT32		key_idx:2;
-	UINT32		wcid:8;
+	unsigned int		tid:4;
+	unsigned int		MPDUtotalByteCnt:12;
+	unsigned int		UDF:3;
+	unsigned int		bss_idx:3;
+	unsigned int		key_idx:2;
+	unsigned int		wcid:8;
 	
 	/* Word 1 */
-	UINT32		phy_mode:2;              /* 1: this RX frame is unicast to me */
-	UINT32		iTxBF:1; /* iTxBF enable */
-	UINT32		Sounding:1; /* Sounding enable */
-	UINT32		eTxBF:1; /* eTxBF enable */
-	UINT32		stbc:2;
-	UINT32		sgi:1;
-	UINT32		bw:1;
-	UINT32		mcs:7;
-	UINT32		SEQUENCE:12;
-	UINT32		FRAG:4;
+	unsigned int		phy_mode:2;              /* 1: this RX frame is unicast to me */
+	unsigned int		iTxBF:1; /* iTxBF enable */
+	unsigned int		Sounding:1; /* Sounding enable */
+	unsigned int		eTxBF:1; /* eTxBF enable */
+	unsigned int		stbc:2;
+	unsigned int		sgi:1;
+	unsigned int		bw:1;
+	unsigned int		mcs:7;
+	unsigned int		SEQUENCE:12;
+	unsigned int		FRAG:4;
 	
 	/* Word 2 */
-	UINT32		rsv1:8;
-	UINT32		RSSI2:8;
-	UINT32		RSSI1:8;
-	UINT32		RSSI0:8;
+	unsigned int		rsv1:8;
+	unsigned int		RSSI2:8;
+	unsigned int		RSSI1:8;
+	unsigned int		RSSI0:8;
 	
 	/* Word 3 */
-	UINT32		FOFFSET:8;
-	UINT32		SNR2:8;
-	UINT32		SNR1:8;
-	UINT32		SNR0:8;
+	unsigned int		FOFFSET:8;
+	unsigned int		SNR2:8;
+	unsigned int		SNR1:8;
+	unsigned int		SNR0:8;
 	
-	UINT32		rsv3;
+	unsigned int		rsv3;
 
 #if defined(RT5592) || defined(MT7601)
 	/* Word 5 */
 	/* For Exper Antenna */
-	UINT32		rsv4:24;
-	UINT32		EANT_ID:8;
+	unsigned int		rsv4:24;
+	unsigned int		EANT_ID:8;
 #endif /* RT5592 */
 }	RXWI_OMAC, *PRXWI_OMAC;
 #else
 typedef	struct GNU_PACKED _RXWI_OMAC{
 	/* Word	0 */
-	UINT32		wcid:8;
-	UINT32		key_idx:2;
-	UINT32		bss_idx:3;
-	UINT32		UDF:3;
-	UINT32		MPDUtotalByteCnt:12;
-	UINT32		tid:4;
+	unsigned int		wcid:8;
+	unsigned int		key_idx:2;
+	unsigned int		bss_idx:3;
+	unsigned int		UDF:3;
+	unsigned int		MPDUtotalByteCnt:12;
+	unsigned int		tid:4;
 
 	/* Word	1 */
-	UINT32		FRAG:4;
-	UINT32		SEQUENCE:12;
-	UINT32		mcs:7;
-	UINT32		bw:1;
-	UINT32		sgi:1;
-	UINT32		stbc:2;
-	UINT32		eTxBF:1; /* eTxBF enable */
-	UINT32		Sounding:1; /* Sounding enable */
-	UINT32		iTxBF:1; /* iTxBF enable */
-	UINT32		phy_mode:2;              /* 1: this RX frame is unicast to me */
+	unsigned int		FRAG:4;
+	unsigned int		SEQUENCE:12;
+	unsigned int		mcs:7;
+	unsigned int		bw:1;
+	unsigned int		sgi:1;
+	unsigned int		stbc:2;
+	unsigned int		eTxBF:1; /* eTxBF enable */
+	unsigned int		Sounding:1; /* Sounding enable */
+	unsigned int		iTxBF:1; /* iTxBF enable */
+	unsigned int		phy_mode:2;              /* 1: this RX frame is unicast to me */
 
 	/*Word2 */
-	UINT32		RSSI0:8;
-	UINT32		RSSI1:8;
-	UINT32		RSSI2:8;
-	UINT32		rsv1:8;
+	unsigned int		RSSI0:8;
+	unsigned int		RSSI1:8;
+	unsigned int		RSSI2:8;
+	unsigned int		rsv1:8;
 
 	/*Word3 */
-	UINT32		SNR0:8;
-	UINT32		SNR1:8;
-	UINT32		SNR2:8;
-	UINT32		FOFFSET:8;
+	unsigned int		SNR0:8;
+	unsigned int		SNR1:8;
+	unsigned int		SNR2:8;
+	unsigned int		FOFFSET:8;
 
-	UINT32		rsv3;
+	unsigned int		rsv3;
 
 #if defined(RT5592) || defined(MT7601)
 	/* Word 5 */
 	/* For Exper Antenna */
-	UINT32      EANT_ID:8;
-	UINT32      rsv4:24;
+	unsigned int      EANT_ID:8;
+	unsigned int      rsv4:24;
 #endif /* RT5592 */
 }	RXWI_OMAC, *PRXWI_OMAC;
 #endif

@@ -514,7 +514,7 @@ static BANK_RF_REG_PAIR MT7601_RF_Central_RegTb[] = {
 	{RF_BANK0,	RF_R43, 0x02},
 	{RF_BANK0,	RF_R44, 0x00},
 };
-static UINT32 MT7601_RF_Central_RegTb_Size = (sizeof(MT7601_RF_Central_RegTb) / sizeof(BANK_RF_REG_PAIR));
+static unsigned int MT7601_RF_Central_RegTb_Size = (sizeof(MT7601_RF_Central_RegTb) / sizeof(BANK_RF_REG_PAIR));
 
 static BANK_RF_REG_PAIR MT7601_RF_Channel_RegTb[] = {
 	{RF_BANK4,	RF_R00, 0x01},
@@ -598,7 +598,7 @@ static BANK_RF_REG_PAIR MT7601_RF_Channel_RegTb[] = {
 	{RF_BANK4,	RF_R62, 0x1C},
 	{RF_BANK4,	RF_R63, 0x00}, /* Reserved */
 };
-static UINT32 MT7601_RF_Channel_RegTb_Size = (sizeof(MT7601_RF_Channel_RegTb) / sizeof(BANK_RF_REG_PAIR));
+static unsigned int MT7601_RF_Channel_RegTb_Size = (sizeof(MT7601_RF_Channel_RegTb) / sizeof(BANK_RF_REG_PAIR));
 
 static BANK_RF_REG_PAIR MT7601_RF_VGA_RegTb[] = {
 	{RF_BANK5,	RF_R00, 0x47},
@@ -661,7 +661,7 @@ static BANK_RF_REG_PAIR MT7601_RF_VGA_RegTb[] = {
 	{RF_BANK5,	RF_R62, 0x00},
 	{RF_BANK5,	RF_R63, 0x00},
 };
-static UINT32 MT7601_RF_VGA_RegTb_Size = (sizeof(MT7601_RF_VGA_RegTb) / sizeof(BANK_RF_REG_PAIR));
+static unsigned int MT7601_RF_VGA_RegTb_Size = (sizeof(MT7601_RF_VGA_RegTb) / sizeof(BANK_RF_REG_PAIR));
 
 const MT7601_FREQ_ITEM MT7601_Frequency_Plan[] =
 {
@@ -681,7 +681,7 @@ const MT7601_FREQ_ITEM MT7601_Frequency_Plan[] =
 	{ 13,	0x99,	0x99,	0x09,	0x52},
 	{ 14,	0x33,	0x33,	0x0B,	0x52},
 };
-UINT32 NUM_OF_MT7601_CHNL = (sizeof(MT7601_Frequency_Plan) / sizeof(MT7601_FREQ_ITEM));
+unsigned int NUM_OF_MT7601_CHNL = (sizeof(MT7601_Frequency_Plan) / sizeof(MT7601_FREQ_ITEM));
 
 
 /*
@@ -832,7 +832,7 @@ VOID MT7601_RXDC_CAL(RTMP_ADAPTER *pAd)
 #define MAX_RXDCOC_RETRY_CNT	20
 	UINT count;
 	UCHAR RValue;
-	UINT32 Mac_R1004;
+	unsigned int Mac_R1004;
 
 	RTMP_IO_READ32(pAd, MAC_SYS_CTRL, &Mac_R1004);
 
@@ -871,7 +871,7 @@ VOID MT7601_RXDC_CAL(RTMP_ADAPTER *pAd)
 VOID MT7601_INIT_CAL(RTMP_ADAPTER *pAd)
 {
 	UCHAR RfValue;
-	UINT32 Mac_R1004;
+	unsigned int Mac_R1004;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==>%s\n", __FUNCTION__));
 
@@ -1023,7 +1023,7 @@ Note:
 */
 static VOID NICInitMT7601MacRegisters(RTMP_ADAPTER *pAd)
 {
-	UINT32 MacReg = 0;
+	unsigned int MacReg = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s\n", __FUNCTION__));
 
@@ -1153,9 +1153,9 @@ static VOID MT7601_ChipSwitchChannel(
 	CHAR CCK1MPwr, CCK11MPwr;
 	UCHAR	index;
 	UCHAR RFValue = 0;
-	UINT32 Value = 0;
-	UINT32	value;
-	UINT32 ret;
+	unsigned int Value = 0;
+	unsigned int	value;
+	unsigned int ret;
 #ifdef SINGLE_SKU_V2
 	CHAR SkuBasePwr;
 	CHAR ChannelPwrAdj;
@@ -1183,7 +1183,7 @@ static VOID MT7601_ChipSwitchChannel(
 	if (pAd->TxPowerCtrl.bInternalTxALC != TRUE)
 #endif /* RTMP_INTERNAL_TX_ALC */
 	{
-		UINT32 value;
+		unsigned int value;
 		if (pAd->DefaultTargetPwr > SkuBasePwr)
 			ChannelPwrAdj = SkuBasePwr - pAd->DefaultTargetPwr;
 		else
@@ -1353,12 +1353,12 @@ NTSTATUS MT7601DisableTxRx(
 	RTMP_ADAPTER *pAd,
 	UCHAR Level)
 {
-	UINT32 MacReg = 0;
-	UINT32 MTxCycle;
+	unsigned int MacReg = 0;
+	unsigned int MTxCycle;
 	BOOLEAN bResetWLAN = FALSE;
 	BOOLEAN bFree = TRUE;
 	UINT8 CheckFreeTimes = 0;
-	UINT32 MaxRetry;
+	unsigned int MaxRetry;
 
 	if (!IS_MT7601(pAd))
 		return FALSE;
@@ -1581,7 +1581,7 @@ NTSTATUS MT7601DisableTxRx(
 VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, UCHAR Stage)
 {
 #ifdef RTMP_MAC_USB
-	UINT32 ret;
+	unsigned int ret;
 #endif
 	DBGPRINT(RT_DEBUG_TRACE, ("--> %s\n", __FUNCTION__));
 
@@ -1634,8 +1634,8 @@ VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, UCHAR Stage)
 
 VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, UCHAR Stage)
 {
-	UINT32 MACValue = 0;
-	UINT32 rx_filter_flag;
+	unsigned int MACValue = 0;
+	unsigned int rx_filter_flag;
 	UCHAR RFValue = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==> %s\n", __FUNCTION__));
@@ -1718,7 +1718,7 @@ VOID MT7601_NICInitAsicFromEEPROM(
 
 INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 {
-	UINT32 i, idx, ss_offset_g, MacReg;
+	unsigned int i, idx, ss_offset_g, MacReg;
 	EEPROM_TX_PWR_STRUC Power;
 	CHAR tx_pwr1, tx_pwr2;
 	CHAR max_tx1_pwr;
@@ -1813,7 +1813,7 @@ INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 
 VOID MT7601_ReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 {
-	UINT32		data, Adata, Gdata;
+	unsigned int		data, Adata, Gdata;
 	USHORT		i, value, value2;
 	CHAR		value_1, value_2;
 	CHAR		Apwrdelta, Gpwrdelta;
@@ -1995,7 +1995,7 @@ VOID MT7601_InitPAModeTable(
 	IN PRTMP_ADAPTER			pAd)
 {
 	INT32 PAMode;
-	UINT32 Value = 0;
+	unsigned int Value = 0;
 	UINT16 index, offset;
 
 	RTMP_IO_READ32(pAd, RF_PA_MODE_CFG0, &Value);
@@ -2047,7 +2047,7 @@ VOID MT7601_InitPAModeTable(
 VOID MT7601_InitTemperatureCompensation(
 	IN PRTMP_ADAPTER			pAd)
 {
-	UINT32 Value = 0;
+	unsigned int Value = 0;
 
 	pAd->chipCap.TemperatureMode = TEMPERATURE_MODE_NORMAL;
 	pAd->chipCap.CurrentTemperature = 0;
@@ -2366,7 +2366,7 @@ VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 VOID MT7601_InitDesiredTSSITable(
 	IN PRTMP_ADAPTER			pAd)
 {
-	UINT32 Value = 0;
+	unsigned int Value = 0;
 #ifdef DBG
 	UINT16 offset;
 #endif /* DBG */
@@ -2680,7 +2680,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 	UCHAR TssiLinear0, TssiLinear1;
 	CHAR tssi_offset;
 	INT16 tssi_db, tssi_m_dc;
-	UINT32 value;
+	unsigned int value;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 #ifdef MT7601FPGA
@@ -2807,7 +2807,7 @@ INT MT7601_Bootup_Read_Temperature(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	CHAR*			Temperature)
 {
-	UINT32	MAC0504, MAC050C;
+	unsigned int	MAC0504, MAC050C;
 	UCHAR	BBPReg;
 	int i;
 
@@ -2942,7 +2942,7 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 {
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	UINT32 Value;
+	unsigned int Value;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-->%s():\n", __FUNCTION__));
 
@@ -3140,7 +3140,7 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 
 #ifdef HDR_TRANS_SUPPORT
 	if (1) {
-		//UINT32 RegVal;
+		//unsigned int RegVal;
 
 		/* enable TX/RX Header Translation */
 		RTMP_IO_WRITE32(pAd, HT_RX_WCID_EN_BASE , 0xFF);	/* all RX WCID enable */
@@ -3170,7 +3170,7 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 VOID MT7601_AsicMeasureFalseCCA(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT32 reg;
+	unsigned int reg;
 	/* restore LAN gain*/
 	//printk("Stored_BBP_R65=%x @%s \n", pAd->CommonCfg.MO_Cfg.Stored_BBP_R65, __FUNCTION__);
 	RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R65, pAd->CommonCfg.MO_Cfg.Stored_BBP_R65);

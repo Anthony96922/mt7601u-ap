@@ -44,41 +44,41 @@ typedef union _INTERNAL_1_STRUCT
 {
 	struct
 	{
-		UINT32 Reserve1:10;
-		UINT32 CSO_RX_IPV6_CHKSUM_EN:1;
-		UINT32 CSO_TX_IPV6_CHKSUM_EN:1;
-		UINT32 CSO_HW_PARSE_TCP:1;
-		UINT32 CSO_HW_PARSE_IP:1;
-		UINT32 CSO_RX_CHKSUM_EN:1;
-		UINT32 CSO_TX_CHKSUM_EN:1;
-		UINT32 CSO_TIMEOUT_VALUE:4;
-		UINT32 PCIE_PHY_TX_ATTEN_EN:1;
-		UINT32 PCIE_PHY_TX_ATTEN_VALUE:3;
-		UINT32 Reserve2:7;
-		UINT32 RF_ISOLATION_ENABLE:1;
+		unsigned int Reserve1:10;
+		unsigned int CSO_RX_IPV6_CHKSUM_EN:1;
+		unsigned int CSO_TX_IPV6_CHKSUM_EN:1;
+		unsigned int CSO_HW_PARSE_TCP:1;
+		unsigned int CSO_HW_PARSE_IP:1;
+		unsigned int CSO_RX_CHKSUM_EN:1;
+		unsigned int CSO_TX_CHKSUM_EN:1;
+		unsigned int CSO_TIMEOUT_VALUE:4;
+		unsigned int PCIE_PHY_TX_ATTEN_EN:1;
+		unsigned int PCIE_PHY_TX_ATTEN_VALUE:3;
+		unsigned int Reserve2:7;
+		unsigned int RF_ISOLATION_ENABLE:1;
 	} field;
 
-	UINT32 word;
+	unsigned int word;
 } INTERNAL_1_STRUCT, *PINTERNAL_1_STRUCT;
 #else
 typedef union _TX_ATTENUATION_CTRL_STRUC {
 	struct
 	{
-		UINT32 RF_ISOLATION_ENABLE:1;
-		UINT32 Reserve2:7;
-		UINT32 PCIE_PHY_TX_ATTEN_VALUE:3;
-		UINT32 PCIE_PHY_TX_ATTEN_EN:1;
-		UINT32 CSO_TIMEOUT_VALUE:4;
-		UINT32 CSO_TX_CHKSUM_EN:1;
-		UINT32 CSO_RX_CHKSUM_EN:1;
-		UINT32 CSO_HW_PARSE_IP:1;
-		UINT32 CSO_HW_PARSE_TCP:1;
-		UINT32 CSO_TX_IPV6_CHKSUM_EN:1;
-		UINT32 CSO_RX_IPV6_CHKSUM_EN:1;
-		UINT32 Reserve1:10;		
+		unsigned int RF_ISOLATION_ENABLE:1;
+		unsigned int Reserve2:7;
+		unsigned int PCIE_PHY_TX_ATTEN_VALUE:3;
+		unsigned int PCIE_PHY_TX_ATTEN_EN:1;
+		unsigned int CSO_TIMEOUT_VALUE:4;
+		unsigned int CSO_TX_CHKSUM_EN:1;
+		unsigned int CSO_RX_CHKSUM_EN:1;
+		unsigned int CSO_HW_PARSE_IP:1;
+		unsigned int CSO_HW_PARSE_TCP:1;
+		unsigned int CSO_TX_IPV6_CHKSUM_EN:1;
+		unsigned int CSO_RX_IPV6_CHKSUM_EN:1;
+		unsigned int Reserve1:10;		
 	} field;
 	
-	UINT32 word;
+	unsigned int word;
 } INTERNAL_1_STRUCT, *PINTERNAL_1_STRUCT;
 #endif
 

@@ -36,12 +36,12 @@
 /* extern export symbol in other drivers */
 /*
 	Example in other drivers:
-		UINT32 (*RALINK_FP_Handle)(PNDIS_PACKET pPacket);
+		unsigned int (*RALINK_FP_Handle)(PNDIS_PACKET pPacket);
 		EXPORT_SYMBOL(RALINK_FP_Handle);
 
 	packet_forward()
 	{
-		UINT32 HandRst = 1;
+		unsigned int HandRst = 1;
 
 		......
 
@@ -56,13 +56,13 @@
 		}
 	}
 */
-UINT32 BG_FTPH_PacketFromApHandle(
+unsigned int BG_FTPH_PacketFromApHandle(
 	IN		PNDIS_PACKET	pPacket);
 
 #ifdef BG_FT_OPEN_SUPPORT
-extern UINT32 (*RALINK_FP_Handle)(PNDIS_PACKET pPacket);
+extern unsigned int (*RALINK_FP_Handle)(PNDIS_PACKET pPacket);
 #else
-UINT32 (*RALINK_FP_Handle)(PNDIS_PACKET pPacket);
+unsigned int (*RALINK_FP_Handle)(PNDIS_PACKET pPacket);
 #endif /* BG_FT_OPEN_SUPPORT */
 
 
@@ -128,7 +128,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 BG_FTPH_PacketFromApHandle(
+unsigned int BG_FTPH_PacketFromApHandle(
 	IN		PNDIS_PACKET	pPacket)
 {
 	struct net_device	*pNetDev;

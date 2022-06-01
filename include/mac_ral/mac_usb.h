@@ -116,11 +116,11 @@
 */
 #ifdef RT_BIG_ENDIAN
 typedef	struct GNU_PACKED _RXD_STRUC{
-	UINT32 dma_len;
+	unsigned int dma_len;
 }RXD_STRUC, *PRXD_STRUC;
 #else
 typedef	struct GNU_PACKED _RXD_STRUC{
-	UINT32 dma_len;
+	unsigned int dma_len;
 }RXD_STRUC, *PRXD_STRUC;
 #endif
 

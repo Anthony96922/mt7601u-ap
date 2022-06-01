@@ -2022,7 +2022,7 @@ UINT8 GetCountryMaxTxPwr(
 /* for OS_ABL */
 VOID RTMP_MapChannelID2KHZ(
 	IN UCHAR Ch,
-	OUT UINT32 *pFreq)
+	OUT unsigned int *pFreq)
 {
 	int chIdx;
 	for (chIdx = 0; chIdx < CH_HZ_ID_MAP_NUM; chIdx++)

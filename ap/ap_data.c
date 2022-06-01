@@ -429,7 +429,7 @@ NDIS_STATUS APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 			resource, and the NDIS packet will be indicated NDIS_STATUS_FAILURE. This should
 			rarely happen and the penalty is just like a TX RETRY fail. Affordable.
 		*/
-		UINT32 Size;
+		unsigned int Size;
 
 		AllowFragSize = (pAd->CommonCfg.FragmentThreshold) - LENGTH_802_11 - LENGTH_CRC;
 		Size = PacketInfo.TotalPacketLength - LENGTH_802_3 + LENGTH_802_1_H;
@@ -1039,7 +1039,7 @@ static inline unsigned char * AP_Build_ARalink_Frame_Header(
 	unsigned char *			pHeaderBufPtr;/*, pSaveBufPtr; */
 	HEADER_802_11	*pHeader_802_11;
 	PNDIS_PACKET	pNextPacket;
-	UINT32			nextBufLen;
+	unsigned int			nextBufLen;
 	PQUEUE_ENTRY	pQEntry;
 	UINT8 TXWISize = pAd->chipCap.TXWISize;
 		
@@ -2668,7 +2668,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	USHORT freeCnt = 1; /* no use */
 	UCHAR fragNum = 0;
 	USHORT EncryptionOverhead = 0;	
-	UINT32 FreeMpduSize, SrcRemainingBytes;
+	unsigned int FreeMpduSize, SrcRemainingBytes;
 	USHORT AckDuration;
 	UINT NextMpduSize;
 	BOOLEAN bVLANPkt;
@@ -2676,7 +2676,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	PACKET_INFO PacketInfo;
 #ifdef SOFT_ENCRYPT
 	UCHAR *tmp_ptr = NULL;
-	UINT32 buf_offset = 0;
+	unsigned int buf_offset = 0;
 #endif /* SOFT_ENCRYPT */
 	HTTRANSMIT_SETTING	*pTransmit;
 	UINT8 TXWISize = pAd->chipCap.TXWISize;
@@ -3526,7 +3526,7 @@ VOID APHandleRxPsPoll(
 			if (pMacEntry->PsQueue.Head)
 			{
 #ifdef UAPSD_SUPPORT
-				UINT32 NumOfOldPsPkt;
+				unsigned int NumOfOldPsPkt;
 				NumOfOldPsPkt = pAd->TxSwQueue[QID_AC_BE].Number;
 #endif /* UAPSD_SUPPORT */
 
@@ -3730,7 +3730,7 @@ VOID detect_wmm_traffic(
 
 VOID dynamic_tune_be_tx_op(RTMP_ADAPTER *pAd, ULONG nonBEpackets)
 {
-	UINT32 RegValue;
+	unsigned int RegValue;
 	AC_TXOP_CSR0_STRUC csr0;
 
 	if (pAd->CommonCfg.bEnableTxBurst 
@@ -3889,7 +3889,7 @@ VOID APRxDErrorHandle(RTMP_ADAPTER *pAd, RX_BLK *pRxBlk)
 #ifdef HOSTAPD_SUPPORT
 				if(pAd->ApCfg.MBSSID[pEntry->apidx].Hostapd == TRUE)
 				{
-					ieee80211_notify_michael_failure(pAd, pRxBlk->pHeader, (UINT32) pRxWI->RxWIKeyIndex, 0);
+					ieee80211_notify_michael_failure(pAd, pRxBlk->pHeader, (unsigned int) pRxWI->RxWIKeyIndex, 0);
 				}
 	      			else
 #endif/*HOSTAPD_SUPPORT*/
@@ -5681,7 +5681,7 @@ err:
 
 BOOLEAN APRxDoneInterruptHandle(RTMP_ADAPTER *pAd) 
 {
-	UINT32 RxProcessed, RxPending;
+	unsigned int RxProcessed, RxPending;
 	BOOLEAN bReschedule = FALSE;
 	RXD_STRUC *pRxD;
 	RXINFO_STRUC *pRxInfo;
@@ -6337,7 +6337,7 @@ NDIS_STATUS APInsertPsQueue(
 	ULONG IrqFlags;
 #ifdef UAPSD_SUPPORT
 	/* put the U-APSD packet to its U-APSD queue by AC ID */
-	UINT32 ac_id = QueIdx - QID_AC_BE; /* should be >= 0 */
+	unsigned int ac_id = QueIdx - QID_AC_BE; /* should be >= 0 */
 
 
 	if (UAPSD_MR_IS_UAPSD_AC(pMacEntry, ac_id))

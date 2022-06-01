@@ -37,24 +37,24 @@
 #ifdef RT_BIG_ENDIAN
 typedef	struct GNU_PACKED _RXWI_NMAC{
 	/* Word 0 */
-	UINT32 eof:1;
-	UINT32 rsv:1;
-	UINT32 MPDUtotalByteCnt:14;
-	UINT32 udf:3;
-	UINT32 bss_idx:3;
-	UINT32 key_idx:2;
-	UINT32 wcid:8;
+	unsigned int eof:1;
+	unsigned int rsv:1;
+	unsigned int MPDUtotalByteCnt:14;
+	unsigned int udf:3;
+	unsigned int bss_idx:3;
+	unsigned int key_idx:2;
+	unsigned int wcid:8;
 
 	/* Word 1 */
-	UINT32 phy_mode:3;
-	UINT32 i_txbf:1;
-	UINT32 e_txbf:1;
-	UINT32 stbc:1;
-	UINT32 sgi:1;
-	UINT32 bw:2;
-	UINT32 mcs:7;
-	UINT32 sn:12;
-	UINT32 tid:4;
+	unsigned int phy_mode:3;
+	unsigned int i_txbf:1;
+	unsigned int e_txbf:1;
+	unsigned int stbc:1;
+	unsigned int sgi:1;
+	unsigned int bw:2;
+	unsigned int mcs:7;
+	unsigned int sn:12;
+	unsigned int tid:4;
 
 	/* Word 2 */
 	UINT8 rssi[4];
@@ -65,24 +65,24 @@ typedef	struct GNU_PACKED _RXWI_NMAC{
 #else
 typedef	struct GNU_PACKED _RXWI_NMAC {
 	/* Word 0 */
-	UINT32 wcid:8;
-	UINT32 key_idx:2;
-	UINT32 bss_idx:3;
-	UINT32 udf:3;
-	UINT32 MPDUtotalByteCnt:14;
-	UINT32 rsv:1;
-	UINT32 eof:1;
+	unsigned int wcid:8;
+	unsigned int key_idx:2;
+	unsigned int bss_idx:3;
+	unsigned int udf:3;
+	unsigned int MPDUtotalByteCnt:14;
+	unsigned int rsv:1;
+	unsigned int eof:1;
 
 	/* Word 1 */
-	UINT32 tid:4;
-	UINT32 sn:12;
-	UINT32 mcs:7;
-	UINT32 bw:2;
-	UINT32 sgi:1;
-	UINT32 stbc:1;
-	UINT32 e_txbf:1;
-	UINT32 i_txbf:1;
-	UINT32 phy_mode:3;
+	unsigned int tid:4;
+	unsigned int sn:12;
+	unsigned int mcs:7;
+	unsigned int bw:2;
+	unsigned int sgi:1;
+	unsigned int stbc:1;
+	unsigned int e_txbf:1;
+	unsigned int i_txbf:1;
+	unsigned int phy_mode:3;
 
 	/* Word 2 */
 	UINT8 rssi[4];

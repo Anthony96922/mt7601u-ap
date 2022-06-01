@@ -48,7 +48,7 @@ NDIS_STATUS RtmpInsertPsQueue(
 	ULONG IrqFlags;
 #ifdef UAPSD_SUPPORT
 	/* put the U-APSD packet to its U-APSD queue by AC ID */
-	UINT32 ac_id = QueIdx - QID_AC_BE; /* should be >= 0 */
+	unsigned int ac_id = QueIdx - QID_AC_BE; /* should be >= 0 */
 
 
 	if (UAPSD_MR_IS_UAPSD_AC(pMacEntry, ac_id))
@@ -194,7 +194,7 @@ VOID RtmpHandleRxPsPoll(
 			if (pMacEntry->PsQueue.Head)
 			{
 #ifdef UAPSD_SUPPORT
-				UINT32 NumOfOldPsPkt;
+				unsigned int NumOfOldPsPkt;
 				NumOfOldPsPkt = pAd->TxSwQueue[QID_AC_BE].Number;
 #endif /* UAPSD_SUPPORT */
 

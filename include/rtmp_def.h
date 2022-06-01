@@ -60,15 +60,15 @@
 #define ResourceTypeIdName		("Ralink_ID")
 #endif
 
-#define RALINK_2883_VERSION		((UINT32)0x28830300)
-#define RALINK_2880E_VERSION		((UINT32)0x28720200)
-#define RALINK_3883_VERSION		((UINT32)0x38830400)
-#define RALINK_3070_VERSION		((UINT32)0x30700200)
+#define RALINK_2883_VERSION		((unsigned int)0x28830300)
+#define RALINK_2880E_VERSION		((unsigned int)0x28720200)
+#define RALINK_3883_VERSION		((unsigned int)0x38830400)
+#define RALINK_3070_VERSION		((unsigned int)0x30700200)
 
 #define MAX_RX_PKT_LEN	1520
 
 
-#define PCI_VIRT_TO_PHYS(__Addr)	(((UINT32)(__Addr)) & 0x0FFFFFFF)
+#define PCI_VIRT_TO_PHYS(__Addr)	(((unsigned int)(__Addr)) & 0x0FFFFFFF)
 
 #ifdef RTMP_MAC_USB
 #define TX_RING_SIZE            8	/* 1 */

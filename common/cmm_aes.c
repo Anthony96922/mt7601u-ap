@@ -829,7 +829,7 @@ BOOLEAN RTMPSoftEncryptCCMP(
 	IN unsigned char * pIV,
 	IN unsigned char * pKey,
 	INOUT unsigned char * pData,
-	IN UINT32 DataLen)
+	IN unsigned int DataLen)
 {
 	UINT8 frame_type, frame_subtype;
 	UINT8 from_ds, to_ds;
@@ -837,8 +837,8 @@ BOOLEAN RTMPSoftEncryptCCMP(
 	UINT8 aad_hdr[30];
 	UINT aad_len = 0;
 	UINT8 nonce_hdr[13];	
-	UINT32 nonce_hdr_len = 0;
-	UINT32 out_len = DataLen + 8;
+	unsigned int nonce_hdr_len = 0;
+	unsigned int out_len = DataLen + 8;
 		
 #ifdef RT_BIG_ENDIAN
 	RTMPFrameEndianChange(pAd, (unsigned char *)pHdr, DIR_READ, FALSE);
@@ -929,10 +929,10 @@ BOOLEAN RTMPSoftDecryptCCMP(
 	UINT aad_len = 0;
 	UINT8 pn[LEN_PN];	
 	unsigned char * cipherData_ptr;
-	UINT32 cipherData_len;
+	unsigned int cipherData_len;
 	UINT8 nonce_hdr[13];	
-	UINT32 nonce_hdr_len = 0;	
-	UINT32 out_len = *DataLen;
+	unsigned int nonce_hdr_len = 0;	
+	unsigned int out_len = *DataLen;
 
 #ifdef RT_BIG_ENDIAN
 	RTMPFrameEndianChange(pAd, (unsigned char *)pHdr, DIR_READ, FALSE);

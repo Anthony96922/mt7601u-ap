@@ -34,7 +34,7 @@
 typedef struct _BIG_INTEGER_STRUC
 {
 	STRING Name[10];
-	UINT32 *pIntegerArray;
+	unsigned int *pIntegerArray;
 	UINT AllocSize;
 	UINT ArrayLength;
 	UINT IntegerLength;

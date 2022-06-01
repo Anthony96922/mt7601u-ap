@@ -353,12 +353,12 @@ typedef OS_RSTRUC					*PRTMP_NET_TASK_STRUCT;
 
 typedef struct __RTMP_PCI_CONFIG {
 
-	UINT32	ConfigVendorID;
+	unsigned int	ConfigVendorID;
 } RTMP_PCI_CONFIG;
 
 typedef struct __RTMP_USB_CONFIG {
 
-	UINT32	Reserved;
+	unsigned int	Reserved;
 } RTMP_USB_CONFIG;
 
 extern RTMP_PCI_CONFIG *pRtmpPciConfig;

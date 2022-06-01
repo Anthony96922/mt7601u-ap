@@ -83,7 +83,7 @@
 
 
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
-extern UINT32 CW_MAX_IN_BITS;
+extern unsigned int CW_MAX_IN_BITS;
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 /* Note: RSSI_TO_DBM_OFFSET has been changed to variable for new RF (2004-0720). */
@@ -502,41 +502,41 @@ typedef struct  _TRIGGER_EVENT_TAB{
 typedef struct GNU_PACKED _EXT_CAP_INFO_ELEMENT{
 #ifdef RT_BIG_ENDIAN
 	// TODO: shiang-6590, check the data structure format if this IE
-	UINT32	rsv7:1;
-	UINT32	TDLSChSwitchSupport:1; /* bit30: TDLS Channel Switching */
-	UINT32	TDLSPeerPSMSupport:1; /* bit29: TDLS Peer PSM Support */
-	UINT32	UAPSDBufSTASupport:1; /* bit28: Peer U-APSD Buffer STA Support */
-	UINT32	rsv6:1;
-	UINT32	DMSSupport:1;
-	UINT32	rsv5:6;
-	UINT32	BssTransitionManmt:1;
-	UINT32	rsv4:1;
-	UINT32	WNMSleepSupport:1;/*bit 17*/
-	UINT32	TFSSupport:1;/*bit 16*/
-	UINT32	rsv3:4;
-	UINT32	FMSSupport:1;/*bit 11*/
-	UINT32	rsv2:8;
-	UINT32	ExtendChannelSwitch:1;
-	UINT32	rsv:1;
-	UINT32	BssCoexistMgmtSupport:1;
+	unsigned int	rsv7:1;
+	unsigned int	TDLSChSwitchSupport:1; /* bit30: TDLS Channel Switching */
+	unsigned int	TDLSPeerPSMSupport:1; /* bit29: TDLS Peer PSM Support */
+	unsigned int	UAPSDBufSTASupport:1; /* bit28: Peer U-APSD Buffer STA Support */
+	unsigned int	rsv6:1;
+	unsigned int	DMSSupport:1;
+	unsigned int	rsv5:6;
+	unsigned int	BssTransitionManmt:1;
+	unsigned int	rsv4:1;
+	unsigned int	WNMSleepSupport:1;/*bit 17*/
+	unsigned int	TFSSupport:1;/*bit 16*/
+	unsigned int	rsv3:4;
+	unsigned int	FMSSupport:1;/*bit 11*/
+	unsigned int	rsv2:8;
+	unsigned int	ExtendChannelSwitch:1;
+	unsigned int	rsv:1;
+	unsigned int	BssCoexistMgmtSupport:1;
 #else
-	UINT32	BssCoexistMgmtSupport:1;
-	UINT32	rsv:1;
-	UINT32	ExtendChannelSwitch:1;
-	UINT32	rsv2:8;
-	UINT32	FMSSupport:1;/*bit 11*/
-	UINT32	rsv3:4;
-	UINT32	TFSSupport:1;/*bit 16*/
-	UINT32	WNMSleepSupport:1;/*bit 17*/
-	UINT32	rsv4:1;
-	UINT32	BssTransitionManmt:1;
-	UINT32	rsv5:6;
-	UINT32	DMSSupport:1;
-	UINT32	rsv6:1;
-	UINT32	UAPSDBufSTASupport:1; /* bit28: Peer U-APSD Buffer STA Support */
-	UINT32	TDLSPeerPSMSupport:1; /* bit29: TDLS Peer PSM Support */
-	UINT32	TDLSChSwitchSupport:1; /* bit30: TDLS Channel Switching */
-	UINT32	rsv7:1;
+	unsigned int	BssCoexistMgmtSupport:1;
+	unsigned int	rsv:1;
+	unsigned int	ExtendChannelSwitch:1;
+	unsigned int	rsv2:8;
+	unsigned int	FMSSupport:1;/*bit 11*/
+	unsigned int	rsv3:4;
+	unsigned int	TFSSupport:1;/*bit 16*/
+	unsigned int	WNMSleepSupport:1;/*bit 17*/
+	unsigned int	rsv4:1;
+	unsigned int	BssTransitionManmt:1;
+	unsigned int	rsv5:6;
+	unsigned int	DMSSupport:1;
+	unsigned int	rsv6:1;
+	unsigned int	UAPSDBufSTASupport:1; /* bit28: Peer U-APSD Buffer STA Support */
+	unsigned int	TDLSPeerPSMSupport:1; /* bit29: TDLS Peer PSM Support */
+	unsigned int	TDLSChSwitchSupport:1; /* bit30: TDLS Channel Switching */
+	unsigned int	rsv7:1;
 #endif /* RT_BIG_ENDIAN */
 
 }EXT_CAP_INFO_ELEMENT, *PEXT_CAP_INFO_ELEMENT;
@@ -589,18 +589,18 @@ typedef struct _RT_PHY_INFO{
 
 #ifdef DOT11_VHT_AC
 typedef struct _RT_VHT_CAP{
-	UINT32 vht_bw:2;
-	UINT32 vht_txstbc:1;
-	UINT32 vht_rxstbc:3;
-	UINT32 sgi_80m:1;
-	UINT32 vht_htc:1;
+	unsigned int vht_bw:2;
+	unsigned int vht_txstbc:1;
+	unsigned int vht_rxstbc:3;
+	unsigned int sgi_80m:1;
+	unsigned int vht_htc:1;
 
-	UINT32 vht_mcs_ss1:2;
-	UINT32 vht_mcs_ss2:2;
-	UINT32 vht_rx_rate:2;
-	UINT32 vht_tx_rate:2;
+	unsigned int vht_mcs_ss1:2;
+	unsigned int vht_mcs_ss2:2;
+	unsigned int vht_rx_rate:2;
+	unsigned int vht_tx_rate:2;
 
-	UINT32 rsv:16;
+	unsigned int rsv:16;
 }RT_VHT_CAP;
 #endif /* DOT11_VHT_AC */
 

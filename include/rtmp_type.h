@@ -42,7 +42,6 @@
 /* For example, linux type definition */
 typedef unsigned char UINT8;
 typedef unsigned short UINT16;
-typedef unsigned int UINT32;
 typedef short INT16;
 typedef int INT32;
 typedef long long INT64;
@@ -88,8 +87,8 @@ typedef union _LARGE_INTEGER {
 
 /* Register set pair for initialzation register set definition */
 typedef struct _RTMP_REG_PAIR {
-	UINT32 Register;
-	UINT32 Value;
+	unsigned int Register;
+	unsigned int Value;
 } RTMP_REG_PAIR, *PRTMP_REG_PAIR;
 
 typedef struct _REG_PAIR {
@@ -124,10 +123,10 @@ typedef struct _REG_PAIR_PHY{
 /* Register set pair for initialzation register set definition */
 typedef struct _RTMP_RF_REGS {
 	UCHAR Channel;
-	UINT32 R1;
-	UINT32 R2;
-	UINT32 R3;
-	UINT32 R4;
+	unsigned int R1;
+	unsigned int R2;
+	unsigned int R3;
+	unsigned int R4;
 } RTMP_RF_REGS, *PRTMP_RF_REGS;
 
 typedef struct _FREQUENCY_ITEM {
@@ -160,9 +159,9 @@ typedef struct _BANK_RF_REG_PAIR {
 } BANK_RF_REG_PAIR, *PBANK_RF_REG_PAIR;
 
 typedef struct _R_M_W_REG{
-	UINT32 Register;
-	UINT32 ClearBitMask;
-	UINT32 Value;
+	unsigned int Register;
+	unsigned int ClearBitMask;
+	unsigned int Value;
 } R_M_W_REG, *PR_M_W_REG;
 
 typedef struct _RF_R_M_W_REG{

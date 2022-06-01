@@ -146,51 +146,51 @@
 */
 typedef struct GNU_PACKED _VHT_CAP_INFO{
 #ifdef RT_BIG_ENDIAN
-	UINT32 rsv:2;
-	UINT32 tx_ant_consistency:1;
-	UINT32 rx_ant_consistency:1;
-	UINT32 vht_link_adapt:2;
-	UINT32 max_ampdu_exp:3;
-	UINT32 htc_vht_cap:1;
-	UINT32 vht_txop_ps:1;
-	UINT32 bfee_cap_mu:1;
-	UINT32 bfer_cap_mu:1;
-	UINT32 num_snd_dimension:3;
+	unsigned int rsv:2;
+	unsigned int tx_ant_consistency:1;
+	unsigned int rx_ant_consistency:1;
+	unsigned int vht_link_adapt:2;
+	unsigned int max_ampdu_exp:3;
+	unsigned int htc_vht_cap:1;
+	unsigned int vht_txop_ps:1;
+	unsigned int bfee_cap_mu:1;
+	unsigned int bfer_cap_mu:1;
+	unsigned int num_snd_dimension:3;
 
-	UINT32 cmp_st_num_bfer:3;
-	UINT32 bfee_cap_su:1;
-	UINT32 bfer_cap_su:1;
-	UINT32 rx_stbc:3;
+	unsigned int cmp_st_num_bfer:3;
+	unsigned int bfee_cap_su:1;
+	unsigned int bfer_cap_su:1;
+	unsigned int rx_stbc:3;
 
-	UINT32 tx_stbc:1;
-	UINT32 sgi_160M:1;
-	UINT32 sgi_80M:1;
-	UINT32 rx_ldpc:1;
-	UINT32 ch_width:2;
-	UINT32 max_mpdu_len:2;
+	unsigned int tx_stbc:1;
+	unsigned int sgi_160M:1;
+	unsigned int sgi_80M:1;
+	unsigned int rx_ldpc:1;
+	unsigned int ch_width:2;
+	unsigned int max_mpdu_len:2;
 #else
-	UINT32 max_mpdu_len:2;	/* 0: 3895, 1: 7991, 2: 11454, 3: rsv */
-	UINT32 ch_width:2;	/* */
-	UINT32 rx_ldpc:1;
-	UINT32 sgi_80M:1;
-	UINT32 sgi_160M:1;
-	UINT32 tx_stbc:1;
+	unsigned int max_mpdu_len:2;	/* 0: 3895, 1: 7991, 2: 11454, 3: rsv */
+	unsigned int ch_width:2;	/* */
+	unsigned int rx_ldpc:1;
+	unsigned int sgi_80M:1;
+	unsigned int sgi_160M:1;
+	unsigned int tx_stbc:1;
 
-	UINT32 rx_stbc:3;
-	UINT32 bfer_cap_su:1;
-	UINT32 bfee_cap_su:1;
-	UINT32 cmp_st_num_bfer:3;
+	unsigned int rx_stbc:3;
+	unsigned int bfer_cap_su:1;
+	unsigned int bfee_cap_su:1;
+	unsigned int cmp_st_num_bfer:3;
 
-	UINT32 num_snd_dimension:3;
-	UINT32 bfer_cap_mu:1;
-	UINT32 bfee_cap_mu:1;
-	UINT32 vht_txop_ps:1;
-	UINT32 htc_vht_cap:1;
-	UINT32 max_ampdu_exp:3;
-	UINT32 vht_link_adapt:2;
-	UINT32 rx_ant_consistency:1;
-	UINT32 tx_ant_consistency:1;	
-	UINT32 rsv:2;
+	unsigned int num_snd_dimension:3;
+	unsigned int bfer_cap_mu:1;
+	unsigned int bfee_cap_mu:1;
+	unsigned int vht_txop_ps:1;
+	unsigned int htc_vht_cap:1;
+	unsigned int max_ampdu_exp:3;
+	unsigned int vht_link_adapt:2;
+	unsigned int rx_ant_consistency:1;
+	unsigned int tx_ant_consistency:1;	
+	unsigned int rsv:2;
 #endif /* RT_BIG_ENDIAN */
 }VHT_CAP_INFO;
 
@@ -426,39 +426,39 @@ typedef struct GNU_PACKED _VHT_TXPWR_ENV_IE{
 
 typedef struct  GNU_PACKED _VHT_CONTROL{
 #ifdef RT_BIG_ENDIAN
-	UINT32 RDG:1;
-	UINT32 ACConstraint:1;
-	UINT32 unso_mfb:1;
-	UINT32 fb_tx_type:1;
-	UINT32 coding:1;
-	UINT32 gid_h:3;
-	UINT32 mfb_snr:6;
-	UINT32 mfb_bw:2;
-	UINT32 mfb_mcs:4;
-	UINT32 mfb_n_sts:3;
-	UINT32 mfsi_gidl:3;
-	UINT32 stbc_ind:1;
-	UINT32 comp_msi:2;
-	UINT32 mrq:1;
-	UINT32 rsv:1;
-	UINT32 vht:1;
+	unsigned int RDG:1;
+	unsigned int ACConstraint:1;
+	unsigned int unso_mfb:1;
+	unsigned int fb_tx_type:1;
+	unsigned int coding:1;
+	unsigned int gid_h:3;
+	unsigned int mfb_snr:6;
+	unsigned int mfb_bw:2;
+	unsigned int mfb_mcs:4;
+	unsigned int mfb_n_sts:3;
+	unsigned int mfsi_gidl:3;
+	unsigned int stbc_ind:1;
+	unsigned int comp_msi:2;
+	unsigned int mrq:1;
+	unsigned int rsv:1;
+	unsigned int vht:1;
 #else
-	UINT32 vht:1;
-	UINT32 rsv:1;
-	UINT32 mrq:1;
-	UINT32 comp_msi:2;
-	UINT32 stbc_ind:1;
-	UINT32 mfsi_gidl:3;
-	UINT32 mfb_n_sts:3;
-	UINT32 mfb_mcs:4;
-	UINT32 mfb_bw:2;
-	UINT32 mfb_snr:6;
-	UINT32 gid_h:3;
-	UINT32 coding:1;
-	UINT32 fb_tx_type:1;
-	UINT32 unso_mfb:1;
-	UINT32 ACConstraint:1;
-	UINT32 RDG:1;
+	unsigned int vht:1;
+	unsigned int rsv:1;
+	unsigned int mrq:1;
+	unsigned int comp_msi:2;
+	unsigned int stbc_ind:1;
+	unsigned int mfsi_gidl:3;
+	unsigned int mfb_n_sts:3;
+	unsigned int mfb_mcs:4;
+	unsigned int mfb_bw:2;
+	unsigned int mfb_snr:6;
+	unsigned int gid_h:3;
+	unsigned int coding:1;
+	unsigned int fb_tx_type:1;
+	unsigned int unso_mfb:1;
+	unsigned int ACConstraint:1;
+	unsigned int RDG:1;
 #endif
 }VHT_CONTROL;
 

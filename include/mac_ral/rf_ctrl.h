@@ -120,22 +120,22 @@ typedef	union _RLT_RF_CSR_CFG {
 typedef	union _RF_CSR_CFG_STRUC {
 #ifdef RT_BIG_ENDIAN
 	struct {
-		UINT32	Rsvd1:14;				/* Reserved */
-		UINT32	RF_CSR_KICK:1;			/* kick RF register read/write */
-		UINT32	RF_CSR_WR:1;			/* 0: read  1: write */
-		UINT32	TESTCSR_RFACC_REGNUM:8;	/* RF register ID */
-		UINT32	RF_CSR_DATA:8;			/* DATA */
+		unsigned int	Rsvd1:14;				/* Reserved */
+		unsigned int	RF_CSR_KICK:1;			/* kick RF register read/write */
+		unsigned int	RF_CSR_WR:1;			/* 0: read  1: write */
+		unsigned int	TESTCSR_RFACC_REGNUM:8;	/* RF register ID */
+		unsigned int	RF_CSR_DATA:8;			/* DATA */
 	} field;
 #else
 	struct {
-		UINT32	RF_CSR_DATA:8;
-		UINT32	TESTCSR_RFACC_REGNUM:8;
-		UINT32	RF_CSR_WR:1;
-		UINT32	RF_CSR_KICK:1;
-		UINT32	Rsvd1:14;
+		unsigned int	RF_CSR_DATA:8;
+		unsigned int	TESTCSR_RFACC_REGNUM:8;
+		unsigned int	RF_CSR_WR:1;
+		unsigned int	RF_CSR_KICK:1;
+		unsigned int	Rsvd1:14;
 	} field;
 #endif /* RT_BIG_ENDIAN */
-	UINT32 word;
+	unsigned int word;
 }RF_CSR_CFG_STRUC;
 
 #define RF_BYPASS_0		0x0504

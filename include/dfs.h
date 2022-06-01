@@ -138,7 +138,7 @@
 
 #define DFS_EVENT_BUFF_PRINT(_StarIdx,  _TableIdx, _BufSize)						\
 {																				\
-	UINT32 k;																	\
+	unsigned int k;																	\
 	for (k = _StarIdx; k < _BufSize; k++)											\
 	{																			\
 		DBGPRINT(RT_DEBUG_TRACE, ("0x%02x ", _TableIdx[k]));						\
@@ -156,7 +156,7 @@
 #ifdef RTMP_MAC_USB
 #define INIT_DFS_EVENT_BUFF_SHARED_MEMORY(_pAd, _StartOffset, _NumOfPages, _InitVal)	\
 {																						\
-	UINT32 i = 0;																			\
+	unsigned int i = 0;																			\
 	for (i = _StartOffset; i < _StartOffset + (_NumOfPages*384); i++)							\
 		RTUSBSingleWrite(_pAd, i, _InitVal, FALSE);											\
 																						\
@@ -253,7 +253,7 @@ typedef struct _NewDFSDebugResult
 
 typedef struct _DFS_EVENT{
 	UINT8  EngineId;
-	UINT32 TimeStamp;
+	unsigned int TimeStamp;
 	UINT16 Width;
 }DFS_EVENT, *PDFS_EVENT;
 
@@ -273,7 +273,7 @@ typedef struct _DFS_SW_DETECT_PARAM{
 	UCHAR dfs_declare_thres;	
 	ULONG dfs_w_counter;
 	DFS_EVENT PreDfsEvent;		/* previous radar event */
-	UINT32 EvtDropAdjTime;		/* timing threshold for adjacent event */
+	unsigned int EvtDropAdjTime;		/* timing threshold for adjacent event */
 	UINT sw_idx[NEW_DFS_MAX_CHANNEL];
 	UINT hw_idx[NEW_DFS_MAX_CHANNEL];
 	UINT pr_idx[NEW_DFS_MAX_CHANNEL];	

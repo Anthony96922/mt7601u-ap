@@ -44,10 +44,10 @@
 #ifdef SHA1_SUPPORT
 /* SHA1 constants */
 #define SHA1_MASK 0x0000000f
-static const UINT32 SHA1_K[4] = {
+static const unsigned int SHA1_K[4] = {
     0x5a827999UL, 0x6ed9eba1UL, 0x8f1bbcdcUL, 0xca62c1d6UL
 };
-static const UINT32 SHA1_DefaultHashValue[5] = {
+static const unsigned int SHA1_DefaultHashValue[5] = {
     0x67452301UL, 0xefcdab89UL, 0x98badcfeUL, 0x10325476UL, 0xc3d2e1f0UL
 };
 #endif /* SHA1_SUPPORT */
@@ -60,7 +60,7 @@ static const UINT32 SHA1_DefaultHashValue[5] = {
 #define Sigma_256_0(x)  (ROTR32(x,7) ^ ROTR32(x,18) ^ SHR(x,3))
 #define Sigma_256_1(x)  (ROTR32(x,17) ^ ROTR32(x,19) ^ SHR(x,10))
 /* SHA256 constants */
-static const UINT32 SHA256_K[64] = {
+static const unsigned int SHA256_K[64] = {
     0x428a2f98UL, 0x71374491UL, 0xb5c0fbcfUL, 0xe9b5dba5UL, 
     0x3956c25bUL, 0x59f111f1UL, 0x923f82a4UL, 0xab1c5ed5UL, 
     0xd807aa98UL, 0x12835b01UL, 0x243185beUL, 0x550c7dc3UL, 
@@ -78,7 +78,7 @@ static const UINT32 SHA256_K[64] = {
     0x748f82eeUL, 0x78a5636fUL, 0x84c87814UL, 0x8cc70208UL, 
     0x90befffaUL, 0xa4506cebUL, 0xbef9a3f7UL, 0xc67178f2UL
 };
-static const UINT32 SHA256_DefaultHashValue[8] = {
+static const unsigned int SHA256_DefaultHashValue[8] = {
     0x6a09e667UL, 0xbb67ae85UL, 0x3c6ef372UL, 0xa54ff53aUL,
     0x510e527fUL, 0x9b05688cUL, 0x1f83d9abUL, 0x5be0cd19UL
 };
@@ -130,9 +130,9 @@ Note:
 VOID RT_SHA1_Hash (
     IN  SHA1_CTX_STRUC *pSHA_CTX)
 {
-    UINT32 W_i,t;
-    UINT32 W[80];
-    UINT32 a,b,c,d,e,T,f_t = 0;
+    unsigned int W_i,t;
+    unsigned int W[80];
+    unsigned int a,b,c,d,e,T,f_t = 0;
   
     /* Prepare the message schedule, {W_i}, 0 < t < 15 */
     NdisMoveMemory(W, pSHA_CTX->Block, SHA1_BLOCK_SIZE);
@@ -289,7 +289,7 @@ VOID RT_SHA1_End (
     NdisMoveMemory(&pSHA_CTX->Block[56], &message_length_bits, 8);
     RT_SHA1_Hash(pSHA_CTX);
 
-    /* Return message digest, transform the UINT32 hash value to bytes */
+    /* Return message digest, transform the unsigned int hash value to bytes */
     for (index = 0; index < 5;index++)
         pSHA_CTX->HashValue[index] = cpu2be32(pSHA_CTX->HashValue[index]);
         /* End of for */
@@ -374,9 +374,9 @@ Note:
 VOID RT_SHA256_Hash (
     IN  SHA256_CTX_STRUC *pSHA_CTX)
 {
-    UINT32 W_i,t;
-    UINT32 W[64];
-    UINT32 a,b,c,d,e,f,g,h,T1,T2;
+    unsigned int W_i,t;
+    unsigned int W[64];
+    unsigned int a,b,c,d,e,f,g,h,T1,T2;
     
     /* Prepare the message schedule, {W_i}, 0 < t < 15 */
     NdisMoveMemory(W, pSHA_CTX->Block, SHA256_BLOCK_SIZE);
@@ -512,7 +512,7 @@ VOID RT_SHA256_End (
     NdisMoveMemory(&pSHA_CTX->Block[56], &message_length_bits, 8);
     RT_SHA256_Hash(pSHA_CTX);
 
-    /* Return message digest, transform the UINT32 hash value to bytes */
+    /* Return message digest, transform the unsigned int hash value to bytes */
     for (index = 0; index < 8;index++)
         pSHA_CTX->HashValue[index] = cpu2be32(pSHA_CTX->HashValue[index]);
         /* End of for */

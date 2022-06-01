@@ -114,7 +114,7 @@ INT rt28xx_ap_ioctl(
 	USHORT			subcmd; /*, index; */
 /*	POS_COOKIE		pObj; */
 	INT			apidx=0;
-	UINT32			org_len;
+	unsigned int			org_len;
 	RT_CMD_AP_IOCTL_CONFIG IoctlConfig, *pIoctlConfig = &IoctlConfig;
 
 	GET_PAD_FROM_NET_DEV(pAd, net_dev);
@@ -269,7 +269,7 @@ INT rt28xx_ap_ioctl(
 			{
 /*				struct iw_range range; */
 				struct iw_range *prange = NULL;
-				UINT32 len;
+				unsigned int len;
 
 				/* allocate memory */
 				os_alloc_mem(NULL, (UCHAR **)&prange, sizeof(struct iw_range));

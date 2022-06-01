@@ -37,7 +37,7 @@
 #include "rt_ate.h"
 
 typedef struct ate_racfghdr {
- 	UINT32		magic_no;
+ 	unsigned int		magic_no;
 	USHORT		command_type;
 	USHORT		command_id;
 	USHORT		length;

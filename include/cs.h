@@ -33,11 +33,11 @@ typedef struct CARRIER_DETECTION_s {
 	UINT8 delta;
 	UINT8 SymRund;
 	UINT8 div_flag;
-	UINT32 threshold;
+	unsigned int threshold;
 	UINT8 recheck;
 	UINT8 recheck1;
-	UINT32 TimeStamp; /*unit:16us*/
-	UINT32 criteria;
+	unsigned int TimeStamp; /*unit:16us*/
+	unsigned int criteria;
 	ULONG idle_time;
 	ULONG busy_time;
 	ULONG Debug;
@@ -75,7 +75,7 @@ typedef struct _CARRIER_DETECT_DEBUG {
 	 	UINT8	delta_div;
 		UINT8	internalRadarToneCount;
 		UINT16	Criteria;
-		UINT32	Threshold;
+		unsigned int	Threshold;
 		UINT8	Count;
 		UINT8	CheckCount;
 		UINT8 	Reserved;

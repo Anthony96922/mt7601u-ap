@@ -119,7 +119,7 @@ INT	Set_Cmm_WirelessMode_Proc(
 {
 	INT	success = TRUE;
 #ifdef CONFIG_AP_SUPPORT
-	UINT32 i = 0;
+	unsigned int i = 0;
 #ifdef MBSS_SUPPORT
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
@@ -615,7 +615,7 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 		{
 			if (ppa_hook_directpath_register_dev_fn)
 			{
-				UINT32 g_if_id;
+				unsigned int g_if_id;
 
 				if (pAd->pDirectpathCb == NULL)
 				{
@@ -659,7 +659,7 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 		{
 			if (ppa_hook_directpath_register_dev_fn)
 			{
-				UINT32 g_if_id;
+				unsigned int g_if_id;
 				g_if_id=pAd->g_if_id;
 
 				DBGPRINT(RT_DEBUG_TRACE, ("g_if_id=%d \n",pAd->g_if_id));
@@ -1618,7 +1618,7 @@ VOID	RTMPAddWcidAttributeEntry(
 	IN 	UCHAR		 	CipherAlg,
 	IN 	MAC_TABLE_ENTRY *pEntry)
 {
-	UINT32		WCIDAttri = 0;
+	unsigned int		WCIDAttri = 0;
 	USHORT		offset;
 	UCHAR		IVEIV = 0;
 	USHORT		Wcid = 0;
@@ -1821,7 +1821,7 @@ char * GetAuthMode(CHAR auth)
 VOID	RTMPCommSiteSurveyData(
 	IN  char *		msg,
 	IN  PBSS_ENTRY	pBss,
-	IN  UINT32		MsgLen)
+	IN  unsigned int		MsgLen)
 {
 	INT         Rssi = 0;
 	UINT        Rssi_Quality = 0;
@@ -2015,7 +2015,7 @@ VOID RTMPIoctlGetSiteSurvey(
 	INT 		Status=0;	
 	INT         max_len = LINE_LEN;
 	PBSS_ENTRY	pBss;
-	UINT32 TotalLen, BufLen = IW_SCAN_MAX_DATA;
+	unsigned int TotalLen, BufLen = IW_SCAN_MAX_DATA;
 
 
 	TotalLen = sizeof(CHAR)*((MAX_LEN_OF_BSS_TABLE)*max_len) + 100;
@@ -3676,7 +3676,7 @@ INT Set_StreamMode_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg)
 {
-	UINT32 streamWord, reg, regAddr;
+	unsigned int streamWord, reg, regAddr;
 	
 	if (pAd->chipCap.FlgHwStreamMode == FALSE)
 	{
@@ -4478,7 +4478,7 @@ INT	Show_MacTable_Proc(
 {
 #ifdef DBG
 	INT i;
-    	UINT32 RegValue;
+    	unsigned int RegValue;
 	ULONG DataRate = 0;
 
 	printk("\n");
@@ -5842,7 +5842,7 @@ INT Set_RateAdaptInterval(
 	IN RTMP_ADAPTER *pAd,
 	IN char * arg)
 {
-	UINT32 ra_time, ra_qtime;
+	unsigned int ra_time, ra_qtime;
 	char * token;
 	char sep = ':';
 	ULONG irqFlags;
@@ -6117,7 +6117,7 @@ INT RTMPShowCfgValue(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			pName,
 	IN	char *			pBuf,
-	IN	UINT32			MaxLen)
+	IN	unsigned int			MaxLen)
 {
 	INT	Status = 0;	
 	

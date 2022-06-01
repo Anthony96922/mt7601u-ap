@@ -179,7 +179,7 @@ INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
 {
 	UCHAR val, old_val = 0;
 	BOOLEAN bstop = FALSE;
-	UINT32 Data, MTxCycle, macStatus;
+	unsigned int Data, MTxCycle, macStatus;
 
 
 	if (bw != pAd->CommonCfg.BBPCurrentBW)

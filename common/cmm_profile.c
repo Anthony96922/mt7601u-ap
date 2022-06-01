@@ -1320,7 +1320,7 @@ static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf,
 {
 	STRING					tok_str[16];
 	char *					macptr;		
-	UINT32					ip_addr;
+	unsigned int					ip_addr;
 	int					i = 0;
 	bool					bUsePrevFormat = FALSE;
 	USHORT					offset;
@@ -1413,7 +1413,7 @@ static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf,
 			if (count[i] < pAd->ApCfg.MBSSID[i].radius_srv_num)
 			{		
 				INT		srv_idx = count[i];
-				pAd->ApCfg.MBSSID[i].radius_srv_info[srv_idx].radius_port = (UINT32) simple_strtol(macptr, 0, 10);
+				pAd->ApCfg.MBSSID[i].radius_srv_info[srv_idx].radius_port = (unsigned int) simple_strtol(macptr, 0, 10);
 				count[i]++;
 				DBGPRINT(RT_DEBUG_TRACE, ("IF(ra%d), radius_port(seq-%d) = %d\n", i, count[i], pAd->ApCfg.MBSSID[i].radius_srv_info[srv_idx].radius_port));
 			}
@@ -2180,7 +2180,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 #ifdef MBSS_SUPPORT
 					/* for first time, update all phy mode is same as ra0 */
 					{
-						UINT32 IdBss;
+						unsigned int IdBss;
 						for(IdBss = 1; IdBss < pAd->ApCfg.BssidNum; IdBss++)
 							pAd->ApCfg.MBSSID[IdBss].PhyMode = pAd->ApCfg.MBSSID[0].PhyMode;
 					}
@@ -3516,7 +3516,7 @@ BOOLEAN RTMP_CardInfoRead(
 #define MC_SELECT_CARDTYPE		2	/* use CARD type (abgn or bgn) to identify different cards */
 
 #define LETTER_CASE_TRANSLATE(txt_p, card_id)			\
-	{	UINT32 _len; char _char;			\
+	{	unsigned int _len; char _char;			\
 		for(_len=0; _len<strlen(card_id); _len++)	\
 		{						\
 			_char = *(txt_p + _len);		\
@@ -3535,7 +3535,7 @@ BOOLEAN RTMP_CardInfoRead(
 	EEPROM_ANTENNA_STRUC antenna;
 	USHORT addr01, addr23, addr45;
 	UINT8 mac[6];
-	UINT32 data, card_index;
+	unsigned int data, card_index;
 	UCHAR *start_ptr;
 	RTMP_OS_FS_INFO osFSInfo;
 
@@ -3620,7 +3620,7 @@ BOOLEAN RTMP_CardInfoRead(
 
 		/* search current card information records*/
 		for(card_index = 0; card_index < MAX_NUM_OF_MULTIPLE_CARD; card_index++) {
-			if ((*(UINT32 *)&MC_CardMac[card_index][0] == 0) &&
+			if ((*(unsigned int *)&MC_CardMac[card_index][0] == 0) &&
 				(*(UINT16 *)&MC_CardMac[card_index][4] == 0)) {
 				/* MAC is all-0 so the entry is available*/
 				MC_CardUsed[card_index] = 0;
@@ -3702,7 +3702,7 @@ BOOLEAN RTMP_CardInfoRead(
 
 							if (MC_CardUsed[card_index] == 0) {
 								/* current the card profile is not used */
-								if ((*(UINT32 *)&MC_CardMac[card_index][0] == 0) &&
+								if ((*(unsigned int *)&MC_CardMac[card_index][0] == 0) &&
 									(*(UINT16 *)&MC_CardMac[card_index][4] == 0)) {
 									/* find it and no previous card use it*/
 									card_match_id = card_index;
@@ -4576,7 +4576,7 @@ VOID UpdateSkuRatePwr(
 	INT32	sku_rate_pwr;
 	INT32	rate_pwr;
 	INT32	mcs_digital_pwr, pa_mode_pwr, diff_pwr;
-	UINT32	data, Adata, Gdata;
+	unsigned int	data, Adata, Gdata;
 	UCHAR 	BBPR4, BBPR178;
 	UCHAR	i;
 	CHAR	rate_table[18];

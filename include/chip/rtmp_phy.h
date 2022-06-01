@@ -644,7 +644,7 @@ NDIS_STATUS MT7601_BBP_read(
 #define RTMP_ASIC_MMPS_DISABLE(_pAd)							\
 	do{															\
 		UCHAR _bbpData = 0;											\
-		UINT32 _macData;											\
+		unsigned int _macData;											\
 		/* disable MMPS BBP control register */						\
 		RTMP_BBP_IO_READ8_BY_REG_ID(_pAd, BBP_R3, &_bbpData);	\
 		_bbpData &= ~(0x04);										\
@@ -660,7 +660,7 @@ NDIS_STATUS MT7601_BBP_read(
 #define RTMP_ASIC_MMPS_ENABLE(_pAd)							\
 	do{															\
 		UCHAR _bbpData = 0;										\
-		UINT32 _macData;											\
+		unsigned int _macData;											\
 		/* enable MMPS BBP control register */						\
 		RTMP_BBP_IO_READ8_BY_REG_ID(_pAd, BBP_R3, &_bbpData);	\
 		_bbpData |= (0x04);								\

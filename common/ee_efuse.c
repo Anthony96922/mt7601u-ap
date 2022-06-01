@@ -76,30 +76,30 @@
 #ifdef RT_BIG_ENDIAN
 typedef	union	_EFUSE_CTRL_STRUC {
 	struct	{
-		UINT32            SEL_EFUSE:1;
-		UINT32            EFSROM_KICK:1;
-		UINT32            RESERVED:4;
-		UINT32            EFSROM_AIN:10;
-		UINT32            EFSROM_LDO_ON_TIME:2;
-		UINT32            EFSROM_LDO_OFF_TIME:6;
-		UINT32            EFSROM_MODE:2;
-		UINT32            EFSROM_AOUT:6;   
+		unsigned int            SEL_EFUSE:1;
+		unsigned int            EFSROM_KICK:1;
+		unsigned int            RESERVED:4;
+		unsigned int            EFSROM_AIN:10;
+		unsigned int            EFSROM_LDO_ON_TIME:2;
+		unsigned int            EFSROM_LDO_OFF_TIME:6;
+		unsigned int            EFSROM_MODE:2;
+		unsigned int            EFSROM_AOUT:6;   
 	}	field;
-	UINT32			word;
+	unsigned int			word;
 }	EFUSE_CTRL_STRUC, *PEFUSE_CTRL_STRUC;
 #else
 typedef	union	_EFUSE_CTRL_STRUC {
 	struct	{
-		UINT32            EFSROM_AOUT:6;
-		UINT32            EFSROM_MODE:2;
-		UINT32            EFSROM_LDO_OFF_TIME:6;
-		UINT32            EFSROM_LDO_ON_TIME:2;
-		UINT32            EFSROM_AIN:10;
-		UINT32            RESERVED:4;
-		UINT32            EFSROM_KICK:1;
-		UINT32            SEL_EFUSE:1;
+		unsigned int            EFSROM_AOUT:6;
+		unsigned int            EFSROM_MODE:2;
+		unsigned int            EFSROM_LDO_OFF_TIME:6;
+		unsigned int            EFSROM_LDO_ON_TIME:2;
+		unsigned int            EFSROM_AIN:10;
+		unsigned int            RESERVED:4;
+		unsigned int            EFSROM_KICK:1;
+		unsigned int            SEL_EFUSE:1;
 	}	field;
-	UINT32			word;
+	unsigned int			word;
 }	EFUSE_CTRL_STRUC, *PEFUSE_CTRL_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -165,8 +165,8 @@ UCHAR eFuseReadRegisters(
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
 	int	i;
 	USHORT	efuseDataOffset;
-	UINT32	data;
-	UINT32 efuse_ctrl_reg = EFUSE_CTRL;
+	unsigned int	data;
+	unsigned int efuse_ctrl_reg = EFUSE_CTRL;
 	
 #if defined(RT3290) || defined(RT65xx) || defined(MT7601)
 	if (IS_RT3290(pAd) || IS_RT65XX(pAd) || IS_MT7601(pAd))
@@ -267,8 +267,8 @@ VOID eFusePhysicalReadRegisters(
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
 	int	i;
 	USHORT	efuseDataOffset;
-	UINT32	data;
-	UINT32 efuse_ctrl_reg = EFUSE_CTRL;
+	unsigned int	data;
+	unsigned int efuse_ctrl_reg = EFUSE_CTRL;
 
 #if defined(RT3290) || defined(RT65xx) || defined(MT7601)
 	if (IS_RT3290(pAd) || IS_RT65XX(pAd) || IS_MT7601(pAd))
@@ -417,8 +417,8 @@ static VOID eFusePhysicalWriteRegisters(
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
 	int	i;
 	USHORT	efuseDataOffset;
-	UINT32	data, eFuseDataBuffer[4];
-	UINT32 efuse_ctrl_reg = EFUSE_CTRL;
+	unsigned int	data, eFuseDataBuffer[4];
+	unsigned int efuse_ctrl_reg = EFUSE_CTRL;
 
 #if defined(RT3290) || defined(RT65xx) || defined(MT7601)
 	if (IS_RT3290(pAd) || IS_RT65XX(pAd) || IS_MT7601(pAd))
@@ -1090,9 +1090,9 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 	UCHAR	EFSROM_AOUT,Loop=0;
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
 	USHORT	efuseDataOffset;
-	UINT32	data,tempbuffer;
+	unsigned int	data,tempbuffer;
 	USHORT addr,tmpaddr, InBuf[3], tmpOffset;
-	UINT32 buffer[4];
+	unsigned int buffer[4];
 	BOOLEAN		bWriteSuccess = TRUE;
 	BOOLEAN		bNotWrite=TRUE;
 	BOOLEAN		bAllocateNewBlk=TRUE;
@@ -1830,7 +1830,7 @@ INT eFuse_init(RTMP_ADAPTER *pAd)
 
 INT efuse_probe(RTMP_ADAPTER *pAd)
 {
-	UINT32 eFuseCtrl, ctrl_reg;
+	unsigned int eFuseCtrl, ctrl_reg;
 
 
 	if (WaitForAsicReady(pAd) == FALSE)

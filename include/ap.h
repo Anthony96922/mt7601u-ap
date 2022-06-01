@@ -325,7 +325,7 @@ VOID APCleanupPsQueue(
 VOID MacTableMaintenance(
     IN PRTMP_ADAPTER pAd);
 
-UINT32 MacTableAssocStaNumGet(
+unsigned int MacTableAssocStaNumGet(
 	IN PRTMP_ADAPTER pAd);
 
 MAC_TABLE_ENTRY *APSsPsInquiry(

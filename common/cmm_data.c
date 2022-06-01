@@ -216,7 +216,7 @@ static VOID dumpTxBlk(TX_BLK *pTxBlk)
 		if (pPacket)
 		{
 			pBuf = GET_OS_PKT_DATAPTR(pPacket);
-			DBGPRINT(RT_DEBUG_TRACE,("\t\t[%d]:ptr=0x%x, Len=%d!\n", i, (UINT32)(GET_OS_PKT_DATAPTR(pPacket)), GET_OS_PKT_LEN(pPacket)));
+			DBGPRINT(RT_DEBUG_TRACE,("\t\t[%d]:ptr=0x%x, Len=%d!\n", i, (unsigned int)(GET_OS_PKT_DATAPTR(pPacket)), GET_OS_PKT_LEN(pPacket)));
 			DBGPRINT(RT_DEBUG_TRACE,("\t\t"));
 			for (j = 0; j < GET_OS_PKT_LEN(pPacket); j++)
 			{
@@ -1852,7 +1852,7 @@ BOOLEAN RTMPCheckEtherType(
 	USHORT	TypeLen;
 	UCHAR	Byte0, Byte1;
 	unsigned char *	pSrcBuf;
-	UINT32	pktLen;
+	unsigned int	pktLen;
 	UINT16 	srcPort, dstPort;
 #ifdef CONFIG_AP_SUPPORT
 	MULTISSID_STRUCT *pMbss;
@@ -1944,7 +1944,7 @@ BOOLEAN RTMPCheckEtherType(
 #ifdef WDS_VLAN_SUPPORT
 		if (IS_ENTRY_WDS(pMacEntry))
 		{
-			UINT32 WdsId;
+			unsigned int WdsId;
 
 			WdsId = RTMP_GET_PACKET_NET_DEVICE(pPacket) - MIN_NET_DEVICE_FOR_WDS;
 			if (WdsId < MAX_WDS_ENTRY)
@@ -2738,7 +2738,7 @@ VOID Indicate_EAPOL_Packet(
 VOID ReSyncBeaconTime(
 	IN RTMP_ADAPTER *pAd)
 {
-	UINT32  Offset;
+	unsigned int  Offset;
 
 
 	Offset = (pAd->TbttTickCount) % (BCN_TBTT_OFFSET);
@@ -2774,7 +2774,7 @@ BOOLEAN RTMPExpandPacketForSwEncrypt(
 	IN	PTX_BLK			pTxBlk)
 {
 	PACKET_INFO		PacketInfo;
-	UINT32	ex_head = 0, ex_tail = 0;
+	unsigned int	ex_head = 0, ex_tail = 0;
 	UCHAR 	NumberOfFrag = RTMP_GET_PACKET_FRAGMENTS(pTxBlk->pPacket);
 
 #ifdef WAPI_SUPPORT
@@ -3380,9 +3380,9 @@ NTSTATUS StopDmaRx(
 {
 	PNDIS_PACKET	pRxPacket;
 	RX_BLK			RxBlk, *pRxBlk;
-	UINT32 RxPending = 0, MacReg = 0, MTxCycle = 0;
+	unsigned int RxPending = 0, MacReg = 0, MTxCycle = 0;
 	BOOLEAN bReschedule = FALSE;
-	UINT32 MaxRetry;
+	unsigned int MaxRetry;
 
 	//DBGPRINT(RT_DEBUG_TRACE, ("====> %s\n", __FUNCTION__));
 
@@ -3458,8 +3458,8 @@ NTSTATUS StopDmaTx(
 	IN RTMP_ADAPTER *pAd,
 	IN UCHAR Level)
 {
-	UINT32 MacReg = 0, MTxCycle = 0;
-	UINT32 MaxRetry;
+	unsigned int MacReg = 0, MTxCycle = 0;
+	unsigned int MaxRetry;
 
 	//DBGPRINT(RT_DEBUG_TRACE, ("====> %s\n", __FUNCTION__));
 

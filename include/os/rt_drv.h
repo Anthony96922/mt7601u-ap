@@ -271,7 +271,7 @@ struct os_cookie {
 #endif /* RTMP_MAC_USB */
 
 #ifdef WORKQUEUE_BH
-	UINT32		     		pAd_va;
+	unsigned int		     		pAd_va;
 #endif /* WORKQUEUE_BH */
 
 	RTMP_NET_TASK_STRUCT	rx_done_task;
@@ -492,7 +492,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 #define RTMP_IO_FORCE_WRITE32(_A, _R, _V)	\
 	do{\
 		/* if ((_R) != 0x404)*/ /* TODO:shiang-6590, depends on sw porting guide, don't acccess it now */\
-			RTUSBWriteMACRegister((_A), (_R), (UINT32) (_V), FALSE);		\
+			RTUSBWriteMACRegister((_A), (_R), (unsigned int) (_V), FALSE);		\
 	}while(0)
 
 #define RTMP_IO_READ32(_A, _R, _pV)								\
@@ -503,7 +503,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 }
 
 #define RTMP_IO_WRITE32(_A, _R, _V)								\
-	RTUSBWriteMACRegister((_A), (_R), (UINT32) (_V), FALSE)
+	RTUSBWriteMACRegister((_A), (_R), (unsigned int) (_V), FALSE)
 
 #define RTMP_IO_WRITE8(_A, _R, _V)								\
 {																\
@@ -575,7 +575,7 @@ extern ULONG RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 		RtmpOsPktDataPtrAssign
 
 #define GET_OS_PKT_LEN(_pkt) 	\
-		(*(UINT32 *)((UCHAR *)_pkt + RTPktOffsetLen))
+		(*(unsigned int *)((UCHAR *)_pkt + RTPktOffsetLen))
 
 #define SET_OS_PKT_LEN			\
 		RtmpOsPktLenAssign
@@ -608,8 +608,8 @@ extern ULONG RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 
 #define RTMP_OS_PKT_INIT			RtmpOsPktInit
 
-extern UINT32 RtmpOsGetUnaligned32(
-	IN UINT32				*pWord);
+extern unsigned int RtmpOsGetUnaligned32(
+	IN unsigned int				*pWord);
 
 extern ULONG RtmpOsGetUnalignedlong(
 	IN ULONG				*pWord);

@@ -56,7 +56,7 @@ struct _RTMP_ADAPTER;
 #define MT7601_WSC_HDR_BTN_GPIO	0x400
 #define MT7601_WSC_HDR_BTN_MR_PRESS_FLG_GET(__pAd, __FlgIsPressed)		\
 	{																	\
-		UINT32 __gpio_value;											\
+		unsigned int __gpio_value;											\
 		RTMP_IO_READ32(__pAd, WLAN_FUN_CTRL, (&__gpio_value));			\
 		if (__gpio_value & MT7601_WSC_HDR_BTN_GPIO)						\
 			__FlgIsPressed = 0;											\
@@ -166,7 +166,7 @@ typedef struct _MT7601_TX_ALC_DATA {
 	UCHAR	TssiSlope;
 	CHAR	TssiDC0;
 	CHAR	TssiDC0_HVGA;
-	UINT32	InitTxAlcCfg1;
+	unsigned int	InitTxAlcCfg1;
 	BOOLEAN	TSSI_USE_HVGA;
 	BOOLEAN TssiTriggered;
 	CHAR	MT7601_TSSI_OFFSET[3];
@@ -183,19 +183,19 @@ typedef struct _MT7601_TX_ALC_DATA {
 */
 #ifdef RT_BIG_ENDIAN
 typedef struct _TSO_INFO_{
-	UINT32 mss:16;
-	UINT32 ips:8;
-	UINT32 tups:6;	
-	UINT32 tcp:1;	
-	UINT32 rsv:1;
+	unsigned int mss:16;
+	unsigned int ips:8;
+	unsigned int tups:6;	
+	unsigned int tcp:1;	
+	unsigned int rsv:1;
 }TSO_INFO;
 #else
 typedef struct _TSO_INFO_{
-	UINT32 rsv:1;
-	UINT32 tcp:1;
-	UINT32 tups:6;
-	UINT32 ips:8;
-	UINT32 mss:16;
+	unsigned int rsv:1;
+	unsigned int tcp:1;
+	unsigned int tups:6;
+	unsigned int ips:8;
+	unsigned int mss:16;
 }TSO_INFO;
 #endif /* RT_BIG_ENDIAN */
 

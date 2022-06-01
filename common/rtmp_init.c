@@ -243,7 +243,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 #endif /* WORKQUEUE_BH */
 		}
 		pAd->BeaconBuf = pBeaconBuf;
-		DBGPRINT(RT_DEBUG_OFF, ("=== pAd = %p, size = %d ===\n", pAd, (UINT32)sizeof(RTMP_ADAPTER)));
+		DBGPRINT(RT_DEBUG_OFF, ("=== pAd = %p, size = %d ===\n", pAd, (unsigned int)sizeof(RTMP_ADAPTER)));
 
 		if (RtmpOsStatsAlloc(&pAd->stats, &pAd->iw_stats) == FALSE)
 		{
@@ -1263,9 +1263,9 @@ NDIS_STATUS	NICInitializeAsic(
 	IN  BOOLEAN		bHardReset)
 {
 	ULONG			Index = 0;
-	UINT32			MACValue = 0;
+	unsigned int			MACValue = 0;
 #ifdef RTMP_MAC_USB
-	UINT32			Counter = 0;
+	unsigned int			Counter = 0;
 	USB_DMA_CFG_STRUC UsbCfg;
 #endif /* RTMP_MAC_USB */
 #if !(defined(RTMP_MAC_USB) && defined(RLT_MAC))
@@ -1413,7 +1413,7 @@ NDIS_STATUS	NICInitializeAsic(
 		(pAd->MACVersion < RALINK_3070_VERSION))) /* 3*3*/
 	{
 		/* enlarge MAX_LEN_CFG*/
-		UINT32 csr;
+		unsigned int csr;
 		RTMP_IO_READ32(pAd, MAX_LEN_CFG, &csr);
 #if defined(RT2883) || defined(RT3883) || defined(RT3593) || defined(RT65xx) || defined(MT7601)
 		if (IS_RT2883(pAd) || IS_RT3883(pAd) || IS_RT3593(pAd) || IS_RT65XX(pAd) || IS_MT7601(pAd)) 
@@ -1432,7 +1432,7 @@ NDIS_STATUS	NICInitializeAsic(
 #ifdef RTMP_MAC_USB
 #ifdef RLT_MAC
 	{
-	UINT32 MACValue[128 * 2];
+	unsigned int MACValue[128 * 2];
 
 	for (Index = 0; Index < 128 * 2; Index+=2)
 	{
@@ -1468,7 +1468,7 @@ NDIS_STATUS	NICInitializeAsic(
 	{
 #if defined(RTMP_MAC_USB) && defined(RLT_MAC)
 		{
-			UINT32 MACValue[4];
+			unsigned int MACValue[4];
 
 			for (Index = 0; Index < 4; Index++)
 				MACValue[Index] = 0;
@@ -1478,7 +1478,7 @@ NDIS_STATUS	NICInitializeAsic(
 
 		/* Clear all pairwise key table when initial*/
 		{
-			UINT32 MACValue[256];
+			unsigned int MACValue[256];
 
 			for (Index = 0; Index < 256; Index++)
 				MACValue[Index] = 1;
@@ -1547,7 +1547,7 @@ NDIS_STATUS	NICInitializeAsic(
 #ifdef RT3290
 	if (IS_RT3290(pAd))
 	{
-		UINT32 coex_val;
+		unsigned int coex_val;
 		//halt wlan tx when bt_rx_busy asserted
 		RTMP_IO_READ32(pAd, COEXCFG2, &coex_val);
 		coex_val |= 0x100;
@@ -1570,7 +1570,7 @@ VOID NICUpdateFifoStaCounters(
 {
 	TX_STA_FIFO_STRUC	StaFifo;
 	MAC_TABLE_ENTRY		*pEntry = NULL;
-	UINT32				i = 0;
+	unsigned int				i = 0;
 	UCHAR				pid = 0, wcid = 0;
 	INT32				reTry;
 	UCHAR				succMCS;
@@ -1801,7 +1801,7 @@ BOOLEAN NicGetMacFifoTxCnt(
 	if (pEntry->Aid >= 1 && pEntry->Aid <= 8)
 	{
 		WCID_TX_CNT_STRUC wcidTxCnt;
-		UINT32 regAddr;
+		unsigned int regAddr;
 		
 		regAddr = WCID_TX_CNT_0 + (pEntry->Aid - 1) * 4;
 		RTMP_IO_READ32(pAd, regAddr, &wcidTxCnt.word);
@@ -1829,7 +1829,7 @@ VOID AsicFifoExtEntryClean(
 	IN MAC_TABLE_ENTRY *pEntry)
 {
 	WCID_TX_CNT_STRUC wcidTxCnt;
-	UINT32 regAddr;
+	unsigned int regAddr;
 			
 	if (pAd->chipCap.FlgHwFifoExtCap)
 	{
@@ -1902,7 +1902,7 @@ VOID NicGetTxRawCounters(
 */
 VOID NicResetRawCounters(RTMP_ADAPTER *pAd)
 {
-	UINT32 Counter;
+	unsigned int Counter;
 	
 	RTMP_IO_READ32(pAd, RX_STA_CNT0, &Counter);
 	RTMP_IO_READ32(pAd, RX_STA_CNT1, &Counter);
@@ -1933,7 +1933,7 @@ VOID NicResetRawCounters(RTMP_ADAPTER *pAd)
 VOID NICUpdateRawCounters(
 	IN PRTMP_ADAPTER pAd)
 {
-	UINT32	OldValue;/*, Value2;*/
+	unsigned int	OldValue;/*, Value2;*/
 	/*ULONG	PageSum, OneSecTransmitCount;*/
 	/*ULONG	TxErrorRatio, Retry, Fail;*/
 	RX_STA_CNT0_STRUC	RxStaCnt0;
@@ -2490,7 +2490,7 @@ VOID UserCfgInit(RTMP_ADAPTER *pAd)
 #ifdef UAPSD_SUPPORT
 #ifdef CONFIG_AP_SUPPORT
 {
-	UINT32 IdMbss;
+	unsigned int IdMbss;
 
 	for(IdMbss=0; IdMbss<HW_BEACON_MAX_NUM; IdMbss++)
 		UAPSD_INFO_INIT(&pAd->ApCfg.MBSSID[IdMbss].UapsdInfo);
@@ -3398,7 +3398,7 @@ VOID	RTMPReleaseTimer(
 VOID RTMPEnableRxTx(
 	IN PRTMP_ADAPTER	pAd)
 {
-	UINT32 rx_filter_flag;
+	unsigned int rx_filter_flag;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==> RTMPEnableRxTx\n"));
 
@@ -3648,15 +3648,15 @@ VOID RTMP_11N_D3_TimerInit(
 #ifdef VENDOR_FEATURE3_SUPPORT
 VOID RTMP_IO_WRITE32(
 	PRTMP_ADAPTER pAd,
-	UINT32 Offset,
-	UINT32 Value)
+	unsigned int Offset,
+	unsigned int Value)
 {
 	_RTMP_IO_WRITE32(pAd, Offset, Value);
 }
 
 VOID RTMP_BBP_IO_READ8_BY_REG_ID(
 	PRTMP_ADAPTER pAd,
-	UINT32 Offset,
+	unsigned int Offset,
 	UINT8 *pValue)
 {
 #ifdef RT8592
@@ -3702,7 +3702,7 @@ VOID RTMP_BBP_IO_READ8(
 
 VOID RTMP_BBP_IO_WRITE8_BY_REG_ID(
 	PRTMP_ADAPTER pAd,
-	UINT32 Offset,
+	unsigned int Offset,
 	UINT8 Value)
 {
 #ifdef RT8592
@@ -3813,11 +3813,11 @@ IN  UCHAR	Idx)
 	}
 }
 
-UINT32 NICSumFalseCCACnt(
+unsigned int NICSumFalseCCACnt(
 IN  PRTMP_ADAPTER   pAd)
 {
 	UCHAR Idx;
-	UINT32 FalseCCACnt = 0;
+	unsigned int FalseCCACnt = 0;
 
 	for (Idx = 0; Idx < MLME_TASK_EXEC_MULTIPLE; Idx++)
 		FalseCCACnt += pAd->RalinkCounters.FalseCCACnt_100MS[Idx];
@@ -3825,11 +3825,11 @@ IN  PRTMP_ADAPTER   pAd)
 	return FalseCCACnt;
 }
 
-UINT32 NICSumPLCPErrCnt(
+unsigned int NICSumPLCPErrCnt(
 IN  PRTMP_ADAPTER   pAd)
 {
 	UCHAR Idx;
-	UINT32 PLCPErrCnt = 0;
+	unsigned int PLCPErrCnt = 0;
 
 	for (Idx = 0; Idx < MLME_TASK_EXEC_MULTIPLE; Idx++)
 		PLCPErrCnt += pAd->RalinkCounters.PLCPErrCnt_100MS[Idx];

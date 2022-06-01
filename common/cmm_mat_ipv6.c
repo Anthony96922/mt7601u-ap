@@ -336,8 +336,8 @@ static inline unsigned short int icmpv6_csum(
 	UCHAR 		 *pICMPMsg)
 {
 	int 	carry;
-	UINT32 	ulen;
-	UINT32 	uproto;
+	unsigned int 	ulen;
+	unsigned int 	uproto;
 	int i;
 	unsigned int csum = 0;
 	unsigned short int chksum;
@@ -359,20 +359,20 @@ static inline unsigned short int icmpv6_csum(
 		csum += carry;
 	}
 
-	ulen = OS_HTONL((UINT32)len);
+	ulen = OS_HTONL((unsigned int)len);
 	csum += ulen;
 	carry = (csum < ulen);
 	csum += carry;
 
-	uproto = OS_HTONL((UINT32)proto);
+	uproto = OS_HTONL((unsigned int)proto);
 	csum += uproto;
 	carry = (csum < uproto);
 	csum += carry;
 	
 	for (i = 0; i < len; i += 4)
 	{
-		csum += get_unaligned32(((UINT32 *)&pICMPMsg[i]));
-		carry = (csum < get_unaligned32(((UINT32 *)&pICMPMsg[i])));
+		csum += get_unaligned32(((unsigned int *)&pICMPMsg[i]));
+		carry = (csum < get_unaligned32(((unsigned int *)&pICMPMsg[i])));
 		csum += carry;
 	}
 
@@ -410,14 +410,14 @@ static PNDIS_PACKET ICMPv6_Handle_Tx(
 	IN PNDIS_PACKET		pSkb,
 	IN unsigned char *			pLayerHdr,
 	IN unsigned char * 			pDevMacAdr,
-	IN UINT32			offset)
+	IN unsigned int			offset)
 {
 	RT_IPV6_HDR 			*pIPv6Hdr;
 	RT_ICMPV6_HDR 			*pICMPv6Hdr;
 	RT_ICMPV6_OPTION_HDR 	*pOptHdr;
 
 	USHORT payloadLen;
-	UINT32 ICMPOffset = 0, ICMPMsgLen = 0, leftLen;
+	unsigned int ICMPOffset = 0, ICMPMsgLen = 0, leftLen;
 	
 	PNDIS_PACKET newSkb = NULL;
 	BOOLEAN needModify = FALSE;
@@ -608,7 +608,7 @@ static unsigned char * MATProto_IPv6_Tx(
 	unsigned char * pSrcMac, pSrcIP;
 	BOOLEAN needUpdate;
 	UCHAR nextProtocol;
-	UINT32 offset;	
+	unsigned int offset;	
 	HEADER_802_3 *pEthHdr;
 	RT_IPV6_HDR *pIPv6Hdr;
 	PNDIS_PACKET newSkb = NULL;
@@ -670,7 +670,7 @@ static NDIS_STATUS IPv6MacTable_RemoveAll(
 {
 	IPv6MacMappingTable	*pIPv6MacTable;
 	IPv6MacMappingEntry	*pEntry;
-	UINT32				i;
+	unsigned int				i;
 
 
 	pIPv6MacTable = (IPv6MacMappingTable *)pMatCfg->MatTableSet.IPv6MacTable;

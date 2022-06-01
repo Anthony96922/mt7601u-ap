@@ -831,7 +831,7 @@ INT	Set_EventExpire_Proc(
 {
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
 	UINT8 dfs_channel, bbp_val;
-	UINT32 EventExpiration = 0;
+	unsigned int EventExpiration = 0;
        STRING StrBuf[64];
 	char * SubStr = NULL;
 
@@ -840,7 +840,7 @@ INT	Set_EventExpire_Proc(
 	{
 		*SubStr = '\0';
 		SubStr++;
-		EventExpiration = (UINT32) simple_strtol(SubStr, 0, 16);
+		EventExpiration = (unsigned int) simple_strtol(SubStr, 0, 16);
 		dfs_channel = (UINT8) simple_strtol(StrBuf, 0, 16);
 		DBGPRINT(RT_DEBUG_TRACE, 
 			("%s(): dfs_channel = %u, EventExpiration = 0x%08x\n",
@@ -1917,7 +1917,7 @@ static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, UINT8 dfs_channel)
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--->StagerRadarCheck()\n"));
 	{
-	UINT32 bbp_val = 0;
+	unsigned int bbp_val = 0;
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
 
 	/* select channel */
@@ -2037,7 +2037,7 @@ static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, UINT8 dfs_channel)
  */
 static BOOLEAN ChirpRadarCheck(IN PRTMP_ADAPTER pAd)
 {
-	UINT32 CurrentTime, delta;
+	unsigned int CurrentTime, delta;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	
 
@@ -2145,7 +2145,7 @@ static BOOLEAN DfsChannelCheck(
 {
 	pNewDFSTable pDFS2Table;
 	UINT8 i;
-	UINT32 W, T;
+	unsigned int W, T;
 	BOOLEAN radarDeclared = 0;
 	/*UCHAR BBP_1 = 0, BBP_2 = 0, BBP_3 = 0, BBP_4 = 0;*/
 
@@ -2175,7 +2175,7 @@ static BOOLEAN DfsChannelCheck(
 		
 		if (DfsChannel & (0x1 << i))
 		{
-			UINT32 bbp_val = 0;
+			unsigned int bbp_val = 0;
 			PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
 
 			/* select channel */
@@ -2307,7 +2307,7 @@ VOID NewRadarDetectionProgram(PRTMP_ADAPTER pAd, pNewDFSTable pDFS2Table)
 	pRadarDetect->MCURadarRegion = pDFS2Table->type;
 	
 	{
-	UINT32 bbp_val = 0;
+	unsigned int bbp_val = 0;
 	
 	DFSR3 = pDfsProgramParam->Symmetric_Round << 4;
 
@@ -2556,7 +2556,7 @@ static BOOLEAN DfsEventDrop(
 		IN PRTMP_ADAPTER pAd,
 		IN PDFS_EVENT pDfsEvent)
 {
-	UINT32 TimeDiff = 0;  /* unit: 50ns */
+	unsigned int TimeDiff = 0;  /* unit: 50ns */
 	UINT16 PreEnvtWidth = 0;
 	BOOLEAN RetVal = FALSE;
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;

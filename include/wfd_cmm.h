@@ -284,7 +284,7 @@ typedef struct _RT_WFD_CONFIG
 	UCHAR  	PeerPC;
 	WFD_COUPLED_SINK_INFO	CoupledSinkStatus;
 	/* Service Discovery */
-	UINT32	WfdSerDiscCapable;
+	unsigned int	WfdSerDiscCapable;
 	WFD_SERV_DISC_QUERY_INFO	wfd_serv_disc_query_info;
 } RT_WFD_CONFIG, *PRT_WFD_CONFIG;
 

@@ -38,7 +38,7 @@ typedef struct __CFG80211_CB {
 	struct cfg80211_scan_request *pCfg80211_ScanReq;
 
 	/* monitor filter */
-	UINT32 MonFilterFlag;
+	unsigned int MonFilterFlag;
 
 	/* channel information */
 	struct ieee80211_channel ChanInfo[MAX_NUM_OF_CHANNELS];

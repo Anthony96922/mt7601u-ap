@@ -85,37 +85,37 @@
 */
 #ifdef RT_BIG_ENDIAN
 typedef	struct _TXINFO_OMAC {
-	UINT32 USBDMATxburst:1;
-	UINT32 USBDMANextVLD:1;
-	UINT32 cso:1;
-	UINT32 uso:1;
+	unsigned int USBDMATxburst:1;
+	unsigned int USBDMANextVLD:1;
+	unsigned int cso:1;
+	unsigned int uso:1;
 #ifdef USB_BULK_BUF_ALIGMENT
-	UINT32 bFragLasAlignmentsectiontRound:1;
+	unsigned int bFragLasAlignmentsectiontRound:1;
 #else
-	UINT32 SwUseLastRound:1;
+	unsigned int SwUseLastRound:1;
 #endif /* USB_BULK_BUF_ALIGMENT */
-	UINT32 QSEL:2;
-	UINT32 WIV:1;
-	UINT32 TCPOffset:5;
-	UINT32 IPOffset:4;
-	UINT32 USBDMATxPktLen:15;
+	unsigned int QSEL:2;
+	unsigned int WIV:1;
+	unsigned int TCPOffset:5;
+	unsigned int IPOffset:4;
+	unsigned int USBDMATxPktLen:15;
 }TXINFO_OMAC;
 #else
 typedef	struct _TXINFO_OMAC {
-	UINT32 USBDMATxPktLen:15;
-	UINT32 IPOffset:4;
-	UINT32 TCPOffset:5;
-	UINT32 WIV:1;
-	UINT32 QSEL:2;
+	unsigned int USBDMATxPktLen:15;
+	unsigned int IPOffset:4;
+	unsigned int TCPOffset:5;
+	unsigned int WIV:1;
+	unsigned int QSEL:2;
 #ifdef USB_BULK_BUF_ALIGMENT
-	UINT32 bFragLasAlignmentsectiontRound:1;
+	unsigned int bFragLasAlignmentsectiontRound:1;
 #else
-	UINT32 SwUseLastRound:1;
+	unsigned int SwUseLastRound:1;
 #endif /* USB_BULK_BUF_ALIGMENT */
-	UINT32 uso:1;
-	UINT32 cso:1;
-	UINT32 USBDMANextVLD:1;
-	UINT32 USBDMATxburst:1;
+	unsigned int uso:1;
+	unsigned int cso:1;
+	unsigned int USBDMANextVLD:1;
+	unsigned int USBDMATxburst:1;
 }TXINFO_OMAC;
 #endif /* RT_BIG_ENDIAN */
 

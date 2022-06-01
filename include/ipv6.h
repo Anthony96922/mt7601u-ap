@@ -74,7 +74,7 @@ typedef struct rt_ipv6_addr_
 	{
 		UCHAR	ipv6Addr8[16];
 		USHORT	ipv6Addr16[8];
-		UINT32	ipv6Addr32[4];
+		unsigned int	ipv6Addr32[4];
 	}addr;
 #define ipv6_addr			addr.ipv6Addr8
 #define ipv6_addr16			addr.ipv6Addr16
@@ -96,7 +96,7 @@ typedef struct rt_ipv6_addr_
 /*IPv6 Header related structures */
 typedef struct GNU_PACKED _rt_ipv6_hdr_
 {
-	UINT32 			ver:4,
+	unsigned int 			ver:4,
 					trafficClass:8,
         		   	flowLabel:20;
 	USHORT 			payload_len;
@@ -145,10 +145,10 @@ typedef enum{
 static inline BOOLEAN IPv6ExtHdrHandle(
 	RT_IPV6_EXT_HDR 	*pExtHdr,
 	UCHAR 				*pProto,
-	UINT32 				*pOffset)
+	unsigned int 				*pOffset)
 {
 	UCHAR nextProto = 0xff;
-	UINT32 extLen = 0;
+	unsigned int extLen = 0;
 	BOOLEAN status = TRUE;
 
 	/*printk("%s(): parsing the Extension Header with Protocol(0x%x):\n", __FUNCTION__, *pProto); */

@@ -100,7 +100,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 	unsigned char * pBeaconFrame = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	UCHAR *ptr;
 	UINT i;
-	UINT32 longValue, reg_base;
+	unsigned int longValue, reg_base;
 	HTTRANSMIT_SETTING BeaconTransmit = {.word = 0}; /* MGMT frame PHY rate setting when operatin at Ht rate. */
 	UCHAR PhyMode, SupRateLen;
 	UINT8 TXWISize = pAd->chipCap.TXWISize;
@@ -783,7 +783,7 @@ VOID APMakeAllBssBeacon(
 	IN PRTMP_ADAPTER pAd)
 {
 	INT i, j;
-	UINT32 regValue;
+	unsigned int regValue;
 	UCHAR NumOfMacs;
 	UCHAR NumOfBcns;
 	UINT8 TXWISize = pAd->chipCap.TXWISize;

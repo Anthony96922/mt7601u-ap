@@ -47,7 +47,7 @@ struct _RTMP_ADAPTER;
 
 #define RT3290_CHECK_SW_EEP_BUSY(pAd)	\
 {	\
-	UINT32 _val, _cnt = 0;	\
+	unsigned int _val, _cnt = 0;	\
 	do {	\
 		RTMP_IO_FORCE_READ32(pAd, WLAN_FUN_INFO, &_val);	\
 		if ((_val & 0x80000000) == 0 || (_val == 0xffffffff))	\
@@ -62,7 +62,7 @@ struct _RTMP_ADAPTER;
 {	\
 	if (IS_RT3290(_pAd))	\
 	{	\
-		UINT32 btFunInfo, _val = 0;	\
+		unsigned int btFunInfo, _val = 0;	\
 		RTMP_IO_FORCE_READ32(_pAd, _A, &_val);	\
 		if (_e)	\
 			_val &= ~(EESK|EEDI);		\

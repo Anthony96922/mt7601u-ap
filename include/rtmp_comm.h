@@ -109,11 +109,11 @@ typedef enum{
 	       (((UINT16) (x) & (UINT16) 0xff00U) >> 8)))
 
 #define SWAP32(x) \
-    ((UINT32) (\
-	       (((UINT32) (x) & (UINT32) 0x000000ffUL) << 24) | \
-	       (((UINT32) (x) & (UINT32) 0x0000ff00UL) << 8) | \
-	       (((UINT32) (x) & (UINT32) 0x00ff0000UL) >> 8) | \
-	       (((UINT32) (x) & (UINT32) 0xff000000UL) >> 24)))
+    ((unsigned int) (\
+	       (((unsigned int) (x) & (unsigned int) 0x000000ffUL) << 24) | \
+	       (((unsigned int) (x) & (unsigned int) 0x0000ff00UL) << 8) | \
+	       (((unsigned int) (x) & (unsigned int) 0x00ff0000UL) >> 8) | \
+	       (((unsigned int) (x) & (unsigned int) 0xff000000UL) >> 24)))
 
 #define SWAP64(x) \
     ((unsigned long long)( \
@@ -136,8 +136,8 @@ typedef enum{
 #define le2cpu16(x) SWAP16((x))
 #define cpu2be64(x) ((unsigned long long)(x))
 #define be2cpu64(x) ((unsigned long long)(x))
-#define cpu2be32(x) ((UINT32)(x))
-#define be2cpu32(x) ((UINT32)(x))
+#define cpu2be32(x) ((unsigned int)(x))
+#define be2cpu32(x) ((unsigned int)(x))
 #define cpu2be16(x) ((UINT16)(x))
 #define be2cpu16(x) ((UINT16)(x))
     
@@ -145,8 +145,8 @@ typedef enum{
     
 #define cpu2le64(x) ((unsigned long long)(x))
 #define le2cpu64(x) ((unsigned long long)(x))
-#define cpu2le32(x) ((UINT32)(x))
-#define le2cpu32(x) ((UINT32)(x))
+#define cpu2le32(x) ((unsigned int)(x))
+#define le2cpu32(x) ((unsigned int)(x))
 #define cpu2le16(x) ((UINT16)(x))
 #define le2cpu16(x) ((UINT16)(x))
 #define cpu2be64(x) SWAP64((x))
@@ -244,7 +244,7 @@ typedef enum _RTMP_INF_TYPE_
 /* associated with device interface */
 typedef struct _DEV_PRIV_INFO {
 	VOID			*pPriv; /* pAd */
-	UINT32			priv_flags;
+	unsigned int			priv_flags;
 } DEV_PRIV_INFO;
 
 
@@ -439,15 +439,15 @@ P80211ENUM_truth_true = 0x01
 
 /* Definition from madwifi */
 typedef struct {
-        UINT32 did;
+        unsigned int did;
         UINT16 status;
         UINT16 len;
-        UINT32 data;
+        unsigned int data;
 } p80211item_uint32_t;
 
 typedef struct {
-        UINT32 msgcode;
-        UINT32 msglen;
+        unsigned int msgcode;
+        unsigned int msglen;
 #define WLAN_DEVNAMELEN_MAX 16
         UINT8 devname[WLAN_DEVNAMELEN_MAX];
         p80211item_uint32_t hosttime;

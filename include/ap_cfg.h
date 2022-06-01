@@ -75,7 +75,7 @@ VOID RtmpDrvMaxRateGet(
 	IN	UINT8					ShortGI,
 	IN	UINT8					BW,
 	IN	UINT8					MCS,
-	OUT	UINT32					*pRate);
+	OUT	unsigned int					*pRate);
 
 #ifdef WSC_AP_SUPPORT
 VOID RTMPIoctlWscProfile(

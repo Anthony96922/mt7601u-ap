@@ -133,7 +133,7 @@ int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
 	DBGPRINT(RT_DEBUG_OFF, ("MACVersion=0x%x\n", pAd->MACVersion));
 	if (IS_RT3290(pAd))
 	{
-		UINT32 MacRegValue;
+		unsigned int MacRegValue;
 		OSCCTL_STRUC osCtrl = {.word = 0};
 		CMB_CTRL_STRUC cmbCtrl = {.word = 0};
 		WLAN_FUN_CTRL_STRUC WlanFunCtrl = {.word = 0};
@@ -747,7 +747,7 @@ VOID RTMPDrvOpen(
 	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_START_UP);
 
 	{
-		UINT32 reg = 0;
+		unsigned int reg = 0;
 		RTMP_IO_READ32(pAd, 0x1300, &reg);  /* clear garbage interrupts*/
 #ifdef DBG
 		printk("0x1300 = %08x\n", reg);
@@ -844,7 +844,7 @@ VOID RTMPDrvClose(
 {
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
 	BOOLEAN		Cancelled;
-	UINT32		i = 0;
+	unsigned int		i = 0;
 
 
 	Cancelled = FALSE;
@@ -1058,7 +1058,7 @@ PNET_DEV RtmpPhyNetDevMainCreate(
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	PNET_DEV pDevNew;
-	UINT32 MC_RowID = 0, IoctlIF = 0;
+	unsigned int MC_RowID = 0, IoctlIF = 0;
 
 	pAd = pAd;
 
@@ -1069,7 +1069,7 @@ PNET_DEV RtmpPhyNetDevMainCreate(
 	IoctlIF = pAd->IoctlIF;
 #endif /* HOSTAPD_SUPPORT */
 
-	pDevNew = RtmpOSNetDevCreate((INT32)MC_RowID, (UINT32 *)&IoctlIF,
+	pDevNew = RtmpOSNetDevCreate((INT32)MC_RowID, (unsigned int *)&IoctlIF,
 					INT_MAIN, 0, sizeof(PRTMP_ADAPTER), INF_MAIN_DEV_NAME);
 
 #ifdef HOSTAPD_SUPPORT

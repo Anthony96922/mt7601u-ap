@@ -165,9 +165,9 @@ VOID CFG80211_ConnectResultInform(
 	IN VOID						*pAdCB,
 	IN UCHAR					*pBSSID,
 	IN UCHAR					*pReqIe,
-	IN UINT32					ReqIeLen,
+	IN unsigned int					ReqIeLen,
 	IN UCHAR					*pRspIe,
-	IN UINT32					RspIeLen,
+	IN unsigned int					RspIeLen,
 	IN UCHAR					FlgIsSuccess);
 
 BOOLEAN CFG80211_SupBandReInit(
@@ -180,10 +180,10 @@ VOID CFG80211_RegRuleApply(
 
 VOID CFG80211_Scaning(
 	IN VOID						*pAdCB,
-	IN UINT32					BssIdx,
-	IN UINT32					ChanId,
+	IN unsigned int					BssIdx,
+	IN unsigned int					ChanId,
 	IN UCHAR					*pFrame,
-	IN UINT32					FrameLen,
+	IN unsigned int					FrameLen,
 	IN INT32					RSSI);
 
 #ifdef RFKILL_HW_SUPPORT

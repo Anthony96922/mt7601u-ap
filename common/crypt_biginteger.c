@@ -226,17 +226,17 @@ VOID BigInteger_AllocSize (
     if ((Length & 0x3) != 0)
         ArrayLength++;
 
-    if (((*pBI)->pIntegerArray != NULL) && ((*pBI)->AllocSize < (sizeof(UINT32)*ArrayLength)))
+    if (((*pBI)->pIntegerArray != NULL) && ((*pBI)->AllocSize < (sizeof(unsigned int)*ArrayLength)))
         BigInteger_Free_AllocSize(pBI);
 
     if ((*pBI)->pIntegerArray == NULL) {        
-			os_alloc_mem(NULL, (UCHAR **)&((*pBI)->pIntegerArray), sizeof(UINT32)*ArrayLength);
-/*        if (((*pBI)->pIntegerArray = (UINT32 *) kmalloc(sizeof(UINT32)*ArrayLength, GFP_ATOMIC)) == NULL) { */
+			os_alloc_mem(NULL, (UCHAR **)&((*pBI)->pIntegerArray), sizeof(unsigned int)*ArrayLength);
+/*        if (((*pBI)->pIntegerArray = (unsigned int *) kmalloc(sizeof(unsigned int)*ArrayLength, GFP_ATOMIC)) == NULL) { */
         if ((*pBI)->pIntegerArray == NULL) {
-            DEBUGPRINT("BigInteger_AllocSize: allocate %d bytes memory failure.\n", (sizeof(UINT32)*ArrayLength));
+            DEBUGPRINT("BigInteger_AllocSize: allocate %d bytes memory failure.\n", (sizeof(unsigned int)*ArrayLength));
             return;
         } /* End of if */
-        (*pBI)->AllocSize = sizeof(UINT32)*ArrayLength;
+        (*pBI)->AllocSize = sizeof(unsigned int)*ArrayLength;
     } /* End of if */
 
     NdisZeroMemory((*pBI)->pIntegerArray, (*pBI)->AllocSize);
@@ -263,7 +263,7 @@ VOID BigInteger_ClearHighBits (
         ShiftIndex = 4;
         while (value == 0) {      
             ShiftIndex--;
-            value = UINT32_GETBYTE(pBI->pIntegerArray[BIArrayIndex], ShiftIndex);
+            value = unsigned int_GETBYTE(pBI->pIntegerArray[BIArrayIndex], ShiftIndex);
     	} /* End of while */	
     } /* End of if */
 
@@ -284,7 +284,7 @@ VOID BigInteger_BI2Bin (
     OUT UINT *Length)
 {
     INT  ValueIndex, BIArrayIndex, ShiftIndex;
-    UINT32  Number;
+    unsigned int  Number;
 
     if (pBI == NULL) {
         DEBUGPRINT("BigInteger_BI2Bin: pBI is NUll\n");
@@ -312,7 +312,7 @@ VOID BigInteger_BI2Bin (
     Number = pBI->pIntegerArray[BIArrayIndex];
     while (ValueIndex < pBI->IntegerLength)
     {
-        pValue[ValueIndex++] = (UINT8) UINT32_GETBYTE(Number, ShiftIndex - 1);
+        pValue[ValueIndex++] = (UINT8) unsigned int_GETBYTE(Number, ShiftIndex - 1);
         if ((--ShiftIndex) == 0) {
             ShiftIndex = 4;
             BIArrayIndex--;
@@ -329,7 +329,7 @@ VOID BigInteger_Bin2BI (
     OUT PBIG_INTEGER *pBI)
 {
     INT  ValueIndex, BIArrayIndex, ShiftIndex;
-    UINT32  Number;
+    unsigned int  Number;
     
     BigInteger_AllocSize(pBI, Length);    
 
@@ -358,7 +358,7 @@ VOID BigInteger_BitsOfBI (
     IN PBIG_INTEGER pBI,
     OUT UINT *Bits_Of_P)
 {
-    UINT32 Number, Index;
+    unsigned int Number, Index;
 
     Number = pBI->pIntegerArray[pBI->ArrayLength - 1];
     Index = 0;
@@ -366,7 +366,7 @@ VOID BigInteger_BitsOfBI (
         Number <<= 1;
         Index++;
     } /* End of while */
-    *Bits_Of_P = (pBI->ArrayLength*sizeof(UINT32)) - Index;
+    *Bits_Of_P = (pBI->ArrayLength*sizeof(unsigned int)) - Index;
 } /* End of BigInteger_BitsOfBN */
 
 
@@ -403,7 +403,7 @@ UINT8 BigInteger_GetByteValue (
         return 0;
 
 
-    return (UINT8) UINT32_GETBYTE(pBI->pIntegerArray[Array], Shift - 1);
+    return (UINT8) unsigned int_GETBYTE(pBI->pIntegerArray[Array], Shift - 1);
 } /* End of BigInteger_GetByteValue */
 
 
@@ -412,7 +412,7 @@ VOID BigInteger_Copy (
     OUT PBIG_INTEGER *pBI_Result)
 {
     BigInteger_AllocSize(pBI_Result, pBI_Copied->IntegerLength);
-    NdisCopyMemory((*pBI_Result)->pIntegerArray, pBI_Copied->pIntegerArray, (sizeof(UINT32)*(*pBI_Result)->ArrayLength));
+    NdisCopyMemory((*pBI_Result)->pIntegerArray, pBI_Copied->pIntegerArray, (sizeof(unsigned int)*(*pBI_Result)->ArrayLength));
     (*pBI_Result)->ArrayLength = pBI_Copied->ArrayLength;
     (*pBI_Result)->IntegerLength = pBI_Copied->IntegerLength;
     (*pBI_Result)->Signed = pBI_Copied->Signed;
@@ -451,7 +451,7 @@ VOID BigInteger_Add (
     OUT PBIG_INTEGER *pBI_Result)
 {
     INT CompareResult;
-    UINT32 BIArrayIndex;
+    unsigned int BIArrayIndex;
     unsigned long long Sum, Carry;
     PBIG_INTEGER pTempBI = NULL;
 
@@ -499,7 +499,7 @@ VOID BigInteger_Add (
 
             Sum += Carry;
             Carry = Sum  >> 32;
-            (*pBI_Result)->pIntegerArray[BIArrayIndex] = (UINT32) (Sum & 0xffffffffUL);
+            (*pBI_Result)->pIntegerArray[BIArrayIndex] = (unsigned int) (Sum & 0xffffffffUL);
         } /* End of for */        
         (*pBI_Result)->Signed = pFirstOperand->Signed;
         BigInteger_ClearHighBits(*pBI_Result);     
@@ -525,7 +525,7 @@ VOID BigInteger_Sub (
     OUT PBIG_INTEGER *pBI_Result)
 {
     INT CompareResult;
-    UINT32 BIArrayIndex, Carry;
+    unsigned int BIArrayIndex, Carry;
     PBIG_INTEGER pTempBI = NULL, pTempBI2 = NULL;
     
     if  ((pFirstOperand == NULL) || (pFirstOperand->pIntegerArray == NULL)
@@ -616,7 +616,7 @@ VOID BigInteger_Mul (
     OUT PBIG_INTEGER *pBI_Result)
 {
 
-    UINT32 BIFirstIndex, BISecondIndex;
+    unsigned int BIFirstIndex, BISecondIndex;
     unsigned long long FirstValue, SecondValue, Sum, Carry;
    
     if  ((pFirstOperand == NULL) || (pFirstOperand->pIntegerArray == NULL)
@@ -656,14 +656,14 @@ VOID BigInteger_Mul (
                 SecondValue = ((unsigned long long) pSecondOperand->pIntegerArray[BISecondIndex])*FirstValue;
                 Sum = (unsigned long long) ((*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex] + SecondValue + Carry);               
                 Carry = Sum >> 32;
-                (*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex] = (UINT32) (Sum & 0xffffffffUL);
+                (*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex] = (unsigned int) (Sum & 0xffffffffUL);
             } /* End of for */
             while (Carry != 0) {
                 Sum = (unsigned long long) (*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex];
                 Sum += Carry;
 
                 Carry = Sum >> 32;
-                (*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex] = (UINT32) (Sum & 0xffffffffUL);
+                (*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex] = (unsigned int) (Sum & 0xffffffffUL);
                 BISecondIndex++;
             } /* End of while */
         } /* End of if */
@@ -680,8 +680,8 @@ VOID BigInteger_Square (
     OUT PBIG_INTEGER *pBI_Result)
 {
     INT BIFirstIndex, BISecondIndex;
-	UINT32 HBITS_Value, LBITS_Value, Temp1_Value, Temp2_Value, Carry32;
-	UINT32 *Point_Of_S, *Point_Of_Result, *Point_Of_BI;
+	unsigned int HBITS_Value, LBITS_Value, Temp1_Value, Temp2_Value, Carry32;
+	unsigned int *Point_Of_S, *Point_Of_Result, *Point_Of_BI;
     unsigned long long Result64_1, Result64_2, Carry64, TempValue64;    
 
     if ((pBI == NULL) || (pBI->pIntegerArray == NULL)) {
@@ -706,8 +706,8 @@ VOID BigInteger_Square (
 	Point_Of_S = pBI_S->pIntegerArray;
     for (BIFirstIndex=0; BIFirstIndex < pBI->ArrayLength; BIFirstIndex++)
     {
-    	HBITS_Value = UINT32_HBITS(pBI->pIntegerArray[BIFirstIndex]);
-		LBITS_Value = UINT32_LBITS(pBI->pIntegerArray[BIFirstIndex]);
+    	HBITS_Value = unsigned int_HBITS(pBI->pIntegerArray[BIFirstIndex]);
+		LBITS_Value = unsigned int_LBITS(pBI->pIntegerArray[BIFirstIndex]);
 		Temp1_Value = HBITS_Value*LBITS_Value;
 		Temp2_Value = (Temp1_Value & 0x7fff) << 0x11;
 		Point_Of_S[0] = (LBITS_Value*LBITS_Value) + Temp2_Value;
@@ -732,11 +732,11 @@ VOID BigInteger_Square (
         Result64_1 =  (unsigned long long) Point_Of_BI[BIFirstIndex]*TempValue64;
         Result64_1 += Carry64;              
         Carry64 = (Result64_1 >> 32);
-        Point_Of_Result[0] = (UINT32) (Result64_1 & 0xffffffffUL);
+        Point_Of_Result[0] = (unsigned int) (Result64_1 & 0xffffffffUL);
         Point_Of_Result++;
     } /* End of for */
     if (Carry64 > 0)
-        Point_Of_Result[0] = (UINT32) (Carry64 & 0xffffffffUL);
+        Point_Of_Result[0] = (unsigned int) (Carry64 & 0xffffffffUL);
 
     /*
      * Step3. calculate
@@ -762,11 +762,11 @@ VOID BigInteger_Square (
             Result64_1 = (Result64_1 & 0xffffffffUL);
             Result64_1 = Result64_1 + Result64_2;
             Carry64 += (Result64_1 >> 32);    
-            Point_Of_Result[0] = (UINT32) (Result64_1 & 0xffffffffUL); 
+            Point_Of_Result[0] = (unsigned int) (Result64_1 & 0xffffffffUL); 
             Point_Of_Result++;
         } /* End of for */
         if (Carry64 > 0)
-            Point_Of_Result[0] += (UINT32) (Carry64 & 0xffffffffUL);
+            Point_Of_Result[0] += (unsigned int) (Carry64 & 0xffffffffUL);
     } /* End of for */
     
     BigInteger_ClearHighBits(*pBI_Result);
@@ -800,7 +800,7 @@ VOID BigInteger_Div (
 {
     INT CompareResult;
     INT Index, MulIndex, ComputeSize;
-    UINT32 MulStart;
+    unsigned int MulStart;
     UINT AllocLength, ArrayIndex, ShiftIndex;
     PBIG_INTEGER pTempBI = NULL, pTempBI2 = NULL, pMulBI = NULL;
     UINT8 SecondHighByte;
@@ -866,10 +866,10 @@ VOID BigInteger_Div (
             MulStart = 0;
             MulStart = (BigInteger_GetByteValue((*pBI_Remainder), pFirstOperand->IntegerLength + Index - ComputeSize + 1) & 0xFF) << 8;
             MulStart = MulStart | (BigInteger_GetByteValue((*pBI_Remainder), pFirstOperand->IntegerLength + Index - ComputeSize) & 0xFF);
-            if (MulStart < (UINT32) SecondHighByte)
+            if (MulStart < (unsigned int) SecondHighByte)
                 continue;
 
-            MulStart = MulStart / (UINT32) SecondHighByte;
+            MulStart = MulStart / (unsigned int) SecondHighByte;
 
             if (MulStart > 0xFF)
                 MulStart = 0x100;
@@ -921,8 +921,8 @@ VOID BigInteger_Montgomery_Reduction (
      IN PBIG_INTEGER pBI_R,
     OUT PBIG_INTEGER *pBI_Result)
 {
-    UINT32 *Point_P, *Point_Result;
-    UINT32 LoopCount;
+    unsigned int *Point_P, *Point_Result;
+    unsigned int LoopCount;
     unsigned long long Result64_1, Result64_2, Carry64, TempValue64;  
     INT FirstLoop, SecondLoop; 
 
@@ -943,12 +943,12 @@ VOID BigInteger_Montgomery_Reduction (
             Result64_1 = (Result64_1 & 0xffffffffUL);
             Result64_1 = Result64_1 + Result64_2;            
             Carry64 += (Result64_1 >> 32);    
-            Point_Result[SecondLoop] = (UINT32) (Result64_1 & 0xffffffffUL);            
+            Point_Result[SecondLoop] = (unsigned int) (Result64_1 & 0xffffffffUL);            
         } /* End of for */
         while (Carry64 != 0) {
           Result64_1 = ((unsigned long long) Point_Result[SecondLoop]) + Carry64;
           Carry64 = Result64_1 >> 32;
-          Point_Result[SecondLoop] = (UINT32) (Result64_1 & 0xffffffffUL);            
+          Point_Result[SecondLoop] = (unsigned int) (Result64_1 & 0xffffffffUL);            
           SecondLoop++;
         } /* End of while */
         Point_Result++;
@@ -980,8 +980,8 @@ VOID BigInteger_Montgomery_ExpMod (
     OUT PBIG_INTEGER *pBI_Result)
 {
     UINT Bits_Of_P;
-    UINT32 Index, Index2, AllocLength;
-	UINT32 Sliding_Value , Sliding_HighValue, Sliding_LowValue;
+    unsigned int Index, Index2, AllocLength;
+	unsigned int Sliding_Value , Sliding_HighValue, Sliding_LowValue;
     PBIG_INTEGER pBI_Temp1 = NULL, pBI_Temp2 = NULL;
     PBIG_INTEGER pBI_X = NULL, pBI_R = NULL, pBI_RR = NULL, pBI_1 = NULL;
     BIG_INTEGER *pBI_A[SLIDING_WINDOW];

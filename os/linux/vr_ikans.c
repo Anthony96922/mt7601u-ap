@@ -73,7 +73,7 @@ void VR_IKANOS_FP_Init(
 	IN UINT8 BssNum,
 	IN UINT8 *pApMac)
 {
-	UINT32 i;
+	unsigned int i;
 	UINT8 mac[6];
 
 
@@ -153,7 +153,7 @@ void IKANOS_DataFrameRx(
 {
     apPreHeader_t *apBuf;
 	void *pRxParam = pSkb->dev;
-	UINT32 Length = pSkb->len;
+	unsigned int Length = pSkb->len;
 
 
     apBuf = (apPreHeader_t *)(translateMbuf2Apbuf(pSkb, 0));

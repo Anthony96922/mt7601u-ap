@@ -77,7 +77,7 @@ BOOLEAN FlgIsUtilInit = FALSE;
 OS_NDIS_SPIN_LOCK UtilSemLock;
 
 
-BOOLEAN RTMP_OS_Alloc_RscOnly(VOID *pRscSrc, UINT32 RscLen);
+BOOLEAN RTMP_OS_Alloc_RscOnly(VOID *pRscSrc, unsigned int RscLen);
 BOOLEAN RTMP_OS_Remove_Rsc(LIST_HEADER *pRscList, VOID *pRscSrc);
 
 /*
@@ -600,7 +600,7 @@ BOOLEAN RTMPL2FrameTxAction(
 	IN RTMP_CB_8023_PACKET_ANNOUNCE _announce_802_3_packet,
 	IN UCHAR apidx,
 	IN unsigned char * pData,
-	IN UINT32 data_len,
+	IN unsigned int data_len,
 	IN	UCHAR			OpMode)
 {
 	struct sk_buff *skb = dev_alloc_skb(data_len + 2);
@@ -636,18 +636,18 @@ BOOLEAN RTMPL2FrameTxAction(
 PNDIS_PACKET ExpandPacket(
 	IN VOID *pReserved,
 	IN PNDIS_PACKET pPacket,
-	IN UINT32 ext_head_len,
-	IN UINT32 ext_tail_len)
+	IN unsigned int ext_head_len,
+	IN unsigned int ext_tail_len)
 {
 	struct sk_buff *skb, *newskb;
 
 	skb = RTPKT_TO_OSPKT(pPacket);
 	if (skb_cloned(skb) || (skb_headroom(skb) < ext_head_len)
 	    || (skb_tailroom(skb) < ext_tail_len)) {
-		UINT32 head_len =
+		unsigned int head_len =
 		    (skb_headroom(skb) <
 		     ext_head_len) ? ext_head_len : skb_headroom(skb);
-		UINT32 tail_len =
+		unsigned int tail_len =
 		    (skb_tailroom(skb) <
 		     ext_tail_len) ? ext_tail_len : skb_tailroom(skb);
 
@@ -1169,7 +1169,7 @@ struct net_device *alloc_netdev(
 #endif /* LINUX_VERSION_CODE */
 
 
-static UINT32 RtmpOSWirelessEventTranslate(IN UINT32 eventType)
+static unsigned int RtmpOSWirelessEventTranslate(IN unsigned int eventType)
 {
 	switch (eventType) {
 	case RT_WLAN_EVENT_CUSTOM:
@@ -1208,11 +1208,11 @@ static UINT32 RtmpOSWirelessEventTranslate(IN UINT32 eventType)
 
 int RtmpOSWrielessEventSend(
 	IN PNET_DEV pNetDev,
-	IN UINT32 eventType,
+	IN unsigned int eventType,
 	IN INT flags,
 	IN unsigned char * pSrcMac,
 	IN unsigned char * pData,
-	IN UINT32 dataLen)
+	IN unsigned int dataLen)
 {
 	union iwreq_data wrqu;
 
@@ -1238,12 +1238,12 @@ int RtmpOSWrielessEventSend(
 
 int RtmpOSWrielessEventSendExt(
 	IN PNET_DEV pNetDev,
-	IN UINT32 eventType,
+	IN unsigned int eventType,
 	IN INT flags,
 	IN unsigned char * pSrcMac,
 	IN unsigned char * pData,
-	IN UINT32 dataLen,
-	IN UINT32 family)
+	IN unsigned int dataLen,
+	IN unsigned int family)
 {
 	union iwreq_data wrqu;
 
@@ -1290,7 +1290,7 @@ int RtmpOSNetDevAddrSet(
   */
 static int RtmpOSNetDevRequestName(
 	IN INT32 MC_RowID,
-	IN UINT32 *pIoctlIF,
+	IN unsigned int *pIoctlIF,
 	IN PNET_DEV dev,
 	IN char * pPrefixStr,
 	IN INT devIdx)
@@ -1378,7 +1378,7 @@ void RtmpOSNetDevFree(PNET_DEV pNetDev)
 
 INT RtmpOSNetDevAlloc(
 	IN PNET_DEV *new_dev_p,
-	IN UINT32 privDataSize)
+	IN unsigned int privDataSize)
 {
 	*new_dev_p = NULL;
 
@@ -1615,7 +1615,7 @@ int RtmpOSNetDevAttach(
 
 PNET_DEV RtmpOSNetDevCreate(
 	IN INT32 MC_RowID,
-	IN UINT32 *pIoctlIF,
+	IN unsigned int *pIoctlIF,
 	IN INT devType,
 	IN INT devNum,
 	IN INT privMemSize,
@@ -1734,7 +1734,7 @@ Return Value:
 Note:
 ========================================================================
 */
-NDIS_STATUS AdapterBlockAllocateMemory(VOID *handle, VOID **ppAd, UINT32 SizeOfpAd)
+NDIS_STATUS AdapterBlockAllocateMemory(VOID *handle, VOID **ppAd, unsigned int SizeOfpAd)
 {
 #ifdef OS_ABL_FUNC_SUPPORT
 	/* get offset for sk_buff */
@@ -1778,16 +1778,16 @@ UINT RtmpOsWirelessExtVerGet(VOID)
 #ifdef DBG
 VOID RtmpDrvAllMacPrint(
 	IN VOID *pReserved,
-	IN UINT32 *pBufMac,
-	IN UINT32 AddrStart,
-	IN UINT32 AddrEnd,
-	IN UINT32 AddrStep)
+	IN unsigned int *pBufMac,
+	IN unsigned int AddrStart,
+	IN unsigned int AddrEnd,
+	IN unsigned int AddrStep)
 {
 	struct file *file_w;
 	char * fileName = "MacDump.txt";
 	mm_segment_t orig_fs;
 	STRING *msg;
-	UINT32 macAddr = 0, macValue = 0;
+	unsigned int macAddr = 0, macValue = 0;
 
 	os_alloc_mem(NULL, (UCHAR **)&msg, 1024);
 	if (!msg)
@@ -1828,8 +1828,8 @@ VOID RtmpDrvAllMacPrint(
 VOID RtmpDrvAllE2PPrint(
 	IN VOID *pReserved,
 	IN USHORT *pMacContent,
-	IN UINT32 AddrEnd,
-	IN UINT32 AddrStep)
+	IN unsigned int AddrEnd,
+	IN unsigned int AddrStep)
 {
 	struct file *file_w;
 	char * fileName = "EEPROMDump.txt";
@@ -1878,8 +1878,8 @@ VOID RtmpDrvAllE2PPrint(
 
 VOID RtmpDrvAllRFPrint(
 	IN VOID *pReserved,
-	IN UINT32 *pBuf,
-	IN UINT32 BufLen)
+	IN unsigned int *pBuf,
+	IN unsigned int BufLen)
 {
 	struct file *file_w;
 	char * fileName = "RFDump.txt";
@@ -2016,7 +2016,7 @@ INT32 RtmpOsFileIsErr(IN VOID *pFile)
 
 int RtmpOSIRQRelease(
 	IN PNET_DEV pNetDev,
-	IN UINT32 infType,
+	IN unsigned int infType,
 	IN PPCI_DEV pci_dev,
 	IN BOOLEAN *pHaveMsi)
 {
@@ -2375,7 +2375,7 @@ const struct ieee80211_rate Cfg80211_SupRate[12] = {
 	},
 };
 
-static const UINT32 CipherSuites[] = {
+static const unsigned int CipherSuites[] = {
 	WLAN_CIPHER_SUITE_WEP40,
 	WLAN_CIPHER_SUITE_WEP104,
 	WLAN_CIPHER_SUITE_TKIP,
@@ -2483,9 +2483,9 @@ BOOLEAN CFG80211_SupBandInit(
 	struct ieee80211_channel *pChannels = (struct ieee80211_channel *)pChannelsOrg;
 	struct ieee80211_rate *pRates = (struct ieee80211_rate *)pRatesOrg;
 	struct ieee80211_supported_band *pBand;
-	UINT32 NumOfChan, NumOfRate;
-	UINT32 IdLoop;
-	UINT32 CurTxPower;
+	unsigned int NumOfChan, NumOfRate;
+	unsigned int IdLoop;
+	unsigned int CurTxPower;
 
 
 	/* sanity check */
@@ -2840,10 +2840,10 @@ BOOLEAN CFG80211OS_BandInfoGet(
 }
 
 
-UINT32 CFG80211OS_ChanNumGet(
+unsigned int CFG80211OS_ChanNumGet(
 	IN VOID						*pCB,
 	IN VOID						*pWiphyOrg,
-	IN UINT32					IdBand)
+	IN unsigned int					IdBand)
 {
 	CFG80211_CB *pCfg80211_CB = (CFG80211_CB *)pCB;
 	struct wiphy *pWiphy = (struct wiphy *)pWiphyOrg;
@@ -2868,10 +2868,10 @@ UINT32 CFG80211OS_ChanNumGet(
 BOOLEAN CFG80211OS_ChanInfoGet(
 	IN VOID						*pCB,
 	IN VOID						*pWiphyOrg,
-	IN UINT32					IdBand,
-	IN UINT32					IdChan,
-	OUT UINT32					*pChanId,
-	OUT UINT32					*pPower,
+	IN unsigned int					IdBand,
+	IN unsigned int					IdChan,
+	OUT unsigned int					*pChanId,
+	OUT unsigned int					*pPower,
 	OUT BOOLEAN					*pFlgIsRadar)
 {
 	CFG80211_CB *pCfg80211_CB = (CFG80211_CB *)pCB;
@@ -2929,7 +2929,7 @@ Note:
 */
 BOOLEAN CFG80211OS_ChanInfoInit(
 	IN VOID						*pCB,
-	IN UINT32					InfoIndex,
+	IN unsigned int					InfoIndex,
 	IN UCHAR					ChanId,
 	IN UCHAR					MaxTxPwr,
 	IN BOOLEAN					FlgIsNMode,
@@ -2989,9 +2989,9 @@ Note:
 */
 VOID CFG80211OS_Scaning(
 	IN VOID						*pCB,
-	IN UINT32					ChanId,
+	IN unsigned int					ChanId,
 	IN UCHAR					*pFrame,
-	IN UINT32					FrameLen,
+	IN unsigned int					FrameLen,
 	IN INT32					RSSI,
 	IN BOOLEAN					FlgIsNMode,
 	IN UINT8					BW)
@@ -3049,9 +3049,9 @@ void CFG80211OS_ConnectResultInform(
 	IN VOID *pCB,
 	IN UCHAR *pBSSID,
 	IN UCHAR *pReqIe,
-	IN UINT32 ReqIeLen,
+	IN unsigned int ReqIeLen,
 	IN UCHAR *pRspIe,
-	IN UINT32 RspIeLen,
+	IN unsigned int RspIeLen,
 	IN UCHAR FlgIsSuccess)
 {
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,32))
@@ -3536,7 +3536,7 @@ Note:
 BOOLEAN RTMP_OS_Alloc_Rsc(
 	LIST_HEADER *pRscList,
 	VOID *pRscSrc,
-	UINT32 RscLen)
+	unsigned int RscLen)
 {
 	OS_RSTRUC *pRsc = (OS_RSTRUC *) pRscSrc;
 
@@ -3591,7 +3591,7 @@ Return Value:
 Note:
 ========================================================================
 */
-BOOLEAN RTMP_OS_Alloc_RscOnly(VOID *pRscSrc, UINT32 RscLen)
+BOOLEAN RTMP_OS_Alloc_RscOnly(VOID *pRscSrc, unsigned int RscLen)
 {
 	OS_RSTRUC *pRsc = (OS_RSTRUC *) pRscSrc;
 
@@ -4287,7 +4287,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsWait(UINT32 Time)
+VOID RtmpOsWait(unsigned int Time)
 {
 	OS_WAIT(Time);
 }
@@ -4307,7 +4307,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsTimerAfter(ULONG a, ULONG b)
+unsigned int RtmpOsTimerAfter(ULONG a, ULONG b)
 {
 	return RTMP_TIME_AFTER(a, b);
 }
@@ -4327,7 +4327,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsTimerBefore(ULONG a, ULONG b)
+unsigned int RtmpOsTimerBefore(ULONG a, ULONG b)
 {
 	return RTMP_TIME_BEFORE(a, b);
 }
@@ -4366,7 +4366,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsTickUnitGet(VOID)
+unsigned int RtmpOsTickUnitGet(VOID)
 {
 	return HZ;
 }
@@ -4426,7 +4426,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsNtohl(UINT32 Value)
+unsigned int RtmpOsNtohl(unsigned int Value)
 {
 	return OS_NTOHL(Value);
 }
@@ -4445,7 +4445,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsHtonl(UINT32 Value)
+unsigned int RtmpOsHtonl(unsigned int Value)
 {
 	return OS_HTONL(Value);
 }
@@ -4484,7 +4484,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsGetUnaligned32(UINT32 *pWord)
+unsigned int RtmpOsGetUnaligned32(unsigned int *pWord)
 {
 	return get_unaligned(pWord);
 }

@@ -39,20 +39,20 @@ void RTMP_GetCurrentSystemTick(
 	IN	ULONG					*pNow);
 
 VOID RtmpOsWait(
-	IN	UINT32					Time);
+	IN	unsigned int					Time);
 
-UINT32 RtmpOsTimerAfter(
+unsigned int RtmpOsTimerAfter(
 	IN	ULONG					a,
 	IN	ULONG					b);
 
-UINT32 RtmpOsTimerBefore(
+unsigned int RtmpOsTimerBefore(
 	IN	ULONG					a,
 	IN	ULONG					b);
 
 VOID RtmpOsGetSystemUpTime(
 	IN	ULONG					*pTime);
 
-UINT32 RtmpOsTickUnitGet(VOID);
+unsigned int RtmpOsTickUnitGet(VOID);
 
 /* OS Memory */
 NDIS_STATUS os_alloc_mem(
@@ -72,7 +72,7 @@ NDIS_STATUS os_free_mem(
 NDIS_STATUS AdapterBlockAllocateMemory(
 	IN	void *					handle,
 	OUT	void *					*ppAd,
-	IN	UINT32					SizeOfpAd);
+	IN	unsigned int					SizeOfpAd);
 
 VOID *RtmpOsVmalloc(
 	IN	ULONG					Size);
@@ -166,14 +166,14 @@ BOOLEAN RTMPL2FrameTxAction(
 	IN	RTMP_CB_8023_PACKET_ANNOUNCE _announce_802_3_packet,
 	IN	UCHAR					apidx,
 	IN	unsigned char *					pData,
-	IN	UINT32					data_len,
+	IN	unsigned int					data_len,
 	IN	UCHAR			OpMode);
 
 PNDIS_PACKET ExpandPacket(
 	IN	VOID					*pReserved,
 	IN	PNDIS_PACKET			pPacket,
-	IN	UINT32					ext_head_len,
-	IN	UINT32					ext_tail_len);
+	IN	unsigned int					ext_head_len,
+	IN	unsigned int					ext_tail_len);
 
 PNDIS_PACKET ClonePacket(
 	IN	VOID					*pReserved,
@@ -219,7 +219,7 @@ void send_monitor_packets(
 	IN	UCHAR					*pDevName,
 	IN	UCHAR					Channel,
 	IN	UCHAR					CentralChannel,
-	IN	UINT32					MaxRssi);
+	IN	unsigned int					MaxRssi);
 
 UCHAR VLAN_8023_Header_Copy(
 	IN	USHORT					VLAN_VID,
@@ -302,11 +302,11 @@ UINT16 RtmpOsNtohs(
 UINT16 RtmpOsHtons(
 	IN	UINT16					Value);
 
-UINT32 RtmpOsNtohl(
-	IN	UINT32					Value);
+unsigned int RtmpOsNtohl(
+	IN	unsigned int					Value);
 
-UINT32 RtmpOsHtonl(
-	IN	UINT32					Value);
+unsigned int RtmpOsHtonl(
+	IN	unsigned int					Value);
 
 /* OS File */
 RTMP_OS_FD RtmpOSFileOpen(char *pPath,  int flag, int mode);
@@ -337,7 +337,7 @@ void RtmpOSNetDevFree(
 
 INT RtmpOSNetDevAlloc(
 	IN	PNET_DEV				*new_dev_p,
-	IN	UINT32					privDataSize);
+	IN	unsigned int					privDataSize);
 
 INT RtmpOSNetDevOpsAlloc(
 	IN	void *					*pNetDevOps);
@@ -367,7 +367,7 @@ void RtmpOSNetDevProtect(
 
 PNET_DEV RtmpOSNetDevCreate(
 	IN	INT32					MC_RowID,
-	IN	UINT32					*pIoctlIF,
+	IN	unsigned int					*pIoctlIF,
 	IN	INT 					devType,
 	IN	INT						devNum,
 	IN	INT						privMemSize,
@@ -517,7 +517,7 @@ VOID RTMP_OS_Release_Timer(
 BOOLEAN RTMP_OS_Alloc_Rsc(
 	IN	LIST_HEADER				*pRscList,
 	IN	VOID 					*pRsc,
-	IN	UINT32					RscLen);
+	IN	unsigned int					RscLen);
 
 VOID RTMP_OS_Free_Rscs(
 	IN	LIST_HEADER				*pRscList);
@@ -551,23 +551,23 @@ ULONG RTMP_PCI_Readb(VOID *pAddr);
 
 int RtmpOsPciConfigReadWord(
 	IN	VOID					*pDev,
-	IN	UINT32					Offset,
+	IN	unsigned int					Offset,
 	OUT UINT16					*pValue);
 
 int RtmpOsPciConfigWriteWord(
 	IN	VOID					*pDev,
-	IN	UINT32					Offset,
+	IN	unsigned int					Offset,
 	IN	UINT16					Value);
 
 int RtmpOsPciConfigReadDWord(
 	IN	VOID					*pDev,
-	IN	UINT32					Offset,
-	OUT UINT32					*pValue);
+	IN	unsigned int					Offset,
+	OUT unsigned int					*pValue);
 
 int RtmpOsPciConfigWriteDWord(
 	IN	VOID					*pDev,
-	IN	UINT32					Offset,
-	IN	UINT32					Value);
+	IN	unsigned int					Offset,
+	IN	unsigned int					Value);
 
 int RtmpOsPciFindCapability(
 	IN	VOID					*pDev,
@@ -623,48 +623,48 @@ void SendSignalToDaemon(
 
 int RtmpOSWrielessEventSend(
 	IN	PNET_DEV				pNetDev,
-	IN	UINT32					eventType,
+	IN	unsigned int					eventType,
 	IN	INT						flags,
 	IN	unsigned char *					pSrcMac,
 	IN	unsigned char *					pData,
-	IN	UINT32					dataLen);
+	IN	unsigned int					dataLen);
 
 int RtmpOSWrielessEventSendExt(
 	IN	PNET_DEV				pNetDev,
-	IN	UINT32					eventType,
+	IN	unsigned int					eventType,
 	IN	INT						flags,
 	IN	unsigned char *					pSrcMac,
 	IN	unsigned char *					pData,
-	IN	UINT32					dataLen,
-	IN	UINT32					family);
+	IN	unsigned int					dataLen,
+	IN	unsigned int					family);
 
 UINT RtmpOsWirelessExtVerGet(VOID);
 
 #ifdef DBG
 VOID RtmpDrvAllMacPrint(
 	IN VOID						*pReserved,
-	IN UINT32					*pBufMac,
-	IN UINT32					AddrStart,
-	IN UINT32					AddrEnd,
-	IN UINT32					AddrStep);
+	IN unsigned int					*pBufMac,
+	IN unsigned int					AddrStart,
+	IN unsigned int					AddrEnd,
+	IN unsigned int					AddrStep);
 #endif /* DBG */
 
 VOID RtmpDrvAllE2PPrint(
 	IN	VOID					*pReserved,
 	IN	USHORT					*pMacContent,
-	IN	UINT32					AddrEnd,
-	IN	UINT32					AddrStep);
+	IN	unsigned int					AddrEnd,
+	IN	unsigned int					AddrStep);
 
 #ifdef DBG
 VOID RtmpDrvAllRFPrint(
 	IN VOID *pReserved,
-	IN UINT32 *pBuf,
-	IN UINT32 BufLen);
+	IN unsigned int *pBuf,
+	IN unsigned int BufLen);
 #endif /* DBG */
 
 int RtmpOSIRQRelease(
 	IN	PNET_DEV				pNetDev,
-	IN	UINT32					infType,
+	IN	unsigned int					infType,
 	IN	PPCI_DEV				pci_dev,
 	IN	BOOLEAN					*pHaveMsi);
 
@@ -675,7 +675,7 @@ VOID RtmpOsWlanEventSet(
 
 UINT16 RtmpOsGetUnaligned(UINT16 *pWord);
 
-UINT32 RtmpOsGetUnaligned32(UINT32 *pWord);
+unsigned int RtmpOsGetUnaligned32(unsigned int *pWord);
 
 ULONG RtmpOsGetUnalignedlong(ULONG *pWord);
 
@@ -693,7 +693,7 @@ VOID RtmpDrvMaxRateGet(
 	IN UINT8 ShortGI,
 	IN UINT8 BW,
 	IN UINT8 MCS,
-	OUT UINT32 *pRate);
+	OUT unsigned int *pRate);
 
 char * rtstrchr(const char * s, int c);
 
@@ -713,8 +713,8 @@ VOID RtmpMeshDown(
 USHORT RtmpOsNetPrivGet(PNET_DEV pDev);
 
 BOOLEAN RtmpOsCmdDisplayLenCheck(
-	IN	UINT32					LenSrc,
-	IN	UINT32					Offset);
+	IN	unsigned int					LenSrc,
+	IN	unsigned int					Offset);
 
 VOID    WpaSendMicFailureToWpaSupplicant(
 	IN	PNET_DEV				pNetDev,
@@ -723,12 +723,12 @@ VOID    WpaSendMicFailureToWpaSupplicant(
 int wext_notify_event_assoc(
 	IN	PNET_DEV				pNetDev,
 	IN	UCHAR					*ReqVarIEs,
-	IN	UINT32					ReqVarIELen);
+	IN	unsigned int					ReqVarIELen);
 
 VOID    SendAssocIEsToWpaSupplicant( 
 	IN	PNET_DEV				pNetDev,
 	IN	UCHAR					*ReqVarIEs,
-	IN	UINT32					ReqVarIELen);
+	IN	unsigned int					ReqVarIELen);
 
 void * RtmpInitCompletion(VOID);
 
@@ -736,7 +736,7 @@ ULONG RtmpWaitForCompletionTimeout(VOID *Completion, ULONG Expire);
 
 VOID RtmpComplete(VOID *Completion);
 
-ULONG RtmpMsecsToJiffies(UINT32 msecs);
+ULONG RtmpMsecsToJiffies(unsigned int msecs);
 /* ============================ rt_rbus_pci_util.c ========================== */
 void RtmpAllocDescBuf(
 	IN PPCI_DEV pPciDev,
@@ -851,7 +851,7 @@ VOID	RtmpOsUsbInitRxDesc(
 	IN	VOID			*pUsb_Dev,
 	IN	UINT			BulkInEpAddr,
 	IN	UCHAR			*pTransferBuffer,
-	IN	UINT32			BufSize,
+	IN	unsigned int			BufSize,
 	IN	USB_COMPLETE_HANDLER	Func,
 	IN	VOID			*pRxContext,
 	IN	ra_dma_addr_t		TransferDma);
@@ -878,10 +878,10 @@ void RtmpFlashWrite(
 	ULONG b);
 #endif /* defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT) */
 
-UINT32 RtmpOsGetUsbDevVendorID(
+unsigned int RtmpOsGetUsbDevVendorID(
 	IN VOID *pUsbDev);
 
-UINT32 RtmpOsGetUsbDevProductID(
+unsigned int RtmpOsGetUsbDevProductID(
 	IN VOID *pUsbDev);
 
 /* CFG80211 */
@@ -892,12 +892,12 @@ typedef struct __CFG80211_BAND {
 	UINT8 MpduDensity;
 	UINT8 TxStream;
 	UINT8 RxStream;
-	UINT32 MaxTxPwr;
-	UINT32 MaxBssTable;
+	unsigned int MaxTxPwr;
+	unsigned int MaxBssTable;
 
 	UINT16 RtsThreshold;
 	UINT16 FragmentThreshold;
-	UINT32 RetryMaxCnt; /* bit0~7: short; bit8 ~ 15: long */
+	unsigned int RetryMaxCnt; /* bit0~7: short; bit8 ~ 15: long */
 	BOOLEAN FlgIsBMode;
 } CFG80211_BAND;
 
@@ -932,23 +932,23 @@ BOOLEAN CFG80211OS_BandInfoGet(
 	OUT VOID					**ppBand24,
 	OUT VOID					**ppBand5);
 
-UINT32 CFG80211OS_ChanNumGet(
+unsigned int CFG80211OS_ChanNumGet(
 	IN VOID						*pCB,
 	IN VOID						*pWiphyOrg,
-	IN UINT32					IdBand);
+	IN unsigned int					IdBand);
 
 BOOLEAN CFG80211OS_ChanInfoGet(
 	IN VOID						*pCB,
 	IN VOID						*pWiphyOrg,
-	IN UINT32					IdBand,
-	IN UINT32					IdChan,
-	OUT UINT32					*pChanId,
-	OUT UINT32					*pPower,
+	IN unsigned int					IdBand,
+	IN unsigned int					IdChan,
+	OUT unsigned int					*pChanId,
+	OUT unsigned int					*pPower,
 	OUT BOOLEAN					*pFlgIsRadar);
 
 BOOLEAN CFG80211OS_ChanInfoInit(
 	IN VOID						*pCB,
-	IN UINT32					InfoIndex,
+	IN unsigned int					InfoIndex,
 	IN UCHAR					ChanId,
 	IN UCHAR					MaxTxPwr,
 	IN BOOLEAN					FlgIsNMode,
@@ -956,9 +956,9 @@ BOOLEAN CFG80211OS_ChanInfoInit(
 
 VOID CFG80211OS_Scaning(
 	IN VOID						*pCB,
-	IN UINT32					ChanId,
+	IN unsigned int					ChanId,
 	IN UCHAR					*pFrame,
-	IN UINT32					FrameLen,
+	IN unsigned int					FrameLen,
 	IN INT32					RSSI,
 	IN BOOLEAN					FlgIsNMode,
 	IN UINT8					BW);
@@ -971,9 +971,9 @@ void CFG80211OS_ConnectResultInform(
 	IN VOID						*pCB,
 	IN UCHAR					*pBSSID,
 	IN UCHAR					*pReqIe,
-	IN UINT32					ReqIeLen,
+	IN unsigned int					ReqIeLen,
 	IN UCHAR					*pRspIe,
-	IN UINT32					RspIeLen,
+	IN unsigned int					RspIeLen,
 	IN UCHAR					FlgIsSuccess);
 #endif /* RT_CFG80211_SUPPORT */
 
@@ -996,7 +996,7 @@ extern ULONG RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 extern ULONG OS_NumOfMemAlloc, OS_NumOfMemFree;
 
 extern INT32 ralinkrate[];
-extern UINT32 RT_RateSize;
+extern unsigned int RT_RateSize;
 
 #ifdef PLATFORM_UBM_IPX8
 #include "vrut_ubm.h"

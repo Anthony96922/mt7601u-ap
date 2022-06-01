@@ -1960,13 +1960,13 @@ INT	Set_RateAlg_Proc(
 	IN	PRTMP_ADAPTER			pAd,
 	IN	char *					arg)
 {
-	UINT32 ra_alg;
+	unsigned int ra_alg;
 
 	ra_alg = simple_strtol(arg, 0, 10);
 
 	if ((ra_alg < RATE_ALG_MAX_NUM) && (ra_alg != pAd->rateAlg))
 	{
-		UINT32 IdEntry;
+		unsigned int IdEntry;
 
 		pAd->rateAlg = ra_alg;
 		for(IdEntry = 0; IdEntry < MAX_LEN_OF_MAC_TABLE; IdEntry++)

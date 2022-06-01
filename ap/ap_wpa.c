@@ -1132,7 +1132,7 @@ VOID RTMPGetTxTscFromAsic(
 	}
 	else
 	{
-		UINT32 temp1, temp2;
+		unsigned int temp1, temp2;
 		/* Read IVEIV from Asic */
 		offset = MAC_IVEIV_TABLE_BASE + (Wcid * HW_IVEIV_ENTRY_SIZE);
 		

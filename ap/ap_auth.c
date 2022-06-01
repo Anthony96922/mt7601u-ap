@@ -221,7 +221,7 @@ static VOID APPeerAuthReqAtIdleAction(
 	UCHAR Addr1[MAC_ADDR_LEN];
 	UCHAR Addr2[MAC_ADDR_LEN];
 	CHAR Chtxt[CIPHER_TEXT_LEN];
-	UINT32 apidx;
+	unsigned int apidx;
 
 	PHEADER_802_11 pRcvHdr;
 	HEADER_802_11 AuthHdr;
@@ -409,7 +409,7 @@ static VOID APPeerAuthConfirmAction(
 	CHAR            Chtxt[CIPHER_TEXT_LEN];
 	MAC_TABLE_ENTRY *pEntry;
 	UCHAR			Addr1[MAC_ADDR_LEN];
-	UINT32			apidx;
+	unsigned int			apidx;
 
 
 

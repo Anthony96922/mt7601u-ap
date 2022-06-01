@@ -46,7 +46,7 @@ NDIS_STATUS RTUSBFreeDescriptorRelease(RTMP_ADAPTER *pAd, UCHAR BulkOutPipeId)
 NDIS_STATUS	RTUSBFreeDescRequest(
 	IN RTMP_ADAPTER *pAd,
 	IN UCHAR BulkOutPipeId,
-	IN UINT32 req_cnt)
+	IN unsigned int req_cnt)
 {
 	NDIS_STATUS	 Status = NDIS_STATUS_FAILURE;
 	unsigned long IrqFlags;
@@ -312,14 +312,14 @@ USHORT	RtmpUSB_WriteFragTxResource(
 {
 	HT_TX_CONTEXT	*pHTTXContext;
 	USHORT			hwHdrLen;	/* The hwHdrLen consist of 802.11 header length plus the header padding length.*/
-	UINT32			fillOffset;
+	unsigned int			fillOffset;
 	TXINFO_STRUC	*pTxInfo;
 	TXWI_STRUC		*pTxWI;
 	unsigned char *			pWirelessPacket = NULL;
 	UCHAR			QueIdx;
 	NDIS_STATUS		Status;
 	unsigned long	IrqFlags;
-	UINT32			USBDMApktLen = 0, DMAHdrLen, padding;
+	unsigned int			USBDMApktLen = 0, DMAHdrLen, padding;
 #ifdef USB_BULK_BUF_ALIGMENT	
 	BOOLEAN			bLasAlignmentsectiontRound = FALSE;
 #else
@@ -514,14 +514,14 @@ USHORT RtmpUSB_WriteSingleTxResource(
 	OUT	USHORT *freeCnt)
 {
 	HT_TX_CONTEXT *pHTTXContext;
-	UINT32 fillOffset;
+	unsigned int fillOffset;
 	TXINFO_STRUC *pTxInfo;
 	TXWI_STRUC *pTxWI;
 	UCHAR *pWirelessPacket, *buf;
 	UCHAR QueIdx;
 	unsigned long	IrqFlags;
 	NDIS_STATUS Status;
-	UINT32 hdr_copy_len, hdr_len, dma_len = 0, padding;
+	unsigned int hdr_copy_len, hdr_len, dma_len = 0, padding;
 #ifndef USB_BULK_BUF_ALIGMENT
 	BOOLEAN bTxQLastRound = FALSE;
 #endif /* USB_BULK_BUF_ALIGMENT */		
@@ -700,7 +700,7 @@ USHORT RtmpUSB_WriteMultiTxResource(
 {
 	HT_TX_CONTEXT *pHTTXContext;
 	USHORT hwHdrLen;	/* The hwHdrLen consist of 802.11 header length plus the header padding length.*/
-	UINT32 fillOffset;
+	unsigned int fillOffset;
 	TXINFO_STRUC *pTxInfo;
 	TXWI_STRUC *pTxWI;
 	UCHAR *pWirelessPacket = NULL;
@@ -839,10 +839,10 @@ VOID RtmpUSB_FinalWriteTxResource(
 {
 	UCHAR			QueIdx;
 	HT_TX_CONTEXT	*pHTTXContext;
-	UINT32			fillOffset;
+	unsigned int			fillOffset;
 	TXINFO_STRUC	*pTxInfo;
 	TXWI_STRUC		*pTxWI;
-	UINT32			USBDMApktLen, padding;
+	unsigned int			USBDMApktLen, padding;
 	unsigned long	IrqFlags;
 	unsigned char *			pWirelessPacket;
 
@@ -1083,7 +1083,7 @@ VOID RtmpUSBNullFrameKickOut(
 	IN RTMP_ADAPTER *pAd,
 	IN UCHAR QueIdx,
 	IN UCHAR *pNullFrame,
-	IN UINT32 frameLen)
+	IN unsigned int frameLen)
 {
 
 	PTX_CONTEXT	pNullContext = &pAd->NullContext[0];
@@ -1174,7 +1174,7 @@ PNDIS_PACKET GetPacketFromRxRing(
 	IN RTMP_ADAPTER *pAd,
 	OUT RX_BLK *pRxBlk,
 	OUT BOOLEAN *pbReschedule,
-	INOUT UINT32 *pRxPending)
+	INOUT unsigned int *pRxPending)
 {
 	RX_CONTEXT *pRxContext;
 	PNDIS_PACKET pNetPkt;

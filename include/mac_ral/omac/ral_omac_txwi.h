@@ -36,86 +36,86 @@
 #ifdef RT_BIG_ENDIAN
 typedef	struct GNU_PACKED _TXWI_OMAC {
 	/* Word 0 */
-	UINT32		PHYMODE:2;
-	UINT32		iTxBF:1; /* iTxBF enable */
-	UINT32		Sounding:1; /* Sounding enable */
-	UINT32		eTxBF:1; /* eTxBF enable */
-	UINT32		STBC:2;	/*channel bandwidth 20MHz or 40 MHz */
-	UINT32		ShortGI:1;
-	UINT32		BW:1;	/*channel bandwidth 20MHz or 40 MHz */
-	UINT32		MCS:7;
+	unsigned int		PHYMODE:2;
+	unsigned int		iTxBF:1; /* iTxBF enable */
+	unsigned int		Sounding:1; /* Sounding enable */
+	unsigned int		eTxBF:1; /* eTxBF enable */
+	unsigned int		STBC:2;	/*channel bandwidth 20MHz or 40 MHz */
+	unsigned int		ShortGI:1;
+	unsigned int		BW:1;	/*channel bandwidth 20MHz or 40 MHz */
+	unsigned int		MCS:7;
 	
-	UINT32		rsv:1;
-	UINT32		TXRPT:1;
-	UINT32		Autofallback:1; /* TX rate auto fallback disable */
-	UINT32		NDPSndBW:1; /* NDP sounding BW */
-	UINT32		NDPSndRate:2; /* 0 : MCS0, 1: MCS8, 2: MCS16, 3: reserved */
-	UINT32		txop:2;
-	UINT32		MpduDensity:3;
-	UINT32		AMPDU:1;
+	unsigned int		rsv:1;
+	unsigned int		TXRPT:1;
+	unsigned int		Autofallback:1; /* TX rate auto fallback disable */
+	unsigned int		NDPSndBW:1; /* NDP sounding BW */
+	unsigned int		NDPSndRate:2; /* 0 : MCS0, 1: MCS8, 2: MCS16, 3: reserved */
+	unsigned int		txop:2;
+	unsigned int		MpduDensity:3;
+	unsigned int		AMPDU:1;
 	
-	UINT32		TS:1;
-	UINT32		CFACK:1;
-	UINT32		MIMOps:1;	/* the remote peer is in dynamic MIMO-PS mode */
-	UINT32		FRAG:1;		/* 1 to inform TKIP engine this is a fragment. */
+	unsigned int		TS:1;
+	unsigned int		CFACK:1;
+	unsigned int		MIMOps:1;	/* the remote peer is in dynamic MIMO-PS mode */
+	unsigned int		FRAG:1;		/* 1 to inform TKIP engine this is a fragment. */
 	/* Word 1 */
-	UINT32		PacketId:4;
-	UINT32		MPDUtotalByteCnt:12;
-	UINT32		wcid:8;
-	UINT32		BAWinSize:6;
-	UINT32		NSEQ:1;
-	UINT32		ACK:1;
+	unsigned int		PacketId:4;
+	unsigned int		MPDUtotalByteCnt:12;
+	unsigned int		wcid:8;
+	unsigned int		BAWinSize:6;
+	unsigned int		NSEQ:1;
+	unsigned int		ACK:1;
 	/* Word 2 */
-	UINT32		IV;
+	unsigned int		IV;
 	/* Word 3 */
-	UINT32		EIV;
+	unsigned int		EIV;
 
 	/* Word 4 */
 	/* For Expert Antenna */
-	UINT32		Reserved:11;
-	UINT32		CCP:1;
-	UINT32		TxPwrAdj:4;
-	UINT32		TxStreamMode:8;
-	UINT32		EncodedAntID:8;
+	unsigned int		Reserved:11;
+	unsigned int		CCP:1;
+	unsigned int		TxPwrAdj:4;
+	unsigned int		TxStreamMode:8;
+	unsigned int		EncodedAntID:8;
 }	TXWI_OMAC, *PTXWI_OMAC;
 #else
 typedef	struct GNU_PACKED _TXWI_OMAC {
 	/* Word	0 */
 	/* ex: 00 03 00 40 means txop = 3, PHYMODE = 1 */
-	UINT32		FRAG:1;		/* 1 to inform TKIP engine this is a fragment. */
-	UINT32		MIMOps:1;	/* the remote peer is in dynamic MIMO-PS mode */
-	UINT32		CFACK:1;
-	UINT32		TS:1;
+	unsigned int		FRAG:1;		/* 1 to inform TKIP engine this is a fragment. */
+	unsigned int		MIMOps:1;	/* the remote peer is in dynamic MIMO-PS mode */
+	unsigned int		CFACK:1;
+	unsigned int		TS:1;
 		
-	UINT32		AMPDU:1;
-	UINT32		MpduDensity:3;
-	UINT32		txop:2;	/*FOR "THIS" frame. 0:HT TXOP rule , 1:PIFS TX ,2:Backoff, 3:sifs only when previous frame exchange is successful. */
-	UINT32		NDPSndRate:2; /* 0 : MCS0, 1: MCS8, 2: MCS16, 3: reserved */
-	UINT32		NDPSndBW:1; /* NDP sounding BW */
-	UINT32		Autofallback:1; /* TX rate auto fallback disable */
-	UINT32		TXRPT:1;
-	UINT32		rsv:1;
+	unsigned int		AMPDU:1;
+	unsigned int		MpduDensity:3;
+	unsigned int		txop:2;	/*FOR "THIS" frame. 0:HT TXOP rule , 1:PIFS TX ,2:Backoff, 3:sifs only when previous frame exchange is successful. */
+	unsigned int		NDPSndRate:2; /* 0 : MCS0, 1: MCS8, 2: MCS16, 3: reserved */
+	unsigned int		NDPSndBW:1; /* NDP sounding BW */
+	unsigned int		Autofallback:1; /* TX rate auto fallback disable */
+	unsigned int		TXRPT:1;
+	unsigned int		rsv:1;
 	
-	UINT32		MCS:7;
-	UINT32		BW:1;	/*channel bandwidth 20MHz or 40 MHz */
-	UINT32		ShortGI:1;
-	UINT32		STBC:2;	/* 1: STBC support MCS =0-7,   2,3 : RESERVE */
-	UINT32		eTxBF:1; /* eTxBF enable */
-	UINT32		Sounding:1; /* Sounding enable */
-	UINT32		iTxBF:1; /* iTxBF enable */
-	UINT32		PHYMODE:2;  
+	unsigned int		MCS:7;
+	unsigned int		BW:1;	/*channel bandwidth 20MHz or 40 MHz */
+	unsigned int		ShortGI:1;
+	unsigned int		STBC:2;	/* 1: STBC support MCS =0-7,   2,3 : RESERVE */
+	unsigned int		eTxBF:1; /* eTxBF enable */
+	unsigned int		Sounding:1; /* Sounding enable */
+	unsigned int		iTxBF:1; /* iTxBF enable */
+	unsigned int		PHYMODE:2;  
 	/* Word1 */
 	/* ex:  1c ff 38 00 means ACK=0, BAWinSize=7, MPDUtotalByteCnt = 0x38 */
-	UINT32		ACK:1;
-	UINT32		NSEQ:1;
-	UINT32		BAWinSize:6;
-	UINT32		wcid:8;
-	UINT32		MPDUtotalByteCnt:12;
-	UINT32		PacketId:4;
+	unsigned int		ACK:1;
+	unsigned int		NSEQ:1;
+	unsigned int		BAWinSize:6;
+	unsigned int		wcid:8;
+	unsigned int		MPDUtotalByteCnt:12;
+	unsigned int		PacketId:4;
 	/*Word2 */
-	UINT32		IV;
+	unsigned int		IV;
 	/*Word3 */
-	UINT32		EIV;
+	unsigned int		EIV;
 
 }	TXWI_OMAC, *PTXWI_OMAC;
 #endif

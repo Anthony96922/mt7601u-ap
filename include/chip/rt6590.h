@@ -41,19 +41,19 @@ struct _RTMP_ADAPTER;
 */
 #ifdef RT_BIG_ENDIAN
 typedef struct _TSO_INFO_{
-	UINT32 mss:16;
-	UINT32 ips:8;
-	UINT32 tups:6;	
-	UINT32 tcp:1;	
-	UINT32 rsv:1;
+	unsigned int mss:16;
+	unsigned int ips:8;
+	unsigned int tups:6;	
+	unsigned int tcp:1;	
+	unsigned int rsv:1;
 }TSO_INFO;
 #else
 typedef struct _TSO_INFO_{
-	UINT32 rsv:1;
-	UINT32 tcp:1;
-	UINT32 tups:6;
-	UINT32 ips:8;
-	UINT32 mss:16;
+	unsigned int rsv:1;
+	unsigned int tcp:1;
+	unsigned int tups:6;
+	unsigned int ips:8;
+	unsigned int mss:16;
 }TSO_INFO;
 #endif /* RT_BIG_ENDIAN */
 
@@ -99,7 +99,7 @@ typedef struct _RT6590_FREQ_ITEM {
 	UINT8 Den;
 	UINT8 LFC_R33;
 	UINT8 LFC_R34;
-	UINT32 Pll_idiv;
+	unsigned int Pll_idiv;
 	UINT8 Pll_LDO; // 5G only
 } RT6590_FREQ_ITEM;
 

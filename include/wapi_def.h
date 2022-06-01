@@ -146,8 +146,8 @@ typedef struct GNU_PACKED _COMMON_WAPI_INFO
 	UINT8			ca_cert_path_len;
 	UINT8			user_cert_path[128];		/* the path of local user certification */
 	UINT8			user_cert_path_len;		
-	UINT32			wapi_as_ip;					/* the ip address of authentication server */
-	UINT32			wapi_as_port;				/* the port of authentication server */
+	unsigned int			wapi_as_ip;					/* the ip address of authentication server */
+	unsigned int			wapi_as_port;				/* the port of authentication server */
 } COMMON_WAPI_INFO, *PCOMMON_WAPI_INFO;
 
 typedef struct GNU_PACKED _MBSS_WAPI_INFO

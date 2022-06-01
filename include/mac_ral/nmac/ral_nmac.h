@@ -57,33 +57,33 @@ enum D_PORT {
 
 #ifdef RT_BIG_ENDIAN
 typedef struct GNU_PACKED _TXINFO_NMAC_PKT{
-	UINT32 info_type:2;
-	UINT32 d_port:3;
-	UINT32 QSEL:2;
-	UINT32 wiv:1;
-	UINT32 rsv1:2;
-	UINT32 cso:1;
-	UINT32 tso:1;
-	UINT32 pkt_80211:1;
-	UINT32 rsv0:1;
-	UINT32 tx_burst:1;
-	UINT32 next_vld:1;
-	UINT32 pkt_len:16;
+	unsigned int info_type:2;
+	unsigned int d_port:3;
+	unsigned int QSEL:2;
+	unsigned int wiv:1;
+	unsigned int rsv1:2;
+	unsigned int cso:1;
+	unsigned int tso:1;
+	unsigned int pkt_80211:1;
+	unsigned int rsv0:1;
+	unsigned int tx_burst:1;
+	unsigned int next_vld:1;
+	unsigned int pkt_len:16;
 }TXINFO_NMAC_PKT;
 #else
 typedef struct GNU_PACKED _TXINFO_NMAC_PKT {
-	UINT32 pkt_len:16;
-	UINT32 next_vld:1;
-	UINT32 tx_burst:1;
-	UINT32 rsv0:1;
-	UINT32 pkt_80211:1;
-	UINT32 tso:1;
-	UINT32 cso:1;
-	UINT32 rsv1:2;
-	UINT32 wiv:1;
-	UINT32 QSEL:2;
-	UINT32 d_port:3;
-	UINT32 info_type:2;
+	unsigned int pkt_len:16;
+	unsigned int next_vld:1;
+	unsigned int tx_burst:1;
+	unsigned int rsv0:1;
+	unsigned int pkt_80211:1;
+	unsigned int tso:1;
+	unsigned int cso:1;
+	unsigned int rsv1:2;
+	unsigned int wiv:1;
+	unsigned int QSEL:2;
+	unsigned int d_port:3;
+	unsigned int info_type:2;
 }TXINFO_NMAC_PKT;
 #endif /* RT_BIG_ENDIAN */
 
@@ -100,19 +100,19 @@ typedef struct GNU_PACKED _TXINFO_NMAC_PKT {
 
 #ifdef RT_BIG_ENDIAN
 typedef struct GNU_PACKED _TXINFO_NMAC_CMD{
-	UINT32 info_type:2;
-	UINT32 d_port:3;
-	UINT32 cmd_type:7;
-	UINT32 cmd_seq:4;
-	UINT32 pkt_len:16;
+	unsigned int info_type:2;
+	unsigned int d_port:3;
+	unsigned int cmd_type:7;
+	unsigned int cmd_seq:4;
+	unsigned int pkt_len:16;
 }TXINFO_NMAC_CMD;
 #else
 typedef struct GNU_PACKED _TXINFO_NMAC_CMD{
-	UINT32 pkt_len:16;
-	UINT32 cmd_seq:4;
-	UINT32 cmd_type:7;
-	UINT32 d_port:3;
-	UINT32 info_type:2;
+	unsigned int pkt_len:16;
+	unsigned int cmd_seq:4;
+	unsigned int cmd_type:7;
+	unsigned int d_port:3;
+	unsigned int info_type:2;
 }TXINFO_NMAC_CMD;
 #endif /* RT_BIG_ENDIAN */
 
@@ -135,122 +135,122 @@ typedef union GNU_PACKED _TXINFO_NMAC{
 
 #ifdef RT_BIG_ENDIAN
 typedef struct GNU_PACKED _RXFCE_INFO{
-	UINT32 info_type:2;
-	UINT32 s_port:3;
-	UINT32 qsel:2;
-	UINT32 pcie_intr:1;
+	unsigned int info_type:2;
+	unsigned int s_port:3;
+	unsigned int qsel:2;
+	unsigned int pcie_intr:1;
 
-	UINT32 mac_len:3;
-	UINT32 l3l4_done:1;
-	UINT32 pkt_80211:1;
-	UINT32 ip_err:1;
-	UINT32 tcp_err:1;
-	UINT32 udp_err:1;
+	unsigned int mac_len:3;
+	unsigned int l3l4_done:1;
+	unsigned int pkt_80211:1;
+	unsigned int ip_err:1;
+	unsigned int tcp_err:1;
+	unsigned int udp_err:1;
 	
-	UINT32 rsv:2;
-	UINT32 pkt_len:14;
+	unsigned int rsv:2;
+	unsigned int pkt_len:14;
 }RXFCE_INFO;
 #else
 typedef struct GNU_PACKED _RXFCE_INFO{
-	UINT32 pkt_len:14;
-	UINT32 rsv:2;
+	unsigned int pkt_len:14;
+	unsigned int rsv:2;
 
-	UINT32 udp_err:1;
-	UINT32 tcp_err:1;
-	UINT32 ip_err:1;
-	UINT32 pkt_80211:1;
-	UINT32 l3l4_done:1;
-	UINT32 mac_len:3;
+	unsigned int udp_err:1;
+	unsigned int tcp_err:1;
+	unsigned int ip_err:1;
+	unsigned int pkt_80211:1;
+	unsigned int l3l4_done:1;
+	unsigned int mac_len:3;
 
-	UINT32 pcie_intr:1;
-	UINT32 qsel:2;
-	UINT32 s_port:3;
-	UINT32 info_type:2;
+	unsigned int pcie_intr:1;
+	unsigned int qsel:2;
+	unsigned int s_port:3;
+	unsigned int info_type:2;
 }RXFCE_INFO;
 #endif /* RT_BIG_ENDIAN */
 
 #ifdef RT_BIG_ENDIAN
 typedef struct GNU_PACKED _RXFCE_INFO_CMD{
-	UINT32 info_type:2;
-	UINT32 d_port:3;
-	UINT32 qsel:2;
-	UINT32 pcie_intr:1;
-	UINT32 evt_type:4;
-	UINT32 cmd_seq:4;
-	UINT32 self_gen:1;
-	UINT32 rsv:1;
-	UINT32 pkt_len:14;
+	unsigned int info_type:2;
+	unsigned int d_port:3;
+	unsigned int qsel:2;
+	unsigned int pcie_intr:1;
+	unsigned int evt_type:4;
+	unsigned int cmd_seq:4;
+	unsigned int self_gen:1;
+	unsigned int rsv:1;
+	unsigned int pkt_len:14;
 }RXFCE_INFO_CMD;
 #else
 typedef struct GNU_PACKED _RXFCE_INFO_CMD{
-	UINT32 pkt_len:14;
-	UINT32 rsv:1;
-	UINT32 self_gen:1;
-	UINT32 cmd_seq:4;
-	UINT32 evt_type:4;
-	UINT32 pcie_intr:1;
-	UINT32 qsel:2;
-	UINT32 d_port:3;
-	UINT32 info_type:2;
+	unsigned int pkt_len:14;
+	unsigned int rsv:1;
+	unsigned int self_gen:1;
+	unsigned int cmd_seq:4;
+	unsigned int evt_type:4;
+	unsigned int pcie_intr:1;
+	unsigned int qsel:2;
+	unsigned int d_port:3;
+	unsigned int info_type:2;
 }RXFCE_INFO_CMD;
 #endif
 
 
 #ifdef RT_BIG_ENDIAN
 typedef struct GNU_PACKED _RXINFO_NMAC{
-	UINT32 ic_err:1;
-	UINT32 tc_err:1;
-	UINT32 ichk_bps:1;
-	UINT32 tchk_bps:1;
-	UINT32 rsv0:6;
-	UINT32 pn_len:3;
-	UINT32 wapi_kid:1;
-	UINT32 bssid_idx3:1;
-	UINT32 dec:1;
-	UINT32 ampdu:1;
-	UINT32 l2pad:1;
-	UINT32 rssi:1;
-	UINT32 htc:1;
-	UINT32 amsdu:1;
-	UINT32 mic_err:1;
-	UINT32 icv_err:1;
-	UINT32 crc_err:1;
-	UINT32 mybss:1;
-	UINT32 bc:1;
-	UINT32 mc:1;
-	UINT32 u2me:1;
-	UINT32 frag:1;
-	UINT32 null:1;
-	UINT32 data:1;
-	UINT32 ba:1;
+	unsigned int ic_err:1;
+	unsigned int tc_err:1;
+	unsigned int ichk_bps:1;
+	unsigned int tchk_bps:1;
+	unsigned int rsv0:6;
+	unsigned int pn_len:3;
+	unsigned int wapi_kid:1;
+	unsigned int bssid_idx3:1;
+	unsigned int dec:1;
+	unsigned int ampdu:1;
+	unsigned int l2pad:1;
+	unsigned int rssi:1;
+	unsigned int htc:1;
+	unsigned int amsdu:1;
+	unsigned int mic_err:1;
+	unsigned int icv_err:1;
+	unsigned int crc_err:1;
+	unsigned int mybss:1;
+	unsigned int bc:1;
+	unsigned int mc:1;
+	unsigned int u2me:1;
+	unsigned int frag:1;
+	unsigned int null:1;
+	unsigned int data:1;
+	unsigned int ba:1;
 }RXINFO_NMAC;
 #else
 typedef struct GNU_PACKED _RXINFO_NMAC{
-	UINT32 ba:1;
-	UINT32 data:1;
-	UINT32 null:1;
-	UINT32 frag:1;
-	UINT32 u2me:1;
-	UINT32 mcast:1;
-	UINT32 bcast:1;
-	UINT32 mybss:1;
-	UINT32 crc_err:1;
-	UINT32 icv_err:1;	
-	UINT32 mic_err:1;
-	UINT32 amsdu:1;
-	UINT32 htc:1;
-	UINT32 rssi:1;
-	UINT32 l2pad:1;
-	UINT32 ampdu:1;
-	UINT32 dec:1;
-	UINT32 bssid_idx3:1;
-	UINT32 wapi_kid:1;
-	UINT32 pn_len:3;
-	UINT32 rsv0:6;
-	UINT32 tchk_bps:1;
-	UINT32 ichk_bps:1;
-	UINT32 tc_err:1;
-	UINT32 ic_err:1;
+	unsigned int ba:1;
+	unsigned int data:1;
+	unsigned int null:1;
+	unsigned int frag:1;
+	unsigned int u2me:1;
+	unsigned int mcast:1;
+	unsigned int bcast:1;
+	unsigned int mybss:1;
+	unsigned int crc_err:1;
+	unsigned int icv_err:1;	
+	unsigned int mic_err:1;
+	unsigned int amsdu:1;
+	unsigned int htc:1;
+	unsigned int rssi:1;
+	unsigned int l2pad:1;
+	unsigned int ampdu:1;
+	unsigned int dec:1;
+	unsigned int bssid_idx3:1;
+	unsigned int wapi_kid:1;
+	unsigned int pn_len:3;
+	unsigned int rsv0:6;
+	unsigned int tchk_bps:1;
+	unsigned int ichk_bps:1;
+	unsigned int tc_err:1;
+	unsigned int ic_err:1;
 }RXINFO_NMAC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -264,36 +264,36 @@ typedef struct GNU_PACKED _RXINFO_NMAC{
 #ifdef RT_BIG_ENDIAN
 typedef union _WLAN_FUN_CTRL_STRUC{
 	struct{
-		UINT32 GPIO0_OUT_OE_N:8;
-		UINT32 GPIO0_OUT:8;
-		UINT32 GPIO0_IN:8;
-		UINT32 WLAN_ACC_BT:1;
-		UINT32 INV_TR_SW0:1;
-		UINT32 FRC_WL_ANT_SET:1;
-		UINT32 PCIE_APP0_CLK_REQ:1;
-		UINT32 WLAN_RESET:1;
-		UINT32 WLAN_RESET_RF:1;
-		UINT32 WLAN_CLK_EN:1;
-		UINT32 WLAN_EN:1;
+		unsigned int GPIO0_OUT_OE_N:8;
+		unsigned int GPIO0_OUT:8;
+		unsigned int GPIO0_IN:8;
+		unsigned int WLAN_ACC_BT:1;
+		unsigned int INV_TR_SW0:1;
+		unsigned int FRC_WL_ANT_SET:1;
+		unsigned int PCIE_APP0_CLK_REQ:1;
+		unsigned int WLAN_RESET:1;
+		unsigned int WLAN_RESET_RF:1;
+		unsigned int WLAN_CLK_EN:1;
+		unsigned int WLAN_EN:1;
 	}field;
-	UINT32 word;
+	unsigned int word;
 }WLAN_FUN_CTRL_STRUC, *PWLAN_FUN_CTRL_STRUC;
 #else
 typedef union _WLAN_FUN_CTRL_STRUC{
 	struct{
-		UINT32 WLAN_EN:1;
-		UINT32 WLAN_CLK_EN:1;
-		UINT32 WLAN_RESET_RF:1;
-		UINT32 WLAN_RESET:1;
-		UINT32 PCIE_APP0_CLK_REQ:1;
-		UINT32 FRC_WL_ANT_SET:1;
-		UINT32 INV_TR_SW0:1;
-		UINT32 WLAN_ACC_BT:1;
-		UINT32 GPIO0_IN:8;
-		UINT32 GPIO0_OUT:8;
-		UINT32 GPIO0_OUT_OE_N:8;
+		unsigned int WLAN_EN:1;
+		unsigned int WLAN_CLK_EN:1;
+		unsigned int WLAN_RESET_RF:1;
+		unsigned int WLAN_RESET:1;
+		unsigned int PCIE_APP0_CLK_REQ:1;
+		unsigned int FRC_WL_ANT_SET:1;
+		unsigned int INV_TR_SW0:1;
+		unsigned int WLAN_ACC_BT:1;
+		unsigned int GPIO0_IN:8;
+		unsigned int GPIO0_OUT:8;
+		unsigned int GPIO0_OUT_OE_N:8;
 	}field;
-	UINT32 word;
+	unsigned int word;
 }WLAN_FUN_CTRL_STRUC, *PWLAN_FUN_CTRL_STRUC;
 #endif
 
@@ -302,20 +302,20 @@ typedef union _WLAN_FUN_CTRL_STRUC{
 #ifdef RT_BIG_ENDIAN
 typedef union _WLAN_FUN_INFO_STRUC{
 	struct{
-		UINT32		BT_EEP_BUSY:1; /* Read-only for WLAN Driver */
-		UINT32		Rsv1:26;		
-		UINT32		COEX_MODE:5; /* WLAN function enable */
+		unsigned int		BT_EEP_BUSY:1; /* Read-only for WLAN Driver */
+		unsigned int		Rsv1:26;		
+		unsigned int		COEX_MODE:5; /* WLAN function enable */
 	}field;
-	UINT32 word;
+	unsigned int word;
 }WLAN_FUN_INFO_STRUC, *PWLAN_FUN_INFO_STRUC;
 #else
 typedef union _WLAN_FUN_INFO_STRUC{
 	struct{
-		UINT32		COEX_MODE:5; /* WLAN function enable */
-		UINT32		Rsv1:26;
-		UINT32		BT_EEP_BUSY:1; /* Read-only for WLAN Driver */
+		unsigned int		COEX_MODE:5; /* WLAN function enable */
+		unsigned int		Rsv1:26;
+		unsigned int		BT_EEP_BUSY:1; /* Read-only for WLAN Driver */
 	}field;
-	UINT32 word;
+	unsigned int word;
 }WLAN_FUN_INFO_STRUC, *PWLAN_FUN_INFO_STRUC;
 #endif
 
@@ -324,36 +324,36 @@ typedef union _WLAN_FUN_INFO_STRUC{
 #ifdef RT_BIG_ENDIAN
 typedef union _BT_FUN_CTRL_STRUC{
 	struct{
-		UINT32		GPIO1_OUT_OE_N:8;
-		UINT32		GPIO1_OUT:8;
-		UINT32		GPIO1_IN:8;
-		UINT32		BT_ACC_WLAN:1;
-		UINT32		INV_TR_SW1:1;
-		UINT32		URXD_GPIO_MODE:1;
-		UINT32		PCIE_APP1_CLK_REQ:1;
-		UINT32		BT_RESET:1;
-		UINT32		BT_RF_EN:1;
-		UINT32		BT_CLK_EN:1;
-		UINT32		BT_EN:1;
+		unsigned int		GPIO1_OUT_OE_N:8;
+		unsigned int		GPIO1_OUT:8;
+		unsigned int		GPIO1_IN:8;
+		unsigned int		BT_ACC_WLAN:1;
+		unsigned int		INV_TR_SW1:1;
+		unsigned int		URXD_GPIO_MODE:1;
+		unsigned int		PCIE_APP1_CLK_REQ:1;
+		unsigned int		BT_RESET:1;
+		unsigned int		BT_RF_EN:1;
+		unsigned int		BT_CLK_EN:1;
+		unsigned int		BT_EN:1;
 	}field;
-	UINT32 word;
+	unsigned int word;
 }BT_FUN_CTRL_STRUC, *PBT_FUN_CTRL_STRUC;
 #else
 typedef union _BT_FUN_CTRL_STRUC	{
 	struct{
-		UINT32		BT_EN:1;
-		UINT32		BT_CLK_EN:1;
-		UINT32		BT_RF_EN:1;
-		UINT32		BT_RESET:1;
-		UINT32		PCIE_APP1_CLK_REQ:1;
-		UINT32		URXD_GPIO_MODE:1;
-		UINT32		INV_TR_SW1:1;
-		UINT32		BT_ACC_WLAN:1;
-		UINT32		GPIO1_IN:8;
-		UINT32		GPIO1_OUT:8;
-		UINT32		GPIO1_OUT_OE_N:8;
+		unsigned int		BT_EN:1;
+		unsigned int		BT_CLK_EN:1;
+		unsigned int		BT_RF_EN:1;
+		unsigned int		BT_RESET:1;
+		unsigned int		PCIE_APP1_CLK_REQ:1;
+		unsigned int		URXD_GPIO_MODE:1;
+		unsigned int		INV_TR_SW1:1;
+		unsigned int		BT_ACC_WLAN:1;
+		unsigned int		GPIO1_IN:8;
+		unsigned int		GPIO1_OUT:8;
+		unsigned int		GPIO1_OUT_OE_N:8;
 	}field;
-	UINT32 word;
+	unsigned int word;
 }BT_FUN_CTRL_STRUC, *PBT_FUN_CTRL_STRUC;
 #endif
 
@@ -362,24 +362,24 @@ typedef union _BT_FUN_CTRL_STRUC	{
 #ifdef RT_BIG_ENDIAN
 typedef union _BT_FUN_INFO_STRUC{
 	struct{
-		UINT32		WLAN_EEP_BUSY:1;
-		UINT32		BTPower1:7;	/* Peer */
-		UINT32		BTPower0:8; /* Self */
-		UINT32		AFH_END_CH:8;		
-		UINT32		AFH_START_CH:8;
+		unsigned int		WLAN_EEP_BUSY:1;
+		unsigned int		BTPower1:7;	/* Peer */
+		unsigned int		BTPower0:8; /* Self */
+		unsigned int		AFH_END_CH:8;		
+		unsigned int		AFH_START_CH:8;
 	}field;
-	UINT32 word;
+	unsigned int word;
 } BT_FUN_INFO_STRUC, *PBT_FUN_INFO_STRUC;
 #else
 typedef	union _BT_FUN_INFO_STRUC	{
 	struct{
-		UINT32		AFH_START_CH:8;
-		UINT32		AFH_END_CH:8;
-		UINT32		BTPower0:8;	/* Self */
-		UINT32		BTPower1:7;	/* Peer */
-		UINT32		WLAN_EEP_BUSY:1;			
+		unsigned int		AFH_START_CH:8;
+		unsigned int		AFH_END_CH:8;
+		unsigned int		BTPower0:8;	/* Self */
+		unsigned int		BTPower1:7;	/* Peer */
+		unsigned int		WLAN_EEP_BUSY:1;			
 	}field;
-	UINT32 word;
+	unsigned int word;
 }BT_FUN_INFO_STRUC, *PBT_FUN_INFO_STRUC;
 #endif
 
@@ -402,30 +402,30 @@ typedef struct _WLAN_BT_COEX_SETTING
 #ifdef RT_BIG_ENDIAN
 typedef union _TSO_CTRL_STRUC {
 	struct {
-		UINT32 rsv:13;
-		UINT32 TSO_WR_LEN_EN:1;
-		UINT32 TSO_SEG_EN:1;
-		UINT32 TSO_EN:1;
-		UINT32 RXWI_LEN:4;
-		UINT32 RX_L2_FIX_LEN:4;
-		UINT32 TXWI_LEN:4;
-		UINT32 TX_L2_FIX_LEN:4;
+		unsigned int rsv:13;
+		unsigned int TSO_WR_LEN_EN:1;
+		unsigned int TSO_SEG_EN:1;
+		unsigned int TSO_EN:1;
+		unsigned int RXWI_LEN:4;
+		unsigned int RX_L2_FIX_LEN:4;
+		unsigned int TXWI_LEN:4;
+		unsigned int TX_L2_FIX_LEN:4;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } TSO_CTRL_STRUC;
 #else
 typedef union _TSO_CTRL_STRUC {
 	struct {
-		UINT32 TX_L2_FIX_LEN:4;
-		UINT32 TXWI_LEN:4;
-		UINT32 RX_L2_FIX_LEN:4;
-		UINT32 RXWI_LEN:4;
-		UINT32 TSO_EN:1;
-		UINT32 TSO_SEG_EN:1;
-		UINT32 TSO_WR_LEN_EN:1;
-		UINT32 rsv:13;
+		unsigned int TX_L2_FIX_LEN:4;
+		unsigned int TXWI_LEN:4;
+		unsigned int RX_L2_FIX_LEN:4;
+		unsigned int RXWI_LEN:4;
+		unsigned int TSO_EN:1;
+		unsigned int TSO_SEG_EN:1;
+		unsigned int TSO_WR_LEN_EN:1;
+		unsigned int rsv:13;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } TSO_CTRL_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -434,26 +434,26 @@ typedef union _TSO_CTRL_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _TX_FBK_LIMIT_STRUC {
 	struct {
-		UINT32 rsv:13;
-		UINT32 TX_RATE_LUT_EN:1;
-		UINT32 TX_AMPDU_UP_CLEAR:1;
-		UINT32 TX_MPDU_UP_CLEAR:1;
-		UINT32 TX_AMPDU_FBK_LIMIT:8;
-		UINT32 TX_MPDU_FBK_LIMIT:8;
+		unsigned int rsv:13;
+		unsigned int TX_RATE_LUT_EN:1;
+		unsigned int TX_AMPDU_UP_CLEAR:1;
+		unsigned int TX_MPDU_UP_CLEAR:1;
+		unsigned int TX_AMPDU_FBK_LIMIT:8;
+		unsigned int TX_MPDU_FBK_LIMIT:8;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } TX_FBK_LIMIT_STRUC;
 #else
 typedef union _TX_FBK_LIMIT_STRUC {
 	struct {
-		UINT32 TX_MPDU_FBK_LIMIT:8;
-		UINT32 TX_AMPDU_FBK_LIMIT:8;
-		UINT32 TX_MPDU_UP_CLEAR:1;
-		UINT32 TX_AMPDU_UP_CLEAR:1;
-		UINT32 TX_RATE_LUT_EN:1;
-		UINT32 rsv:13;
+		unsigned int TX_MPDU_FBK_LIMIT:8;
+		unsigned int TX_AMPDU_FBK_LIMIT:8;
+		unsigned int TX_MPDU_UP_CLEAR:1;
+		unsigned int TX_AMPDU_UP_CLEAR:1;
+		unsigned int TX_RATE_LUT_EN:1;
+		unsigned int rsv:13;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } TX_FBK_LIMIT_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -476,38 +476,38 @@ typedef union _TX_FBK_LIMIT_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union GNU_PACKED _WIFI_INFO_STRUC {
 	struct {
-    	UINT32 More_Data:1;
-    	UINT32 WEP:1;
-    	UINT32 PS:1;
-    	UINT32 RDG:1;
-    	UINT32 QoS:1;
-    	UINT32 EOSP:1;
-    	UINT32 TID:4;
-    	UINT32 Mode:2;
-    	UINT32 VLAN:1;
-    	UINT32 Rsv:3;
-    	UINT32 BssIdx:4;
-    	UINT32 Seq_Num:12;
+    	unsigned int More_Data:1;
+    	unsigned int WEP:1;
+    	unsigned int PS:1;
+    	unsigned int RDG:1;
+    	unsigned int QoS:1;
+    	unsigned int EOSP:1;
+    	unsigned int TID:4;
+    	unsigned int Mode:2;
+    	unsigned int VLAN:1;
+    	unsigned int Rsv:3;
+    	unsigned int BssIdx:4;
+    	unsigned int Seq_Num:12;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } WIFI_INFO_STRUC, *PWIFI_INFO_STRUC;
 #else
 typedef union GNU_PACKED _WIFI_INFO_STRUC {
 	struct {
-    	UINT32 Seq_Num:12;
-    	UINT32 BssIdx:4;
-    	UINT32 Rsv:3;
-    	UINT32 VLAN:1;
-    	UINT32 Mode:2;
-    	UINT32 TID:4;
-    	UINT32 EOSP:1;
-    	UINT32 QoS:1;
-    	UINT32 RDG:1;
-    	UINT32 PS:1;
-    	UINT32 WEP:1;
-    	UINT32 More_Data:1;
+    	unsigned int Seq_Num:12;
+    	unsigned int BssIdx:4;
+    	unsigned int Rsv:3;
+    	unsigned int VLAN:1;
+    	unsigned int Mode:2;
+    	unsigned int TID:4;
+    	unsigned int EOSP:1;
+    	unsigned int QoS:1;
+    	unsigned int RDG:1;
+    	unsigned int PS:1;
+    	unsigned int WEP:1;
+    	unsigned int More_Data:1;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } WIFI_INFO_STRUC, *PWIFI_INFO_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -528,20 +528,20 @@ typedef union GNU_PACKED _WIFI_INFO_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union GNU_PACKED _HDR_TRANS_CTRL_STRUC {
 	struct {
-    	UINT32 Rsv:30;
-    	UINT32 Rx_En:1;
-    	UINT32 Tx_En:1;
+    	unsigned int Rsv:30;
+    	unsigned int Rx_En:1;
+    	unsigned int Tx_En:1;
 	} field;
-	UINT32 word;	
+	unsigned int word;	
 } HDR_TRANS_CTRL_STRUC, *PHDR_TRANS_CTRL_STRUC;
 #else
 typedef union GNU_PACKED _HDR_TRANS_CTRL_STRUC {
 	struct {
-    	UINT32 Tx_En:1;
-    	UINT32 Rx_En:1;
-    	UINT32 Rsv:30;
+    	unsigned int Tx_En:1;
+    	unsigned int Rx_En:1;
+    	unsigned int Rsv:30;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } HDR_TRANS_CTRL_STRUC, *PHDR_TRANS_CTRL_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -556,78 +556,78 @@ typedef union GNU_PACKED _HDR_TRANS_CTRL_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union GNU_PACKED _HT_RX_WCID_EN_STRUC {
 	struct {
-    	UINT32 RX_WCID31_TRAN_EN:1;
-    	UINT32 RX_WCID30_TRAN_EN:1;
-    	UINT32 RX_WCID29_TRAN_EN:1;
-    	UINT32 RX_WCID28_TRAN_EN:1;
-    	UINT32 RX_WCID27_TRAN_EN:1;
-    	UINT32 RX_WCID26_TRAN_EN:1;
-    	UINT32 RX_WCID25_TRAN_EN:1;
-    	UINT32 RX_WCID24_TRAN_EN:1;
-    	UINT32 RX_WCID23_TRAN_EN:1;
-    	UINT32 RX_WCID22_TRAN_EN:1;
-    	UINT32 RX_WCID21_TRAN_EN:1;
-    	UINT32 RX_WCID20_TRAN_EN:1;
-    	UINT32 RX_WCID19_TRAN_EN:1;
-    	UINT32 RX_WCID18_TRAN_EN:1;
-    	UINT32 RX_WCID17_TRAN_EN:1;
-    	UINT32 RX_WCID16_TRAN_EN:1;
-    	UINT32 RX_WCID15_TRAN_EN:1;
-    	UINT32 RX_WCID14_TRAN_EN:1;
-    	UINT32 RX_WCID13_TRAN_EN:1;
-    	UINT32 RX_WCID12_TRAN_EN:1;
-    	UINT32 RX_WCID11_TRAN_EN:1;
-    	UINT32 RX_WCID10_TRAN_EN:1;
-    	UINT32 RX_WCID9_TRAN_EN:1;
-    	UINT32 RX_WCID8_TRAN_EN:1;
-    	UINT32 RX_WCID7_TRAN_EN:1;
-    	UINT32 RX_WCID6_TRAN_EN:1;
-    	UINT32 RX_WCID5_TRAN_EN:1;
-    	UINT32 RX_WCID4_TRAN_EN:1;
-    	UINT32 RX_WCID3_TRAN_EN:1;
-    	UINT32 RX_WCID2_TRAN_EN:1;
-    	UINT32 RX_WCID1_TRAN_EN:1;
-    	UINT32 RX_WCID0_TRAN_EN:1;
+    	unsigned int RX_WCID31_TRAN_EN:1;
+    	unsigned int RX_WCID30_TRAN_EN:1;
+    	unsigned int RX_WCID29_TRAN_EN:1;
+    	unsigned int RX_WCID28_TRAN_EN:1;
+    	unsigned int RX_WCID27_TRAN_EN:1;
+    	unsigned int RX_WCID26_TRAN_EN:1;
+    	unsigned int RX_WCID25_TRAN_EN:1;
+    	unsigned int RX_WCID24_TRAN_EN:1;
+    	unsigned int RX_WCID23_TRAN_EN:1;
+    	unsigned int RX_WCID22_TRAN_EN:1;
+    	unsigned int RX_WCID21_TRAN_EN:1;
+    	unsigned int RX_WCID20_TRAN_EN:1;
+    	unsigned int RX_WCID19_TRAN_EN:1;
+    	unsigned int RX_WCID18_TRAN_EN:1;
+    	unsigned int RX_WCID17_TRAN_EN:1;
+    	unsigned int RX_WCID16_TRAN_EN:1;
+    	unsigned int RX_WCID15_TRAN_EN:1;
+    	unsigned int RX_WCID14_TRAN_EN:1;
+    	unsigned int RX_WCID13_TRAN_EN:1;
+    	unsigned int RX_WCID12_TRAN_EN:1;
+    	unsigned int RX_WCID11_TRAN_EN:1;
+    	unsigned int RX_WCID10_TRAN_EN:1;
+    	unsigned int RX_WCID9_TRAN_EN:1;
+    	unsigned int RX_WCID8_TRAN_EN:1;
+    	unsigned int RX_WCID7_TRAN_EN:1;
+    	unsigned int RX_WCID6_TRAN_EN:1;
+    	unsigned int RX_WCID5_TRAN_EN:1;
+    	unsigned int RX_WCID4_TRAN_EN:1;
+    	unsigned int RX_WCID3_TRAN_EN:1;
+    	unsigned int RX_WCID2_TRAN_EN:1;
+    	unsigned int RX_WCID1_TRAN_EN:1;
+    	unsigned int RX_WCID0_TRAN_EN:1;
 	} field;
-	UINT32 word;	
+	unsigned int word;	
 } HT_RX_WCID_EN_STRUC, *PHT_RX_WCID_EN_STRUC;
 #else
 typedef union GNU_PACKED _HT_RX_WCID_EN_STRUC {
 	struct {
-    	UINT32 RX_WCID0_TRAN_EN:1;
-    	UINT32 RX_WCID1_TRAN_EN:1;
-    	UINT32 RX_WCID2_TRAN_EN:1;
-    	UINT32 RX_WCID3_TRAN_EN:1;
-    	UINT32 RX_WCID4_TRAN_EN:1;
-    	UINT32 RX_WCID5_TRAN_EN:1;
-    	UINT32 RX_WCID6_TRAN_EN:1;
-    	UINT32 RX_WCID7_TRAN_EN:1;
-    	UINT32 RX_WCID8_TRAN_EN:1;
-    	UINT32 RX_WCID9_TRAN_EN:1;
-    	UINT32 RX_WCID10_TRAN_EN:1;
-    	UINT32 RX_WCID11_TRAN_EN:1;
-    	UINT32 RX_WCID12_TRAN_EN:1;
-    	UINT32 RX_WCID13_TRAN_EN:1;
-    	UINT32 RX_WCID14_TRAN_EN:1;
-    	UINT32 RX_WCID15_TRAN_EN:1;
-    	UINT32 RX_WCID16_TRAN_EN:1;
-    	UINT32 RX_WCID17_TRAN_EN:1;
-    	UINT32 RX_WCID18_TRAN_EN:1;
-    	UINT32 RX_WCID19_TRAN_EN:1;
-    	UINT32 RX_WCID20_TRAN_EN:1;
-    	UINT32 RX_WCID21_TRAN_EN:1;
-    	UINT32 RX_WCID22_TRAN_EN:1;
-    	UINT32 RX_WCID23_TRAN_EN:1;
-    	UINT32 RX_WCID24_TRAN_EN:1;
-    	UINT32 RX_WCID25_TRAN_EN:1;
-    	UINT32 RX_WCID26_TRAN_EN:1;
-    	UINT32 RX_WCID27_TRAN_EN:1;
-    	UINT32 RX_WCID28_TRAN_EN:1;
-    	UINT32 RX_WCID29_TRAN_EN:1;
-    	UINT32 RX_WCID30_TRAN_EN:1;
-    	UINT32 RX_WCID31_TRAN_EN:1;
+    	unsigned int RX_WCID0_TRAN_EN:1;
+    	unsigned int RX_WCID1_TRAN_EN:1;
+    	unsigned int RX_WCID2_TRAN_EN:1;
+    	unsigned int RX_WCID3_TRAN_EN:1;
+    	unsigned int RX_WCID4_TRAN_EN:1;
+    	unsigned int RX_WCID5_TRAN_EN:1;
+    	unsigned int RX_WCID6_TRAN_EN:1;
+    	unsigned int RX_WCID7_TRAN_EN:1;
+    	unsigned int RX_WCID8_TRAN_EN:1;
+    	unsigned int RX_WCID9_TRAN_EN:1;
+    	unsigned int RX_WCID10_TRAN_EN:1;
+    	unsigned int RX_WCID11_TRAN_EN:1;
+    	unsigned int RX_WCID12_TRAN_EN:1;
+    	unsigned int RX_WCID13_TRAN_EN:1;
+    	unsigned int RX_WCID14_TRAN_EN:1;
+    	unsigned int RX_WCID15_TRAN_EN:1;
+    	unsigned int RX_WCID16_TRAN_EN:1;
+    	unsigned int RX_WCID17_TRAN_EN:1;
+    	unsigned int RX_WCID18_TRAN_EN:1;
+    	unsigned int RX_WCID19_TRAN_EN:1;
+    	unsigned int RX_WCID20_TRAN_EN:1;
+    	unsigned int RX_WCID21_TRAN_EN:1;
+    	unsigned int RX_WCID22_TRAN_EN:1;
+    	unsigned int RX_WCID23_TRAN_EN:1;
+    	unsigned int RX_WCID24_TRAN_EN:1;
+    	unsigned int RX_WCID25_TRAN_EN:1;
+    	unsigned int RX_WCID26_TRAN_EN:1;
+    	unsigned int RX_WCID27_TRAN_EN:1;
+    	unsigned int RX_WCID28_TRAN_EN:1;
+    	unsigned int RX_WCID29_TRAN_EN:1;
+    	unsigned int RX_WCID30_TRAN_EN:1;
+    	unsigned int RX_WCID31_TRAN_EN:1;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } HT_RX_WCID_EN_STRUC, *PHT_RX_WCID_EN_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -638,18 +638,18 @@ typedef union GNU_PACKED _HT_RX_WCID_EN_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union GNU_PACKED _HT_RX_BLACK_LIST_STRUC {
 	struct {
-    	UINT32 BLACK_ETHER_TYPE1:16;
-    	UINT32 BLACK_ETHER_TYPE0:16;
+    	unsigned int BLACK_ETHER_TYPE1:16;
+    	unsigned int BLACK_ETHER_TYPE0:16;
 	} field;
-	UINT32 word;	
+	unsigned int word;	
 } HT_RX_BLACK_LIST_STRUC, *PHT_RX_BLACK_LIST_STRUC;
 #else
 typedef union GNU_PACKED _HT_RX_BLACK_LIST_STRUC {
 	struct {
-    	UINT32 BLACK_ETHER_TYPE0:16;
-    	UINT32 BLACK_ETHER_TYPE1:16;
+    	unsigned int BLACK_ETHER_TYPE0:16;
+    	unsigned int BLACK_ETHER_TYPE1:16;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } HT_RX_BLACK_LIST_STRUC, *PHT_RX_BLACK_LIST_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -660,26 +660,26 @@ typedef union GNU_PACKED _HT_RX_BLACK_LIST_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union GNU_PACKED _HT_BSS_VLAN_STRUC {
 	struct {
-    	UINT32 TCI1_VID:12;
-    	UINT32 TCI1_CFI:1;
-    	UINT32 TCI1_PCP:3;
-    	UINT32 TCI0_VID:12;
-    	UINT32 TCI0_CFI:1;
-    	UINT32 TCI0_PCP:3;
+    	unsigned int TCI1_VID:12;
+    	unsigned int TCI1_CFI:1;
+    	unsigned int TCI1_PCP:3;
+    	unsigned int TCI0_VID:12;
+    	unsigned int TCI0_CFI:1;
+    	unsigned int TCI0_PCP:3;
 	} field;
-	UINT32 word;	
+	unsigned int word;	
 } HT_BSS_VLAN_STRUC, *PHT_BSS_VLAN_STRUC;
 #else
 typedef union GNU_PACKED _HT_BSS_VLAN_STRUC {
 	struct {
-    	UINT32 TCI0_PCP:3;
-    	UINT32 TCI0_CFI:1;
-    	UINT32 TCI0_VID:12;
-    	UINT32 TCI1_PCP:3;
-    	UINT32 TCI1_CFI:1;
-    	UINT32 TCI1_VID:12;
+    	unsigned int TCI0_PCP:3;
+    	unsigned int TCI0_CFI:1;
+    	unsigned int TCI0_VID:12;
+    	unsigned int TCI1_PCP:3;
+    	unsigned int TCI1_CFI:1;
+    	unsigned int TCI1_VID:12;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } HT_BSS_VLAN_STRUC, *PHT_BSS_VLAN_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -715,22 +715,22 @@ typedef union GNU_PACKED _HT_BSS_VLAN_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _RF_MISC_STRUC{
 	struct{
-		UINT32 Rsv1:29;
-		UINT32 EXT_PA_EN:1;
-		UINT32 ADDAC_LDO_ADC9_EN:1;
-		UINT32 ADDAC_LDO_ADC6_EN:1;
+		unsigned int Rsv1:29;
+		unsigned int EXT_PA_EN:1;
+		unsigned int ADDAC_LDO_ADC9_EN:1;
+		unsigned int ADDAC_LDO_ADC6_EN:1;
 	}field;
-	UINT32 word;
+	unsigned int word;
 }RF_MISC_STRUC, *PRF_MISC_STRUC;
 #else
 typedef union _RF_MISC_STRUC{
 	struct{
-		UINT32 ADDAC_LDO_ADC6_EN:1;
-		UINT32 ADDAC_LDO_ADC9_EN:1;
-		UINT32 EXT_PA_EN:1;
-		UINT32 Rsv1:29;
+		unsigned int ADDAC_LDO_ADC6_EN:1;
+		unsigned int ADDAC_LDO_ADC9_EN:1;
+		unsigned int EXT_PA_EN:1;
+		unsigned int Rsv1:29;
 	}field;
-	UINT32 word;
+	unsigned int word;
 }RF_MISC_STRUC, *PRF_MISC_STRUC;
 #endif
 

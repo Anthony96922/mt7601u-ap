@@ -71,30 +71,30 @@
 #ifdef RT_BIG_ENDIAN
 typedef	struct GNU_PACKED _TXD_STRUC {
 	/* Word 0 */
-	UINT32		SDPtr0;
+	unsigned int		SDPtr0;
 	/* Word 1 */
-	UINT32		DMADONE:1;
-	UINT32		LastSec0:1;
-	UINT32		SDLen0:14;
-	UINT32		Burst:1;
-	UINT32		LastSec1:1;
-	UINT32		SDLen1:14;
+	unsigned int		DMADONE:1;
+	unsigned int		LastSec0:1;
+	unsigned int		SDLen0:14;
+	unsigned int		Burst:1;
+	unsigned int		LastSec1:1;
+	unsigned int		SDLen1:14;
 	/* Word 2 */
-	UINT32		SDPtr1;
+	unsigned int		SDPtr1;
 } TXD_STRUC, *PTXD_STRUC;
 #else
 typedef	struct GNU_PACKED _TXD_STRUC {
 	/* Word	0 */
-	UINT32		SDPtr0;
+	unsigned int		SDPtr0;
 	/* Word	1 */
-	UINT32		SDLen1:14;
-	UINT32		LastSec1:1;
-	UINT32		Burst:1;
-	UINT32		SDLen0:14;
-	UINT32		LastSec0:1;
-	UINT32		DMADONE:1;
+	unsigned int		SDLen1:14;
+	unsigned int		LastSec1:1;
+	unsigned int		Burst:1;
+	unsigned int		SDLen0:14;
+	unsigned int		LastSec0:1;
+	unsigned int		DMADONE:1;
 	/*Word2 */
-	UINT32		SDPtr1;
+	unsigned int		SDPtr1;
 } TXD_STRUC, *PTXD_STRUC;
 #endif
 
@@ -105,30 +105,30 @@ typedef	struct GNU_PACKED _TXD_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	struct GNU_PACKED _RXD_STRUC{
 	/* Word 0 */
-	UINT32		SDP0;
+	unsigned int		SDP0;
 	/* Word 1 */
-	UINT32		DDONE:1;
-	UINT32		LS0:1;
-	UINT32		SDL0:14;
-	UINT32		BURST:1;
-	UINT32		LS1:1;
-	UINT32		SDL1:14;
+	unsigned int		DDONE:1;
+	unsigned int		LS0:1;
+	unsigned int		SDL0:14;
+	unsigned int		BURST:1;
+	unsigned int		LS1:1;
+	unsigned int		SDL1:14;
 	/* Word 2 */
-	UINT32		SDP1;
+	unsigned int		SDP1;
 }RXD_STRUC, *PRXD_STRUC;
 #else
 typedef	struct GNU_PACKED _RXD_STRUC{
 	/* Word	0 */
-	UINT32		SDP0;
+	unsigned int		SDP0;
 	/* Word	1 */
-	UINT32		SDL1:14;
-	UINT32		LS1:1;
-	UINT32		BURST:1;
-	UINT32		SDL0:14;
-	UINT32		LS0:1;
-	UINT32		DDONE:1;
+	unsigned int		SDL1:14;
+	unsigned int		LS1:1;
+	unsigned int		BURST:1;
+	unsigned int		SDL0:14;
+	unsigned int		LS0:1;
+	unsigned int		DDONE:1;
 	/* Word	2 */
-	UINT32		SDP1;
+	unsigned int		SDP1;
 }RXD_STRUC, *PRXD_STRUC;
 #endif
 
@@ -251,7 +251,7 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 /* Insert the BA bitmap to ASIC for the Wcid entry */
 #define RTMP_ADD_BA_SESSION_TO_ASIC(_pAd, _Aid, _TID)	\
 		do{					\
-			UINT32	_Value = 0, _Offset;					\
+			unsigned int	_Value = 0, _Offset;					\
 			_Offset = MAC_WCID_BASE + (_Aid) * HW_WCID_ENTRY_SIZE + 4;	\
 			RTMP_IO_READ32((_pAd), _Offset, &_Value);\
 			_Value |= (0x10000<<(_TID));	\
@@ -263,7 +263,7 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 /*		bitmap field starts at 0x10000 in ASIC WCID table */
 #define RTMP_DEL_BA_SESSION_FROM_ASIC(_pAd, _Wcid, _TID)				\
 		do{								\
-			UINT32	_Value = 0, _Offset;				\
+			unsigned int	_Value = 0, _Offset;				\
 			_Offset = MAC_WCID_BASE + (_Wcid) * HW_WCID_ENTRY_SIZE + 4;	\
 			RTMP_IO_READ32((_pAd), _Offset, &_Value);			\
 			_Value &= (~(0x10000 << (_TID)));				\

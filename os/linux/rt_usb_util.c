@@ -389,7 +389,7 @@ VOID RtmpOsUsbEmptyUrbCheck(
 	IN	NDIS_SPIN_LOCK		*pBulkInLock,
 	IN	UCHAR				*pPendingRx)
 {
-	UINT32 i = 0;
+	unsigned int i = 0;
 	DECLARE_WAIT_QUEUE_HEAD(unlink_wakeup); 
 	DECLARE_WAITQUEUE(wait, current);
 
@@ -458,7 +458,7 @@ VOID	RtmpOsUsbInitRxDesc(
 	IN	VOID			*pUsb_Dev,
 	IN	UINT			BulkInEpAddr,
 	IN	UCHAR			*pTransferBuffer,
-	IN	UINT32			BufSize,
+	IN	unsigned int			BufSize,
 	IN	USB_COMPLETE_HANDLER	Func,
 	IN	VOID			*pRxContext,
 	IN	ra_dma_addr_t		TransferDma)
@@ -578,7 +578,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsGetUsbDevVendorID(IN VOID *pUsbDev) {
+unsigned int RtmpOsGetUsbDevVendorID(IN VOID *pUsbDev) {
 	return ((struct usb_device *) pUsbDev)->descriptor.idVendor;
 }
 
@@ -596,7 +596,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UINT32 RtmpOsGetUsbDevProductID(IN VOID *pUsbDev) {
+unsigned int RtmpOsGetUsbDevProductID(IN VOID *pUsbDev) {
 	return ((struct usb_device *) pUsbDev)->descriptor.idProduct;
 }
 

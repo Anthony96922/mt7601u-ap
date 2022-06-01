@@ -194,7 +194,7 @@ static VOID ATEWriteTxInfo(
 
 INT ATESetUpFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN UINT32 TxIdx)
+	IN unsigned int TxIdx)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	UINT pos = 0;
@@ -203,7 +203,7 @@ INT ATESetUpFrame(
 	HTTRANSMIT_SETTING	TxHTPhyMode;
 	TXWI_STRUC *pTxWI;
 	TXINFO_STRUC *pTxInfo;	
-	UINT32			TransferBufferLength, OrgBufferLength = 0;
+	unsigned int			TransferBufferLength, OrgBufferLength = 0;
 	UCHAR			padLen = 0;
 	UINT8 TXWISize = pAd->chipCap.TXWISize;
 #ifdef RALINK_QA

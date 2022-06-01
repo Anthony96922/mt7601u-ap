@@ -28,8 +28,8 @@
 
 #ifdef CONFIG_MULTI_CHANNEL
 
-UINT32 SwitchTime1, SwitchTime2, SwitchTime3, SwitchTime4, SwitchTime5, SwitchTime6, SwitchTime7, SwitchTime8;
-UINT32 TempTimeLo, TempTimeHi;
+unsigned int SwitchTime1, SwitchTime2, SwitchTime3, SwitchTime4, SwitchTime5, SwitchTime6, SwitchTime7, SwitchTime8;
+unsigned int TempTimeLo, TempTimeHi;
 
 extern INT Set_P2pCli_Enable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
@@ -55,11 +55,11 @@ VOID RtmpPrepareHwNullFrame(
 	TXINFO_STRUC *pTxInfo;
 	unsigned char * pNullFrame;
 	PHEADER_802_11 pNullFr;
-	UINT32 frameLen;
-	UINT32 totalLen;
+	unsigned int frameLen;
+	unsigned int totalLen;
 	UCHAR *ptr;
 	UINT i;
-	UINT32 longValue;
+	unsigned int longValue;
 	UCHAR MlmeRate;
 
 #ifdef RT_BIG_ENDIAN
@@ -164,11 +164,11 @@ VOID RTMPHwSendNullFrame(
 	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
 	UCHAR *ptr;
-	UINT32 longValue;
+	unsigned int longValue;
 #ifdef RT_BIG_ENDIAN
 	unsigned char * pNullFrame;
 #endif /* RT_BIG_ENDIAN */
-	UINT32 Data = 0;
+	unsigned int Data = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s - Send NULL Frame @%d Mbps...%d \n", __FUNCTION__, RateIdToMbps[pAd->CommonCfg.TxRate],PwrMgmt));
 
@@ -359,10 +359,10 @@ static VOID MACBuffer_Change(
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	PAPCLI_STRUCT pApCliEntry = NULL;
 	UINT i = 0;
-	UINT32 MacValue, Data, Data2;
+	unsigned int MacValue, Data, Data2;
 	INT ret;
-	UINT32 MTxCycle;
-	UINT32 TimeStamp;
+	unsigned int MTxCycle;
+	unsigned int TimeStamp;
 	BOOLEAN bBlockIn2Out=FALSE;
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
 	INT ext_ch;
@@ -558,7 +558,7 @@ static VOID ProcessEDCAToHCCA(
 
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
 
-	UINT32 Data;
+	unsigned int Data;
 
 	if ((pApCliEntry->Valid) && INFRA_ON(pAd))
 	{
@@ -571,11 +571,11 @@ static VOID ProcessEDCAToHCCA(
 static VOID ProcessHCCAToEDCA(
     PRTMP_ADAPTER pAd)
 {
-	UINT32 MacValue;
-	UINT32 i = 0;
+	unsigned int MacValue;
+	unsigned int i = 0;
 	INT ret;
 	BOOLEAN bBlockIn2Out=FALSE;
-	UINT32 Data;
+	unsigned int Data;
 	
 	if (!P2P_INF_ON(pAd) && !P2P_GO_ON(pAd))
 	{
@@ -758,9 +758,9 @@ VOID MultiChannelSwitchToRa(
 
 //	MACBuffer_Change(pAd,TRUE, FALSE);
 	MAC_TABLE_ENTRY *pEntry = NULL;
-	UINT32 MacValue, Data, Data2;
+	unsigned int MacValue, Data, Data2;
 	INT ret,i;
-	UINT32 MTxCycle;
+	unsigned int MTxCycle;
 	BOOLEAN bBlockIn2Out=FALSE;
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
 
@@ -872,9 +872,9 @@ VOID MultiChannelSwitchToP2P(
 
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	UINT i = 0;
-	UINT32 MacValue, Data, Data2;
+	unsigned int MacValue, Data, Data2;
 	INT ret;
-	UINT32 MTxCycle;
+	unsigned int MTxCycle;
 	BOOLEAN bBlockIn2Out=FALSE;
 
 

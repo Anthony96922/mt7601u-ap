@@ -108,7 +108,7 @@ NDIS_STATUS RTEnqueueInternalCmd(
 	IN PRTMP_ADAPTER	pAd,
 	IN NDIS_OID			Oid,
 	IN void *			pInformationBuffer,
-	IN UINT32			InformationBufferLength)
+	IN unsigned int			InformationBufferLength)
 {
 	NDIS_STATUS	status;
 	PCmdQElmt	cmdqelmt = NULL;

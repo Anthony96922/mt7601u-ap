@@ -32,7 +32,7 @@ NDIS_STATUS TXSTOP(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UINT32			MacData=0, atemode=0;
+	unsigned int			MacData=0, atemode=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	UCHAR			BbpData = 0;
 
@@ -140,7 +140,7 @@ NDIS_STATUS RXSTOP(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UINT32			MacData=0;
+	unsigned int			MacData=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
@@ -194,7 +194,7 @@ NDIS_STATUS RXSTOP(
 
 static VOID memcpy_exl(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, ULONG len)
 {
-	UINT32 i, Value = 0;
+	unsigned int i, Value = 0;
 	UCHAR *pDst = NULL, *pSrc = NULL;
 	
 	for (i = 0 ; i < (len >> 2); i++)
@@ -245,9 +245,9 @@ static VOID memcpy_exs(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, ULONG len)
 }
 
 
-static VOID RTMP_IO_READ_BULK(PRTMP_ADAPTER pAd, UCHAR *dst, UINT32 offset, UINT32 len)
+static VOID RTMP_IO_READ_BULK(PRTMP_ADAPTER pAd, UCHAR *dst, unsigned int offset, unsigned int len)
 {
-	UINT32 i, Value = 0;
+	unsigned int i, Value = 0;
 	UCHAR *pDst;
 
 	for (i = 0 ; i < (len >> 2); i++)
@@ -658,7 +658,7 @@ static  INT DO_RACFG_CMD_RF_WRITE_ALL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	UINT32 R1, R2, R3, R4;
+	unsigned int R1, R2, R3, R4;
 	USHORT channel;
 	
 	memcpy(&R1, pRaCfg->data-2, 4);
@@ -762,8 +762,8 @@ static  INT DO_RACFG_CMD_IO_READ(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	UINT32	offset;
-	UINT32	value;
+	unsigned int	offset;
+	unsigned int	value;
 	
 	memcpy(&offset, &pRaCfg->status, 4);
 	offset = OS_NTOHL(offset);
@@ -790,7 +790,7 @@ static  INT DO_RACFG_CMD_IO_WRITE(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	UINT32	offset, value;
+	unsigned int	offset, value;
 					
 	memcpy(&offset, pRaCfg->data-2, 4);
 	memcpy(&value, pRaCfg->data+2, 4);
@@ -817,7 +817,7 @@ static  INT DO_RACFG_CMD_IO_READ_BULK(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	UINT32	offset;
+	unsigned int	offset;
 	USHORT	len;
 	
 	memcpy(&offset, &pRaCfg->status, 4);
@@ -1099,7 +1099,7 @@ static  INT DO_RACFG_CMD_GET_TX_STATUS(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UINT32 count=0;
+	unsigned int count=0;
 	
 	count = OS_HTONL(pATEInfo->TxDoneCount);
 	NdisMoveMemory(pRaCfg->data, &count, 4);
@@ -1683,7 +1683,7 @@ static  INT DO_RACFG_CMD_ATE_IO_WRITE_BULK(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	UINT32 offset, pos, value;
+	unsigned int offset, pos, value;
 	USHORT len;
 	
 	memcpy(&offset, &pRaCfg->status, 4);
@@ -1934,7 +1934,7 @@ static INT32 DO_RACFG_CMD_ATE_SHOW_PARAM(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	INT32 Status = NDIS_STATUS_SUCCESS;
-	UINT32 Len;
+	unsigned int Len;
 	ATE_EX_PARAM ATEExParam;
 	
 	ATEExParam.mode = pATEInfo->Mode;
@@ -2152,7 +2152,7 @@ static INT32 RACfgCMDHandler(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	INT32 Status = NDIS_STATUS_SUCCESS;
 	USHORT Command_Id;
-	UINT32 TableIndex = 0;
+	unsigned int TableIndex = 0;
 
 	Command_Id = OS_NTOHS(pRaCfg->command_id);
 	DBGPRINT(RT_DEBUG_TRACE,("\n%s: Command_Id = 0x%04x !\n", __FUNCTION__, Command_Id));
@@ -2223,7 +2223,7 @@ INT RtmpDoAte(
 {
 	INT32 Status = NDIS_STATUS_SUCCESS;
 	struct ate_racfghdr *pRaCfg;
-	UINT32 ATEMagicNum;
+	unsigned int ATEMagicNum;
 
 	os_alloc_mem_suspend(pAd, (UCHAR **)&pRaCfg, sizeof(struct ate_racfghdr));
 
@@ -2447,7 +2447,7 @@ INT Set_RFWrite_Proc(
 	IN	char *			arg)
 {
 	char * p2, p3, p4;
-	UINT32 R1, R2, R3, R4;
+	unsigned int R1, R2, R3, R4;
 	
 	p2 = arg;
 

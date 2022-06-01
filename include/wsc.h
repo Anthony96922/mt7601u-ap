@@ -110,8 +110,8 @@ static inline BOOLEAN WscCheckWSCHeader(
 #define WSC_HDR_BTN_CHECK_PERIOD	MLME_TASK_EXEC_INTV /* unit: ms, check pin every 100ms */
 #define WSC_HDR_BTN_PRESS_TIME		2000	/* unit: ms, press button for 2s */
 #define WSC_HDR_BTN_CONT_TIMES		(WSC_HDR_BTN_PRESS_TIME/WSC_HDR_BTN_CHECK_PERIOD)
-#define WSC_HDR_BTN_GPIO_0			((UINT32)0x00000001) /* bit 0 for RT2860/RT2870 */
-#define WSC_HDR_BTN_GPIO_3			((UINT32)0x00000008) /* bit 3 for RT2860/RT2870 */
+#define WSC_HDR_BTN_GPIO_0			((unsigned int)0x00000001) /* bit 0 for RT2860/RT2870 */
+#define WSC_HDR_BTN_GPIO_3			((unsigned int)0x00000008) /* bit 3 for RT2860/RT2870 */
 
 /* bit7: WPS PBC (0:off, 1:on) */
 #define WSC_HDR_BTN_MR_HDR_SUPPORT_SET(__pAd, __FlgIsSup)	\
@@ -129,7 +129,7 @@ static inline BOOLEAN WscCheckWSCHeader(
 /* currently only for RT2860 & RT2870 */
 #define WSC_HDR_BTN_MR_PRESS_FLG_GET(__pAd, __FlgIsPressed)				\
 	{																	\
-		UINT32 __gpio_value, mask;											\
+		unsigned int __gpio_value, mask;											\
 		RTMP_IO_READ32(__pAd, GPIO_CTRL_CFG, (&__gpio_value));			\
 		if (RTMP_TEST_MORE_FLAG(__pAd, fRTMP_ADAPTER_WSC_PBC_PIN0))		\
 			mask = WSC_HDR_BTN_GPIO_0;									\
@@ -387,7 +387,7 @@ static inline BOOLEAN WscCheckWSCHeader(
 #define MAX_2ND_DEV_TYPE_LIST_BUFFER	(1+(8*MAX_2ND_DEV_TYPE_LIST))
 
 typedef struct _WSC_UUID_T{
-	UINT32 timeLow;
+	unsigned int timeLow;
 	UINT16 timeMid;
 	UINT16 timeHi_Version;
 	UCHAR  clockSeqHi_Var;

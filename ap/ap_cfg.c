@@ -4763,7 +4763,7 @@ INT	Set_AP_PMKCachePeriod_Proc(
 {
 	POS_COOKIE 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		apidx = pObj->ioctl_if;
-	UINT32 val = simple_strtol(arg, 0, 10);
+	unsigned int val = simple_strtol(arg, 0, 10);
 
 	pAd->ApCfg.MBSSID[apidx].PMKCachePeriod = val * 60 * OS_HZ;
 
@@ -5574,7 +5574,7 @@ INT	Show_StaCount_Proc(
 {
 #ifdef DBG
 	INT i;/*, QueIdx=0; */
-    	UINT32 RegValue;
+    	unsigned int RegValue;
 
 	RTMP_IO_READ32(pAd, BKOFF_SLOT_CFG, &RegValue);
 	printk("BackOff Slot      : %s slot time, BKOFF_SLOT_CFG(0x1104) = 0x%08x\n", 
@@ -6355,7 +6355,7 @@ VOID RTMPIoctlStaticWepCopy(
 	}
 	else
 	{
-		UINT32 len;
+		unsigned int len;
 
 		len = copy_from_user(&MacAddr, wrq->u.data.pointer, wrq->u.data.length);
 		pEntry = MacTableLookup(pAd, MacAddr);
@@ -6451,7 +6451,7 @@ VOID RTMPAPIoctlBBP32(
 {
 	char *				this_char;
 	char *				value;
-	UINT32				regBBP = 0;
+	unsigned int				regBBP = 0;
 	char *				mpool, msg; /*msg[2048]; */
 	char *				arg; /*arg[255]; */
 	char *				ptr;
@@ -6561,7 +6561,7 @@ VOID RTMPAPIoctlBBP32(
 			{RXFE_R0,	RXFE_R4},
 			{RXO_R13,	RXO_R29},
 		};
-		UINT32 reg, i;
+		unsigned int reg, i;
 		
 		memset(msg, 0x00, MAX_BBP_MSG_SIZE * 2);
 		sprintf(msg, "\n");
@@ -6804,7 +6804,7 @@ VOID RTMPAPIoctlBBP(
 
 	if (!bAllowDump)
 	{
-		DBGPRINT(RT_DEBUG_ERROR, ("Dump BBP msg[%d]=\n", (UINT32)strlen(msg)));
+		DBGPRINT(RT_DEBUG_ERROR, ("Dump BBP msg[%d]=\n", (unsigned int)strlen(msg)));
 		DBGPRINT(RT_DEBUG_OFF, ("%s\n", msg));
 	}
 
@@ -6840,10 +6840,10 @@ VOID RTMPAPIoctlMAC(
 	INT j = 0, k = 0;
 	char * mpool, msg;
 	char * arg, ptr;
-	UINT32 macAddr = 0;
+	unsigned int macAddr = 0;
 	UCHAR temp[16];
 	STRING temp2[16];
-	UINT32 macValue;
+	unsigned int macValue;
 	BOOLEAN bIsPrintAllMAC = FALSE, bFromUI;
 
 
@@ -7010,9 +7010,9 @@ VOID RTMPAPIoctlMAC(
 #ifdef LINUX
 	if (bIsPrintAllMAC)
 	{
-		UINT32 *pBufMac = NULL, *pBuf;
-		UINT32 AddrStart = 0x1000, AddrEnd = 0x1800;
-		UINT32 IdAddr;
+		unsigned int *pBufMac = NULL, *pBuf;
+		unsigned int AddrStart = 0x1000, AddrEnd = 0x1800;
+		unsigned int IdAddr;
 
 #if defined(RT65xx) || defined(MT7601)
 		if (IS_RT65XX(pAd) || IS_MT7601(pAd))
@@ -7444,7 +7444,7 @@ VOID RTMPIoctlStatistics(
     			PMAC_TABLE_ENTRY pEntry = &(pAd->MacTab.Content[i]);
     			if (IS_ENTRY_CLIENT(pEntry) && pEntry->Sst==SST_ASSOC)
 				{
-					UINT32 lastRxRate = pEntry->LastRxRate;
+					unsigned int lastRxRate = pEntry->LastRxRate;
 #ifndef RT65xx
 					sprintf(msg+strlen(msg), "Last RX Rate                    = MCS %d, %2dM, %cGI, %s%s\n",
 							lastRxRate & 0x7F,  ((lastRxRate>>7) & 0x1)? 40: 20,
@@ -9898,7 +9898,7 @@ INT	Set_OwnIPAddr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UINT32		ip_addr;
+	unsigned int		ip_addr;
 
 	if (rtinet_aton(arg, &ip_addr))
  	{
@@ -9959,7 +9959,7 @@ INT	Set_RADIUS_Server_Proc(
 	UCHAR	    apidx = pObj->ioctl_if;
 	char *		macptr;	
 	INT			count;
-	UINT32		ip_addr;
+	unsigned int		ip_addr;
 	INT			srv_cnt = 0;
 
 	for (count = 0, macptr = rstrtok(arg,";"); (macptr && count < MAX_RADIUS_SRV_NUM); macptr = rstrtok(NULL,";"), count++) 
@@ -9998,7 +9998,7 @@ INT	Set_RADIUS_Port_Proc(
 		{
 			PRADIUS_SRV_INFO pSrvInfo = &pAd->ApCfg.MBSSID[apidx].radius_srv_info[srv_cnt];
 			
-        	pSrvInfo->radius_port = (UINT32) simple_strtol(macptr, 0, 10); 
+        	pSrvInfo->radius_port = (unsigned int) simple_strtol(macptr, 0, 10); 
 			srv_cnt ++;
 			DBGPRINT(RT_DEBUG_TRACE, ("IF(ra%d), radius_port(seq-%d)=%d\n", 
 									  apidx, srv_cnt, pSrvInfo->radius_port));
@@ -10617,7 +10617,7 @@ INT	Show_MbssInfo_Display_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	UINT32 IdBss;
+	unsigned int IdBss;
 	UCHAR PhyMode;
 
 
@@ -11077,7 +11077,7 @@ INT RTMP_AP_IoctlHandle(
 
 			RtmpDrvMaxRateGet(pAd, HtPhyMode.field.MODE, HtPhyMode.field.ShortGI,
 							HtPhyMode.field.BW, HtPhyMode.field.MCS,
-							(UINT32 *)&pRate->BitRate);
+							(unsigned int *)&pRate->BitRate);
 		}
 			break;
 
@@ -11113,7 +11113,7 @@ INT	Set_TestTxFrameProc(
 {
 	LONG	WirelessMode;
 	PMAC_TABLE_ENTRY	pMacEntry = NULL;
-	UINT32 	Value1 = 0;
+	unsigned int 	Value1 = 0;
 	UCHAR	tempMAC[MAC_ADDR_LEN] = {0x00,0x11,0x22,0x33,0x44,0x55};
 
 	WirelessMode = simple_strtol(arg, 0, 10);
@@ -11320,7 +11320,7 @@ INT	Set_TestTxFrame1Proc(
 	UCHAR	tempMAC[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0xb8};
 	char *	value;
 	INT	i;
-	UINT32 	Value1 = 0;
+	unsigned int 	Value1 = 0;
 
 	RTMP_IO_READ32(pAd, MAC_SYS_CTRL, &Value1);
 	if (Value1 == 0x2c)
@@ -11741,8 +11741,8 @@ INT Set_DumpBeaconBuffer_Proc(
 	IN char *			arg)
 {
 	LONG count;
-	UINT32 IdMac;
-	UINT32 macValue;
+	unsigned int IdMac;
+	unsigned int macValue;
 
 	count = simple_strtol(arg, 0, 10);
 

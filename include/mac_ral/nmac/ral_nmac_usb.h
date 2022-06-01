@@ -29,66 +29,66 @@
 #ifdef RT_BIG_ENDIAN
 typedef union _CMB_CTRL_STRUC{
 	struct{
-		UINT32       	LDO0_EN:1;
-		UINT32       	LDO3_EN:1;
-		UINT32       	LDO_BGSEL:2;
-		UINT32       	LDO_CORE_LEVEL:4;
-		UINT32       	PLL_LD:1;
-		UINT32       	XTAL_RDY:1;
-		UINT32       	Rsv:2;
-		UINT32		LDO25_FRC_ON:1;//4      
-		UINT32		LDO25_LARGEA:1;
-		UINT32		LDO25_LEVEL:2;
-		UINT32		AUX_OPT_Bit15_Two_AntennaMode:1;
-		UINT32		AUX_OPT_Bit14_TRSW1_as_GPIO:1;
-		UINT32		AUX_OPT_Bit13_GPIO7_as_GPIO:1;
-		UINT32		AUX_OPT_Bit12_TRSW0_as_WLAN_ANT_SEL:1;
-		UINT32		AUX_OPT_Bit11_Rsv:1;
-		UINT32		AUX_OPT_Bit10_NotSwap_WL_LED_ACT_RDY:1;
-		UINT32		AUX_OPT_Bit9_GPIO3_as_GPIO:1;
-		UINT32		AUX_OPT_Bit8_AuxPower_Exists:1;
-		UINT32		AUX_OPT_Bit7_KeepInterfaceClk:1;
-		UINT32		AUX_OPT_Bit6_KeepXtal_On:1;
-		UINT32		AUX_OPT_Bit5_RemovePCIePhyClk_BTOff:1;
-		UINT32		AUX_OPT_Bit4_RemovePCIePhyClk_WLANOff:1;
-		UINT32		AUX_OPT_Bit3_PLLOn_L1:1;
-		UINT32		AUX_OPT_Bit2_PCIeCoreClkOn_L1:1;
-		UINT32		AUX_OPT_Bit1_PCIePhyClkOn_L1:1;	
-		UINT32		AUX_OPT_Bit0_InterfaceClk_40Mhz:1;
+		unsigned int       	LDO0_EN:1;
+		unsigned int       	LDO3_EN:1;
+		unsigned int       	LDO_BGSEL:2;
+		unsigned int       	LDO_CORE_LEVEL:4;
+		unsigned int       	PLL_LD:1;
+		unsigned int       	XTAL_RDY:1;
+		unsigned int       	Rsv:2;
+		unsigned int		LDO25_FRC_ON:1;//4      
+		unsigned int		LDO25_LARGEA:1;
+		unsigned int		LDO25_LEVEL:2;
+		unsigned int		AUX_OPT_Bit15_Two_AntennaMode:1;
+		unsigned int		AUX_OPT_Bit14_TRSW1_as_GPIO:1;
+		unsigned int		AUX_OPT_Bit13_GPIO7_as_GPIO:1;
+		unsigned int		AUX_OPT_Bit12_TRSW0_as_WLAN_ANT_SEL:1;
+		unsigned int		AUX_OPT_Bit11_Rsv:1;
+		unsigned int		AUX_OPT_Bit10_NotSwap_WL_LED_ACT_RDY:1;
+		unsigned int		AUX_OPT_Bit9_GPIO3_as_GPIO:1;
+		unsigned int		AUX_OPT_Bit8_AuxPower_Exists:1;
+		unsigned int		AUX_OPT_Bit7_KeepInterfaceClk:1;
+		unsigned int		AUX_OPT_Bit6_KeepXtal_On:1;
+		unsigned int		AUX_OPT_Bit5_RemovePCIePhyClk_BTOff:1;
+		unsigned int		AUX_OPT_Bit4_RemovePCIePhyClk_WLANOff:1;
+		unsigned int		AUX_OPT_Bit3_PLLOn_L1:1;
+		unsigned int		AUX_OPT_Bit2_PCIeCoreClkOn_L1:1;
+		unsigned int		AUX_OPT_Bit1_PCIePhyClkOn_L1:1;	
+		unsigned int		AUX_OPT_Bit0_InterfaceClk_40Mhz:1;
 	}field;
-	UINT32 word;
+	unsigned int word;
 }CMB_CTRL_STRUC, *PCMB_CTRL_STRUC;
 #else
 typedef union _CMB_CTRL_STRUC{
 	struct{
-		UINT32		AUX_OPT_Bit0_InterfaceClk_40Mhz:1;
-		UINT32		AUX_OPT_Bit1_PCIePhyClkOn_L1:1;	
-		UINT32		AUX_OPT_Bit2_PCIeCoreClkOn_L1:1;
-		UINT32		AUX_OPT_Bit3_PLLOn_L1:1;
-		UINT32		AUX_OPT_Bit4_RemovePCIePhyClk_WLANOff:1;
-		UINT32		AUX_OPT_Bit5_RemovePCIePhyClk_BTOff:1;
-		UINT32		AUX_OPT_Bit6_KeepXtal_On:1;
-		UINT32		AUX_OPT_Bit7_KeepInterfaceClk:1;
-		UINT32		AUX_OPT_Bit8_AuxPower_Exists:1;
-		UINT32		AUX_OPT_Bit9_GPIO3_as_GPIO:1;
-		UINT32		AUX_OPT_Bit10_NotSwap_WL_LED_ACT_RDY:1;	
-		UINT32		AUX_OPT_Bit11_Rsv:1;
-		UINT32		AUX_OPT_Bit12_TRSW0_as_WLAN_ANT_SEL:1;
-		UINT32		AUX_OPT_Bit13_GPIO7_as_GPIO:1;
-		UINT32		AUX_OPT_Bit14_TRSW1_as_GPIO:1;
-		UINT32		AUX_OPT_Bit15_Two_AntennaMode:1;
-		UINT32		LDO25_LEVEL:2;
-		UINT32		LDO25_LARGEA:1;
-		UINT32		LDO25_FRC_ON:1;//4      
-		UINT32       	Rsv:2;
-		UINT32       	XTAL_RDY:1;
-		UINT32       	PLL_LD:1;
-		UINT32       	LDO_CORE_LEVEL:4;
-		UINT32       	LDO_BGSEL:2;
-		UINT32       	LDO3_EN:1;
-		UINT32       	LDO0_EN:1;
+		unsigned int		AUX_OPT_Bit0_InterfaceClk_40Mhz:1;
+		unsigned int		AUX_OPT_Bit1_PCIePhyClkOn_L1:1;	
+		unsigned int		AUX_OPT_Bit2_PCIeCoreClkOn_L1:1;
+		unsigned int		AUX_OPT_Bit3_PLLOn_L1:1;
+		unsigned int		AUX_OPT_Bit4_RemovePCIePhyClk_WLANOff:1;
+		unsigned int		AUX_OPT_Bit5_RemovePCIePhyClk_BTOff:1;
+		unsigned int		AUX_OPT_Bit6_KeepXtal_On:1;
+		unsigned int		AUX_OPT_Bit7_KeepInterfaceClk:1;
+		unsigned int		AUX_OPT_Bit8_AuxPower_Exists:1;
+		unsigned int		AUX_OPT_Bit9_GPIO3_as_GPIO:1;
+		unsigned int		AUX_OPT_Bit10_NotSwap_WL_LED_ACT_RDY:1;	
+		unsigned int		AUX_OPT_Bit11_Rsv:1;
+		unsigned int		AUX_OPT_Bit12_TRSW0_as_WLAN_ANT_SEL:1;
+		unsigned int		AUX_OPT_Bit13_GPIO7_as_GPIO:1;
+		unsigned int		AUX_OPT_Bit14_TRSW1_as_GPIO:1;
+		unsigned int		AUX_OPT_Bit15_Two_AntennaMode:1;
+		unsigned int		LDO25_LEVEL:2;
+		unsigned int		LDO25_LARGEA:1;
+		unsigned int		LDO25_FRC_ON:1;//4      
+		unsigned int       	Rsv:2;
+		unsigned int       	XTAL_RDY:1;
+		unsigned int       	PLL_LD:1;
+		unsigned int       	LDO_CORE_LEVEL:4;
+		unsigned int       	LDO_BGSEL:2;
+		unsigned int       	LDO3_EN:1;
+		unsigned int       	LDO0_EN:1;
 	}field;
-	UINT32 word;
+	unsigned int word;
 }CMB_CTRL_STRUC, *PCMB_CTRL_STRUC;
 #endif
 
@@ -99,44 +99,44 @@ typedef union _CMB_CTRL_STRUC{
 #ifdef RT_BIG_ENDIAN
 typedef	union _USB_DMA_CFG_STRUC {
 	struct {
-		UINT32 TxBusy:1;   	/*USB DMA TX FSM busy. debug only */
-		UINT32 RxBusy:1;        /*USB DMA RX FSM busy. debug only */
-		UINT32 EpoutValid:3;        /*OUT endpoint data valid. debug only */
-		UINT32 rsv3:1;		
-		UINT32 UDMA_RX_WL_DROP:1; /* Drop current WL RX packets in UDMA */
-		UINT32 rsv2:1;
-		UINT32 TxBulkEn:1;        /*Enable USB DMA Tx */
-		UINT32 RxBulkEn:1;        /*Enable USB DMA Rx */
-		UINT32 RxBulkAggEn:1;        /*Enable Rx Bulk Aggregation */
-		UINT32 TxopHalt:1;        /*Halt TXOP count down when TX buffer is full. */
-		UINT32 TxClear:1;        /*Clear USB DMA TX path */
-		UINT32 rsv1:2;        
-		UINT32 phyclear:1;        		/*phy watch dog enable. write 1 */
-		UINT32 RxBulkAggLmt:8;        /*Rx Bulk Aggregation Limit  in unit of 1024 bytes */
-		UINT32 RxBulkAggTOut:8;        /*Rx Bulk Aggregation TimeOut  in unit of 33ns */
+		unsigned int TxBusy:1;   	/*USB DMA TX FSM busy. debug only */
+		unsigned int RxBusy:1;        /*USB DMA RX FSM busy. debug only */
+		unsigned int EpoutValid:3;        /*OUT endpoint data valid. debug only */
+		unsigned int rsv3:1;		
+		unsigned int UDMA_RX_WL_DROP:1; /* Drop current WL RX packets in UDMA */
+		unsigned int rsv2:1;
+		unsigned int TxBulkEn:1;        /*Enable USB DMA Tx */
+		unsigned int RxBulkEn:1;        /*Enable USB DMA Rx */
+		unsigned int RxBulkAggEn:1;        /*Enable Rx Bulk Aggregation */
+		unsigned int TxopHalt:1;        /*Halt TXOP count down when TX buffer is full. */
+		unsigned int TxClear:1;        /*Clear USB DMA TX path */
+		unsigned int rsv1:2;        
+		unsigned int phyclear:1;        		/*phy watch dog enable. write 1 */
+		unsigned int RxBulkAggLmt:8;        /*Rx Bulk Aggregation Limit  in unit of 1024 bytes */
+		unsigned int RxBulkAggTOut:8;        /*Rx Bulk Aggregation TimeOut  in unit of 33ns */
 	} field;
-	UINT32 word;
+	unsigned int word;
 } USB_DMA_CFG_STRUC, *PUSB_DMA_CFG_STRUC;
 #else
 typedef	union _USB_DMA_CFG_STRUC {
 	struct {
-		UINT32 RxBulkAggTOut:8;        /*Rx Bulk Aggregation TimeOut  in unit of 33ns */
-		UINT32 RxBulkAggLmt:8;        /*Rx Bulk Aggregation Limit  in unit of 256 bytes */
-		UINT32 phyclear:1;        		/*phy watch dog enable. write 1 */
-		UINT32 rsv1:2;
-		UINT32 TxClear:1;        /*Clear USB DMA TX path */
-		UINT32 TxopHalt:1;        /*Halt TXOP count down when TX buffer is full. */
-		UINT32 RxBulkAggEn:1;        /*Enable Rx Bulk Aggregation */
-		UINT32 RxBulkEn:1;        /*Enable USB DMA Rx */
-		UINT32 TxBulkEn:1;        /*Enable USB DMA Tx */
-		UINT32 rsv2:1;
-		UINT32 UDMA_RX_WL_DROP:1; /* Drop current WL RX packets in UDMA */
-		UINT32 rsv3:1;		
-		UINT32 EpoutValid:3;        /*OUT endpoint data valid */
-		UINT32 RxBusy:1;        /*USB DMA RX FSM busy */
-		UINT32 TxBusy:1;   	/*USB DMA TX FSM busy */
+		unsigned int RxBulkAggTOut:8;        /*Rx Bulk Aggregation TimeOut  in unit of 33ns */
+		unsigned int RxBulkAggLmt:8;        /*Rx Bulk Aggregation Limit  in unit of 256 bytes */
+		unsigned int phyclear:1;        		/*phy watch dog enable. write 1 */
+		unsigned int rsv1:2;
+		unsigned int TxClear:1;        /*Clear USB DMA TX path */
+		unsigned int TxopHalt:1;        /*Halt TXOP count down when TX buffer is full. */
+		unsigned int RxBulkAggEn:1;        /*Enable Rx Bulk Aggregation */
+		unsigned int RxBulkEn:1;        /*Enable USB DMA Rx */
+		unsigned int TxBulkEn:1;        /*Enable USB DMA Tx */
+		unsigned int rsv2:1;
+		unsigned int UDMA_RX_WL_DROP:1; /* Drop current WL RX packets in UDMA */
+		unsigned int rsv3:1;		
+		unsigned int EpoutValid:3;        /*OUT endpoint data valid */
+		unsigned int RxBusy:1;        /*USB DMA RX FSM busy */
+		unsigned int TxBusy:1;   	/*USB DMA TX FSM busy */
 	} field;
-	UINT32 word;
+	unsigned int word;
 } USB_DMA_CFG_STRUC, *PUSB_DMA_CFG_STRUC;
 #endif
 

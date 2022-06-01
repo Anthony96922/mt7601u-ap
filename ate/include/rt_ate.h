@@ -57,12 +57,12 @@ typedef struct _ATE_CHIP_STRUCT {
 typedef union _CAPTURE_MODE_SHARE_MEMORY {
 	struct 
 	{
-		UINT32       LOW_BYTE0:8;
-		UINT32       LOW_BYTE1:8;
-		UINT32       HIGH_BYTE0:8;
-		UINT32       HIGH_BYTE1:8;
+		unsigned int       LOW_BYTE0:8;
+		unsigned int       LOW_BYTE1:8;
+		unsigned int       HIGH_BYTE0:8;
+		unsigned int       HIGH_BYTE1:8;
 	} field;
-	UINT32                   Value;
+	unsigned int                   Value;
 }CAPTURE_MODE_SHARE_MEMORY, *PCAPTURE_MODE_SHARE_MEMORY;
 
 typedef struct _ATE_INFO {
@@ -89,11 +89,11 @@ typedef struct _ATE_INFO {
 	UCHAR Channel;
 	UCHAR Payload;		/* Payload pattern */
 	UCHAR TxMethod; /* Early chipsets must be applied old TXCONT/TXCARR/TXCARS mechanism. */
-	UINT32 TxLength;
-	UINT32 TxCount;
-	UINT32 TxDoneCount;	/* Tx DMA Done */
-	UINT32 RFFreqOffset;
-	UINT32 IPG;
+	unsigned int TxLength;
+	unsigned int TxCount;
+	unsigned int TxDoneCount;	/* Tx DMA Done */
+	unsigned int RFFreqOffset;
+	unsigned int IPG;
 	BOOLEAN bRxFER;		/* Show Rx Frame Error Rate */
 	BOOLEAN	bQAEnabled;	/* QA is used. */
 	BOOLEAN bQATxStart;	/* Have compiled QA in and use it to ATE tx. */
@@ -111,8 +111,8 @@ typedef struct _ATE_INFO {
 	SHORT	txSoundingMode;	/* Sounding mode for non-QA ATE. 0=none, 1=Data Sounding, 2=NDP */
 	UCHAR	calParams[2];
 #endif				/* TXBF_SUPPORT */
-	UINT32 RxTotalCnt;
-	UINT32 RxCntPerSec;
+	unsigned int RxTotalCnt;
+	unsigned int RxCntPerSec;
 	UCHAR	forceBBPReg;	/* force to not update the specific BBP register, now used for ATE TxBF */
 
 	CHAR LastSNR0;		/* last received SNR */
@@ -129,7 +129,7 @@ typedef struct _ATE_INFO {
 	SHORT AvgRssi0X8;	/* sum of last 8 frames' RSSI */
 	SHORT AvgRssi1X8;	/* sum of last 8 frames' RSSI */
 	SHORT AvgRssi2X8;	/* sum of last 8 frames' RSSI */
-	UINT32 NumOfAvgRssiSample;
+	unsigned int NumOfAvgRssiSample;
 	USHORT HLen;		/* Header Length */
 
 #ifdef RALINK_QA
@@ -142,26 +142,26 @@ typedef struct _ATE_INFO {
 	UCHAR Pattern[32];	/* Pattern buffer */
 	USHORT DLen;		/* Data Length */
 	USHORT seq;
-	UINT32 CID;
+	unsigned int CID;
 	RTMP_OS_PID AtePid;
 	/* counters */
-	UINT32 U2M;
-	UINT32 OtherData;
-	UINT32 Beacon;
-	UINT32 OtherCount;
-	UINT32 TxAc0;
-	UINT32 TxAc1;
-	UINT32 TxAc2;
-	UINT32 TxAc3;
-	UINT32 TxHCCA;
-	UINT32 TxMgmt;
-	UINT32 RSSI0;
-	UINT32 RSSI1;
-	UINT32 RSSI2;
-	UINT32 SNR0;
-	UINT32 SNR1;
+	unsigned int U2M;
+	unsigned int OtherData;
+	unsigned int Beacon;
+	unsigned int OtherCount;
+	unsigned int TxAc0;
+	unsigned int TxAc1;
+	unsigned int TxAc2;
+	unsigned int TxAc3;
+	unsigned int TxHCCA;
+	unsigned int TxMgmt;
+	unsigned int RSSI0;
+	unsigned int RSSI1;
+	unsigned int RSSI2;
+	unsigned int SNR0;
+	unsigned int SNR1;
 #ifdef DOT11N_SS3_SUPPORT
-	UINT32 SNR2;
+	unsigned int SNR2;
 #endif /* DOT11N_SS3_SUPPORT */
 	INT32 BF_SNR[3];	/* Last RXWI BF SNR. Units=0.25 dB */
 	/* TxStatus : 0 --> task is idle, 1 --> task is running */
@@ -170,11 +170,11 @@ typedef struct _ATE_INFO {
 #ifdef TXBF_SUPPORT
 #define MAX_SOUNDING_RESPONSE_SIZE	(57*2*2*9+3+2+6)	/* Assume 114 carriers (40MHz), 3x3, 8bits/coeff, + SNR + HT HEADER + MIMO CONTROL FIELD */
 	UCHAR sounding;
-	UINT32 sounding_jiffies;
+	unsigned int sounding_jiffies;
 	CHAR soundingSNR[3];
-	UINT32 LastRxRate;
-	UINT32 LastTxRate;
-	UINT32 soundingRespSize;	/* Size of Sounding response */
+	unsigned int LastRxRate;
+	unsigned int LastTxRate;
+	unsigned int soundingRespSize;	/* Size of Sounding response */
 	UCHAR soundingResp[MAX_SOUNDING_RESPONSE_SIZE];	/* Entire Sounding response */
 #endif /* TXBF_SUPPORT */
 	RALINK_TIMER_STRUCT PeriodicTimer;
@@ -751,7 +751,7 @@ VOID RtmpDmaEnable(
 
 INT ATESetUpFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN UINT32 TxIdx);
+	IN unsigned int TxIdx);
 
 VOID RTUSBRejectPendingPackets(
 	IN	PRTMP_ADAPTER	pAd);

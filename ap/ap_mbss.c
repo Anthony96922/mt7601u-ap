@@ -97,7 +97,7 @@ VOID MBSS_Init(
 	/* create virtual network interface */
 	for (IdBss = FIRST_MBSSID; IdBss < MaxNumBss; IdBss++)
 	{
-		UINT32 MC_RowID = 0, IoctlIF = 0;
+		unsigned int MC_RowID = 0, IoctlIF = 0;
 #ifdef MULTIPLE_CARD_SUPPORT
 		MC_RowID = pAd->MC_RowID;
 #endif /* MULTIPLE_CARD_SUPPORT */

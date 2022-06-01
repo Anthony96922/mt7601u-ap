@@ -59,8 +59,8 @@ VOID RTMPHandleIdsEvent(
 {
 	INT i, j;
 
-	UINT32	FloodFrameCount[IW_FLOOD_EVENT_TYPE_NUM];
-	UINT32	FloodFrameThreshold[IW_FLOOD_EVENT_TYPE_NUM];
+	unsigned int	FloodFrameCount[IW_FLOOD_EVENT_TYPE_NUM];
+	unsigned int	FloodFrameThreshold[IW_FLOOD_EVENT_TYPE_NUM];
 
 	FloodFrameCount[0] = pAd->ApCfg.RcvdAuthCount;
 	FloodFrameCount[1] = pAd->ApCfg.RcvdAssocReqCount;
@@ -90,7 +90,7 @@ VOID RTMPHandleIdsEvent(
 	
 	for (i = 0; i < pAd->ApCfg.BssidNum; i++)
 	{	
-		UINT32	SpoofedFrameCount[IW_SPOOF_EVENT_TYPE_NUM];
+		unsigned int	SpoofedFrameCount[IW_SPOOF_EVENT_TYPE_NUM];
 		CHAR	RssiOfSpoofedFrame[IW_SPOOF_EVENT_TYPE_NUM];
 		INT		k;
 

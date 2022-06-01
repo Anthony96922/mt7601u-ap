@@ -42,40 +42,40 @@
 #ifdef RT_BIG_ENDIAN
 typedef union _PBF_SYS_CTRL_STRUC {
 	struct {
-		UINT32 rsv5:7; /* Reserved */
-		UINT32 CSR_TEST_EN:1;
-		UINT32 MAC_CLKSEL:2; /* MAC clock selection */
-		UINT32 PWRSV_EN:2;
-		UINT32 SHRM_SEL:1; /* Shared memory access selection */
-		UINT32 PBF_MSEL:2; /* Packet buffer memory access selection */
-		UINT32 rsv4:5;
-		UINT32 PBF_CLK_EN:1; /* PBF clock enable */
-		UINT32 MAC_CLK_EN:1; /* MAC clock enable */
-		UINT32 rsv3:6;
-		UINT32 PBF_RESET:1; /* PBF hardware reset */
-		UINT32 MAC_RESET:1; /* MAC hardware reset */
-		UINT32 rsv:2;
+		unsigned int rsv5:7; /* Reserved */
+		unsigned int CSR_TEST_EN:1;
+		unsigned int MAC_CLKSEL:2; /* MAC clock selection */
+		unsigned int PWRSV_EN:2;
+		unsigned int SHRM_SEL:1; /* Shared memory access selection */
+		unsigned int PBF_MSEL:2; /* Packet buffer memory access selection */
+		unsigned int rsv4:5;
+		unsigned int PBF_CLK_EN:1; /* PBF clock enable */
+		unsigned int MAC_CLK_EN:1; /* MAC clock enable */
+		unsigned int rsv3:6;
+		unsigned int PBF_RESET:1; /* PBF hardware reset */
+		unsigned int MAC_RESET:1; /* MAC hardware reset */
+		unsigned int rsv:2;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } PBF_SYS_CTRL_STRUC;
 #else
 typedef union _PBF_SYS_CTRL_STRUC{
 	struct {
-                UINT32 rsv5:7; /* Reserved */
-                UINT32 CSR_TEST_EN:1;
-                UINT32 MAC_CLKSEL:2; /* MAC clock selection */
-                UINT32 PWRSV_EN:2;
-                UINT32 SHRM_SEL:1; /* Shared memory access selection */
-                UINT32 PBF_MSEL:2; /* Packet buffer memory access selection */
-                UINT32 rsv4:5;
-                UINT32 PBF_CLK_EN:1; /* PBF clock enable */
-                UINT32 MAC_CLK_EN:1; /* MAC clock enable */
-                UINT32 rsv3:6;
-                UINT32 PBF_RESET:1; /* PBF hardware reset */
-                UINT32 MAC_RESET:1; /* MAC hardware reset */
-                UINT32 rsv:2;
+                unsigned int rsv5:7; /* Reserved */
+                unsigned int CSR_TEST_EN:1;
+                unsigned int MAC_CLKSEL:2; /* MAC clock selection */
+                unsigned int PWRSV_EN:2;
+                unsigned int SHRM_SEL:1; /* Shared memory access selection */
+                unsigned int PBF_MSEL:2; /* Packet buffer memory access selection */
+                unsigned int rsv4:5;
+                unsigned int PBF_CLK_EN:1; /* PBF clock enable */
+                unsigned int MAC_CLK_EN:1; /* MAC clock enable */
+                unsigned int rsv3:6;
+                unsigned int PBF_RESET:1; /* PBF hardware reset */
+                unsigned int MAC_RESET:1; /* MAC hardware reset */
+                unsigned int rsv:2;
 	}field;
-	UINT32 word;
+	unsigned int word;
 } PBF_SYS_CTRL_STRUC;
 #endif
 
@@ -100,38 +100,38 @@ typedef union _PBF_SYS_CTRL_STRUC{
 #ifdef RT_BIG_ENDIAN
 typedef union _CSO_CTRL_STRUC {
 	struct {
-                UINT32 rsv:21;
-                UINT32 stamp_seq_num_en:1;
-                UINT32 cso_bigendian:1;
-                UINT32 cso_en:1;
-                UINT32 tx_ipv6_en:1;
-                UINT32 tx_ipv4_cs_gen:1;
-                UINT32 tx_tcp_cs_gen:1;
-                UINT32 tx_udp_cs_gen:1;
-                UINT32 rx_ipv6_en:1;
-                UINT32 rx_ipv4_cs_en:1;
-                UINT32 rx_tcp_cs_en:1;
-                UINT32 rx_udp_cs_en:1;
+                unsigned int rsv:21;
+                unsigned int stamp_seq_num_en:1;
+                unsigned int cso_bigendian:1;
+                unsigned int cso_en:1;
+                unsigned int tx_ipv6_en:1;
+                unsigned int tx_ipv4_cs_gen:1;
+                unsigned int tx_tcp_cs_gen:1;
+                unsigned int tx_udp_cs_gen:1;
+                unsigned int rx_ipv6_en:1;
+                unsigned int rx_ipv4_cs_en:1;
+                unsigned int rx_tcp_cs_en:1;
+                unsigned int rx_udp_cs_en:1;
 	} field;
-	UINT32 word;
+	unsigned int word;
 } CSO_CTRL_STRUC;
 #else
 typedef union _CSO_CTRL_STRUC{
 	struct {
-                UINT32 rx_udp_cs_en:1;
-                UINT32 rx_tcp_cs_en:1;
-                UINT32 rx_ipv4_cs_en:1;
-                UINT32 rx_ipv6_en:1;
-                UINT32 tx_udp_cs_gen:1;
-                UINT32 tx_tcp_cs_gen:1;
-                UINT32 tx_ipv4_cs_gen:1;
-                UINT32 tx_ipv6_en:1;
-                UINT32 cso_en:1;
-                UINT32 cso_bigendian:1;
-                UINT32 stamp_seq_num_en:1;
-                UINT32 rsv:21;
+                unsigned int rx_udp_cs_en:1;
+                unsigned int rx_tcp_cs_en:1;
+                unsigned int rx_ipv4_cs_en:1;
+                unsigned int rx_ipv6_en:1;
+                unsigned int tx_udp_cs_gen:1;
+                unsigned int tx_tcp_cs_gen:1;
+                unsigned int tx_ipv4_cs_gen:1;
+                unsigned int tx_ipv6_en:1;
+                unsigned int cso_en:1;
+                unsigned int cso_bigendian:1;
+                unsigned int stamp_seq_num_en:1;
+                unsigned int rsv:21;
 	}field;
-	UINT32 word;
+	unsigned int word;
 } CSO_CTRL_STRUC;
 #endif
 

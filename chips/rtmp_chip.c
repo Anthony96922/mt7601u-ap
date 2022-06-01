@@ -435,7 +435,7 @@ Note:
 VOID RtmpChipWriteHighMemory(
 	IN RTMP_ADAPTER *pAd,
 	IN USHORT Offset,
-	IN UINT32 Value,
+	IN unsigned int Value,
 	IN UINT8 Unit)
 {
 #ifdef RTMP_MAC_USB
@@ -478,7 +478,7 @@ Note:
 VOID RtmpChipWriteMemory(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	USHORT			Offset,
-	IN	UINT32			Value,
+	IN	unsigned int			Value,
 	IN	UINT8			Unit)
 {
 	switch(Unit)
@@ -561,7 +561,7 @@ static VOID DisableAPMIMOPSv1(
 	UCHAR	BBPR3 = 0,BBPR1 = 0;
 	ULONG	TxPinCfg = 0x00050F0A; /* Gary 2007/08/09 0x050A0A */
 	UCHAR	CentralChannel;
-	UINT32	Value = 0;
+	unsigned int	Value = 0;
 
 	if(pAd->CommonCfg.Channel > 14)
 		TxPinCfg = 0x00050F05;
@@ -745,7 +745,7 @@ VOID NetDevNickNameInit(
 }
 
 #ifdef HW_ANTENNA_DIVERSITY_SUPPORT
-UINT32 SetHWAntennaDivsersity(
+unsigned int SetHWAntennaDivsersity(
 	IN PRTMP_ADAPTER		pAd,
 	IN BOOLEAN				Enable)
 {
@@ -829,7 +829,7 @@ UINT32 SetHWAntennaDivsersity(
 INT WaitForAsicReady(
 	IN RTMP_ADAPTER *pAd)
 {
-	UINT32 mac_val = 0, reg = MAC_CSR0;
+	unsigned int mac_val = 0, reg = MAC_CSR0;
 	int idx = 0;
 
 #ifdef RT3290	
@@ -858,7 +858,7 @@ INT WaitForAsicReady(
 INT AsicGetMacVersion(
 	IN RTMP_ADAPTER *pAd)
 {
-	UINT32 reg = MAC_CSR0;
+	unsigned int reg = MAC_CSR0;
 
 #ifdef RT3290
 	if (IS_RT3290(pAd))
@@ -899,7 +899,7 @@ VOID RtmpChipOpsHook(VOID *pCB)
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pCB;
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	UINT32 MacValue;
+	unsigned int MacValue;
 
 
 	/* sanity check */

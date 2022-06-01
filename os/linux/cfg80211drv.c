@@ -105,7 +105,7 @@ INT CFG80211DRV_IoctlHandle(
 #ifdef RFKILL_HW_SUPPORT
 		case CMD_RTPRIV_IOCTL_80211_RFKILL:
 		{
-			UINT32 data = 0;
+			unsigned int data = 0;
 			BOOLEAN active;
 
 			/* Read GPIO pin2 as Hardware controlled radio state */
@@ -318,7 +318,7 @@ INT CFG80211DRV_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_80211_CHANNEL_LIST_SET:
 			DBGPRINT(RT_DEBUG_TRACE, ("CMD_RTPRIV_IOCTL_80211_CHANNEL_LIST_SET: %d\n", Data));
-			UINT32 *pChanList = (UINT32 *) pData;
+			unsigned int *pChanList = (unsigned int *) pData;
 
 			if (pChanList != NULL) 
 			{
@@ -326,10 +326,10 @@ INT CFG80211DRV_IoctlHandle(
 				if (pAd->pCfg80211ChanList != NULL)
 					os_free_mem(NULL, pAd->pCfg80211ChanList);
 
-				os_alloc_mem(NULL, (UINT32 **)&pAd->pCfg80211ChanList, sizeof(UINT32 *) * Data);
+				os_alloc_mem(NULL, (unsigned int **)&pAd->pCfg80211ChanList, sizeof(unsigned int *) * Data);
 				if (pAd->pCfg80211ChanList != NULL)
 				{
-					NdisCopyMemory(pAd->pCfg80211ChanList, pChanList, sizeof(UINT32 *) * Data);
+					NdisCopyMemory(pAd->pCfg80211ChanList, pChanList, sizeof(unsigned int *) * Data);
 					pAd->Cfg80211ChanListLan = Data;
 				}
 				else
@@ -408,7 +408,7 @@ INT CFG80211DRV_IoctlHandle(
 static VOID CFG80211DRV_DisableApInterface(
         VOID                                            *pAdOrg)
 {
-	UINT32 Value;
+	unsigned int Value;
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	pAd->ApCfg.MBSSID[MAIN_MBSSID].bBcnSntReq = FALSE;
 
@@ -605,9 +605,9 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
         BCN_TIME_CFG_STRUC csr9;
         UCHAR  *ptr;
         UINT  i;
-        UINT32 longValue;
+        unsigned int longValue;
         UINT8 TXWISize = pAd->chipCap.TXWISize;
-	UINT32 rx_filter_flag;
+	unsigned int rx_filter_flag;
 	BOOLEAN TxPreamble, SpectrumMgmt = FALSE;
 	BOOLEAN	bWmmCapable = FALSE;
 	UCHAR	BBPR1 = 0, BBPR3 = 0;
@@ -845,7 +845,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 	
 		{
 			ULONG	Addr4;
-			UINT32	regValue;
+			unsigned int	regValue;
 			unsigned char * pP2PBssid = &pAd->CurrentAddress[0];
 		
 			Addr4 = (ULONG)(pP2PBssid[0])	    | 
@@ -1016,7 +1016,7 @@ BOOLEAN CFG80211DRV_StaGet(
 {
 	MAC_TABLE_ENTRY *pEntry;
 	ULONG DataRate = 0;
-	UINT32 RSSI;
+	unsigned int RSSI;
 
 
 	pEntry = MacTableLookup(pAd, pIbssInfo->MAC);
@@ -1173,7 +1173,7 @@ VOID CFG80211_BeaconCountryRegionParse(
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 	UCHAR *pElement = (UCHAR *)pVIE;
-	UINT32 LenEmt;
+	unsigned int LenEmt;
 
 
 	while(LenVIE > 0)
@@ -1286,8 +1286,8 @@ VOID CFG80211_RegRuleApply(
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 	VOID *pBand24G, *pBand5G;
-	UINT32 IdBand, IdChan, IdPwr;
-	UINT32 ChanNum, ChanId, Power, RecId, DfsType;
+	unsigned int IdBand, IdChan, IdPwr;
+	unsigned int ChanNum, ChanId, Power, RecId, DfsType;
 	BOOLEAN FlgIsRadar;
 	ULONG IrqFlags;
 #ifdef DFS_SUPPORT	
@@ -1329,7 +1329,7 @@ VOID CFG80211_RegRuleApply(
 #ifdef EXT_BUILD_CHANNEL_LIST
 	if ((pAlpha2[0] != '0') && (pAlpha2[1] != '0'))
 	{
-		UINT32 IdReg;
+		unsigned int IdReg;
 
 		if (pBand5G != NULL)
 		{
@@ -1468,10 +1468,10 @@ Note:
 */
 VOID CFG80211_Scaning(
 	IN VOID							*pAdCB,
-	IN UINT32						BssIdx,
-	IN UINT32						ChanId,
+	IN unsigned int						BssIdx,
+	IN unsigned int						ChanId,
 	IN UCHAR						*pFrame,
-	IN UINT32						FrameLen,
+	IN unsigned int						FrameLen,
 	IN INT32						RSSI)
 {
 } /* End of CFG80211_Scaning */
@@ -1523,9 +1523,9 @@ VOID CFG80211_ConnectResultInform(
 	IN VOID						*pAdCB,
 	IN UCHAR					*pBSSID,
 	IN UCHAR					*pReqIe,
-	IN UINT32					ReqIeLen,
+	IN unsigned int					ReqIeLen,
 	IN UCHAR					*pRspIe,
-	IN UINT32					RspIeLen,
+	IN unsigned int					RspIeLen,
 	IN UCHAR					FlgIsSuccess)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
