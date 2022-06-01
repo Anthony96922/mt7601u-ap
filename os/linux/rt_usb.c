@@ -555,7 +555,7 @@ static void cmd_rsp_event_tasklet(unsigned long data)
 	unsigned int		IrqFlags;
 
 	pUrb = (purbb_t)data;
-	pCmdRspEventContext	= (PRX_CONTEXT)RTMP_USB_URB_DATA_GET(pUrb);
+	pCmdRspEventContext	= RTMP_USB_URB_DATA_GET(pUrb);
 	Status = RTMP_USB_URB_STATUS_GET(pUrb);
 	pAd = pCmdRspEventContext->pAd;
 

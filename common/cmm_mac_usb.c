@@ -547,7 +547,7 @@ unsigned int	RTMPAllocTxRxRingMemory(
 	IN	PRTMP_ADAPTER	pAd)
 {	
 	unsigned int Status = NDIS_STATUS_FAILURE;
-	PTX_CONTEXT pNullContext   = &(pAd->NullContext);
+	TX_CONTEXT *pNullContext   = &(pAd->NullContext)[0];
 	PTX_CONTEXT pPsPollContext = &(pAd->PsPollContext);
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &(pAd->CmdRspEventContext);
 	int i, acidx;

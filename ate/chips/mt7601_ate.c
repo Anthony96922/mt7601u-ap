@@ -76,11 +76,13 @@ void MT7601ATEAsicSwitchChannel(
 		if (Channel == MT7601_Frequency_Plan[index].Channel)
 		{		
 			/* Frequeny plan setting */
+#endif
 			AndesRFRandomWrite(pAd, 4,
 				RF_BANK0, RF_R17, MT7601_Frequency_Plan[index].K_R17,
 				RF_BANK0, RF_R18, MT7601_Frequency_Plan[index].K_R18,
 				RF_BANK0, RF_R19, MT7601_Frequency_Plan[index].K_R19,
 				RF_BANK0, RF_R20, MT7601_Frequency_Plan[index].N_R20);
+#endif
 		}
 	}
 

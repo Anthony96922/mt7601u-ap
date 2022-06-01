@@ -16,8 +16,23 @@ int get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, int size, 
 	switch (size) {
 		case 3:
 			rssi[2] = rxwi->RxWIRSSI2;
+			rssi[1] = rxwi->RxWIRSSI1;
+#ifdef MT7601
+			if (IS_MT7601(pAd))
+				rssi[0] = rxwi->RxWISNR2;
+			else
+#endif
+				rssi[0] = rxwi->RxWIRSSI0;
+			break;
 		case 2:
 			rssi[1] = rxwi->RxWIRSSI1;
+#ifdef MT7601
+			if (IS_MT7601(pAd))
+				rssi[0] = rxwi->RxWISNR2;
+                        else
+#endif
+				rssi[0] = rxwi->RxWIRSSI0;
+			break;
 		case 1:
 		default:
 #ifdef MT7601
@@ -54,8 +69,13 @@ int get_pkt_snr_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, int size, u
 	switch (size) {
 		case 3:
 			snr[2] = rxwi->RxWISNR2;
+			snr[1] = rxwi->RxWISNR1;
+			snr[0] = rxwi->RxWISNR0;
+			break;
 		case 2:
 			snr[1] = rxwi->RxWISNR1;
+			snr[0] = rxwi->RxWISNR0;
+			break;
 		case 1:
 		default:
 			snr[0] = rxwi->RxWISNR0;

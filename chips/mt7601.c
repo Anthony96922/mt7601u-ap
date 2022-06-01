@@ -1226,11 +1226,13 @@ static void MT7601_ChipSwitchChannel(
 		if (Channel == MT7601_Frequency_Plan[index].Channel)
 		{		
 			/* Frequeny plan setting */
+#if 0
 			AndesRFRandomWrite(pAd, 4,
 				RF_BANK0, RF_R17, MT7601_Frequency_Plan[index].K_R17,
 				RF_BANK0, RF_R18, MT7601_Frequency_Plan[index].K_R18,
 				RF_BANK0, RF_R19, MT7601_Frequency_Plan[index].K_R19,
 				RF_BANK0, RF_R20, MT7601_Frequency_Plan[index].N_R20);
+#endif
 		}
 	}
 
@@ -1349,7 +1351,7 @@ static void MT7601_ChipSwitchChannel(
 }
 
 
-NTSTATUS MT7601DisableTxRx(
+void MT7601DisableTxRx(
 	RTMP_ADAPTER *pAd,
 	unsigned char Level)
 {
@@ -1361,7 +1363,7 @@ NTSTATUS MT7601DisableTxRx(
 	unsigned int MaxRetry;
 
 	if (!IS_MT7601(pAd))
-		return FALSE;
+		return;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("----> %s\n", __FUNCTION__));
 
@@ -1379,7 +1381,7 @@ NTSTATUS MT7601DisableTxRx(
 		__FUNCTION__, (unsigned long)pAd->WlanCounters.ReceivedFragmentCount.QuadPart));
 
 	if (StopDmaTx(pAd, Level) == STATUS_UNSUCCESSFUL)
-		return STATUS_UNSUCCESSFUL;
+		return;
 
 	/*
 		Check page count in TxQ,
@@ -1402,7 +1404,7 @@ NTSTATUS MT7601DisableTxRx(
 		if (MacReg == 0xFFFFFFFF)
 		{
 			//RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST);
-			return STATUS_UNSUCCESSFUL;
+			return;
 		}
 	}
 
@@ -1420,7 +1422,7 @@ NTSTATUS MT7601DisableTxRx(
 		bResetWLAN = TRUE;
 
 		if (Level == DOT11POWERSAVE)
-			return STATUS_UNSUCCESSFUL;
+			return;
 	}
 
 	/*
@@ -1437,7 +1439,7 @@ NTSTATUS MT7601DisableTxRx(
 		if (MacReg == 0xFFFFFFFF)
 		{
 			//RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST);
-			return STATUS_UNSUCCESSFUL;
+			return;
 		}
 	}
 
@@ -1447,7 +1449,7 @@ NTSTATUS MT7601DisableTxRx(
 		bResetWLAN = TRUE;
 
 		if (Level == DOT11POWERSAVE)
-			return STATUS_UNSUCCESSFUL;
+			return;
 	}
 	
 	if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST) == FALSE)
@@ -1501,7 +1503,7 @@ NTSTATUS MT7601DisableTxRx(
 
 		if (MacReg == 0xFFFFFFFF) {
 			//RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST);
-			return STATUS_UNSUCCESSFUL;
+			return;
 		}
 #ifdef RTMP_MAC_USB
 		RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_POLL_IDLE);
@@ -1526,7 +1528,7 @@ NTSTATUS MT7601DisableTxRx(
 		bResetWLAN = TRUE;
 
 		if (Level == DOT11POWERSAVE)
-			return STATUS_UNSUCCESSFUL;
+			return;
 	}
 
 	/*
@@ -1541,7 +1543,7 @@ NTSTATUS MT7601DisableTxRx(
 		if (MacReg == 0xFFFFFFFF)
 		{
 			//RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST);
-			return STATUS_UNSUCCESSFUL;
+			return;
 		}
 	}
 
@@ -1550,11 +1552,11 @@ NTSTATUS MT7601DisableTxRx(
 		bResetWLAN = TRUE;
 
 		if (Level == DOT11POWERSAVE)
-			return STATUS_UNSUCCESSFUL;
+			return;
 	}
 
 	if (StopDmaRx(pAd, Level) == STATUS_UNSUCCESSFUL)
-		return STATUS_UNSUCCESSFUL;
+		return;
 
 	if ((Level == RTMP_HALT) &&
 		(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST) == FALSE)) {
@@ -1573,7 +1575,7 @@ NTSTATUS MT7601DisableTxRx(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("<---- %s\n", __FUNCTION__));
 
-	return STATUS_SUCCESS;
+	return;
 }
 
 
@@ -1590,12 +1592,8 @@ void MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, unsigned char Stage)
 
 	if (Stage == SUSPEND_RADIO_OFF)
 		MT7601DisableTxRx(pAd, RTMP_HALT);
-	else {
-		if (MT7601DisableTxRx(pAd, DOT11POWERSAVE) == STATUS_UNSUCCESSFUL) {
-			DBGPRINT(RT_DEBUG_TRACE, ("Give up radio off!\n"));
-			return;
-		}
-	}
+	else
+		MT7601DisableTxRx(pAd, DOT11POWERSAVE);
 
 #ifdef RTMP_MAC_USB
 	if (IS_USB_INF(pAd)) {

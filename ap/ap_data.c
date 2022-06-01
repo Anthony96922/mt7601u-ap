@@ -5210,7 +5210,7 @@ void APHandleRxDataFrame_Hdr_Trns(
 //+++Add by shiang for debug
 if (0 /*!(pRxInfo->Mcast || pRxInfo->Bcast)*/){
 	DBGPRINT(RT_DEBUG_OFF, ("-->%s(%d): Dump Related Info!\n", __FUNCTION__, __LINE__));
-	hex_dump("DataFrameHeader", pHeader, 36);
+	hex_dump("DataFrameHeader", (unsigned char *)pHeader, 36);
 	hex_dump("DataFramePayload", pRxBlk->pTransData , pRxBlk->TransDataSize);
 }
 //---Add by shiangf for debug
