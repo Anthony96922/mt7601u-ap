@@ -505,7 +505,7 @@ typedef struct _MBSS_STATISTICS {
 } MBSS_STATISTICS, *PMBSS_STATISTICS;
 
 typedef ULONG NDIS_802_11_KEY_INDEX;
-typedef ULONGLONG NDIS_802_11_KEY_RSC;
+typedef unsigned long long NDIS_802_11_KEY_RSC;
 
 #ifdef DOT1X_SUPPORT
 #define MAX_RADIUS_SRV_NUM			2	/* 802.1x failover number */
