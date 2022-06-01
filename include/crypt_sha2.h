@@ -39,7 +39,7 @@
 #define SHA1_DIGEST_SIZE   20	/* 160 bits = 20 bytes */
 typedef struct _SHA1_CTX_STRUC {
 	UINT32 HashValue[5];	/* 5 = (SHA1_DIGEST_SIZE / 32) */
-	UINT64 MessageLen;	/* total size */
+	unsigned long long MessageLen;	/* total size */
 	UINT8 Block[SHA1_BLOCK_SIZE];
 	UINT BlockLen;
 } SHA1_CTX_STRUC, *PSHA1_CTX_STRUC;
@@ -66,7 +66,7 @@ VOID RT_SHA1(
 #define SHA256_DIGEST_SIZE  32	/* 256 bits = 32 bytes */
 typedef struct _SHA256_CTX_STRUC {
 	UINT32 HashValue[8];	/* 8 = (SHA256_DIGEST_SIZE / 32) */
-	UINT64 MessageLen;	/* total size */
+	unsigned long long MessageLen;	/* total size */
 	UINT8 Block[SHA256_BLOCK_SIZE];
 	UINT BlockLen;
 } SHA256_CTX_STRUC, *PSHA256_CTX_STRUC;

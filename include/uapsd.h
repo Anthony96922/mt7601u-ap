@@ -60,11 +60,11 @@
 /* timing */
 #define UAPSD_TIMESTAMP_GET(__pAd, __TimeStamp)			\
 	{													\
-		UINT32 __CSR=0;	UINT64 __Value64;				\
+		UINT32 __CSR=0;	unsigned long long __Value64;				\
 		RTMP_IO_READ32((__pAd), TSF_TIMER_DW0, &__CSR);	\
-		__TimeStamp = (UINT64)__CSR;					\
+		__TimeStamp = (unsigned long long)__CSR;					\
 		RTMP_IO_READ32((__pAd), TSF_TIMER_DW1, &__CSR);	\
-		__Value64 = (UINT64)__CSR;						\
+		__Value64 = (unsigned long long)__CSR;						\
 		__TimeStamp |= (__Value64 << 32);				\
 	}
 

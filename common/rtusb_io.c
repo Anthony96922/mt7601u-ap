@@ -123,7 +123,7 @@ NTSTATUS	RTUSBFirmwareOpmode(
 */
 NTSTATUS RTUSBFirmwareWrite(
 	IN PRTMP_ADAPTER pAd,
-	IN unsigned char *		pFwImage,
+	IN unsigned char *pFwImage,
 	IN ULONG		FwLen)
 {
 	UINT32		MacReg;
@@ -233,13 +233,13 @@ NTSTATUS	RTUSBMultiRead(
 NTSTATUS RTUSBMultiWrite_nBytes(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	IN	unsigned char *			pData,
+	IN	unsigned char *pData,
 	IN	USHORT			length,
 	IN	USHORT			batchLen)
 {
 	NTSTATUS Status = STATUS_SUCCESS;
 	USHORT index = Offset, actLen = batchLen, leftLen = length;
-	unsigned char * pSrc = pData;
+	unsigned char *pSrc = pData;
 
 
 	do

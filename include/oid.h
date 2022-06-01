@@ -277,8 +277,8 @@ struct ieee80211req_key {
 	UINT8 ik_keylen;	/* key length in bytes */
 	UINT8 ik_flags;
 	UINT8 ik_macaddr[IEEE80211_ADDR_LEN];
-	UINT64 ik_keyrsc;	/* key receive sequence counter */
-	UINT64 ik_keytsc;	/* key transmit sequence counter */
+	unsigned long long ik_keyrsc;	/* key receive sequence counter */
+	unsigned long long ik_keytsc;	/* key transmit sequence counter */
 	UINT8 ik_keydata[IEEE80211_KEYBUF_SIZE + IEEE80211_MICBUF_SIZE];
 	int txkey;
 };

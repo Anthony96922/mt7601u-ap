@@ -74,14 +74,14 @@ UINT32 gUAPSD_TimingIndexUapsd;
 UINT32 gUAPSD_TimingLoopIndex;
 
 /* ISR start timestamp */
-UINT64 gUAPSD_TimingIsr[UAPSD_TIMING_RECORD_MAX];
+unsigned long long gUAPSD_TimingIsr[UAPSD_TIMING_RECORD_MAX];
 
 /* Tasklet start timestamp */
-UINT64 gUAPSD_TimingTasklet[UAPSD_TIMING_RECORD_MAX];
+unsigned long long gUAPSD_TimingTasklet[UAPSD_TIMING_RECORD_MAX];
 
-UINT64 gUAPSD_TimingTrgRcv[UAPSD_TIMING_RECORD_MAX];
-UINT64 gUAPSD_TimingMov2Tx[UAPSD_TIMING_RECORD_MAX];
-UINT64 gUAPSD_TimingTx2Air[UAPSD_TIMING_RECORD_MAX];
+unsigned long long gUAPSD_TimingTrgRcv[UAPSD_TIMING_RECORD_MAX];
+unsigned long long gUAPSD_TimingMov2Tx[UAPSD_TIMING_RECORD_MAX];
+unsigned long long gUAPSD_TimingTx2Air[UAPSD_TIMING_RECORD_MAX];
 
 UINT32 gUAPSD_TimingSumIsr2Tasklet;
 UINT32 gUAPSD_TimingSumTrig2Txqueue;

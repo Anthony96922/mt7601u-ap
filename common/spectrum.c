@@ -764,7 +764,7 @@ static VOID TpcReqDelete(
 	Return	: Current Time Stamp.
 	==========================================================================
  */
-static UINT64 GetCurrentTimeStamp(
+static unsigned long long GetCurrentTimeStamp(
 	IN PRTMP_ADAPTER pAd)
 {
 	/* get current time stamp.*/
@@ -1520,7 +1520,7 @@ static BOOLEAN PeerMeasureReqSanity(
 	BOOLEAN result = FALSE;
 	PEID_STRUCT eid_ptr;
 	unsigned char * ptr;
-	UINT64 MeasureStartTime;
+	unsigned long long MeasureStartTime;
 	UINT16 MeasureDuration;
 
 	/* skip 802.11 header.*/
@@ -2097,7 +2097,7 @@ INT Set_MeasureReq_Proc(
 	UINT8 MeasureReqToken = RandomByte(pAd);
 	UINT8 MeasureReqType = RM_BASIC;
 	UINT8 MeasureCh = 1;
-	UINT64 MeasureStartTime = GetCurrentTimeStamp(pAd);
+	unsigned long long MeasureStartTime = GetCurrentTimeStamp(pAd);
 	MEASURE_REQ MeasureReq;
 	UINT8 TotalLen;
 

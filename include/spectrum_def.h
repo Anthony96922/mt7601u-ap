@@ -146,7 +146,7 @@ typedef union GNU_PACKED _MEASURE_REQ_MODE
 typedef struct GNU_PACKED _MEASURE_REQ
 {
 	UINT8 ChNum;
-	UINT64 MeasureStartTime;
+	unsigned long long MeasureStartTime;
 	UINT16 MeasureDuration;
 } MEASURE_REQ, *PMEASURE_REQ;
 
@@ -189,7 +189,7 @@ typedef union GNU_PACKED _MEASURE_BASIC_REPORT_MAP
 typedef struct GNU_PACKED _MEASURE_BASIC_REPORT
 {
 	UINT8 ChNum;
-	UINT64 MeasureStartTime;
+	unsigned long long MeasureStartTime;
 	UINT16 MeasureDuration;
 	MEASURE_BASIC_REPORT_MAP Map;
 } MEASURE_BASIC_REPORT, *PMEASURE_BASIC_REPORT;
@@ -197,7 +197,7 @@ typedef struct GNU_PACKED _MEASURE_BASIC_REPORT
 typedef struct GNU_PACKED _MEASURE_CCA_REPORT
 {
 	UINT8 ChNum;
-	UINT64 MeasureStartTime;
+	unsigned long long MeasureStartTime;
 	UINT16 MeasureDuration;
 	UINT8 CCA_Busy_Fraction;
 } MEASURE_CCA_REPORT, *PMEASURE_CCA_REPORT;
@@ -205,7 +205,7 @@ typedef struct GNU_PACKED _MEASURE_CCA_REPORT
 typedef struct GNU_PACKED _MEASURE_RPI_REPORT
 {
 	UINT8 ChNum;
-	UINT64 MeasureStartTime;
+	unsigned long long MeasureStartTime;
 	UINT16 MeasureDuration;
 	UINT8 RPI_Density[8];
 } MEASURE_RPI_REPORT, *PMEASURE_RPI_REPORT;

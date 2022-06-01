@@ -273,7 +273,7 @@ VOID RT_SHA1_End (
     OUT UINT8 DigestMessage[])
 {
     UINT index;
-    UINT64 message_length_bits;
+    unsigned long long message_length_bits;
 
     /* Append bit 1 to end of the message */
     NdisFillMemory(pSHA_CTX->Block + pSHA_CTX->BlockLen, 1, 0x80);
@@ -496,7 +496,7 @@ VOID RT_SHA256_End (
     OUT UINT8 DigestMessage[])
 {
     UINT index;
-    UINT64 message_length_bits;
+    unsigned long long message_length_bits;
 
     /* Append bit 1 to end of the message */
     NdisFillMemory(pSHA_CTX->Block + pSHA_CTX->BlockLen, 1, 0x80);

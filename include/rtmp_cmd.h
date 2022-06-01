@@ -358,9 +358,9 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_REG_NOTIFY {
 typedef struct __CMD_RTPRIV_IOCTL_80211_SURVEY {
 
 	VOID *pCfg80211;
-/*	UINT64 ChannelTime; */ /* idle + busy, not support */
-	UINT64 ChannelTimeBusy;
-	UINT64 ChannelTimeExtBusy;
+/*	unsigned long long ChannelTime; */ /* idle + busy, not support */
+	unsigned long long ChannelTimeBusy;
+	unsigned long long ChannelTimeExtBusy;
 } CMD_RTPRIV_IOCTL_80211_SURVEY;
 
 #endif /* RT_CFG80211_SUPPORT */

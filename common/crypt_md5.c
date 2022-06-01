@@ -296,7 +296,7 @@ VOID RT_MD5_End (
     OUT UINT8 DigestMessage[])
 {
     UINT index;
-    UINT64 message_length_bits;
+    unsigned long long message_length_bits;
 
     /* append 1 bits to end of the message */
     NdisFillMemory(pMD5_CTX->Block + pMD5_CTX->BlockLen, 1, 0x80);

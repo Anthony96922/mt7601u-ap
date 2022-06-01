@@ -452,7 +452,7 @@ VOID BigInteger_Add (
 {
     INT CompareResult;
     UINT32 BIArrayIndex;
-    UINT64 Sum, Carry;
+    unsigned long long Sum, Carry;
     PBIG_INTEGER pTempBI = NULL;
 
     if  ((pFirstOperand == NULL) || (pFirstOperand->pIntegerArray == NULL)
@@ -492,10 +492,10 @@ VOID BigInteger_Add (
 
             Sum = 0;
             if (BIArrayIndex < pFirstOperand->ArrayLength)
-                Sum += (UINT64) pFirstOperand->pIntegerArray[BIArrayIndex];
+                Sum += (unsigned long long) pFirstOperand->pIntegerArray[BIArrayIndex];
 
             if (BIArrayIndex < pSecondOperand->ArrayLength)
-                Sum += (UINT64) pSecondOperand->pIntegerArray[BIArrayIndex];
+                Sum += (unsigned long long) pSecondOperand->pIntegerArray[BIArrayIndex];
 
             Sum += Carry;
             Carry = Sum  >> 32;
@@ -617,7 +617,7 @@ VOID BigInteger_Mul (
 {
 
     UINT32 BIFirstIndex, BISecondIndex;
-    UINT64 FirstValue, SecondValue, Sum, Carry;
+    unsigned long long FirstValue, SecondValue, Sum, Carry;
    
     if  ((pFirstOperand == NULL) || (pFirstOperand->pIntegerArray == NULL)
       || (pSecondOperand == NULL) || (pSecondOperand->pIntegerArray == NULL)) {
@@ -647,19 +647,19 @@ VOID BigInteger_Mul (
     for (BIFirstIndex=0; BIFirstIndex < pFirstOperand->ArrayLength; BIFirstIndex++)
     {
         Carry = 0;
-        FirstValue = (UINT64) pFirstOperand->pIntegerArray[BIFirstIndex];
+        FirstValue = (unsigned long long) pFirstOperand->pIntegerArray[BIFirstIndex];
         if (FirstValue == 0) {
             continue;
         } else {
             for (BISecondIndex=0; BISecondIndex < pSecondOperand->ArrayLength; BISecondIndex++)
             {
-                SecondValue = ((UINT64) pSecondOperand->pIntegerArray[BISecondIndex])*FirstValue;
-                Sum = (UINT64) ((*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex] + SecondValue + Carry);               
+                SecondValue = ((unsigned long long) pSecondOperand->pIntegerArray[BISecondIndex])*FirstValue;
+                Sum = (unsigned long long) ((*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex] + SecondValue + Carry);               
                 Carry = Sum >> 32;
                 (*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex] = (UINT32) (Sum & 0xffffffffUL);
             } /* End of for */
             while (Carry != 0) {
-                Sum = (UINT64) (*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex];
+                Sum = (unsigned long long) (*pBI_Result)->pIntegerArray[BIFirstIndex + BISecondIndex];
                 Sum += Carry;
 
                 Carry = Sum >> 32;
@@ -682,7 +682,7 @@ VOID BigInteger_Square (
     INT BIFirstIndex, BISecondIndex;
 	UINT32 HBITS_Value, LBITS_Value, Temp1_Value, Temp2_Value, Carry32;
 	UINT32 *Point_Of_S, *Point_Of_Result, *Point_Of_BI;
-    UINT64 Result64_1, Result64_2, Carry64, TempValue64;    
+    unsigned long long Result64_1, Result64_2, Carry64, TempValue64;    
 
     if ((pBI == NULL) || (pBI->pIntegerArray == NULL)) {
         DEBUGPRINT("\tBigInteger_Square: the operand is NULL.\n");
@@ -724,12 +724,12 @@ VOID BigInteger_Square (
     Point_Of_BI = pBI->pIntegerArray;
     Point_Of_Result = (*pBI_Result)->pIntegerArray;
     Point_Of_Result[0] = 0;
-    TempValue64 = (UINT64) Point_Of_BI[0];
+    TempValue64 = (unsigned long long) Point_Of_BI[0];
     Point_Of_Result++;
     Carry64 = 0;
     for (BIFirstIndex=1; BIFirstIndex < pBI->ArrayLength; BIFirstIndex++)
     {
-        Result64_1 =  (UINT64) Point_Of_BI[BIFirstIndex]*TempValue64;
+        Result64_1 =  (unsigned long long) Point_Of_BI[BIFirstIndex]*TempValue64;
         Result64_1 += Carry64;              
         Carry64 = (Result64_1 >> 32);
         Point_Of_Result[0] = (UINT32) (Result64_1 & 0xffffffffUL);
@@ -752,12 +752,12 @@ VOID BigInteger_Square (
     {
         Point_Of_Result = (*pBI_Result)->pIntegerArray;
         Point_Of_Result += (BIFirstIndex*2) + 1;
-        TempValue64 = (UINT64) Point_Of_BI[BIFirstIndex];
+        TempValue64 = (unsigned long long) Point_Of_BI[BIFirstIndex];
         Carry64 = 0;
         for (BISecondIndex=(BIFirstIndex + 1); BISecondIndex < pBI->ArrayLength; BISecondIndex++)
         {
-            Result64_1 = ((UINT64) Point_Of_Result[0]) + Carry64;
-            Result64_2 = (UINT64) Point_Of_BI[BISecondIndex]*TempValue64;            
+            Result64_1 = ((unsigned long long) Point_Of_Result[0]) + Carry64;
+            Result64_2 = (unsigned long long) Point_Of_BI[BISecondIndex]*TempValue64;            
             Carry64 = (Result64_1 >> 32);
             Result64_1 = (Result64_1 & 0xffffffffUL);
             Result64_1 = Result64_1 + Result64_2;
@@ -923,7 +923,7 @@ VOID BigInteger_Montgomery_Reduction (
 {
     UINT32 *Point_P, *Point_Result;
     UINT32 LoopCount;
-    UINT64 Result64_1, Result64_2, Carry64, TempValue64;  
+    unsigned long long Result64_1, Result64_2, Carry64, TempValue64;  
     INT FirstLoop, SecondLoop; 
 
     BigInteger_AllocSize(pBI_Result, pBI_A->IntegerLength+ pBI_P->IntegerLength + 20);
@@ -935,10 +935,10 @@ VOID BigInteger_Montgomery_Reduction (
     LoopCount = Bits_Of_R >> 0x5;
     for (FirstLoop = 0;FirstLoop < LoopCount;FirstLoop++) {
         Carry64 = 0;
-        TempValue64 = (UINT64) Point_Result[0];
+        TempValue64 = (unsigned long long) Point_Result[0];
         for (SecondLoop = 0;SecondLoop < pBI_P->ArrayLength;SecondLoop++) {
-            Result64_1 = ((UINT64) Point_Result[SecondLoop]) + Carry64;
-            Result64_2 = (UINT64) Point_P[SecondLoop]*TempValue64;            
+            Result64_1 = ((unsigned long long) Point_Result[SecondLoop]) + Carry64;
+            Result64_2 = (unsigned long long) Point_P[SecondLoop]*TempValue64;            
             Carry64 = (Result64_1 >> 32);
             Result64_1 = (Result64_1 & 0xffffffffUL);
             Result64_1 = Result64_1 + Result64_2;            
@@ -946,7 +946,7 @@ VOID BigInteger_Montgomery_Reduction (
             Point_Result[SecondLoop] = (UINT32) (Result64_1 & 0xffffffffUL);            
         } /* End of for */
         while (Carry64 != 0) {
-          Result64_1 = ((UINT64) Point_Result[SecondLoop]) + Carry64;
+          Result64_1 = ((unsigned long long) Point_Result[SecondLoop]) + Carry64;
           Carry64 = Result64_1 >> 32;
           Point_Result[SecondLoop] = (UINT32) (Result64_1 & 0xffffffffUL);            
           SecondLoop++;
