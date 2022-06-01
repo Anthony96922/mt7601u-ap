@@ -35,20 +35,20 @@
 #include "rt_config.h"
 
 /* WAPI AKM OUI */
-UCHAR   OUI_WAI_CERT_AKM[4]   	= {0x00, 0x14, 0x72, 0x01};
-UCHAR   OUI_WAI_PSK_AKM[4]   	= {0x00, 0x14, 0x72, 0x02};
+unsigned char   OUI_WAI_CERT_AKM[4]   	= {0x00, 0x14, 0x72, 0x01};
+unsigned char   OUI_WAI_PSK_AKM[4]   	= {0x00, 0x14, 0x72, 0x02};
 
 /* WAPI CIPHER OUI */
-UCHAR	OUI_WPI_CIPHER_SMS4[4] = {0x00, 0x14, 0x72, 0x01};
+unsigned char	OUI_WPI_CIPHER_SMS4[4] = {0x00, 0x14, 0x72, 0x01};
 
-UCHAR	WAPI_TYPE[] = {0x88, 0xb4};
+unsigned char	WAPI_TYPE[] = {0x88, 0xb4};
 
 /* IV default value */
-UCHAR 	AE_BCAST_PN[LEN_WAPI_TSC] = {0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c,
+unsigned char 	AE_BCAST_PN[LEN_WAPI_TSC] = {0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c,
 									 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c};
-UCHAR 	ASUE_UCAST_PN[LEN_WAPI_TSC] = {0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c,
+unsigned char 	ASUE_UCAST_PN[LEN_WAPI_TSC] = {0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c,
 									   0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c};
-UCHAR 	AE_UCAST_PN[LEN_WAPI_TSC] = {0x37, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c,
+unsigned char 	AE_UCAST_PN[LEN_WAPI_TSC] = {0x37, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c,
 									 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c, 0x36, 0x5c};
 
 BUILD_TIMER_FUNCTION(RTMPWapiUskRekeyPeriodicExec);
@@ -99,7 +99,7 @@ VOID RTMPInsertWapiIe(
 	IN	UINT			AuthMode,
 	IN	UINT			WepStatus,
 	OUT	unsigned char *			pWIe,
-	OUT	UCHAR			*w_len)
+	OUT	unsigned char			*w_len)
 {			
 	WAPIIE	*pWapiHdr = (WAPIIE*)pWIe;
 	WAPIIE_UCAST *pWIE_ucast;
@@ -208,7 +208,7 @@ BOOLEAN RTMPCheckWAIframe(
 */
 BOOLEAN RTMPIsWapiCipher(
     IN PRTMP_ADAPTER    pAd,
-    IN UCHAR           	apidx)
+    IN unsigned char           	apidx)
 {
 	NDIS_802_11_ENCRYPTION_STATUS	cipher_mode = Ndis802_11EncryptionDisabled;
 
@@ -246,9 +246,9 @@ BOOLEAN RTMPIsWapiCipher(
     ==========================================================================
 */
 VOID RTMPConstructWPIIVHdr(
-	IN	UCHAR			key_id,
-	IN	UCHAR			*tx_iv,
-	OUT UCHAR 			*iv_hdr)
+	IN	unsigned char			key_id,
+	IN	unsigned char			*tx_iv,
+	OUT unsigned char 			*iv_hdr)
 {
 	iv_hdr[0] = key_id;
 	iv_hdr[1] = 0x00;
@@ -265,7 +265,7 @@ VOID RTMPDeriveWapiGTK(
 	NdisZeroMemory(gtk_ptr, 32);
 	kd_hmac_sha256(nmk, 
 				   16, 
-				   (UCHAR *)group_context, 
+				   (unsigned char *)group_context, 
 				   strlen(group_context), 
 				   gtk_ptr,
 				   32);	
@@ -608,7 +608,7 @@ void rtmp_read_wapi_parms_from_file(
 static VOID RTMPQueryWapiConfPerBss(
 	IN 	PRTMP_ADAPTER 	pAd,
 	IN	PWAPI_CONF		wapi_conf_ptr,
-	IN	UCHAR			apidx)
+	IN	unsigned char			apidx)
 {
 	PMBSS_WAPI_INFO pConf = &wapi_conf_ptr->mbss_wapi_info[apidx];		
  
@@ -686,8 +686,8 @@ VOID RTMPIoctlQueryWapiConf(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
-	UCHAR		apidx;	
-	UCHAR		*buf = NULL;
+	unsigned char		apidx;	
+	unsigned char		*buf = NULL;
 	PWAPI_CONF	pConf;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPIoctlQueryWapiConf==>\n"));
@@ -967,17 +967,17 @@ VOID RTMPCancelWapiRekeyTimerAction(
 */
 BOOLEAN WAPI_InternalCmdAction(
 		IN  PRTMP_ADAPTER		pAd,
-		IN	UCHAR				AuthMode,
-		IN	UCHAR				apidx,
+		IN	unsigned char				AuthMode,
+		IN	unsigned char				apidx,
 		IN	unsigned char *				pAddr,
-		IN	UCHAR				flag)
+		IN	unsigned char				flag)
 {												   
     if ((AuthMode == Ndis802_11AuthModeWAICERT) || 
 		(AuthMode == Ndis802_11AuthModeWAIPSK))
 	{				
-		UCHAR			WAPI_IE[] = {0x88, 0xb4};
+		unsigned char			WAPI_IE[] = {0x88, 0xb4};
 		unsigned char			frame_len = LENGTH_802_3 + 12; /* 12 indicates the WAPI internal command length */
-		UCHAR			FrameBuf[frame_len];
+		unsigned char			FrameBuf[frame_len];
 		unsigned char			offset = 0;
 		
 		/* Init the frame buffer */
@@ -1014,7 +1014,7 @@ BOOLEAN WAPI_InternalCmdAction(
 VOID RTMPGetWapiTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	UINT			Wcid,
-	OUT	UCHAR			*tx_tsc)
+	OUT	unsigned char			*tx_tsc)
 {
 	USHORT			offset;	
 	int				i;
@@ -1093,7 +1093,7 @@ VOID WAPIInstallPairwiseKey(
 		/* Add Pair-wise key to Asic */
 	    AsicAddPairwiseKeyEntry(
 	        pAd, 
-	        (UCHAR)pEntry->Aid, 
+	        (unsigned char)pEntry->Aid, 
 	        &pEntry->PairwiseKey);
 
 		/* update WCID attribute table and IVEIV table for this entry */
@@ -1102,7 +1102,7 @@ VOID WAPIInstallPairwiseKey(
 			pEntry->apidx, 
 			pEntry->usk_id, 
 			pEntry->PairwiseKey.CipherAlg,
-			(UCHAR)pEntry->Aid,
+			(unsigned char)pEntry->Aid,
 			PAIRWISEKEYTABLE);        
 	}
 	

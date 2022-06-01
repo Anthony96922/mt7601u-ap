@@ -78,7 +78,7 @@ INT Set_CarrierDetect_Proc(
 	IN char * arg)
 {
     POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
-    UCHAR apidx = pObj->ioctl_if;
+    unsigned char apidx = pObj->ioctl_if;
 	UINT Enable;
 
 	if (apidx != MAIN_MBSSID)
@@ -196,7 +196,7 @@ VOID CarrierDetectionPeriodicStateCtrl(
 VOID RTMPHandleRadarInterrupt(PRTMP_ADAPTER  pAd)
 {
 	unsigned int value, delta;
-	UCHAR bbp=0;
+	unsigned char bbp=0;
 	PCARRIER_DETECTION_STRUCT pCarrierDetect = &pAd->CommonCfg.CarrierDetect;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPHandleRadarInterrupt()\n"));
@@ -692,7 +692,7 @@ static VOID ToneRadarProgram(PRTMP_ADAPTER pAd)
 */
 VOID ToneRadarProgram_v1(PRTMP_ADAPTER pAd, unsigned long threshold)
 {
-	UCHAR bbp;
+	unsigned char bbp;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ToneRadarProgram v1\n"));
 	/* programe delta delay & division bit*/
@@ -734,7 +734,7 @@ VOID ToneRadarProgram_v1(PRTMP_ADAPTER pAd, unsigned long threshold)
 */
 VOID ToneRadarProgram_v2(PRTMP_ADAPTER pAd, unsigned long threshold)
 {
-	UCHAR bbp;
+	unsigned char bbp;
 
 	/* programe delta delay & division bit*/
 	DBGPRINT(RT_DEBUG_TRACE, ("ToneRadarProgram v2\n"));

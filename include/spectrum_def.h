@@ -56,7 +56,7 @@ typedef struct _MEASURE_REQ_ENTRY
 
 typedef struct _MEASURE_REQ_TAB
 {
-	UCHAR Size;
+	unsigned char Size;
 	PMEASURE_REQ_ENTRY Hash[MAX_HASH_MEASURE_REQ_TAB_SIZE];
 	MEASURE_REQ_ENTRY Content[MAX_MEASURE_REQ_TAB_SIZE];
 } MEASURE_REQ_TAB, *PMEASURE_REQ_TAB;
@@ -71,7 +71,7 @@ typedef struct _TPC_REQ_ENTRY
 
 typedef struct _TPC_REQ_TAB
 {
-	UCHAR Size;
+	unsigned char Size;
 	PTPC_REQ_ENTRY Hash[MAX_HASH_TPC_REQ_TAB_SIZE];
 	TPC_REQ_ENTRY Content[MAX_TPC_REQ_TAB_SIZE];
 } TPC_REQ_TAB, *PTPC_REQ_TAB;
@@ -80,14 +80,14 @@ typedef struct _TPC_REQ_TAB
 /* The regulatory information */
 typedef struct _DOT11_CHANNEL_SET
 {
-	UCHAR NumberOfChannels;
+	unsigned char NumberOfChannels;
 	unsigned char MaxTxPwr;
-	UCHAR ChannelList[16];
+	unsigned char ChannelList[16];
 } DOT11_CHANNEL_SET, *PDOT11_CHANNEL_SET;
 
 typedef struct _DOT11_REGULATORY_INFORMATION
 {
-	UCHAR RegulatoryClass;
+	unsigned char RegulatoryClass;
 	DOT11_CHANNEL_SET ChannelSet;
 } DOT11_REGULATORY_INFORMATION, *PDOT11_REGULATORY_INFORMATION;
 

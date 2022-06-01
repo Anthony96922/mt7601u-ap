@@ -269,7 +269,7 @@ INT CFG80211DRV_IoctlHandle(
 							if (pAd->pTxStatusBuf != NULL)
 								os_free_mem(NULL, pAd->pTxStatusBuf);
 							
-							os_alloc_mem(NULL, (UCHAR **)&pAd->pTxStatusBuf, Data);
+							os_alloc_mem(NULL, (unsigned char **)&pAd->pTxStatusBuf, Data);
 							if (pAd->pTxStatusBuf != NULL)
 							{
 								NdisCopyMemory(pAd->pTxStatusBuf, pOutBuffer, Data);
@@ -291,7 +291,7 @@ INT CFG80211DRV_IoctlHandle(
 					if (pAd->pTxStatusBuf != NULL)
 						os_free_mem(NULL, pAd->pTxStatusBuf);
 		
-					os_alloc_mem(NULL, (UCHAR **)&pAd->pTxStatusBuf, Data);
+					os_alloc_mem(NULL, (unsigned char **)&pAd->pTxStatusBuf, Data);
 					if (pAd->pTxStatusBuf != NULL)
 					{
 						NdisCopyMemory(pAd->pTxStatusBuf, pData, Data);
@@ -364,7 +364,7 @@ INT CFG80211DRV_IoctlHandle(
 				if (pAd->pCfg80211RrobeRsp != NULL)
 					os_free_mem(NULL, pAd->pCfg80211RrobeRsp);
 
-				os_alloc_mem(NULL, (UCHAR **)&pAd->pCfg80211RrobeRsp, Data);
+				os_alloc_mem(NULL, (unsigned char **)&pAd->pCfg80211RrobeRsp, Data);
 				if (pAd->pCfg80211RrobeRsp != NULL)
 				{
 					NdisCopyMemory(pAd->pCfg80211RrobeRsp, pData, Data);
@@ -488,7 +488,7 @@ BOOLEAN CFG80211DRV_OpsSetChannel(
 	unsigned char ChannelType;
 	STRING ChStr[5] = { 0 };
 #ifdef DOT11_N_SUPPORT
-	UCHAR BW_Old;
+	unsigned char BW_Old;
 	BOOLEAN FlgIsChanged;
 #endif /* DOT11_N_SUPPORT */
 
@@ -603,14 +603,14 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
         PTXWI_STRUC    pTxWI = &pAd->BeaconTxWI;
         HTTRANSMIT_SETTING      BeaconTransmit;   /* MGMT frame PHY rate setting when operatin at Ht rate. */
         BCN_TIME_CFG_STRUC csr9;
-        UCHAR  *ptr;
+        unsigned char  *ptr;
         UINT  i;
         unsigned int longValue;
         unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned int rx_filter_flag;
 	BOOLEAN TxPreamble, SpectrumMgmt = FALSE;
 	BOOLEAN	bWmmCapable = FALSE;
-	UCHAR	BBPR1 = 0, BBPR3 = 0;
+	unsigned char	BBPR1 = 0, BBPR3 = 0;
 	INT idx;
 	unsigned long offset;
 
@@ -669,7 +669,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 
 	PMULTISSID_STRUCT pMbss = &pAd->ApCfg.MBSSID[MAIN_MBSSID];
 
-	const UCHAR *ssid_ie = NULL;
+	const unsigned char *ssid_ie = NULL;
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,33))
 	ssid_ie = cfg80211_find_ie(WLAN_EID_SSID, pBeacon->beacon+36, pBeacon->beacon_len-36);
 #endif
@@ -876,7 +876,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 #endif /* RTMP_MAC_USB */
 	}
 
-	UCHAR apcliIdx, apidx = MAIN_MBSSID;
+	unsigned char apcliIdx, apidx = MAIN_MBSSID;
 
 	//pAd->ApCfg.MBSSID[MAIN_MBSSID].PhyMode = PHY_11BGN_MIXED;
 
@@ -932,7 +932,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 	 	 * the value on pAd->CommonCfg.NumOfBulkInIRP may be large than 1.
 		 */
 	
-		UCHAR num_idx;
+		unsigned char num_idx;
 
 		for(num_idx=0; num_idx < pAd->CommonCfg.NumOfBulkInIRP; num_idx++)
 		{
@@ -969,7 +969,7 @@ BOOLEAN CFG80211DRV_OpsExtraIesSet(
 	pAd->StaCfg.WpsProbeReqIeLen = 0;
 
 	CFG80211DBG(RT_DEBUG_ERROR, ("80211> is_wpa_supplicant_up ==> %d\n", pAd->StaCfg.WpaSupplicantUP)); 
-	os_alloc_mem(pAd, (UCHAR **)&(pAd->StaCfg.pWpsProbeReqIe), ie_len);
+	os_alloc_mem(pAd, (unsigned char **)&(pAd->StaCfg.pWpsProbeReqIe), ie_len);
 	if (pAd->StaCfg.pWpsProbeReqIe)
 	{
 		memcpy(pAd->StaCfg.pWpsProbeReqIe, pCfg80211_CB->pCfg80211_ScanReq->ie, ie_len);
@@ -1104,7 +1104,7 @@ VOID CFG80211DRV_RegNotify(
 	if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_START_UP))
 	{
 		/* interface is up */
-		CFG80211_RegRuleApply(pAd, pRegInfo->pWiphy, (UCHAR *)pRegInfo->Alpha2);
+		CFG80211_RegRuleApply(pAd, pRegInfo->pWiphy, (unsigned char *)pRegInfo->Alpha2);
 	}
 	else
 	{
@@ -1172,7 +1172,7 @@ VOID CFG80211_BeaconCountryRegionParse(
 	IN unsigned short					LenVIE)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
-	UCHAR *pElement = (UCHAR *)pVIE;
+	unsigned char *pElement = (unsigned char *)pVIE;
 	unsigned int LenEmt;
 
 
@@ -1219,7 +1219,7 @@ Note:
 */
 VOID CFG80211_RegHint(
 	IN VOID						*pAdCB,
-	IN UCHAR					*pCountryIe,
+	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
@@ -1248,7 +1248,7 @@ Note:
 */
 VOID CFG80211_RegHint11D(
 	IN VOID						*pAdCB,
-	IN UCHAR					*pCountryIe,
+	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen)
 {
 	/* no regulatory_hint_11d() in 2.6.32 */
@@ -1282,7 +1282,7 @@ Note:
 VOID CFG80211_RegRuleApply(
 	IN VOID						*pAdCB,
 	IN VOID						*pWiphy,
-	IN UCHAR					*pAlpha2)
+	IN unsigned char					*pAlpha2)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 	VOID *pBand24G, *pBand5G;
@@ -1470,7 +1470,7 @@ VOID CFG80211_Scaning(
 	IN VOID							*pAdCB,
 	IN unsigned int						BssIdx,
 	IN unsigned int						ChanId,
-	IN UCHAR						*pFrame,
+	IN unsigned char						*pFrame,
 	IN unsigned int						FrameLen,
 	IN INT32						RSSI)
 {
@@ -1521,12 +1521,12 @@ Note:
 */
 VOID CFG80211_ConnectResultInform(
 	IN VOID						*pAdCB,
-	IN UCHAR					*pBSSID,
-	IN UCHAR					*pReqIe,
+	IN unsigned char					*pBSSID,
+	IN unsigned char					*pReqIe,
 	IN unsigned int					ReqIeLen,
-	IN UCHAR					*pRspIe,
+	IN unsigned char					*pRspIe,
 	IN unsigned int					RspIeLen,
-	IN UCHAR					FlgIsSuccess)
+	IN unsigned char					FlgIsSuccess)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 
@@ -1582,7 +1582,7 @@ BOOLEAN CFG80211_SupBandReInit(
 
 INT CFG80211_StaPortSecured(
 	IN VOID                                         *pAdCB,
-	IN UCHAR 					*pMac,
+	IN unsigned char 					*pMac,
 	IN UINT						flag)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
@@ -1615,7 +1615,7 @@ INT CFG80211_StaPortSecured(
 
 INT CFG80211_ApStaDel(
 	IN VOID                                         *pAdCB,
-	IN UCHAR                                        *pMac)
+	IN unsigned char                                        *pMac)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 	MAC_TABLE_ENTRY *pEntry;
@@ -1659,7 +1659,7 @@ INT CFG80211_setDefaultKey(
 #ifdef RT_P2P_SPECIFIC_WIRELESS_EVENT
 INT CFG80211_SendWirelessEvent(
 	IN VOID                                         *pAdCB,
-	IN UCHAR 					*pMacAddr)
+	IN unsigned char 					*pMacAddr)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 

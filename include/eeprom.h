@@ -40,16 +40,16 @@
 #ifdef RT_BIG_ENDIAN
 typedef	union _EEPROM_WORD_STRUC {
 	struct {
-		UCHAR	Byte1;				// High Byte
-		UCHAR	Byte0;				// Low Byte
+		unsigned char	Byte1;				// High Byte
+		unsigned char	Byte0;				// Low Byte
 	} field;
 	USHORT	word;
 } EEPROM_WORD_STRUC;
 #else
 typedef	union _EEPROM_WORD_STRUC {
 	struct {
-		UCHAR	Byte0;
-		UCHAR	Byte1;
+		unsigned char	Byte0;
+		unsigned char	Byte1;
 	} field;
 	USHORT	word;
 } EEPROM_WORD_STRUC;
@@ -169,16 +169,16 @@ typedef union _EEPROM_TX_PWR_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _EEPROM_VERSION_STRUC {
 	struct {
-		UCHAR Version;	/* High Byte */
-		UCHAR FaeReleaseNumber;	/* Low Byte */
+		unsigned char Version;	/* High Byte */
+		unsigned char FaeReleaseNumber;	/* Low Byte */
 	} field;
 	USHORT word;
 } EEPROM_VERSION_STRUC, *PEEPROM_VERSION_STRUC;
 #else
 typedef union _EEPROM_VERSION_STRUC {
 	struct {
-		UCHAR FaeReleaseNumber;	/* Low Byte */
-		UCHAR Version;	/* High Byte */
+		unsigned char FaeReleaseNumber;	/* Low Byte */
+		unsigned char Version;	/* High Byte */
 	} field;
 	USHORT word;
 } EEPROM_VERSION_STRUC, *PEEPROM_VERSION_STRUC;
@@ -221,20 +221,20 @@ typedef union _EEPROM_LED_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _EEPROM_TXPOWER_DELTA_STRUC {
 	struct {
-		UCHAR TxPowerEnable:1;	/* Enable */
-		UCHAR Type:1;	/* 1: plus the delta value, 0: minus the delta value */
-		UCHAR DeltaValue:6;	/* Tx Power dalta value (MAX=4) */
+		unsigned char TxPowerEnable:1;	/* Enable */
+		unsigned char Type:1;	/* 1: plus the delta value, 0: minus the delta value */
+		unsigned char DeltaValue:6;	/* Tx Power dalta value (MAX=4) */
 	} field;
-	UCHAR value;
+	unsigned char value;
 } EEPROM_TXPOWER_DELTA_STRUC, *PEEPROM_TXPOWER_DELTA_STRUC;
 #else
 typedef union _EEPROM_TXPOWER_DELTA_STRUC {
 	struct {
-		UCHAR DeltaValue:6;	/* Tx Power dalta value (MAX=4) */
-		UCHAR Type:1;	/* 1: plus the delta value, 0: minus the delta value */
-		UCHAR TxPowerEnable:1;	/* Enable */
+		unsigned char DeltaValue:6;	/* Tx Power dalta value (MAX=4) */
+		unsigned char Type:1;	/* 1: plus the delta value, 0: minus the delta value */
+		unsigned char TxPowerEnable:1;	/* Enable */
 	} field;
-	UCHAR value;
+	unsigned char value;
 } EEPROM_TXPOWER_DELTA_STRUC, *PEEPROM_TXPOWER_DELTA_STRUC;
 #endif
 
@@ -244,8 +244,8 @@ typedef union _EEPROM_TX_PWR_OFFSET_STRUC
 {
 	struct
 	{
-		UCHAR	Byte1;	/* High Byte */
-		UCHAR	Byte0;	/* Low Byte */
+		unsigned char	Byte1;	/* High Byte */
+		unsigned char	Byte0;	/* Low Byte */
 	} field;
 	
 	USHORT		word;
@@ -255,8 +255,8 @@ typedef union _EEPROM_TX_PWR_OFFSET_STRUC
 {
 	struct
 	{
-		UCHAR	Byte0;	/* Low Byte */
-		UCHAR	Byte1;	/* High Byte */
+		unsigned char	Byte0;	/* Low Byte */
+		unsigned char	Byte1;	/* High Byte */
 	} field;
 
 	USHORT		word;

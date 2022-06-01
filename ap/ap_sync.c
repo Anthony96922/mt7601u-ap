@@ -84,19 +84,19 @@ VOID APPeerProbeReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	UCHAR Addr2[MAC_ADDR_LEN];
+	unsigned char Addr2[MAC_ADDR_LEN];
 	CHAR Ssid[MAX_LEN_OF_SSID];
-	UCHAR SsidLen;
+	unsigned char SsidLen;
 	HEADER_802_11 ProbeRspHdr;
 	NDIS_STATUS NStatus;
 	unsigned char * pOutBuffer = NULL;
 	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
 	LARGE_INTEGER FakeTimestamp;
-	UCHAR DsLen = 1, ErpIeLen = 1, apidx = 0, PhyMode, SupRateLen, RSNIe = IE_WPA, RSNIe2 = IE_WPA2;
+	unsigned char DsLen = 1, ErpIeLen = 1, apidx = 0, PhyMode, SupRateLen, RSNIe = IE_WPA, RSNIe2 = IE_WPA2;
 	BOOLEAN	bRequestRssi = FALSE;
 
 #ifdef WSC_AP_SUPPORT
-	UCHAR Addr3[MAC_ADDR_LEN];
+	unsigned char Addr3[MAC_ADDR_LEN];
 	PFRAME_802_11 pFrame = (PFRAME_802_11)Elem->Msg;
 
 	COPY_MAC_ADDR(Addr3, pFrame->Hdr.Addr3);
@@ -175,8 +175,8 @@ VOID APPeerProbeReqAction(
 
 		/* add country IE, power constraint IE */
 		if (pAd->CommonCfg.bCountryFlag) {
-			UCHAR TmpFrame[256];
-			UCHAR CountryIe = IE_COUNTRY;
+			unsigned char TmpFrame[256];
+			unsigned char CountryIe = IE_COUNTRY;
 
 #ifdef A_BAND_SUPPORT
 			/*
@@ -200,7 +200,7 @@ VOID APPeerProbeReqAction(
 			BuildBeaconChList(pAd, TmpFrame, &TmpLen2);
 #else
 			{
-				UCHAR MaxTxPower = GetCountryMaxTxPwr(pAd, pAd->CommonCfg.Channel);
+				unsigned char MaxTxPower = GetCountryMaxTxPwr(pAd, pAd->CommonCfg.Channel);
 						MakeOutgoingFrame(TmpFrame + TmpLen2,
 						&TmpLen,
 						1, &pAd->ChannelList[0].Channel,
@@ -213,7 +213,7 @@ VOID APPeerProbeReqAction(
 
 			/* need to do the padding bit check, and concatenate it */
 			if ((TmpLen2 % 2) == 0) {
-				UCHAR TmpLen3 = TmpLen2 + 4;
+				unsigned char TmpLen3 = TmpLen2 + 4;
 				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 							1, &CountryIe,
 							1, &TmpLen3,
@@ -221,7 +221,7 @@ VOID APPeerProbeReqAction(
 							TmpLen2 + 1, TmpFrame,
 							END_OF_ARGS);
 			} else {
-				UCHAR TmpLen3 = TmpLen2 + 3;
+				unsigned char TmpLen3 = TmpLen2 + 3;
 				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 							1, &CountryIe,
 							1, &TmpLen3,
@@ -249,9 +249,9 @@ VOID APPeerProbeReqAction(
 		if ((pAd->CommonCfg.Channel > 14)
 			&& (pAd->CommonCfg.bIEEE80211H == 1)
 			&& (pAd->Dot11_H.RDMode == RD_SWITCHING_MODE)) {
-			UCHAR CSAIe = IE_CHANNEL_SWITCH_ANNOUNCEMENT;
-			UCHAR CSALen = 3;
-			UCHAR CSAMode = 1;
+			unsigned char CSAIe = IE_CHANNEL_SWITCH_ANNOUNCEMENT;
+			unsigned char CSALen = 3;
+			unsigned char CSAMode = 1;
 
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 						1, &CSAIe,
@@ -267,7 +267,7 @@ VOID APPeerProbeReqAction(
 #ifdef DOT11_N_SUPPORT
 		if (WMODE_CAP_N(PhyMode) &&
 			(pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable)) {
-			UCHAR HtLen, AddHtLen, NewExtLen;
+			unsigned char HtLen, AddHtLen, NewExtLen;
 #ifdef RT_BIG_ENDIAN
 			HT_CAPABILITY_IE HtCapabilityTmp;
 			ADD_HT_INFO_IE addHTInfoTmp;
@@ -340,7 +340,7 @@ VOID APPeerProbeReqAction(
 			(pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable) &&
 			(pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == 1)) {
 			OVERLAP_BSS_SCAN_IE OverlapScanParam;
-			UCHAR OverlapScanIE, ScanIELen;
+			unsigned char OverlapScanIE, ScanIELen;
 
 			OverlapScanIE = IE_OVERLAPBSS_SCAN_PARM;
 			ScanIELen = 14;
@@ -365,7 +365,7 @@ VOID APPeerProbeReqAction(
 		/* 7.3.2.27 Extended Capabilities IE */
 		{
 			EXT_CAP_INFO_ELEMENT extCapInfo;
-			UCHAR extInfoLen;
+			unsigned char extInfoLen;
 
 			extInfoLen = sizeof(EXT_CAP_INFO_ELEMENT);
 			NdisZeroMemory(&extCapInfo, extInfoLen);
@@ -391,7 +391,7 @@ VOID APPeerProbeReqAction(
 
 		if (WMODE_CAP_N(PhyMode) &&
 			(pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable)) {
-			UCHAR HtLen, AddHtLen;/*, NewExtLen; */
+			unsigned char HtLen, AddHtLen;/*, NewExtLen; */
 #ifdef RT_BIG_ENDIAN
 			HT_CAPABILITY_IE HtCapabilityTmp;
 			ADD_HT_INFO_IE addHTInfoTmp;
@@ -400,9 +400,9 @@ VOID APPeerProbeReqAction(
 			AddHtLen = sizeof(pAd->CommonCfg.AddHTInfo);
 
 			if (pAd->bBroadComHT == TRUE) {
-				UCHAR epigram_ie_len;
-				UCHAR BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
-				UCHAR BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
+				unsigned char epigram_ie_len;
+				unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
+				unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
 
 				epigram_ie_len = HtLen + 4;
 #ifndef RT_BIG_ENDIAN
@@ -486,20 +486,20 @@ VOID APPeerProbeReqAction(
 
 		/* add WMM IE here */
 		if (pAd->ApCfg.MBSSID[apidx].bWmmCapable) {
-			UCHAR i;
-			UCHAR WmeParmIe[26] = {IE_VENDOR_SPECIFIC, 24, 0x00, 0x50, 0xf2, 0x02, 0x01, 0x01, 0, 0};
+			unsigned char i;
+			unsigned char WmeParmIe[26] = {IE_VENDOR_SPECIFIC, 24, 0x00, 0x50, 0xf2, 0x02, 0x01, 0x01, 0, 0};
 			WmeParmIe[8] = pAd->ApCfg.BssEdcaParm.EdcaUpdateCount & 0x0f;
 #ifdef UAPSD_SUPPORT
 			UAPSD_MR_IE_FILL(WmeParmIe[8], &pAd->ApCfg.MBSSID[apidx].UapsdInfo);
 #endif /* UAPSD_SUPPORT */
 			for (i = QID_AC_BE; i <= QID_AC_VO; i++) {
 				WmeParmIe[10 + (i * 4)] = (i << 5) +						/* b5-6 is ACI */
-							((UCHAR)pAd->ApCfg.BssEdcaParm.bACM[i] << 4) +		/* b4 is ACM */
+							((unsigned char)pAd->ApCfg.BssEdcaParm.bACM[i] << 4) +		/* b4 is ACM */
 							(pAd->ApCfg.BssEdcaParm.Aifsn[i] & 0x0f);		/* b0-3 is AIFSN */
 				WmeParmIe[11 + (i * 4)] = (pAd->ApCfg.BssEdcaParm.Cwmax[i] << 4) +		/* b5-8 is CWMAX */
 							(pAd->ApCfg.BssEdcaParm.Cwmin[i] & 0x0f);		/* b0-3 is CWMIN */
-				WmeParmIe[12 + (i * 4)] = (UCHAR)(pAd->ApCfg.BssEdcaParm.Txop[i] & 0xff);	/* low byte of TXOP */
-				WmeParmIe[13 + (i * 4)] = (UCHAR)(pAd->ApCfg.BssEdcaParm.Txop[i] >> 8);		/* high byte of TXOP */
+				WmeParmIe[12 + (i * 4)] = (unsigned char)(pAd->ApCfg.BssEdcaParm.Txop[i] & 0xff);	/* low byte of TXOP */
+				WmeParmIe[13 + (i * 4)] = (unsigned char)(pAd->ApCfg.BssEdcaParm.Txop[i] >> 8);		/* high byte of TXOP */
 			}
 
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
@@ -518,7 +518,7 @@ VOID APPeerProbeReqAction(
 			Byte0.b3=1 for rssi-feedback
 		 */
 		{
-			UCHAR RalinkSpecificIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
+			unsigned char RalinkSpecificIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
 
 			if (pAd->CommonCfg.bAggregationCapable)
 				RalinkSpecificIe[5] |= 0x1;
@@ -540,9 +540,9 @@ VOID APPeerProbeReqAction(
 				pEntry = MacTableLookup(pAd, Addr2);
 
 				if (pEntry != NULL) {
-					RalinkSpecificIe[6] = (UCHAR)pEntry->RssiSample.AvgRssi0;
-					RalinkSpecificIe[7] = (UCHAR)pEntry->RssiSample.AvgRssi1;
-					RalinkSpecificIe[8] = (UCHAR)pEntry->RssiSample.AvgRssi2;
+					RalinkSpecificIe[6] = (unsigned char)pEntry->RssiSample.AvgRssi0;
+					RalinkSpecificIe[7] = (unsigned char)pEntry->RssiSample.AvgRssi1;
+					RalinkSpecificIe[8] = (unsigned char)pEntry->RssiSample.AvgRssi2;
 				}
 			}
 #endif /* RSSI_FEEDBACK */
@@ -555,7 +555,7 @@ VOID APPeerProbeReqAction(
 #ifdef DOT11_VHT_AC
 		if (WMODE_CAP_AC(PhyMode) &&
 			(pAd->CommonCfg.Channel > 14))
-			FrameLen += build_vht_ies(pAd, (UCHAR *)(pOutBuffer + FrameLen), SUBTYPE_PROBE_RSP);
+			FrameLen += build_vht_ies(pAd, (unsigned char *)(pOutBuffer + FrameLen), SUBTYPE_PROBE_RSP);
 #endif /* DOT11_VHT_AC */
 
 #ifdef WSC_AP_SUPPORT
@@ -575,7 +575,7 @@ VOID APPeerProbeReqAction(
 				The IE would be 7 bytes long with the Extended Capability field set to 0 (all bits zero)
 				http://msdn.microsoft.com/library/default.asp?url=/library/en-us/randz/protocol/securing_public_wi-fi_hotspots.asp
 			*/
-			UCHAR PROVISION_SERVICE_IE[7] = {0xDD, 0x05, 0x00, 0x50, 0xF2, 0x05, 0x00};
+			unsigned char PROVISION_SERVICE_IE[7] = {0xDD, 0x05, 0x00, 0x50, 0xF2, 0x05, 0x00};
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 						7, PROVISION_SERVICE_IE,
 						END_OF_ARGS);
@@ -617,7 +617,7 @@ VOID APPeerProbeReqAction(
 
 typedef struct {
 	unsigned long count;
-	UCHAR bssid[MAC_ADDR_LEN];
+	unsigned char bssid[MAC_ADDR_LEN];
 } BSSIDENTRY;
 
 
@@ -625,17 +625,17 @@ typedef struct {
 VOID APPeerBeaconAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem) {
-		UCHAR Rates[MAX_LEN_OF_SUPPORTED_RATES], *pRates = NULL, RatesLen;
+		unsigned char Rates[MAX_LEN_OF_SUPPORTED_RATES], *pRates = NULL, RatesLen;
 		BOOLEAN LegacyBssExist;
 		CHAR RealRssi;
-		UCHAR *VarIE = NULL;
+		unsigned char *VarIE = NULL;
 		USHORT LenVIE;
 		NDIS_802_11_VARIABLE_IEs *pVIE = NULL;
-		UCHAR MaxSupportedRate = 0;
+		unsigned char MaxSupportedRate = 0;
 		BCN_IE_LIST *ie_list = NULL;
 
 		/* allocate memory */
-		os_alloc_mem(NULL, (UCHAR **)&ie_list, sizeof(BCN_IE_LIST));
+		os_alloc_mem(NULL, (unsigned char **)&ie_list, sizeof(BCN_IE_LIST));
 		if (ie_list == NULL) {
 			DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate ie_list fail!!!\n", __FUNCTION__));
 			goto LabelErr;
@@ -643,7 +643,7 @@ VOID APPeerBeaconAction(
 		NdisZeroMemory(ie_list, sizeof(BCN_IE_LIST));
 
 		/* Init Variable IE structure */
-		os_alloc_mem(NULL, (UCHAR **)&VarIE, MAX_VIE_LEN);
+		os_alloc_mem(NULL, (unsigned char **)&VarIE, MAX_VIE_LEN);
 		if (VarIE == NULL) {
 			DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate VarIE fail!!!\n", __FUNCTION__));
 			goto LabelErr;
@@ -909,7 +909,7 @@ VOID APMlmeScanReqAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	BOOLEAN Cancelled;
-	UCHAR Ssid[MAX_LEN_OF_SSID], SsidLen, ScanType, BssType;
+	unsigned char Ssid[MAX_LEN_OF_SSID], SsidLen, ScanType, BssType;
 
 
 	/* Suspend MSDU transmission here */
@@ -977,7 +977,7 @@ VOID APPeerBeaconAtScanAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	PFRAME_802_11 pFrame;
-	UCHAR *VarIE = NULL;
+	unsigned char *VarIE = NULL;
 	USHORT LenVIE;
 	NDIS_802_11_VARIABLE_IEs *pVIE = NULL;
 	CHAR RealRssi = -127;
@@ -985,15 +985,15 @@ VOID APPeerBeaconAtScanAction(
 	BCN_IE_LIST *ie_list = NULL;
 
 
-	os_alloc_mem(pAd, (UCHAR **)&ie_list, sizeof(BCN_IE_LIST));
+	os_alloc_mem(pAd, (unsigned char **)&ie_list, sizeof(BCN_IE_LIST));
 	if (!ie_list) {
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Alloc memory for ie_list fail!!!\n", __FUNCTION__));
 		return;
 	}
-	NdisZeroMemory((UCHAR *)ie_list, sizeof(BCN_IE_LIST));
+	NdisZeroMemory((unsigned char *)ie_list, sizeof(BCN_IE_LIST));
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&VarIE, MAX_VIE_LEN);
+	os_alloc_mem(NULL, (unsigned char **)&VarIE, MAX_VIE_LEN);
 	if (VarIE == NULL) {
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
 		goto LabelErr;
@@ -1116,7 +1116,7 @@ VOID APScanCnclAction(
 VOID ApSiteSurvey(
 	IN	PRTMP_ADAPTER  		pAd,
 	IN	PNDIS_802_11_SSID	pSsid,
-	IN	UCHAR				ScanType,
+	IN	unsigned char				ScanType,
 	IN	BOOLEAN				ChannelSel)
 {
 	MLME_SCAN_REQ_STRUCT    ScanReq;
@@ -1148,9 +1148,9 @@ BOOLEAN ApScanRunning(
 
 VOID SupportRate(
 	IN unsigned char * SupRate,
-	IN UCHAR SupRateLen,
+	IN unsigned char SupRateLen,
 	IN unsigned char * ExtRate,
-	IN UCHAR ExtRateLen,
+	IN unsigned char ExtRateLen,
 	OUT unsigned char * *ppRates,
 	OUT unsigned char * RatesLen,
 	OUT unsigned char * pMaxSupportRate)
@@ -1199,9 +1199,9 @@ VOID SupportRate(
 
 typedef struct
 {
-	UCHAR	regclass;	/* regulatory class */
-	UCHAR	spacing;	/* 0: 20Mhz, 1: 40Mhz */
-	UCHAR	channelset[16];	/* max 15 channels, use 0 as terminator */
+	unsigned char	regclass;	/* regulatory class */
+	unsigned char	spacing;	/* 0: 20Mhz, 1: 40Mhz */
+	unsigned char	channelset[16];	/* max 15 channels, use 0 as terminator */
 } REG_CLASS;
 
 REG_CLASS reg_class[] =
@@ -1226,11 +1226,11 @@ REG_CLASS reg_class[] =
 	{ 0,  0, {0}} /* end */
 };
 
-UCHAR get_regulatory_class(
+unsigned char get_regulatory_class(
 	IN PRTMP_ADAPTER pAd)
 {
 	int i = 0;
-	UCHAR regclass = 0;
+	unsigned char regclass = 0;
 
 	do {
 		if (reg_class[i].spacing == pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth) {

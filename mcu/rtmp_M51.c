@@ -42,7 +42,7 @@
 #ifdef WOW_SUPPORT 
 #define FIRMWAREIMAGE_WOW_LENGTH	0x3000 /* WOW support firmware(12KB) */
 #endif/*WOW_SUPPORT*/
-#define FIRMWAREIMAGE_LENGTH			(sizeof (FirmwareImage) / sizeof(UCHAR))
+#define FIRMWAREIMAGE_LENGTH			(sizeof (FirmwareImage) / sizeof(unsigned char))
 #define FIRMWARE_MAJOR_VERSION		0
 
 #define FIRMWAREIMAGEV1_LENGTH		0x1000
@@ -247,7 +247,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 
 	/* allocate firmware buffer */
 /*	pFirmwareImage = kmalloc(MAX_FIRMWARE_IMAGE_SIZE, MEM_ALLOC_FLAG);*/
-	os_alloc_mem(pAd, (UCHAR **)&pFirmwareImage, MAX_FIRMWARE_IMAGE_SIZE);
+	os_alloc_mem(pAd, (unsigned char **)&pFirmwareImage, MAX_FIRMWARE_IMAGE_SIZE);
 	if (pFirmwareImage == NULL)
 	{
 		/* allocate fail, use default firmware array in firmware.h */
@@ -297,9 +297,9 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 					crc = ByteCRC16(BitReverse(*ptr), crc);
 
 				if ((pFirmwareImage[MAX_FIRMWARE_IMAGE_SIZE-2] != \
-								(UCHAR)BitReverse((UCHAR)(crc>>8))) ||
+								(unsigned char)BitReverse((unsigned char)(crc>>8))) ||
 					(pFirmwareImage[MAX_FIRMWARE_IMAGE_SIZE-1] != \
-								(UCHAR)BitReverse((UCHAR)crc)))
+								(unsigned char)BitReverse((unsigned char)crc)))
 				{
 					/* CRC fail */
 					DBGPRINT(RT_DEBUG_ERROR, ("%s: CRC = 0x%02x 0x%02x "
@@ -307,7 +307,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 						   __FUNCTION__,
 						   pFirmwareImage[MAX_FIRMWARE_IMAGE_SIZE-2],
 						   pFirmwareImage[MAX_FIRMWARE_IMAGE_SIZE-1],
-						   (UCHAR)(crc>>8), (UCHAR)(crc)));
+						   (unsigned char)(crc>>8), (unsigned char)(crc)));
 					NICLF_DEFAULT_USE();
 					break;
 				}
@@ -400,7 +400,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 #ifdef RTMP_MAC_USB
 	BOOLEAN			Equal = TRUE;
 	unsigned int			MacReg1 = 0;
-	UCHAR			FVer;
+	unsigned char			FVer;
 	unsigned short			FCS;
 #endif
 
@@ -421,7 +421,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 #ifdef WOW_SUPPORT
 		if (pAd->WOW_Cfg.bWOWFirmware == TRUE)
 		{
-			UCHAR ver = FirmwareImage[FIRMWAREIMAGEV3_LENGTH + 0xFFD];
+			unsigned char ver = FirmwareImage[FIRMWAREIMAGEV3_LENGTH + 0xFFD];
 			unsigned short sum;
 
 			NdisCopyMemory(&sum, &FirmwareImage[FIRMWAREIMAGEV3_LENGTH+0xFFE], 2);
@@ -434,7 +434,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 		else
 #endif /* WOW_SUPPORT */
 		{
-			UCHAR ver = FirmwareImage[FIRMWAREIMAGEV2_LENGTH + 0xFFD];
+			unsigned char ver = FirmwareImage[FIRMWAREIMAGEV2_LENGTH + 0xFFD];
 			unsigned short sum;
 
 			NdisCopyMemory(&sum, &FirmwareImage[FIRMWAREIMAGEV2_LENGTH+0xFFE], 2);
@@ -633,10 +633,10 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 
 INT RtmpAsicSendCommandToMcu(
 	IN PRTMP_ADAPTER	pAd,
-	IN UCHAR			Command,
-	IN UCHAR			Token,
-	IN UCHAR			Arg0,
-	IN UCHAR			Arg1,
+	IN unsigned char			Command,
+	IN unsigned char			Token,
+	IN unsigned char			Arg0,
+	IN unsigned char			Arg1,
 	IN BOOLEAN			FlgIsNeedLocked)
 {
 	HOST_CMD_CSR_STRUC	H2MCmd;

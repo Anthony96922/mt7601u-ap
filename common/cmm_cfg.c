@@ -75,9 +75,9 @@ INT ComputeChecksum(
 UINT GenerateWpsPinCode(
 	IN PRTMP_ADAPTER	pAd,
 	IN BOOLEAN		bFromApcli,
-	IN UCHAR		apidx)
+	IN unsigned char		apidx)
 {
-	UCHAR	macAddr[MAC_ADDR_LEN];
+	unsigned char	macAddr[MAC_ADDR_LEN];
 	UINT 	iPin;
 	UINT	checksum;
 
@@ -117,7 +117,7 @@ char* get_phymode_str(int Mode)
 }
 
 
-static UCHAR *phy_bw_str[] = {"20M", "40M", "80M", "10M"};
+static unsigned char *phy_bw_str[] = {"20M", "40M", "80M", "10M"};
 char* get_bw_str(int bandwidth)
 {
 	if (bandwidth >= BW_20 && bandwidth <= BW_10)
@@ -143,7 +143,7 @@ INT RT_CfgSetCountryRegion(
 	IN INT				band)
 {
 	LONG region;
-	UCHAR *pCountryRegion;
+	unsigned char *pCountryRegion;
 	
 	region = simple_strtol(arg, 0, 10);
 
@@ -167,7 +167,7 @@ INT RT_CfgSetCountryRegion(
 	   (region == REGION_31_BG_BAND) || (region == REGION_32_BG_BAND) || (region == REGION_33_BG_BAND) )) || 
 	    ((band == BAND_5G) && (region <= REGION_MAXIMUM_A_BAND) ))
 	  )
-		*pCountryRegion = (UCHAR) region;
+		*pCountryRegion = (unsigned char) region;
 	else
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("CfgSetCountryRegion():region(%ld) out of range!\n", region));
@@ -179,7 +179,7 @@ INT RT_CfgSetCountryRegion(
 }
 
 
-static UCHAR CFG_WMODE_MAP[]={
+static unsigned char CFG_WMODE_MAP[]={
 	PHY_11BG_MIXED, (WMODE_B | WMODE_G), /* 0 => B/G mixed */
 	PHY_11B, (WMODE_B), /* 1 => B only */
 	PHY_11A, (WMODE_A), /* 2 => A only */
@@ -206,9 +206,9 @@ static char * BAND_STR[] = {"Invalid", "2.4G", "5G", "2.4G/5G"};
 #endif /* DBG */
 static char * WMODE_STR[]= {"", "a", "b", "g", "n", "n", "ac"};
 
-UCHAR *wmode_2_str(UCHAR wmode)
+unsigned char *wmode_2_str(unsigned char wmode)
 {
-	UCHAR *str;
+	unsigned char *str;
 	INT idx, pos, max_len;
 
 	max_len = WMODE_COMP * 3;
@@ -239,7 +239,7 @@ UCHAR *wmode_2_str(UCHAR wmode)
 }
 
 
-UCHAR cfgmode_2_wmode(UCHAR cfg_mode)
+unsigned char cfgmode_2_wmode(unsigned char cfg_mode)
 {
 	DBGPRINT(RT_DEBUG_OFF, ("cfg_mode = %d\n", cfg_mode));
 	if (cfg_mode >= PHY_MODE_MAX)
@@ -249,7 +249,7 @@ UCHAR cfgmode_2_wmode(UCHAR cfg_mode)
 }
 
 
-UCHAR wmode_2_cfgmode(UCHAR wmode)
+unsigned char wmode_2_cfgmode(unsigned char wmode)
 {
 	INT index;
 	DBGPRINT(RT_DEBUG_OFF, ("wmode = %d\n", wmode));
@@ -271,7 +271,7 @@ static BOOLEAN wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
 	else
 		return TRUE;
 }
-static BOOLEAN wmode_valid_and_correct(RTMP_ADAPTER *pAd, UCHAR* wmode)
+static BOOLEAN wmode_valid_and_correct(RTMP_ADAPTER *pAd, unsigned char* wmode)
 {
 	BOOLEAN ret = TRUE;
 
@@ -289,10 +289,10 @@ static BOOLEAN wmode_valid_and_correct(RTMP_ADAPTER *pAd, UCHAR* wmode)
 }
 
 
-BOOLEAN wmode_band_equal(UCHAR smode, UCHAR tmode)
+BOOLEAN wmode_band_equal(unsigned char smode, unsigned char tmode)
 {
 	BOOLEAN eq = FALSE;
-	UCHAR *str1, *str2;
+	unsigned char *str1, *str2;
 
 	if ((WMODE_CAP_5G(smode) == WMODE_CAP_5G(tmode)) &&
 		(WMODE_CAP_2G(smode) == WMODE_CAP_2G(tmode)))
@@ -327,12 +327,12 @@ BOOLEAN wmode_band_equal(UCHAR smode, UCHAR tmode)
 INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
 	LONG cfg_mode;
-	UCHAR wmode, *mode_str;
+	unsigned char wmode, *mode_str;
 
 	cfg_mode = simple_strtol(arg, 0, 10);
 
 	/* check if chip support 5G band when WirelessMode is 5G band */
-	wmode = cfgmode_2_wmode((UCHAR)cfg_mode);
+	wmode = cfgmode_2_wmode((unsigned char)cfg_mode);
 	if ((wmode == WMODE_INVALID) || (!wmode_valid_and_correct(pAd, &wmode))) {
 		DBGPRINT(RT_DEBUG_ERROR,
 				("%s(): Invalid wireless mode(%ld), ChipCap(%s)\n",
@@ -363,9 +363,9 @@ INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 /* maybe can be moved to GPL code, ap_mbss.c, but the code will be open */
 #ifdef CONFIG_AP_SUPPORT
 #ifdef MBSS_SUPPORT
-static UCHAR RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
+static unsigned char RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
 {
-	UCHAR wmode = 0, *mode_str;
+	unsigned char wmode = 0, *mode_str;
 	INT idx;
 	MULTISSID_STRUCT *wdev;
 
@@ -401,11 +401,11 @@ static UCHAR RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
 INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
 	LONG cfg_mode;
-	UCHAR wmode;
+	unsigned char wmode;
 
 	cfg_mode = simple_strtol(arg, 0, 10);
 
-	wmode = cfgmode_2_wmode((UCHAR)cfg_mode);
+	wmode = cfgmode_2_wmode((unsigned char)cfg_mode);
 	if ((wmode == WMODE_INVALID) || (!wmode_valid(pAd, wmode))) {
 		DBGPRINT(RT_DEBUG_ERROR,
 				("%s(): Invalid wireless mode (%d, wmode = 0x%x), ChipCap(%s)\n",
@@ -506,7 +506,7 @@ INT	RT_CfgSetWepKey(
 {
 	INT			KeyLen;
 	INT			i;
-	/*UCHAR			CipherAlg = CIPHER_NONE;*/
+	/*unsigned char			CipherAlg = CIPHER_NONE;*/
 	BOOLEAN			bKeyIsHex = FALSE;
 
 	/* TODO: Shall we do memset for the original key info??*/
@@ -564,11 +564,11 @@ INT RT_CfgSetWPAPSKKey(
 	IN RTMP_ADAPTER	*pAd,
 	IN char *	keyString,
 	IN INT		keyStringLen,
-	IN UCHAR	*pHashStr,
+	IN unsigned char	*pHashStr,
 	IN INT		hashStrLen,
 	OUT unsigned char *	pPMKBuf)
 {
-	UCHAR keyMaterial[40];
+	unsigned char keyMaterial[40];
 
 	if ((keyStringLen < 8) || (keyStringLen > 64)) {
 		DBGPRINT(RT_DEBUG_TRACE, ("WPAPSK Key length(%d) error, required 8 ~ 64 characters!(keyStr=%s)\n",
@@ -666,7 +666,7 @@ INT	RT_CfgSetAutoFallBack(
 	IN char *	arg)
 {
 	TX_RTY_CFG_STRUC tx_rty_cfg;
-	UCHAR AutoFallBack = (UCHAR)simple_strtol(arg, 0, 10);
+	unsigned char AutoFallBack = (unsigned char)simple_strtol(arg, 0, 10);
 
 	RTMP_IO_READ32(pAd, TX_RTY_CFG, &tx_rty_cfg.word);
 	tx_rty_cfg.field.TxautoFBEnable = (AutoFallBack) ? 1 : 0;
@@ -785,7 +785,7 @@ INT RTMP_COM_IoctlHandle(
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	POS_COOKIE pObj = (POS_COOKIE)pAd->OS_Cookie;
 	INT Status = NDIS_STATUS_SUCCESS, i;
-	UCHAR PermanentAddress[MAC_ADDR_LEN];
+	unsigned char PermanentAddress[MAC_ADDR_LEN];
 	USHORT Addr01, Addr23, Addr45;
 
 
@@ -921,7 +921,7 @@ INT RTMP_COM_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_CHAN_LIST_GET:
 			{
 				unsigned int i;
-				UCHAR *pChannel = (UCHAR *)pData;
+				unsigned char *pChannel = (unsigned char *)pData;
 
 				for (i = 1; i <= pAd->ChannelListNum; i++)
 				{
@@ -1030,7 +1030,7 @@ INT RTMP_COM_IoctlHandle(
 
 #ifdef INF_PPA_SUPPORT
 		case CMD_RTPRIV_IOCTL_INF_PPA_INIT:
-			os_alloc_mem(NULL, (UCHAR **)&(pAd->pDirectpathCb), sizeof(PPA_DIRECTPATH_CB));
+			os_alloc_mem(NULL, (unsigned char **)&(pAd->pDirectpathCb), sizeof(PPA_DIRECTPATH_CB));
 			break;
 
 		case CMD_RTPRIV_IOCTL_INF_PPA_EXIT:
@@ -1161,7 +1161,7 @@ INT RTMP_COM_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_INF_IW_STATUS_GET:
 		/* get wireless statistics */
 		{
-			UCHAR CurOpMode = OPMODE_AP;
+			unsigned char CurOpMode = OPMODE_AP;
 #ifdef CONFIG_AP_SUPPORT 
 			PMAC_TABLE_ENTRY pMacEntry = NULL;
 #endif /* CONFIG_AP_SUPPORT */
@@ -1284,15 +1284,15 @@ INT RTMP_COM_IoctlHandle(
 			RT28xx_EEPROM_READ16(pAd, 0x06, Addr23);
 			RT28xx_EEPROM_READ16(pAd, 0x08, Addr45);			
 			
-			PermanentAddress[0] = (UCHAR)(Addr01 & 0xff);		
-			PermanentAddress[1] = (UCHAR)(Addr01 >> 8);
-			PermanentAddress[2] = (UCHAR)(Addr23 & 0xff);
-			PermanentAddress[3] = (UCHAR)(Addr23 >> 8);
-			PermanentAddress[4] = (UCHAR)(Addr45 & 0xff);
-			PermanentAddress[5] = (UCHAR)(Addr45 >> 8);				
+			PermanentAddress[0] = (unsigned char)(Addr01 & 0xff);		
+			PermanentAddress[1] = (unsigned char)(Addr01 >> 8);
+			PermanentAddress[2] = (unsigned char)(Addr23 & 0xff);
+			PermanentAddress[3] = (unsigned char)(Addr23 >> 8);
+			PermanentAddress[4] = (unsigned char)(Addr45 & 0xff);
+			PermanentAddress[5] = (unsigned char)(Addr45 >> 8);				
 			
 			for(i = 0; i < 6; i++)
-				*(UCHAR *)(pData+i) = PermanentAddress[i];
+				*(unsigned char *)(pData+i) = PermanentAddress[i];
 			break;
 #ifdef CONFIG_AP_SUPPORT
 		case CMD_RTPRIV_IOCTL_AP_SIOCGIWRATEQ:
@@ -1331,7 +1331,7 @@ INT RTMP_COM_IoctlHandle(
 
 #if defined(CONFIG_CSO_SUPPORT) || defined(CONFIG_RX_CSO_SUPPORT)
 		case CMD_RTPRIV_IOCTL_ADAPTER_CSO_SUPPORT_TEST:
-			*(UCHAR *)pData = (pAd->MoreFlags & fASIC_CAP_CSO) ? 1:0;
+			*(unsigned char *)pData = (pAd->MoreFlags & fASIC_CAP_CSO) ? 1:0;
 			break;
 #endif /* defined(CONFIG_CSO_SUPPORT) || defined(CONFIG_RX_CSO_SUPPORT) */
 

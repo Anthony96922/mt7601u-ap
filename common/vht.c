@@ -57,9 +57,9 @@
 
 */
 struct vht_ch_layout{
-	UCHAR ch_low_bnd;
-	UCHAR ch_up_bnd;
-	UCHAR cent_freq_idx;
+	unsigned char ch_low_bnd;
+	unsigned char ch_up_bnd;
+	unsigned char cent_freq_idx;
 };
 
 static struct vht_ch_layout vht_ch_80M[]={
@@ -81,7 +81,7 @@ VOID dump_vht_cap(RTMP_ADAPTER *pAd, VHT_CAP_IE *vht_ie)
 	VHT_MCS_SET *vht_mcs = &vht_ie->mcs_set;
 
 	DBGPRINT(RT_DEBUG_OFF, ("Dump VHT_CAP IE\n"));	
-	hex_dump("VHT CAP IE Raw Data", (UCHAR *)vht_ie, sizeof(VHT_CAP_IE));
+	hex_dump("VHT CAP IE Raw Data", (unsigned char *)vht_ie, sizeof(VHT_CAP_IE));
 
 	DBGPRINT(RT_DEBUG_OFF, ("VHT Capabilities Info Field\n"));
 	DBGPRINT(RT_DEBUG_OFF, ("\tMaximum MPDU Length=%d\n", vht_cap->max_mpdu_len));
@@ -118,7 +118,7 @@ VOID dump_vht_op(RTMP_ADAPTER *pAd, VHT_OP_IE *vht_ie)
 	VHT_MCS_MAP *vht_mcs = &vht_ie->basic_mcs_set;
 	
 	DBGPRINT(RT_DEBUG_OFF, ("Dump VHT_OP IE\n"));	
-	hex_dump("VHT OP IE Raw Data", (UCHAR *)vht_ie, sizeof(VHT_OP_IE));
+	hex_dump("VHT OP IE Raw Data", (unsigned char *)vht_ie, sizeof(VHT_OP_IE));
 
 	DBGPRINT(RT_DEBUG_OFF, ("VHT Operation Info Field\n"));
 	DBGPRINT(RT_DEBUG_OFF, ("\tChannelWidth=%d\n", vht_op->ch_width));
@@ -134,7 +134,7 @@ VOID dump_vht_op(RTMP_ADAPTER *pAd, VHT_OP_IE *vht_ie)
 /*
 	Currently we only consider about VHT 80MHz!
 */
-UCHAR vht_cent_ch_freq(RTMP_ADAPTER *pAd, UCHAR prim_ch)
+unsigned char vht_cent_ch_freq(RTMP_ADAPTER *pAd, unsigned char prim_ch)
 {
 	INT idx = 0;
 
@@ -193,7 +193,7 @@ INT get_vht_op_ch_width(RTMP_ADAPTER *pAd)
 
 	Appeared in Beacon, ProbResp frames
 */
-INT build_quiet_channel(RTMP_ADAPTER *pAd, UCHAR *buf)
+INT build_quiet_channel(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
 	INT len = 0;
 
@@ -207,7 +207,7 @@ INT build_quiet_channel(RTMP_ADAPTER *pAd, UCHAR *buf)
 
 	Appeared in Beacon, ProbResp frames
 */
-INT build_ext_bss_load(RTMP_ADAPTER *pAd, UCHAR *buf)
+INT build_ext_bss_load(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
 	INT len = 0;
 
@@ -221,7 +221,7 @@ INT build_ext_bss_load(RTMP_ADAPTER *pAd, UCHAR *buf)
 
 	Appeared in Beacon, ProbResp frames
 */
-INT build_ext_pwr_constraint(RTMP_ADAPTER *pAd, UCHAR *buf)
+INT build_ext_pwr_constraint(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
 	INT len = 0;
 
@@ -235,7 +235,7 @@ INT build_ext_pwr_constraint(RTMP_ADAPTER *pAd, UCHAR *buf)
 
 	Appeared in Beacon, ProbResp frames
 */
-INT build_vht_pwr_envelope(RTMP_ADAPTER *pAd, UCHAR *buf)
+INT build_vht_pwr_envelope(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
 	INT len = 0;
 
@@ -249,11 +249,11 @@ INT build_vht_pwr_envelope(RTMP_ADAPTER *pAd, UCHAR *buf)
 
 	Appeared in Beacon, (Re)AssocResp, ProbResp frames
 */	
-INT build_vht_op_ie(RTMP_ADAPTER *pAd, UCHAR *buf)
+INT build_vht_op_ie(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
 	VHT_OP_IE vht_op;
 
-	NdisZeroMemory((UCHAR *)&vht_op, sizeof(VHT_OP_IE));
+	NdisZeroMemory((unsigned char *)&vht_op, sizeof(VHT_OP_IE));
 	vht_op.vht_op_info.ch_width = (pAd->CommonCfg.vht_bw == VHT_BW_80 ? 1: 0);
 	switch (vht_op.vht_op_info.ch_width)
 	{
@@ -289,7 +289,7 @@ INT build_vht_op_ie(RTMP_ADAPTER *pAd, UCHAR *buf)
 			break;			
 	}
 
-	NdisMoveMemory((UCHAR *)buf, (UCHAR *)&vht_op, sizeof(VHT_OP_IE));
+	NdisMoveMemory((unsigned char *)buf, (unsigned char *)&vht_op, sizeof(VHT_OP_IE));
 	
 	return sizeof(VHT_OP_IE);
 }
@@ -300,11 +300,11 @@ INT build_vht_op_ie(RTMP_ADAPTER *pAd, UCHAR *buf)
 
 	Appeared in Beacon, (Re)AssocReq, (Re)AssocResp, ProbReq/Resp frames
 */
-INT build_vht_cap_ie(RTMP_ADAPTER *pAd, UCHAR *buf)
+INT build_vht_cap_ie(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
 	VHT_CAP_IE vht_cap_ie;
 
-	NdisZeroMemory((UCHAR *)&vht_cap_ie,  sizeof(VHT_CAP_IE));
+	NdisZeroMemory((unsigned char *)&vht_cap_ie,  sizeof(VHT_CAP_IE));
 	vht_cap_ie.vht_cap.max_mpdu_len = 0; // TODO: Ask Jerry about hardware limitation.
 	vht_cap_ie.vht_cap.ch_width = 0; /* not support 160 or 80 + 80 MHz */
 	vht_cap_ie.vht_cap.sgi_80M = 1;
@@ -366,13 +366,13 @@ INT build_vht_cap_ie(RTMP_ADAPTER *pAd, UCHAR *buf)
 			break;
 	}
 
-	NdisMoveMemory(buf, (UCHAR *)&vht_cap_ie, sizeof(VHT_CAP_IE));
+	NdisMoveMemory(buf, (unsigned char *)&vht_cap_ie, sizeof(VHT_CAP_IE));
 
 	return sizeof(VHT_CAP_IE);
 }
 
 
-INT build_vht_ies(RTMP_ADAPTER *pAd, UCHAR *buf, UCHAR frm)
+INT build_vht_ies(RTMP_ADAPTER *pAd, unsigned char *buf, unsigned char frm)
 {
 	INT len = 0;
 	EID_STRUCT eid_hdr;
@@ -380,19 +380,19 @@ INT build_vht_ies(RTMP_ADAPTER *pAd, UCHAR *buf, UCHAR frm)
 
 	eid_hdr.Eid = IE_VHT_CAP;
 	eid_hdr.Len = sizeof(VHT_CAP_IE);
-	NdisMoveMemory(buf, (UCHAR *)&eid_hdr, 2);
+	NdisMoveMemory(buf, (unsigned char *)&eid_hdr, 2);
 	len = 2;
 
-	len += build_vht_cap_ie(pAd, (UCHAR *)(buf + len));
+	len += build_vht_cap_ie(pAd, (unsigned char *)(buf + len));
 	if (frm == SUBTYPE_BEACON || frm == SUBTYPE_PROBE_RSP ||
 		frm == SUBTYPE_ASSOC_RSP || frm == SUBTYPE_REASSOC_RSP)
 	{
 		eid_hdr.Eid = IE_VHT_OP;
 		eid_hdr.Len = sizeof(VHT_OP_IE);
-		NdisMoveMemory((UCHAR *)(buf + len), (UCHAR *)&eid_hdr, 2);
+		NdisMoveMemory((unsigned char *)(buf + len), (unsigned char *)&eid_hdr, 2);
 		len +=2;
 
-		len += build_vht_op_ie(pAd, (UCHAR *)(buf + len));
+		len += build_vht_op_ie(pAd, (unsigned char *)(buf + len));
 	}
 	
 	return len;

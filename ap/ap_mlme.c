@@ -265,10 +265,10 @@ BOOLEAN APMsgTypeSubst(
     OUT INT *MsgType) 
 {
     USHORT Seq;
-    UCHAR  EAPType;
+    unsigned char  EAPType;
     BOOLEAN     Return = FALSE;
 #ifdef WSC_AP_SUPPORT
-	UCHAR EAPCode;
+	unsigned char EAPCode;
     PMAC_TABLE_ENTRY pEntry;
 #endif /* WSC_AP_SUPPORT */
 
@@ -294,8 +294,8 @@ BOOLEAN APMsgTypeSubst(
 	            (pAd->ApCfg.MBSSID[pEntry->apidx].WscControl.WscConfMode != WSC_DISABLE))
 	        {
 	            *Machine = WSC_STATE_MACHINE;
-	            EAPType = *((UCHAR*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
-	            EAPCode = *((UCHAR*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 4);
+	            EAPType = *((unsigned char*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
+	            EAPCode = *((unsigned char*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 4);
 	            Return = WscMsgTypeSubst(EAPType, EAPCode, MsgType);
 	        }
 		}
@@ -303,7 +303,7 @@ BOOLEAN APMsgTypeSubst(
         if (!Return)
         {
 	        *Machine = WPA_STATE_MACHINE;
-        	EAPType = *((UCHAR*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
+        	EAPType = *((unsigned char*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
 	        Return = WpaMsgTypeSubst(EAPType, (INT *) MsgType);
         }
         return Return;
@@ -564,7 +564,7 @@ VOID APAsicRxAntEvalTimeout(
 */
 VOID	APAsicAntennaAvg(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR	              AntSelect,
+	IN	unsigned char	              AntSelect,
 	IN	SHORT*	              RssiAvg)  
 {
 		    SHORT	realavgrssi;

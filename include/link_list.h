@@ -11,7 +11,7 @@ typedef struct _LIST_HEADR
 {
 	PLIST_ENTRY pHead;
 	PLIST_ENTRY pTail;
-	UCHAR size;
+	unsigned char size;
 } LIST_HEADER, *PLIST_HEADER;
 
 static inline VOID initList(

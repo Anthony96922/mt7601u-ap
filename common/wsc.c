@@ -48,8 +48,8 @@
 
 char WSC_MSG_SIGNATURE[]={"RAWSCMSG"};
 
-extern UCHAR   WPS_OUI[];
-extern UCHAR	RALINK_OUI[];
+extern unsigned char   WPS_OUI[];
+extern unsigned char	RALINK_OUI[];
 
 
 #if defined(__ECOS) && defined(BRANCH_ADV)
@@ -92,10 +92,10 @@ unsigned char WPS_DH_P_VALUE[192] =
 };
 
 /* General used field */
-UCHAR	STA_Wsc_Pri_Dev_Type[8] = {0x00, 0x01, 0x00, 0x50, 0xf2, 0x04, 0x00, 0x01};
+unsigned char	STA_Wsc_Pri_Dev_Type[8] = {0x00, 0x01, 0x00, 0x50, 0xf2, 0x04, 0x00, 0x01};
 
 #ifdef CONFIG_AP_SUPPORT
-UCHAR	AP_Wsc_Pri_Dev_Type[8] = {0x00, 0x06, 0x00, 0x50, 0xf2, 0x04, 0x00, 0x01};
+unsigned char	AP_Wsc_Pri_Dev_Type[8] = {0x00, 0x06, 0x00, 0x50, 0xf2, 0x04, 0x00, 0x01};
 
 VOID    WscDelWPARetryTimer(
     IN  PRTMP_ADAPTER pAd);
@@ -125,14 +125,14 @@ VOID    WscGetConfigErrFromNack(
 
 INT	    WscSetAuthMode(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN  UCHAR			CurOpMode,
-	IN  UCHAR			apidx,
+	IN  unsigned char			CurOpMode,
+	IN  unsigned char			apidx,
 	IN	char *			arg);
 
 INT	    WscSetEncrypType(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN  UCHAR			CurOpMode,
-	IN  UCHAR			apidx,
+	IN  unsigned char			CurOpMode,
+	IN  unsigned char			apidx,
 	IN	char *			arg);
 
 VOID WscSendNACK(
@@ -180,8 +180,8 @@ NDIS_802_11_WEP_STATUS   WscGetWepStatus(
 */
 INT WscGenerateUUID(
 	RTMP_ADAPTER	*pAd, 
-	UCHAR 			*uuidHexStr, 
-	UCHAR 			*uuidAscStr, 
+	unsigned char 			*uuidHexStr, 
+	unsigned char 			*uuidAscStr, 
 	int 			apIdx,
 	BOOLEAN			bUseCurrentTime)
 {
@@ -303,7 +303,7 @@ VOID    WscStateMachineInit(
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
-		UCHAR         apidx;
+		unsigned char         apidx;
 
 		for (apidx = 0; apidx < MAX_MBSSID_NUM(pAd); apidx++)
 		{
@@ -346,10 +346,10 @@ void WscM2DTimeOutAction(
 	WSC_UPNP_NODE_INFO	*pWscNodeInfo;
 #ifdef CONFIG_AP_SUPPORT
 	MAC_TABLE_ENTRY		*pEntry = NULL;
-/*	UCHAR		        apidx = MAIN_MBSSID; */
+/*	unsigned char		        apidx = MAIN_MBSSID; */
 #endif /* CONFIG_AP_SUPPORT */    
 	BOOLEAN             Cancelled;
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 	
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -442,9 +442,9 @@ VOID WscUPnPMsgTimeOutAction(
 	else
 	{
 		int dataLen;
-		UCHAR *pWscData;
+		unsigned char *pWscData;
 
-		os_alloc_mem(NULL, (UCHAR **)&pWscData, WSC_MAX_DATA_LEN);
+		os_alloc_mem(NULL, (unsigned char **)&pWscData, WSC_MAX_DATA_LEN);
 /*		if( (pWscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC)) != NULL) */
 		if (pWscData != NULL)
 		{
@@ -488,7 +488,7 @@ VOID WscEAPOLStartAction(
 	PWSC_CTRL			pWpsCtrl = NULL;
 	PHEADER_802_11      pHeader;
 	PWSC_PEER_ENTRY		pWscPeer = NULL;
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 
     DBGPRINT(RT_DEBUG_TRACE, ("-----> WscEAPOLStartAction\n"));
 	
@@ -628,16 +628,16 @@ VOID WscEAPAction(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem) 
 {		
-	UCHAR		MsgType;
+	unsigned char		MsgType;
 	BOOLEAN		bUPnPMsg, Cancelled;
 	MAC_TABLE_ENTRY	*pEntry = NULL;
-	UCHAR		MacAddr[MAC_ADDR_LEN] = {0};
+	unsigned char		MacAddr[MAC_ADDR_LEN] = {0};
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR		apidx = MAIN_MBSSID;
+	unsigned char		apidx = MAIN_MBSSID;
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL				pWscControl = NULL;
 	PWSC_UPNP_NODE_INFO	pWscUPnPNodeInfo = NULL;
-	UCHAR		CurOpMode = 0xFF;
+	unsigned char		CurOpMode = 0xFF;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscEAPAction\n"));
 
@@ -1295,17 +1295,17 @@ out:
 VOID WscEapEnrolleeAction(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem,
-	IN  UCHAR	        MsgType,
+	IN  unsigned char	        MsgType,
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl)
 {
     INT     DataLen = 0, rv = 0, DH_Len = 0;
-	UCHAR   OpCode, bssIdx;
+	unsigned char   OpCode, bssIdx;
     unsigned char *  WscData = NULL;
     BOOLEAN bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
 	WSC_UPNP_NODE_INFO *pWscUPnPInfo = &pWscControl->WscUPnPNodeInfo;
 	UINT	MaxWscDataLen = WSC_MAX_DATA_LEN;
-	UCHAR	CurOpMode = 0xFF;
+	unsigned char	CurOpMode = 0xFF;
 
     DBGPRINT(RT_DEBUG_TRACE, ("WscEapEnrolleeAction Enter!\n"));
 
@@ -1380,7 +1380,7 @@ VOID WscEapEnrolleeAction(
 #ifdef WSC_V2_SUPPORT 
 	MaxWscDataLen = MaxWscDataLen + (UINT)pWscControl->WscV2Info.ExtraTlv.TlvLen;
 #endif /* WSC_V2_SUPPORT */
-	os_alloc_mem(NULL, (UCHAR **)&WscData, MaxWscDataLen);
+	os_alloc_mem(NULL, (unsigned char **)&WscData, MaxWscDataLen);
 /*	if( (WscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC)) == NULL) */
 	if (WscData == NULL)
 	{
@@ -1788,7 +1788,7 @@ Done:
 	if (rv == 1)
 	{
 #ifdef WSC_LED_SUPPORT
-		UCHAR WPSLEDStatus;
+		unsigned char WPSLEDStatus;
 #endif /* WSC_LED_SUPPORT */
 
 		pWscControl->bWscTrigger = FALSE;
@@ -1869,7 +1869,7 @@ Done:
 VOID WscEapApProxyAction(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem,
-	IN  UCHAR	        MsgType,
+	IN  unsigned char	        MsgType,
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl)
 {
@@ -1900,7 +1900,7 @@ VOID WscEapApProxyAction(
 #ifdef WSC_V2_SUPPORT 
 	MaxWscDataLen = MaxWscDataLen + (UINT)pWscControl->WscV2Info.ExtraTlv.TlvLen;
 #endif /* WSC_V2_SUPPORT */
-	os_alloc_mem(NULL, (UCHAR **)&WscData, MaxWscDataLen);
+	os_alloc_mem(NULL, (unsigned char **)&WscData, MaxWscDataLen);
 /*	if ((WscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC)) == NULL) */
 	if (WscData == NULL)
 	{
@@ -2058,17 +2058,17 @@ Fail:
 VOID WscEapRegistrarAction(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem,
-	IN  UCHAR	        MsgType,
+	IN  unsigned char	        MsgType,
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl)
 {
 	INT     DataLen = 0, rv = 0;
-	UCHAR   OpCode = 0;
-	UCHAR   *WscData = NULL;    
+	unsigned char   OpCode = 0;
+	unsigned char   *WscData = NULL;    
 	BOOLEAN bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
 	WSC_UPNP_NODE_INFO *pWscUPnPInfo = &pWscControl->WscUPnPNodeInfo;
 	UINT	MaxWscDataLen = WSC_MAX_DATA_LEN;
-	UCHAR	CurOpMode = 0xFF;
+	unsigned char	CurOpMode = 0xFF;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("WscEapRegistrarAction Enter!\n"));
 
@@ -2107,7 +2107,7 @@ VOID WscEapRegistrarAction(
 #ifdef WSC_V2_SUPPORT 
 	MaxWscDataLen = MaxWscDataLen + (UINT)pWscControl->WscV2Info.ExtraTlv.TlvLen;
 #endif /* WSC_V2_SUPPORT */
-	os_alloc_mem(NULL, (UCHAR **)&WscData, MaxWscDataLen);
+	os_alloc_mem(NULL, (unsigned char **)&WscData, MaxWscDataLen);
 /*	if( (WscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC)) == NULL) */
 	if (WscData == NULL)
 	{
@@ -2401,7 +2401,7 @@ Fail:
 	if (pWscControl->WscState == WSC_STATE_CONFIGURED)
 	{
 #ifdef WSC_LED_SUPPORT
-		UCHAR WPSLEDStatus;
+		unsigned char WPSLEDStatus;
 #endif /* WSC_LED_SUPPORT */
 
 		pWscControl->bWscTrigger = FALSE;
@@ -2479,7 +2479,7 @@ VOID WscTimeOutProcess(
     IN  PWSC_CTRL           pWscControl)
 {
     INT         WscMode;
-	UCHAR	CurOpMode = 0xFF;
+	unsigned char	CurOpMode = 0xFF;
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -2607,7 +2607,7 @@ VOID WscEAPOLTimeOutAction(
     PWSC_CTRL           pWscControl = NULL;
 	PRTMP_ADAPTER pAd = NULL;
 	UINT				MaxWscDataLen = WSC_MAX_DATA_LEN;
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
     
     DBGPRINT(RT_DEBUG_TRACE, ("-----> WscEAPOLTimeOutAction\n"));
         
@@ -2683,7 +2683,7 @@ VOID WscEAPOLTimeOutAction(
 #ifdef WSC_V2_SUPPORT
 	MaxWscDataLen = MaxWscDataLen + (UINT)pWscControl->WscV2Info.ExtraTlv.TlvLen;
 #endif /* WSC_V2_SUPPORT */
-	os_alloc_mem(NULL, (UCHAR **)&WscData, MaxWscDataLen);
+	os_alloc_mem(NULL, (unsigned char **)&WscData, MaxWscDataLen);
 /*    if ((WscData = kmalloc(WSC_MAX_DATA_LEN, GFP_ATOMIC))!= NULL) */
     if (WscData != NULL)
         NdisZeroMemory(WscData, WSC_MAX_DATA_LEN);
@@ -2971,7 +2971,7 @@ VOID Wsc2MinsTimeOutAction(
 	INT	IsAPConfigured = 0;
 #endif /* CONFIG_AP_SUPPORT */
 	BOOLEAN         Cancelled;
-	UCHAR			CurOpMode = 0xFF;
+	unsigned char			CurOpMode = 0xFF;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> Wsc2MinsTimeOutAction\n"));
 	if (pWscControl != NULL)
@@ -3053,7 +3053,7 @@ VOID Wsc2MinsTimeOutAction(
 		}
 		else
 		{
-			UCHAR WPSLEDStatus;
+			unsigned char WPSLEDStatus;
 			
 			pWscControl->WscStatus = STATUS_WSC_FAIL; 
 			pWscControl->WscState = WSC_STATE_OFF;
@@ -3153,7 +3153,7 @@ VOID Wsc2MinsTimeOutAction(
 		
 	========================================================================
 */
-UCHAR	WscRxMsgType(
+unsigned char	WscRxMsgType(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN	PMLME_QUEUE_ELEM	pElem) 
 {
@@ -3253,8 +3253,8 @@ out:
 	========================================================================
 */
 BOOLEAN	WscMsgTypeSubst(
-	IN	UCHAR	EAPType,
-	IN	UCHAR	EAPCode,
+	IN	unsigned char	EAPType,
+	IN	unsigned char	EAPCode,
 	OUT	INT		*MsgType)	
 {
 	switch (EAPType)
@@ -3276,9 +3276,9 @@ BOOLEAN	WscMsgTypeSubst(
 VOID	WscInitRegistrarPair(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	IN  UCHAR				apidx)
+	IN  unsigned char				apidx)
 {	
-	UCHAR CurOpMode = 0xff;
+	unsigned char CurOpMode = 0xff;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscInitRegistrarPair\n"));
 
@@ -3436,19 +3436,19 @@ VOID	WscInitRegistrarPair(
 VOID	WscSendEapReqId(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	PMAC_TABLE_ENTRY	pEntry,
-	IN  UCHAR				CurOpMode)
+	IN  unsigned char				CurOpMode)
 {
-	UCHAR               Header802_3[14];
+	unsigned char               Header802_3[14];
 	USHORT				Length;
 	IEEE8021X_FRAME		Ieee_8021x;
 	EAP_FRAME			EapFrame;
-	UCHAR				*pOutBuffer = NULL;
+	unsigned char				*pOutBuffer = NULL;
 	unsigned long				FrameLen = 0;
-    UCHAR				Data[] = "hello";
-    UCHAR				Id;
+    unsigned char				Data[] = "hello";
+    unsigned char				Id;
 	PWSC_CTRL			pWpsCtrl = NULL;
 	
-	NdisZeroMemory(Header802_3,sizeof(UCHAR)*14);
+	NdisZeroMemory(Header802_3,sizeof(unsigned char)*14);
 	
 	/* 1. Send EAP-Rsp Id */
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscSendEapReqId\n"));
@@ -3495,7 +3495,7 @@ VOID	WscSendEapReqId(
 	
     /* Out buffer for transmitting EAP-Req(Identity) */
 /*    pOutBuffer = kmalloc(MAX_LEN_OF_MLME_BUFFER, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
+	os_alloc_mem(NULL, (unsigned char **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
     if(pOutBuffer == NULL)
         return;
 
@@ -3542,10 +3542,10 @@ VOID	WscSendEapReqId(
 VOID    WscSendEapolStart(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN  unsigned char *          pBssid,
-	IN  UCHAR			CurOpMode)
+	IN  unsigned char			CurOpMode)
 {
 	IEEE8021X_FRAME		Packet;
-	UCHAR               Header802_3[14];
+	unsigned char               Header802_3[14];
 	MAC_TABLE_ENTRY     *pEntry;
 	
 	pEntry = MacTableLookup(pAdapter, pBssid);
@@ -3553,7 +3553,7 @@ VOID    WscSendEapolStart(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscSendEapolStart\n"));
 
-	NdisZeroMemory(Header802_3,sizeof(UCHAR)*14);
+	NdisZeroMemory(Header802_3,sizeof(unsigned char)*14);
 
 	/* 1. Change the authentication to open and encryption to none if necessary. */
 
@@ -3603,17 +3603,17 @@ VOID	WscSendEapRspId(
 	IN  PMAC_TABLE_ENTRY    pEntry,
 	IN  PWSC_CTRL           pWscControl)
 {
-	UCHAR               Header802_3[14];
+	unsigned char               Header802_3[14];
 	USHORT				Length = 0;
 	IEEE8021X_FRAME		Ieee_8021x;
 	EAP_FRAME			EapFrame;
-	UCHAR				*pOutBuffer = NULL;
+	unsigned char				*pOutBuffer = NULL;
 	unsigned long				FrameLen = 0;
-    UCHAR               regIdentity[] = "WFA-SimpleConfig-Registrar-1-0";
-    UCHAR               enrIdentity[] = "WFA-SimpleConfig-Enrollee-1-0";
-	UCHAR				CurOpMode = 0xff;
+    unsigned char               regIdentity[] = "WFA-SimpleConfig-Registrar-1-0";
+    unsigned char               enrIdentity[] = "WFA-SimpleConfig-Enrollee-1-0";
+	unsigned char				CurOpMode = 0xff;
 
-	NdisZeroMemory(Header802_3,sizeof(UCHAR)*14);
+	NdisZeroMemory(Header802_3,sizeof(unsigned char)*14);
 
 	/* 1. Send EAP-Rsp Id */
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscSendEapRspId\n"));
@@ -3654,7 +3654,7 @@ VOID	WscSendEapRspId(
 
     /* Out buffer for transmitting EAP-Req(Identity) */
 /*    pOutBuffer = kmalloc(MAX_LEN_OF_MLME_BUFFER, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
+	os_alloc_mem(NULL, (unsigned char **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
     if(pOutBuffer == NULL)
         return;
 
@@ -3714,8 +3714,8 @@ VOID WscUPnPErrHandle(
 	IN UINT eventID)
 {
 	int dataLen;
-	UCHAR *pWscData;
-	UCHAR	CurOpMode;
+	unsigned char *pWscData;
+	unsigned char	CurOpMode;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Into WscUPnPErrHandle, send WSC_OPCODE_UPNP_CTRL with eventID=0x%x!\n", eventID));
 
@@ -3726,7 +3726,7 @@ VOID WscUPnPErrHandle(
 #endif // CONFIG_AP_SUPPORT //
 
 
-	os_alloc_mem(NULL, (UCHAR **)&pWscData, WSC_MAX_DATA_LEN);
+	os_alloc_mem(NULL, (unsigned char **)&pWscData, WSC_MAX_DATA_LEN);
 	if (pWscData != NULL)
 	{
 		NdisZeroMemory(pWscData, WSC_MAX_DATA_LEN);
@@ -3762,14 +3762,14 @@ VOID WscUPnPErrHandle(
 */
 int WscSendUPnPConfReqMsg(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR apIdx,
+	IN unsigned char apIdx,
 	IN unsigned char * ssidStr,
 	IN unsigned char * macAddr,
 	IN INT	  Status,
 	IN UINT   eventID,
-	IN UCHAR  CurOpMode)
+	IN unsigned char  CurOpMode)
 {
-	UCHAR pData[39] = {0};
+	unsigned char pData[39] = {0};
 	
 
 	strncpy((char *) pData, (char *)ssidStr, strlen((char *) ssidStr));
@@ -3811,7 +3811,7 @@ int WscSendUPnPConfReqMsg(
 */
 int WscSendUPnPMessage(
 	IN PRTMP_ADAPTER	pAd, 
-	IN UCHAR			devIfIdx,
+	IN unsigned char			devIfIdx,
 	IN USHORT			msgType,
 	IN USHORT			msgSubType,
 	IN unsigned char *			pData,
@@ -3819,18 +3819,18 @@ int WscSendUPnPMessage(
 	IN UINT				eventID,
 	IN UINT				toIPAddr,
 	IN unsigned char *			pMACAddr,
-	IN UCHAR			CurOpMode)
+	IN unsigned char			CurOpMode)
 {
 /*	union iwreq_data wrqu; */
 	RTMP_WSC_NLMSG_HDR *pNLMsgHdr;
 	RTMP_WSC_MSG_HDR *pWscMsgHdr;
 	
-	UCHAR hdrBuf[42]; /*RTMP_WSC_NLMSG_HDR_LEN + RTMP_WSC_MSG_HDR_LEN */
+	unsigned char hdrBuf[42]; /*RTMP_WSC_NLMSG_HDR_LEN + RTMP_WSC_MSG_HDR_LEN */
 	int totalLen, leftLen, copyLen;
 	unsigned char * pBuf = NULL, pBufPtr = NULL, pPos = NULL;
 	unsigned char *	pDevAddr = NULL;
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR	bssIdx = devIfIdx;
+	unsigned char	bssIdx = devIfIdx;
 #endif /* CONFIG_AP_SUPPORT */
 	unsigned long Now;
 
@@ -3912,7 +3912,7 @@ int WscSendUPnPMessage(
 	/*Allocate memory and copy the msg. */
 	totalLen = leftLen = pNLMsgHdr->msgLen;
 	pPos = pData;
-	os_alloc_mem(NULL, (UCHAR **)&pBuf, IWEVCUSTOM_MSG_MAX_LEN);
+	os_alloc_mem(NULL, (unsigned char **)&pBuf, IWEVCUSTOM_MSG_MAX_LEN);
 /*	if((pBuf = kmalloc(IWEVCUSTOM_MSG_MAX_LEN, GFP_ATOMIC)) != NULL) */
 	if (pBuf != NULL)
 	{
@@ -3963,26 +3963,26 @@ int WscSendUPnPMessage(
 
 VOID	WscSendMessage(
 	IN	PRTMP_ADAPTER		pAdapter, 
-	IN  UCHAR               OpCode,
+	IN  unsigned char               OpCode,
 	IN  unsigned char *				pData,
 	IN  INT					Len,
 	IN  PWSC_CTRL           pWscControl,
-	IN  UCHAR               OpMode,
-	IN  UCHAR               EapType)
+	IN  unsigned char               OpMode,
+	IN  unsigned char               EapType)
 {
 	/* Inb-EAP Message */
-	UCHAR               Header802_3[14];
+	unsigned char               Header802_3[14];
 	USHORT				Length, MsgLen;
 	IEEE8021X_FRAME		Ieee_8021x;
 	EAP_FRAME			EapFrame;
 	WSC_FRAME			WscFrame;
-	UCHAR				*pOutBuffer = NULL;
+	unsigned char				*pOutBuffer = NULL;
 	unsigned long				FrameLen = 0;
 	MAC_TABLE_ENTRY     *pEntry;
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR				bssIdx = (pWscControl->EntryIfIdx & 0x0F);
+	unsigned char				bssIdx = (pWscControl->EntryIfIdx & 0x0F);
 #endif /* CONFIG_AP_SUPPORT */
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
     
 	if ((Len <= 0) && (OpCode != WSC_OPCODE_START) && (OpCode != WSC_OPCODE_FRAG_ACK))
 		return;
@@ -3995,7 +3995,7 @@ VOID	WscSendMessage(
 		CurOpMode = AP_MODE;
 #endif /* CONFIG_AP_SUPPORT */
 
-	NdisZeroMemory(Header802_3,sizeof(UCHAR)*14);
+	NdisZeroMemory(Header802_3,sizeof(unsigned char)*14);
 
 #ifdef CONFIG_AP_SUPPORT
 	if (CurOpMode == AP_MODE)
@@ -4063,7 +4063,7 @@ VOID	WscSendMessage(
 		}
 
         /* Out buffer for transmitting message */
-	os_alloc_mem(NULL, (UCHAR **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
+	os_alloc_mem(NULL, (unsigned char **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
     if(pOutBuffer == NULL)
             return;
 
@@ -4074,7 +4074,7 @@ VOID	WscSendMessage(
     	{
     		if (pWscControl->bWscFragment && (pWscControl->bWscFirstOne))
     		{
-    			UCHAR	LF_Len = 2;
+    			unsigned char	LF_Len = 2;
 				unsigned long	TmpLen = 0;
 
 				pWscControl->bWscFirstOne = FALSE;
@@ -4125,18 +4125,18 @@ VOID	WscSendMessage(
 
 VOID WscBuildBeaconIE(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	UCHAR b_configured,
+	IN	unsigned char b_configured,
 	IN	BOOLEAN b_selRegistrar,
 	IN	USHORT devPwdId,
 	IN	USHORT selRegCfgMethods,
-	IN  UCHAR apidx,
-	IN  UCHAR *pAuthorizedMACs,
-	IN  UCHAR AuthorizedMACsLen,
-	IN  UCHAR	CurOpMode)
+	IN  unsigned char apidx,
+	IN  unsigned char *pAuthorizedMACs,
+	IN  unsigned char AuthorizedMACsLen,
+	IN  unsigned char	CurOpMode)
 {
 	WSC_IE_HEADER 	ieHdr;
-/*	UCHAR 			Data[256]; */
-	UCHAR 			*Data = NULL;
+/*	unsigned char 			Data[256]; */
+	unsigned char 			*Data = NULL;
 	unsigned char *			pData;
 	INT				Len = 0, templen = 0;
 	USHORT          tempVal = 0;
@@ -4145,7 +4145,7 @@ VOID WscBuildBeaconIE(
 
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&Data, 256);
+	os_alloc_mem(NULL, (unsigned char **)&Data, 256);
 	if (Data == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -4284,19 +4284,19 @@ VOID WscBuildBeaconIE(
 
 VOID WscBuildProbeRespIE(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	UCHAR respType,
-	IN	UCHAR scState,
+	IN	unsigned char respType,
+	IN	unsigned char scState,
 	IN	BOOLEAN b_selRegistrar,
 	IN	USHORT devPwdId,
 	IN	USHORT selRegCfgMethods,
-	IN  UCHAR apidx,
-	IN  UCHAR *pAuthorizedMACs,
+	IN  unsigned char apidx,
+	IN  unsigned char *pAuthorizedMACs,
 	IN  INT   AuthorizedMACsLen,
-	IN  UCHAR	CurOpMode)
+	IN  unsigned char	CurOpMode)
 {
 	WSC_IE_HEADER 	ieHdr;
-/*	UCHAR 			Data[512]; */
-	UCHAR			*Data = NULL;
+/*	unsigned char 			Data[512]; */
+	unsigned char			*Data = NULL;
 	unsigned char *			pData;
 	INT				Len = 0, templen = 0;
 	USHORT			tempVal = 0;
@@ -4305,7 +4305,7 @@ VOID WscBuildProbeRespIE(
 
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&Data, 512);
+	os_alloc_mem(NULL, (unsigned char **)&Data, 512);
 	if (Data == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -4529,19 +4529,19 @@ VOID	WscSendEapFail(
 	IN  PWSC_CTRL           pWscControl,
 	IN  BOOLEAN				bSendDeAuth)
 {
-	UCHAR               Header802_3[14];
+	unsigned char               Header802_3[14];
 	USHORT				Length;
 	IEEE8021X_FRAME		Ieee_8021x;
 	EAP_FRAME			EapFrame;
-	UCHAR				*pOutBuffer = NULL;
+	unsigned char				*pOutBuffer = NULL;
 	unsigned long				FrameLen = 0;
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR				apidx = (pWscControl->EntryIfIdx & 0x0F);
+	unsigned char				apidx = (pWscControl->EntryIfIdx & 0x0F);
 #endif /* CONFIG_AP_SUPPORT */
 	MAC_TABLE_ENTRY     *pEntry;	
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 	
-	NdisZeroMemory(Header802_3,sizeof(UCHAR)*14);
+	NdisZeroMemory(Header802_3,sizeof(unsigned char)*14);
 	
 	/* 1. Send EAP-Rsp Id */
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscSendEapFail\n"));
@@ -4564,7 +4564,7 @@ VOID	WscSendEapFail(
 
 
 	/* Length, -1 type size, Eap-Fail doesn't need Type item */
-	Length = sizeof(EAP_FRAME) - sizeof(UCHAR);
+	Length = sizeof(EAP_FRAME) - sizeof(unsigned char);
 	
 	/* Zero 802.1x body */
 	NdisZeroMemory(&Ieee_8021x, sizeof(Ieee_8021x));
@@ -4580,7 +4580,7 @@ VOID	WscSendEapFail(
 	
     /* Out buffer for transmitting EAP-Req(Identity) */
 /*    pOutBuffer = kmalloc(MAX_LEN_OF_MLME_BUFFER, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
+	os_alloc_mem(NULL, (unsigned char **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
     if(pOutBuffer == NULL)
         return;
 
@@ -4620,14 +4620,14 @@ VOID	WscSendEapFail(
 #ifdef CONFIG_AP_SUPPORT
 VOID WscBuildAssocRespIE(
 	IN	PRTMP_ADAPTER	pAd,
-	IN  UCHAR 			ApIdx,
-	IN  UCHAR			Reason,
+	IN  unsigned char 			ApIdx,
+	IN  unsigned char			Reason,
 	OUT	unsigned char *			pOutBuf,
 	OUT	unsigned char *			pIeLen)
 {
 	WSC_IE_HEADER 	ieHdr;
-/*	UCHAR 			Data[512] = {0}; */
-	UCHAR 			*Data = NULL;
+/*	unsigned char 			Data[512] = {0}; */
+	unsigned char 			*Data = NULL;
 	unsigned char *			pData;
 	INT				Len = 0, templen = 0;
 	unsigned char			tempVal = 0;
@@ -4636,7 +4636,7 @@ VOID WscBuildAssocRespIE(
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscBuildAssocRespIE\n"));
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&Data, 512);
+	os_alloc_mem(NULL, (unsigned char **)&Data, 512);
 	if (Data == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -4693,15 +4693,15 @@ VOID WscSelectedRegistrar(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *	pReginfo,
 	IN	UINT	Length,
-	IN  UCHAR	apidx)
+	IN  unsigned char	apidx)
 {
 	unsigned char *	pData;
 	INT		IsAPConfigured;
-	UCHAR   wsc_version, wsc_sel_reg = 0;
+	unsigned char   wsc_version, wsc_sel_reg = 0;
 	USHORT	wsc_dev_pass_id = 0, wsc_sel_reg_conf_mthd = 0;
 	USHORT	WscType, WscLen;
 	unsigned char *	pAuthorizedMACs = NULL;
-	UCHAR	AuthorizedMACsLen = 0;
+	unsigned char	AuthorizedMACsLen = 0;
 	PWSC_CTRL	pWscCtrl = &pAd->ApCfg.MBSSID[apidx].WscControl;
 
 	pData = (unsigned char *)pReginfo;
@@ -4786,7 +4786,7 @@ VOID WscSelectedRegistrar(
 			NdisMoveMemory(pWscCtrl->EntryAddr, pAuthorizedMACs, MAC_ADDR_LEN);
 			RTMP_SEM_LOCK(&pWscCtrl->WscPeerListSemLock);
 			WscClearPeerList(&pWscCtrl->WscPeerList);
-			os_alloc_mem(pAd, (UCHAR **)&pWscPeer, sizeof(WSC_PEER_ENTRY));
+			os_alloc_mem(pAd, (unsigned char **)&pWscPeer, sizeof(WSC_PEER_ENTRY));
 			if (pWscPeer)
 			{
 				NdisZeroMemory(pWscPeer, sizeof(WSC_PEER_ENTRY));
@@ -4826,7 +4826,7 @@ VOID WscProfileRetryTimeout(
 	RTMP_ADAPTER    *pAdapter = NULL;
 	PWSC_CTRL		pWscControl = (PWSC_CTRL)FunctionContext;	
 	BOOLEAN			bReConnect = TRUE;
-	UCHAR			CurOpMode = 0xFF;
+	unsigned char			CurOpMode = 0xFF;
 
 	if (pWscControl == NULL)
 		return;
@@ -5033,7 +5033,7 @@ UINT WscRandomGen4digitPinCode(
 
 UINT WscRandomGeneratePinCode(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR			apidx)
+	IN	unsigned char			apidx)
 {
 	UINT 	iPin;
 	UINT	checksum;
@@ -5081,7 +5081,7 @@ VOID WscDelWPARetryTimer(
 	IN  PRTMP_ADAPTER pAd)
 {
 	PMAC_TABLE_ENTRY    pEntry;
-	UCHAR				apidx = MAIN_MBSSID;
+	unsigned char				apidx = MAIN_MBSSID;
 	BOOLEAN             Cancelled;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscDelWPARetryTimer\n"));
@@ -5108,13 +5108,13 @@ VOID WscStop(
 	PWSC_UPNP_NODE_INFO pWscUPnPInfo;
 	BOOLEAN Cancelled;
 #ifdef WSC_LED_SUPPORT
-	UCHAR WPSLEDStatus;
+	unsigned char WPSLEDStatus;
 #endif /* WSC_LED_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT	
 	MAC_TABLE_ENTRY  *pEntry;
 #endif /* CONFIG_AP_SUPPORT */
-	UCHAR	CurOpMode = 0xff;
+	unsigned char	CurOpMode = 0xff;
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -5220,10 +5220,10 @@ VOID WscStop(
 VOID WscInit(
 	IN	PRTMP_ADAPTER	pAd,
     IN  BOOLEAN         bFromApCli,
-	IN  UCHAR       	BssIndex)
+	IN  unsigned char       	BssIndex)
 {
 	IN  PWSC_CTRL       pWscControl = NULL;
-	UCHAR		CurOpMode = AP_MODE;
+	unsigned char		CurOpMode = AP_MODE;
 
 #ifdef CONFIG_AP_SUPPORT	
 	INT IsAPConfigured;
@@ -5450,8 +5450,8 @@ void    WscWriteConfToPortCfg(
     IN  PWSC_CREDENTIAL pCredential,    
     IN  BOOLEAN         bEnrollee)
 {
-	UCHAR               CurApIdx = MAIN_MBSSID;
-	UCHAR	CurOpMode = AP_MODE;
+	unsigned char               CurApIdx = MAIN_MBSSID;
+	unsigned char	CurOpMode = AP_MODE;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscWriteConfToPortCfg\n"));
     
@@ -5510,7 +5510,7 @@ void    WscWriteConfToPortCfg(
 
 				if (pCredential->KeyLength >= 8 && pCredential->KeyLength <= 64)
 				{
-					UCHAR  *pPMKBuf = NULL, *pSSIDStr = NULL;
+					unsigned char  *pPMKBuf = NULL, *pSSIDStr = NULL;
 					INT		ssidLen = 0;
 					STRING	PassphraseStr[65] = {0};
 					
@@ -5538,7 +5538,7 @@ void    WscWriteConfToPortCfg(
 			}
 			else if (pCredential->EncrType == WSC_ENCRTYPE_WEP)
 			{
-				UCHAR   WepKeyId = 0;
+				unsigned char   WepKeyId = 0;
 				USHORT  WepKeyLen = pCredential->KeyLength;
 
 				if ((pCredential->KeyIndex >= 1) && (pCredential->KeyIndex <= 4))
@@ -5555,7 +5555,7 @@ void    WscWriteConfToPortCfg(
 					{
 						if (WepKeyLen == 5 || WepKeyLen == 13)
 						{
-							pAd->SharedKey[CurApIdx][WepKeyId].KeyLen = (UCHAR)WepKeyLen;
+							pAd->SharedKey[CurApIdx][WepKeyId].KeyLen = (unsigned char)WepKeyLen;
 							memcpy(pAd->SharedKey[CurApIdx][WepKeyId].Key, 
 								pCredential->Key, 
 								WepKeyLen);
@@ -5566,7 +5566,7 @@ void    WscWriteConfToPortCfg(
 						}
 						else
 						{
-							pAd->SharedKey[CurApIdx][WepKeyId].KeyLen = (UCHAR)(WepKeyLen/2);
+							pAd->SharedKey[CurApIdx][WepKeyId].KeyLen = (unsigned char)(WepKeyLen/2);
 							AtoH((char *) pCredential->Key, pAd->SharedKey[CurApIdx][WepKeyId].Key, WepKeyLen/2);
 							if (WepKeyLen == 10)
 								pAd->SharedKey[CurApIdx][WepKeyId].CipherAlg = CIPHER_WEP64;
@@ -5613,7 +5613,7 @@ void    WscWriteConfToPortCfg(
 			}
 			else
 			{
-				UCHAR       keyMaterial[40] = {0};
+				unsigned char       keyMaterial[40] = {0};
 				
 				RtmpPasswordHash((char *)pWscControl->WpaPsk,
 							 (unsigned char *) pAd->ApCfg.MBSSID[CurApIdx].Ssid, 
@@ -5634,10 +5634,10 @@ VOID	WscWriteSsidToDatFile(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  char *		 	pTempStr,
 	IN	BOOLEAN			bNewFormat,
-	IN  UCHAR			CurOpMode)
+	IN  unsigned char			CurOpMode)
 {
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR	apidx;
+	unsigned char	apidx;
 #endif /* CONFIG_AP_SUPPORT */
 	INT		offset = 0;
 
@@ -5695,7 +5695,7 @@ VOID	WscWriteWpaPskToDatFile(
 	IN	BOOLEAN			bNewFormat)
 {
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR			apidx;
+	unsigned char			apidx;
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL		pWscControl;
 	INT				offset = 0;
@@ -5823,7 +5823,7 @@ VOID    WscGetRegDataPIN(
     IN  UINT            PinCode,
     IN  PWSC_CTRL       pWscControl)
 {
-	UCHAR	tempPIN[9] = {0};
+	unsigned char	tempPIN[9] = {0};
 
     if ((pWscControl->WscMode == WSC_PBC_MODE) ||
 		(pWscControl->WscMode == WSC_SMPBC_MODE))
@@ -5843,7 +5843,7 @@ VOID    WscGetRegDataPIN(
 	{
 		if ( pWscControl->WscPinCodeLen == 4)
 		{
-			UCHAR	temp4PIN[5] = {0};
+			unsigned char	temp4PIN[5] = {0};
 			snprintf((char *) temp4PIN, sizeof(temp4PIN), "%04u", pWscControl->WscPinCode);
 			memcpy(pWscControl->RegData.PIN, temp4PIN, 4);
 			pWscControl->RegData.PinCodeLen = 4;
@@ -5863,7 +5863,7 @@ VOID    WscEapActionDisabled(
     IN  PWSC_CTRL           pWscControl)
 {
 	INT     DataLen = 0;
-	UCHAR   *WscData = NULL;
+	unsigned char   *WscData = NULL;
 	/*BOOLEAN Cancelled;*/
 
 	os_alloc_mem(NULL, &WscData, 256);
@@ -5929,8 +5929,8 @@ VOID    WscGetConfigErrFromNack(
 
 INT	WscSetAuthMode(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN  UCHAR			CurOpMode,
-	IN  UCHAR			apidx,
+	IN  unsigned char			CurOpMode,
+	IN  unsigned char			apidx,
 	IN	char *			arg)
 {
 #ifdef CONFIG_AP_SUPPORT
@@ -5987,8 +5987,8 @@ INT	WscSetAuthMode(
 
 INT	WscSetEncrypType(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN  UCHAR			CurOpMode,
-	IN  UCHAR			apidx,
+	IN  unsigned char			CurOpMode,
+	IN  unsigned char			apidx,
 	IN	char *			arg)
 {
 #ifdef CONFIG_AP_SUPPORT
@@ -6123,7 +6123,7 @@ VOID	WscScanExec(
 	IN  PWSC_CTRL   	pWscControl) 
 {
 #ifdef WSC_LED_SUPPORT
-	UCHAR WPSLEDStatus;
+	unsigned char WPSLEDStatus;
 #endif /* WSC_LED_SUPPORT */
 
 	/* Prevent infinite loop if conncet time out didn't stop the repeat scan */
@@ -6178,9 +6178,9 @@ BOOLEAN	WscPBCExec(
 	IN  PWSC_CTRL       pWscControl)
 {
 #ifdef WSC_LED_SUPPORT
-	UCHAR WPSLEDStatus;
+	unsigned char WPSLEDStatus;
 #endif /* WSC_LED_SUPPORT */
-	UCHAR CurOpMode = AP_MODE;
+	unsigned char CurOpMode = AP_MODE;
 
 	if (pWscControl == NULL)
 		return FALSE;
@@ -6318,7 +6318,7 @@ BOOLEAN WscBssWpsIESearchForPBC(
 	USHORT				DevicePasswordID;
 	PWSC_IE				pWscIE;
 	UUID_BSSID_CH_INFO	TmpInfo;
-	UCHAR				zeros16[16]= {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	unsigned char				zeros16[16]= {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 	pData   = pVar;
 	bFound  = FALSE;
@@ -6410,7 +6410,7 @@ BOOLEAN WscBssWpsIESearchForPBC(
 				if (be2cpu16(pWscIE->Type) == WSC_ID_UUID_E)
 				{
 					/* Avoid error UUID-E storage from PIN mode */
-					RTMPMoveMemory(&TmpInfo.Uuid[0], (UCHAR *)(pData+4), 16);
+					RTMPMoveMemory(&TmpInfo.Uuid[0], (unsigned char *)(pData+4), 16);
 				}
 				
 				/* Set the offset and look for PBC information */
@@ -6506,7 +6506,7 @@ BOOLEAN WscBssWpsIESearchForPBC(
 				
 				if (bSameAP == FALSE)
 				{
-					UCHAR index = pWscControl->WscPBCBssCount;
+					unsigned char index = pWscControl->WscPBCBssCount;
 					
 					/* Store UUID */
 					RTMPMoveMemory(&(ApUuidBssid[index].Uuid[0]), &TmpInfo.Uuid[0], 16);
@@ -6561,7 +6561,7 @@ VOID WscPBCBssTableSort(
 /*	UUID_BSSID_CH_INFO	ApUuidBssid[8]; */
 	UUID_BSSID_CH_INFO	*ApUuidBssid = NULL;
 	BOOLEAN				rv = FALSE;
-	UCHAR				CurOpMode = AP_MODE;
+	unsigned char				CurOpMode = AP_MODE;
 
 
 #ifdef APCLI_SUPPORT
@@ -6574,7 +6574,7 @@ if (CurOpMode == AP_MODE)
 		return;
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&ApUuidBssid, sizeof(UUID_BSSID_CH_INFO)*8);
+	os_alloc_mem(NULL, (unsigned char **)&ApUuidBssid, sizeof(UUID_BSSID_CH_INFO)*8);
 	if (ApUuidBssid == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -6625,7 +6625,7 @@ if (CurOpMode == AP_MODE)
 		{
 		NdisZeroMemory(pAd->ApCfg.ApCliTab[BSS0].CfgSsid, MAX_LEN_OF_SSID);
 		NdisMoveMemory(pAd->ApCfg.ApCliTab[BSS0].CfgSsid, ApUuidBssid[0].Ssid, ApUuidBssid[0].SsidLen);
-		pAd->ApCfg.ApCliTab[BSS0].CfgSsidLen = (UCHAR)ApUuidBssid[0].SsidLen;
+		pAd->ApCfg.ApCliTab[BSS0].CfgSsidLen = (unsigned char)ApUuidBssid[0].SsidLen;
 		}
 #endif /* APCLI_SUPPORT */
 
@@ -6643,10 +6643,10 @@ VOID	WscGenRandomKey(
 	INOUT	unsigned char *			pKey,
 	INOUT	unsigned short *			pKeyLen)
 {
-	UCHAR   tempRandomByte = 0;
-	UCHAR   idx = 0;
-	UCHAR   keylen = 0;	 
-	UCHAR   retry = 0;
+	unsigned char   tempRandomByte = 0;
+	unsigned char   idx = 0;
+	unsigned char   keylen = 0;	 
+	unsigned char   retry = 0;
 	
 	NdisZeroMemory(pKey, 64);
 
@@ -6655,7 +6655,7 @@ VOID	WscGenRandomKey(
 	*/
 	if(pWscControl->WscKeyASCII == 0)
 	{ 		
-		UCHAR	tmpStrB[3];
+		unsigned char	tmpStrB[3];
 		for (idx = 0; idx < 32; idx++)
 		{
 			NdisZeroMemory(&tmpStrB[0], sizeof(tmpStrB));
@@ -6696,15 +6696,15 @@ VOID	WscGenRandomKey(
 
 VOID	WscCreateProfileFromCfg(
 	IN	PRTMP_ADAPTER		pAd,
-	IN  UCHAR               OpMode,
+	IN  unsigned char               OpMode,
 	IN  PWSC_CTRL           pWscControl,
 	OUT PWSC_PROFILE        pWscProfile)
 {
-    UCHAR	        apidx = (pWscControl->EntryIfIdx & 0x0F);
+    unsigned char	        apidx = (pWscControl->EntryIfIdx & 0x0F);
     USHORT          authType = 0, encyType = 0;
-    UCHAR           WepKeyId = 0;
+    unsigned char           WepKeyId = 0;
     PWSC_CREDENTIAL pCredential = NULL;
-	UCHAR			CurOpMode = AP_MODE;
+	unsigned char			CurOpMode = AP_MODE;
 
 
 #ifdef CONFIG_AP_SUPPORT
@@ -6900,7 +6900,7 @@ void    WscWriteConfToApCliCfg(
     IN  PWSC_CREDENTIAL pCredential,
     IN  BOOLEAN         bEnrollee)
 {
-	UCHAR			CurApIdx = BSS0;
+	unsigned char			CurApIdx = BSS0;
 	APCLI_STRUCT	*pApCliTab;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscWriteConfToApCliCfg\n"));
@@ -6980,7 +6980,7 @@ void    WscWriteConfToApCliCfg(
 							}
 							else
 							{
-								pApCliTab->SharedKey[WepKeyId].KeyLen = (UCHAR) WepKeyLen/2;
+								pApCliTab->SharedKey[WepKeyId].KeyLen = (unsigned char) WepKeyLen/2;
 								AtoH((char *) pCredential->Key, pApCliTab->SharedKey[WepKeyId].Key, WepKeyLen/2);
 								if (WepKeyLen == 10)
 									pApCliTab->SharedKey[WepKeyId].CipherAlg = CIPHER_WEP64;
@@ -7014,8 +7014,8 @@ VOID 	WscApCliLinkDown(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL       pWscControl)
 {
-	UCHAR	apidx = (pWscControl->EntryIfIdx & 0x0F);
-	UCHAR	mac_addr[MAC_ADDR_LEN];
+	unsigned char	apidx = (pWscControl->EntryIfIdx & 0x0F);
+	unsigned char	mac_addr[MAC_ADDR_LEN];
     BOOLEAN apcliEn = pAd->ApCfg.ApCliTab[apidx].Enable;	
 
 	NdisMoveMemory(pWscControl->RegData.SelfInfo.MacAddr,
@@ -7045,7 +7045,7 @@ VOID   WpsSmProcess(
 	PMAC_TABLE_ENTRY    pEntry = NULL;
 	int                 apidx = MAIN_MBSSID;
 	PWSC_CTRL			pWpsCtrl = NULL;
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -7086,7 +7086,7 @@ VOID   WpsSmProcess(
 	if((Elem->MsgType == WSC_EAPOL_UPNP_MSG) && (Elem->MsgLen > HeaderLen))
 	{	/*The WSC msg from UPnP daemon */
 		unsigned char *		pData;
-		UCHAR 		MacAddr[MAC_ADDR_LEN]= {0};
+		unsigned char 		MacAddr[MAC_ADDR_LEN]= {0};
 		
         /* Skip the (802.11 + 802.1h + 802.1x + EAP) header */
     	pData = (unsigned char *) &Elem->Msg[HeaderLen];
@@ -7304,7 +7304,7 @@ INT	WscGetConfWithoutTrigger(
 	INT                 WscMode;
 	INT                 IsAPConfigured;
 	PWSC_UPNP_NODE_INFO pWscUPnPNodeInfo;
-	UCHAR		apIdx;
+	unsigned char		apIdx;
 
 #ifdef LINUX
 #endif /* LINUX */
@@ -7359,10 +7359,10 @@ VOID WscSendNACK(
     INT     DataLen = 0;
     unsigned char *  pWscData = NULL;
     BOOLEAN Cancelled;
-	UCHAR CurOpMode = AP_MODE;
+	unsigned char CurOpMode = AP_MODE;
 
 
-	os_alloc_mem(NULL, (UCHAR **)&pWscData, WSC_MAX_DATA_LEN);
+	os_alloc_mem(NULL, (unsigned char **)&pWscData, WSC_MAX_DATA_LEN);
 	if (pWscData == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscSendNACK:: WscData Allocate failed!\n"));
@@ -7458,7 +7458,7 @@ VOID WscPBCSessionOverlapCheck(
 	pAd->CommonCfg.WscPBCOverlap = FALSE;
 	if (pWscStaPbcProbeInfo->WscPBCStaProbeCount > 1)
 	{
-		UCHAR  i;
+		unsigned char  i;
 		
 		for (i = 0; i < MAX_PBC_STA_TABLE_SIZE; i++)
 		{
@@ -7487,7 +7487,7 @@ VOID WscPBC_DPID_FromSTA(
 	IN	unsigned char *				pMacAddr)
 {
 	INT		Index = 0;
-	UCHAR	tab_idx;
+	unsigned char	tab_idx;
 	BOOLEAN bAddEntry = FALSE;
 	unsigned long	now;
 	PWSC_STA_PBC_PROBE_INFO	pWscStaPbcProbeInfo = &pAd->CommonCfg.WscStaPbcProbeInfo;
@@ -7538,7 +7538,7 @@ VOID WscPBC_DPID_FromSTA(
 
 void    WscWriteConfToDatFile(
     IN  PRTMP_ADAPTER 	pAd,
-    IN  UCHAR			CurOpMode)
+    IN  unsigned char			CurOpMode)
 {
 	char	*cfgData = 0;
 	char *			fileName = NULL;
@@ -7549,7 +7549,7 @@ void    WscWriteConfToDatFile(
 	char *			pTempStr = 0;
 #ifdef CONFIG_AP_SUPPORT
 	INT				index = 0;
-	UCHAR			apidx = (pAd->WriteWscCfgToDatFile & 0x0F);
+	unsigned char			apidx = (pAd->WriteWscCfgToDatFile & 0x0F);
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL		pWscControl = NULL;
 	PWSC_CREDENTIAL	pCredentail = NULL;
@@ -7591,7 +7591,7 @@ void    WscWriteConfToDatFile(
 		{
 			fileLen += rv;
 		}
-		os_alloc_mem(NULL, (UCHAR **)&cfgData, fileLen);
+		os_alloc_mem(NULL, (unsigned char **)&cfgData, fileLen);
 		if (cfgData == NULL)
 		{
 			RtmpOSFileClose(file_r);
@@ -7619,7 +7619,7 @@ void    WscWriteConfToDatFile(
 		offset = (char *) rtstrstr((char *) cfgData, "Default\n");
 		offset += strlen("Default\n");
 		RtmpOSFileWrite(file_w, (char *)cfgData, (int)(offset-cfgData));
-		os_alloc_mem(NULL, (UCHAR **)&pTempStr, 512);
+		os_alloc_mem(NULL, (unsigned char **)&pTempStr, 512);
 		if (!pTempStr)
 		{
 			DBGPRINT(RT_DEBUG_TRACE, ("pTempStr kmalloc fail. (512)\n"));
@@ -7755,13 +7755,13 @@ void    WscWriteConfToDatFile(
 					pCredentail = &pAd->ApCfg.MBSSID[apidx].WscControl.WscProfile.Profile[0];
 					if (pAd->ApCfg.MBSSID[apidx].WepStatus == Ndis802_11WEPEnabled)
 					{
-						UCHAR idx = 0, KeyType[4] = {0};
+						unsigned char idx = 0, KeyType[4] = {0};
                         char * ptr2, temp_ptr;
 						
 						ptr2 = rtstrstr(pTempStr, "=");
 						temp_ptr = pTempStr;
 						pTempStr = ptr2+1;
-						KeyType[0] = (UCHAR)(*pTempStr - 0x30);
+						KeyType[0] = (unsigned char)(*pTempStr - 0x30);
 						for (idx = 1; idx < 4; idx++)
 						{
 							ptr2 = rtstrstr(pTempStr, ";");
@@ -7771,7 +7771,7 @@ void    WscWriteConfToDatFile(
 							if ((pTempStr != NULL) ||
 								(*pTempStr == '0') ||
 								(*pTempStr == '1'))
-								KeyType[idx] = (UCHAR)(*pTempStr - 0x30);
+								KeyType[idx] = (unsigned char)(*pTempStr - 0x30);
 						}
 						pTempStr = temp_ptr;			
 						NdisZeroMemory(pTempStr, 512);
@@ -7848,7 +7848,7 @@ out:
 #ifdef CONFIG_AP_SUPPORT
 void    WscWriteConfToAR9File(
     IN  PRTMP_ADAPTER 	pAd,
-    IN  UCHAR			CurOpMode)
+    IN  unsigned char			CurOpMode)
 {
 	char *			fileName = NULL;
 	RTMP_OS_FD		file_w;
@@ -7859,7 +7859,7 @@ void    WscWriteConfToAR9File(
 	char *			pDatStr = 0;
 #ifdef CONFIG_AP_SUPPORT
 	INT				index = 0;
-	UCHAR			apidx = MAIN_MBSSID;
+	unsigned char			apidx = MAIN_MBSSID;
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL		pWscControl = NULL;
 	PWSC_CREDENTIAL	pCredentail = NULL;
@@ -7890,14 +7890,14 @@ void    WscWriteConfToAR9File(
 	}
 	else 
 	{
-		os_alloc_mem(NULL, (UCHAR **)&pTempStr, 512);
+		os_alloc_mem(NULL, (unsigned char **)&pTempStr, 512);
 		if (!pTempStr)
 		{
 			DBGPRINT(RT_DEBUG_TRACE, ("pTempStr kmalloc fail. (512)\n"));
 			RtmpOSFileClose(file_w);
 			goto WriteErr;
 		}
-		os_alloc_mem(NULL, (UCHAR **)&pDatStr, 4096);
+		os_alloc_mem(NULL, (unsigned char **)&pDatStr, 4096);
 		if (!pDatStr)
 		{
 			DBGPRINT(RT_DEBUG_TRACE, ("pDatStr kmalloc fail. (4096)\n"));
@@ -8202,7 +8202,7 @@ static INT wsc_write_dat_file_thread (
 		if (pAd->pWscElme && (pAd->pWscElme->MsgLen != 0))
 		{
 			MLME_QUEUE_ELEM	*pElme;
-			os_alloc_mem(pAd, (UCHAR **)&pElme, sizeof(MLME_QUEUE_ELEM));
+			os_alloc_mem(pAd, (unsigned char **)&pElme, sizeof(MLME_QUEUE_ELEM));
 			if (pElme)
 			{
 				NdisZeroMemory(pElme, sizeof(MLME_QUEUE_ELEM));
@@ -8218,7 +8218,7 @@ static INT wsc_write_dat_file_thread (
 
 		if (pAd->WriteWscCfgToDatFile != 0xFF)
 		{
-			UCHAR	CurOpMode = AP_MODE;
+			unsigned char	CurOpMode = AP_MODE;
 
 #ifdef CONFIG_AP_SUPPORT
 			IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -8278,7 +8278,7 @@ BOOLEAN WscThreadExit(RTMP_ADAPTER *pAd)
 		)
 	{
 		INT ap_idx;
-		UCHAR MaxBssidNum = MAX_MBSSID_NUM(pAd);
+		unsigned char MaxBssidNum = MAX_MBSSID_NUM(pAd);
 
 		for (ap_idx = 0; ap_idx < MaxBssidNum; ap_idx++)
 		{
@@ -8370,7 +8370,7 @@ NDIS_STATUS WscThreadInit(RTMP_ADAPTER *pAd)
 			status = FALSE;
 		}
 		NdisAllocateSpinLock(pAd, &pAd->WscElmeLock);
-		os_alloc_mem(NULL, (UCHAR **)&pAd->pWscElme, sizeof(MLME_QUEUE_ELEM));
+		os_alloc_mem(NULL, (unsigned char **)&pAd->pWscElme, sizeof(MLME_QUEUE_ELEM));
 	}
 	DBGPRINT(RT_DEBUG_TRACE, ("<--WscThreadInit(), status=%d!\n", status));
 
@@ -8548,7 +8548,7 @@ BOOLEAN WscAPHasSecuritySetting(
 	IN PWSC_CTRL     pWscControl)
 {
 	BOOLEAN bAPHasSecuritySetting = FALSE;
-	UCHAR	currentIdx = MAIN_MBSSID;
+	unsigned char	currentIdx = MAIN_MBSSID;
 	
 #ifdef CONFIG_AP_SUPPORT
 	currentIdx = (pWscControl->EntryIfIdx & 0x0F);
@@ -8599,7 +8599,7 @@ VOID WscLEDTimer(
 {
 	PWSC_CTRL pWscControl = (PWSC_CTRL)FunctionContext;
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pWscControl->pAd;
-	UCHAR WPSLEDStatus = 0;
+	unsigned char WPSLEDStatus = 0;
 
 	/* WPS LED mode 7, 8, 11 and 12. */
 	if ((LED_MODE(pAd) == WPS_LED_MODE_7) || 
@@ -8793,7 +8793,7 @@ VOID WscCheckPeerDPID(
 				if ((pAd->OpMode == OPMODE_AP)
 					)
 				{
-					UCHAR	ap_idx = 0;
+					unsigned char	ap_idx = 0;
 					for (ap_idx = 0; ap_idx < pAd->ApCfg.BssidNum; ap_idx++)
 					{
 						if (NdisEqualMemory(Fr->Hdr.Addr1, pAd->ApCfg.MBSSID[ap_idx].Bssid, MAC_ADDR_LEN))
@@ -8883,7 +8883,7 @@ VOID	WscInsertPeerEntryByMAC(
 	}
 	else
 	{
-		os_alloc_mem(NULL, (UCHAR **)&pWscPeer, sizeof(WSC_PEER_ENTRY));
+		os_alloc_mem(NULL, (unsigned char **)&pWscPeer, sizeof(WSC_PEER_ENTRY));
 		if (pWscPeer)
 		{
 			NdisZeroMemory(pWscPeer, sizeof(WSC_PEER_ENTRY));
@@ -8901,7 +8901,7 @@ INT WscApShowPeerList(
 	IN  PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	UCHAR				ApIdx = 0;
+	unsigned char				ApIdx = 0;
 	PWSC_CTRL 			pWscControl = NULL;
 	PWSC_PEER_ENTRY 	pPeerEntry = NULL;
 	PLIST_ENTRY			pListEntry = NULL;

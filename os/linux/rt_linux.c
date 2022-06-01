@@ -205,7 +205,7 @@ void RTMP_GetCurrentSystemTick(unsigned long *pNow)
 
 NDIS_STATUS os_alloc_mem(
 	IN VOID *pReserved,
-	OUT UCHAR **mem,
+	OUT unsigned char **mem,
 	IN unsigned long size)
 {
 	*mem = (unsigned char *) kmalloc(size, GFP_ATOMIC);
@@ -221,7 +221,7 @@ NDIS_STATUS os_alloc_mem(
 
 NDIS_STATUS os_alloc_mem_suspend(
 	IN VOID *pReserved,
-	OUT UCHAR **mem,
+	OUT unsigned char **mem,
 	IN unsigned long size)
 {
 	*mem = (unsigned char *) kmalloc(size, GFP_KERNEL);
@@ -281,7 +281,7 @@ extern int ra_mtd_read_nm(char *name, loff_t from, size_t len, u_char *buf);
 #endif /* CONFIG_RALINK_FLASH_API */
 
 void RtmpFlashRead(
-	UCHAR *p,
+	unsigned char *p,
 	unsigned long a,
 	unsigned long b)
 {
@@ -297,7 +297,7 @@ void RtmpFlashRead(
 }
 
 void RtmpFlashWrite(
-	UCHAR * p,
+	unsigned char * p,
 	unsigned long a,
 	unsigned long b)
 {
@@ -352,9 +352,9 @@ PNDIS_PACKET RTMP_AllocateFragPacketBuffer(VOID *dummy, unsigned long len)
 NDIS_STATUS RTMPAllocateNdisPacket(
 	IN VOID *pReserved,
 	OUT PNDIS_PACKET *ppPacket,
-	IN UCHAR *pHeader,
+	IN unsigned char *pHeader,
 	IN UINT HeaderLen,
-	IN UCHAR *pData,
+	IN unsigned char *pData,
 	IN UINT DataLen)
 {
 	struct sk_buff *pPacket;
@@ -410,7 +410,7 @@ VOID RTMPFreeNdisPacket(
  */
 NDIS_STATUS Sniff2BytesFromNdisBuffer(
 	IN PNDIS_BUFFER pFirstBuffer,
-	IN UCHAR DesiredOffset,
+	IN unsigned char DesiredOffset,
 	OUT unsigned char * pByte0,
 	OUT unsigned char * pByte1)
 {
@@ -424,7 +424,7 @@ NDIS_STATUS Sniff2BytesFromNdisBuffer(
 void RTMP_QueryPacketInfo(
 	IN PNDIS_PACKET pPacket,
 	OUT PACKET_INFO *info,
-	OUT UCHAR **pSrcBufVA,
+	OUT unsigned char **pSrcBufVA,
 	OUT UINT *pSrcBufLen)
 {
 	info->BufferCount = 1;
@@ -461,12 +461,12 @@ void RTMP_QueryPacketInfo(
 PNDIS_PACKET DuplicatePacket(
 	IN PNET_DEV pNetDev,
 	IN PNDIS_PACKET pPacket,
-	IN UCHAR FromWhichBSSID)
+	IN unsigned char FromWhichBSSID)
 {
 	struct sk_buff *skb;
 	PNDIS_PACKET pRetPacket = NULL;
 	USHORT DataSize;
-	UCHAR *pData;
+	unsigned char *pData;
 
 	DataSize = (USHORT) GET_OS_PKT_LEN(pPacket);
 	pData = (unsigned char *) GET_OS_PKT_DATAPTR(pPacket);
@@ -489,7 +489,7 @@ PNDIS_PACKET duplicate_pkt(
 	IN UINT HdrLen,
 	IN unsigned char * pData,
 	IN unsigned long DataSize,
-	IN UCHAR FromWhichBSSID)
+	IN unsigned char FromWhichBSSID)
 {
 	struct sk_buff *skb;
 	PNDIS_PACKET pPacket = NULL;
@@ -548,8 +548,8 @@ PNDIS_PACKET duplicate_pkt_with_VLAN(
 	IN UINT HdrLen,
 	IN unsigned char * pData,
 	IN unsigned long DataSize,
-	IN UCHAR FromWhichBSSID,
-	IN UCHAR *TPID)
+	IN unsigned char FromWhichBSSID,
+	IN unsigned char *TPID)
 {
 	struct sk_buff *skb;
 	PNDIS_PACKET pPacket = NULL;
@@ -598,10 +598,10 @@ BOOLEAN RTMPL2FrameTxAction(
 	IN VOID * pCtrlBkPtr,
 	IN PNET_DEV pNetDev,
 	IN RTMP_CB_8023_PACKET_ANNOUNCE _announce_802_3_packet,
-	IN UCHAR apidx,
+	IN unsigned char apidx,
 	IN unsigned char * pData,
 	IN unsigned int data_len,
-	IN	UCHAR			OpMode)
+	IN	unsigned char			OpMode)
 {
 	struct sk_buff *skb = dev_alloc_skb(data_len + 2);
 
@@ -700,7 +700,7 @@ PNDIS_PACKET ClonePacket(
 VOID RtmpOsPktInit(
 	IN PNDIS_PACKET pNetPkt,
 	IN PNET_DEV pNetDev,
-	IN UCHAR *pData,
+	IN unsigned char *pData,
 	IN USHORT DataSize)
 {
 	PNDIS_PACKET pRxPkt;
@@ -716,15 +716,15 @@ VOID RtmpOsPktInit(
 
 void wlan_802_11_to_802_3_packet(
 	IN PNET_DEV pNetDev,
-	IN UCHAR OpMode,
+	IN unsigned char OpMode,
 	IN USHORT VLAN_VID,
 	IN USHORT VLAN_Priority,
 	IN PNDIS_PACKET pRxPacket,
-	IN UCHAR *pData,
+	IN unsigned char *pData,
 	IN unsigned long DataSize,
 	IN unsigned char * pHeader802_3,
-	IN UCHAR FromWhichBSSID,
-	IN UCHAR *TPID)
+	IN unsigned char FromWhichBSSID,
+	IN unsigned char *TPID)
 {
 	struct sk_buff *pOSPkt;
 
@@ -743,8 +743,8 @@ void wlan_802_11_to_802_3_packet(
 	RT_CONFIG_IF_OPMODE_ON_AP(OpMode)
 	{
 		/* maybe insert VLAN tag to the received packet */
-		UCHAR VLAN_Size = 0;
-		UCHAR *data_p;
+		unsigned char VLAN_Size = 0;
+		unsigned char *data_p;
 
 		if (VLAN_VID != 0)
 			VLAN_Size = LENGTH_802_1Q;
@@ -765,7 +765,7 @@ void wlan_802_11_to_802_3_packet(
 VOID RtmpOsSetPacket(
 	IN PNET_DEV pNetDev,
 	IN PNDIS_PACKET pRxPacket,
-	IN UCHAR *pData,
+	IN unsigned char *pData,
 	IN unsigned long DataSize)
 {
 
@@ -782,7 +782,7 @@ VOID RtmpOsSetPacket(
 #endif /* HDR_TRANS_SUPPORT */
 
 
-void hex_dump(char *str, UCHAR *pSrcBufVA, UINT SrcBufLen)
+void hex_dump(char *str, unsigned char *pSrcBufVA, UINT SrcBufLen)
 {
 #ifdef DBG
 	unsigned char *pt;
@@ -831,7 +831,7 @@ VOID RtmpOsSendWirelessEvent(
 	IN VOID *pAd,
 	IN USHORT Event_flag,
 	IN unsigned char * pAddr,
-	IN UCHAR BssIdx,
+	IN unsigned char BssIdx,
 	IN CHAR Rssi,
 	IN RTMP_OS_SEND_WLAN_EVENT pFunc)
 {
@@ -1269,7 +1269,7 @@ int RtmpOSWrielessEventSendExt(
 }
 
 int RtmpOSNetDevAddrSet(
-	IN UCHAR OpMode,
+	IN unsigned char OpMode,
 	IN PNET_DEV pNetDev,
 	IN unsigned char * pMacAddr,
 	IN unsigned char * dev_name)
@@ -1518,7 +1518,7 @@ static struct ethtool_ops RALINK_Ethtool_Ops = {
 
 
 int RtmpOSNetDevAttach(
-	IN UCHAR OpMode,
+	IN unsigned char OpMode,
 	IN PNET_DEV pNetDev,
 	IN RTMP_OS_NETDEV_OP_HOOK *pDevOpHook)
 {
@@ -1667,17 +1667,17 @@ PNET_DEV RtmpOSNetDevCreate(
 
 
 #ifdef CONFIG_AP_SUPPORT
-UCHAR VLAN_8023_Header_Copy(
+unsigned char VLAN_8023_Header_Copy(
 	IN USHORT VLAN_VID,
 	IN USHORT VLAN_Priority,
 	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
 	OUT unsigned char * pData,
-	IN UCHAR FromWhichBSSID,
-	IN UCHAR *TPID)
+	IN unsigned char FromWhichBSSID,
+	IN unsigned char *TPID)
 {
 	unsigned short TCI;
-	UCHAR VLAN_Size = 0;
+	unsigned char VLAN_Size = 0;
 
 	if (VLAN_VID != 0) {
 		/* need to insert VLAN tag */
@@ -1789,7 +1789,7 @@ VOID RtmpDrvAllMacPrint(
 	STRING *msg;
 	unsigned int macAddr = 0, macValue = 0;
 
-	os_alloc_mem(NULL, (UCHAR **)&msg, 1024);
+	os_alloc_mem(NULL, (unsigned char **)&msg, 1024);
 	if (!msg)
 		return;
 
@@ -1838,7 +1838,7 @@ VOID RtmpDrvAllE2PPrint(
 	USHORT eepAddr = 0;
 	USHORT eepValue;
 
-	os_alloc_mem(NULL, (UCHAR **)&msg, 1024);
+	os_alloc_mem(NULL, (unsigned char **)&msg, 1024);
 	if (!msg)
 		return;
 
@@ -2135,18 +2135,18 @@ BOOLEAN RtmpOsStatsAlloc(
 	IN VOID **ppStats,
 	IN VOID **ppIwStats)
 {
-	os_alloc_mem(NULL, (UCHAR **) ppStats, sizeof (struct net_device_stats));
+	os_alloc_mem(NULL, (unsigned char **) ppStats, sizeof (struct net_device_stats));
 	if ((*ppStats) == NULL)
 		return FALSE;
-	NdisZeroMemory((UCHAR *) *ppStats, sizeof (struct net_device_stats));
+	NdisZeroMemory((unsigned char *) *ppStats, sizeof (struct net_device_stats));
 
 #if WIRELESS_EXT >= 12
-	os_alloc_mem(NULL, (UCHAR **) ppIwStats, sizeof (struct iw_statistics));
+	os_alloc_mem(NULL, (unsigned char **) ppIwStats, sizeof (struct iw_statistics));
 	if ((*ppIwStats) == NULL) {
 		os_free_mem(NULL, *ppStats);
 		return FALSE;
 	}
-	NdisZeroMemory((UCHAR *)* ppIwStats, sizeof (struct iw_statistics));
+	NdisZeroMemory((unsigned char *)* ppIwStats, sizeof (struct iw_statistics));
 #endif
 
 	return TRUE;
@@ -2215,14 +2215,14 @@ PNET_DEV RtmpOsPktNetDevGet(VOID *pPkt)
    location of the STA */
 typedef struct GNU_PACKED _RT_IAPP_L2_UPDATE_FRAME {
 
-	UCHAR DA[ETH_ALEN];	/* broadcast MAC address */
-	UCHAR SA[ETH_ALEN];	/* the MAC address of the STA that has just associated
+	unsigned char DA[ETH_ALEN];	/* broadcast MAC address */
+	unsigned char SA[ETH_ALEN];	/* the MAC address of the STA that has just associated
 				   or reassociated */
 	USHORT Len;		/* 8 octets */
-	UCHAR DSAP;		/* null */
-	UCHAR SSAP;		/* null */
-	UCHAR Control;		/* reference to IEEE Std 802.2 */
-	UCHAR XIDInfo[3];	/* reference to IEEE Std 802.2 */
+	unsigned char DSAP;		/* null */
+	unsigned char SSAP;		/* null */
+	unsigned char Control;		/* reference to IEEE Std 802.2 */
+	unsigned char XIDInfo[3];	/* reference to IEEE Std 802.2 */
 } RT_IAPP_L2_UPDATE_FRAME, *PRT_IAPP_L2_UPDATE_FRAME;
 
 
@@ -2277,7 +2277,7 @@ VOID RtmpOsPktNatNone(PNDIS_PACKET pNetPkt)
 
 #ifdef RT_CFG80211_SUPPORT
 /* all available channels */
-UCHAR Cfg80211_Chan[] = {
+unsigned char Cfg80211_Chan[] = {
 	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
 
 	/* 802.11 UNI / HyperLan 2 */
@@ -2746,7 +2746,7 @@ Note:
 */
 VOID CFG80211OS_RegHint(
 	IN VOID *pCB,
-	IN UCHAR *pCountryIe,
+	IN unsigned char *pCountryIe,
 	IN unsigned long CountryIeLen)
 {
 	CFG80211_CB *pCfg80211_CB = (CFG80211_CB *)pCB;
@@ -2787,7 +2787,7 @@ Note:
 */
 VOID CFG80211OS_RegHint11D(
 	IN VOID *pCB,
-	IN UCHAR *pCountryIe,
+	IN unsigned char *pCountryIe,
 	IN unsigned long CountryIeLen)
 {
 	/* no regulatory_hint_11d() in 2.6.32 */
@@ -2930,8 +2930,8 @@ Note:
 BOOLEAN CFG80211OS_ChanInfoInit(
 	IN VOID						*pCB,
 	IN unsigned int					InfoIndex,
-	IN UCHAR					ChanId,
-	IN UCHAR					MaxTxPwr,
+	IN unsigned char					ChanId,
+	IN unsigned char					MaxTxPwr,
 	IN BOOLEAN					FlgIsNMode,
 	IN BOOLEAN					FlgIsBW20M)
 {
@@ -2990,7 +2990,7 @@ Note:
 VOID CFG80211OS_Scaning(
 	IN VOID						*pCB,
 	IN unsigned int					ChanId,
-	IN UCHAR					*pFrame,
+	IN unsigned char					*pFrame,
 	IN unsigned int					FrameLen,
 	IN INT32					RSSI,
 	IN BOOLEAN					FlgIsNMode,
@@ -3047,12 +3047,12 @@ Note:
 */
 void CFG80211OS_ConnectResultInform(
 	IN VOID *pCB,
-	IN UCHAR *pBSSID,
-	IN UCHAR *pReqIe,
+	IN unsigned char *pBSSID,
+	IN unsigned char *pReqIe,
 	IN unsigned int ReqIeLen,
-	IN UCHAR *pRspIe,
+	IN unsigned char *pRspIe,
 	IN unsigned int RspIeLen,
-	IN UCHAR FlgIsSuccess)
+	IN unsigned char FlgIsSuccess)
 {
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,32))
 	CFG80211_CB *pCfg80211_CB = (CFG80211_CB *)pCB;
@@ -3131,7 +3131,7 @@ VOID RtmpOsSetNetDevPriv(VOID *pDev, VOID *pPriv)
 	pDevInfo = (DEV_PRIV_INFO *) _RTMP_OS_NETDEV_GET_PRIV((PNET_DEV) pDev);
 	if (pDevInfo == NULL)
 	{
-		os_alloc_mem(NULL, (UCHAR **)&pDevInfo, sizeof(DEV_PRIV_INFO));
+		os_alloc_mem(NULL, (unsigned char **)&pDevInfo, sizeof(DEV_PRIV_INFO));
 		if (pDevInfo == NULL)
 			return;
 	}
@@ -3246,7 +3246,7 @@ void RtmpOSFSInfoChange(RTMP_OS_FS_INFO *pOSFSInfoOrg, BOOLEAN bSet)
 	OS_FS_INFO *pOSFSInfo;
 
 	if (bSet == TRUE) {
-		os_alloc_mem(NULL, (UCHAR **) & (pOSFSInfoOrg->pContent),
+		os_alloc_mem(NULL, (unsigned char **) & (pOSFSInfoOrg->pContent),
 			     sizeof (OS_FS_INFO));
 		if (pOSFSInfoOrg->pContent == NULL) {
 			DBGPRINT(RT_DEBUG_ERROR, ("%s: alloc file info fail!\n", __FUNCTION__));
@@ -3542,7 +3542,7 @@ BOOLEAN RTMP_OS_Alloc_Rsc(
 
 	if (pRsc->pContent == NULL) {
 		/* new entry */
-		os_alloc_mem(NULL, (UCHAR **) & (pRsc->pContent), RscLen);
+		os_alloc_mem(NULL, (unsigned char **) & (pRsc->pContent), RscLen);
 		if (pRsc->pContent == NULL) {
 			DBGPRINT(RT_DEBUG_ERROR,
 				 ("%s: alloc timer fail!\n", __FUNCTION__));
@@ -3551,7 +3551,7 @@ BOOLEAN RTMP_OS_Alloc_Rsc(
 			LIST_RESOURCE_OBJ_ENTRY *pObj;
 
 			/* allocate resource record entry */
-			os_alloc_mem(NULL, (UCHAR **) & (pObj),
+			os_alloc_mem(NULL, (unsigned char **) & (pObj),
 				     sizeof (LIST_RESOURCE_OBJ_ENTRY));
 			if (pObj == NULL) {
 				DBGPRINT(RT_DEBUG_ERROR,
@@ -3597,7 +3597,7 @@ BOOLEAN RTMP_OS_Alloc_RscOnly(VOID *pRscSrc, unsigned int RscLen)
 
 	if (pRsc->pContent == NULL) {
 		/* new entry */
-		os_alloc_mem(NULL, (UCHAR **) & (pRsc->pContent), RscLen);
+		os_alloc_mem(NULL, (unsigned char **) & (pRsc->pContent), RscLen);
 		if (pRsc->pContent == NULL) {
 			DBGPRINT(RT_DEBUG_ERROR,
 				 ("%s: alloc timer fail!\n", __FUNCTION__));
@@ -4837,7 +4837,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsPktDataPtrAssign(PNDIS_PACKET pNetPkt, UCHAR *pData)
+VOID RtmpOsPktDataPtrAssign(PNDIS_PACKET pNetPkt, unsigned char *pData)
 {
 	SET_OS_PKT_DATAPTR(pNetPkt, pData);
 }

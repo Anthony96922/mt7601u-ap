@@ -108,7 +108,7 @@ Note:
 INT ApCli_VirtualIF_Open(
 	IN PNET_DEV		dev_p)
 {
-/*	UCHAR ifIndex; */
+/*	unsigned char ifIndex; */
 	VOID *pAd;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(dev_p);
@@ -147,7 +147,7 @@ Note:
 INT ApCli_VirtualIF_Close(
 	IN	PNET_DEV	dev_p)
 {
-/*	UCHAR ifIndex; */
+/*	unsigned char ifIndex; */
 	VOID *pAd;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(dev_p);

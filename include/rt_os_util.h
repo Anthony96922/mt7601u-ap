@@ -57,12 +57,12 @@ unsigned int RtmpOsTickUnitGet(VOID);
 /* OS Memory */
 NDIS_STATUS os_alloc_mem(
 	IN	VOID					*pReserved,
-	OUT	UCHAR					**mem,
+	OUT	unsigned char					**mem,
 	IN	unsigned long					size);
 
 NDIS_STATUS os_alloc_mem_suspend(
 	IN	VOID					*pReserved,
-	OUT	UCHAR					**mem,
+	OUT	unsigned char					**mem,
 	IN	unsigned long					size);
 
 NDIS_STATUS os_free_mem(
@@ -117,7 +117,7 @@ VOID RTMPFreeNdisPacket(
 
 NDIS_STATUS Sniff2BytesFromNdisBuffer(
 	IN  PNDIS_BUFFER			pFirstBuffer,
-	IN  UCHAR           		DesiredOffset,
+	IN  unsigned char           		DesiredOffset,
 	OUT unsigned char *          		pByte0,
 	OUT unsigned char *          		pByte1);
 
@@ -130,7 +130,7 @@ void RTMP_QueryPacketInfo(
 PNDIS_PACKET DuplicatePacket(
 	IN	PNET_DEV				pNetDev,
 	IN	PNDIS_PACKET			pPacket,
-	IN	UCHAR					FromWhichBSSID);
+	IN	unsigned char					FromWhichBSSID);
 
 PNDIS_PACKET duplicate_pkt(
 	IN	PNET_DEV				pNetDev,
@@ -138,7 +138,7 @@ PNDIS_PACKET duplicate_pkt(
     IN  UINT            		HdrLen,
 	IN	unsigned char *					pData,
 	IN	unsigned long					DataSize,
-	IN	UCHAR					FromWhichBSSID);
+	IN	unsigned char					FromWhichBSSID);
 
 PNDIS_PACKET duplicate_pkt_with_TKIP_MIC(
 	IN	VOID					*pReserved,
@@ -152,22 +152,22 @@ PNDIS_PACKET duplicate_pkt_with_VLAN(
     IN  UINT            		HdrLen,
 	IN	unsigned char *					pData,
 	IN	unsigned long					DataSize,
-	IN	UCHAR					FromWhichBSSID,
-	IN	UCHAR					*TPID);
+	IN	unsigned char					FromWhichBSSID,
+	IN	unsigned char					*TPID);
 
 typedef void (*RTMP_CB_8023_PACKET_ANNOUNCE)(
 			IN	VOID			*pCtrlBkPtr, 
 			IN	PNDIS_PACKET	pPacket,
-			IN	UCHAR			OpMode);
+			IN	unsigned char			OpMode);
 
 BOOLEAN RTMPL2FrameTxAction(
 	IN  VOID					*pCtrlBkPtr,
 	IN	PNET_DEV				pNetDev,
 	IN	RTMP_CB_8023_PACKET_ANNOUNCE _announce_802_3_packet,
-	IN	UCHAR					apidx,
+	IN	unsigned char					apidx,
 	IN	unsigned char *					pData,
 	IN	unsigned int					data_len,
-	IN	UCHAR			OpMode);
+	IN	unsigned char			OpMode);
 
 PNDIS_PACKET ExpandPacket(
 	IN	VOID					*pReserved,
@@ -183,21 +183,21 @@ PNDIS_PACKET ClonePacket(
 
 void wlan_802_11_to_802_3_packet(
 	IN	PNET_DEV				pNetDev,
-	IN	UCHAR					OpMode,
+	IN	unsigned char					OpMode,
 	IN	USHORT					VLAN_VID,
 	IN	USHORT					VLAN_Priority,
 	IN	PNDIS_PACKET			pRxPacket,
-	IN	UCHAR					*pData,
+	IN	unsigned char					*pData,
 	IN	unsigned long					DataSize,
 	IN	unsigned char *					pHeader802_3,
-	IN  UCHAR					FromWhichBSSID,
-	IN	UCHAR					*TPID);
+	IN  unsigned char					FromWhichBSSID,
+	IN	unsigned char					*TPID);
 
 #ifdef HDR_TRANS_SUPPORT
 VOID RtmpOsSetPacket(
 	IN PNET_DEV pNetDev,
 	IN PNDIS_PACKET pRxPacket,
-	IN UCHAR *pData,
+	IN unsigned char *pData,
 	IN unsigned long DataSize);
 #endif /* HDR_TRANS_SUPPORT */
 
@@ -205,30 +205,30 @@ void send_monitor_packets(
 	IN	PNET_DEV				pNetDev,
 	IN	PNDIS_PACKET			pRxPacket,
 	IN	PHEADER_802_11			pHeader,
-	IN	UCHAR					*pData,
+	IN	unsigned char					*pData,
 	IN	USHORT					DataSize,
-	IN	UCHAR					L2PAD,
-	IN	UCHAR					PHYMODE,
-	IN	UCHAR					BW,
-	IN	UCHAR					ShortGI,
-	IN	UCHAR					MCS,
-	IN	UCHAR					AMPDU,
-	IN	UCHAR					STBC,
-	IN	UCHAR					RSSI1,
-	IN	UCHAR					BssMonitorFlag11n,
-	IN	UCHAR					*pDevName,
-	IN	UCHAR					Channel,
-	IN	UCHAR					CentralChannel,
+	IN	unsigned char					L2PAD,
+	IN	unsigned char					PHYMODE,
+	IN	unsigned char					BW,
+	IN	unsigned char					ShortGI,
+	IN	unsigned char					MCS,
+	IN	unsigned char					AMPDU,
+	IN	unsigned char					STBC,
+	IN	unsigned char					RSSI1,
+	IN	unsigned char					BssMonitorFlag11n,
+	IN	unsigned char					*pDevName,
+	IN	unsigned char					Channel,
+	IN	unsigned char					CentralChannel,
 	IN	unsigned int					MaxRssi);
 
-UCHAR VLAN_8023_Header_Copy(
+unsigned char VLAN_8023_Header_Copy(
 	IN	USHORT					VLAN_VID,
 	IN	USHORT					VLAN_Priority,
 	IN	unsigned char *					pHeader802_3,
 	IN	UINT            		HdrLen,
 	OUT unsigned char *					pData,
-	IN	UCHAR					FromWhichBSSID,
-	IN	UCHAR					*TPID);
+	IN	unsigned char					FromWhichBSSID,
+	IN	unsigned char					*TPID);
 
 VOID RtmpOsPktBodyCopy(
 	IN	PNET_DEV				pNetDev,
@@ -247,7 +247,7 @@ PNDIS_PACKET RtmpOsPktClone(
 
 VOID RtmpOsPktDataPtrAssign(
 	IN	PNDIS_PACKET			pNetPkt,
-	IN	UCHAR					*pData);
+	IN	unsigned char					*pData);
 
 VOID RtmpOsPktLenAssign(
 	IN	PNDIS_PACKET			pNetPkt,
@@ -287,7 +287,7 @@ VOID RtmpOsPktNatNone(
 VOID RtmpOsPktInit(
 	IN	PNDIS_PACKET			pNetPkt,
 	IN	PNET_DEV				pNetDev,
-	IN	UCHAR					*pData,
+	IN	unsigned char					*pData,
 	IN	USHORT					DataSize);
 
 PNDIS_PACKET RtmpOsPktIappMakeUp(
@@ -324,7 +324,7 @@ void RtmpOSFSInfoChange(
 
 /* OS Network Interface */
 int RtmpOSNetDevAddrSet(
-	IN UCHAR					OpMode,
+	IN unsigned char					OpMode,
 	IN PNET_DEV 				pNetDev,
 	IN unsigned char *					pMacAddr,
 	IN unsigned char *					dev_name);
@@ -358,7 +358,7 @@ void RtmpOSNetDevDetach(
 	IN	PNET_DEV				pNetDev);
 
 int RtmpOSNetDevAttach(
-	IN	UCHAR					OpMode,
+	IN	unsigned char					OpMode,
 	IN	PNET_DEV				pNetDev, 
 	IN	RTMP_OS_NETDEV_OP_HOOK	*pDevOpHook);
 
@@ -603,14 +603,14 @@ typedef VOID (*RTMP_OS_SEND_WLAN_EVENT)(
 	IN	VOID					*pAdSrc,
 	IN	USHORT					Event_flag,
 	IN	unsigned char * 					pAddr,
-	IN  UCHAR					BssIdx,
+	IN  unsigned char					BssIdx,
 	IN	CHAR					Rssi);
 
 VOID RtmpOsSendWirelessEvent(
 	IN	VOID			*pAd,
 	IN	USHORT			Event_flag,
 	IN	unsigned char * 			pAddr,
-	IN	UCHAR			BssIdx,
+	IN	unsigned char			BssIdx,
 	IN	CHAR			Rssi,
 	IN	RTMP_OS_SEND_WLAN_EVENT pFunc);
 
@@ -722,12 +722,12 @@ VOID    WpaSendMicFailureToWpaSupplicant(
 
 int wext_notify_event_assoc(
 	IN	PNET_DEV				pNetDev,
-	IN	UCHAR					*ReqVarIEs,
+	IN	unsigned char					*ReqVarIEs,
 	IN	unsigned int					ReqVarIELen);
 
 VOID    SendAssocIEsToWpaSupplicant( 
 	IN	PNET_DEV				pNetDev,
-	IN	UCHAR					*ReqVarIEs,
+	IN	unsigned char					*ReqVarIEs,
 	IN	unsigned int					ReqVarIELen);
 
 void * RtmpInitCompletion(VOID);
@@ -832,7 +832,7 @@ void rausb_kill_urb(VOID *urb);
 VOID RtmpOsUsbEmptyUrbCheck(
 	IN	VOID				**ppWait,
 	IN	NDIS_SPIN_LOCK		*pBulkInLock,
-	IN	UCHAR				*pPendingRx);
+	IN	unsigned char				*pPendingRx);
 
 typedef VOID (*USB_COMPLETE_HANDLER)(VOID *);
 
@@ -850,7 +850,7 @@ VOID	RtmpOsUsbInitRxDesc(
 	IN	VOID			*pUrbSrc,
 	IN	VOID			*pUsb_Dev,
 	IN	UINT			BulkInEpAddr,
-	IN	UCHAR			*pTransferBuffer,
+	IN	unsigned char			*pTransferBuffer,
 	IN	unsigned int			BufSize,
 	IN	USB_COMPLETE_HANDLER	Func,
 	IN	VOID			*pRxContext,
@@ -868,12 +868,12 @@ VOID RtmpOsUsbDmaMapping(
 
 #if defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT)
 void RtmpFlashRead(
-	UCHAR * p,
+	unsigned char * p,
 	unsigned long a,
 	unsigned long b);
 
 void RtmpFlashWrite(
-	UCHAR * p,
+	unsigned char * p,
 	unsigned long a,
 	unsigned long b);
 #endif /* defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT) */
@@ -918,12 +918,12 @@ BOOLEAN CFG80211OS_SupBandReInit(
 
 VOID CFG80211OS_RegHint(
 	IN VOID						*pCB,
-	IN UCHAR					*pCountryIe,
+	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen);
 
 VOID CFG80211OS_RegHint11D(
 	IN VOID						*pCB,
-	IN UCHAR					*pCountryIe,
+	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen);
 
 BOOLEAN CFG80211OS_BandInfoGet(
@@ -949,15 +949,15 @@ BOOLEAN CFG80211OS_ChanInfoGet(
 BOOLEAN CFG80211OS_ChanInfoInit(
 	IN VOID						*pCB,
 	IN unsigned int					InfoIndex,
-	IN UCHAR					ChanId,
-	IN UCHAR					MaxTxPwr,
+	IN unsigned char					ChanId,
+	IN unsigned char					MaxTxPwr,
 	IN BOOLEAN					FlgIsNMode,
 	IN BOOLEAN					FlgIsBW20M);
 
 VOID CFG80211OS_Scaning(
 	IN VOID						*pCB,
 	IN unsigned int					ChanId,
-	IN UCHAR					*pFrame,
+	IN unsigned char					*pFrame,
 	IN unsigned int					FrameLen,
 	IN INT32					RSSI,
 	IN BOOLEAN					FlgIsNMode,
@@ -969,12 +969,12 @@ VOID CFG80211OS_ScanEnd(
 
 void CFG80211OS_ConnectResultInform(
 	IN VOID						*pCB,
-	IN UCHAR					*pBSSID,
-	IN UCHAR					*pReqIe,
+	IN unsigned char					*pBSSID,
+	IN unsigned char					*pReqIe,
 	IN unsigned int					ReqIeLen,
-	IN UCHAR					*pRspIe,
+	IN unsigned char					*pRspIe,
 	IN unsigned int					RspIeLen,
-	IN UCHAR					FlgIsSuccess);
+	IN unsigned char					FlgIsSuccess);
 #endif /* RT_CFG80211_SUPPORT */
 
 
@@ -984,13 +984,13 @@ void CFG80211OS_ConnectResultInform(
 #define RTMP_UTIL_DCACHE_FLUSH(__AddrStart, __Size)
 
 /* ================================ EXTERN ================================== */
-extern UCHAR SNAP_802_1H[6];
-extern UCHAR SNAP_BRIDGE_TUNNEL[6];
-extern UCHAR EAPOL[2];
-extern UCHAR TPID[];
-extern UCHAR IPX[2];
-extern UCHAR APPLE_TALK[2];
-extern UCHAR NUM_BIT8[8];
+extern unsigned char SNAP_802_1H[6];
+extern unsigned char SNAP_BRIDGE_TUNNEL[6];
+extern unsigned char EAPOL[2];
+extern unsigned char TPID[];
+extern unsigned char IPX[2];
+extern unsigned char APPLE_TALK[2];
+extern unsigned char NUM_BIT8[8];
 extern unsigned long RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 
 extern unsigned long OS_NumOfMemAlloc, OS_NumOfMemFree;

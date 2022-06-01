@@ -33,13 +33,13 @@
 
 
 typedef struct _CH_DESC {
-	UCHAR FirstChannel;
-	UCHAR NumOfCh;
-	UCHAR ChannelProp;
+	unsigned char FirstChannel;
+	unsigned char NumOfCh;
+	unsigned char ChannelProp;
 }CH_DESC, *PCH_DESC;
 
 typedef struct _COUNTRY_REGION_CH_DESC {
-	UCHAR RegionIndex;
+	unsigned char RegionIndex;
 	PCH_DESC pChDesc;
 }COUNTRY_REGION_CH_DESC, *PCOUNTRY_REGION_CH_DESC;
 
@@ -49,16 +49,16 @@ typedef struct _COUNTRY_REGION_CH_DESC {
 #define BOTH			2
 
 typedef struct _CH_DESP {
-	UCHAR FirstChannel;
-	UCHAR NumOfCh;
+	unsigned char FirstChannel;
+	unsigned char NumOfCh;
 	CHAR MaxTxPwr;			/* dBm */
-	UCHAR Geography;			/* 0:out door, 1:in door, 2:both */
+	unsigned char Geography;			/* 0:out door, 1:in door, 2:both */
 	BOOLEAN DfsReq;			/* Dfs require, 0: No, 1: yes. */
 } CH_DESP, *PCH_DESP;
 
 typedef struct _CH_REGION {
-	UCHAR CountReg[3];
-	UCHAR DfsType;			/* 0: CE, 1: FCC, 2: JAP, 3:JAP_W53, JAP_W56 */
+	unsigned char CountReg[3];
+	unsigned char DfsType;			/* 0: CE, 1: FCC, 2: JAP, 3:JAP_W53, JAP_W56 */
 	CH_DESP *pChDesp;
 } CH_REGION, *PCH_REGION;
 
@@ -74,13 +74,13 @@ extern CH_REGION ChRegion[];
 
 typedef struct _CH_POWER_{
 	struct _CH_POWER_ *pNext;
-	UCHAR		StartChannel;
-	UCHAR		num;
-	UCHAR		*Channel;
-	UCHAR		PwrCCK[SINGLE_SKU_TABLE_CCK_LENGTH];
-	UCHAR		PwrOFDM[SINGLE_SKU_TABLE_OFDM_LENGTH];
-	UCHAR		PwrHT20[SINGLE_SKU_TABLE_HT_LENGTH];
-	UCHAR		PwrHT40[SINGLE_SKU_TABLE_HT_LENGTH];
+	unsigned char		StartChannel;
+	unsigned char		num;
+	unsigned char		*Channel;
+	unsigned char		PwrCCK[SINGLE_SKU_TABLE_CCK_LENGTH];
+	unsigned char		PwrOFDM[SINGLE_SKU_TABLE_OFDM_LENGTH];
+	unsigned char		PwrHT20[SINGLE_SKU_TABLE_HT_LENGTH];
+	unsigned char		PwrHT40[SINGLE_SKU_TABLE_HT_LENGTH];
 }CH_POWER;
 #endif /* SINGLE_SKU_V2 */
 
@@ -114,8 +114,8 @@ VOID BuildBeaconChList(
 
 #ifdef DOT11_N_SUPPORT
 VOID N_ChannelCheck(RTMP_ADAPTER *pAd);
-UCHAR N_SetCenCh(RTMP_ADAPTER *pAd, UCHAR channel);
-BOOLEAN N_ChannelGroupCheck(RTMP_ADAPTER *pAd, UCHAR channel);
+unsigned char N_SetCenCh(RTMP_ADAPTER *pAd, unsigned char channel);
+BOOLEAN N_ChannelGroupCheck(RTMP_ADAPTER *pAd, unsigned char channel);
 
 #endif /* DOT11_N_SUPPORT */
 
@@ -124,24 +124,24 @@ unsigned char GetCountryMaxTxPwr(
 	IN unsigned char channel);
 
 VOID RTMP_MapChannelID2KHZ(
-	IN UCHAR Ch,
+	IN unsigned char Ch,
 	OUT unsigned int *pFreq);
 
 VOID RTMP_MapKHZ2ChannelID(
 	IN unsigned long Freq,
 	OUT INT *pCh);
 
-UCHAR GetChannel_5GHZ(
+unsigned char GetChannel_5GHZ(
 	IN PCH_DESC pChDesc, 
-	IN UCHAR index);
+	IN unsigned char index);
 
-UCHAR GetChannel_2GHZ(
+unsigned char GetChannel_2GHZ(
 	IN PCH_DESC pChDesc, 
-	IN UCHAR index);
+	IN unsigned char index);
 
-UCHAR GetChannelFlag(
+unsigned char GetChannelFlag(
 	IN PCH_DESC pChDesc, 
-	IN UCHAR index);
+	IN unsigned char index);
 
 unsigned short TotalChNum(
 	IN PCH_DESC pChDesc);

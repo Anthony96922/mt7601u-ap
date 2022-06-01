@@ -67,10 +67,10 @@ typedef union _CAPTURE_MODE_SHARE_MEMORY {
 
 typedef struct _ATE_INFO {
 	PATE_CHIP_STRUCT pChipStruct; 
-	UCHAR Mode;
+	unsigned char Mode;
 	BOOLEAN PassiveMode;
 #ifdef RT3350
-	UCHAR   PABias;
+	unsigned char   PABias;
 #endif /* RT3350 */
 	CHAR TxPower0;
 	CHAR TxPower1;
@@ -83,12 +83,12 @@ typedef struct _ATE_INFO {
 	CHAR RxAntennaSel;
 	TXWI_STRUC TxWI;	/* TXWI */
 	USHORT QID;
-	UCHAR Addr1[MAC_ADDR_LEN];
-	UCHAR Addr2[MAC_ADDR_LEN];
-	UCHAR Addr3[MAC_ADDR_LEN];
-	UCHAR Channel;
-	UCHAR Payload;		/* Payload pattern */
-	UCHAR TxMethod; /* Early chipsets must be applied old TXCONT/TXCARR/TXCARS mechanism. */
+	unsigned char Addr1[MAC_ADDR_LEN];
+	unsigned char Addr2[MAC_ADDR_LEN];
+	unsigned char Addr3[MAC_ADDR_LEN];
+	unsigned char Channel;
+	unsigned char Payload;		/* Payload pattern */
+	unsigned char TxMethod; /* Early chipsets must be applied old TXCONT/TXCARR/TXCARS mechanism. */
 	unsigned int TxLength;
 	unsigned int TxCount;
 	unsigned int TxDoneCount;	/* Tx DMA Done */
@@ -109,11 +109,11 @@ typedef struct _ATE_INFO {
 #ifdef TXBF_SUPPORT
 	BOOLEAN bTxBF;		/* Enable Tx Bean Forming */
 	SHORT	txSoundingMode;	/* Sounding mode for non-QA ATE. 0=none, 1=Data Sounding, 2=NDP */
-	UCHAR	calParams[2];
+	unsigned char	calParams[2];
 #endif				/* TXBF_SUPPORT */
 	unsigned int RxTotalCnt;
 	unsigned int RxCntPerSec;
-	UCHAR	forceBBPReg;	/* force to not update the specific BBP register, now used for ATE TxBF */
+	unsigned char	forceBBPReg;	/* force to not update the specific BBP register, now used for ATE TxBF */
 
 	CHAR LastSNR0;		/* last received SNR */
 	CHAR LastSNR1;		/* last received SNR for 2nd  antenna */
@@ -138,8 +138,8 @@ typedef struct _ATE_INFO {
 	TXINFO_STRUC TxInfo;	/* TxInfo */
 #endif /* RTMP_MAC_USB */
 	USHORT PLen;		/* Pattern Length */
-	UCHAR Header[32];	/* Header buffer */
-	UCHAR Pattern[32];	/* Pattern buffer */
+	unsigned char Header[32];	/* Header buffer */
+	unsigned char Pattern[32];	/* Pattern buffer */
 	USHORT DLen;		/* Data Length */
 	USHORT seq;
 	unsigned int CID;
@@ -165,17 +165,17 @@ typedef struct _ATE_INFO {
 #endif /* DOT11N_SS3_SUPPORT */
 	INT32 BF_SNR[3];	/* Last RXWI BF SNR. Units=0.25 dB */
 	/* TxStatus : 0 --> task is idle, 1 --> task is running */
-	UCHAR TxStatus;
+	unsigned char TxStatus;
 #endif /* RALINK_QA */
 #ifdef TXBF_SUPPORT
 #define MAX_SOUNDING_RESPONSE_SIZE	(57*2*2*9+3+2+6)	/* Assume 114 carriers (40MHz), 3x3, 8bits/coeff, + SNR + HT HEADER + MIMO CONTROL FIELD */
-	UCHAR sounding;
+	unsigned char sounding;
 	unsigned int sounding_jiffies;
 	CHAR soundingSNR[3];
 	unsigned int LastRxRate;
 	unsigned int LastTxRate;
 	unsigned int soundingRespSize;	/* Size of Sounding response */
-	UCHAR soundingResp[MAX_SOUNDING_RESPONSE_SIZE];	/* Entire Sounding response */
+	unsigned char soundingResp[MAX_SOUNDING_RESPONSE_SIZE];	/* Entire Sounding response */
 #endif /* TXBF_SUPPORT */
 	RALINK_TIMER_STRUCT PeriodicTimer;
 	unsigned long OneSecPeriodicRound;
@@ -347,7 +347,7 @@ typedef struct _ATE_INFO {
 
 VOID ATE_RTUSBBulkOutDataPacket(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR			BulkOutPipeId);
+	IN	unsigned char			BulkOutPipeId);
 
 VOID ATE_RTUSBCancelPendingBulkInIRP(
 	IN	PRTMP_ADAPTER	pAd);
@@ -493,9 +493,9 @@ INT RT335x_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
 	IN	char *			arg);
 
 CHAR InsertTssi(
-	IN UCHAR InChannel,
-	IN UCHAR Channel0,
-	IN UCHAR Channel1,
+	IN unsigned char InChannel,
+	IN unsigned char Channel0,
+	IN unsigned char Channel1,
 	IN CHAR Tssi0,
 	IN CHAR Tssi1);
 
@@ -771,7 +771,7 @@ VOID ReadQATxTypeFromBBP(
 
 NDIS_STATUS ATEBBPWriteWithRxChain(
  IN RTMP_ADAPTER *pAd,
- IN UCHAR bbpId,
+ IN unsigned char bbpId,
  IN CHAR bbpVal,
  IN RX_CHAIN_IDX rx_ch_idx);
 

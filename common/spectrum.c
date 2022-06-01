@@ -331,7 +331,7 @@ NDIS_STATUS MeasureReqTabInit(
 	NdisAllocateSpinLock(pAd, &pAd->CommonCfg.MeasureReqTabLock);
 
 /*	pAd->CommonCfg.pMeasureReqTab = kmalloc(sizeof(MEASURE_REQ_TAB), GFP_ATOMIC);*/
-	os_alloc_mem(pAd, (UCHAR **)&(pAd->CommonCfg.pMeasureReqTab), sizeof(MEASURE_REQ_TAB));
+	os_alloc_mem(pAd, (unsigned char **)&(pAd->CommonCfg.pMeasureReqTab), sizeof(MEASURE_REQ_TAB));
 	if (pAd->CommonCfg.pMeasureReqTab)
 		NdisZeroMemory(pAd->CommonCfg.pMeasureReqTab, sizeof(MEASURE_REQ_TAB));
 	else
@@ -546,7 +546,7 @@ NDIS_STATUS	TpcReqTabInit(
 	NdisAllocateSpinLock(pAd, &pAd->CommonCfg.TpcReqTabLock);
 
 /*	pAd->CommonCfg.pTpcReqTab = kmalloc(sizeof(TPC_REQ_TAB), GFP_ATOMIC);*/
-	os_alloc_mem(pAd, (UCHAR **)&(pAd->CommonCfg.pTpcReqTab), sizeof(TPC_REQ_TAB));
+	os_alloc_mem(pAd, (unsigned char **)&(pAd->CommonCfg.pTpcReqTab), sizeof(TPC_REQ_TAB));
 	if (pAd->CommonCfg.pTpcReqTab)
 		NdisZeroMemory(pAd->CommonCfg.pTpcReqTab, sizeof(TPC_REQ_TAB));
 	else
@@ -1170,7 +1170,7 @@ VOID EnqueueMeasurementRep(
 VOID EnqueueTPCReq(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
-	IN UCHAR DialogToken)
+	IN unsigned char DialogToken)
 {
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
@@ -1417,7 +1417,7 @@ VOID NotifyChSwAnnToPeerAPs(
 
 static VOID StartDFSProcedure(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR Channel,
+	IN unsigned char Channel,
 	IN unsigned char ChSwMode)
 {
 	/* start DFS procedure*/
@@ -1473,7 +1473,7 @@ static BOOLEAN PeerChSwAnnSanity(
 		return result;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
+	while (((unsigned char*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1488,7 +1488,7 @@ static BOOLEAN PeerChSwAnnSanity(
 			default:
 				break;
 		}
-		eid_ptr = (PEID_STRUCT)((UCHAR*)eid_ptr + 2 + eid_ptr->Len);        
+		eid_ptr = (PEID_STRUCT)((unsigned char*)eid_ptr + 2 + eid_ptr->Len);        
 	}
 
 	return result;
@@ -1538,7 +1538,7 @@ static BOOLEAN PeerMeasureReqSanity(
 	MsgLen -= 1;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
+	while (((unsigned char*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1559,7 +1559,7 @@ static BOOLEAN PeerMeasureReqSanity(
 			default:
 				break;
 		}
-		eid_ptr = (PEID_STRUCT)((UCHAR*)eid_ptr + 2 + eid_ptr->Len);
+		eid_ptr = (PEID_STRUCT)((unsigned char*)eid_ptr + 2 + eid_ptr->Len);
 	}
 
 	return result;
@@ -1628,7 +1628,7 @@ static BOOLEAN PeerMeasureReportSanity(
 	MsgLen -= 1;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
+	while (((unsigned char*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1671,7 +1671,7 @@ static BOOLEAN PeerMeasureReportSanity(
 			default:
 				break;
 		}
-		eid_ptr = (PEID_STRUCT)((UCHAR*)eid_ptr + 2 + eid_ptr->Len);
+		eid_ptr = (PEID_STRUCT)((unsigned char*)eid_ptr + 2 + eid_ptr->Len);
 	}
 
 	return result;
@@ -1715,7 +1715,7 @@ static BOOLEAN PeerTpcReqSanity(
 	MsgLen -= 1;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
+	while (((unsigned char*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1726,7 +1726,7 @@ static BOOLEAN PeerTpcReqSanity(
 			default:
 				break;
 		}
-		eid_ptr = (PEID_STRUCT)((UCHAR*)eid_ptr + 2 + eid_ptr->Len);
+		eid_ptr = (PEID_STRUCT)((unsigned char*)eid_ptr + 2 + eid_ptr->Len);
 	}
 
 	return result;	
@@ -1772,7 +1772,7 @@ static BOOLEAN PeerTpcRepSanity(
 	MsgLen -= 1;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
+	while (((unsigned char*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1785,7 +1785,7 @@ static BOOLEAN PeerTpcRepSanity(
 			default:
 				break;
 		}
-		eid_ptr = (PEID_STRUCT)((UCHAR*)eid_ptr + 2 + eid_ptr->Len);
+		eid_ptr = (PEID_STRUCT)((unsigned char*)eid_ptr + 2 + eid_ptr->Len);
 	}
 
 	return result;	
@@ -1885,7 +1885,7 @@ static VOID PeerMeasureReportAction(
 /*	if (pAd->CommonCfg.bIEEE80211H != TRUE)*/
 /*		return;*/
 
-	os_alloc_mem(pAd, (UCHAR **)&pMeasureReportInfo, sizeof(MEASURE_RPI_REPORT));
+	os_alloc_mem(pAd, (unsigned char **)&pMeasureReportInfo, sizeof(MEASURE_RPI_REPORT));
 /*	if ((pMeasureReportInfo = kmalloc(sizeof(MEASURE_RPI_REPORT), GFP_ATOMIC)) == NULL)*/
 	if (pMeasureReportInfo == NULL)
 	{
@@ -2023,7 +2023,7 @@ VOID PeerSpectrumAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 
-	UCHAR	Action = Elem->Msg[LENGTH_802_11+1];
+	unsigned char	Action = Elem->Msg[LENGTH_802_11+1];
 
 	if (pAd->CommonCfg.bIEEE80211H != TRUE)
 		return;

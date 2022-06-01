@@ -33,7 +33,7 @@ RTMP_OS_ABL_OPS RaOsOps, *pRaOsOps = &RaOsOps;
 #endif /* OS_ABL_FUNC_SUPPORT */
 
 #define RT3090A_DEFAULT_INTERNAL_LNA_GAIN	0x0A
-UCHAR NUM_BIT8[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+unsigned char NUM_BIT8[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 #ifdef DBG
 char*   CipherName[] = {"none","wep64","wep128","TKIP","AES","CKIP64","CKIP128","CKIP152","SMS4"};
 #endif
@@ -190,7 +190,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 	PRTMP_ADAPTER	pAd = NULL;
 	NDIS_STATUS		Status;
 	INT 			index;
-	UCHAR			*pBeaconBuf = NULL;
+	unsigned char			*pBeaconBuf = NULL;
 
 
 #ifdef OS_ABL_FUNC_SUPPORT
@@ -210,7 +210,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 	{
 		/* Allocate RTMP_ADAPTER memory block*/
 /*		pBeaconBuf = kmalloc(MAX_BEACON_SIZE, MEM_ALLOC_FLAG);*/
-		os_alloc_mem(NULL, (UCHAR **)&pBeaconBuf, MAX_BEACON_SIZE);
+		os_alloc_mem(NULL, (unsigned char **)&pBeaconBuf, MAX_BEACON_SIZE);
 		if (pBeaconBuf == NULL)
 		{
 			Status = NDIS_STATUS_FAILURE;
@@ -392,12 +392,12 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 	RT28xx_EEPROM_READ16(pAd, 0x06, Addr23);
 	RT28xx_EEPROM_READ16(pAd, 0x08, Addr45);
 
-	pAd->PermanentAddress[0] = (UCHAR)(Addr01 & 0xff);
-	pAd->PermanentAddress[1] = (UCHAR)(Addr01 >> 8);
-	pAd->PermanentAddress[2] = (UCHAR)(Addr23 & 0xff);
-	pAd->PermanentAddress[3] = (UCHAR)(Addr23 >> 8);
-	pAd->PermanentAddress[4] = (UCHAR)(Addr45 & 0xff);
-	pAd->PermanentAddress[5] = (UCHAR)(Addr45 >> 8);
+	pAd->PermanentAddress[0] = (unsigned char)(Addr01 & 0xff);
+	pAd->PermanentAddress[1] = (unsigned char)(Addr01 >> 8);
+	pAd->PermanentAddress[2] = (unsigned char)(Addr23 & 0xff);
+	pAd->PermanentAddress[3] = (unsigned char)(Addr23 >> 8);
+	pAd->PermanentAddress[4] = (unsigned char)(Addr45 & 0xff);
+	pAd->PermanentAddress[5] = (unsigned char)(Addr45 >> 8);
 
 	/*more conveninet to test mbssid, so ap's bssid &0xf1*/
 	if (pAd->PermanentAddress[0] == 0xff)
@@ -620,9 +620,9 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 	pAd->Antenna.word = Antenna.word;
 
 	/* Set the RfICType here, then we can initialize RFIC related operation callbacks*/
-	pAd->Mlme.RealRxPath = (UCHAR) Antenna.field.RxPath;
+	pAd->Mlme.RealRxPath = (unsigned char) Antenna.field.RxPath;
 
-	pAd->RfIcType = (UCHAR) Antenna.field.RfIcType;
+	pAd->RfIcType = (unsigned char) Antenna.field.RfIcType;
 
 #ifdef RT65xx
 	// TODO: shiang-6590, currently we don't have eeprom value, so directly force to set it as 0xff
@@ -804,12 +804,12 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 	
 	if ((value <= REGION_MAXIMUM_BG_BAND) || (value == REGION_32_BG_BAND) || (value == REGION_33_BG_BAND))
 	{
-		pAd->CommonCfg.CountryRegion = ((UCHAR) value) | 0x80;
+		pAd->CommonCfg.CountryRegion = ((unsigned char) value) | 0x80;
 	}
 
 	if (value2 <= REGION_MAXIMUM_A_BAND)
 	{
-		pAd->CommonCfg.CountryRegionForABand = ((UCHAR) value2) | 0x80;
+		pAd->CommonCfg.CountryRegionForABand = ((unsigned char) value2) | 0x80;
 	}
 	
 	/* Get RSSI Offset on EEPROM 0x9Ah & 0x9Ch.*/
@@ -880,9 +880,9 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 	}
 
 
-	if (((UCHAR)pAd->ALNAGain1 == 0xFF) || (pAd->ALNAGain1 == 0x00))
+	if (((unsigned char)pAd->ALNAGain1 == 0xFF) || (pAd->ALNAGain1 == 0x00))
 		pAd->ALNAGain1 = pAd->ALNAGain0;
-	if (((UCHAR)pAd->ALNAGain2 == 0xFF) || (pAd->ALNAGain2 == 0x00))
+	if (((unsigned char)pAd->ALNAGain2 == 0xFF) || (pAd->ALNAGain2 == 0x00))
 		pAd->ALNAGain2 = pAd->ALNAGain0;
 
 	/* Validate 11a/b/g RSSI 0/1/2 offset.*/
@@ -1007,12 +1007,12 @@ VOID	NICInitAsicFromEEPROM(
 #if !defined(RT65xx) && !defined(MT7601)
 	for(USHORT i = EEPROM_BBP_ARRAY_OFFSET; i < NUM_EEPROM_BBP_PARMS; i++)
 	{
-		UCHAR BbpRegIdx, BbpValue;
+		unsigned char BbpRegIdx, BbpValue;
 	
 		if ((pAd->EEPROMDefaultValue[i] != 0xFFFF) && (pAd->EEPROMDefaultValue[i] != 0))
 		{
-			BbpRegIdx = (UCHAR)(pAd->EEPROMDefaultValue[i] >> 8);
-			BbpValue  = (UCHAR)(pAd->EEPROMDefaultValue[i] & 0xff);
+			BbpRegIdx = (unsigned char)(pAd->EEPROMDefaultValue[i] >> 8);
+			BbpValue  = (unsigned char)(pAd->EEPROMDefaultValue[i] & 0xff);
 			RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BbpRegIdx, BbpValue);
 		}
 	}
@@ -1107,7 +1107,7 @@ VOID	NICInitAsicFromEEPROM(
 	
 	if ((value != 0x00) && (value != 0xFF))
 	{
-		pAd->TssiGain =  (UCHAR) (value & 0x000F);
+		pAd->TssiGain =  (unsigned char) (value & 0x000F);
 	}
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("%s: EEPROM_TSSI_GAIN_AND_ATTENUATION = 0x%X, pAd->TssiGain=0x%x\n", 
@@ -1445,7 +1445,7 @@ NDIS_STATUS	NICInitializeAsic(
 	}
 #else
 	{
-	UCHAR	MAC_Value[]={0xff,0xff,0xff,0xff,0xff,0xff,0xff,0,0};
+	unsigned char	MAC_Value[]={0xff,0xff,0xff,0xff,0xff,0xff,0xff,0,0};
 
 	/*Initialize WCID table*/
 	for(Index =0 ;Index < 254;Index++)
@@ -1571,9 +1571,9 @@ VOID NICUpdateFifoStaCounters(
 	TX_STA_FIFO_STRUC	StaFifo;
 	MAC_TABLE_ENTRY		*pEntry = NULL;
 	unsigned int				i = 0;
-	UCHAR				pid = 0, wcid = 0;
+	unsigned char				pid = 0, wcid = 0;
 	INT32				reTry;
-	UCHAR				succMCS;
+	unsigned char				succMCS;
 
 #ifdef RALINK_ATE		
 	/* Nothing to do in ATE mode */
@@ -1599,12 +1599,12 @@ VOID NICUpdateFifoStaCounters(
 			if (StaFifo.field.bValid == 0)
 				break;
 		
-			wcid = (UCHAR)StaFifo.field.wcid;
+			wcid = (unsigned char)StaFifo.field.wcid;
 
 #ifdef DBG_CTRL_SUPPORT
 #ifdef INCLUDE_DEBUG_QUEUE
 		if (pAd->CommonCfg.DebugFlags & DBF_DBQ_TXFIFO) {
-			dbQueueEnqueue(0x73, (UCHAR *)(&StaFifo.word));
+			dbQueueEnqueue(0x73, (unsigned char *)(&StaFifo.word));
 		}
 #endif /* INCLUDE_DEBUG_QUEUE */
 #endif /* DBG_CTRL_SUPPORT */
@@ -1617,7 +1617,7 @@ VOID NICUpdateFifoStaCounters(
 			}
 
 			/* PID store Tx MCS Rate */
-			pid = (UCHAR)StaFifo.field.PidType;
+			pid = (unsigned char)StaFifo.field.PidType;
 
 			pEntry = &pAd->MacTab.Content[wcid];
 
@@ -2111,7 +2111,7 @@ VOID NICUpdateRawCounters(
 #ifdef DBG_DIAGNOSE
 	{
 		RtmpDiagStruct	*pDiag;
-		UCHAR			ArrayCurIdx, i;
+		unsigned char			ArrayCurIdx, i;
 		
 		pDiag = &pAd->DiagStruct;
 		ArrayCurIdx = pDiag->ArrayCurIdx;
@@ -2969,7 +2969,7 @@ VOID UserCfgInit(RTMP_ADAPTER *pAd)
 }
 
 /* IRQL = PASSIVE_LEVEL*/
-UCHAR BtoH(STRING ch)
+unsigned char BtoH(STRING ch)
 {
 	if (ch >= '0' && ch <= '9') return (ch - '0');        /* Handle numerals*/
 	if (ch >= 'A' && ch <= 'F') return (ch - 'A' + 0xA);  /* Handle capitol hex digits*/
@@ -2978,7 +2978,7 @@ UCHAR BtoH(STRING ch)
 }
 
 
-/*  FUNCTION: AtoH(char *, UCHAR *, int)*/
+/*  FUNCTION: AtoH(char *, unsigned char *, int)*/
 
 /*  PURPOSE:  Converts ascii string to network order hex*/
 
@@ -3046,7 +3046,7 @@ VOID	RTMP_TimerListAdd(
 	}
 
 	/* allocate a timer record entry */
-	os_alloc_mem(NULL, (UCHAR **)&(pObj), sizeof(LIST_RESOURCE_OBJ_ENTRY));
+	os_alloc_mem(NULL, (unsigned char **)&(pObj), sizeof(LIST_RESOURCE_OBJ_ENTRY));
 	if (pObj == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: alloc timer obj fail!\n", __FUNCTION__));
@@ -3678,7 +3678,7 @@ VOID RTMP_BBP_IO_READ8_BY_REG_ID(
 
 VOID RTMP_BBP_IO_READ8(
 	PRTMP_ADAPTER pAd,
-	UCHAR Offset,
+	unsigned char Offset,
 	unsigned char *pValue,
 	BOOLEAN FlgValidMCR)
 {
@@ -3725,7 +3725,7 @@ VOID RTMP_BBP_IO_WRITE8_BY_REG_ID(
 
 VOID RTMP_BBP_IO_WRITE8(
 	PRTMP_ADAPTER pAd,
-	UCHAR Offset,
+	unsigned char Offset,
 	unsigned char Value,
 	BOOLEAN FlgValidMCR)
 {
@@ -3800,7 +3800,7 @@ IN  PRTMP_ADAPTER   pAd)
 #ifdef MICROWAVE_OVEN_SUPPORT
 VOID NICUpdateRxStatusCnt1(
 IN  PRTMP_ADAPTER   pAd,
-IN  UCHAR	Idx)
+IN  unsigned char	Idx)
 {
 	RX_STA_CNT1_STRUC   RxStaCnt1;
 
@@ -3816,7 +3816,7 @@ IN  UCHAR	Idx)
 unsigned int NICSumFalseCCACnt(
 IN  PRTMP_ADAPTER   pAd)
 {
-	UCHAR Idx;
+	unsigned char Idx;
 	unsigned int FalseCCACnt = 0;
 
 	for (Idx = 0; Idx < MLME_TASK_EXEC_MULTIPLE; Idx++)
@@ -3828,7 +3828,7 @@ IN  PRTMP_ADAPTER   pAd)
 unsigned int NICSumPLCPErrCnt(
 IN  PRTMP_ADAPTER   pAd)
 {
-	UCHAR Idx;
+	unsigned char Idx;
 	unsigned int PLCPErrCnt = 0;
 
 	for (Idx = 0; Idx < MLME_TASK_EXEC_MULTIPLE; Idx++)

@@ -88,7 +88,7 @@ INT rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, INT rxpath)
 }
 
 
-static UCHAR vht_prim_ch_val[] = {
+static unsigned char vht_prim_ch_val[] = {
 	42, 36, 0,
 	42, 40, 1,
 	42, 44, 2,
@@ -310,7 +310,7 @@ INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower)
 
 INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, CHAR *agc, RX_CHAIN_IDX chain)
 {
-	UCHAR idx, val;
+	unsigned char idx, val;
 	unsigned int bbp_val, bbp_reg = AGC1_R8;
 
 
@@ -343,9 +343,9 @@ INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, CHAR *agc, RX_CHAIN_IDX chain)
 }
 
 
-INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, UCHAR agc, RX_CHAIN_IDX chain)
+INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX chain)
 {
-	UCHAR idx = 0;
+	unsigned char idx = 0;
 	unsigned int bbp_val, bbp_reg = AGC1_R8;
 	
 	if (((pAd->MACVersion & 0xf0000000) < 0x28830000) || 
@@ -378,7 +378,7 @@ INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, UCHAR agc, RX_CHAIN_IDX chain)
 }
 
 
-INT rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, UCHAR Channel)
+INT rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, unsigned char Channel)
 {
 	unsigned int bbp_val = 0, org_val = 0;
 
@@ -400,17 +400,17 @@ INT rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, UCHAR Channel)
 }
 
 
-UCHAR rtmp_bbp_get_random_seed(RTMP_ADAPTER *pAd)
+unsigned char rtmp_bbp_get_random_seed(RTMP_ADAPTER *pAd)
 {
 	unsigned int value, value2;
-	UCHAR seed;
+	unsigned char seed;
 
 	RTMP_BBP_IO_READ32(pAd, AGC1_R16, &value);
-	seed = (UCHAR)((value & 0xff) ^ ((value & 0xff00) >> 8)^ 
+	seed = (unsigned char)((value & 0xff) ^ ((value & 0xff00) >> 8)^ 
 					((value & 0xff0000) >> 16));
 	RTMP_BBP_IO_READ32(pAd, RXO_R9, &value2);
 
-	return (UCHAR)(seed ^ (value2 & 0xff)^ ((value2 & 0xff00) >> 8));
+	return (unsigned char)(seed ^ (value2 & 0xff)^ ((value2 & 0xff00) >> 8));
 }
 
 

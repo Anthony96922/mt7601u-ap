@@ -81,23 +81,23 @@ NDIS_STATUS APInsertPsQueue(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
 	IN MAC_TABLE_ENTRY *pMacEntry,
-	IN UCHAR QueIdx);
+	IN unsigned char QueIdx);
 
 NDIS_STATUS APHardTransmit(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TX_BLK			*pTxBlk,
-	IN	UCHAR			QueIdx);
+	IN	unsigned char			QueIdx);
 
 VOID APRxEAPOLFrameIndicate(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	MAC_TABLE_ENTRY	*pEntry,
 	IN	RX_BLK			*pRxBlk,
-	IN	UCHAR			FromWhichBSSID);
+	IN	unsigned char			FromWhichBSSID);
 
 NDIS_STATUS APCheckRxError(
 	IN RTMP_ADAPTER *pAd,
 	IN RXINFO_STRUC *pRxInfo,
-	IN UCHAR Wcid);
+	IN unsigned char Wcid);
 
 BOOLEAN APCheckClass2Class3Error(
     IN  PRTMP_ADAPTER   pAd,
@@ -136,7 +136,7 @@ VOID MbssKickOutStas(
 VOID APMlmeKickOutSta(
     IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pStaAddr, 
-	IN UCHAR Wcid,
+	IN unsigned char Wcid,
 	IN USHORT Reason);
 
 
@@ -149,9 +149,9 @@ VOID  APCls3errAction(
 /*
 VOID	RTMPAddClientSec(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR	BssIdx,
-	IN UCHAR		 KeyIdx,
-	IN UCHAR		 CipherAlg,
+	IN	unsigned char	BssIdx,
+	IN unsigned char		 KeyIdx,
+	IN unsigned char		 CipherAlg,
 	IN unsigned char *		 pKey,
 	IN unsigned char *		 pTxMic,
 	IN unsigned char *		 pRxMic,
@@ -238,14 +238,14 @@ VOID APScanCnclAction(
 VOID ApSiteSurvey(
 	IN	PRTMP_ADAPTER  		pAd,
 	IN	PNDIS_802_11_SSID	pSsid,
-	IN	UCHAR				ScanType,
+	IN	unsigned char				ScanType,
 	IN	BOOLEAN				ChannelSel);
 
 VOID SupportRate(
 	IN unsigned char * SupRate,
-	IN UCHAR SupRateLen,
+	IN unsigned char SupRateLen,
 	IN unsigned char * ExtRate,
-	IN UCHAR ExtRateLen,
+	IN unsigned char ExtRateLen,
 	OUT unsigned char * *Rates,
 	OUT unsigned char * RatesLen,
 	OUT unsigned char * pMaxSupportRate);
@@ -333,14 +333,14 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
     IN  unsigned char *          pAddr, 
     OUT SST             *Sst, 
     OUT USHORT          *Aid,
-    OUT UCHAR           *PsMode,
-    OUT UCHAR           *Rate); 
+    OUT unsigned char           *PsMode,
+    OUT unsigned char           *Rate); 
 
 BOOLEAN APPsIndicate(
     IN  PRTMP_ADAPTER   pAd, 
     IN  unsigned char *          pAddr, 
 	IN unsigned long Wcid, 
-    IN  UCHAR           Psm);
+    IN  unsigned char           Psm);
 
 #ifdef SYSTEM_LOG_SUPPORT
 VOID ApLogEvent(
@@ -362,21 +362,21 @@ VOID APUpdateCapabilityAndErpIe(
 BOOLEAN ApCheckAccessControlList(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *        pAddr,
-	IN UCHAR         Apidx);
+	IN unsigned char         Apidx);
 
 VOID ApUpdateAccessControlList(
     IN PRTMP_ADAPTER pAd,
-    IN UCHAR         Apidx);
+    IN unsigned char         Apidx);
 
 VOID ApEnqueueNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *        pAddr,
-	IN UCHAR         TxRate,
-	IN UCHAR         PID,
-	IN UCHAR         apidx,
+	IN unsigned char         TxRate,
+	IN unsigned char         PID,
+	IN unsigned char         apidx,
     IN BOOLEAN       bQosNull,
     IN BOOLEAN       bEOSP,
-    IN UCHAR         OldUP);
+    IN unsigned char         OldUP);
 
 /* ap_sanity.c */
 

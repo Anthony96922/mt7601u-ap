@@ -41,13 +41,13 @@ VOID RTMPWriteTxWI(
 	IN BOOLEAN AMPDU,
 	IN BOOLEAN Ack,
 	IN BOOLEAN NSeq,		/* HW new a sequence.*/
-	IN UCHAR BASize,
-	IN UCHAR WCID,
+	IN unsigned char BASize,
+	IN unsigned char WCID,
 	IN unsigned long Length,
-	IN UCHAR PID,
-	IN UCHAR TID,
-	IN UCHAR TxRate,
-	IN UCHAR Txopmode,
+	IN unsigned char PID,
+	IN unsigned char TID,
+	IN unsigned char TxRate,
+	IN unsigned char Txopmode,
 	IN BOOLEAN CfAck,
 	IN HTTRANSMIT_SETTING *pTransmit)
 {
@@ -168,7 +168,7 @@ VOID RTMPWriteTxWI(
 	NdisMoveMemory(pOutTxWI, &TxWI, TXWISize);
 //+++Add by shiang for debug
 #ifdef DBG
-	hex_dump("TxWI", (UCHAR *)pOutTxWI, TXWISize);
+	hex_dump("TxWI", (unsigned char *)pOutTxWI, TXWISize);
 #endif /* DBG */
 //---Add by shiang for debug
 }
@@ -179,7 +179,7 @@ VOID RTMPWriteTxWI_Data(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI, TX_BLK *pTxBlk)
 	HTTRANSMIT_SETTING *pTransmit;
 	MAC_TABLE_ENTRY *pMacEntry;
 #ifdef DOT11_N_SUPPORT
-	UCHAR BASize;
+	unsigned char BASize;
 #endif /* DOT11_N_SUPPORT */
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 #ifdef WFA_VHT_PF
@@ -254,7 +254,7 @@ VOID RTMPWriteTxWI_Data(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI, TX_BLK *pTxBlk)
 #endif /* WFA_VHT_PF */
 		) && (pMacEntry))
 	{
-		UCHAR RABAOriIdx = pTxBlk->pMacEntry->BAOriWcidArray[pTxBlk->UserPriority];
+		unsigned char RABAOriIdx = pTxBlk->pMacEntry->BAOriWcidArray[pTxBlk->UserPriority];
 
 		BASize = pAd->BATable.BAOriEntry[RABAOriIdx].BAWinSize;
 	}

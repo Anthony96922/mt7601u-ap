@@ -37,7 +37,7 @@ typedef struct _CLIWDS_PROXY_ENTRY {
 	struct _CLIWDS_PROXY_ENTRY * pNext;
 	unsigned long LastRefTime;
 	SHORT Aid;
-	UCHAR Addr[MAC_ADDR_LEN];
+	unsigned char Addr[MAC_ADDR_LEN];
 } CLIWDS_PROXY_ENTRY, *PCLIWDS_PROXY_ENTRY;
 
 #endif /* CLIENT_WDS */

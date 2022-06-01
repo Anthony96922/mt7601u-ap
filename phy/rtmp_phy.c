@@ -105,7 +105,7 @@ NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 
 INT rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, INT tx_dac)
 {
-	UCHAR val, old_val = 0;
+	unsigned char val, old_val = 0;
 
 	
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R1, &old_val);
@@ -133,7 +133,7 @@ INT rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, INT tx_dac)
 
 INT rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, INT rxpath)
 {
-	UCHAR val = 0;
+	unsigned char val = 0;
 
 	
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R3, &val);
@@ -152,7 +152,7 @@ INT rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, INT rxpath)
 
 INT rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT ext_ch)
 {
-	UCHAR val, old_val = 0;
+	unsigned char val, old_val = 0;
 
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R3, &old_val);
 	val = old_val;
@@ -177,7 +177,7 @@ INT rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT ext_ch)
 
 INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
 {
-	UCHAR val, old_val = 0;
+	unsigned char val, old_val = 0;
 	BOOLEAN bstop = FALSE;
 	unsigned int Data, MTxCycle, macStatus;
 
@@ -238,7 +238,7 @@ INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
 
 INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower)
 {
-	UCHAR bbp_val, org_val;
+	unsigned char bbp_val, org_val;
 	
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R3, &org_val);
 	bbp_val = org_val;
@@ -256,11 +256,11 @@ INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower)
 
 NDIS_STATUS AsicBBPWriteWithRxChain(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR bbpId,
+	IN unsigned char bbpId,
 	IN CHAR bbpVal,
 	IN RX_CHAIN_IDX rx_ch_idx)
 {
-	UCHAR idx = 0, val = 0;
+	unsigned char idx = 0, val = 0;
 
 	if (((pAd->MACVersion & 0xf0000000) < 0x28830000) || 
 		(pAd->Antenna.field.RxPath == 1))
@@ -301,11 +301,11 @@ NDIS_STATUS AsicBBPWriteWithRxChain(
 
 NDIS_STATUS AsicBBPReadWithRxChain(
 	IN RTMP_ADAPTER *pAd, 
-	IN UCHAR bbpId, 
+	IN unsigned char bbpId, 
 	IN CHAR *pBbpVal,
 	IN RX_CHAIN_IDX rx_ch_idx)
 {
-	UCHAR idx, val;
+	unsigned char idx, val;
 
 	if (((pAd->MACVersion & 0xffff0000) < 0x28830000) || 
 		(pAd->Antenna.field.RxPath == 1))
@@ -349,15 +349,15 @@ INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, CHAR *agc, RX_CHAIN_IDX idx)
 }
 
 
-INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, UCHAR agc, RX_CHAIN_IDX idx)
+INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX idx)
 {
 	return AsicBBPWriteWithRxChain(pAd, BBP_R66, agc, idx);
 }
 
 
-INT rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, UCHAR Channel)
+INT rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, unsigned char Channel)
 {
-	UCHAR bbp_val = 0, org_val = 0;
+	unsigned char bbp_val = 0, org_val = 0;
 
 	if (Channel == 14)
 	{
@@ -377,9 +377,9 @@ INT rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, UCHAR Channel)
 }
 
 
-UCHAR rtmp_bbp_get_random_seed(RTMP_ADAPTER *pAd)
+unsigned char rtmp_bbp_get_random_seed(RTMP_ADAPTER *pAd)
 {
-	UCHAR value1, value2, value3, value4, value5;
+	unsigned char value1, value2, value3, value4, value5;
 
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R50, &value1);
 	RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R51, &value2);
@@ -394,7 +394,7 @@ UCHAR rtmp_bbp_get_random_seed(RTMP_ADAPTER *pAd)
 INT rtmp_bbp_is_ready(struct _RTMP_ADAPTER *pAd)
 {
 	INT idx = 0;
-	UCHAR val;
+	unsigned char val;
 	
 	do 
 	{
@@ -431,7 +431,7 @@ INT rtmp_cfo_track(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, INT lastClient)
 		{
 			/* Track CFO */
 			SHORT foValue, offset = pEntry->freqOffset;
-			UCHAR RFValue;
+			unsigned char RFValue;
 
 			RT30xxReadRFRegister(pAd, RF_R17, (unsigned char *)&RFValue);
 			RFValue &= 0x7F;
@@ -467,8 +467,8 @@ INT rtmp_cfo_track(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, INT lastClient)
 #ifdef MT7601
 NDIS_STATUS MT7601_BBP_write(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR regID,
-	IN UCHAR value)
+	IN unsigned char regID,
+	IN unsigned char value)
 {
 	BBP_CSR_CFG_STRUC  BbpCsr = { { 0 } };
 	UINT i = 0;
@@ -540,8 +540,8 @@ done:
 
 NDIS_STATUS MT7601_BBP_read(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR regID,
-	IN UCHAR *pValue)
+	IN unsigned char regID,
+	IN unsigned char *pValue)
 {
 	BBP_CSR_CFG_STRUC  BbpCsr = { { 0 } };
 	UINT i=0, k=0;
@@ -599,7 +599,7 @@ NDIS_STATUS MT7601_BBP_read(
 		if ((BbpCsr.field.Busy == IDLE) &&
 			(BbpCsr.field.RegNum == regID) )
 		{
-			*pValue = (UCHAR)(BbpCsr.field.Value);
+			*pValue = (unsigned char)(BbpCsr.field.Value);
 			break;
 		}
 	}

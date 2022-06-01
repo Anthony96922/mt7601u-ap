@@ -339,14 +339,14 @@ int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
 #ifdef DOT11_N_SUPPORT
    	/*Init Ba Capability parameters.*/
 /*	RT28XX_BA_INIT(pAd);*/
-	pAd->CommonCfg.DesiredHtPhy.MpduDensity = (UCHAR)pAd->CommonCfg.BACapability.field.MpduDensity;
+	pAd->CommonCfg.DesiredHtPhy.MpduDensity = (unsigned char)pAd->CommonCfg.BACapability.field.MpduDensity;
 	pAd->CommonCfg.DesiredHtPhy.AmsduEnable = (USHORT)pAd->CommonCfg.BACapability.field.AmsduEnable;
 	pAd->CommonCfg.DesiredHtPhy.AmsduSize = (USHORT)pAd->CommonCfg.BACapability.field.AmsduSize;
 	pAd->CommonCfg.DesiredHtPhy.MimoPs = (USHORT)pAd->CommonCfg.BACapability.field.MMPSmode;
 	/* UPdata to HT IE*/
 	pAd->CommonCfg.HtCapability.HtCapInfo.MimoPs = (USHORT)pAd->CommonCfg.BACapability.field.MMPSmode;
 	pAd->CommonCfg.HtCapability.HtCapInfo.AMsduSize = (USHORT)pAd->CommonCfg.BACapability.field.AmsduSize;
-	pAd->CommonCfg.HtCapability.HtCapParm.MpduDensity = (UCHAR)pAd->CommonCfg.BACapability.field.MpduDensity;
+	pAd->CommonCfg.HtCapability.HtCapParm.MpduDensity = (unsigned char)pAd->CommonCfg.BACapability.field.MpduDensity;
 #endif /* DOT11_N_SUPPORT */
 
 	/* after reading Registry, we now know if in AP mode or STA mode*/
@@ -801,7 +801,7 @@ VOID RTMPDrvOpen(
 #endif /*HOSTAPD_SUPPORT*/
 			{
 				PWSC_CTRL pWscControl;
-				UCHAR zeros16[16]= {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+				unsigned char zeros16[16]= {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 				pWscControl = &pAd->ApCfg.MBSSID[index].WscControl;
 				DBGPRINT(RT_DEBUG_TRACE, ("Generate UUID for apidx(%d)\n", index));

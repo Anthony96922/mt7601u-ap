@@ -30,9 +30,9 @@
 
 #include "rt_config.h"
 
-extern UCHAR EpToQueue[];
+extern unsigned char EpToQueue[];
 /* 802.11 MAC Header, Type:Data, Length:24bytes + 6 bytes QOS/HTC + 2 bytes padding */
-extern UCHAR TemplateFrame[32];
+extern unsigned char TemplateFrame[32];
 
 INT TxDmaBusy(
 	IN PRTMP_ADAPTER pAd)
@@ -97,12 +97,12 @@ static VOID ATEWriteTxWI(
 	IN	BOOLEAN 		AMPDU,
 	IN	BOOLEAN 		Ack,
 	IN	BOOLEAN 		NSeq,		/* HW new a sequence. */
-	IN	UCHAR			BASize,
-	IN	UCHAR			WCID,
+	IN	unsigned char			BASize,
+	IN	unsigned char			WCID,
 	IN	unsigned long			Length,
-	IN	UCHAR 			PID,
-	IN	UCHAR			MIMOps,
-	IN	UCHAR			Txopmode,	
+	IN	unsigned char 			PID,
+	IN	unsigned char			MIMOps,
+	IN	unsigned char			Txopmode,	
 	IN	BOOLEAN			CfAck,	
 	IN	HTTRANSMIT_SETTING	Transmit)
 {
@@ -150,9 +150,9 @@ static VOID ATEWriteTxInfo(
 	IN	TXINFO_STRUC *pTxInfo,
 	IN	USHORT		USBDMApktLen,
 	IN	BOOLEAN		bWiv,
-	IN	UCHAR			QueueSel,
-	IN	UCHAR			NextValid,
-	IN	UCHAR			TxBurst)
+	IN	unsigned char			QueueSel,
+	IN	unsigned char			NextValid,
+	IN	unsigned char			TxBurst)
 {
 #ifdef RLT_MAC
 	struct _TXINFO_NMAC_PKT *nmac_info;
@@ -204,7 +204,7 @@ INT ATESetUpFrame(
 	TXWI_STRUC *pTxWI;
 	TXINFO_STRUC *pTxInfo;	
 	unsigned int			TransferBufferLength, OrgBufferLength = 0;
-	UCHAR			padLen = 0;
+	unsigned char			padLen = 0;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 #ifdef RALINK_QA
 	PHEADER_802_11	pHeader80211 = NULL;
@@ -419,7 +419,7 @@ INT ATESetUpFrame(
 */
 VOID ATE_RTUSBBulkOutDataPacket(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR			BulkOutPipeId)
+	IN	unsigned char			BulkOutPipeId)
 {
 	PTX_CONTEXT		pNullContext = &(pAd->NullContext[0]);
 	PURB			pUrb;
@@ -601,7 +601,7 @@ INT ATEResetBulkOut(
 VOID RTUSBRejectPendingPackets(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UCHAR			Index;
+	unsigned char			Index;
 	PQUEUE_ENTRY	pEntry;
 	PNDIS_PACKET	pPacket;
 	PQUEUE_HEADER	pQueue;

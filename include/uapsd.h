@@ -410,7 +410,7 @@ Note:
 UAPSD_EXTERN VOID UAPSD_AssocParse(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
-	IN	UCHAR				*pElm,
+	IN	unsigned char				*pElm,
 	IN	BOOLEAN				FlgApsdCapable);
 
 
@@ -457,7 +457,7 @@ Note:
 UAPSD_EXTERN VOID UAPSD_QoSNullTxMgmtTxDoneHandle(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	PNDIS_PACKET		pPacket,
-	IN	UCHAR				*pDstMac);
+	IN	unsigned char				*pDstMac);
 
 
 /*
@@ -507,7 +507,7 @@ Note:
 UAPSD_EXTERN VOID UAPSD_SP_AUE_Handle(
 	IN RTMP_ADAPTER		*pAd,
     IN MAC_TABLE_ENTRY	*pEntry,
-	IN UCHAR			FlgSuccess);
+	IN unsigned char			FlgSuccess);
 
 
 /*
@@ -555,7 +555,7 @@ Note:
 UAPSD_EXTERN VOID UAPSD_SP_PacketCheck(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	PNDIS_PACKET		pPacket,
-	IN	UCHAR				*pDstMac);
+	IN	unsigned char				*pDstMac);
 
 
 #ifdef UAPSD_TIMING_RECORD_FUNC
@@ -668,7 +668,7 @@ Note:
 UAPSD_EXTERN VOID UAPSD_TriggerFrameHandle(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
-	IN	UCHAR				UpOfFrame);
+	IN	unsigned char				UpOfFrame);
 
 
 #ifdef RTMP_MAC_USB
@@ -693,7 +693,7 @@ Note:
 UAPSD_EXTERN VOID UAPSD_TagFrame(
 	IN	RTMP_ADAPTER		*pAd,
 	IN	NDIS_PACKET			*pPkt,
-	IN	UCHAR				Wcid,
+	IN	unsigned char				Wcid,
 	IN	unsigned int				PktOffset);
 
 
@@ -717,7 +717,7 @@ Note:
 */
 UAPSD_EXTERN VOID UAPSD_UnTagFrame(
 	IN	RTMP_ADAPTER	*pAd,
-	IN	UCHAR			AcQueId,
+	IN	unsigned char			AcQueId,
 	IN	unsigned int			bulkStartPos,
 	IN	unsigned int			bulkEnPos);
 #endif /* RTMP_MAC_USB */

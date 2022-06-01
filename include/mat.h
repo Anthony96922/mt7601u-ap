@@ -73,18 +73,18 @@ typedef struct _NET_PRO_ARP_HDR{
 
 typedef struct _NET_PRO_IP_HDR{
 #ifndef RT_BIG_ENDIAN
-	UCHAR   ihl:4,
+	unsigned char   ihl:4,
 			version:4;
 #else
-	UCHAR	version:4,
+	unsigned char	version:4,
 			ihl:4;
 #endif
-	UCHAR	tos;
+	unsigned char	tos;
 	unsigned short	tot_len;
 	unsigned short	id;
 	unsigned short	frag_off;
-	UCHAR	ttl;
-	UCHAR	protocol;
+	unsigned char	ttl;
+	unsigned char	protocol;
 	unsigned short	check;
 	unsigned short	saddr;
 	unsigned int	daddr;
@@ -140,7 +140,7 @@ typedef struct _NET_PRO_IP_HDR{
 		(!((_addr).ipv6_addr32[0] | (_addr).ipv6_addr32[1] | (_addr).ipv6_addr32[2] | (_addr).ipv6_addr32[3]))
 
 #define IS_LOOPBACK_IPV6_ADDR(_addr) \
-		(NdisEqualMemory((UCHAR *)(&((_addr).ipv6_addr[0])), &IPV6_LOOPBACKADDR[0], IPV6_ADDR_LEN))
+		(NdisEqualMemory((unsigned char *)(&((_addr).ipv6_addr[0])), &IPV6_LOOPBACKADDR[0], IPV6_ADDR_LEN))
 #define IS_MULTICAST_IPV6_ADDR(_addr) \
 		(((_addr).ipv6_addr[0] & 0xff) == 0xff)
 
@@ -168,7 +168,7 @@ typedef struct _MAT_STRUCT_
 	NDIS_SPIN_LOCK 		MATDBLock;
 	MAT_TABLE			MatTableSet;
 #ifdef KMALLOC_BATCH
-	UCHAR 				*pMATNodeEntryPoll;
+	unsigned char 				*pMATNodeEntryPoll;
 #endif
 	unsigned int				nodeCount;		/* the number of nodes which connect to Internet via us. */
 	VOID				*pPriv;

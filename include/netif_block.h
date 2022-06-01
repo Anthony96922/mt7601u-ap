@@ -25,7 +25,7 @@ VOID releaseNetIf(
 
 VOID StopNetIfQueue(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR QueIdx,
+	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket);
 #endif /* __NET_IF_BLOCK_H__ */
 

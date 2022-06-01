@@ -65,11 +65,11 @@ MAC_TABLE_ENTRY *MacTableLookup(
 MAC_TABLE_ENTRY *MacTableInsertEntry(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *			pAddr,
-	IN	UCHAR			apidx,
-	IN	UCHAR			OpMode,
+	IN	unsigned char			apidx,
+	IN	unsigned char			OpMode,
 	IN BOOLEAN	CleanAll)
 {
-	UCHAR HashIdx;
+	unsigned char HashIdx;
 	int i, FirstWcid;
 	MAC_TABLE_ENTRY *pEntry = NULL, *pCurrEntry;
 /*	USHORT	offset;*/
@@ -331,7 +331,7 @@ MAC_TABLE_ENTRY *MacTableInsertEntry(
 			pAd->MacTab.Size ++;
 
 			/* Set the security mode of this entry as OPEN-NONE in ASIC */
-			RTMP_REMOVE_PAIRWISE_KEY_ENTRY(pAd, (UCHAR)i);
+			RTMP_REMOVE_PAIRWISE_KEY_ENTRY(pAd, (unsigned char)i);
 
 			/* Add this entry into ASIC RX WCID search table */
 			RTMP_STA_ENTRY_ADD(pAd, pEntry);
@@ -413,7 +413,7 @@ BOOLEAN MacTableDeleteEntry(
 	MAC_TABLE_ENTRY *pEntry, *pPrevEntry, *pProbeEntry;
 	BOOLEAN Cancelled;
 	/*USHORT	offset;	 unused variable*/
-	/*UCHAR	j;			 unused variable*/
+	/*unsigned char	j;			 unused variable*/
 
 	if (wcid >= MAX_LEN_OF_MAC_TABLE)
 		return FALSE;
@@ -635,7 +635,7 @@ VOID MacTableReset(
 	unsigned long       FrameLen = 0;
 	HEADER_802_11 DeAuthHdr;
 	USHORT      Reason;
-    UCHAR       apidx = MAIN_MBSSID;
+    unsigned char       apidx = MAIN_MBSSID;
 #endif /* CONFIG_AP_SUPPORT */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("MacTableReset\n"));

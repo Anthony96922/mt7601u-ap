@@ -80,7 +80,7 @@ FREQUENCY_ITEM FreqItems3020_Xtal20M[] =
 	{14,   0xF0,	 2,  0x18},
 };
 
-UCHAR	NUM_OF_3020_CHNL = (sizeof(RtmpFreqItems3020) / sizeof(FREQUENCY_ITEM));
+unsigned char	NUM_OF_3020_CHNL = (sizeof(RtmpFreqItems3020) / sizeof(FREQUENCY_ITEM));
 
 FREQUENCY_ITEM *FreqItems3020 = RtmpFreqItems3020;
 
@@ -164,7 +164,7 @@ RTMP_RF_REGS RF2850RegTable[] = {
 
 		/* still lack of MMAC(Japan) ch 34,38,42,46*/
 };
-UCHAR	NUM_OF_2850_CHNL = (sizeof(RF2850RegTable) / sizeof(RTMP_RF_REGS));
+unsigned char	NUM_OF_2850_CHNL = (sizeof(RF2850RegTable) / sizeof(RTMP_RF_REGS));
 #endif /* defined(RT28xx) || defined(RT2883) */
 
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) 
@@ -447,7 +447,7 @@ VOID RtmpChipWriteHighMemory(
 		case 2:
 		{
 			unsigned short ShortVal = (unsigned short)Value;
-			RTUSBMultiWrite(pAd, Offset, (UCHAR *) &ShortVal, 2, TRUE);
+			RTUSBMultiWrite(pAd, Offset, (unsigned char *) &ShortVal, 2, TRUE);
 			break;
 		}
 		case 4:
@@ -520,10 +520,10 @@ static VOID EnableAPMIMOPSv1(
 	IN RTMP_ADAPTER *pAd,
 	IN BOOLEAN ReduceCorePower)
 {
-	UCHAR	BBPR3 = 0,BBPR1 = 0;
+	unsigned char	BBPR3 = 0,BBPR1 = 0;
 	unsigned long	TxPinCfg = 0x00050F0A; /*Gary 2007/08/09 0x050A0A*/
-	UCHAR	BBPR4 = 0;
-	UCHAR	CentralChannel;
+	unsigned char	BBPR4 = 0;
+	unsigned char	CentralChannel;
 
 	if(pAd->CommonCfg.Channel > 14)
 		TxPinCfg=0x00050F05;
@@ -558,9 +558,9 @@ static VOID EnableAPMIMOPSv1(
 static VOID DisableAPMIMOPSv1(
 	IN PRTMP_ADAPTER		pAd)
 {
-	UCHAR	BBPR3 = 0,BBPR1 = 0;
+	unsigned char	BBPR3 = 0,BBPR1 = 0;
 	unsigned long	TxPinCfg = 0x00050F0A; /* Gary 2007/08/09 0x050A0A */
-	UCHAR	CentralChannel;
+	unsigned char	CentralChannel;
 	unsigned int	Value = 0;
 
 	if(pAd->CommonCfg.Channel > 14)
@@ -612,7 +612,7 @@ static VOID DisableAPMIMOPSv1(
 
 static VOID RxSensitivityTuning(RTMP_ADAPTER *pAd)
 {
-	UCHAR R66 = 0x26 + GET_LNA_GAIN(pAd);
+	unsigned char R66 = 0x26 + GET_LNA_GAIN(pAd);
 
 #ifdef RALINK_ATE
 	if (ATE_ON(pAd))
@@ -629,8 +629,8 @@ static VOID RxSensitivityTuning(RTMP_ADAPTER *pAd)
 
 static VOID ChipBBPAdjust(RTMP_ADAPTER *pAd)
 {
-	UCHAR rf_bw, ext_ch;
-	UCHAR bbp_val;
+	unsigned char rf_bw, ext_ch;
+	unsigned char bbp_val;
 
 #ifdef DOT11_N_SUPPORT
 	if (get_ht_cent_ch(pAd, &rf_bw, &ext_ch) == FALSE)
@@ -690,16 +690,16 @@ static VOID ChipBBPAdjust(RTMP_ADAPTER *pAd)
 
 static VOID Default_ChipSwitchChannel(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR Channel,
+	IN unsigned char Channel,
 	IN BOOLEAN bScan) 
 {
 	DBGPRINT(RT_DEBUG_ERROR, ("%s(): dummy channel switch function!\n", __FUNCTION__));
 }
 
 
-static VOID Default_ChipAGCInit(RTMP_ADAPTER *pAd, UCHAR BandWidth)
+static VOID Default_ChipAGCInit(RTMP_ADAPTER *pAd, unsigned char BandWidth)
 {
-	UCHAR R66 = 0x30, lan_gain;
+	unsigned char R66 = 0x30, lan_gain;
 
 	lan_gain = GET_LNA_GAIN(pAd);
 	if (pAd->LatchRfRegs.Channel <= 14)
@@ -712,10 +712,10 @@ static VOID Default_ChipAGCInit(RTMP_ADAPTER *pAd, UCHAR BandWidth)
 	{	//A band
 		{	
 			if (BandWidth == BW_20)
-				R66 = (UCHAR)(0x32 + (lan_gain * 5) / 3);
+				R66 = (unsigned char)(0x32 + (lan_gain * 5) / 3);
 #ifdef DOT11_N_SUPPORT
 			else
-				R66 = (UCHAR)(0x3A + (lan_gain * 5) / 3);
+				R66 = (unsigned char)(0x3A + (lan_gain * 5) / 3);
 #endif // DOT11_N_SUPPORT //
 		}
 	}

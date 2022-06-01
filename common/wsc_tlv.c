@@ -32,7 +32,7 @@
 #ifdef WSC_INCLUDED
 #include "wsc_tlv.h"
 
-static UCHAR	Wsc_Personal_String[] =  "Wi-Fi Easy and Secure Key Derivation";
+static unsigned char	Wsc_Personal_String[] =  "Wi-Fi Easy and Secure Key Derivation";
 
 #define IV_ENCR_DATA_LEN_512 512
 #define IV_ENCR_DATA_LEN_144 144
@@ -156,7 +156,7 @@ static WSC_TLV_0B wsc_tlv_0b[]=
 extern unsigned char WPS_DH_G_VALUE[1];
 extern unsigned char WPS_DH_P_VALUE[192];
 
-int AppendWSCTLV(USHORT index, OUT UCHAR * obuf, IN UCHAR * ibuf, IN USHORT varlen)
+int AppendWSCTLV(USHORT index, OUT unsigned char * obuf, IN unsigned char * ibuf, IN USHORT varlen)
 {
 	USHORT len, dataLen, tag = cpu2be16(index);
 
@@ -200,7 +200,7 @@ static VOID	WscParseEncrSettings(
 {
 	USHORT	WscType, WscLen, HmacLen;
 	unsigned char *	pData;
-	UCHAR	Hmac[8], Temp[32];
+	unsigned char	Hmac[8], Temp[32];
     PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 
 	HmacLen = (USHORT)(PlainLength - 12);
@@ -501,7 +501,7 @@ int BuildMessageM1(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[1];
+	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
@@ -510,7 +510,7 @@ int BuildMessageM1(
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAdapter)
@@ -746,11 +746,11 @@ int BuildMessageM2(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[1];
+	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
     PWSC_REG_DATA		pReg;
-	UCHAR				DHKey[32], KDK[32], KdkInput[38], KdfKey[80];
+	unsigned char				DHKey[32], KDK[32], KdkInput[38], KdfKey[80];
 	INT					DH_Len;
 	INT				    HmacLen = 0;
 	INT					idx;
@@ -995,7 +995,7 @@ int BuildMessageM2D(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[1];
+	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
@@ -1155,18 +1155,18 @@ int BuildMessageM3(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[32];
+	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
 	PWSC_REG_DATA		pReg = NULL;
 	INT				    HmacLen;
-	UCHAR				*pHash=NULL;
+	unsigned char				*pHash=NULL;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
 	
 /*	pHash = kmalloc(512, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&pHash, 512);
+	os_alloc_mem(NULL, (unsigned char **)&pHash, 512);
 	if(NULL == pHash)
 		return Len;
 	pReg = (PWSC_REG_DATA) &pWscControl->RegData;
@@ -1317,26 +1317,26 @@ int BuildMessageM4(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[32];
+	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 	INT				    HmacLen;
-	UCHAR				KDK[32];
-	UCHAR				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
-	UCHAR				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
+	unsigned char				KDK[32];
+	unsigned char				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
+	unsigned char				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
 	INT					PlainLen = 0, EncrLen;
-	UCHAR				*pHash=NULL;
+	unsigned char				*pHash=NULL;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
 	
 /*	pHash = kmalloc(512, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&pHash, 512);
+	os_alloc_mem(NULL, (unsigned char **)&pHash, 512);
 	if(NULL == pHash)
 		return Len;
 
-	os_alloc_mem(NULL, (UCHAR **)&IV_EncrData, IV_ENCR_DATA_LEN_144);
+	os_alloc_mem(NULL, (unsigned char **)&IV_EncrData, IV_ENCR_DATA_LEN_144);
 	if (IV_EncrData == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -1510,21 +1510,21 @@ int BuildMessageM5(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[32];
+	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 	unsigned char *				pAuth;
 	INT				    HmacLen;
-	UCHAR				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
-	UCHAR				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
+	unsigned char				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
+	unsigned char				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
 	INT					PlainLen=0, EncrLen;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&IV_EncrData, IV_ENCR_DATA_LEN_144);
+	os_alloc_mem(NULL, (unsigned char **)&IV_EncrData, IV_ENCR_DATA_LEN_144);
 	if (IV_EncrData == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -1645,14 +1645,14 @@ int BuildMessageM6(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[32];
+	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 	INT				    HmacLen;
-	UCHAR				KDK[32];
-	UCHAR				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
-	UCHAR				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
+	unsigned char				KDK[32];
+	unsigned char				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
+	unsigned char				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
 	INT					PlainLen = 0, EncrLen;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
@@ -1660,7 +1660,7 @@ int BuildMessageM6(
 
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&IV_EncrData, 144);
+	os_alloc_mem(NULL, (unsigned char **)&IV_EncrData, 144);
 	if (IV_EncrData == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -1785,20 +1785,20 @@ int BuildMessageM7(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[32];
+	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
     PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 	INT				    HmacLen;
-	UCHAR				Plain[256], *IV_EncrData=NULL;/*IV len 16 ,EncrData len */
+	unsigned char				Plain[256], *IV_EncrData=NULL;/*IV len 16 ,EncrData len */
 	INT					PlainLen=0, EncrLen;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 
 /*	IV_EncrData = kmalloc(512, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&IV_EncrData, IV_ENCR_DATA_LEN_512);
+	os_alloc_mem(NULL, (unsigned char **)&IV_EncrData, IV_ENCR_DATA_LEN_512);
 	if(NULL == IV_EncrData)
 		return 0;
 
@@ -1955,39 +1955,39 @@ int BuildMessageM8(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-/*	UCHAR				TB[256]; */
-	UCHAR				*TB = NULL;
+/*	unsigned char				TB[256]; */
+	unsigned char				*TB = NULL;
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 	INT				    HmacLen;
-	UCHAR				KDK[32];
-	UCHAR				/* Plain[300], */ *IV_EncrData=NULL;/*IV len 16 ,EncrData len */
-	UCHAR				*Plain = NULL;
+	unsigned char				KDK[32];
+	unsigned char				/* Plain[300], */ *IV_EncrData=NULL;/*IV len 16 ,EncrData len */
+	unsigned char				*Plain = NULL;
 	INT					CerLen = 0, PlainLen = 0, EncrLen;
     PWSC_CREDENTIAL     pCredential = NULL;
     USHORT              AuthType = 0;
     USHORT              EncrType = 0;
 #ifdef CONFIG_AP_SUPPORT
-    UCHAR               apidx = (pWscControl->EntryIfIdx & 0x0F);
+    unsigned char               apidx = (pWscControl->EntryIfIdx & 0x0F);
 #endif /* CONFIG_AP_SUPPORT */
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 
 /*	IV_EncrData = kmalloc(512, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&IV_EncrData, IV_ENCR_DATA_LEN_512);
+	os_alloc_mem(NULL, (unsigned char **)&IV_EncrData, IV_ENCR_DATA_LEN_512);
 	if(NULL == IV_EncrData)
 		return 0;
 
-	os_alloc_mem(NULL, (UCHAR **)&TB, 256);
+	os_alloc_mem(NULL, (unsigned char **)&TB, 256);
 	if (TB == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
 		goto LabelErr;
 	}
-	os_alloc_mem(NULL, (UCHAR **)&Plain, 300);
+	os_alloc_mem(NULL, (unsigned char **)&Plain, 300);
 	if (Plain == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -2141,7 +2141,7 @@ int BuildMessageDONE(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[1];
+	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
@@ -2201,7 +2201,7 @@ int BuildMessageACK(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[1];
+	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
@@ -2261,7 +2261,7 @@ int BuildMessageNACK(
 	IN  PWSC_CTRL           pWscControl,
 	OUT	VOID *pbuf)
 {
-	UCHAR				TB[2];
+	unsigned char				TB[2];
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
@@ -2356,7 +2356,7 @@ int ProcessMessageM1(
 	int					ret = WSC_ERROR_NO_ERROR, DH_Len = 0, idx;
 	unsigned char *				pData = NULL;
 	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 
 #ifdef CONFIG_AP_SUPPORT
     IF_DEV_CONFIG_OPMODE_ON_AP(pAdapter)
@@ -2559,7 +2559,7 @@ int ProcessMessageM1(
 #ifdef WSC_V2_SUPPORT
 				if (pWscControl->WscV2Info.bEnableWpsV2)
 				{
-					UCHAR tmp_data_len = 0;
+					unsigned char tmp_data_len = 0;
 					WscParseV2SubItem(WFA_EXT_ID_VERSION2, pData, WscLen, &pReg->PeerInfo.Version2, &tmp_data_len);
 					DBGPRINT(RT_DEBUG_TRACE, ("ProcessMessageM1 --> Version2 = %x\n", pReg->PeerInfo.Version2));
 				}
@@ -2609,18 +2609,18 @@ int ProcessMessageM2(
 	IN  PWSC_CTRL		pWscControl,
 	IN	VOID 			*precv,
 	IN	INT 			Length,
-	IN  UCHAR			apidx,
+	IN  unsigned char			apidx,
 	OUT	PWSC_REG_DATA 	pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
 	INT				    HmacLen;
-	UCHAR				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
-	UCHAR				DHKey[32], KdkInput[38], KdfKey[80];
+	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
+	unsigned char				DHKey[32], KdkInput[38], KdfKey[80];
 	INT					DH_Len;
 	unsigned char *				pData = NULL;
 	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	MAC_TABLE_ENTRY		*pEntry = NULL;
-	UCHAR				CurOpMode = 0xFF;
+	unsigned char				CurOpMode = 0xFF;
 
 #ifdef CONFIG_AP_SUPPORT
     IF_DEV_CONFIG_OPMODE_ON_AP(pAdapter)
@@ -2801,7 +2801,7 @@ int ProcessMessageM2(
 #ifdef WSC_V2_SUPPORT
 				if (pWscControl->WscV2Info.bEnableWpsV2)
 				{
-					UCHAR tmp_data_len = 0;
+					unsigned char tmp_data_len = 0;
 					WscParseV2SubItem(WFA_EXT_ID_VERSION2, pData, WscLen, &pReg->PeerInfo.Version2, &tmp_data_len);
 					DBGPRINT(RT_DEBUG_TRACE, ("ProcessMessageM2 --> Version2 = %x\n", pReg->PeerInfo.Version2));
 				}
@@ -3068,7 +3068,7 @@ int ProcessMessageM3(
 {
 	int					ret = WSC_ERROR_NO_ERROR;
 	INT				    HmacLen;
-	UCHAR				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
+	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
 	unsigned char *				pData = NULL;
 	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	
@@ -3201,11 +3201,11 @@ int ProcessMessageM4(
 {
 	int					ret = WSC_ERROR_NO_ERROR;
 	INT				    HmacLen;
-	UCHAR				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], RHash[32];
+	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], RHash[32];
 	INT					EncrLen;
 	unsigned char *				pData = NULL;
-	UCHAR				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
-	UCHAR				*pHash=NULL;/*Reuse IV_DecrData memory */
+	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
+	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
 	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	
 	RTMPZeroMemory(KDK, 32);
@@ -3218,7 +3218,7 @@ int ProcessMessageM4(
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_AUTHENTICATOR))] |= (1 << WSC_TLV_BYTE1(WSC_ID_AUTHENTICATOR));
 
 /*	IV_DecrData = kmalloc(512, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&IV_DecrData, 512);
+	os_alloc_mem(NULL, (unsigned char **)&IV_DecrData, 512);
 	if(NULL == IV_DecrData)
 	{
 		ret = WSC_ERROR_CAN_NOT_ALLOCMEM;
@@ -3387,11 +3387,11 @@ int ProcessMessageM5(
 {
 	int					ret = WSC_ERROR_NO_ERROR;
 	INT				    HmacLen;
-	UCHAR				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], EHash[32];
+	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], EHash[32];
 	INT					EncrLen;
 	unsigned char *				pData = NULL;
-	UCHAR				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
-	UCHAR				*pHash=NULL;/*Reuse IV_DecrData memory */
+	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
+	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
 	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	
 	RTMPZeroMemory(KDK, 32);
@@ -3402,7 +3402,7 @@ int ProcessMessageM5(
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_AUTHENTICATOR))] |= (1 << WSC_TLV_BYTE1(WSC_ID_AUTHENTICATOR));
 
 /*	IV_DecrData = kmalloc(512, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&IV_DecrData, 512);
+	os_alloc_mem(NULL, (unsigned char **)&IV_DecrData, 512);
 	if(NULL == IV_DecrData)
 	{
 		ret = WSC_ERROR_CAN_NOT_ALLOCMEM;
@@ -3562,11 +3562,11 @@ int ProcessMessageM6(
 {
 	int					ret = WSC_ERROR_NO_ERROR;
 	INT				    HmacLen;
-	UCHAR				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], RHash[32];
+	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], RHash[32];
 	INT					EncrLen;
 	unsigned char *				pData = NULL;
-	UCHAR				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
-	UCHAR				*pHash=NULL;/*Reuse IV_DecrData memory */
+	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
+	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
 	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	
 	RTMPZeroMemory(KDK, 32);
@@ -3577,7 +3577,7 @@ int ProcessMessageM6(
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_AUTHENTICATOR))] |= (1 << WSC_TLV_BYTE1(WSC_ID_AUTHENTICATOR));
 
 /*	IV_DecrData = kmalloc(512, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&IV_DecrData, 512);
+	os_alloc_mem(NULL, (unsigned char **)&IV_DecrData, 512);
 	if(NULL == IV_DecrData)
 	{
 		ret = WSC_ERROR_CAN_NOT_ALLOCMEM;
@@ -3736,15 +3736,15 @@ int ProcessMessageM7(
 {
 	int					ret = WSC_ERROR_NO_ERROR;
 	INT				    HmacLen;
-	UCHAR				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
+	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
 	INT					EncrLen;
 	unsigned char *				pData = NULL;
 	USHORT				WscType, WscLen;
-	UCHAR				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
+	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 
 	RTMPZeroMemory(KDK, 32);
 /*	IV_DecrData = kmalloc(1024, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&IV_DecrData, 1024);
+	os_alloc_mem(NULL, (unsigned char **)&IV_DecrData, 1024);
 	if(NULL == IV_DecrData)
 	{
 		ret = WSC_ERROR_CAN_NOT_ALLOCMEM;
@@ -3879,16 +3879,16 @@ int ProcessMessageM8(
 {
 	int					ret = WSC_ERROR_NO_ERROR;
 	INT				    HmacLen;
-	UCHAR				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
+	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
 	INT					EncrLen;
 	unsigned char *				pData = NULL;
 	USHORT				WscType, WscLen;
-	UCHAR				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
+	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 	PWSC_REG_DATA       pReg = &pWscControl->RegData;
 	
 	RTMPZeroMemory(KDK, 32);
 /*	IV_DecrData = kmalloc(1024, MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)&IV_DecrData, 1024);
+	os_alloc_mem(NULL, (unsigned char **)&IV_DecrData, 1024);
 	if(NULL == IV_DecrData)
 	{
 		ret = WSC_ERROR_CAN_NOT_ALLOCMEM;

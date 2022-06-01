@@ -387,7 +387,7 @@ EXPORT_SYMBOL(rausb_kill_urb);
 VOID RtmpOsUsbEmptyUrbCheck(
 	IN	VOID				**ppWait,
 	IN	NDIS_SPIN_LOCK		*pBulkInLock,
-	IN	UCHAR				*pPendingRx)
+	IN	unsigned char				*pPendingRx)
 {
 	unsigned int i = 0;
 	DECLARE_WAIT_QUEUE_HEAD(unlink_wakeup); 
@@ -457,7 +457,7 @@ VOID	RtmpOsUsbInitRxDesc(
 	IN	VOID			*pUrbSrc,
 	IN	VOID			*pUsb_Dev,
 	IN	UINT			BulkInEpAddr,
-	IN	UCHAR			*pTransferBuffer,
+	IN	unsigned char			*pTransferBuffer,
 	IN	unsigned int			BufSize,
 	IN	USB_COMPLETE_HANDLER	Func,
 	IN	VOID			*pRxContext,

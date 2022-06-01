@@ -3,7 +3,7 @@
 
 #include "rtusb_io.h"
 
-extern UCHAR EpToQueue[6];
+extern unsigned char EpToQueue[6];
 
 #define RXBULKAGGRE_SIZE			12
 #define MAX_TXBULK_LIMIT			(LOCAL_TXBUF_SIZE*(BULKAGGRE_SIZE-1))

@@ -27,7 +27,7 @@
 #include "rt_config.h"
 
 /*BaSizeArray follows the 802.11n definition as MaxRxFactor.  2^(13+factor) bytes. When factor =0, it's about Ba buffer size =8.*/
-UCHAR BaSizeArray[4] = {8,16,32,64};
+unsigned char BaSizeArray[4] = {8,16,32,64};
 
 
 extern COUNTRY_REGION_CH_DESC Country_Region_ChDesc_2GHZ[];
@@ -50,7 +50,7 @@ extern unsigned short const Country_Region_GroupNum_5GHZ;
 VOID BuildChannelList(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR i, j, index=0, num=0;
+	unsigned char i, j, index=0, num=0;
 	PCH_DESC pChDesc = NULL;
 	BOOLEAN bRegionFound = FALSE;
 	unsigned char * pChannelList;
@@ -81,7 +81,7 @@ VOID BuildChannelList(
 
 		if (num > 0)
 		{
-			os_alloc_mem(NULL, (UCHAR **)&pChannelList, num * sizeof(UCHAR));
+			os_alloc_mem(NULL, (unsigned char **)&pChannelList, num * sizeof(unsigned char));
 
 			if (!pChannelList)
 			{
@@ -89,7 +89,7 @@ VOID BuildChannelList(
 				return;
 			}
 
-			os_alloc_mem(NULL, (UCHAR **)&pChannelListFlag, num * sizeof(UCHAR));
+			os_alloc_mem(NULL, (unsigned char **)&pChannelListFlag, num * sizeof(unsigned char));
 
 			if (!pChannelListFlag)
 			{
@@ -152,11 +152,11 @@ VOID BuildChannelList(
 
 		if (num > 0)
 		{
-			UCHAR RadarCh[15]={52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140};
+			unsigned char RadarCh[15]={52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140};
 #ifdef CONFIG_AP_SUPPORT
-			UCHAR q=0;
+			unsigned char q=0;
 #endif /* CONFIG_AP_SUPPORT */
-			os_alloc_mem(NULL, (UCHAR **)&pChannelList, num * sizeof(UCHAR));
+			os_alloc_mem(NULL, (unsigned char **)&pChannelList, num * sizeof(unsigned char));
 
 			if (!pChannelList)
 			{
@@ -164,7 +164,7 @@ VOID BuildChannelList(
 				return;
 			}
 
-			os_alloc_mem(NULL, (UCHAR **)&pChannelListFlag, num * sizeof(UCHAR));
+			os_alloc_mem(NULL, (unsigned char **)&pChannelListFlag, num * sizeof(unsigned char));
 
 			if (!pChannelListFlag)
 			{
@@ -286,7 +286,7 @@ VOID BuildChannelList(
 
 	==========================================================================
  */
-UCHAR FirstChannel(
+unsigned char FirstChannel(
 	IN PRTMP_ADAPTER pAd)
 {
 	return pAd->ChannelList[0].Channel;
@@ -303,12 +303,12 @@ UCHAR FirstChannel(
 		return 0 if no more next channel
 	==========================================================================
  */
-UCHAR NextChannel(
+unsigned char NextChannel(
 	IN PRTMP_ADAPTER pAd, 
-	IN UCHAR channel)
+	IN unsigned char channel)
 {
 	int i;
-	UCHAR next_channel = 0;
+	unsigned char next_channel = 0;
 			
 	for (i = 0; i < (pAd->ChannelListNum - 1); i++)
 	{
@@ -359,7 +359,7 @@ UCHAR NextChannel(
  */
 VOID ChangeToCellPowerLimit(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR         AironetCellPowerLimit)
+	IN unsigned char         AironetCellPowerLimit)
 {
 	/*
 		valud 0xFF means that hasn't found power limit information
@@ -387,9 +387,9 @@ VOID ChangeToCellPowerLimit(
 }
 
 
-CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, UCHAR rssi_idx, UCHAR AntSel, UCHAR BW)
+CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, unsigned char rssi_idx, unsigned char AntSel, unsigned char BW)
 {
-	UCHAR	RssiOffset, LNAGain;
+	unsigned char	RssiOffset, LNAGain;
 
 	/* Rssi equals to zero or rssi_idx larger than 3 should be an invalid value*/
 	if (Rssi == 0 || rssi_idx >= 3)
@@ -455,7 +455,7 @@ CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, UCHAR rssi_idx, UCHAR AntSel, U
 }
 
 
-CHAR ConvertToSnr(RTMP_ADAPTER *pAd, UCHAR Snr)
+CHAR ConvertToSnr(RTMP_ADAPTER *pAd, unsigned char Snr)
 {
 	if (pAd->chipCap.SnrFormula == SNR_FORMULA2)
 		return (Snr * 3 + 8) >> 4;

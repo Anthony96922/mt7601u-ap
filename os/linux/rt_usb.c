@@ -184,7 +184,7 @@ static void rtusb_dataout_complete(unsigned long data)
 	purbb_t				pUrb;
 	POS_COOKIE			pObj;
 	PHT_TX_CONTEXT		pHTTXContext;
-	UCHAR				BulkOutPipeId;
+	unsigned char				BulkOutPipeId;
 	NTSTATUS			Status;
 	unsigned long		IrqFlags;
 
@@ -351,7 +351,7 @@ static void rtusb_hcca_null_frame_done_tasklet(unsigned long data)
 	purbb_t			pUrb;
 	NTSTATUS		Status;
 	unsigned long	irqFlag;
-	UCHAR BulkOutPipeId;
+	unsigned char BulkOutPipeId;
 
 	pUrb			= (purbb_t)data;
 	pNullContext	= (PTX_CONTEXT)RTMP_USB_URB_DATA_GET(pUrb);
@@ -699,7 +699,7 @@ static void rtusb_hcca_dma_done_tasklet(unsigned long data)
 {
 	PRTMP_ADAPTER		pAd;
 	PHT_TX_CONTEXT		pHTTXContext;
-	UCHAR				BulkOutPipeId = 4;
+	unsigned char				BulkOutPipeId = 4;
 	purbb_t				pUrb;
 
 	
@@ -755,7 +755,7 @@ static void rtusb_ac3_dma_done_tasklet(unsigned long data)
 {
 	PRTMP_ADAPTER		pAd;
 	PHT_TX_CONTEXT		pHTTXContext;
-	UCHAR				BulkOutPipeId = 3;
+	unsigned char				BulkOutPipeId = 3;
 	purbb_t				pUrb;
 	
 
@@ -806,7 +806,7 @@ static void rtusb_ac2_dma_done_tasklet(unsigned long data)
 {
 	PRTMP_ADAPTER		pAd;
 	PHT_TX_CONTEXT		pHTTXContext;
-	UCHAR				BulkOutPipeId = 2;
+	unsigned char				BulkOutPipeId = 2;
 	purbb_t				pUrb;
 
 
@@ -853,7 +853,7 @@ static void rtusb_ac1_dma_done_tasklet(unsigned long data)
 {
 	PRTMP_ADAPTER		pAd;
 	PHT_TX_CONTEXT		pHTTXContext;
-	UCHAR				BulkOutPipeId = 1;
+	unsigned char				BulkOutPipeId = 1;
 	purbb_t				pUrb;
 
 
@@ -899,7 +899,7 @@ static void rtusb_ac0_dma_done_tasklet(unsigned long data)
 {
 	PRTMP_ADAPTER		pAd;
 	PHT_TX_CONTEXT		pHTTXContext;
-	UCHAR				BulkOutPipeId = 0;
+	unsigned char				BulkOutPipeId = 0;
 	purbb_t				pUrb;
 	
 
@@ -952,7 +952,7 @@ static void rtusb_ate_ac0_dma_done_tasklet(unsigned long data)
 {
 	PRTMP_ADAPTER pAd;
 	PTX_CONTEXT pNullContext;
-	UCHAR BulkOutPipeId;
+	unsigned char BulkOutPipeId;
 	NTSTATUS Status;
 	unsigned long IrqFlags;
 	unsigned long OldValue;

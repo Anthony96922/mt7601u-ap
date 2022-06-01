@@ -44,9 +44,9 @@ VOID RtmpPrepareHwNullFrame(
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN BOOLEAN bQosNull,
 	IN BOOLEAN bEOSP,
-	IN UCHAR OldUP,
-	IN UCHAR OpMode,
-	IN UCHAR PwrMgmt,
+	IN unsigned char OldUP,
+	IN unsigned char OpMode,
+	IN unsigned char PwrMgmt,
 	IN BOOLEAN bWaitACK,
 	IN CHAR Index)
 {
@@ -57,10 +57,10 @@ VOID RtmpPrepareHwNullFrame(
 	PHEADER_802_11 pNullFr;
 	unsigned int frameLen;
 	unsigned int totalLen;
-	UCHAR *ptr;
+	unsigned char *ptr;
 	UINT i;
 	unsigned int longValue;
-	UCHAR MlmeRate;
+	unsigned char MlmeRate;
 
 #ifdef RT_BIG_ENDIAN
 	NDIS_STATUS    NState;
@@ -96,7 +96,7 @@ VOID RtmpPrepareHwNullFrame(
 
 	if (bQosNull)
 	{
-		UCHAR *qos_p = ((UCHAR *)pNullFr) + frameLen;
+		unsigned char *qos_p = ((unsigned char *)pNullFr) + frameLen;
 
 		pNullFr->FC.SubType = SUBTYPE_QOS_NULL;
 
@@ -107,7 +107,7 @@ VOID RtmpPrepareHwNullFrame(
 	} /* End of if */
 
 	RTMPWriteTxWI(pAd, pTxWI,  FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, 0, pEntry->Aid, frameLen,
-		0, 0, (UCHAR)pAd->CommonCfg.MlmeTransmit.field.MCS, IFS_HTTXOP, FALSE, &pAd->CommonCfg.MlmeTransmit);
+		0, 0, (unsigned char)pAd->CommonCfg.MlmeTransmit.field.MCS, IFS_HTTXOP, FALSE, &pAd->CommonCfg.MlmeTransmit);
 
 	dumpTxWI(pAd, pTxWI);
 
@@ -154,7 +154,7 @@ VOID RtmpPrepareHwNullFrame(
 
 VOID RTMPHwSendNullFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR TxRate,
+	IN unsigned char TxRate,
 	IN BOOLEAN bQosNull,
 	IN USHORT PwrMgmt,
 	IN CHAR Index)
@@ -163,7 +163,7 @@ VOID RTMPHwSendNullFrame(
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
-	UCHAR *ptr;
+	unsigned char *ptr;
 	unsigned int longValue;
 #ifdef RT_BIG_ENDIAN
 	unsigned char * pNullFrame;
@@ -239,16 +239,16 @@ VOID RTMPHwSendNullFrame(
 VOID RtmpEnqueueLastNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr,
-	IN UCHAR TxRate,
-	IN UCHAR PID,
-	IN UCHAR apidx,
+	IN unsigned char TxRate,
+	IN unsigned char PID,
+	IN unsigned char apidx,
     IN BOOLEAN bQosNull,
     IN BOOLEAN bEOSP,
-    IN UCHAR OldUP,
-    IN UCHAR PwrMgmt,
-	IN UCHAR OpMode)
+    IN unsigned char OldUP,
+    IN unsigned char PwrMgmt,
+	IN unsigned char OpMode)
 {
-	UCHAR	NullFrame[48];
+	unsigned char	NullFrame[48];
 	unsigned long	Length;
 	PHEADER_802_11	pHeader_802_11;
 	MAC_TABLE_ENTRY *pEntry = NULL;

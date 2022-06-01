@@ -60,7 +60,7 @@
 /*#define UAPSD_DEBUG */
 
 /* used to enable or disable UAPSD power save queue maintain mechanism */
-UCHAR gUAPSD_FlgNotQueueMaintain;
+unsigned char gUAPSD_FlgNotQueueMaintain;
 
 #ifdef UAPSD_DEBUG
 unsigned int gUAPSD_SP_CloseAbnormalNum;
@@ -69,7 +69,7 @@ unsigned int gUAPSD_SP_CloseAbnormalNum;
 #ifdef UAPSD_TIMING_RECORD_FUNC
 /* all unit: us */
 
-UCHAR  gUAPSD_TimingFlag;
+unsigned char  gUAPSD_TimingFlag;
 unsigned int gUAPSD_TimingIndexUapsd;
 unsigned int gUAPSD_TimingLoopIndex;
 
@@ -312,7 +312,7 @@ VOID UAPSD_AllPacketDeliver(
 {
 	QUEUE_HEADER *pQueApsd;
 	PQUEUE_ENTRY pQueEntry;
-	UCHAR QueIdList[WMM_NUM_OF_AC] = { QID_AC_BE, QID_AC_BK,
+	unsigned char QueIdList[WMM_NUM_OF_AC] = { QID_AC_BE, QID_AC_BK,
                                          QID_AC_VI, QID_AC_VO };
 	INT32 IdAc, QueId; /* must be signed, can not be unsigned */
 
@@ -389,11 +389,11 @@ Note:
 VOID UAPSD_AssocParse(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
-	IN	UCHAR				*pElm,
+	IN	unsigned char				*pElm,
 	IN	BOOLEAN				FlgApsdCapable)
 {
 	PQBSS_STA_INFO_PARM  pQosInfo;
-	UCHAR UAPSD[4];
+	unsigned char UAPSD[4];
 	unsigned int IdApsd;
 
 
@@ -710,7 +710,7 @@ Note:
 VOID UAPSD_SP_AUE_Handle(
 	IN RTMP_ADAPTER		*pAd,
     IN MAC_TABLE_ENTRY	*pEntry,
-	IN UCHAR			FlgSuccess)
+	IN unsigned char			FlgSuccess)
 {
 #ifdef UAPSD_SP_ACCURATE
 	USHORT QueId;
@@ -1150,7 +1150,7 @@ BOOLEAN UAPSD_PsPollHandle(
 		=> AC priority = VO > VI > BE > BK
 	*/
 	unsigned int	AcPriority[WMM_NUM_OF_AC] = { 1, 0, 2, 3 };
-	UCHAR	QueIdList[WMM_NUM_OF_AC] = { QID_AC_BE, QID_AC_BK,
+	unsigned char	QueIdList[WMM_NUM_OF_AC] = { QID_AC_BE, QID_AC_BK,
                                             QID_AC_VI, QID_AC_VO };
 	BOOLEAN	FlgQueEmpty;
 	INT32	IdAc; /* must be signed, can not use unsigned */
@@ -1347,7 +1347,7 @@ Note:
 VOID UAPSD_TriggerFrameHandle(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
-	IN	UCHAR				UpOfFrame)
+	IN	unsigned char				UpOfFrame)
 {
 	QUEUE_HEADER	*pAcPsQue;
 	QUEUE_HEADER	*pAcSwQue, *pLastAcSwQue;
@@ -1364,7 +1364,7 @@ VOID UAPSD_TriggerFrameHandle(
 	unsigned int	AcPriority[WMM_NUM_OF_AC] = { 1, 0, 2, 3 };
 	/* 0: deliver all U-APSD packets */
 	unsigned int	SpLenMap[WMM_NUM_OF_AC] = { 0, 2, 4, 6 };
-	UCHAR	QueIdList[WMM_NUM_OF_AC] = { QID_AC_BE, QID_AC_BK,
+	unsigned char	QueIdList[WMM_NUM_OF_AC] = { QID_AC_BE, QID_AC_BK,
                                             QID_AC_VI, QID_AC_VO };
 	BOOLEAN	FlgQueEmpty;
 	BOOLEAN	FlgNullSnd;
@@ -1851,11 +1851,11 @@ Note:
 VOID UAPSD_TagFrame(
 	IN	RTMP_ADAPTER		*pAd,
 	IN	NDIS_PACKET			*pPkt,
-	IN	UCHAR				Wcid,
+	IN	unsigned char				Wcid,
 	IN	unsigned int				PktOffset)
 {
 	MAC_TABLE_ENTRY *pEntry;
-	UCHAR AcQueId;
+	unsigned char AcQueId;
 
 
 	if ((Wcid == MCAST_WCID) || (Wcid >= MAX_LEN_OF_MAC_TABLE))
@@ -1905,7 +1905,7 @@ Note:
 */
 VOID UAPSD_UnTagFrame(
 	IN	RTMP_ADAPTER	*pAd,
-	IN	UCHAR			AcQueId,
+	IN	unsigned char			AcQueId,
 	IN	unsigned int			bulkStartPos,
 	IN	unsigned int			bulkEnPos)
 {

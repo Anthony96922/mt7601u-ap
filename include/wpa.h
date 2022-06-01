@@ -55,7 +55,7 @@
 
 #define	ADD_ONE_To_64BIT_VAR(_V)		\
 {										\
-	UCHAR	cnt = LEN_KEY_DESC_REPLAY;	\
+	unsigned char	cnt = LEN_KEY_DESC_REPLAY;	\
 	do									\
 	{									\
 		cnt--;							\
@@ -213,22 +213,22 @@ VOID WPA_APSetGroupRekeyAction(
 	The prototype is defined in cmm_wpa.c
   ========================================*/
 void inc_iv_byte(
-	UCHAR *iv,
+	unsigned char *iv,
 	UINT len,
 	UINT cnt);
 
 BOOLEAN WpaMsgTypeSubst(
-	IN UCHAR EAPType,
+	IN unsigned char EAPType,
 	OUT INT *MsgType);
 
 VOID PRF(
-	IN UCHAR *key,
+	IN unsigned char *key,
 	IN INT key_len,
-	IN UCHAR *prefix,
+	IN unsigned char *prefix,
 	IN INT prefix_len,
-	IN UCHAR *data,
+	IN unsigned char *data,
 	IN INT data_len,
-	OUT UCHAR *output,
+	OUT unsigned char *output,
 	IN INT len);
 
 int RtmpPasswordHash(
@@ -281,32 +281,32 @@ VOID RTMPToWirelessSta(
 
 VOID WpaDerivePTK(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR *PMK,
-	IN UCHAR *ANonce,
-	IN UCHAR *AA,
-	IN UCHAR *SNonce,
-	IN UCHAR *SA,
-	OUT UCHAR *output,
+	IN unsigned char *PMK,
+	IN unsigned char *ANonce,
+	IN unsigned char *AA,
+	IN unsigned char *SNonce,
+	IN unsigned char *SA,
+	OUT unsigned char *output,
 	IN UINT len);
 
 VOID WpaDeriveGTK(
-	IN UCHAR *PMK,
-	IN UCHAR *GNonce,
-	IN UCHAR *AA,
-	OUT UCHAR *output,
+	IN unsigned char *PMK,
+	IN unsigned char *GNonce,
+	IN unsigned char *AA,
+	OUT unsigned char *output,
 	IN UINT len);
 
 VOID GenRandom(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR *macAddr,
-	OUT UCHAR *random);
+	IN unsigned char *macAddr,
+	OUT unsigned char *random);
 
 BOOLEAN RTMPCheckWPAframe(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char * pData,
 	IN unsigned long DataByteCount,
-	IN UCHAR FromWhichBSSID);
+	IN unsigned char FromWhichBSSID);
 
 #ifdef HDR_TRANS_SUPPORT
 BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
@@ -314,15 +314,15 @@ BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char * pData,
 	IN unsigned long DataByteCount,
-	IN UCHAR FromWhichBSSID);
+	IN unsigned char FromWhichBSSID);
 #endif /* HDR_TRANS_SUPPORT */
 
 BOOLEAN RTMPParseEapolKeyData(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pKeyData,
-	IN UCHAR KeyDataLen,
-	IN UCHAR GroupKeyIndex,
-	IN UCHAR MsgType,
+	IN unsigned char KeyDataLen,
+	IN unsigned char GroupKeyIndex,
+	IN unsigned char MsgType,
 	IN BOOLEAN bWPA2,
 	IN MAC_TABLE_ENTRY *pEntry);
 
@@ -333,14 +333,14 @@ VOID WPA_ConstructKdeHdr(
 
 VOID ConstructEapolMsg(
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN UCHAR GroupKeyWepStatus,
-	IN UCHAR MsgType,
-	IN UCHAR DefaultKeyIdx,
-	IN UCHAR *KeyNonce,
-	IN UCHAR *TxRSC,
-	IN UCHAR *GTK,
-	IN UCHAR *RSNIE,
-	IN UCHAR RSNIE_Len,
+	IN unsigned char GroupKeyWepStatus,
+	IN unsigned char MsgType,
+	IN unsigned char DefaultKeyIdx,
+	IN unsigned char *KeyNonce,
+	IN unsigned char *TxRSC,
+	IN unsigned char *GTK,
+	IN unsigned char *RSNIE,
+	IN unsigned char RSNIE_Len,
 	OUT PEAPOL_PACKET pMsg);
 
 PCIPHER_KEY RTMPSwCipherKeySelection(
@@ -352,25 +352,25 @@ PCIPHER_KEY RTMPSwCipherKeySelection(
 NDIS_STATUS RTMPSoftDecryptionAction(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pHdr,
-	IN UCHAR UserPriority,
+	IN unsigned char UserPriority,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
 	INOUT unsigned short *DataByteCnt);
 
 VOID RTMPSoftConstructIVHdr(
-	IN UCHAR CipherAlg,
-	IN UCHAR key_id,
+	IN unsigned char CipherAlg,
+	IN unsigned char key_id,
 	IN unsigned char * pTxIv,
 	OUT unsigned char * pHdrIv,
 	OUT unsigned char *hdr_iv_len);
 
 VOID RTMPSoftEncryptionAction(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR CipherAlg,
+	IN unsigned char CipherAlg,
 	IN unsigned char * pHdr,
 	IN unsigned char * pSrcBufData,
 	IN unsigned int SrcBufLen,
-	IN UCHAR KeyIdx,
+	IN unsigned char KeyIdx,
 	IN PCIPHER_KEY pKey,
 	OUT unsigned char *ext_len);
 
@@ -378,7 +378,7 @@ VOID RTMPMakeRSNIE(
 	IN PRTMP_ADAPTER pAd,
 	IN UINT AuthMode,
 	IN UINT WepStatus,
-	IN UCHAR apidx);
+	IN unsigned char apidx);
 
 VOID WPAInstallPairwiseKey(
 	PRTMP_ADAPTER pAd,
@@ -405,8 +405,8 @@ VOID RTMPSetWcidSecurityInfo(
 	unsigned char KeyTabFlag);
 
 VOID CalculateMIC(
-	IN UCHAR KeyDescVer,
-	IN UCHAR *PTK,
+	IN unsigned char KeyDescVer,
+	IN unsigned char *PTK,
 	OUT PEAPOL_PACKET pMsg);
 
 char * GetEapolMsgType(
@@ -425,8 +425,8 @@ UINT RTMP_CALC_FCS32(
 
 VOID RTMPConstructWEPIVHdr(
 	IN unsigned char key_idx,
-	IN UCHAR *pn,
-	OUT UCHAR *iv_hdr);
+	IN unsigned char *pn,
+	OUT unsigned char *iv_hdr);
 
 BOOLEAN RTMPSoftEncryptWEP(
 	IN PRTMP_ADAPTER pAd,
@@ -449,24 +449,24 @@ BOOLEAN RTMPSoftDecryptWEP(
 BOOLEAN RTMPSoftDecryptTKIP(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pHdr,
-	IN UCHAR UserPriority,
+	IN unsigned char UserPriority,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
 	IN unsigned short *DataByteCnt);
 
 VOID TKIP_GTK_KEY_WRAP(
-	IN UCHAR *key,
-	IN UCHAR *iv,
-	IN UCHAR *input_text,
+	IN unsigned char *key,
+	IN unsigned char *iv,
+	IN unsigned char *input_text,
 	IN unsigned int input_len,
-	OUT UCHAR *output_text);
+	OUT unsigned char *output_text);
 
 VOID TKIP_GTK_KEY_UNWRAP(
-	IN UCHAR *key,
-	IN UCHAR *iv,
-	IN UCHAR *input_text,
+	IN unsigned char *key,
+	IN unsigned char *iv,
+	IN unsigned char *input_text,
 	IN unsigned int input_len,
-	OUT UCHAR *output_text);
+	OUT unsigned char *output_text);
 
 /* 
  =====================================	
@@ -481,8 +481,8 @@ BOOLEAN RTMPSoftDecryptAES(
 
 VOID RTMPConstructCCMPHdr(
 	IN unsigned char key_idx,
-	IN UCHAR *pn,
-	OUT UCHAR *ccmp_hdr);
+	IN unsigned char *pn,
+	OUT unsigned char *ccmp_hdr);
 
 BOOLEAN RTMPSoftEncryptCCMP(
 	IN PRTMP_ADAPTER pAd,

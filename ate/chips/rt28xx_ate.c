@@ -34,7 +34,7 @@
 #include "rt_config.h"
 
 extern RTMP_RF_REGS RF2850RegTable[];
-extern UCHAR NUM_OF_2850_CHNL;
+extern unsigned char NUM_OF_2850_CHNL;
 
 
 /*
@@ -51,7 +51,7 @@ VOID RT28xxATEAsicSwitchChannel(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int Value = 0;
 	CHAR TxPwer = 0, TxPwer2 = 0;
-	UCHAR index = 0, BbpValue = 0, Channel = 0;
+	unsigned char index = 0, BbpValue = 0, Channel = 0;
 	unsigned int R2 = 0, R3 = DEFAULT_RF_TX_POWER, R4 = 0;
 	RTMP_RF_REGS *RFRegTable = NULL;
 
@@ -383,7 +383,7 @@ INT RT28xxATETxPwrHandler(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned long R;
 	CHAR TxPower = 0;
-	UCHAR Bbp94 = 0;
+	unsigned char Bbp94 = 0;
 	BOOLEAN bPowerReduce = FALSE;
 
 #ifdef RALINK_QA
@@ -415,7 +415,7 @@ INT RT28xxATETxPwrHandler(
 			/* R3, R4 can't large than 31 (0x24), 31 ~ 36 used by BBP 94 */
 			R = 31;
 			if (TxPower <= 36)
-				Bbp94 = BBPR94_DEFAULT + (UCHAR)(TxPower - 31);		
+				Bbp94 = BBPR94_DEFAULT + (unsigned char)(TxPower - 31);		
 		}
 		else if (TxPower < 0)
 		{
@@ -525,13 +525,13 @@ VOID RT28xxATERxVGAInit(
 	IN PRTMP_ADAPTER		pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR R66;
+	unsigned char R66;
 	CHAR LNAGain = GET_LNA_GAIN(pAd);
 	
 	if (pATEInfo->Channel <= 14)
 	{
 		/* BG band */
-		R66 = (UCHAR)(0x2E + LNAGain);
+		R66 = (unsigned char)(0x2E + LNAGain);
 	}
 	else 
 	{
@@ -539,12 +539,12 @@ VOID RT28xxATERxVGAInit(
 		if (pATEInfo->TxWI.BW == BW_20)
 		{
 			/* A band, BW == 20 */
-			R66 = (UCHAR)(0x32 + (LNAGain*5)/3);
+			R66 = (unsigned char)(0x32 + (LNAGain*5)/3);
 		}
 		else
 		{
 			/* A band, BW == 40 */
-			R66 = (UCHAR)(0x3A + (LNAGain*5)/3);
+			R66 = (unsigned char)(0x3A + (LNAGain*5)/3);
 		}
 	}
 
@@ -570,8 +570,8 @@ INT	RT28xx_Set_ATE_TX_BW_Proc(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	INT powerIndex;
-	UCHAR value = 0;
-	UCHAR BBPCurrentBW;
+	unsigned char value = 0;
+	unsigned char BBPCurrentBW;
 	
 	BBPCurrentBW = simple_strtol(arg, 0, 10);
 
@@ -736,7 +736,7 @@ INT	RT28xx_Set_ATE_TX_FREQ_OFFSET_Proc(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned long R4 = 0;
-	UCHAR RFFreqOffset = 0;
+	unsigned char RFFreqOffset = 0;
 
 	RFFreqOffset = simple_strtol(arg, 0, 10);
 

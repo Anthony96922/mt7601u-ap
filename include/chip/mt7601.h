@@ -163,7 +163,7 @@ typedef struct _MT7601_TX_ALC_DATA {
 	INT32	MT7601_TSSI_T0_Delta_Offset;
 	INT16	TSSI_DBOFFSET_HVGA;
 	INT16	TSSI0_DB;
-	UCHAR	TssiSlope;
+	unsigned char	TssiSlope;
 	CHAR	TssiDC0;
 	CHAR	TssiDC0_HVGA;
 	unsigned int	InitTxAlcCfg1;
@@ -221,11 +221,11 @@ typedef struct _MT7601_FREQ_ITEM {
 #define RF_A_BAND_MB	0x08
 #define RF_A_BAND_HB	0x10
 typedef struct _RT6590_RF_SWITCH_ITEM {
-	UCHAR Bank;
-	UCHAR Register;
-	UCHAR Band; /* G_Band, A_Band_LB, A_Band_MB, A_Band_HB */
-	UCHAR BW;
-	UCHAR Value;
+	unsigned char Bank;
+	unsigned char Register;
+	unsigned char Band; /* G_Band, A_Band_LB, A_Band_MB, A_Band_HB */
+	unsigned char BW;
+	unsigned char Value;
 } RT6590_RF_SWITCH_ITEM, *PRT6590_RF_SWITCH_ITEM;
 
 VOID MT7601_Init(struct _RTMP_ADAPTER *pAd);
@@ -233,7 +233,7 @@ VOID MT7601_RXDC_CAL(struct _RTMP_ADAPTER *pAd);
 INT MT7601_ReadChannelPwr(struct _RTMP_ADAPTER *pAd);
 VOID MT7601_ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
 VOID MT7601_INIT_CAL(struct _RTMP_ADAPTER *pAd);
-NTSTATUS MT7601DisableTxRx(struct _RTMP_ADAPTER *pAd, UCHAR Level);
+NTSTATUS MT7601DisableTxRx(struct _RTMP_ADAPTER *pAd, unsigned char Level);
 VOID dump_bw_info(struct _RTMP_ADAPTER *pAd);
 VOID MT7601AsicTemperatureCompensation(IN struct _RTMP_ADAPTER *pAd, IN BOOLEAN bPowerOn);
 #ifdef RTMP_INTERNAL_TX_ALC
@@ -263,6 +263,6 @@ INT MT7601_Bootup_Read_Temperature(
 
 VOID MT7601SetRxAnt(
 	struct _RTMP_ADAPTER *pAd,
-	IN UCHAR			Ant);
+	IN unsigned char			Ant);
 #endif /* __MT7601_H__ */
 

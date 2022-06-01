@@ -569,19 +569,19 @@ extern unsigned long RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 #define OSPKT_TO_RTPKT(_p)		(_p)
 
 #define GET_OS_PKT_DATAPTR(_pkt) \
-		((UCHAR *)(*(unsigned long *)((UCHAR *)_pkt + RTPktOffsetData)))
+		((unsigned char *)(*(unsigned long *)((unsigned char *)_pkt + RTPktOffsetData)))
 
 #define SET_OS_PKT_DATAPTR		\
 		RtmpOsPktDataPtrAssign
 
 #define GET_OS_PKT_LEN(_pkt) 	\
-		(*(unsigned int *)((UCHAR *)_pkt + RTPktOffsetLen))
+		(*(unsigned int *)((unsigned char *)_pkt + RTPktOffsetLen))
 
 #define SET_OS_PKT_LEN			\
 		RtmpOsPktLenAssign
 
 #define GET_OS_PKT_CB(_pkt) 	\
-		((UCHAR *)((UCHAR *)_pkt + RTPktOffsetCB))
+		((unsigned char *)((unsigned char *)_pkt + RTPktOffsetCB))
 
 #define GET_OS_PKT_NETDEV(_pkt) RtmpOsPktNetDevGet
 

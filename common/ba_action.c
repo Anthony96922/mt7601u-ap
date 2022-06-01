@@ -49,10 +49,10 @@ BUILD_TIMER_FUNCTION(BARecSessionIdleTimeout);
 VOID BA_MaxWinSizeReasign(
 	IN PRTMP_ADAPTER	pAd,
 	IN MAC_TABLE_ENTRY  *pEntryPeer,
-	OUT UCHAR			*pWinSize)
+	OUT unsigned char			*pWinSize)
 {
-	UCHAR MaxSize;
-	UCHAR MaxPeerRxSize;
+	unsigned char MaxSize;
+	unsigned char MaxPeerRxSize;
 
 
 	if (CLIENT_STATUS_TEST_FLAG(pEntryPeer, fCLIENT_STATUS_RALINK_CHIPSET))
@@ -479,7 +479,7 @@ void ba_flush_reordering_timeout_mpdus(
 VOID BAOriSessionSetUp(
 					  IN PRTMP_ADAPTER    pAd, 
 					  IN MAC_TABLE_ENTRY  *pEntry,
-					  IN UCHAR            TID,
+					  IN unsigned char            TID,
 					  IN USHORT           TimeOut,
 					  IN unsigned long            DelayTime,
 					  IN BOOLEAN          isForced)
@@ -564,15 +564,15 @@ VOID BAOriSessionAdd(
 {
 	BA_ORI_ENTRY	*pBAEntry = NULL;
 	BOOLEAN		Cancelled;
-	UCHAR		TID;
+	unsigned char		TID;
 	USHORT		Idx;
 	unsigned char *		pOutBuffer2 = NULL;
 	NDIS_STATUS	NStatus;
 	unsigned long		FrameLen;
 	FRAME_BAR	FrameBar;
-	UCHAR		MaxPeerBufSize;
+	unsigned char		MaxPeerBufSize;
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR		apidx;
+	unsigned char		apidx;
 #endif /* CONFIG_AP_SUPPORT */
 
 	TID = pFrame->BaParm.TID;
@@ -584,7 +584,7 @@ VOID BAOriSessionAdd(
 	/* Start fill in parameters.*/
 	if ((Idx !=0) && (pBAEntry->TID == TID) && (pBAEntry->ORI_BA_Status == Originator_WaitRes))
 	{
-		MaxPeerBufSize = (UCHAR)pFrame->BaParm.BufSize;
+		MaxPeerBufSize = (unsigned char)pFrame->BaParm.BufSize;
 
 		if (MaxPeerBufSize > 0)
 			MaxPeerBufSize -= 1;
@@ -667,8 +667,8 @@ BOOLEAN BARecSessionAdd(
 	BOOLEAN                 Status = TRUE;
 	BOOLEAN                 Cancelled;
 	USHORT                  Idx;
-	UCHAR                   TID;
-	UCHAR                   BAWinSize;
+	unsigned char                   TID;
+	unsigned char                   BAWinSize;
 	/*unsigned int                  Value;*/
 	/*UINT                    offset;*/
 
@@ -678,7 +678,7 @@ BOOLEAN BARecSessionAdd(
 	/* find TID*/
 	TID = pFrame->BaParm.TID;
 
-	BAWinSize = min(((UCHAR)pFrame->BaParm.BufSize), (UCHAR)pAd->CommonCfg.BACapability.field.RxBAWinLimit);
+	BAWinSize = min(((unsigned char)pFrame->BaParm.BufSize), (unsigned char)pAd->CommonCfg.BACapability.field.RxBAWinLimit);
 
 	/* Intel patch*/
 	if (BAWinSize == 0)
@@ -891,8 +891,8 @@ VOID BATableFreeRecEntry(
 
 VOID BAOriSessionTearDown(
 						 IN OUT  PRTMP_ADAPTER   pAd, 
-						 IN      UCHAR           Wcid,
-						 IN      UCHAR           TID,
+						 IN      unsigned char           Wcid,
+						 IN      unsigned char           TID,
 						 IN      BOOLEAN         bPassive,
 						 IN      BOOLEAN         bForceSend)
 {
@@ -915,7 +915,7 @@ VOID BAOriSessionTearDown(
 			/* force send specified TID DelBA*/
 			MLME_DELBA_REQ_STRUCT   DelbaReq;   
 			MLME_QUEUE_ELEM *Elem; /* = (MLME_QUEUE_ELEM *) kmalloc(sizeof(MLME_QUEUE_ELEM), MEM_ALLOC_FLAG);*/
-			os_alloc_mem(NULL, (UCHAR **)&Elem, sizeof(MLME_QUEUE_ELEM));
+			os_alloc_mem(NULL, (unsigned char **)&Elem, sizeof(MLME_QUEUE_ELEM));
 			if (Elem != NULL)
 			{
 				NdisZeroMemory(&DelbaReq, sizeof(DelbaReq));
@@ -950,7 +950,7 @@ VOID BAOriSessionTearDown(
 	{
 		MLME_DELBA_REQ_STRUCT   DelbaReq;   
 		MLME_QUEUE_ELEM *Elem; /* = (MLME_QUEUE_ELEM *) kmalloc(sizeof(MLME_QUEUE_ELEM), MEM_ALLOC_FLAG);*/
-		os_alloc_mem(NULL, (UCHAR **)&Elem, sizeof(MLME_QUEUE_ELEM));
+		os_alloc_mem(NULL, (unsigned char **)&Elem, sizeof(MLME_QUEUE_ELEM));
 		if (Elem != NULL)
 		{
 			NdisZeroMemory(&DelbaReq, sizeof(DelbaReq));
@@ -983,8 +983,8 @@ VOID BAOriSessionTearDown(
 
 VOID BARecSessionTearDown(
 						 IN OUT  PRTMP_ADAPTER   pAd, 
-						 IN      UCHAR           Wcid,
-						 IN      UCHAR           TID,
+						 IN      unsigned char           Wcid,
+						 IN      unsigned char           TID,
 						 IN      BOOLEAN         bPassive)
 {
 	unsigned long           Idx = 0;
@@ -1022,7 +1022,7 @@ VOID BARecSessionTearDown(
 		if (bPassive == FALSE)
 		{
 			MLME_QUEUE_ELEM *Elem; /* = (MLME_QUEUE_ELEM *) kmalloc(sizeof(MLME_QUEUE_ELEM), MEM_ALLOC_FLAG);*/
-			os_alloc_mem(NULL, (UCHAR **)&Elem, sizeof(MLME_QUEUE_ELEM));
+			os_alloc_mem(NULL, (unsigned char **)&Elem, sizeof(MLME_QUEUE_ELEM));
 			if (Elem != NULL)
 			{
 				NdisZeroMemory(&DelbaReq, sizeof(DelbaReq));
@@ -1071,7 +1071,7 @@ VOID BARecSessionTearDown(
 
 VOID BASessionTearDownALL(
 						 IN OUT  PRTMP_ADAPTER pAd, 
-						 IN      UCHAR Wcid)
+						 IN      unsigned char Wcid)
 {
 	int i;
 
@@ -1128,7 +1128,7 @@ VOID BAOriSessionSetupTimeout(
 
 		NdisZeroMemory(&AddbaReq, sizeof(AddbaReq));
 		COPY_MAC_ADDR(AddbaReq.pAddr, pEntry->Addr);
-		AddbaReq.Wcid = (UCHAR)(pEntry->Aid);
+		AddbaReq.Wcid = (unsigned char)(pEntry->Aid);
 		AddbaReq.TID = pBAEntry->TID;
 		AddbaReq.BaBufSize = pAd->CommonCfg.BACapability.field.RxBAWinLimit;
 		AddbaReq.TimeOutValue = 0;
@@ -1196,13 +1196,13 @@ VOID PeerAddBAReqAction(
 {
 	/*	7.4.4.1*/
 	/*unsigned long	Idx;*/
-	UCHAR   Status = 1;
-	UCHAR   pAddr[6];
+	unsigned char   Status = 1;
+	unsigned char   pAddr[6];
 	FRAME_ADDBA_RSP ADDframe;
 	unsigned char *         pOutBuffer = NULL;
 	NDIS_STATUS     NStatus;
 	PFRAME_ADDBA_REQ  pAddreqFrame = NULL;
-	/*UCHAR		BufSize;*/
+	/*unsigned char		BufSize;*/
 	unsigned long       FrameLen;
 	unsigned long *      ptemp;
 	PMAC_TABLE_ENTRY	pMacEntry;
@@ -1288,7 +1288,7 @@ VOID PeerAddBAReqAction(
 	ADDframe.BaParm.BAPolicy = IMMED_BA;
 	ADDframe.BaParm.AMSDUSupported = 0;
 	ADDframe.BaParm.TID = pAddreqFrame->BaParm.TID;
-	ADDframe.BaParm.BufSize = min(((UCHAR)pAddreqFrame->BaParm.BufSize), (UCHAR)pAd->CommonCfg.BACapability.field.RxBAWinLimit);
+	ADDframe.BaParm.BufSize = min(((unsigned char)pAddreqFrame->BaParm.BufSize), (unsigned char)pAd->CommonCfg.BACapability.field.RxBAWinLimit);
 	if (ADDframe.BaParm.BufSize == 0)
 	{
 		ADDframe.BaParm.BufSize = 64; 
@@ -1326,7 +1326,7 @@ VOID PeerAddBARspAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 
 {
-	/*UCHAR		Idx, i;*/
+	/*unsigned char		Idx, i;*/
 	/*unsigned char *		   pOutBuffer = NULL;*/
 	PFRAME_ADDBA_RSP    pFrame = NULL;
 	/*PBA_ORI_ENTRY		pBAEntry;*/
@@ -1369,7 +1369,7 @@ VOID PeerDelBAAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 
 {
-	/*UCHAR				Idx;*/
+	/*unsigned char				Idx;*/
 	/*unsigned char *				pOutBuffer = NULL;*/
 	PFRAME_DELBA_REQ    pDelFrame = NULL;
 	
@@ -1405,10 +1405,10 @@ BOOLEAN CntlEnqueueForRecv(
 	PBA_REC_ENTRY pBAEntry;
 	/*BOOLEAN 	Result;*/
 	unsigned long   Idx;
-	/*UCHAR	NumRxPkt;*/
-	UCHAR	TID;/*, i;*/
+	/*unsigned char	NumRxPkt;*/
+	unsigned char	TID;/*, i;*/
 	
-	TID = (UCHAR)pFrame->BARControl.TID;
+	TID = (unsigned char)pFrame->BARControl.TID;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s(): BAR-Wcid(%ld), Tid (%d)\n", __FUNCTION__, Wcid, TID));
 	/*hex_dump("BAR", (char *) pFrame, MsgLen);*/
@@ -1457,15 +1457,15 @@ Description : Send PSMP Action frame If PSMP mode switches.
 */
 VOID SendPSMPAction(
 				   IN PRTMP_ADAPTER		pAd,
-				   IN UCHAR				Wcid,
-				   IN UCHAR				Psmp) 
+				   IN unsigned char				Wcid,
+				   IN unsigned char				Psmp) 
 {
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	FRAME_PSMP_ACTION Frame;
 	unsigned long FrameLen;
 #ifdef CONFIG_AP_SUPPORT	
-	UCHAR apidx;
+	unsigned char apidx;
 #endif /* CONFIG_AP_SUPPORT */
 
 	NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);	 /*Get an unused nonpaged memory*/
@@ -1527,30 +1527,30 @@ VOID SendPSMPAction(
 #define RADIO_MEASUREMENT_REQUEST_ACTION	0
 
 typedef struct GNU_PACKED _BEACON_REQUEST {
-	UCHAR	RegulatoryClass;
-	UCHAR	ChannelNumber;
+	unsigned char	RegulatoryClass;
+	unsigned char	ChannelNumber;
 	USHORT	RandomInterval;
 	USHORT	MeasurementDuration;
-	UCHAR	MeasurementMode;
-	UCHAR   BSSID[MAC_ADDR_LEN];
-	UCHAR	ReportingCondition;
-	UCHAR	Threshold;
-	UCHAR   SSIDIE[2];			/* 2 byte*/
+	unsigned char	MeasurementMode;
+	unsigned char   BSSID[MAC_ADDR_LEN];
+	unsigned char	ReportingCondition;
+	unsigned char	Threshold;
+	unsigned char   SSIDIE[2];			/* 2 byte*/
 } BEACON_REQUEST;
 
 typedef struct GNU_PACKED _MEASUREMENT_REQ
 {
-	UCHAR	ID;
-	UCHAR	Length;
-	UCHAR	Token;
-	UCHAR	RequestMode;
-	UCHAR	Type;
+	unsigned char	ID;
+	unsigned char	Length;
+	unsigned char	Token;
+	unsigned char	RequestMode;
+	unsigned char	Type;
 } MEASUREMENT_REQ;
 
 #ifdef CONFIG_AP_SUPPORT
 VOID SendBeaconRequest(
 				   IN PRTMP_ADAPTER		pAd,
-				   IN UCHAR				Wcid)
+				   IN unsigned char				Wcid)
 {
 	unsigned char *          	pOutBuffer = NULL;
 	NDIS_STATUS     	NStatus;
@@ -1558,7 +1558,7 @@ VOID SendBeaconRequest(
 	unsigned long           	FrameLen;
 	BEACON_REQUEST		BeaconReq;
 	MEASUREMENT_REQ		MeasureReg;
-	UCHAR				apidx;
+	unsigned char				apidx;
 
 	if (IS_ENTRY_APCLI(&pAd->MacTab.Content[Wcid]))
 		return;
@@ -1610,10 +1610,10 @@ VOID SendBeaconRequest(
 void convert_reordering_packet_to_preAMSDU_or_802_3_packet(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RX_BLK			*pRxBlk,
-	IN  UCHAR			FromWhichBSSID)
+	IN  unsigned char			FromWhichBSSID)
 {
 	PNDIS_PACKET	pRxPkt;
-	UCHAR			Header802_3[LENGTH_802_3];
+	unsigned char			Header802_3[LENGTH_802_3];
 
 /* 
 	1. get 802.3 Header
@@ -1643,8 +1643,8 @@ void convert_reordering_packet_to_preAMSDU_or_802_3_packet(
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		{
 			/* maybe insert VLAN tag to the received packet */
-			UCHAR VLAN_Size = 0;
-			UCHAR *data_p;
+			unsigned char VLAN_Size = 0;
+			unsigned char *data_p;
 			USHORT VLAN_VID = 0, VLAN_Priority = 0;
 
 			/* VLAN related */
@@ -1707,7 +1707,7 @@ static VOID ba_enqueue_reordering_packet(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PBA_REC_ENTRY	pBAEntry,
 	IN	RX_BLK			*pRxBlk,
-	IN	UCHAR			FromWhichBSSID)
+	IN	unsigned char			FromWhichBSSID)
 {
 	struct reordering_mpdu *mpdu_blk;
 	unsigned short	Sequence = (unsigned short) pRxBlk->pHeader->Sequence;
@@ -1769,7 +1769,7 @@ static VOID ba_enqueue_reordering_packet_hdr_trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PBA_REC_ENTRY	pBAEntry,
 	IN	RX_BLK			*pRxBlk,
-	IN	UCHAR			FromWhichBSSID)
+	IN	unsigned char			FromWhichBSSID)
 {
 	struct reordering_mpdu *mpdu_blk;
 	unsigned short	Sequence = (unsigned short) pRxBlk->pHeader->Sequence;
@@ -1857,14 +1857,14 @@ static VOID ba_enqueue_reordering_packet_hdr_trns(
 VOID Indicate_AMPDU_Packet(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk,
-	IN	UCHAR			FromWhichBSSID)
+	IN	unsigned char			FromWhichBSSID)
 {
 	USHORT Idx;
 	PBA_REC_ENTRY pBAEntry = NULL;
 	unsigned short Sequence = pRxBlk->pHeader->Sequence;
 	unsigned long Now32;
-	UCHAR Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
-	UCHAR TID = pRxBlk->pRxWI->RxWITID;
+	unsigned char Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
+	unsigned char TID = pRxBlk->pRxWI->RxWITID;
 
 
 	if (!RX_BLK_TEST_FLAG(pRxBlk, fRX_AMSDU) &&  (pRxBlk->DataSize > MAX_RX_PKT_LEN))
@@ -1874,7 +1874,7 @@ VOID Indicate_AMPDU_Packet(
 		err_size++;
 		if (err_size > 20) {
 			 DBGPRINT(RT_DEBUG_TRACE, ("AMPDU DataSize = %d\n", pRxBlk->DataSize));
-			 hex_dump("802.11 Header", (UCHAR *)pRxBlk->pHeader, 24);
+			 hex_dump("802.11 Header", (unsigned char *)pRxBlk->pHeader, 24);
 			 hex_dump("Payload", pRxBlk->pData, 64);
 			 err_size = 0;
 		}
@@ -2003,14 +2003,14 @@ VOID Indicate_AMPDU_Packet(
 VOID Indicate_AMPDU_Packet_Hdr_Trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk,
-	IN	UCHAR			FromWhichBSSID)
+	IN	unsigned char			FromWhichBSSID)
 {
 	USHORT Idx;
 	PBA_REC_ENTRY pBAEntry = NULL;
 	unsigned short Sequence = pRxBlk->pHeader->Sequence;
 	unsigned long Now32;
-	UCHAR Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
-	UCHAR TID = pRxBlk->pRxWI->RxWITID;
+	unsigned char Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
+	unsigned char TID = pRxBlk->pRxWI->RxWITID;
 
 
 	if (!RX_BLK_TEST_FLAG(pRxBlk, fRX_AMSDU) &&  (pRxBlk->TransDataSize > 1514))
@@ -2020,7 +2020,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 		err_size++;
 		if (err_size > 20) {
 			 DBGPRINT(RT_DEBUG_TRACE, ("AMPDU DataSize = %d\n", pRxBlk->DataSize));
-			 hex_dump("802.11 Header", (UCHAR *)pRxBlk->pHeader, 24);
+			 hex_dump("802.11 Header", (unsigned char *)pRxBlk->pHeader, 24);
 			 hex_dump("Payload", pRxBlk->pData, 64);
 			 err_size = 0;
 		}
@@ -2145,9 +2145,9 @@ VOID BaReOrderingBufferMaintain(
     IN PRTMP_ADAPTER pAd)
 {
     unsigned long Now32;
-    UCHAR Wcid;
+    unsigned char Wcid;
     USHORT Idx;
-    UCHAR TID;
+    unsigned char TID;
     PBA_REC_ENTRY pBAEntry = NULL;
     PMAC_TABLE_ENTRY pEntry = NULL;
  

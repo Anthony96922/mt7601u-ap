@@ -82,7 +82,7 @@ VOID MulticastFilterTableInit(
 {
 	/* Initialize MAC table and allocate spin lock */
 /*	*ppMulticastFilterTable = kmalloc(sizeof(MULTICAST_FILTER_TABLE), MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (UCHAR **)ppMulticastFilterTable, sizeof(MULTICAST_FILTER_TABLE));
+	os_alloc_mem(NULL, (unsigned char **)ppMulticastFilterTable, sizeof(MULTICAST_FILTER_TABLE));
 	if (*ppMulticastFilterTable == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s unable to alloc memory for Multicase filter table, size=%d\n",
@@ -191,7 +191,7 @@ BOOLEAN MulticastFilterTableInsertEntry(
 	IN PNET_DEV dev,
 	IN MulticastFilterEntryType type)
 {
-	UCHAR HashIdx;
+	unsigned char HashIdx;
 	int i;
 	MULTICAST_FILTER_TABLE_ENTRY *pEntry = NULL, *pCurrEntry, *pPrevEntry;
 	PMEMBER_ENTRY pMemberEntry;
@@ -374,7 +374,7 @@ BOOLEAN MulticastFilterTableDeleteEntry(
 		{
 			/*USHORT Aid = MCAST_WCID; */
 			/*SST	Sst = SST_ASSOC; */
-			/*UCHAR PsMode = PWR_ACTIVE, Rate; */
+			/*unsigned char PsMode = PWR_ACTIVE, Rate; */
 			/*if(APSsPsInquiry(pAd, pMemberAddr, &Sst, &Aid, &PsMode, &Rate)) */
 			DeleteIgmpMember(pMulticastFilterTable, &pEntry->MemberList, pMemberAddr);
 			if (IgmpMemberCnt(&pEntry->MemberList) > 0)
@@ -496,22 +496,22 @@ VOID IGMPSnooping(
 {
 	INT i;
 	INT IpHeaderLen;
-	UCHAR GroupType;
+	unsigned char GroupType;
 	unsigned short numOfGroup;
-	UCHAR IgmpVerType;
+	unsigned char IgmpVerType;
 	unsigned char * pIgmpHeader;
 	unsigned char * pGroup;
-	UCHAR AuxDataLen;
+	unsigned char AuxDataLen;
 	unsigned short numOfSources;
 	unsigned char * pGroupIpAddr;
-	UCHAR GroupMacAddr[6];
+	unsigned char GroupMacAddr[6];
 	unsigned char * pGroupMacAddr = (unsigned char *)&GroupMacAddr;
 
 	if(isIgmpPkt(pDstMacAddr, pIpHeader))
 	{
 		IpHeaderLen = (*(pIpHeader + 2) & 0x0f) * 4;
 		pIgmpHeader = pIpHeader + 2 + IpHeaderLen;
-		IgmpVerType = (UCHAR)(*(pIgmpHeader));
+		IgmpVerType = (unsigned char)(*(pIgmpHeader));
 
 		DBGPRINT(RT_DEBUG_TRACE, ("IGMP type=%0x\n", IgmpVerType));
 
@@ -539,8 +539,8 @@ VOID IGMPSnooping(
 			pGroup = (unsigned char *)(pIgmpHeader + 8);
 			for (i=0; i < numOfGroup; i++)
 			{
-				GroupType = (UCHAR)(*pGroup);
-				AuxDataLen = (UCHAR)(*(pGroup + 1));
+				GroupType = (unsigned char)(*pGroup);
+				AuxDataLen = (unsigned char)(*(pGroup + 1));
 				numOfSources = ntohs(*((unsigned short *)(pGroup + 2)));
 				pGroupIpAddr = (unsigned char *)(pGroup + 4);
 				DBGPRINT(RT_DEBUG_TRACE, ("IGMPv3 Type=%d, ADL=%d, numOfSource=%d\n", 
@@ -600,14 +600,14 @@ BOOLEAN isIgmpPkt(
 	IN unsigned char * pIpHeader)
 {
 	unsigned short IpProtocol = ntohs(*((unsigned short *)(pIpHeader)));
-	UCHAR IgmpProtocol;
+	unsigned char IgmpProtocol;
 
 	if(!isIgmpMacAddr(pDstMacAddr))
 		return FALSE;
 
 	if(IpProtocol == ETH_P_IP)
 	{
-		IgmpProtocol = (UCHAR)*(pIpHeader + 11);
+		IgmpProtocol = (unsigned char)*(pIpHeader + 11);
 		if(IgmpProtocol == IGMP_PROTOCOL_DESCRIPTOR)
 				return TRUE;
 	}
@@ -718,7 +718,7 @@ static VOID DeleteIgmpMemberList(
 }
 
 
-UCHAR IgmpMemberCnt(
+unsigned char IgmpMemberCnt(
 	IN PLIST_HEADER pList)
 {
 	if(pList == NULL)
@@ -781,13 +781,13 @@ INT Set_IgmpSn_AddEntry_Proc(
 	BOOLEAN bGroupId = 1;
 	char * value;
 	char * thisChar;
-	UCHAR IpAddr[4];
-	UCHAR Addr[ETH_LENGTH_OF_ADDRESS];
-	UCHAR GroupId[ETH_LENGTH_OF_ADDRESS];
+	unsigned char IpAddr[4];
+	unsigned char Addr[ETH_LENGTH_OF_ADDRESS];
+	unsigned char GroupId[ETH_LENGTH_OF_ADDRESS];
 	unsigned char * *pAddr = (unsigned char * *)&Addr;
 	PNET_DEV pDev;
 	POS_COOKIE pObj;
-	UCHAR ifIndex;
+	unsigned char ifIndex;
 
 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	ifIndex = pObj->ioctl_if;
@@ -827,7 +827,7 @@ INT Set_IgmpSn_AddEntry_Proc(
 				else
 					return FALSE;  /*Invalid */
 
-				IpAddr[i] = (UCHAR)simple_strtol(value, NULL, 10);
+				IpAddr[i] = (unsigned char)simple_strtol(value, NULL, 10);
 				i++;
 			}
 
@@ -870,13 +870,13 @@ INT Set_IgmpSn_DelEntry_Proc(
 	BOOLEAN bGroupId = 1;
 	char * value;
 	char * thisChar;
-	UCHAR IpAddr[4];
-	UCHAR Addr[ETH_LENGTH_OF_ADDRESS];
-	UCHAR GroupId[ETH_LENGTH_OF_ADDRESS];
+	unsigned char IpAddr[4];
+	unsigned char Addr[ETH_LENGTH_OF_ADDRESS];
+	unsigned char GroupId[ETH_LENGTH_OF_ADDRESS];
 	unsigned char * *pAddr = (unsigned char * *)&Addr;
 	PNET_DEV pDev;
 	POS_COOKIE pObj;
-	UCHAR ifIndex;
+	unsigned char ifIndex;
 
 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	ifIndex = pObj->ioctl_if;
@@ -916,7 +916,7 @@ INT Set_IgmpSn_DelEntry_Proc(
 				else
 					return FALSE;  /*Invalid */
 
-				IpAddr[i] = (UCHAR)simple_strtol(value, NULL, 10);
+				IpAddr[i] = (unsigned char)simple_strtol(value, NULL, 10);
 				i++;
 			}
 
@@ -977,7 +977,7 @@ NDIS_STATUS IgmpPktInfoQuery(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pSrcBufVA,
 	IN PNDIS_PACKET pPacket,
-	IN UCHAR FromWhichBSSID,
+	IN unsigned char FromWhichBSSID,
 	OUT INT *pInIgmpGroup,
 	OUT PMULTICAST_FILTER_TABLE_ENTRY *ppGroupEntry)
 {
@@ -1008,7 +1008,7 @@ NDIS_STATUS IgmpPktInfoQuery(
 	else if (IS_BROADCAST_MAC_ADDR(pSrcBufVA))
 	{
 		unsigned char * pDstIpAddr = pSrcBufVA + 30; /* point to Destination of Ip address of IP header. */
-		UCHAR GroupMacAddr[6];
+		unsigned char GroupMacAddr[6];
 		unsigned char * pGroupMacAddr = (unsigned char *)&GroupMacAddr;
 
 		ConvertMulticastIP2MAC(pDstIpAddr, (unsigned char * *)&pGroupMacAddr, ETH_P_IP);
@@ -1027,7 +1027,7 @@ NDIS_STATUS IgmpPktClone(
 	IN PNDIS_PACKET pPacket,
 	IN INT IgmpPktInGroup,
 	IN PMULTICAST_FILTER_TABLE_ENTRY pGroupEntry,
-	IN UCHAR QueIdx,
+	IN unsigned char QueIdx,
 	IN unsigned char UserPriority,
 	IN PNET_DEV pNetDev)
 {
@@ -1036,8 +1036,8 @@ NDIS_STATUS IgmpPktClone(
 	MAC_TABLE_ENTRY *pMacEntry = NULL;
 	USHORT Aid;
 	SST	Sst = SST_ASSOC;
-	UCHAR PsMode = PWR_ACTIVE;
-	UCHAR Rate;
+	unsigned char PsMode = PWR_ACTIVE;
+	unsigned char Rate;
 	unsigned long IrqFlags;
 	INT MacEntryIdx;
 	BOOLEAN bContinue;
@@ -1092,7 +1092,7 @@ NDIS_STATUS IgmpPktClone(
 			if ((pSkbClone)
 			)
 			{
-				RTMP_SET_PACKET_WCID(pSkbClone, (UCHAR)pMacEntry->Aid);
+				RTMP_SET_PACKET_WCID(pSkbClone, (unsigned char)pMacEntry->Aid);
 				/* Pkt type must set to PKTSRC_NDIS. */
 				/* It cause of the deason that APHardTransmit() */
 				/* doesn't handle PKTSRC_DRIVER pkt type in version 1.3.0.0. */
@@ -1420,13 +1420,13 @@ VOID MLDSnooping(
 	IN PNET_DEV pDev)
 {
 	INT i;
-	UCHAR GroupType;
+	unsigned char GroupType;
 	unsigned short numOfGroup;
 	unsigned char * pGroup;
-	UCHAR AuxDataLen;
+	unsigned char AuxDataLen;
 	unsigned short numOfSources;
 	unsigned char * pGroupIpAddr;
-	UCHAR GroupMacAddr[6];
+	unsigned char GroupMacAddr[6];
 	unsigned char * pGroupMacAddr = (unsigned char *)&GroupMacAddr;
 
 	unsigned char MldType;
@@ -1461,8 +1461,8 @@ VOID MLDSnooping(
 				pGroup = (unsigned char *)(pMldHeader + 8);
 				for (i=0; i < numOfGroup; i++)
 				{
-					GroupType = (UCHAR)(*pGroup);
-					AuxDataLen = (UCHAR)(*(pGroup + 1));
+					GroupType = (unsigned char)(*pGroup);
+					AuxDataLen = (unsigned char)(*(pGroup + 1));
 					numOfSources = ntohs(*((unsigned short *)(pGroup + 2)));
 					pGroupIpAddr = (unsigned char *)(pGroup + 4);
 					DBGPRINT(RT_DEBUG_TRACE, ("MLDv2 Type=%d, ADL=%d, numOfSource=%d\n", 

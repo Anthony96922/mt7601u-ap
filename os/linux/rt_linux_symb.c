@@ -207,7 +207,7 @@ EXPORT_SYMBOL(RtmpOsWlanEventSet);
 
 /* cfg80211 */
 #ifdef RT_CFG80211_SUPPORT
-extern UCHAR Cfg80211_Chan[];
+extern unsigned char Cfg80211_Chan[];
 EXPORT_SYMBOL(CFG80211OS_UnRegister);
 EXPORT_SYMBOL(CFG80211_SupBandInit);
 EXPORT_SYMBOL(Cfg80211_Chan);

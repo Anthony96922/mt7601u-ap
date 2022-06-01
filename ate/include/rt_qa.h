@@ -43,7 +43,7 @@ typedef struct ate_racfghdr {
 	USHORT		length;
 	USHORT		sequence;
 	USHORT		status;
-	UCHAR		data[2046];
+	unsigned char		data[2046];
 }  __attribute__((packed))RACFGHDR, *pRACFGHDR;
 
 /* Stop Transmission */

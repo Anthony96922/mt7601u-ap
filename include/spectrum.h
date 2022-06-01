@@ -75,7 +75,7 @@ VOID EnqueueMeasurementRep(
 VOID EnqueueTPCReq(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
-	IN UCHAR DialogToken);
+	IN unsigned char DialogToken);
 
 /*
 	==========================================================================

@@ -36,16 +36,16 @@ BOOLEAN RTMPSpoofedMgmtDetection(
 	IN CHAR				Rssi0,
 	IN CHAR				Rssi1,
 	IN CHAR				Rssi2,
-	IN UCHAR			AntSel);
+	IN unsigned char			AntSel);
 
 VOID RTMPConflictSsidDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pSsid,
-	IN UCHAR			SsidLen,
+	IN unsigned char			SsidLen,
 	IN CHAR				Rssi0,
 	IN CHAR				Rssi1,
 	IN CHAR				Rssi2,
-	IN UCHAR			AntSel);
+	IN unsigned char			AntSel);
 
 BOOLEAN RTMPReplayAttackDetection(
 	IN PRTMP_ADAPTER	pAd,
@@ -53,8 +53,8 @@ BOOLEAN RTMPReplayAttackDetection(
 	IN CHAR				Rssi0,
 	IN CHAR				Rssi1,
 	IN CHAR				Rssi2,
-	IN UCHAR			AntSel,
-	IN UCHAR			BW);
+	IN unsigned char			AntSel,
+	IN unsigned char			BW);
 
 VOID RTMPUpdateStaMgmtCounter(
 	IN PRTMP_ADAPTER	pAd,

@@ -967,7 +967,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 /*(this value also as MAC(on-chip WCID) table index) */
 /* 0x80~0xff: TX to a WDS link. b0~6: WDS index */
 #define RTMP_SET_PACKET_WCID(_p, _wdsidx)		(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+2] = _wdsidx)
-#define RTMP_GET_PACKET_WCID(_p)          		((UCHAR)(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+2]))
+#define RTMP_GET_PACKET_WCID(_p)          		((unsigned char)(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+2]))
 
 /* 0xff: PKTSRC_NDIS, others: local TX buffer index. This value affects how to a packet */
 #define RTMP_SET_PACKET_SOURCE(_p, _pktsrc)		(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+3] = _pktsrc)

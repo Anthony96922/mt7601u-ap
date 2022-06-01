@@ -42,9 +42,9 @@
 BOOLEAN ApWdsAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
-	OUT UCHAR		*pWcid)
+	OUT unsigned char		*pWcid)
 {
-	UCHAR wdsIndex;
+	unsigned char wdsIndex;
 	BOOLEAN	allowed;
 		
 	/*DBGPRINT(RT_DEBUG_TRACE, ("ApCliAllowToSendPacket():Packet to ApCli interface!\n")); */
@@ -53,7 +53,7 @@ BOOLEAN ApWdsAllowToSendPacket(
 	{
 		/* 3. send out the packet.   b7 as WDS bit, b0-6 as WDS index when b7==1 */
 
-		*pWcid = (UCHAR)pAd->WdsTab.WdsEntry[wdsIndex].MacTabMatchWCID;
+		*pWcid = (unsigned char)pAd->WdsTab.WdsEntry[wdsIndex].MacTabMatchWCID;
 		/*RTMP_SET_PACKET_WCID(pPacket, pAd->WdsTab.WdsEntry[wdsIndex].MacTabMatchWCID); // to all WDS links. */
 		
 		allowed = TRUE;
@@ -269,14 +269,14 @@ MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 				pEntry->HTPhyMode.field.MCS = pAd->WdsTab.WdsEntry[WdsTabIdx].DesiredTransmitSetting.field.MCS;
 				pEntry->bAutoTxRateSwitch = FALSE;
 				/* If the legacy mode is set, overwrite the transmit setting of this entry. */
-				RTMPUpdateLegacyTxSetting((UCHAR)pAd->WdsTab.WdsEntry[WdsTabIdx].DesiredTransmitSetting.field.FixedTxMode, pEntry);
+				RTMPUpdateLegacyTxSetting((unsigned char)pAd->WdsTab.WdsEntry[WdsTabIdx].DesiredTransmitSetting.field.FixedTxMode, pEntry);
 			}
 			else
 			{
 				pEntry->bAutoTxRateSwitch = TRUE;
 			}
 			
-			pAd->WdsTab.WdsEntry[WdsTabIdx].MacTabMatchWCID = (UCHAR)pEntry->Aid;
+			pAd->WdsTab.WdsEntry[WdsTabIdx].MacTabMatchWCID = (unsigned char)pEntry->Aid;
 			pEntry->MatchWDSTabIdx = WdsTabIdx;
 
 			AsicUpdateWdsEncryption(pAd, pEntry->Aid);
@@ -291,7 +291,7 @@ MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 
 MAC_TABLE_ENTRY *WdsTableLookupByWcid(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR wcid,
+	IN unsigned char wcid,
 	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount)
 {
@@ -373,7 +373,7 @@ MAC_TABLE_ENTRY *WdsTableLookup(
 
 MAC_TABLE_ENTRY *FindWdsEntry(
 	IN PRTMP_ADAPTER	pAd,
-	IN UCHAR 			Wcid,
+	IN unsigned char 			Wcid,
 	IN unsigned char *			pAddr,
 	IN unsigned int			PhyMode)
 {
@@ -393,7 +393,7 @@ MAC_TABLE_ENTRY *FindWdsEntry(
 			/* user doesn't specific a phy mode for WDS link. */
 			if (pAd->WdsTab.WdsEntry[WdsIdx].PhyMode == 0xff)
 				pAd->WdsTab.WdsEntry[WdsIdx].PhyMode = PhyMode;
-			pEntry = MacTableInsertWDSEntry(pAd, pAddr, (UCHAR)WdsIdx);
+			pEntry = MacTableInsertWDSEntry(pAd, pAddr, (unsigned char)WdsIdx);
 
 			RTMPSetSupportMCS(pAd,
 							OPMODE_AP,
@@ -429,14 +429,14 @@ MAC_TABLE_ENTRY *FindWdsEntry(
 VOID WdsTableMaintenance(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR idx;
+	unsigned char idx;
 
 	if (pAd->WdsTab.Mode != WDS_LAZY_MODE)
 		return;
 
 	for (idx = 0; idx < pAd->WdsTab.Size; idx++)
 	{
-		UCHAR wcid = pAd->WdsTab.WdsEntry[idx].MacTabMatchWCID;
+		unsigned char wcid = pAd->WdsTab.WdsEntry[idx].MacTabMatchWCID;
 		PMAC_TABLE_ENTRY pEntry = &pAd->MacTab.Content[wcid];
 
 		if(!IS_ENTRY_WDS(pEntry))
@@ -545,7 +545,7 @@ VOID AsicUpdateWdsRxWCIDTable(
 
 VOID AsicUpdateWdsEncryption(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR wcid)
+	IN unsigned char wcid)
 {
 	UINT WdsIdex;
 	PMAC_TABLE_ENTRY pEntry = NULL;
@@ -602,14 +602,14 @@ VOID WdsPeerBeaconProc(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN USHORT CapabilityInfo,
-	IN UCHAR MaxSupportedRateIn500Kbps,
-	IN UCHAR MaxSupportedRateLen,
+	IN unsigned char MaxSupportedRateIn500Kbps,
+	IN unsigned char MaxSupportedRateLen,
 	IN BOOLEAN bWmmCapable,
 	IN unsigned long ClientRalinkIe,
 	IN HT_CAPABILITY_IE *pHtCapability,
-	IN UCHAR HtCapabilityLen)
+	IN unsigned char HtCapabilityLen)
 {
-	UCHAR MaxSupportedRate = RATE_11;
+	unsigned char MaxSupportedRate = RATE_11;
 
 	MaxSupportedRate = dot11_2_ra_rate(MaxSupportedRateIn500Kbps);
 
@@ -683,8 +683,8 @@ VOID WdsPeerBeaconProc(
 			pEntry->MaxHTPhyMode.field.STBC = (pHtCapability->HtCapInfo.RxSTBC & (pAd->CommonCfg.DesiredHtPhy.TxSTBC));
 			pEntry->MpduDensity = pHtCapability->HtCapParm.MpduDensity;
 			pEntry->MaxRAmpduFactor = pHtCapability->HtCapParm.MaxRAmpduFactor;
-			pEntry->MmpsMode = (UCHAR)pHtCapability->HtCapInfo.MimoPs;
-			pEntry->AMsduSize = (UCHAR)pHtCapability->HtCapInfo.AMsduSize;
+			pEntry->MmpsMode = (unsigned char)pHtCapability->HtCapInfo.MimoPs;
+			pEntry->AMsduSize = (unsigned char)pHtCapability->HtCapInfo.AMsduSize;
 			if (pAd->CommonCfg.DesiredHtPhy.AmsduEnable && (pAd->CommonCfg.REGBACapability.field.AutoBA == FALSE))
 				CLIENT_STATUS_SET_FLAG(pEntry, fCLIENT_STATUS_AMSDU_INUSED);
 			if (pHtCapability->HtCapInfo.ShortGIfor20)
@@ -828,9 +828,9 @@ VOID rtmp_read_wds_from_file(
 	INT			i=0, j;
 	STRING		tok_str[16];
 	BOOLEAN		bUsePrevFormat = FALSE;
-	UCHAR		macAddress[MAC_ADDR_LEN];
-	UCHAR	    keyMaterial[40];	
-	UCHAR		KeyLen, CipherAlg = CIPHER_NONE, KeyIdx;
+	unsigned char		macAddress[MAC_ADDR_LEN];
+	unsigned char	    keyMaterial[40];	
+	unsigned char		KeyLen, CipherAlg = CIPHER_NONE, KeyIdx;
 	PRT_802_11_WDS_ENTRY pWdsEntry;
 		
 	/*WdsPhyMode */
@@ -1037,9 +1037,9 @@ VOID rtmp_read_wds_from_file(
 	{
 		for (i = 0, macptr = rstrtok(tmpbuf,";"); (macptr && i < MAX_WDS_ENTRY); macptr = rstrtok(NULL,";"), i++)
 		{
-			KeyIdx = (UCHAR) simple_strtol(macptr, 0, 10);
+			KeyIdx = (unsigned char) simple_strtol(macptr, 0, 10);
 			if((KeyIdx >= 1 ) && (KeyIdx <= 4))
-				pAd->WdsTab.WdsEntry[i].KeyIdx = (UCHAR) (KeyIdx - 1);
+				pAd->WdsTab.WdsEntry[i].KeyIdx = (unsigned char) (KeyIdx - 1);
 			else
 				pAd->WdsTab.WdsEntry[i].KeyIdx = 0;
 
@@ -1155,19 +1155,19 @@ VOID WdsPrepareWepKeyFromMainBss(
 		if (pAd->WdsTab.WdsEntry[i].WepStatus == Ndis802_11Encryption1Enabled &&
 			pAd->WdsTab.WdsEntry[i].WdsKey.KeyLen == 0)
 		{
-			UCHAR	main_bss_keyid = pAd->ApCfg.MBSSID[MAIN_MBSSID].DefaultKeyId;
+			unsigned char	main_bss_keyid = pAd->ApCfg.MBSSID[MAIN_MBSSID].DefaultKeyId;
 		
 			if (pAd->ApCfg.MBSSID[MAIN_MBSSID].WepStatus == Ndis802_11Encryption1Enabled && 
 				(pAd->SharedKey[MAIN_MBSSID][main_bss_keyid].KeyLen == 5 ||
 				 pAd->SharedKey[MAIN_MBSSID][main_bss_keyid].KeyLen == 13))	
 			{
-				DBGPRINT(RT_DEBUG_TRACE, ("Duplicate IF/WDS%d wep key from main_bssid \n", (UCHAR)i));
+				DBGPRINT(RT_DEBUG_TRACE, ("Duplicate IF/WDS%d wep key from main_bssid \n", (unsigned char)i));
 				pAd->WdsTab.WdsEntry[i].KeyIdx = main_bss_keyid;
 				NdisMoveMemory(&pAd->WdsTab.WdsEntry[i].WdsKey, &pAd->SharedKey[MAIN_MBSSID][main_bss_keyid], sizeof(CIPHER_KEY));
 			}
 			else
 			{
-				DBGPRINT(RT_DEBUG_TRACE, ("No available wep key for IF/WDS%d, reset its encryption as OPEN \n", (UCHAR)i));
+				DBGPRINT(RT_DEBUG_TRACE, ("No available wep key for IF/WDS%d, reset its encryption as OPEN \n", (unsigned char)i));
 				pAd->WdsTab.WdsEntry[i].WepStatus = Ndis802_11EncryptionDisabled;
 				NdisZeroMemory(&pAd->WdsTab.WdsEntry[i].WdsKey, sizeof(CIPHER_KEY));
 			}
@@ -1243,7 +1243,7 @@ int WDS_PacketSend(
 	IN	PNET_DEV					dev,
 	IN	RTMP_NET_PACKET_TRANSMIT	Func)
 {
-	UCHAR i;
+	unsigned char i;
 	RTMP_ADAPTER *pAd;
 	PNDIS_PACKET pPacket = (PNDIS_PACKET) pSkb;
 

@@ -114,25 +114,25 @@ typedef	struct GNU_PACKED _IV_CONTROL_
 	{
 		struct GNU_PACKED
 		{
-			UCHAR		rc0;
-			UCHAR		rc1;
-			UCHAR		rc2;
+			unsigned char		rc0;
+			unsigned char		rc1;
+			unsigned char		rc2;
 
 			union GNU_PACKED
 			{
 				struct GNU_PACKED
 				{
 #ifdef RT_BIG_ENDIAN
-					UCHAR	KeyID:2;
-					UCHAR	ExtIV:1;
-					UCHAR	Rsvd:5;
+					unsigned char	KeyID:2;
+					unsigned char	ExtIV:1;
+					unsigned char	Rsvd:5;
 #else
-					UCHAR	Rsvd:5;
-					UCHAR	ExtIV:1;
-					UCHAR	KeyID:2;
+					unsigned char	Rsvd:5;
+					unsigned char	ExtIV:1;
+					unsigned char	KeyID:2;
 #endif
 				}	field;
-				UCHAR		Byte;
+				unsigned char		Byte;
 			}	CONTROL;
 		}	field;
 		
@@ -147,7 +147,7 @@ typedef	struct GNU_PACKED _IV_CONTROL_
 	========================================================================
 
 	Routine	Description:
-		Convert from UCHAR[] to unsigned long in a portable way 
+		Convert from unsigned char[] to unsigned long in a portable way 
 		
 	Arguments:
       pMICKey		pointer to MIC Key
@@ -177,10 +177,10 @@ unsigned long	RTMPTkipGetUInt32(
 	========================================================================
 
 	Routine	Description:
-		Convert from unsigned long to UCHAR[] in a portable way 
+		Convert from unsigned long to unsigned char[] in a portable way 
 		
 	Arguments:
-      pDst			pointer to destination for convert unsigned long to UCHAR[]
+      pDst			pointer to destination for convert unsigned long to unsigned char[]
       val			the value for convert
 		
 	Return Value:
@@ -200,7 +200,7 @@ VOID	RTMPTkipPutUInt32(
 	
 	for(i = 0; i < 4; i++) 
 	{ 
-		*pDst++ = (UCHAR) (val & 0xff); 
+		*pDst++ = (unsigned char) (val & 0xff); 
 		val >>= 8; 
 	} 
 } 
@@ -259,7 +259,7 @@ VOID RTMPTkipSetMICKey(
 */
 VOID	RTMPTkipAppendByte( 
 	IN	PTKIP_KEY_INFO	pTkip,	
-	IN	UCHAR 			uChar)
+	IN	unsigned char 			uChar)
 { 
 	/* Append the byte to our word-sized buffer */
 	pTkip->M |= (uChar << (8* pTkip->nBytesInM)); 
@@ -379,7 +379,7 @@ VOID	RTMPInitMICEngine(
 	IN	unsigned char *			pKey,
 	IN	unsigned char *			pDA,
 	IN	unsigned char *			pSA,
-	IN  UCHAR           UserPriority,
+	IN  unsigned char           UserPriority,
 	IN	unsigned char *			pMICKey)
 {
 	unsigned long Priority = UserPriority;
@@ -424,10 +424,10 @@ BOOLEAN	RTMPTkipCompareMICValue(
 	IN	unsigned char *			pDA,
 	IN	unsigned char *			pSA,
 	IN	unsigned char *			pMICKey,
-	IN	UCHAR			UserPriority,
+	IN	unsigned char			UserPriority,
 	IN	UINT			Len)
 {
-	UCHAR	OldMic[8];
+	unsigned char	OldMic[8];
 	unsigned long	Priority = UserPriority;
 
 	/* Init MIC value calculation*/
@@ -487,14 +487,14 @@ VOID	RTMPCalculateMICValue(
 	IN	PNDIS_PACKET	pPacket,
 	IN	unsigned char *			pEncap,
 	IN	PCIPHER_KEY		pKey,
-	IN	UCHAR			apidx)
+	IN	unsigned char			apidx)
 {
 	PACKET_INFO		PacketInfo;
 	unsigned char *			pSrcBufVA;
 	UINT			SrcBufLen;
 	unsigned char *			pSrc;
-    UCHAR           UserPriority;
-	UCHAR			vlan_offset = 0;
+    unsigned char           UserPriority;
+	unsigned char			vlan_offset = 0;
 
 	RTMP_QueryPacketInfo(pPacket, &PacketInfo, &pSrcBufVA, &SrcBufLen);
 
@@ -608,11 +608,11 @@ UINT rotr1(UINT a)
 } 
 
 VOID RTMPTkipMixKey(
-	UCHAR *key, 
-	UCHAR *ta, 
+	unsigned char *key, 
+	unsigned char *ta, 
 	unsigned long pnl, /* Least significant 16 bits of PN */
 	unsigned long pnh, /* Most significant 32 bits of PN */ 
-	UCHAR *rc4key, 
+	unsigned char *rc4key, 
 	UINT *p1k)
 {
 
@@ -715,7 +715,7 @@ VOID RTMPTkipMixKey(
 BOOLEAN RTMPSoftDecryptTKIP(
 	IN 		PRTMP_ADAPTER 	pAd,
 	IN 		unsigned char *			pHdr,
-	IN 		UCHAR    		UserPriority,
+	IN 		unsigned char    		UserPriority,
 	IN 		PCIPHER_KEY		pKey,
 	INOUT 	unsigned char *			pData,
 	IN 		unsigned short			*DataByteCnt)
@@ -727,10 +727,10 @@ BOOLEAN RTMPSoftDecryptTKIP(
     unsigned char			to_ds;
 	unsigned char			a4_exists;
 	unsigned char			qc_exists;
-	UCHAR			TA[MAC_ADDR_LEN];
-	UCHAR			DA[MAC_ADDR_LEN];
-	UCHAR			SA[MAC_ADDR_LEN];	
-	UCHAR			RC4Key[16];
+	unsigned char			TA[MAC_ADDR_LEN];
+	unsigned char			DA[MAC_ADDR_LEN];
+	unsigned char			SA[MAC_ADDR_LEN];	
+	unsigned char			RC4Key[16];
 	UINT			p1k[5]; /*for mix_key;*/
 	unsigned long			pnl;/* Least significant 16 bits of PN */
 	unsigned long			pnh;/* Most significant 32 bits of PN */ 
@@ -741,8 +741,8 @@ BOOLEAN RTMPSoftDecryptTKIP(
 	unsigned int			ciphertext_len;
 	UINT			crc32 = 0;
 	UINT			trailfcs = 0;
-	UCHAR			MIC[8];
-	UCHAR			TrailMIC[8];
+	unsigned char			MIC[8];
+	unsigned char			TrailMIC[8];
 
 #ifdef RT_BIG_ENDIAN
 	RTMPFrameEndianChange(pAd, pHdr, DIR_READ, FALSE);
@@ -874,19 +874,19 @@ BOOLEAN RTMPSoftDecryptTKIP(
 	========================================================================
 */
 VOID TKIP_GTK_KEY_WRAP( 
-    IN UCHAR    *key,
-    IN UCHAR	*iv,
-    IN UCHAR    *input_text,
+    IN unsigned char    *key,
+    IN unsigned char	*iv,
+    IN unsigned char    *input_text,
     IN unsigned int    input_len,
-    OUT UCHAR   *output_text)
+    OUT unsigned char   *output_text)
 {	
-	UCHAR	ekey[LEN_KEY_DESC_IV + LEN_PTK_KEK];	
+	unsigned char	ekey[LEN_KEY_DESC_IV + LEN_PTK_KEK];	
 /*	ARC4_CTX_STRUC ARC4_CTX;*/
 	ARC4_CTX_STRUC *pARC4_CTX = NULL;
 
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&pARC4_CTX, sizeof(ARC4_CTX_STRUC));
+	os_alloc_mem(NULL, (unsigned char **)&pARC4_CTX, sizeof(ARC4_CTX_STRUC));
 	if (pARC4_CTX == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -912,11 +912,11 @@ VOID TKIP_GTK_KEY_WRAP(
 }
 
 VOID TKIP_GTK_KEY_UNWRAP( 
-    IN UCHAR    *key,
-    IN UCHAR	*iv,
-    IN UCHAR    *input_text,
+    IN unsigned char    *key,
+    IN unsigned char	*iv,
+    IN unsigned char    *input_text,
     IN unsigned int    input_len,
-    OUT UCHAR   *output_text)
+    OUT unsigned char   *output_text)
 {
 	TKIP_GTK_KEY_WRAP(key, iv, input_text, input_len, output_text);
 }

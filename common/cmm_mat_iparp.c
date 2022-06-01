@@ -49,7 +49,7 @@ static unsigned char * MATProto_ARP_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb,un
 typedef struct _IPMacMappingEntry
 {
 	UINT	ipAddr;	/* In network order */
-	UCHAR	macAddr[MAC_ADDR_LEN];
+	unsigned char	macAddr[MAC_ADDR_LEN];
 	unsigned long	lastTime;
 	struct _IPMacMappingEntry *pNext;
 }IPMacMappingEntry, *PIPMacMappingEntry;
@@ -59,7 +59,7 @@ typedef struct _IPMacMappingTable
 {
 	BOOLEAN			valid;
 	IPMacMappingEntry *hash[MAT_MAX_HASH_ENTRY_SUPPORT+1]; /*0~63 for specific station, 64 for broadcast MacAddress */
-	UCHAR			curMcastAddr[MAC_ADDR_LEN]; /* The multicast mac addr for currecnt received packet destined to ipv4 multicast addr */
+	unsigned char			curMcastAddr[MAC_ADDR_LEN]; /* The multicast mac addr for currecnt received packet destined to ipv4 multicast addr */
 }IPMacMappingTable;
 
 
@@ -275,7 +275,7 @@ static unsigned char * IPMacTableLookUp(
 	if (IS_MULTICAST_IP(ip))	
 	{
 		pGroupMacAddr = (unsigned char *)(&pIPMacTable->curMcastAddr);
-		ConvertMulticastIP2MAC((unsigned char *) &ipAddr, (UCHAR **)(&pGroupMacAddr), ETH_P_IP);
+		ConvertMulticastIP2MAC((unsigned char *) &ipAddr, (unsigned char **)(&pGroupMacAddr), ETH_P_IP);
 		return pIPMacTable->curMcastAddr;	
 	}
 
@@ -361,7 +361,7 @@ static NDIS_STATUS IPMacTable_init(
 	else
 	{
 /*		pMatCfg->MatTableSet.IPMacTable = kmalloc(sizeof(IPMacMappingTable), GFP_KERNEL); */
-		os_alloc_mem_suspend(NULL, (UCHAR **)&(pMatCfg->MatTableSet.IPMacTable), sizeof(IPMacMappingTable));
+		os_alloc_mem_suspend(NULL, (unsigned char **)&(pMatCfg->MatTableSet.IPMacTable), sizeof(IPMacMappingTable));
 		if (pMatCfg->MatTableSet.IPMacTable)
 		{
 			pIPMacTable = (IPMacMappingTable *)pMatCfg->MatTableSet.IPMacTable;
@@ -559,7 +559,7 @@ static unsigned char * MATProto_IP_Rx(
 	return pMacAddr;
 }
 
-static UCHAR  DHCP_MAGIC[]= {0x63, 0x82, 0x53, 0x63};
+static unsigned char  DHCP_MAGIC[]= {0x63, 0x82, 0x53, 0x63};
 static unsigned char * MATProto_IP_Tx(
 	IN MAT_STRUCT 		*pMatCfg,
 	IN PNDIS_PACKET		pSkb,

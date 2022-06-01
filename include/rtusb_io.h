@@ -93,7 +93,7 @@
 typedef struct _CMDHandler_TLV {
 	USHORT Offset;
 	USHORT Length;
-	UCHAR DataFirst;
+	unsigned char DataFirst;
 } CMDHandler_TLV, *PCMDHandler_TLV;
 
 
@@ -101,13 +101,13 @@ typedef struct _RT_SET_ASIC_WCID {
 	unsigned long WCID;		/* mechanism for rekeying: 0:disable, 1: time-based, 2: packet-based */
 	unsigned long SetTid;		/* time-based: seconds, packet-based: kilo-packets */
 	unsigned long DeleteTid;	/* time-based: seconds, packet-based: kilo-packets */
-	UCHAR Addr[MAC_ADDR_LEN];	/* avoid in interrupt when write key */
+	unsigned char Addr[MAC_ADDR_LEN];	/* avoid in interrupt when write key */
 } RT_SET_ASIC_WCID, *PRT_SET_ASIC_WCID;
 
 typedef struct _RT_ASIC_WCID_SEC_INFO {
-	UCHAR BssIdx;
-	UCHAR KeyIdx;
-	UCHAR CipherAlg;
+	unsigned char BssIdx;
+	unsigned char KeyIdx;
+	unsigned char CipherAlg;
 	unsigned char Wcid;
 	unsigned char KeyTabFlag;
 } RT_ASIC_WCID_SEC_INFO, *PRT_ASIC_WCID_SEC_INFO;
@@ -119,9 +119,9 @@ typedef struct _RT_ASIC_WCID_IVEIV_ENTRY {
 } RT_ASIC_WCID_IVEIV_ENTRY, *PRT_ASIC_WCID_IVEIV_ENTRY;
 
 typedef struct _RT_ASIC_WCID_ATTR_ENTRY {
-	UCHAR BssIdx;
-	UCHAR KeyIdx;
-	UCHAR CipherAlg;
+	unsigned char BssIdx;
+	unsigned char KeyIdx;
+	unsigned char CipherAlg;
 	unsigned char Wcid;
 	unsigned char KeyTabFlag;
 } RT_ASIC_WCID_ATTR_ENTRY, *PRT_ASIC_WCID_ATTR_ENTRY;
@@ -132,14 +132,14 @@ typedef struct _RT_ASIC_PAIRWISE_KEY {
 } RT_ASIC_PAIRWISE_KEY, *PRT_ASIC_PAIRWISE_KEY;
 
 typedef struct _RT_ASIC_SHARED_KEY {
-	UCHAR BssIndex;
-	UCHAR KeyIdx;
+	unsigned char BssIndex;
+	unsigned char KeyIdx;
 	CIPHER_KEY CipherKey;
 } RT_ASIC_SHARED_KEY, *PRT_ASIC_SHARED_KEY;
 
 typedef struct _RT_ASIC_PROTECT_INFO {
 	USHORT OperationMode;
-	UCHAR SetMask;	
+	unsigned char SetMask;	
 	BOOLEAN bDisableBGProtect;
 	BOOLEAN bNonGFExist;	
 } RT_ASIC_PROTECT_INFO, *PRT_ASIC_PROTECT_INFO;

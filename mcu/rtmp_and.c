@@ -628,22 +628,22 @@ BOOLEAN IsInBandCmdProcessing(PRTMP_ADAPTER pAd)
 }
 
 
-UCHAR GetCmdRspNum(PRTMP_ADAPTER pAd)
+unsigned char GetCmdRspNum(PRTMP_ADAPTER pAd)
 {
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
-	UCHAR Num = 0;
+	unsigned char Num = 0;
 	Num = DlListLen(&MCtrl->CmdRspEventList);
 
 	return Num;
 }
 
 
-static inline UCHAR GetCmdSeq(PRTMP_ADAPTER pAd)
+static inline unsigned char GetCmdSeq(PRTMP_ADAPTER pAd)
 {
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
 	struct CMD_RSP_EVENT *CmdRspEvent, *CmdRspEventTmp;
 	unsigned long IrqFlags;
-	UCHAR TryCount = 0;
+	unsigned char TryCount = 0;
 
 	RTMP_IRQ_LOCK(&MCtrl->CmdRspEventListLock, IrqFlags);
 get_seq:
@@ -687,7 +687,7 @@ USBHST_STATUS USBKickOutCmdComplete(URBCompleteStatus Status, purbb_t pURB, preg
 }
 
 
-INT USBKickOutCmd(PRTMP_ADAPTER pAd, UCHAR *Buf, unsigned int Len)
+INT USBKickOutCmd(PRTMP_ADAPTER pAd, unsigned char *Buf, unsigned int Len)
 {
 	PURB pURB;
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
@@ -778,7 +778,7 @@ error0:
 INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
 {
 	unsigned int VarLen;
-	UCHAR *Pos, *Buf;
+	unsigned char *Pos, *Buf;
 	TXINFO_NMAC_CMD *TxInfoCmd;
 	INT32 Ret = NDIS_STATUS_SUCCESS;
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
@@ -800,7 +800,7 @@ INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
 
 	VarLen = sizeof(*TxInfoCmd) + CmdUnit->u.ANDES.CmdPayloadLen;
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
 	NdisZeroMemory(Buf, VarLen);
 
@@ -816,7 +816,7 @@ INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
 
 		//printk("cmd seq = %d\n", TxInfoCmd->cmd_seq);
 
-		os_alloc_mem(NULL, (UCHAR **)&CmdRspEvent, sizeof(*CmdRspEvent));
+		os_alloc_mem(NULL, (unsigned char **)&CmdRspEvent, sizeof(*CmdRspEvent));
 
 		if (!CmdRspEvent)
 		{
@@ -885,42 +885,42 @@ error:
 	return Ret;
 }
 
-static VOID CmdDoneHandler(PRTMP_ADAPTER pAd, UCHAR *Data)
+static VOID CmdDoneHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID CmdErrorHandler(PRTMP_ADAPTER pAd, UCHAR *Data)
+static VOID CmdErrorHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID CmdRetryHandler(PRTMP_ADAPTER pAd, UCHAR *Data)
+static VOID CmdRetryHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID PwrRspEventHandler(PRTMP_ADAPTER pAd, UCHAR *Data)
+static VOID PwrRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID WowRspEventHandler(PRTMP_ADAPTER pAd, UCHAR *Data)
+static VOID WowRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID CarrierDetectRspEventHandler(PRTMP_ADAPTER pAd, UCHAR *Data)
+static VOID CarrierDetectRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
@@ -928,7 +928,7 @@ static VOID CarrierDetectRspEventHandler(PRTMP_ADAPTER pAd, UCHAR *Data)
 }
 
 
-static VOID DFSDetectRspEventHandler(PRTMP_ADAPTER pAd, UCHAR *Data)
+static VOID DFSDetectRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
@@ -965,7 +965,7 @@ INT AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, 
 	else
 		VarLen = sizeof(Offset) * OffsetNum + 4 * Cnt;
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 
 	Pos = Buf;
 	
@@ -1041,8 +1041,8 @@ INT AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, uns
 		RspLen = sizeof(Offset) * OffsetNum + 4 * Cnt;
 	}
 
-	os_alloc_mem(pAd, (UCHAR **)&CmdBuf, CmdLen);
-	os_alloc_mem(pAd, (UCHAR **)&RspBuf, RspLen);
+	os_alloc_mem(pAd, (unsigned char **)&CmdBuf, CmdLen);
+	os_alloc_mem(pAd, (unsigned char **)&RspBuf, RspLen);
 	
 	Pos = CmdBuf;
 	Pos1 = RspBuf;
@@ -1121,8 +1121,8 @@ INT AndesRandomRead(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	INT32 Ret;
 
-	os_alloc_mem(pAd, (UCHAR **)&CmdBuf, VarLen);
-	os_alloc_mem(pAd, (UCHAR **)&RspBuf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&CmdBuf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&RspBuf, VarLen);
 
 	NdisZeroMemory(CmdBuf, VarLen);
 
@@ -1199,8 +1199,8 @@ INT AndesRFRandomRead(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	INT32 Ret;
 
-	os_alloc_mem(pAd, (UCHAR **)&CmdBuf, VarLen);
-	os_alloc_mem(pAd, (UCHAR **)&RspBuf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&CmdBuf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&RspBuf, VarLen);
 
 	NdisZeroMemory(CmdBuf, VarLen);
 	Pos = CmdBuf;
@@ -1288,7 +1288,7 @@ INT AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num
 	INT32 Ret;
 	BOOLEAN LastPacket = FALSE;
 	
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 
 	Pos = Buf;
 
@@ -1359,7 +1359,7 @@ INT AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned in
 	INT32 Ret;
 	BOOLEAN LastPacket = FALSE;
 	
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 
 	Pos = Buf;
 
@@ -1445,7 +1445,7 @@ INT AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int
 	INT32 Ret;
 	BOOLEAN LastPacket = FALSE;
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
 	Pos = Buf;
 
@@ -1514,7 +1514,7 @@ INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 
 	va_start(argptr, Num);
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
 	Pos = Buf;
 
@@ -1581,7 +1581,7 @@ INT AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigne
 	INT32 Ret;
 	BOOLEAN LastPacket = FALSE;
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
 	Pos = Buf;
 
@@ -1665,7 +1665,7 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 
 	va_start(argptr, Num);
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
 	Pos = Buf;
 
@@ -1748,7 +1748,7 @@ INT AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned 
 	INT32 Ret;
 	BOOLEAN LastPacket = FALSE;
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
 	Pos = Buf;
 
@@ -1826,7 +1826,7 @@ INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 
 	va_start(argptr, Num);
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
 	Pos = Buf;
 
@@ -1913,7 +1913,7 @@ INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLeve
 		VarLen += 12;
 	}
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 
 	Pos = Buf;
 
@@ -1981,7 +1981,7 @@ INT AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param)
 	/* Function ID and Parameter */
 	VarLen = 8;
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 
 	Pos = Buf;
 	
@@ -2028,7 +2028,7 @@ INT AndesCalibrationOP(PRTMP_ADAPTER pAd, unsigned int CalibrationID, unsigned i
 	/* Calibration ID and Parameter */
 	VarLen = 8;
 
-	os_alloc_mem(pAd, (UCHAR **)&Buf, VarLen);
+	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 
 	Pos = Buf;
 	

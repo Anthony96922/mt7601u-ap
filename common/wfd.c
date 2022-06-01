@@ -30,7 +30,7 @@
 #endif /* RT_CFG80211_SUPPORT */
 #endif /* OS_ABL_SUPPORT */
 
-UCHAR WIFIDISPLAY_OUI[] = {0x50, 0x6f, 0x9a, 0x0a};
+unsigned char WIFIDISPLAY_OUI[] = {0x50, 0x6f, 0x9a, 0x0a};
 
 INT Set_WfdEnable_Proc(
     IN  PRTMP_ADAPTER		pAd, 
@@ -104,7 +104,7 @@ INT Set_WfdDeviceType_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
-	UCHAR DeviceType;
+	unsigned char DeviceType;
 
 	DeviceType = simple_strtol(arg, 0, 10);
 
@@ -128,7 +128,7 @@ INT Set_WfdCouple_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
-	UCHAR coupled;
+	unsigned char coupled;
 
 	if (simple_strtol(arg, 0, 10) == 0)
 		coupled = WFD_COUPLED_NOT_SUPPORT;
@@ -272,7 +272,7 @@ INT Set_PeerRtspPort_Proc(
 
 	MAC_TABLE_ENTRY *pEntry;
 	USHORT RtspPort = WFD_RTSP_DEFAULT_PORT;
-	UCHAR P2pIdx = P2P_NOT_FOUND;
+	unsigned char P2pIdx = P2P_NOT_FOUND;
 	PRT_P2P_CONFIG pP2PCtrl = &pAd->P2pCfg;
 	INT i;
 
@@ -316,7 +316,7 @@ VOID WfdMakeWfdIE(
 	OUT	unsigned long *pIeLen)
 {
 	PRT_WFD_CONFIG	pWFDCtrl = &pAd->StaCfg.WfdCfg;
-	UCHAR			WfdIEFixed[6] = {0xdd, 0x0c, 0x50, 0x6f, 0x9a, 0x0a};	 /* Length will be modified later */
+	unsigned char			WfdIEFixed[6] = {0xdd, 0x0c, 0x50, 0x6f, 0x9a, 0x0a};	 /* Length will be modified later */
 	unsigned char *			pData, pBuf;
 	unsigned long			TempLen;
 	unsigned long			Len = 0;
@@ -359,7 +359,7 @@ VOID WfdMakeWfdIE(
 
 unsigned long InsertWfdSubelmtTlv(
 	IN PRTMP_ADAPTER 	pAd,
-	IN UCHAR			SubId,
+	IN unsigned char			SubId,
 	IN unsigned char *			pInBuffer,
 	IN unsigned char *			pOutBuffer,
 	IN UINT				Action)
@@ -410,7 +410,7 @@ unsigned long InsertWfdSubelmtTlv(
 		}
 		case SUBID_WFD_ASSOCIATED_BSSID:
 		{
-			UCHAR AllZero[MAC_ADDR_LEN] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
+			unsigned char AllZero[MAC_ADDR_LEN] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
 
 			if ((Action == ACTION_GAS_INITIAL_REQ) || (Action == ACTION_GAS_INITIAL_RSP))
 			{
@@ -530,7 +530,7 @@ unsigned long InsertWfdSubelmtTlv(
 		case SUBID_WFD_SESSION_INFO:
 		{
 			INT i = 0, NumOfDev = 0; 
-			UCHAR P2pIdx = P2P_NOT_FOUND;
+			unsigned char P2pIdx = P2P_NOT_FOUND;
 			PRT_P2P_TABLE Tab = &pAd->P2pTable;
 
 			if (P2P_GO_ON(pAd)
@@ -601,7 +601,7 @@ unsigned long InsertWfdSubelmtTlv(
 		}
 		case SUBID_WFD_ALTERNATE_MAC_ADDR:
 		{
-			UCHAR AllZero[MAC_ADDR_LEN] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
+			unsigned char AllZero[MAC_ADDR_LEN] = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
 
 			if (!NdisEqualMemory(AllZero, pAd->CurrentAddress, MAC_ADDR_LEN))
 			{
@@ -638,7 +638,7 @@ VOID WfdParseSubElmt(
 	unsigned long		AccuIeLen = 0;
 	unsigned long		Length = 0;
 	unsigned long		AttriLen;
-	UCHAR		offset;
+	unsigned char		offset;
 	BOOLEAN		bTdlsEntry = FALSE;
 
 	DBGPRINT(RT_DEBUG_INFO, ("%s ----->\n", __FUNCTION__));
@@ -773,7 +773,7 @@ VOID WfdParseSubElmt(
 				if (Length >= AccuWfdIELen)
 					break;
 
-				pWfdEid = (PP2PEID_STRUCT)((UCHAR*)pWfdEid + 3 + AttriLen);
+				pWfdEid = (PP2PEID_STRUCT)((unsigned char*)pWfdEid + 3 + AttriLen);
 				AttriLen = pWfdEid->Len[1] + (pWfdEid->Len[0] << 8);
 			}
 
@@ -785,7 +785,7 @@ VOID WfdParseSubElmt(
 		/* Forward buffer to next pEid */
 		if (RTMPEqualMemory(&pEid->Octet[0], WIFIDISPLAY_OUI, 4))
 		{
-			pEid = (PEID_STRUCT)((UCHAR*)pEid + pEid->Len + 2);    
+			pEid = (PEID_STRUCT)((unsigned char*)pEid + pEid->Len + 2);    
 		}
 		
 		/* 

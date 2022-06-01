@@ -517,14 +517,14 @@ struct _RTMP_CHIP_CAP_ {
 	/* register */
 	REG_PAIR *pRFRegTable;
 	REG_PAIR *pBBPRegTable;
-	UCHAR bbpRegTbSize;
+	unsigned char bbpRegTbSize;
 
 	unsigned int MaxNumOfRfId;
 	unsigned int MaxNumOfBbpId;
 
 #define RF_REG_WT_METHOD_NONE			0
 #define RF_REG_WT_METHOD_STEP_ON		1
-	UCHAR RfReg17WtMethod;
+	unsigned char RfReg17WtMethod;
 
 	/* beacon */
 	BOOLEAN FlgIsSupSpecBcnBuf;	/* SPECIFIC_BCN_BUF_SUPPORT */
@@ -599,7 +599,7 @@ struct _RTMP_CHIP_CAP_ {
 
 #ifdef MT7601
 	CHAR	TemperatureRef25C;
-	UCHAR	TemperatureMode;
+	unsigned char	TemperatureMode;
 	BOOLEAN	bPllLockProtect;
 	CHAR	CurrentTemperBbpR49;
 	INT32	TemperatureDPD;					// temperature when do DPD calibration
@@ -614,16 +614,16 @@ struct _RTMP_CHIP_CAP_ {
 	unsigned short EFUSE_USAGE_MAP_START;
 	unsigned short EFUSE_USAGE_MAP_END;
 	unsigned char EFUSE_USAGE_MAP_SIZE;
-	UCHAR *EFUSE_DEFAULT_BIN;
+	unsigned char *EFUSE_DEFAULT_BIN;
 	unsigned short EFUSE_DEFAULT_BIN_SIZE;
 #endif /* RTMP_EFUSE_SUPPORT */
 
 #ifdef RTMP_FLASH_SUPPORT
-	UCHAR *eebuf;
+	unsigned char *eebuf;
 #endif /* RTMP_FLASH_SUPPORT */
 
 #ifdef CARRIER_DETECTION_SUPPORT
-	UCHAR carrier_func;
+	unsigned char carrier_func;
 #endif /* CARRIER_DETECTION_SUPPORT */
 #ifdef DFS_SUPPORT
 	unsigned char DfsEngineNum;
@@ -673,7 +673,7 @@ struct _RTMP_CHIP_CAP_ {
 #endif
 	
 	enum MCU_TYPE MCUType;
-	UCHAR *FWImageName;
+	unsigned char *FWImageName;
 };
 
 typedef VOID (*CHIP_SPEC_FUNC)(VOID *pAd, VOID *pData, unsigned long Data);
@@ -696,9 +696,9 @@ struct _RTMP_CHIP_OP_ {
 	/* MCU related callback functions */
 	int (*loadFirmware)(struct _RTMP_ADAPTER *pAd);
 	int (*eraseFirmware)(struct _RTMP_ADAPTER *pAd);
-	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, UCHAR cmd, UCHAR token, UCHAR arg0, UCHAR arg1, BOOLEAN FlgIsNeedLocked);	/* int (*sendCommandToMcu)(RTMP_ADAPTER *pAd, UCHAR cmd, UCHAR token, UCHAR arg0, UCHAR arg1); */
+	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1, BOOLEAN FlgIsNeedLocked);	/* int (*sendCommandToMcu)(RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1); */
 #ifdef CONFIG_ANDES_SUPPORT
-	int (*sendCommandToAndesMcu)(struct _RTMP_ADAPTER *pAd, UCHAR QueIdx, UCHAR cmd, UCHAR *pData, USHORT DataLen, BOOLEAN FlgIsNeedLocked);
+	int (*sendCommandToAndesMcu)(struct _RTMP_ADAPTER *pAd, unsigned char QueIdx, unsigned char cmd, unsigned char *pData, USHORT DataLen, BOOLEAN FlgIsNeedLocked);
 #endif /* CONFIG_ANDES_SUPPORT */
 
 	void (*AsicRfInit)(struct _RTMP_ADAPTER *pAd);
@@ -724,14 +724,14 @@ struct _RTMP_CHIP_OP_ {
 	VOID (*ChipBBPAdjust)(IN struct _RTMP_ADAPTER *pAd);
 
 	/* AGC */
-	VOID (*ChipAGCInit)(struct _RTMP_ADAPTER *pAd, UCHAR bw);
-	UCHAR (*ChipAGCAdjust)(struct _RTMP_ADAPTER *pAd, CHAR Rssi, UCHAR OrigR66Value);
+	VOID (*ChipAGCInit)(struct _RTMP_ADAPTER *pAd, unsigned char bw);
+	unsigned char (*ChipAGCAdjust)(struct _RTMP_ADAPTER *pAd, CHAR Rssi, unsigned char OrigR66Value);
 	
 	/* Channel */
-	VOID (*ChipSwitchChannel)(struct _RTMP_ADAPTER *pAd, UCHAR ch, BOOLEAN bScan);
+	VOID (*ChipSwitchChannel)(struct _RTMP_ADAPTER *pAd, unsigned char ch, BOOLEAN bScan);
 
 	/* IQ Calibration */
-	VOID (*ChipIQCalibration)(struct _RTMP_ADAPTER *pAd, UCHAR Channel);
+	VOID (*ChipIQCalibration)(struct _RTMP_ADAPTER *pAd, unsigned char Channel);
 
 	/* TX ALC */
 	unsigned int (*TSSIRatio)(INT32 delta_power);
@@ -754,7 +754,7 @@ struct _RTMP_CHIP_OP_ {
 	
 	/* Antenna */
 	VOID (*AsicAntennaDefaultReset)(struct _RTMP_ADAPTER *pAd, union _EEPROM_ANTENNA_STRUC *pAntenna);
-	VOID (*SetRxAnt)(struct _RTMP_ADAPTER *pAd, UCHAR Ant);
+	VOID (*SetRxAnt)(struct _RTMP_ADAPTER *pAd, unsigned char Ant);
 
 	/* EEPROM */
 	VOID (*NICInitAsicFromEEPROM)(IN struct _RTMP_ADAPTER *pAd);
@@ -798,11 +798,11 @@ struct _RTMP_CHIP_OP_ {
 
 	INT (*RFRandomWrite)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
 
-	VOID (*DisableTxRx)(struct _RTMP_ADAPTER *pAd, UCHAR Level);
+	VOID (*DisableTxRx)(struct _RTMP_ADAPTER *pAd, unsigned char Level);
 
-	VOID (*AsicRadioOn)(struct _RTMP_ADAPTER *pAd, UCHAR Stage);
+	VOID (*AsicRadioOn)(struct _RTMP_ADAPTER *pAd, unsigned char Stage);
 
-	VOID (*AsicRadioOff)(struct _RTMP_ADAPTER *pAd, UCHAR Stage);
+	VOID (*AsicRadioOff)(struct _RTMP_ADAPTER *pAd, unsigned char Stage);
 
 	INT (*PwrSavingOP)(struct _RTMP_ADAPTER *pAd, unsigned int PwrOP, unsigned int PwrLevel, 
 							unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
@@ -1083,10 +1083,10 @@ VOID DisableAPMIMOPSv1(struct _RTMP_ADAPTER *pAd);
 /* global variable */
 extern FREQUENCY_ITEM RtmpFreqItems3020[];
 extern FREQUENCY_ITEM FreqItems3020_Xtal20M[];
-extern UCHAR NUM_OF_3020_CHNL;
+extern unsigned char NUM_OF_3020_CHNL;
 extern FREQUENCY_ITEM *FreqItems3020;
 extern RTMP_RF_REGS RF2850RegTable[];
-extern UCHAR NUM_OF_2850_CHNL;
+extern unsigned char NUM_OF_2850_CHNL;
 
 BOOLEAN AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us);
 INT AsicSetPreTbttInt(struct _RTMP_ADAPTER *pAd, BOOLEAN enable);

@@ -52,9 +52,9 @@
 }
 
 typedef struct _APCLI_MLME_JOIN_REQ_STRUCT {
-	UCHAR	Bssid[MAC_ADDR_LEN];
-	UCHAR	SsidLen;
-	UCHAR	Ssid[MAX_LEN_OF_SSID];
+	unsigned char	Bssid[MAC_ADDR_LEN];
+	unsigned char	SsidLen;
+	unsigned char	Ssid[MAX_LEN_OF_SSID];
 } APCLI_MLME_JOIN_REQ_STRUCT;
 
 typedef struct _STA_CTRL_JOIN_REQ_STRUCT {
@@ -98,14 +98,14 @@ VOID ApCliAssocStateMachineInit(
 
 MAC_TABLE_ENTRY *ApCliTableLookUpByWcid(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR wcid,
+	IN unsigned char wcid,
 	IN unsigned char * pAddrs);
 
 
 BOOLEAN ApCliAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
-	OUT UCHAR		*pWcid);
+	OUT unsigned char		*pWcid);
 	
 BOOLEAN 	ApCliValidateRSNIE(
 	IN		PRTMP_ADAPTER	pAd, 
@@ -140,8 +140,8 @@ INT ApCli_VirtualIF_Ioctl(
 VOID ApCliMgtMacHeaderInit(
     IN	PRTMP_ADAPTER	pAd, 
     IN OUT PHEADER_802_11 pHdr80211, 
-    IN UCHAR SubType, 
-    IN UCHAR ToDs, 
+    IN unsigned char SubType, 
+    IN unsigned char ToDs, 
     IN unsigned char * pDA, 
     IN unsigned char * pBssid,
     IN USHORT ifIndex);
@@ -156,11 +156,11 @@ BOOLEAN ApCliCheckHt(
 
 BOOLEAN ApCliLinkUp(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR ifIndex);
+	IN unsigned char ifIndex);
 
 VOID ApCliLinkDown(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR ifIndex);
+	IN unsigned char ifIndex);
 
 VOID ApCliIfUp(
 	IN PRTMP_ADAPTER pAd);
@@ -191,17 +191,17 @@ BOOLEAN ApCliPeerAssocRspSanity(
     OUT USHORT *pCapabilityInfo, 
     OUT USHORT *pStatus, 
     OUT USHORT *pAid, 
-    OUT UCHAR SupRate[], 
-    OUT UCHAR *pSupRateLen,
-    OUT UCHAR ExtRate[], 
-    OUT UCHAR *pExtRateLen,
+    OUT unsigned char SupRate[], 
+    OUT unsigned char *pSupRateLen,
+    OUT unsigned char ExtRate[], 
+    OUT unsigned char *pExtRateLen,
     OUT HT_CAPABILITY_IE *pHtCapability,
     OUT ADD_HT_INFO_IE *pAddHtInfo,	/* AP might use this additional ht info IE */
-    OUT UCHAR *pHtCapabilityLen,
-    OUT UCHAR *pAddHtInfoLen,
-    OUT UCHAR *pNewExtChannelOffset,
+    OUT unsigned char *pHtCapabilityLen,
+    OUT unsigned char *pAddHtInfoLen,
+    OUT unsigned char *pNewExtChannelOffset,
     OUT PEDCA_PARM pEdcaParm,
-    OUT UCHAR *pCkipFlag);
+    OUT unsigned char *pCkipFlag);
 
 VOID	ApCliPeerPairMsg1Action(
 	IN PRTMP_ADAPTER    pAd, 
@@ -221,23 +221,23 @@ VOID	ApCliPeerGroupMsg1Action(
 BOOLEAN ApCliCheckRSNIE(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pData,
-	IN  UCHAR           DataLen,
+	IN  unsigned char           DataLen,
 	IN  MAC_TABLE_ENTRY *pEntry,
-	OUT	UCHAR			*Offset);
+	OUT	unsigned char			*Offset);
 
 BOOLEAN ApCliParseKeyData(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pKeyData,
-	IN  UCHAR           KeyDataLen,
+	IN  unsigned char           KeyDataLen,
 	IN  MAC_TABLE_ENTRY *pEntry,
-	IN	UCHAR			IfIdx,
-	IN	UCHAR			bPairewise);
+	IN	unsigned char			IfIdx,
+	IN	unsigned char			bPairewise);
 
 BOOLEAN  ApCliHandleRxBroadcastFrame(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN  MAC_TABLE_ENTRY *pEntry,
-	IN	UCHAR			FromWhichBSSID);
+	IN	unsigned char			FromWhichBSSID);
 
 VOID APCliInstallPairwiseKey(
 	IN  PRTMP_ADAPTER   pAd,
@@ -246,8 +246,8 @@ VOID APCliInstallPairwiseKey(
 BOOLEAN APCliInstallSharedKey(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pKey,
-	IN  UCHAR           KeyLen,
-	IN	UCHAR			DefaultKeyIdx,
+	IN  unsigned char           KeyLen,
+	IN	unsigned char			DefaultKeyIdx,
 	IN  MAC_TABLE_ENTRY *pEntry);
 
 VOID ApCliUpdateMlmeRate(

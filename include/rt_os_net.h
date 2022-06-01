@@ -17,7 +17,7 @@
 
 #include "chip/chip_id.h"
 
-typedef VOID *(*RTMP_NET_ETH_CONVERT_DEV_SEARCH)(VOID *net_dev, UCHAR *pData);
+typedef VOID *(*RTMP_NET_ETH_CONVERT_DEV_SEARCH)(VOID *net_dev, unsigned char *pData);
 typedef int (*RTMP_NET_PACKET_TRANSMIT)(VOID *pPacket);
 
 #ifdef LINUX

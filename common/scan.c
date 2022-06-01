@@ -6,7 +6,7 @@
 
 
 #ifdef SCAN_SUPPORT
-static INT scan_ch_restore(RTMP_ADAPTER *pAd, UCHAR OpMode)
+static INT scan_ch_restore(RTMP_ADAPTER *pAd, unsigned char OpMode)
 {
 	INT bw, ch;
 		
@@ -78,12 +78,12 @@ static INT scan_ch_restore(RTMP_ADAPTER *pAd, UCHAR OpMode)
 
 
 
-static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
+static INT scan_active(RTMP_ADAPTER *pAd, unsigned char OpMode, unsigned char ScanType)
 {
-	UCHAR *frm_buf = NULL;
+	unsigned char *frm_buf = NULL;
 	HEADER_802_11 Hdr80211;
 	unsigned long FrameLen = 0;
-	UCHAR SsidLen = 0;
+	unsigned char SsidLen = 0;
 
 
 	if (MlmeAllocateMemory(pAd, &frm_buf) != NDIS_STATUS_SUCCESS)
@@ -150,8 +150,8 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
 	if (WMODE_CAP_N(pAd->CommonCfg.PhyMode))
 	{
 		unsigned long	Tmp;
-		UCHAR	HtLen;
-		UCHAR	BROADCOM[4] = {0x0, 0x90, 0x4c, 0x33};
+		unsigned char	HtLen;
+		unsigned char	BROADCOM[4] = {0x0, 0x90, 0x4c, 0x33};
 #ifdef RT_BIG_ENDIAN
 		HT_CAPABILITY_IE HtCapabilityTmp;
 #endif
@@ -241,7 +241,7 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
 #ifdef DOT11_VHT_AC
 	if (WMODE_CAP_AC(pAd->CommonCfg.PhyMode) &&
 		(pAd->MlmeAux.Channel > 14)) {		
-		FrameLen += build_vht_ies(pAd, (UCHAR *)(frm_buf + FrameLen), SUBTYPE_PROBE_REQ);
+		FrameLen += build_vht_ies(pAd, (unsigned char *)(frm_buf + FrameLen), SUBTYPE_PROBE_REQ);
 	}
 #endif /* DOT11_VHT_AC */
 
@@ -265,10 +265,10 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
 
 		if (bHasWscIe)
 		{
-			UCHAR *pWscBuf = NULL, WscIeLen = 0;
+			unsigned char *pWscBuf = NULL, WscIeLen = 0;
 			unsigned long WscTmpLen = 0;
 
-			os_alloc_mem(NULL, (UCHAR **)&pWscBuf, 512);
+			os_alloc_mem(NULL, (unsigned char **)&pWscBuf, 512);
 			if (pWscBuf != NULL)
 			{
 				NdisZeroMemory(pWscBuf, 512);
@@ -307,9 +307,9 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
  */
 VOID ScanNextChannel(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR OpMode) 
+	IN unsigned char OpMode) 
 {
-	UCHAR ScanType = pAd->MlmeAux.ScanType;
+	unsigned char ScanType = pAd->MlmeAux.ScanType;
 	UINT ScanTimeIn5gChannel = SHORT_CHANNEL_TIME;
 	BOOLEAN ScanPending = FALSE;
 	RALINK_TIMER_STRUCT *sc_timer;

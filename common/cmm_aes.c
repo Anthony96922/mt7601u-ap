@@ -34,7 +34,7 @@
 /******** SBOX Table *********/
 /*****************************/
 
-UCHAR SboxTable[256] =
+unsigned char SboxTable[256] =
 {
 	0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5,
 	0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
@@ -96,8 +96,8 @@ VOID xor_128(
 	}
 }
 
-UCHAR RTMPCkipSbox(
-	IN  UCHAR   a)
+unsigned char RTMPCkipSbox(
+	IN  unsigned char   a)
 {
 	return SboxTable[(int)a];
 }
@@ -106,9 +106,9 @@ VOID next_key(
 	IN  unsigned char *  key,
 	IN  INT     round)
 {
-	UCHAR       rcon;
-	UCHAR       sbox_key[4];
-	UCHAR       rcon_table[12] =
+	unsigned char       rcon;
+	unsigned char       sbox_key[4];
+	unsigned char       rcon_table[12] =
 	{
 		0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80,
 		0x1b, 0x36, 0x36, 0x36
@@ -182,14 +182,14 @@ VOID mix_column(
 	OUT unsigned char *  out)
 {
 	INT         i;
-	UCHAR       add1b[4];
-	UCHAR       add1bf7[4];
-	UCHAR       rotl[4];
-	UCHAR       swap_halfs[4];
-	UCHAR       andf7[4];
-	UCHAR       rotr[4];
-	UCHAR       temp[4];
-	UCHAR       tempb[4];
+	unsigned char       add1b[4];
+	unsigned char       add1bf7[4];
+	unsigned char       rotl[4];
+	unsigned char       swap_halfs[4];
+	unsigned char       andf7[4];
+	unsigned char       rotr[4];
+	unsigned char       temp[4];
+	unsigned char       tempb[4];
 
 	for (i=0 ; i<4; i++)
 	{
@@ -438,30 +438,30 @@ BOOLEAN RTMPSoftDecryptAES(
 	IN PCIPHER_KEY	pWpaKey)
 {
 	UINT			HeaderLen;
-	UCHAR			PN[6];
+	unsigned char			PN[6];
 	UINT			payload_len;	
 	UINT			num_blocks;
 	UINT			payload_remainder;
 	USHORT			fc;
-	UCHAR			fc0;
-	UCHAR			fc1;	
+	unsigned char			fc0;
+	unsigned char			fc1;	
 	UINT			frame_type;
 	UINT			frame_subtype;
 	UINT			from_ds;
 	UINT			to_ds;
 	INT				a4_exists;
 	INT				qc_exists;
-	UCHAR			aes_out[16];
+	unsigned char			aes_out[16];
 	int 			payload_index;
 	UINT 			i;
-	UCHAR 			ctr_preload[16];
-	UCHAR 			chain_buffer[16];
-	UCHAR 			padded_buffer[16];
-	UCHAR 			mic_iv[16];
-	UCHAR 			mic_header1[16];
-	UCHAR 			mic_header2[16];	
-	UCHAR			MIC[8];
-	UCHAR			TrailMIC[8];
+	unsigned char 			ctr_preload[16];
+	unsigned char 			chain_buffer[16];
+	unsigned char 			padded_buffer[16];
+	unsigned char 			mic_iv[16];
+	unsigned char 			mic_header1[16];
+	unsigned char 			mic_header2[16];	
+	unsigned char			MIC[8];
+	unsigned char			TrailMIC[8];
 
 #ifdef RT_BIG_ENDIAN
 	RTMPFrameEndianChange(pAd, (unsigned char *)pData, DIR_READ, FALSE);
@@ -665,7 +665,7 @@ VOID RTMPConstructCCMPAAD(
 	IN BOOLEAN isDataFrame,
 	IN unsigned char a4_exists,
 	IN unsigned char qc_exists,
-	OUT UCHAR *aad_hdr,
+	OUT unsigned char *aad_hdr,
 	OUT UINT *aad_len)
 {
 	UINT len = 0;
@@ -744,8 +744,8 @@ VOID RTMPConstructCCMPNonce(
 	IN unsigned char a4_exists,
 	IN unsigned char qc_exists,
 	IN BOOLEAN isMgmtFrame,
-	IN UCHAR *pn,		
-	OUT UCHAR *nonce_hdr,
+	IN unsigned char *pn,		
+	OUT unsigned char *nonce_hdr,
 	OUT UINT *nonce_hdr_len)
 {
 	UINT n_offset = 0;
@@ -796,8 +796,8 @@ VOID RTMPConstructCCMPNonce(
 */
 VOID RTMPConstructCCMPHdr(
         IN unsigned char key_idx,
-	IN UCHAR *pn,		
-	OUT UCHAR *ccmp_hdr)
+	IN unsigned char *pn,		
+	OUT unsigned char *ccmp_hdr)
 {
 	NdisZeroMemory(ccmp_hdr, LEN_CCMP_HDR);
 

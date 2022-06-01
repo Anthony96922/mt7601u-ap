@@ -273,52 +273,52 @@ typedef struct GNU_PACKED{
 /*  HT Capability INFO field in HT Cap IE . */
 typedef struct GNU_PACKED _HT_CAP_PARM{
 #ifdef RT_BIG_ENDIAN
-	UCHAR	rsv:3;/*momi power safe */
-	UCHAR	MpduDensity:3;
-	UCHAR	MaxRAmpduFactor:2;
+	unsigned char	rsv:3;/*momi power safe */
+	unsigned char	MpduDensity:3;
+	unsigned char	MaxRAmpduFactor:2;
 #else
-	UCHAR	MaxRAmpduFactor:2;
-	UCHAR	MpduDensity:3;
-	UCHAR	rsv:3;/*momi power safe */
+	unsigned char	MaxRAmpduFactor:2;
+	unsigned char	MpduDensity:3;
+	unsigned char	rsv:3;/*momi power safe */
 #endif /* RT_BIG_ENDIAN */
 } HT_CAP_PARM, *PHT_CAP_PARM;
 
 
 typedef struct GNU_PACKED _HT_MCS_SET_TX_SUBFIELD{
 #ifdef RT_BIG_ENDIAN
-	UCHAR	TxMCSSetDefined:1; 
-	UCHAR	TxRxNotEqual:1;
-	UCHAR	TxMaxStream:2;
-	UCHAR	TxUnqualModulation:1;
-	UCHAR	rsv:3;
+	unsigned char	TxMCSSetDefined:1; 
+	unsigned char	TxRxNotEqual:1;
+	unsigned char	TxMaxStream:2;
+	unsigned char	TxUnqualModulation:1;
+	unsigned char	rsv:3;
 #else
-	UCHAR	rsv:3;
-	UCHAR	TxUnqualModulation:1;
-	UCHAR	TxMaxStream:2;
-	UCHAR	TxRxNotEqual:1;
-	UCHAR	TxMCSSetDefined:1;
+	unsigned char	rsv:3;
+	unsigned char	TxUnqualModulation:1;
+	unsigned char	TxMaxStream:2;
+	unsigned char	TxRxNotEqual:1;
+	unsigned char	TxMCSSetDefined:1;
 #endif /* RT_BIG_ENDIAN */
 }HT_MCS_SET_TX_SUBFIELD, *PHT_MCS_SET_TX_SUBFIELD;
 
 
 /*  HT Capability INFO field in HT Cap IE . */
 typedef struct GNU_PACKED _HT_MCS_SET{
-	UCHAR	MCSSet[10];
-	UCHAR	SupRate[2];  /* unit : 1Mbps */
+	unsigned char	MCSSet[10];
+	unsigned char	SupRate[2];  /* unit : 1Mbps */
 #ifdef RT_BIG_ENDIAN
-	UCHAR	rsv:3;
-	UCHAR	MpduDensity:1;
-	UCHAR	TxStream:2;
-	UCHAR	TxRxNotEqual:1;
-	UCHAR	TxMCSSetDefined:1; 
+	unsigned char	rsv:3;
+	unsigned char	MpduDensity:1;
+	unsigned char	TxStream:2;
+	unsigned char	TxRxNotEqual:1;
+	unsigned char	TxMCSSetDefined:1; 
 #else
-	UCHAR	TxMCSSetDefined:1; 
-	UCHAR	TxRxNotEqual:1;
-	UCHAR	TxStream:2;
-	UCHAR	MpduDensity:1;
-	UCHAR	rsv:3;
+	unsigned char	TxMCSSetDefined:1; 
+	unsigned char	TxRxNotEqual:1;
+	unsigned char	TxStream:2;
+	unsigned char	MpduDensity:1;
+	unsigned char	rsv:3;
 #endif /* RT_BIG_ENDIAN */
-	UCHAR	rsv3[3];  
+	unsigned char	rsv3[3];  
 } HT_MCS_SET, *PHT_MCS_SET;
 
 /*  HT Capability INFO field in HT Cap IE . */
@@ -398,23 +398,23 @@ typedef struct GNU_PACKED _HT_BF_CAP{
 /*  HT antenna selection field in HT Cap IE . */
 typedef struct GNU_PACKED _HT_AS_CAP{
 #ifdef RT_BIG_ENDIAN
-	UCHAR	rsv:1;
-	UCHAR	TxSoundPPDU:1;
-	UCHAR	RxASel:1;
-	UCHAR	AntIndFbk:1;
-	UCHAR	ExpCSIFbk:1;
-	UCHAR	AntIndFbkTxASEL:1;
-	UCHAR	ExpCSIFbkTxASEL:1;
-	UCHAR	AntSelect:1; 
+	unsigned char	rsv:1;
+	unsigned char	TxSoundPPDU:1;
+	unsigned char	RxASel:1;
+	unsigned char	AntIndFbk:1;
+	unsigned char	ExpCSIFbk:1;
+	unsigned char	AntIndFbkTxASEL:1;
+	unsigned char	ExpCSIFbkTxASEL:1;
+	unsigned char	AntSelect:1; 
 #else
-	UCHAR	AntSelect:1; 
-	UCHAR	ExpCSIFbkTxASEL:1;
-	UCHAR	AntIndFbkTxASEL:1;
-	UCHAR	ExpCSIFbk:1;
-	UCHAR	AntIndFbk:1;
-	UCHAR	RxASel:1;
-	UCHAR	TxSoundPPDU:1;
-	UCHAR	rsv:1;
+	unsigned char	AntSelect:1; 
+	unsigned char	ExpCSIFbkTxASEL:1;
+	unsigned char	AntIndFbkTxASEL:1;
+	unsigned char	ExpCSIFbk:1;
+	unsigned char	AntIndFbk:1;
+	unsigned char	RxASel:1;
+	unsigned char	TxSoundPPDU:1;
+	unsigned char	rsv:1;
 #endif /* RT_BIG_ENDIAN */
 } HT_AS_CAP, *PHT_AS_CAP;
 
@@ -425,7 +425,7 @@ typedef struct GNU_PACKED _HT_CAPABILITY_IE{
 	HT_CAP_INFO		HtCapInfo;
 	HT_CAP_PARM		HtCapParm;
 /*	HT_MCS_SET		HtMCSSet; */
-	UCHAR			MCSSet[16];
+	unsigned char			MCSSet[16];
 	EXT_HT_CAP_INFO	ExtHtCapInfo;
 	HT_BF_CAP		TxBFCap;	/* beamforming cap. rt2860c not support beamforming. */
 	HT_AS_CAP		ASCap;	/*antenna selection. */
@@ -460,29 +460,29 @@ typedef struct GNU_PACKED _OVERLAP_BSS_SCAN_IE{
 typedef union GNU_PACKED _BSS_2040_COEXIST_IE{
  struct GNU_PACKED {
  #ifdef RT_BIG_ENDIAN
-	UCHAR	rsv:3;
- 	UCHAR	ObssScanExempGrant:1;
-	UCHAR	ObssScanExempReq:1;
-	UCHAR	BSS20WidthReq:1;
-	UCHAR	Intolerant40:1;	
-	UCHAR	InfoReq:1; 
+	unsigned char	rsv:3;
+ 	unsigned char	ObssScanExempGrant:1;
+	unsigned char	ObssScanExempReq:1;
+	unsigned char	BSS20WidthReq:1;
+	unsigned char	Intolerant40:1;	
+	unsigned char	InfoReq:1; 
  #else
-	UCHAR	InfoReq:1;
-	UCHAR	Intolerant40:1;			/* Inter-BSS. set 1 when prohibits a receiving BSS from operating as a 20/40 Mhz BSS. */
-	UCHAR	BSS20WidthReq:1;		/* Intra-BSS set 1 when prohibits a receiving AP from operating its BSS as a 20/40MHz BSS. */
-	UCHAR	ObssScanExempReq:1;
-	UCHAR	ObssScanExempGrant:1;
-	UCHAR	rsv:3;
+	unsigned char	InfoReq:1;
+	unsigned char	Intolerant40:1;			/* Inter-BSS. set 1 when prohibits a receiving BSS from operating as a 20/40 Mhz BSS. */
+	unsigned char	BSS20WidthReq:1;		/* Intra-BSS set 1 when prohibits a receiving AP from operating its BSS as a 20/40MHz BSS. */
+	unsigned char	ObssScanExempReq:1;
+	unsigned char	ObssScanExempGrant:1;
+	unsigned char	rsv:3;
 #endif /* RT_BIG_ENDIAN */
     } field;
- UCHAR   word;
+ unsigned char   word;
 } BSS_2040_COEXIST_IE, *PBSS_2040_COEXIST_IE;
 
 
 typedef struct  _TRIGGER_EVENTA{
 	BOOLEAN			bValid;	 
-	UCHAR	BSSID[6];	
-	UCHAR	RegClass;	/* Regulatory Class */
+	unsigned char	BSSID[6];	
+	unsigned char	RegClass;	/* Regulatory Class */
 	USHORT	Channel;
 } TRIGGER_EVENTA, *PTRIGGER_EVENTA;
 
@@ -491,7 +491,7 @@ typedef struct  _TRIGGER_EVENTA{
 /* If one Event A delete or created, or if Event B is detected or not detected, STA should send 2040BSSCoexistence to AP. */
 #define MAX_TRIGGER_EVENT		64
 typedef struct  _TRIGGER_EVENT_TAB{
-	UCHAR	EventANo;	
+	unsigned char	EventANo;	
 	TRIGGER_EVENTA	EventA[MAX_TRIGGER_EVENT];	
 	unsigned long			EventBCountDown;	/* Count down counter for Event B. */
 } TRIGGER_EVENT_TAB, *PTRIGGER_EVENT_TAB;
@@ -544,32 +544,32 @@ typedef struct GNU_PACKED _EXT_CAP_INFO_ELEMENT{
 
 /* 802.11n 7.3.2.61 */
 typedef struct GNU_PACKED _BSS_2040_COEXIST_ELEMENT{
-	UCHAR					ElementID;		/* ID = IE_2040_BSS_COEXIST = 72 */
-	UCHAR					Len;
+	unsigned char					ElementID;		/* ID = IE_2040_BSS_COEXIST = 72 */
+	unsigned char					Len;
 	BSS_2040_COEXIST_IE		BssCoexistIe;
 }BSS_2040_COEXIST_ELEMENT, *PBSS_2040_COEXIST_ELEMENT;
 
 
 /*802.11n 7.3.2.59 */
 typedef struct GNU_PACKED _BSS_2040_INTOLERANT_CH_REPORT{
-	UCHAR				ElementID;		/* ID = IE_2040_BSS_INTOLERANT_REPORT = 73 */
-	UCHAR				Len;	
-	UCHAR				RegulatoryClass;
-	UCHAR				ChList[0];
+	unsigned char				ElementID;		/* ID = IE_2040_BSS_INTOLERANT_REPORT = 73 */
+	unsigned char				Len;	
+	unsigned char				RegulatoryClass;
+	unsigned char				ChList[0];
 }BSS_2040_INTOLERANT_CH_REPORT, *PBSS_2040_INTOLERANT_CH_REPORT;
 
 
 /* The structure for channel switch annoucement IE. This is in 802.11n D3.03 */
 typedef struct GNU_PACKED _CHA_SWITCH_ANNOUNCE_IE{
-	UCHAR			SwitchMode;	/*channel switch mode */
-	UCHAR			NewChannel;	/* */
-	UCHAR			SwitchCount;	/* */
+	unsigned char			SwitchMode;	/*channel switch mode */
+	unsigned char			NewChannel;	/* */
+	unsigned char			SwitchCount;	/* */
 } CHA_SWITCH_ANNOUNCE_IE, *PCHA_SWITCH_ANNOUNCE_IE;
 
 
 /* The structure for channel switch annoucement IE. This is in 802.11n D3.03 */
 typedef struct GNU_PACKED _SEC_CHA_OFFSET_IE{
-	UCHAR			SecondaryChannelOffset;	 /* 1: Secondary above, 3: Secondary below, 0: no Secondary */
+	unsigned char			SecondaryChannelOffset;	 /* 1: Secondary above, 3: Secondary below, 0: no Secondary */
 } SEC_CHA_OFFSET_IE, *PSEC_CHA_OFFSET_IE;
 
 
@@ -578,10 +578,10 @@ typedef struct _RT_PHY_INFO{
 	BOOLEAN		bHtEnable;	 /* If we should use ht rate. */
 	BOOLEAN		bPreNHt;	 /* If we should use ht rate. */
 	/*Substract from HT Capability IE */
-	UCHAR		MCSSet[16];
+	unsigned char		MCSSet[16];
 #ifdef DOT11_VHT_AC
 	BOOLEAN 	bVhtEnable;
-	UCHAR 		vht_bw;
+	unsigned char 		vht_bw;
 	VHT_MCS_SET vht_mcs_set;
 #endif /* DOT11_VHT_AC */
 } RT_PHY_INFO;
@@ -636,15 +636,15 @@ typedef struct {
 
 	/*Substract from Addiont HT INFO IE */
 #ifdef RT_BIG_ENDIAN
-	UCHAR	RecomWidth:1;
-	UCHAR	ExtChanOffset:2;	/* Please not the difference with following 	UCHAR	NewExtChannelOffset; from 802.11n */
-	UCHAR	MpduDensity:3;	
-	UCHAR	MaxRAmpduFactor:2;
+	unsigned char	RecomWidth:1;
+	unsigned char	ExtChanOffset:2;	/* Please not the difference with following 	unsigned char	NewExtChannelOffset; from 802.11n */
+	unsigned char	MpduDensity:3;	
+	unsigned char	MaxRAmpduFactor:2;
 #else
-	UCHAR	MaxRAmpduFactor:2;
-	UCHAR	MpduDensity:3;
-	UCHAR	ExtChanOffset:2;	/* Please not the difference with following 	UCHAR	NewExtChannelOffset; from 802.11n */
-	UCHAR	RecomWidth:1;
+	unsigned char	MaxRAmpduFactor:2;
+	unsigned char	MpduDensity:3;
+	unsigned char	ExtChanOffset:2;	/* Please not the difference with following 	unsigned char	NewExtChannelOffset; from 802.11n */
+	unsigned char	RecomWidth:1;
 #endif
 
 #ifdef RT_BIG_ENDIAN
@@ -662,26 +662,26 @@ typedef struct {
 #endif
 	
 	/* New Extension Channel Offset IE */
-	UCHAR	NewExtChannelOffset;	
+	unsigned char	NewExtChannelOffset;	
 	/* Extension Capability IE = 127 */
-	UCHAR	BSSCoexist2040;	
+	unsigned char	BSSCoexist2040;	
 } RT_HT_CAPABILITY, *PRT_HT_CAPABILITY;
 
 
 /*   field in Addtional HT Information IE . */
 typedef struct GNU_PACKED _ADD_HTINFO{
 #ifdef RT_BIG_ENDIAN
-	UCHAR	SerInterGranu:3;
-	UCHAR	S_PSMPSup:1;
-	UCHAR	RifsMode:1; 
-	UCHAR	RecomWidth:1;	
-	UCHAR	ExtChanOffset:2;
+	unsigned char	SerInterGranu:3;
+	unsigned char	S_PSMPSup:1;
+	unsigned char	RifsMode:1; 
+	unsigned char	RecomWidth:1;	
+	unsigned char	ExtChanOffset:2;
 #else
-	UCHAR	ExtChanOffset:2;
-	UCHAR	RecomWidth:1;
-	UCHAR	RifsMode:1; 
-	UCHAR	S_PSMPSup:1;	 /*Indicate support for scheduled PSMP */
-	UCHAR	SerInterGranu:3;	 /*service interval granularity */
+	unsigned char	ExtChanOffset:2;
+	unsigned char	RecomWidth:1;
+	unsigned char	RifsMode:1; 
+	unsigned char	S_PSMPSup:1;	 /*Indicate support for scheduled PSMP */
+	unsigned char	SerInterGranu:3;	 /*service interval granularity */
 #endif
 } ADD_HTINFO, *PADD_HTINFO;
 
@@ -728,33 +728,33 @@ typedef struct GNU_PACKED _ADD_HTINFO3{
 
 #define SIZE_ADD_HT_INFO_IE		22
 typedef struct  GNU_PACKED _ADD_HT_INFO_IE{
-	UCHAR				ControlChan;
+	unsigned char				ControlChan;
 	ADD_HTINFO			AddHtInfo;
 	ADD_HTINFO2			AddHtInfo2;	 
 	ADD_HTINFO3			AddHtInfo3;	 
-	UCHAR				MCSSet[16];		/* Basic MCS set */
+	unsigned char				MCSSet[16];		/* Basic MCS set */
 } ADD_HT_INFO_IE, *PADD_HT_INFO_IE;
 
 typedef struct  GNU_PACKED _NEW_EXT_CHAN_IE{
-	UCHAR				NewExtChanOffset;
+	unsigned char				NewExtChanOffset;
 } NEW_EXT_CHAN_IE, *PNEW_EXT_CHAN_IE;
 
 typedef struct GNU_PACKED _FRAME_802_11 {
     HEADER_802_11   Hdr;
-    UCHAR            Octet[1];
+    unsigned char            Octet[1];
 } FRAME_802_11, *PFRAME_802_11;
 
 /* QoSNull embedding of management action. When HT Control MA field set to 1. */
 typedef struct GNU_PACKED _MA_BODY {
-    UCHAR            Category;
-    UCHAR            Action;
-    UCHAR            Octet[1];
+    unsigned char            Category;
+    unsigned char            Action;
+    unsigned char            Octet[1];
 } MA_BODY, *PMA_BODY;
 
 typedef	struct GNU_PACKED _HEADER_802_3	{
-    UCHAR           DAAddr1[MAC_ADDR_LEN];
-    UCHAR           SAAddr2[MAC_ADDR_LEN];
-    UCHAR           Octet[2];
+    unsigned char           DAAddr1[MAC_ADDR_LEN];
+    unsigned char           SAAddr2[MAC_ADDR_LEN];
+    unsigned char           Octet[2];
 } HEADER_802_3, *PHEADER_802_3;
 
 
@@ -873,8 +873,8 @@ typedef struct {
 typedef struct GNU_PACKED _FRAME_BA_REQ {
 	FRAME_CONTROL   FC;
 	USHORT          Duration;
-	UCHAR           Addr1[MAC_ADDR_LEN];
-	UCHAR           Addr2[MAC_ADDR_LEN];
+	unsigned char           Addr1[MAC_ADDR_LEN];
+	unsigned char           Addr2[MAC_ADDR_LEN];
 	BAR_CONTROL  BARControl;
 	BASEQ_CONTROL 	 BAStartingSeq;
 }   FRAME_BA_REQ, *PFRAME_BA_REQ;
@@ -882,8 +882,8 @@ typedef struct GNU_PACKED _FRAME_BA_REQ {
 typedef struct GNU_PACKED _FRAME_MTBA_REQ {
 	FRAME_CONTROL   FC;
 	USHORT          Duration;
-	UCHAR           Addr1[MAC_ADDR_LEN];
-	UCHAR           Addr2[MAC_ADDR_LEN];
+	unsigned char           Addr1[MAC_ADDR_LEN];
+	unsigned char           Addr2[MAC_ADDR_LEN];
 	MTBAR_CONTROL  MTBARControl;
 	PER_TID_INFO	PerTIDInfo;
 	BASEQ_CONTROL 	 BAStartingSeq;
@@ -893,47 +893,47 @@ typedef struct GNU_PACKED _FRAME_MTBA_REQ {
 typedef struct GNU_PACKED _FRAME_MTBA {
 	FRAME_CONTROL   FC;
 	USHORT          Duration;
-	UCHAR           Addr1[MAC_ADDR_LEN];
-	UCHAR           Addr2[MAC_ADDR_LEN];
+	unsigned char           Addr1[MAC_ADDR_LEN];
+	unsigned char           Addr2[MAC_ADDR_LEN];
 	BA_CONTROL  BAControl;
 	BASEQ_CONTROL 	 BAStartingSeq;
-	UCHAR		BitMap[8];
+	unsigned char		BitMap[8];
 }   FRAME_MTBA, *PFRAME_MTBA;
 
 typedef struct GNU_PACKED _FRAME_PSMP_ACTION {
 	HEADER_802_11   Hdr;
-	UCHAR	Category;
-	UCHAR	Action;
-	UCHAR	Psmp;	/* 7.3.1.25 */
+	unsigned char	Category;
+	unsigned char	Action;
+	unsigned char	Psmp;	/* 7.3.1.25 */
 }   FRAME_PSMP_ACTION, *PFRAME_PSMP_ACTION;
 
 typedef struct GNU_PACKED _FRAME_ACTION_HDR {
 	HEADER_802_11   Hdr;
-	UCHAR	Category;
-	UCHAR	Action;
+	unsigned char	Category;
+	unsigned char	Action;
 }   FRAME_ACTION_HDR, *PFRAME_ACTION_HDR;
 
 /*Action Frame */
 /*Action Frame  Category:Spectrum,  Action:Channel Switch. 7.3.2.20 */
 typedef struct GNU_PACKED _CHAN_SWITCH_ANNOUNCE {
-	UCHAR					ElementID;	/* ID = IE_CHANNEL_SWITCH_ANNOUNCEMENT = 37 */
-	UCHAR					Len;
+	unsigned char					ElementID;	/* ID = IE_CHANNEL_SWITCH_ANNOUNCEMENT = 37 */
+	unsigned char					Len;
 	CHA_SWITCH_ANNOUNCE_IE	CSAnnounceIe;
 }   CHAN_SWITCH_ANNOUNCE, *PCHAN_SWITCH_ANNOUNCE;
 
 
 /*802.11n : 7.3.2.20a */
 typedef struct GNU_PACKED _SECOND_CHAN_OFFSET {
-	UCHAR				ElementID;		/* ID = IE_SECONDARY_CH_OFFSET = 62 */
-	UCHAR				Len;
+	unsigned char				ElementID;		/* ID = IE_SECONDARY_CH_OFFSET = 62 */
+	unsigned char				Len;
 	SEC_CHA_OFFSET_IE	SecChOffsetIe;
 }   SECOND_CHAN_OFFSET, *PSECOND_CHAN_OFFSET;
 
 
 typedef struct GNU_PACKED _FRAME_SPETRUM_CS {
 	HEADER_802_11   Hdr;
-	UCHAR	Category;
-	UCHAR	Action;
+	unsigned char	Category;
+	unsigned char	Action;
 	CHAN_SWITCH_ANNOUNCE	CSAnnounce;
 	SECOND_CHAN_OFFSET		SecondChannel;
 }   FRAME_SPETRUM_CS, *PFRAME_SPETRUM_CS;
@@ -941,9 +941,9 @@ typedef struct GNU_PACKED _FRAME_SPETRUM_CS {
 
 typedef struct GNU_PACKED _FRAME_ADDBA_REQ {
 	HEADER_802_11   Hdr;
-	UCHAR	Category;
-	UCHAR	Action;
-	UCHAR	Token;	/* 1 */
+	unsigned char	Category;
+	unsigned char	Action;
+	unsigned char	Token;	/* 1 */
 	BA_PARM		BaParm;	      /*  2 - 10 */
 	USHORT		TimeOutValue;	/* 0 - 0 */
 	BASEQ_CONTROL	BaStartSeq; /* 0-0 */
@@ -951,9 +951,9 @@ typedef struct GNU_PACKED _FRAME_ADDBA_REQ {
 
 typedef struct GNU_PACKED _FRAME_ADDBA_RSP {
 	HEADER_802_11   Hdr;
-	UCHAR	Category;
-	UCHAR	Action;
-	UCHAR	Token;
+	unsigned char	Category;
+	unsigned char	Action;
+	unsigned char	Token;
 	USHORT	StatusCode;
 	BA_PARM		BaParm; /*0 - 2 */
 	USHORT		TimeOutValue;
@@ -961,8 +961,8 @@ typedef struct GNU_PACKED _FRAME_ADDBA_RSP {
 
 typedef struct GNU_PACKED _FRAME_DELBA_REQ {
 	HEADER_802_11   Hdr;
-	UCHAR	Category;
-	UCHAR	Action;
+	unsigned char	Category;
+	unsigned char	Action;
 	DELBA_PARM		DelbaParm;
 	USHORT	ReasonCode;
 }   FRAME_DELBA_REQ, *PFRAME_DELBA_REQ;
@@ -972,8 +972,8 @@ typedef struct GNU_PACKED _FRAME_DELBA_REQ {
 typedef struct GNU_PACKED _FRAME_BAR {
 	FRAME_CONTROL   FC;
 	USHORT          Duration;
-	UCHAR           Addr1[MAC_ADDR_LEN];
-	UCHAR           Addr2[MAC_ADDR_LEN];
+	unsigned char           Addr1[MAC_ADDR_LEN];
+	unsigned char           Addr2[MAC_ADDR_LEN];
 	BAR_CONTROL		BarControl;
 	BASEQ_CONTROL	StartingSeq;
 }   FRAME_BAR, *PFRAME_BAR;
@@ -982,31 +982,31 @@ typedef struct GNU_PACKED _FRAME_BAR {
 typedef struct GNU_PACKED _FRAME_BA {
 	FRAME_CONTROL   FC;
 	USHORT          Duration;
-	UCHAR           Addr1[MAC_ADDR_LEN];
-	UCHAR           Addr2[MAC_ADDR_LEN];
+	unsigned char           Addr1[MAC_ADDR_LEN];
+	unsigned char           Addr2[MAC_ADDR_LEN];
 	BAR_CONTROL		BarControl;
 	BASEQ_CONTROL	StartingSeq;
-	UCHAR		bitmask[8];
+	unsigned char		bitmask[8];
 }   FRAME_BA, *PFRAME_BA;
 
 
 /* Radio Measuement Request Frame Format */
 typedef struct GNU_PACKED _FRAME_RM_REQ_ACTION {
 	HEADER_802_11   Hdr;
-	UCHAR	Category;
-	UCHAR	Action;
-	UCHAR	Token;
+	unsigned char	Category;
+	unsigned char	Action;
+	unsigned char	Token;
 	USHORT	Repetition;
-	UCHAR   data[0];
+	unsigned char   data[0];
 }   FRAME_RM_REQ_ACTION, *PFRAME_RM_REQ_ACTION;
 
 typedef struct GNU_PACKED _HT_EXT_CHANNEL_SWITCH_ANNOUNCEMENT_IE{
-	UCHAR		ID;
-	UCHAR		Length;
-	UCHAR		ChannelSwitchMode;
-	UCHAR		NewRegClass;
-	UCHAR		NewChannelNum;
-	UCHAR		ChannelSwitchCount;
+	unsigned char		ID;
+	unsigned char		Length;
+	unsigned char		ChannelSwitchMode;
+	unsigned char		NewRegClass;
+	unsigned char		NewChannelNum;
+	unsigned char		ChannelSwitchCount;
 } HT_EXT_CHANNEL_SWITCH_ANNOUNCEMENT_IE, *PHT_EXT_CHANNEL_SWITCH_ANNOUNCEMENT_IE;
 
 
@@ -1025,8 +1025,8 @@ typedef struct GNU_PACKED _HT_EXT_CHANNEL_SWITCH_ANNOUNCEMENT_IE{
 /* */
 typedef struct GNU_PACKED _CF_PARM{
     BOOLEAN     bValid;         /* 1: variable contains valid value */
-    UCHAR       CfpCount;
-    UCHAR       CfpPeriod;
+    unsigned char       CfpCount;
+    unsigned char       CfpPeriod;
     USHORT      CfpMaxDuration;
     USHORT      CfpDurRemaining;
 } CF_PARM, *PCF_PARM;
@@ -1049,10 +1049,10 @@ typedef struct {
     BOOLEAN     bTxopRequest;
     BOOLEAN     bAPSDCapable;
 /*  BOOLEAN     bMoreDataAck; */
-    UCHAR       EdcaUpdateCount;
-    UCHAR       Aifsn[4];       /* 0:AC_BK, 1:AC_BE, 2:AC_VI, 3:AC_VO */
-    UCHAR       Cwmin[4];
-    UCHAR       Cwmax[4];
+    unsigned char       EdcaUpdateCount;
+    unsigned char       Aifsn[4];       /* 0:AC_BK, 1:AC_BE, 2:AC_VI, 3:AC_VO */
+    unsigned char       Cwmin[4];
+    unsigned char       Cwmax[4];
     USHORT      Txop[4];      /* in unit of 32-us */
     BOOLEAN     bACM[4];      /* 1: Admission Control of AC_BK is mandattory */
 } EDCA_PARM, *PEDCA_PARM;
@@ -1061,50 +1061,50 @@ typedef struct {
 typedef struct {
     BOOLEAN     bValid;                     /* 1: variable contains valid value */
     USHORT      StaNum;
-    UCHAR       ChannelUtilization;
+    unsigned char       ChannelUtilization;
     USHORT      RemainingAdmissionControl;  /* in unit of 32-us */
 } QBSS_LOAD_PARM, *PQBSS_LOAD_PARM;
 
 /* QBSS Info field in QSTA's assoc req */
 typedef struct GNU_PACKED _QBSS_STA_INFO_PARM{
 #ifdef RT_BIG_ENDIAN
-	UCHAR		Rsv2:1;
-	UCHAR		MaxSPLength:2;
-	UCHAR		Rsv1:1;
-	UCHAR		UAPSD_AC_BE:1;
-	UCHAR		UAPSD_AC_BK:1;
-	UCHAR		UAPSD_AC_VI:1;
-	UCHAR		UAPSD_AC_VO:1;
+	unsigned char		Rsv2:1;
+	unsigned char		MaxSPLength:2;
+	unsigned char		Rsv1:1;
+	unsigned char		UAPSD_AC_BE:1;
+	unsigned char		UAPSD_AC_BK:1;
+	unsigned char		UAPSD_AC_VI:1;
+	unsigned char		UAPSD_AC_VO:1;
 #else
-    UCHAR		UAPSD_AC_VO:1;
-	UCHAR		UAPSD_AC_VI:1;
-	UCHAR		UAPSD_AC_BK:1;
-	UCHAR		UAPSD_AC_BE:1;
-	UCHAR		Rsv1:1;
-	UCHAR		MaxSPLength:2;
-	UCHAR		Rsv2:1;
+    unsigned char		UAPSD_AC_VO:1;
+	unsigned char		UAPSD_AC_VI:1;
+	unsigned char		UAPSD_AC_BK:1;
+	unsigned char		UAPSD_AC_BE:1;
+	unsigned char		Rsv1:1;
+	unsigned char		MaxSPLength:2;
+	unsigned char		Rsv2:1;
 #endif /* RT_BIG_ENDIAN */
 } QBSS_STA_INFO_PARM, *PQBSS_STA_INFO_PARM;
 
 typedef struct {
 	QBSS_STA_INFO_PARM	QosInfo;
-	UCHAR	Rsv;
-	UCHAR	Q_AC_BE[4];
-	UCHAR	Q_AC_BK[4];
-	UCHAR	Q_AC_VI[4];
-	UCHAR	Q_AC_VO[4];
+	unsigned char	Rsv;
+	unsigned char	Q_AC_BE[4];
+	unsigned char	Q_AC_BK[4];
+	unsigned char	Q_AC_VI[4];
+	unsigned char	Q_AC_VO[4];
 } QBSS_STA_EDCA_PARM, *PQBSS_STA_EDCA_PARM;
 
 /* QBSS Info field in QAP's Beacon/ProbeRsp */
 typedef struct GNU_PACKED _QBSS_AP_INFO_PARM{
 #ifdef RT_BIG_ENDIAN
-	UCHAR		UAPSD:1;
-	UCHAR		Rsv:3;
-    UCHAR		ParamSetCount:4;
+	unsigned char		UAPSD:1;
+	unsigned char		Rsv:3;
+    unsigned char		ParamSetCount:4;
 #else
-    UCHAR		ParamSetCount:4;
-	UCHAR		Rsv:3;
-	UCHAR		UAPSD:1;
+    unsigned char		ParamSetCount:4;
+	unsigned char		Rsv:3;
+	unsigned char		UAPSD:1;
 #endif /* RT_BIG_ENDIAN */
 } QBSS_AP_INFO_PARM, *PQBSS_AP_INFO_PARM;
 
@@ -1116,42 +1116,42 @@ typedef struct {
     BOOLEAN     bQueueRequest;
     BOOLEAN     bTxopRequest;
 /*  BOOLEAN     bMoreDataAck; */
-    UCHAR       EdcaUpdateCount;
+    unsigned char       EdcaUpdateCount;
 } QOS_CAPABILITY_PARM, *PQOS_CAPABILITY_PARM;
 
 
 
 typedef struct {
-    UCHAR   Bssid[MAC_ADDR_LEN];
-    UCHAR   Channel;
-	UCHAR   CentralChannel;	/*Store the wide-band central channel for 40MHz.  .used in 40MHz AP. Or this is the same as Channel. */
-    UCHAR   BssType;
+    unsigned char   Bssid[MAC_ADDR_LEN];
+    unsigned char   Channel;
+	unsigned char   CentralChannel;	/*Store the wide-band central channel for 40MHz.  .used in 40MHz AP. Or this is the same as Channel. */
+    unsigned char   BssType;
     USHORT  AtimWin;
     USHORT  BeaconPeriod;
 
-    UCHAR   SupRate[MAX_LEN_OF_SUPPORTED_RATES];
-    UCHAR   SupRateLen;
-    UCHAR   ExtRate[MAX_LEN_OF_SUPPORTED_RATES];
-    UCHAR   ExtRateLen;
+    unsigned char   SupRate[MAX_LEN_OF_SUPPORTED_RATES];
+    unsigned char   SupRateLen;
+    unsigned char   ExtRate[MAX_LEN_OF_SUPPORTED_RATES];
+    unsigned char   ExtRateLen;
 	HT_CAPABILITY_IE HtCapability;
-	UCHAR			HtCapabilityLen;
+	unsigned char			HtCapabilityLen;
 	ADD_HT_INFO_IE AddHtInfo;	/* AP might use this additional ht info IE */
-	UCHAR			AddHtInfoLen;
+	unsigned char			AddHtInfoLen;
 	EXT_CAP_INFO_ELEMENT ExtCapInfo;	/* this is the extened capibility IE appreed in MGMT frames. Doesn't need to update once set in Init. */
-	UCHAR			NewExtChanOffset;
+	unsigned char			NewExtChanOffset;
 	CHAR    Rssi;
 
 #ifdef DOT11_VHT_AC
-	UCHAR vht_cap_len;
-	UCHAR vht_op_len;
+	unsigned char vht_cap_len;
+	unsigned char vht_op_len;
 	VHT_CAP_IE vht_cap_ie;
 	VHT_OP_IE vht_op_ie;
 #endif /* DOT11_VHT_AC */
 
 
 	CHAR	MinSNR;	
-    UCHAR   Privacy;			/* Indicate security function ON/OFF. Don't mess up with auth mode. */
-	UCHAR	Hidden;
+    unsigned char   Privacy;			/* Indicate security function ON/OFF. Don't mess up with auth mode. */
+	unsigned char	Hidden;
 
     USHORT  DtimPeriod;
     USHORT  CapabilityInfo;
@@ -1160,10 +1160,10 @@ typedef struct {
     USHORT  CfpPeriod;
     USHORT  CfpMaxDuration;
     USHORT  CfpDurRemaining;
-    UCHAR   SsidLen;
+    unsigned char   SsidLen;
     CHAR    Ssid[MAX_LEN_OF_SSID];
     
-	UCHAR	SameRxTimeCount;
+	unsigned char	SameRxTimeCount;
 	unsigned long   LastBeaconRxTimeA; /* OS's timestamp */
     unsigned long   LastBeaconRxTime; /* OS's timestamp */
 
@@ -1182,16 +1182,16 @@ typedef struct {
 	NDIS_802_11_AUTHENTICATION_MODE	AuthMode;	
 	NDIS_802_11_WEP_STATUS	WepStatus;				/* Unicast Encryption Algorithm extract from VAR_IE */
 	USHORT					VarIELen;				/* Length of next VIE include EID & Length */
-	UCHAR					VarIEs[MAX_VIE_LEN];
+	unsigned char					VarIEs[MAX_VIE_LEN];
 	USHORT					VarIeFromProbeRspLen;
-	UCHAR					*pVarIeFromProbRsp;
+	unsigned char					*pVarIeFromProbRsp;
 
 	/* CCX Ckip information */
-    UCHAR   CkipFlag;
+    unsigned char   CkipFlag;
 
 	/* CCX 2 TSF */
-	UCHAR	PTSF[4];		/* Parent TSF */
-	UCHAR	TTSF[8];		/* Target TSF */
+	unsigned char	PTSF[4];		/* Parent TSF */
+	unsigned char	TTSF[8];		/* Target TSF */
 
     /* 802.11e d9, and WMM */
 	EDCA_PARM           EdcaParm;
@@ -1199,38 +1199,38 @@ typedef struct {
 	QBSS_LOAD_PARM      QbssLoad;
 
 #ifdef WSC_INCLUDED
-    UCHAR		WpsAP;		/* 0x00: not support WPS, 0x01: support normal WPS, 0x02: support Ralink auto WPS, 0x04: support WAC AP */
+    unsigned char		WpsAP;		/* 0x00: not support WPS, 0x01: support normal WPS, 0x02: support Ralink auto WPS, 0x04: support WAC AP */
 	USHORT		WscDPIDFromWpsAP;
 #endif /* WSC_INCLUDED */
 
 
 
-	UCHAR   MacAddr[MAC_ADDR_LEN];
+	unsigned char   MacAddr[MAC_ADDR_LEN];
 	unsigned long ClientStatusFlags;
 } BSS_ENTRY, *PBSS_ENTRY;
 
 typedef struct {
-    UCHAR           BssNr;
-    UCHAR           BssOverlapNr;
+    unsigned char           BssNr;
+    unsigned char           BssOverlapNr;
     BSS_ENTRY       BssEntry[MAX_LEN_OF_BSS_TABLE];
 } BSS_TABLE, *PBSS_TABLE;
 
 
 typedef struct _MLME_QUEUE_ELEM {
-	UCHAR             Msg[MGMT_DMA_BUFFER_SIZE];	/* move here to fix alignment issue for ARM CPU */
+	unsigned char             Msg[MGMT_DMA_BUFFER_SIZE];	/* move here to fix alignment issue for ARM CPU */
     unsigned long             Machine;
     unsigned long             MsgType;
     unsigned long             MsgLen;
     LARGE_INTEGER     TimeStamp;
-    UCHAR             Rssi0;
-    UCHAR             Rssi1;
-    UCHAR             Rssi2;
-    UCHAR             AntSel;
-    UCHAR             Signal;
-    UCHAR             Channel;
-    UCHAR             Wcid;
+    unsigned char             Rssi0;
+    unsigned char             Rssi1;
+    unsigned char             Rssi2;
+    unsigned char             AntSel;
+    unsigned char             Signal;
+    unsigned char             Channel;
+    unsigned char             Wcid;
     BOOLEAN           Occupied;
-	UCHAR			  OpMode;
+	unsigned char			  OpMode;
 	unsigned long             Priv;
 } MLME_QUEUE_ELEM, *PMLME_QUEUE_ELEM;
 
@@ -1273,16 +1273,16 @@ typedef struct _STA_STATE_MACHINE {
 /* separate this under-trial settings away from pAd->StaActive so that once */
 /* this new attempt failed, driver can auto-recover back to the active settings. */
 typedef struct _MLME_AUX {
-	UCHAR               BssType;
-	UCHAR               Ssid[MAX_LEN_OF_SSID];
-	UCHAR               SsidLen;
-	UCHAR               Bssid[MAC_ADDR_LEN];
-	UCHAR			AutoReconnectSsid[MAX_LEN_OF_SSID];
-	UCHAR			AutoReconnectSsidLen;
+	unsigned char               BssType;
+	unsigned char               Ssid[MAX_LEN_OF_SSID];
+	unsigned char               SsidLen;
+	unsigned char               Bssid[MAC_ADDR_LEN];
+	unsigned char			AutoReconnectSsid[MAX_LEN_OF_SSID];
+	unsigned char			AutoReconnectSsidLen;
 	USHORT			Alg;
-	UCHAR			ScanType;
-	UCHAR			Channel;
-	UCHAR               CentralChannel;
+	unsigned char			ScanType;
+	unsigned char			Channel;
+	unsigned char               CentralChannel;
 	USHORT              Aid;
 	USHORT              CapabilityInfo;
 	USHORT              BeaconPeriod;
@@ -1292,20 +1292,20 @@ typedef struct _MLME_AUX {
     
 	/* Copy supported rate from desired AP's beacon. We are trying to match */
 	/* AP's supported and extended rate settings. */
-	UCHAR		        SupRate[MAX_LEN_OF_SUPPORTED_RATES];
-	UCHAR		        ExtRate[MAX_LEN_OF_SUPPORTED_RATES];
-	UCHAR		        SupRateLen;
-	UCHAR		        ExtRateLen;
+	unsigned char		        SupRate[MAX_LEN_OF_SUPPORTED_RATES];
+	unsigned char		        ExtRate[MAX_LEN_OF_SUPPORTED_RATES];
+	unsigned char		        SupRateLen;
+	unsigned char		        ExtRateLen;
 	HT_CAPABILITY_IE		HtCapability;
-	UCHAR		        	HtCapabilityLen;
+	unsigned char		        	HtCapabilityLen;
 	ADD_HT_INFO_IE		AddHtInfo;	/* AP might use this additional ht info IE */
 	EXT_CAP_INFO_ELEMENT ExtCapInfo; /* this is the extened capibility IE appreed in MGMT frames. Doesn't need to update once set in Init. */
-	UCHAR			NewExtChannelOffset;
+	unsigned char			NewExtChannelOffset;
 	/*RT_HT_CAPABILITY	SupportedHtPhy; */
 
 #ifdef DOT11_VHT_AC
-	UCHAR vht_cap_len;
-	UCHAR vht_op_len;
+	unsigned char vht_cap_len;
+	unsigned char vht_op_len;
 	VHT_CAP_IE vht_cap;
 	VHT_OP_IE vht_op;
 #endif /* DOT11_VHT_AC */
@@ -1331,7 +1331,7 @@ typedef struct _MLME_AUX {
 #ifdef CONFIG_AP_SUPPORT
 #ifdef APCLI_SUPPORT
 	USHORT              VarIELen;           /* Length of next VIE include EID & Length */
-    UCHAR               VarIEs[MAX_VIE_LEN];
+    unsigned char               VarIEs[MAX_VIE_LEN];
     LONG				Rssi; /* Record the rssi value when receive Probe Rsp. */
 	RALINK_TIMER_STRUCT ProbeTimer, ApCliAssocTimer, ApCliAuthTimer;
 #endif /* APCLI_SUPPORT */
@@ -1341,44 +1341,44 @@ typedef struct _MLME_AUX {
 } MLME_AUX, *PMLME_AUX;
 
 typedef struct _MLME_ADDBA_REQ_STRUCT{
-	UCHAR   Wcid;	/* */
-	UCHAR   pAddr[MAC_ADDR_LEN];
-	UCHAR   BaBufSize;
+	unsigned char   Wcid;	/* */
+	unsigned char   pAddr[MAC_ADDR_LEN];
+	unsigned char   BaBufSize;
 	USHORT	TimeOutValue;
-	UCHAR   TID;
-	UCHAR   Token;
+	unsigned char   TID;
+	unsigned char   Token;
 	USHORT	BaStartSeq;
 } MLME_ADDBA_REQ_STRUCT, *PMLME_ADDBA_REQ_STRUCT;
 
 
 typedef struct _MLME_DELBA_REQ_STRUCT{
-	UCHAR   Wcid;	/* */
-	UCHAR     Addr[MAC_ADDR_LEN];
-	UCHAR   TID;
-	UCHAR	Initiator;
+	unsigned char   Wcid;	/* */
+	unsigned char     Addr[MAC_ADDR_LEN];
+	unsigned char   TID;
+	unsigned char	Initiator;
 } MLME_DELBA_REQ_STRUCT, *PMLME_DELBA_REQ_STRUCT;
 
 /* assoc struct is equal to reassoc */
 typedef struct _MLME_ASSOC_REQ_STRUCT{
-    UCHAR     Addr[MAC_ADDR_LEN];
+    unsigned char     Addr[MAC_ADDR_LEN];
     USHORT    CapabilityInfo;
     USHORT    ListenIntv;
     unsigned long     Timeout;
 } MLME_ASSOC_REQ_STRUCT, *PMLME_ASSOC_REQ_STRUCT, MLME_REASSOC_REQ_STRUCT, *PMLME_REASSOC_REQ_STRUCT;
 
 typedef struct _MLME_DISASSOC_REQ_STRUCT{
-    UCHAR     Addr[MAC_ADDR_LEN];
+    unsigned char     Addr[MAC_ADDR_LEN];
     USHORT    Reason;
 } MLME_DISASSOC_REQ_STRUCT, *PMLME_DISASSOC_REQ_STRUCT;
 
 typedef struct _MLME_AUTH_REQ_STRUCT {
-    UCHAR        Addr[MAC_ADDR_LEN];
+    unsigned char        Addr[MAC_ADDR_LEN];
     USHORT       Alg;
     unsigned long        Timeout;
 } MLME_AUTH_REQ_STRUCT, *PMLME_AUTH_REQ_STRUCT;
 
 typedef struct _MLME_DEAUTH_REQ_STRUCT {
-    UCHAR        Addr[MAC_ADDR_LEN];
+    unsigned char        Addr[MAC_ADDR_LEN];
     USHORT       Reason;
 } MLME_DEAUTH_REQ_STRUCT, *PMLME_DEAUTH_REQ_STRUCT;
 
@@ -1387,23 +1387,23 @@ typedef struct {
 } MLME_JOIN_REQ_STRUCT;
 
 typedef struct _MLME_SCAN_REQ_STRUCT {
-    UCHAR      Bssid[MAC_ADDR_LEN];
-    UCHAR      BssType;
-    UCHAR      ScanType;
-    UCHAR      SsidLen;
+    unsigned char      Bssid[MAC_ADDR_LEN];
+    unsigned char      BssType;
+    unsigned char      ScanType;
+    unsigned char      SsidLen;
     CHAR       Ssid[MAX_LEN_OF_SSID];
 } MLME_SCAN_REQ_STRUCT, *PMLME_SCAN_REQ_STRUCT;
 
 typedef struct _MLME_START_REQ_STRUCT {
     CHAR        Ssid[MAX_LEN_OF_SSID];
-    UCHAR       SsidLen;
+    unsigned char       SsidLen;
 } MLME_START_REQ_STRUCT, *PMLME_START_REQ_STRUCT;
 
 
 typedef struct GNU_PACKED _EID_STRUCT{
-    UCHAR   Eid;
-    UCHAR   Len;
-    UCHAR   Octet[1];
+    unsigned char   Eid;
+    unsigned char   Len;
+    unsigned char   Octet[1];
 } EID_STRUCT,*PEID_STRUCT, BEACON_EID_STRUCT, *PBEACON_EID_STRUCT;
 
 
@@ -1441,55 +1441,55 @@ typedef enum _AuthState {
 
 
 typedef struct _IE_lists {
-	UCHAR Addr2[MAC_ADDR_LEN];
-	UCHAR ApAddr[MAC_ADDR_LEN];
+	unsigned char Addr2[MAC_ADDR_LEN];
+	unsigned char ApAddr[MAC_ADDR_LEN];
 	USHORT CapabilityInfo;
 	USHORT ListenInterval;
-	UCHAR SsidLen;
-	UCHAR Ssid[MAX_LEN_OF_SSID];
-	UCHAR SupportedRatesLen;
-	UCHAR SupportedRates[MAX_LEN_OF_SUPPORTED_RATES];
-	UCHAR RSN_IE[MAX_LEN_OF_RSNIE];
-	UCHAR RSNIE_Len;
+	unsigned char SsidLen;
+	unsigned char Ssid[MAX_LEN_OF_SSID];
+	unsigned char SupportedRatesLen;
+	unsigned char SupportedRates[MAX_LEN_OF_SUPPORTED_RATES];
+	unsigned char RSN_IE[MAX_LEN_OF_RSNIE];
+	unsigned char RSNIE_Len;
 	BOOLEAN bWmmCapable;
 #ifdef WSC_AP_SUPPORT
 	BOOLEAN bWscCapable;
 #endif /* WSC_AP_SUPPORT */
 	unsigned long RalinkIe;
 	EXT_CAP_INFO_ELEMENT ExtCapInfo;
-	UCHAR ht_cap_len;
+	unsigned char ht_cap_len;
 	HT_CAPABILITY_IE HTCapability;
 #ifdef DOT11_VHT_AC
 	VHT_CAP_IE vht_cap;
 	VHT_OP_IE vht_op;
-	UCHAR vht_cap_len;
-	UCHAR vht_op_len;
+	unsigned char vht_cap_len;
+	unsigned char vht_op_len;
 #endif /* DOT11_VHT_AC */
 }IE_LISTS;
 
 
 typedef struct _bcn_ie_list {
-	UCHAR Addr2[MAC_ADDR_LEN]; 
-	UCHAR Bssid[MAC_ADDR_LEN];
+	unsigned char Addr2[MAC_ADDR_LEN]; 
+	unsigned char Bssid[MAC_ADDR_LEN];
 	CHAR Ssid[MAX_LEN_OF_SSID];
-	UCHAR SsidLen;
-	UCHAR BssType;
+	unsigned char SsidLen;
+	unsigned char BssType;
 	USHORT BeaconPeriod;
-	UCHAR Channel;
-	UCHAR NewChannel;
+	unsigned char Channel;
+	unsigned char NewChannel;
 	USHORT AtimWin;
 	USHORT CapabilityInfo;
-	UCHAR Erp;
-	UCHAR DtimCount;
-	UCHAR DtimPeriod;
-	UCHAR BcastFlag;
-	UCHAR MessageToMe;
-	UCHAR SupRate[MAX_LEN_OF_SUPPORTED_RATES];
-	UCHAR SupRateLen;
-	UCHAR ExtRate[MAX_LEN_OF_SUPPORTED_RATES];
-	UCHAR ExtRateLen;
-	UCHAR CkipFlag;
-	UCHAR AironetCellPowerLimit;
+	unsigned char Erp;
+	unsigned char DtimCount;
+	unsigned char DtimPeriod;
+	unsigned char BcastFlag;
+	unsigned char MessageToMe;
+	unsigned char SupRate[MAX_LEN_OF_SUPPORTED_RATES];
+	unsigned char SupRateLen;
+	unsigned char ExtRate[MAX_LEN_OF_SUPPORTED_RATES];
+	unsigned char ExtRateLen;
+	unsigned char CkipFlag;
+	unsigned char AironetCellPowerLimit;
 	LARGE_INTEGER TimeStamp;
 	CF_PARM CfParm;
 	EDCA_PARM EdcaParm;
@@ -1497,17 +1497,17 @@ typedef struct _bcn_ie_list {
 	QOS_CAPABILITY_PARM QosCapability;
 	unsigned long RalinkIe;
 	EXT_CAP_INFO_ELEMENT ExtCapInfo;
-	UCHAR HtCapabilityLen;
-	UCHAR PreNHtCapabilityLen;
+	unsigned char HtCapabilityLen;
+	unsigned char PreNHtCapabilityLen;
 	HT_CAPABILITY_IE HtCapability;
-	UCHAR AddHtInfoLen;
+	unsigned char AddHtInfoLen;
 	ADD_HT_INFO_IE AddHtInfo;
-	UCHAR NewExtChannelOffset;
+	unsigned char NewExtChannelOffset;
 #ifdef DOT11_VHT_AC
 	VHT_CAP_IE vht_cap_ie;
 	VHT_OP_IE vht_op_ie;
-	UCHAR vht_cap_len;
-	UCHAR vht_op_len;
+	unsigned char vht_cap_len;
+	unsigned char vht_op_len;
 #endif /* DOT11_VHT_AC */
 }BCN_IE_LIST;
 

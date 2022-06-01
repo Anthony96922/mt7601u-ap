@@ -100,7 +100,7 @@ static VOID APMlmeDeauthReqAction(
 	NDIS_STATUS	NStatus;
 	unsigned long		FrameLen = 0;
 	MAC_TABLE_ENTRY	*pEntry;
-	UCHAR		apidx;
+	unsigned char		apidx;
 
 
 	pInfo = (MLME_DEAUTH_REQ_STRUCT *)Elem->Msg;
@@ -156,7 +156,7 @@ static VOID APPeerDeauthReqAction(
     IN PRTMP_ADAPTER pAd, 
     IN PMLME_QUEUE_ELEM Elem) 
 {
-    UCHAR			Addr2[MAC_ADDR_LEN];
+    unsigned char			Addr2[MAC_ADDR_LEN];
     USHORT			Reason;
 	unsigned short			SeqNum;
     MAC_TABLE_ENTRY	*pEntry;
@@ -218,8 +218,8 @@ static VOID APPeerAuthReqAtIdleAction(
 {
 	INT i;
 	USHORT Seq, Alg, RspReason, Status;
-	UCHAR Addr1[MAC_ADDR_LEN];
-	UCHAR Addr2[MAC_ADDR_LEN];
+	unsigned char Addr1[MAC_ADDR_LEN];
+	unsigned char Addr2[MAC_ADDR_LEN];
 	CHAR Chtxt[CIPHER_TEXT_LEN];
 	unsigned int apidx;
 
@@ -229,7 +229,7 @@ static VOID APPeerAuthReqAtIdleAction(
 	NDIS_STATUS NStatus;
 	unsigned long FrameLen = 0;
 	MAC_TABLE_ENTRY *pEntry;
-	UCHAR ChTxtIe = 16, ChTxtLen = CIPHER_TEXT_LEN;
+	unsigned char ChTxtIe = 16, ChTxtLen = CIPHER_TEXT_LEN;
 
 
 
@@ -404,11 +404,11 @@ static VOID APPeerAuthConfirmAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	USHORT          Seq, Alg, Status;
-	UCHAR           Addr2[MAC_ADDR_LEN];
+	unsigned char           Addr2[MAC_ADDR_LEN];
 	PHEADER_802_11  pRcvHdr;
 	CHAR            Chtxt[CIPHER_TEXT_LEN];
 	MAC_TABLE_ENTRY *pEntry;
-	UCHAR			Addr1[MAC_ADDR_LEN];
+	unsigned char			Addr1[MAC_ADDR_LEN];
 	unsigned int			apidx;
 
 
@@ -548,7 +548,7 @@ VOID APCls2errAction(
 	}
 	else
 	{
-		UCHAR bssid[MAC_ADDR_LEN];
+		unsigned char bssid[MAC_ADDR_LEN];
 
 		NdisMoveMemory(bssid, pHeader->Addr1, MAC_ADDR_LEN);
 		bssid[5] &= pAd->ApCfg.MacMask;

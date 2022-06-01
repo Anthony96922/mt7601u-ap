@@ -62,12 +62,12 @@ VOID MlmeSetMcsGroup(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 	MlmeSelectUpRate - select UpRate based on MCS group
 	returns the UpRate index and updates the MCS group
 */
-UCHAR MlmeSelectUpRate(
+unsigned char MlmeSelectUpRate(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN RTMP_RA_GRP_TB *pCurrTxRate)
 {
-	UCHAR UpRateIdx = 0;
+	unsigned char UpRateIdx = 0;
 
 	while (1)
 	{
@@ -212,12 +212,12 @@ UCHAR MlmeSelectUpRate(
 		CurrRateIdx - current rate index
 		returns the DownRate index. Down Rate = CurrRateIdx if there is no valid Down Rate
 */
-UCHAR MlmeSelectDownRate(
+unsigned char MlmeSelectDownRate(
 	IN RTMP_ADAPTER *pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
-	IN UCHAR CurrRateIdx)
+	IN unsigned char CurrRateIdx)
 {
-	UCHAR DownRateIdx = PTX_RA_GRP_ENTRY(pEntry->pTable, CurrRateIdx)->downMcs;
+	unsigned char DownRateIdx = PTX_RA_GRP_ENTRY(pEntry->pTable, CurrRateIdx)->downMcs;
 	RTMP_RA_GRP_TB *pDownRate;
 
 	/*  Loop until a valid down rate is found */
@@ -291,12 +291,12 @@ UCHAR MlmeSelectDownRate(
 VOID MlmeGetSupportedMcsAdapt(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN UCHAR mcs23GI,
+	IN unsigned char mcs23GI,
 	OUT CHAR mcs[])
 {
 	CHAR idx;
 	RTMP_RA_GRP_TB *pCurrTxRate;
-	UCHAR *pTable = pEntry->pTable;
+	unsigned char *pTable = pEntry->pTable;
 
 	for (idx=0; idx<24; idx++)
 		mcs[idx] = -1;
@@ -422,15 +422,15 @@ VOID MlmeGetSupportedMcsAdapt(
 		Rssi - the Rssi value
 		RssiOffset - offset to apply to the Rssi
 */
-UCHAR MlmeSelectTxRateAdapt(
+unsigned char MlmeSelectTxRateAdapt(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
 	IN CHAR		mcs[],
 	IN CHAR		Rssi,
 	IN CHAR		RssiOffset)
 {
-	UCHAR TxRateIdx = 0;
-	UCHAR *pTable = pEntry->pTable;
+	unsigned char TxRateIdx = 0;
+	unsigned char *pTable = pEntry->pTable;
 
 #ifdef DBG_CTRL_SUPPORT
 	/*  Debug option: Add 6 dB of margin */
@@ -719,8 +719,8 @@ BOOLEAN MlmeRAHybridRule(
 VOID MlmeNewRateAdapt(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
-	IN UCHAR			UpRateIdx,
-	IN UCHAR			DownRateIdx,
+	IN unsigned char			UpRateIdx,
+	IN unsigned char			DownRateIdx,
 	IN unsigned long			TrainUp,
 	IN unsigned long			TrainDown,
 	IN unsigned long			TxErrorRatio)
@@ -730,8 +730,8 @@ VOID MlmeNewRateAdapt(
 #ifdef TXBF_SUPPORT
 	BOOLEAN 	invertTxBf = FALSE;
 #endif /*  TXBF_SUPPORT */
-	UCHAR *pTable = pEntry->pTable;
-	UCHAR CurrRateIdx = pEntry->CurrTxRateIndex;
+	unsigned char *pTable = pEntry->pTable;
+	unsigned char CurrRateIdx = pEntry->CurrTxRateIndex;
 	RTMP_RA_GRP_TB *pCurrTxRate = PTX_RA_GRP_ENTRY(pTable, CurrRateIdx);
 
 	pEntry->CurrTxRateStableTime++;
@@ -970,12 +970,12 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
     IN unsigned long idx) 
 {
 	unsigned char *					pTable;
-	UCHAR					CurrRateIdx;
+	unsigned char					CurrRateIdx;
 	unsigned long					AccuTxTotalCnt, TxTotalCnt, TxCnt;
 	unsigned long					TxErrorRatio = 0;
 	MAC_TABLE_ENTRY			*pEntry;
 	RTMP_RA_GRP_TB *pCurrTxRate;
-	UCHAR					TrainUp, TrainDown;
+	unsigned char					TrainUp, TrainDown;
 	CHAR					Rssi, ratio;
 	unsigned long					TxSuccess, TxRetransmit, TxFailCount;
 	unsigned long					OneSecTxNoRetryOKRationCount;
@@ -1136,7 +1136,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
 	if (TxErrorRatio >= TrainDown)
 		MlmeSetTxQuality(pEntry, CurrRateIdx, DRS_TX_QUALITY_WORST_BOUND);
 
-	pEntry->PER[CurrRateIdx] = (UCHAR)TxErrorRatio;
+	pEntry->PER[CurrRateIdx] = (unsigned char)TxErrorRatio;
 
 
 	/*  Perform DRS - consider TxRate Down first, then rate up. */
@@ -1228,7 +1228,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
 	/*  Update mcsGroup */
 	if (pEntry->LastSecTxRateChangeAction == RATE_UP)
 	{
-		UCHAR UpRateIdx;
+		unsigned char UpRateIdx;
 
 		/*  If RATE_UP failed look for the next group with valid mcs */
 		if (pEntry->CurrTxRateIndex != CurrRateIdx && pEntry->mcsGroup > 0)
@@ -1291,7 +1291,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
 VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 {
 	unsigned char * pTable;
-	UCHAR UpRateIdx, DownRateIdx, CurrRateIdx, TrainUp, TrainDown;
+	unsigned char UpRateIdx, DownRateIdx, CurrRateIdx, TrainUp, TrainDown;
 	unsigned long TxTotalCnt, TxSuccess, TxRetransmit, TxFailCount, TxErrorRatio;
 	MAC_TABLE_ENTRY *pEntry;
 	RTMP_RA_GRP_TB *pCurrTxRate;
@@ -1353,7 +1353,7 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 
 	/*  Save LastTxOkCount, LastTxPER and last MCS action for APQuickResponeForRateUpExec */
 	pEntry->LastTxOkCount = TxSuccess;
-	pEntry->LastTxPER = (UCHAR)TxErrorRatio;
+	pEntry->LastTxPER = (unsigned char)TxErrorRatio;
 	pEntry->LastTimeTxRateChangeAction = pEntry->LastSecTxRateChangeAction;
 
 	/* different calculation in APQuickResponeForRateUpExec() */
@@ -1421,7 +1421,7 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 		pEntry->lowTrafficCount++;
 		if (pEntry->lowTrafficCount >= pAd->CommonCfg.lowTrafficThrd)
 		{
-			UCHAR TxRateIdx;
+			unsigned char TxRateIdx;
 			CHAR mcs[24];
 			CHAR RssiOffset = 0;
 
@@ -1503,7 +1503,7 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 		return;
 	}
 
-	pEntry->PER[CurrRateIdx] = (UCHAR)TxErrorRatio;
+	pEntry->PER[CurrRateIdx] = (unsigned char)TxErrorRatio;
 
 	/* Select rate based on PER */
 	MlmeNewRateAdapt(pAd, pEntry, UpRateIdx, DownRateIdx, TrainUp, TrainDown, TxErrorRatio);
@@ -1532,11 +1532,11 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 */
 INT Set_RateTable_Proc(RTMP_ADAPTER *pAd, char * arg)
 {
-	UCHAR *pTable, TableSize, InitTxRateIdx;
+	unsigned char *pTable, TableSize, InitTxRateIdx;
 	int i;
 	MAC_TABLE_ENTRY *pEntry;
 	int itemNo, rtIndex, value;
-	UCHAR *pRateEntry;
+	unsigned char *pRateEntry;
 
 	/* Find first Associated STA in MAC table */
 	for (i=1; i<MAX_LEN_OF_MAC_TABLE; i++)
@@ -1562,10 +1562,10 @@ INT Set_RateTable_Proc(RTMP_ADAPTER *pAd, char * arg)
 
 #ifdef NEW_RATE_ADAPT_SUPPORT
 	if (ADAPT_RATE_TABLE(pTable))
-		pRateEntry = (UCHAR *)PTX_RA_GRP_ENTRY(pTable, itemNo);
+		pRateEntry = (unsigned char *)PTX_RA_GRP_ENTRY(pTable, itemNo);
 	else
 #endif /* NEW_RATE_ADAPT_SUPPORT */
-		pRateEntry = (UCHAR *)PTX_RA_LEGACY_ENTRY(pTable, itemNo);
+		pRateEntry = (unsigned char *)PTX_RA_LEGACY_ENTRY(pTable, itemNo);
 
 	/* If no addtional parameters then print the entry */
 	if (*arg != ':') {
@@ -1600,7 +1600,7 @@ INT	Set_PerThrdAdj_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR i;
+	unsigned char i;
 	for (i=0; i<MAX_LEN_OF_MAC_TABLE; i++){
 		pAd->MacTab.Content[i].perThrdAdj = simple_strtol(arg, 0, 10);
 	}

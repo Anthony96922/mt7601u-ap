@@ -41,8 +41,8 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 {
 	INT i;
 	unsigned char * pTable;
-	UCHAR TableSize = 0, InitTxRateIdx, TrainUp, TrainDown;
-	UCHAR UpRateIdx, DownRateIdx, CurrRateIdx;
+	unsigned char TableSize = 0, InitTxRateIdx, TrainUp, TrainDown;
+	unsigned char UpRateIdx, DownRateIdx, CurrRateIdx;
 	MAC_TABLE_ENTRY *pEntry;
 	RTMP_RA_LEGACY_TB *pCurrTxRate, *pTmpTxRate = NULL;
 	CHAR Rssi, TmpIdx = 0;
@@ -160,7 +160,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 
 		/* Save LastTxOkCount, LastTxPER and last MCS action for APQuickResponeForRateUpExec */
 		pEntry->LastTxOkCount = TxSuccess;
-		pEntry->LastTxPER = (TxTotalCnt == 0 ? 0 : (UCHAR)TxErrorRatio);
+		pEntry->LastTxPER = (TxTotalCnt == 0 ? 0 : (unsigned char)TxErrorRatio);
 		pEntry->LastTimeTxRateChangeAction = pEntry->LastSecTxRateChangeAction;
 
 		/* different calculation in APQuickResponeForRateUpExec() */
@@ -317,7 +317,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 		/* Check for low traffic case */
         if (TxTotalCnt <= 15)
         {
-			UCHAR	TxRateIdx;
+			unsigned char	TxRateIdx;
 			CHAR	mcs[24];
 
 			/* Check existence and get the index of each MCS */
@@ -374,7 +374,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 			continue;
 		}
 
-		pEntry->PER[CurrRateIdx] = (UCHAR)TxErrorRatio;
+		pEntry->PER[CurrRateIdx] = (unsigned char)TxErrorRatio;
 
 		/* Select rate based on PER */
 		MlmeOldRateAdapt(pAd, pEntry, CurrRateIdx, UpRateIdx, DownRateIdx, TrainUp, TrainDown, TxErrorRatio);
@@ -421,13 +421,13 @@ VOID APQuickResponeForRateUpExec(
 	PRTMP_ADAPTER			pAd = (PRTMP_ADAPTER)FunctionContext;
 	unsigned long					i;
 	unsigned char *					pTable;
-	UCHAR					TableSize = 0;
-	UCHAR					CurrRateIdx;
+	unsigned char					TableSize = 0;
+	unsigned char					CurrRateIdx;
 	unsigned long					AccuTxTotalCnt, TxTotalCnt, TxCnt;
 	unsigned long					TxErrorRatio = 0;
 	MAC_TABLE_ENTRY			*pEntry;
 	RTMP_RA_LEGACY_TB *pCurrTxRate;
-	UCHAR					InitTxRateIdx, TrainUp, TrainDown;
+	unsigned char					InitTxRateIdx, TrainUp, TrainDown;
 	CHAR					Rssi, ratio;
 	unsigned long					TxSuccess, TxRetransmit, TxFailCount;
 #ifdef TXBF_SUPPORT
@@ -595,7 +595,7 @@ VOID APQuickResponeForRateUpExec(
 			continue;
         }
 
-		pEntry->PER[CurrRateIdx] = (UCHAR)TxErrorRatio;
+		pEntry->PER[CurrRateIdx] = (unsigned char)TxErrorRatio;
 
        /* Compare throughput */
 		do
@@ -724,16 +724,16 @@ VOID APQuickResponeForRateUpExec(
 VOID MlmeOldRateAdapt(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
-	IN UCHAR			CurrRateIdx,
-	IN UCHAR			UpRateIdx,
-	IN UCHAR			DownRateIdx,
+	IN unsigned char			CurrRateIdx,
+	IN unsigned char			UpRateIdx,
+	IN unsigned char			DownRateIdx,
 	IN unsigned long			TrainUp,
 	IN unsigned long			TrainDown,
 	IN unsigned long			TxErrorRatio)
 {
 	BOOLEAN	bTrainUp = FALSE;
 #ifdef TXBF_SUPPORT
-	UCHAR *pTable = pEntry->pTable;
+	unsigned char *pTable = pEntry->pTable;
 	BOOLEAN invertTxBf = FALSE;
 #endif /* TXBF_SUPPORT */
 

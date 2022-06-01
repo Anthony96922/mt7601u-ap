@@ -83,16 +83,16 @@ typedef struct GNU_PACKED _AC_PARAM_RECORD{
 typedef struct GNU_PACKED _PSPOLL_FRAME {
 	FRAME_CONTROL FC;
 	USHORT Aid;
-	UCHAR Bssid[MAC_ADDR_LEN];
-	UCHAR Ta[MAC_ADDR_LEN];
+	unsigned char Bssid[MAC_ADDR_LEN];
+	unsigned char Ta[MAC_ADDR_LEN];
 } PSPOLL_FRAME, *PPSPOLL_FRAME;
 
 
 typedef struct GNU_PACKED _RTS_FRAME {
 	FRAME_CONTROL FC;
 	USHORT Duration;
-	UCHAR Addr1[MAC_ADDR_LEN];
-	UCHAR Addr2[MAC_ADDR_LEN];
+	unsigned char Addr1[MAC_ADDR_LEN];
+	unsigned char Addr2[MAC_ADDR_LEN];
 } RTS_FRAME, *PRTS_FRAME;
 
 #endif /* __DOT11_BASE_H__ */

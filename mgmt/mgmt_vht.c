@@ -20,7 +20,7 @@ VOID rtmp_set_vht(RTMP_ADAPTER *pAd, RT_PHY_INFO *phy_info)
 
 INT SetCommonVHT(RTMP_ADAPTER *pAd)
 {
-	UCHAR cent_ch = 0;
+	unsigned char cent_ch = 0;
 
 	if (!WMODE_CAP_AC(pAd->CommonCfg.PhyMode))
 	{

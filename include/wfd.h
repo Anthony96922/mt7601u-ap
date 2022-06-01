@@ -130,7 +130,7 @@ VOID WfdMakeWfdIE(
 
 unsigned long InsertWfdSubelmtTlv(
 	IN PRTMP_ADAPTER 	pAd,
-	IN UCHAR			SubId,
+	IN unsigned char			SubId,
 	IN unsigned char *			pInBuffer,
 	IN unsigned char *			pOutBuffer,
 	IN UINT				Action);

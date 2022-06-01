@@ -132,8 +132,8 @@ BOOLEAN isValidApCliIf(
 VOID ApCliMgtMacHeaderInit(
     IN	PRTMP_ADAPTER	pAd, 
     IN OUT PHEADER_802_11 pHdr80211, 
-    IN UCHAR SubType, 
-    IN UCHAR ToDs, 
+    IN unsigned char SubType, 
+    IN unsigned char ToDs, 
     IN unsigned char * pDA, 
     IN unsigned char * pBssid,
     IN USHORT ifIndex)
@@ -269,7 +269,7 @@ BOOLEAN ApCliCheckHt(
 */
 BOOLEAN ApCliLinkUp(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR ifIndex)
+	IN unsigned char ifIndex)
 {
 	BOOLEAN result = FALSE;
 	PAPCLI_STRUCT pApCliEntry = NULL;
@@ -307,10 +307,10 @@ BOOLEAN ApCliLinkUp(
 		pMacEntry = MacTableInsertEntry(pAd, (unsigned char *)(pAd->ApCliMlmeAux.Bssid), (ifIndex + MIN_NET_DEVICE_FOR_APCLI), OPMODE_AP, TRUE);
 		if (pMacEntry)
 		{
-			UCHAR Rates[MAX_LEN_OF_SUPPORTED_RATES];
+			unsigned char Rates[MAX_LEN_OF_SUPPORTED_RATES];
 			unsigned char * pRates = Rates;
-			UCHAR RatesLen;
-			UCHAR MaxSupportedRate = 0;
+			unsigned char RatesLen;
+			unsigned char MaxSupportedRate = 0;
 
 			pMacEntry->Sst = SST_ASSOC;
 			
@@ -359,7 +359,7 @@ BOOLEAN ApCliLinkUp(
 			if ((pMacEntry->AuthMode >= Ndis802_11AuthModeWPA) && (pAd->ApCliMlmeAux.VarIELen != 0))
 			{
 				unsigned char *              pVIE;
-				UCHAR               len;
+				unsigned char               len;
 				PEID_STRUCT         pEid;
 
 				pVIE = pAd->ApCliMlmeAux.VarIEs;
@@ -473,8 +473,8 @@ BOOLEAN ApCliLinkUp(
 				pMacEntry->MaxHTPhyMode.field.STBC = (pHtCapability->HtCapInfo.RxSTBC & (pAd->CommonCfg.DesiredHtPhy.TxSTBC));
 				pMacEntry->MpduDensity = pHtCapability->HtCapParm.MpduDensity;
 				pMacEntry->MaxRAmpduFactor = pHtCapability->HtCapParm.MaxRAmpduFactor;
-				pMacEntry->MmpsMode = (UCHAR)pHtCapability->HtCapInfo.MimoPs;
-				pMacEntry->AMsduSize = (UCHAR)pHtCapability->HtCapInfo.AMsduSize;				
+				pMacEntry->MmpsMode = (unsigned char)pHtCapability->HtCapInfo.MimoPs;
+				pMacEntry->AMsduSize = (unsigned char)pHtCapability->HtCapInfo.AMsduSize;				
 				pMacEntry->HTPhyMode.word = pMacEntry->MaxHTPhyMode.word;
 				if (pAd->CommonCfg.DesiredHtPhy.AmsduEnable && (pAd->CommonCfg.REGBACapability.field.AutoBA == FALSE))
 					CLIENT_STATUS_SET_FLAG(pMacEntry, fCLIENT_STATUS_AMSDU_INUSED);
@@ -511,11 +511,11 @@ BOOLEAN ApCliLinkUp(
 			{
 				pMacEntry->bAutoTxRateSwitch = FALSE;
 				/* If the legacy mode is set, overwrite the transmit setting of this entry. */
-				RTMPUpdateLegacyTxSetting((UCHAR)pAd->ApCfg.ApCliTab[ifIndex].DesiredTransmitSetting.field.FixedTxMode, pMacEntry);	
+				RTMPUpdateLegacyTxSetting((unsigned char)pAd->ApCfg.ApCliTab[ifIndex].DesiredTransmitSetting.field.FixedTxMode, pMacEntry);	
 			}
 			else
 			{
-				UCHAR TableSize = 0;
+				unsigned char TableSize = 0;
 
 				pMacEntry->bAutoTxRateSwitch = TRUE;
 				MlmeSelectTxRateTable(pAd, pMacEntry, &pMacEntry->pTable, &TableSize, &pMacEntry->CurrTxRateIndex);
@@ -645,7 +645,7 @@ BOOLEAN ApCliLinkUp(
 */
 VOID ApCliLinkDown(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR ifIndex)
+	IN unsigned char ifIndex)
 {
 	PAPCLI_STRUCT pApCliEntry = NULL;
 
@@ -688,7 +688,7 @@ VOID ApCliLinkDown(
 VOID ApCliIfUp(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR ifIndex;
+	unsigned char ifIndex;
 	PAPCLI_STRUCT pApCliEntry;
 
 	/* Reset is in progress, stop immediately */
@@ -726,7 +726,7 @@ VOID ApCliIfUp(
 VOID ApCliIfDown(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR ifIndex;
+	unsigned char ifIndex;
 	PAPCLI_STRUCT pApCliEntry;
 
 	for(ifIndex = 0; ifIndex < MAX_APCLI_NUM; ifIndex++)
@@ -750,7 +750,7 @@ VOID ApCliIfDown(
 VOID ApCliIfMonitor(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR index;
+	unsigned char index;
 	PAPCLI_STRUCT pApCliEntry;	
 
 	/* Reset is in progress, stop immediately */
@@ -765,7 +765,7 @@ VOID ApCliIfMonitor(
 
 	for(index = 0; index < MAX_APCLI_NUM; index++)
 	{
-		UCHAR Wcid;
+		unsigned char Wcid;
 		PMAC_TABLE_ENTRY pMacEntry;
 		BOOLEAN bForceBrocken = FALSE;
  
@@ -815,10 +815,10 @@ BOOLEAN ApCliMsgTypeSubst(
 	OUT INT *MsgType)
 {
 	USHORT Seq;
-	UCHAR EAPType; 
+	unsigned char EAPType; 
 	BOOLEAN Return = FALSE;
 #ifdef WSC_AP_SUPPORT
-	UCHAR EAPCode;
+	unsigned char EAPCode;
     PMAC_TABLE_ENTRY pEntry;
 #endif /* WSC_AP_SUPPORT */
 
@@ -835,15 +835,15 @@ BOOLEAN ApCliMsgTypeSubst(
         if (pEntry && IS_ENTRY_APCLI(pEntry) && pAd->ApCfg.ApCliTab[pEntry->apidx].WscControl.WscConfMode == WSC_ENROLLEE)
         {
             *Machine = WSC_STATE_MACHINE;
-            EAPType = *((UCHAR*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
-            EAPCode = *((UCHAR*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 4);
+            EAPType = *((unsigned char*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
+            EAPCode = *((unsigned char*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 4);
             Return = WscMsgTypeSubst(EAPType, EAPCode, MsgType);
         }
         if (!Return)
 #endif /* WSC_AP_SUPPORT */
         {
     		*Machine = WPA_STATE_MACHINE;
-    		EAPType = *((UCHAR*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
+    		EAPType = *((unsigned char*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
     		Return = WpaMsgTypeSubst(EAPType, MsgType);
         }
 		return Return;
@@ -953,17 +953,17 @@ BOOLEAN ApCliPeerAssocRspSanity(
     OUT USHORT *pCapabilityInfo, 
     OUT USHORT *pStatus, 
     OUT USHORT *pAid, 
-    OUT UCHAR SupRate[], 
-    OUT UCHAR *pSupRateLen,
-    OUT UCHAR ExtRate[], 
-    OUT UCHAR *pExtRateLen,
+    OUT unsigned char SupRate[], 
+    OUT unsigned char *pSupRateLen,
+    OUT unsigned char ExtRate[], 
+    OUT unsigned char *pExtRateLen,
     OUT HT_CAPABILITY_IE *pHtCapability,
     OUT ADD_HT_INFO_IE *pAddHtInfo,	/* AP might use this additional ht info IE */
-    OUT UCHAR *pHtCapabilityLen,
-    OUT UCHAR *pAddHtInfoLen,
-    OUT UCHAR *pNewExtChannelOffset,
+    OUT unsigned char *pHtCapabilityLen,
+    OUT unsigned char *pAddHtInfoLen,
+    OUT unsigned char *pNewExtChannelOffset,
     OUT PEDCA_PARM pEdcaParm,
-    OUT UCHAR *pCkipFlag) 
+    OUT unsigned char *pCkipFlag) 
 {
 	CHAR          IeType, *Ptr;
 	PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;
@@ -1084,7 +1084,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
 					ptr = (unsigned char *) &pEid->Octet[8];
 					for (i=0; i<4; i++)
 					{
-						UCHAR aci = (*ptr & 0x60) >> 5; /* b5~6 is AC INDEX */
+						unsigned char aci = (*ptr & 0x60) >> 5; /* b5~6 is AC INDEX */
 						pEdcaParm->bACM[aci]  = (((*ptr) & 0x10) == 0x10);   /* b5 is ACM */
 						pEdcaParm->Aifsn[aci] = (*ptr) & 0x0f;               /* b0~3 is AIFSN */
 						pEdcaParm->Cwmin[aci] = *(ptr+1) & 0x0f;             /* b0~4 is Cwmin */
@@ -1100,7 +1100,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
 		}
 
 		Length = Length + 2 + pEid->Len; 
-		pEid = (PEID_STRUCT)((UCHAR*)pEid + 2 + pEid->Len);        
+		pEid = (PEID_STRUCT)((unsigned char*)pEid + 2 + pEid->Len);        
 	}
 
 	return TRUE;
@@ -1109,7 +1109,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
 
 MAC_TABLE_ENTRY *ApCliTableLookUpByWcid(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR wcid,
+	IN unsigned char wcid,
 	IN unsigned char * pAddrs)
 {
 	unsigned long ApCliIndex;
@@ -1201,9 +1201,9 @@ static inline BOOLEAN ValidApCliEntry(
 BOOLEAN ApCliAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
-	OUT UCHAR		*pWcid)
+	OUT unsigned char		*pWcid)
 {
-	UCHAR apCliIdx;
+	unsigned char apCliIdx;
 	BOOLEAN	allowed;
 		
 	/*DBGPRINT(RT_DEBUG_TRACE, ("ApCliAllowToSendPacket():Packet to ApCli interface!\n")); */
@@ -1254,12 +1254,12 @@ BOOLEAN 	ApCliValidateRSNIE(
 {
 	unsigned char *              pVIE;
 	unsigned char *				pTmp;
-	UCHAR         		len;
+	unsigned char         		len;
 	PEID_STRUCT         pEid;			
 	CIPHER_SUITE		WPA;			/* AP announced WPA cipher suite */
 	CIPHER_SUITE		WPA2;			/* AP announced WPA2 cipher suite */
 	USHORT				Count;
-	UCHAR               Sanity;	 
+	unsigned char               Sanity;	 
 	PAPCLI_STRUCT   	pApCliEntry = NULL;
 	PRSN_IE_HEADER_STRUCT			pRsnHeader;
 	NDIS_802_11_ENCRYPTION_STATUS	TmpCipher;
@@ -1739,7 +1739,7 @@ BOOLEAN  ApCliHandleRxBroadcastFrame(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN  MAC_TABLE_ENTRY *pEntry,
-	IN	UCHAR			FromWhichBSSID)
+	IN	unsigned char			FromWhichBSSID)
 {
 	RXINFO_STRUC *pRxInfo = pRxBlk->pRxInfo;
 	PHEADER_802_11 pHeader = pRxBlk->pHeader;
@@ -1793,7 +1793,7 @@ VOID APCliInstallPairwiseKey(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  MAC_TABLE_ENTRY *pEntry)
 {
-	UCHAR	IfIdx;
+	unsigned char	IfIdx;
 	unsigned char	BssIdx;
 
 	IfIdx = pEntry->MatchAPCLITabIdx;
@@ -1809,12 +1809,12 @@ VOID APCliInstallPairwiseKey(
 BOOLEAN APCliInstallSharedKey(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pKey,
-	IN  UCHAR           KeyLen,
-	IN	UCHAR			DefaultKeyIdx,
+	IN  unsigned char           KeyLen,
+	IN	unsigned char			DefaultKeyIdx,
 	IN  MAC_TABLE_ENTRY *pEntry)
 {
-	UCHAR	IfIdx;
-	UCHAR	GTK_len = 0;
+	unsigned char	IfIdx;
+	unsigned char	GTK_len = 0;
 
 	if (!pEntry || !IS_ENTRY_APCLI(pEntry))
 	{
@@ -1885,9 +1885,9 @@ BOOLEAN APCliInstallSharedKey(
 VOID ApCliUpdateMlmeRate(
 	IN PRTMP_ADAPTER	pAd)
 {
-	UCHAR	MinimumRate;
-	UCHAR	ProperMlmeRate; /*= RATE_54; */
-	UCHAR	i, j, RateIdx = 12; /* 1, 2, 5.5, 11, 6, 9, 12, 18, 24, 36, 48, 54 */
+	unsigned char	MinimumRate;
+	unsigned char	ProperMlmeRate; /*= RATE_54; */
+	unsigned char	i, j, RateIdx = 12; /* 1, 2, 5.5, 11, 6, 9, 12, 18, 24, 36, 48, 54 */
 	BOOLEAN	bMatch = FALSE;
 
 	switch (pAd->CommonCfg.PhyMode) 
@@ -2106,7 +2106,7 @@ BOOLEAN ApCli_Open(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	PNET_DEV			dev_p)
 {
-	UCHAR ifIndex;
+	unsigned char ifIndex;
 
 
 	for (ifIndex = 0; ifIndex < MAX_APCLI_NUM; ifIndex++)
@@ -2130,7 +2130,7 @@ BOOLEAN ApCli_Close(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNET_DEV		dev_p)
 {
-	UCHAR ifIndex;
+	unsigned char ifIndex;
 
 
 	for (ifIndex = 0; ifIndex < MAX_APCLI_NUM; ifIndex++)

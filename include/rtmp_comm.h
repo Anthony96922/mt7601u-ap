@@ -401,9 +401,9 @@ typedef struct  _PACKET_INFO    {
 typedef struct GNU_PACKED _HEADER_802_11 {
         FRAME_CONTROL   FC;
         USHORT          Duration;
-        UCHAR           Addr1[MAC_ADDR_LEN];
-        UCHAR           Addr2[MAC_ADDR_LEN];
-	UCHAR			Addr3[MAC_ADDR_LEN];
+        unsigned char           Addr1[MAC_ADDR_LEN];
+        unsigned char           Addr2[MAC_ADDR_LEN];
+	unsigned char			Addr3[MAC_ADDR_LEN];
 #ifdef RT_BIG_ENDIAN
 	USHORT			Sequence:12;
 	USHORT			Frag:4;
@@ -411,7 +411,7 @@ typedef struct GNU_PACKED _HEADER_802_11 {
 	USHORT			Frag:4;
 	USHORT			Sequence:12;
 #endif /* !RT_BIG_ENDIAN */
-	UCHAR			Octet[0];
+	unsigned char			Octet[0];
 }	HEADER_802_11, *PHEADER_802_11;
 
 enum {
@@ -470,17 +470,17 @@ typedef struct {
 
 #ifdef RT_BIG_ENDIAN
 typedef struct _ETHEREAL_RADIO {
-        UCHAR Flag_80211n;
-        UCHAR signal_level; /* dBm */
-        UCHAR data_rate; /* rate index */
-        UCHAR channel; /* Channel number */
+        unsigned char Flag_80211n;
+        unsigned char signal_level; /* dBm */
+        unsigned char data_rate; /* rate index */
+        unsigned char channel; /* Channel number */
 } ETHEREAL_RADIO, *PETHEREAL_RADIO;
 #else
 typedef struct _ETHEREAL_RADIO {
-        UCHAR channel; /* Channel number */
-        UCHAR data_rate; /* rate index */
-        UCHAR signal_level; /* dBm */
-        UCHAR Flag_80211n;      
+        unsigned char channel; /* Channel number */
+        unsigned char data_rate; /* rate index */
+        unsigned char signal_level; /* dBm */
+        unsigned char Flag_80211n;      
 } ETHEREAL_RADIO, *PETHEREAL_RADIO;
 #endif
 

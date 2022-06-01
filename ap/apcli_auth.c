@@ -84,7 +84,7 @@ VOID ApCliAuthStateMachineInit(
 	IN STATE_MACHINE *Sm,
 	OUT STATE_MACHINE_FUNC Trans[])
 {
-	UCHAR i;
+	unsigned char i;
 
 	StateMachineInit(Sm, (STATE_MACHINE_FUNC*)Trans,
 		APCLI_MAX_AUTH_STATE, APCLI_MAX_AUTH_MSG,
@@ -152,7 +152,7 @@ static VOID ApCliMlmeAuthReqAction(
 {
 	BOOLEAN             Cancelled;
 	NDIS_STATUS         NState;
-	UCHAR               Addr[MAC_ADDR_LEN];
+	unsigned char               Addr[MAC_ADDR_LEN];
 	USHORT              Alg, Seq, Status;
 	unsigned long               Timeout;
 	HEADER_802_11       AuthHdr; 
@@ -232,21 +232,21 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	BOOLEAN         Cancelled;
-	UCHAR           Addr2[MAC_ADDR_LEN];
+	unsigned char           Addr2[MAC_ADDR_LEN];
 	USHORT          Seq, Status, Alg;
 	USHORT          RemoteStatus;
-	UCHAR			iv_hdr[LEN_WEP_IV_HDR];
-/*	UCHAR           ChlgText[CIPHER_TEXT_LEN]; */
-	UCHAR           *ChlgText = NULL;
-	UCHAR           CyperChlgText[CIPHER_TEXT_LEN + 8 + 8];
+	unsigned char			iv_hdr[LEN_WEP_IV_HDR];
+/*	unsigned char           ChlgText[CIPHER_TEXT_LEN]; */
+	unsigned char           *ChlgText = NULL;
+	unsigned char           CyperChlgText[CIPHER_TEXT_LEN + 8 + 8];
 	unsigned long			c_len = 0;	
 	HEADER_802_11   AuthHdr;
 	NDIS_STATUS     NState;
 	unsigned char *          pOutBuffer = NULL;
 	unsigned long           FrameLen = 0;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	UCHAR		  	ChallengeIe = IE_CHALLENGE_TEXT;
-	UCHAR		  	len_challengeText = CIPHER_TEXT_LEN;
+	unsigned char		  	ChallengeIe = IE_CHALLENGE_TEXT;
+	unsigned char		  	len_challengeText = CIPHER_TEXT_LEN;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
@@ -254,7 +254,7 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 		return;
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&ChlgText, CIPHER_TEXT_LEN);
+	os_alloc_mem(NULL, (unsigned char **)&ChlgText, CIPHER_TEXT_LEN);
 	if (ChlgText == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -388,7 +388,7 @@ static VOID ApCliPeerAuthRspAtSeq4Action(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	BOOLEAN     Cancelled;
-	UCHAR       Addr2[MAC_ADDR_LEN];
+	unsigned char       Addr2[MAC_ADDR_LEN];
 	USHORT      Alg, Seq, Status;
 	CHAR        ChlgText[CIPHER_TEXT_LEN];
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
@@ -433,9 +433,9 @@ static VOID ApCliPeerDeauthAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	UCHAR       Addr1[MAC_ADDR_LEN];
-	UCHAR       Addr2[MAC_ADDR_LEN];
-	UCHAR       Addr3[MAC_ADDR_LEN];
+	unsigned char       Addr1[MAC_ADDR_LEN];
+	unsigned char       Addr2[MAC_ADDR_LEN];
+	unsigned char       Addr3[MAC_ADDR_LEN];
 	USHORT      Reason;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;

@@ -34,7 +34,7 @@ NDIS_STATUS TXSTOP(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0, atemode=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
 	
@@ -192,10 +192,10 @@ NDIS_STATUS RXSTOP(
 }
 
 
-static VOID memcpy_exl(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, unsigned long len)
+static VOID memcpy_exl(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src, unsigned long len)
 {
 	unsigned int i, Value = 0;
-	UCHAR *pDst = NULL, *pSrc = NULL;
+	unsigned char *pDst = NULL, *pSrc = NULL;
 	
 	for (i = 0 ; i < (len >> 2); i++)
 	{
@@ -219,7 +219,7 @@ static VOID memcpy_exl(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, unsigned long 
 }
 
 
-static VOID memcpy_exs(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, unsigned long len)
+static VOID memcpy_exs(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src, unsigned long len)
 {
 	unsigned long i;
 	{
@@ -245,10 +245,10 @@ static VOID memcpy_exs(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, unsigned long 
 }
 
 
-static VOID RTMP_IO_READ_BULK(PRTMP_ADAPTER pAd, UCHAR *dst, unsigned int offset, unsigned int len)
+static VOID RTMP_IO_READ_BULK(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned int offset, unsigned int len)
 {
 	unsigned int i, Value = 0;
-	UCHAR *pDst;
+	unsigned char *pDst;
 
 	for (i = 0 ; i < (len >> 2); i++)
 	{
@@ -282,16 +282,16 @@ VOID BubbleSort(INT32 size, INT32 array[])
 } 
 
 
-VOID CalNoiseLevel(PRTMP_ADAPTER pAd, UCHAR channel, INT32 RSSI[3][10])
+VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, INT32 RSSI[3][10])
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	INT32		RSSI0, RSSI1, RSSI2;
  	CHAR		Rssi0Offset, Rssi1Offset, Rssi2Offset;
-	UCHAR		BbpR50Rssi0 = 0, BbpR51Rssi1 = 0, BbpR52Rssi2 = 0;
-	UCHAR		Org_BBP66value = 0, Org_BBP69value = 0, Org_BBP70value = 0, data = 0;
+	unsigned char		BbpR50Rssi0 = 0, BbpR51Rssi1 = 0, BbpR52Rssi2 = 0;
+	unsigned char		Org_BBP66value = 0, Org_BBP69value = 0, Org_BBP70value = 0, data = 0;
 	USHORT		LNA_Gain = 0;
 	INT32		column = 0;
-	UCHAR		Org_Channel = pATEInfo->Channel;
+	unsigned char		Org_Channel = pATEInfo->Channel;
 	USHORT	    GainValue = 0, OffsetValue = 0;
 
 	ATE_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R66, &Org_BBP66value);
@@ -423,8 +423,8 @@ VOID CalNoiseLevel(PRTMP_ADAPTER pAd, UCHAR channel, INT32 RSSI[3][10])
 
 static VOID ATE_BBPRead(
 		IN	PRTMP_ADAPTER	pAd,
-		IN	UCHAR			offset,
-		IN  UCHAR			*pValue)
+		IN	unsigned char			offset,
+		IN  unsigned char			*pValue)
 {
 	if (ATE_ON(pAd))
 	{
@@ -439,8 +439,8 @@ static VOID ATE_BBPRead(
 
 static VOID ATE_BBPWrite(
 		IN	PRTMP_ADAPTER	pAd,
-		IN	UCHAR			offset,
-		IN  UCHAR			value)
+		IN	unsigned char			offset,
+		IN  unsigned char			value)
 {
 	if (ATE_ON(pAd))
 	{
@@ -453,10 +453,10 @@ static VOID ATE_BBPWrite(
 }
 
 
-BOOLEAN SyncTxRxConfig(PRTMP_ADAPTER pAd, USHORT offset, UCHAR value)
+BOOLEAN SyncTxRxConfig(PRTMP_ADAPTER pAd, USHORT offset, unsigned char value)
 { 
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR tmp = 0, bbp_data = 0;
+	unsigned char tmp = 0, bbp_data = 0;
 
 	ATE_BBPRead(pAd, offset, &bbp_data);
 
@@ -553,7 +553,7 @@ static INT ResponseToGUI(
 							+ sizeof((pRaCfg)->sequence) + OS_NTOHS((pRaCfg)->length);
 	DBGPRINT(RT_DEBUG_TRACE, ("wrq->u.data.length = %d\n", (pwrq)->u.data.length));
 
-	if (copy_to_user((pwrq)->u.data.pointer, (UCHAR *)(pRaCfg), (pwrq)->u.data.length))
+	if (copy_to_user((pwrq)->u.data.pointer, (unsigned char *)(pRaCfg), (pwrq)->u.data.length))
 	{
 		
 		DBGPRINT_ERR(("copy_to_user() fail in %s\n", __FUNCTION__));
@@ -622,7 +622,7 @@ static  INT DO_RACFG_CMD_ATE_STOP(
 			This command came from QA.
 			Get the pid of ATE agent.
 		*/
-		memcpy((UCHAR *)&pATEInfo->AtePid,
+		memcpy((unsigned char *)&pATEInfo->AtePid,
 						(&pRaCfg->data[0]) - 2/* == sizeof(pRaCfg->status) */,
 						sizeof(pATEInfo->AtePid));					
 
@@ -732,7 +732,7 @@ static  INT DO_RACFG_CMD_E2PROM_READ_ALL(
 	USHORT buffer[EEPROM_SIZE >> 1];
 
 	rt_ee_read_all(pAd,(USHORT *)buffer);
-	memcpy_exs(pAd, pRaCfg->data, (UCHAR *)buffer, EEPROM_SIZE);
+	memcpy_exs(pAd, pRaCfg->data, (unsigned char *)buffer, EEPROM_SIZE);
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+EEPROM_SIZE, NDIS_STATUS_SUCCESS);
 
@@ -747,8 +747,8 @@ static  INT DO_RACFG_CMD_E2PROM_WRITE_ALL(
 {
 	USHORT buffer[EEPROM_SIZE >> 1];
 
-	NdisZeroMemory((UCHAR *)buffer, EEPROM_SIZE);
-	memcpy_exs(pAd, (UCHAR *)buffer, (UCHAR *)&pRaCfg->status, EEPROM_SIZE);
+	NdisZeroMemory((unsigned char *)buffer, EEPROM_SIZE);
+	memcpy_exs(pAd, (unsigned char *)buffer, (unsigned char *)&pRaCfg->status, EEPROM_SIZE);
 	rt_ee_write_all(pAd,(USHORT *)buffer);
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status), NDIS_STATUS_SUCCESS);
@@ -850,7 +850,7 @@ static  INT DO_RACFG_CMD_BBP_READ8(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	USHORT	offset;
-	UCHAR	value;
+	unsigned char	value;
 	
 	value = 0;
 	offset = OS_NTOHS(pRaCfg->status);
@@ -871,7 +871,7 @@ static  INT DO_RACFG_CMD_BBP_WRITE8(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	USHORT	offset;
-	UCHAR	value;
+	unsigned char	value;
 	
 	offset = OS_NTOHS(pRaCfg->status);
 	memcpy(&value, pRaCfg->data, 1);
@@ -912,12 +912,12 @@ static  INT DO_RACFG_CMD_GET_NOISE_LEVEL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	UCHAR	channel;
+	unsigned char	channel;
 	INT32   buffer[3][10];/* 3 : RxPath ; 10 : no. of per rssi samples */
 
 	channel = (OS_NTOHS(pRaCfg->status) & 0x00FF);
 	CalNoiseLevel(pAd, channel, buffer);
-	memcpy_exl(pAd, (UCHAR *)pRaCfg->data, (UCHAR *)&(buffer[0][0]), (sizeof(INT32)*3*10));
+	memcpy_exl(pAd, (unsigned char *)pRaCfg->data, (unsigned char *)&(buffer[0][0]), (sizeof(INT32)*3*10));
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+(sizeof(INT32)*3*10), NDIS_STATUS_SUCCESS);
 
@@ -934,21 +934,21 @@ static  INT DO_RACFG_CMD_GET_COUNTER(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 
-	memcpy_exl(pAd, &pRaCfg->data[0], (UCHAR *)&pATEInfo->U2M, 4);
-	memcpy_exl(pAd, &pRaCfg->data[4], (UCHAR *)&pATEInfo->OtherData, 4);
-	memcpy_exl(pAd, &pRaCfg->data[8], (UCHAR *)&pATEInfo->Beacon, 4);
-	memcpy_exl(pAd, &pRaCfg->data[12], (UCHAR *)&pATEInfo->OtherCount, 4);
-	memcpy_exl(pAd, &pRaCfg->data[16], (UCHAR *)&pATEInfo->TxAc0, 4);
-	memcpy_exl(pAd, &pRaCfg->data[20], (UCHAR *)&pATEInfo->TxAc1, 4);
-	memcpy_exl(pAd, &pRaCfg->data[24], (UCHAR *)&pATEInfo->TxAc2, 4);
-	memcpy_exl(pAd, &pRaCfg->data[28], (UCHAR *)&pATEInfo->TxAc3, 4);
-	memcpy_exl(pAd, &pRaCfg->data[32], (UCHAR *)&pATEInfo->TxHCCA, 4);
-	memcpy_exl(pAd, &pRaCfg->data[36], (UCHAR *)&pATEInfo->TxMgmt, 4);
-	memcpy_exl(pAd, &pRaCfg->data[40], (UCHAR *)&pATEInfo->RSSI0, 4);
-	memcpy_exl(pAd, &pRaCfg->data[44], (UCHAR *)&pATEInfo->RSSI1, 4);
-	memcpy_exl(pAd, &pRaCfg->data[48], (UCHAR *)&pATEInfo->RSSI2, 4);
-	memcpy_exl(pAd, &pRaCfg->data[52], (UCHAR *)&pATEInfo->SNR0, 4);
-	memcpy_exl(pAd, &pRaCfg->data[56], (UCHAR *)&pATEInfo->SNR1, 4);
+	memcpy_exl(pAd, &pRaCfg->data[0], (unsigned char *)&pATEInfo->U2M, 4);
+	memcpy_exl(pAd, &pRaCfg->data[4], (unsigned char *)&pATEInfo->OtherData, 4);
+	memcpy_exl(pAd, &pRaCfg->data[8], (unsigned char *)&pATEInfo->Beacon, 4);
+	memcpy_exl(pAd, &pRaCfg->data[12], (unsigned char *)&pATEInfo->OtherCount, 4);
+	memcpy_exl(pAd, &pRaCfg->data[16], (unsigned char *)&pATEInfo->TxAc0, 4);
+	memcpy_exl(pAd, &pRaCfg->data[20], (unsigned char *)&pATEInfo->TxAc1, 4);
+	memcpy_exl(pAd, &pRaCfg->data[24], (unsigned char *)&pATEInfo->TxAc2, 4);
+	memcpy_exl(pAd, &pRaCfg->data[28], (unsigned char *)&pATEInfo->TxAc3, 4);
+	memcpy_exl(pAd, &pRaCfg->data[32], (unsigned char *)&pATEInfo->TxHCCA, 4);
+	memcpy_exl(pAd, &pRaCfg->data[36], (unsigned char *)&pATEInfo->TxMgmt, 4);
+	memcpy_exl(pAd, &pRaCfg->data[40], (unsigned char *)&pATEInfo->RSSI0, 4);
+	memcpy_exl(pAd, &pRaCfg->data[44], (unsigned char *)&pATEInfo->RSSI1, 4);
+	memcpy_exl(pAd, &pRaCfg->data[48], (unsigned char *)&pATEInfo->RSSI2, 4);
+	memcpy_exl(pAd, &pRaCfg->data[52], (unsigned char *)&pATEInfo->SNR0, 4);
+	memcpy_exl(pAd, &pRaCfg->data[56], (unsigned char *)&pATEInfo->SNR1, 4);
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+60, NDIS_STATUS_SUCCESS);
 
@@ -1330,16 +1330,16 @@ static  INT DO_RACFG_CMD_ATE_GET_STATISTICS(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_GET_STATISTICS\n"));
 
-	memcpy_exl(pAd, &pRaCfg->data[0], (UCHAR *)&pATEInfo->TxDoneCount, 4);
-	memcpy_exl(pAd, &pRaCfg->data[4], (UCHAR *)&pAd->WlanCounters.RetryCount.u.LowPart, 4);
-	memcpy_exl(pAd, &pRaCfg->data[8], (UCHAR *)&pAd->WlanCounters.FailedCount.u.LowPart, 4);
-	memcpy_exl(pAd, &pRaCfg->data[12], (UCHAR *)&pAd->WlanCounters.RTSSuccessCount.u.LowPart, 4);
-	memcpy_exl(pAd, &pRaCfg->data[16], (UCHAR *)&pAd->WlanCounters.RTSFailureCount.u.LowPart, 4);
-	memcpy_exl(pAd, &pRaCfg->data[20], (UCHAR *)&pAd->WlanCounters.ReceivedFragmentCount.QuadPart, 4);
-	memcpy_exl(pAd, &pRaCfg->data[24], (UCHAR *)&pAd->WlanCounters.FCSErrorCount.u.LowPart, 4);
-	memcpy_exl(pAd, &pRaCfg->data[28], (UCHAR *)&pAd->Counters8023.RxNoBuffer, 4);
-	memcpy_exl(pAd, &pRaCfg->data[32], (UCHAR *)&pAd->WlanCounters.FrameDuplicateCount.u.LowPart, 4);
-	memcpy_exl(pAd, &pRaCfg->data[36], (UCHAR *)&pAd->RalinkCounters.OneSecFalseCCACnt, 4);
+	memcpy_exl(pAd, &pRaCfg->data[0], (unsigned char *)&pATEInfo->TxDoneCount, 4);
+	memcpy_exl(pAd, &pRaCfg->data[4], (unsigned char *)&pAd->WlanCounters.RetryCount.u.LowPart, 4);
+	memcpy_exl(pAd, &pRaCfg->data[8], (unsigned char *)&pAd->WlanCounters.FailedCount.u.LowPart, 4);
+	memcpy_exl(pAd, &pRaCfg->data[12], (unsigned char *)&pAd->WlanCounters.RTSSuccessCount.u.LowPart, 4);
+	memcpy_exl(pAd, &pRaCfg->data[16], (unsigned char *)&pAd->WlanCounters.RTSFailureCount.u.LowPart, 4);
+	memcpy_exl(pAd, &pRaCfg->data[20], (unsigned char *)&pAd->WlanCounters.ReceivedFragmentCount.QuadPart, 4);
+	memcpy_exl(pAd, &pRaCfg->data[24], (unsigned char *)&pAd->WlanCounters.FCSErrorCount.u.LowPart, 4);
+	memcpy_exl(pAd, &pRaCfg->data[28], (unsigned char *)&pAd->Counters8023.RxNoBuffer, 4);
+	memcpy_exl(pAd, &pRaCfg->data[32], (unsigned char *)&pAd->WlanCounters.FrameDuplicateCount.u.LowPart, 4);
+	memcpy_exl(pAd, &pRaCfg->data[36], (unsigned char *)&pAd->RalinkCounters.OneSecFalseCCACnt, 4);
 	
 	if (pATEInfo->RxAntennaSel == 0)
 	{
@@ -1350,9 +1350,9 @@ static  INT DO_RACFG_CMD_ATE_GET_STATISTICS(
 		RSSI0 = (INT32)(pATEInfo->LastRssi0 - pAd->BbpRssiToDbmDelta);
 		RSSI1 = (INT32)(pATEInfo->LastRssi1 - pAd->BbpRssiToDbmDelta);
 		RSSI2 = (INT32)(pATEInfo->LastRssi2 - pAd->BbpRssiToDbmDelta);
-		memcpy_exl(pAd, &pRaCfg->data[40], (UCHAR *)&RSSI0, 4);
-		memcpy_exl(pAd, &pRaCfg->data[44], (UCHAR *)&RSSI1, 4);
-		memcpy_exl(pAd, &pRaCfg->data[48], (UCHAR *)&RSSI2, 4);
+		memcpy_exl(pAd, &pRaCfg->data[40], (unsigned char *)&RSSI0, 4);
+		memcpy_exl(pAd, &pRaCfg->data[44], (unsigned char *)&RSSI1, 4);
+		memcpy_exl(pAd, &pRaCfg->data[48], (unsigned char *)&RSSI2, 4);
 		ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+52, NDIS_STATUS_SUCCESS);
 	}
 	else
@@ -1360,7 +1360,7 @@ static  INT DO_RACFG_CMD_ATE_GET_STATISTICS(
 		INT32 RSSI0 = 0;
 	
 		RSSI0 = (INT32)(pATEInfo->LastRssi0 - pAd->BbpRssiToDbmDelta);
-		memcpy_exl(pAd, &pRaCfg->data[40], (UCHAR *)&RSSI0, 4);
+		memcpy_exl(pAd, &pRaCfg->data[40], (unsigned char *)&RSSI0, 4);
 		ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+44, NDIS_STATUS_SUCCESS);
 	}
 
@@ -1635,7 +1635,7 @@ static  INT DO_RACFG_CMD_ATE_E2PROM_READ_BULK(
 	rt_ee_read_all(pAd, (USHORT *)buffer);
 
 	if (offset + len <= EEPROM_SIZE)
-		memcpy_exs(pAd, pRaCfg->data, (UCHAR *)buffer+offset, len);
+		memcpy_exs(pAd, pRaCfg->data, (unsigned char *)buffer+offset, len);
 	else
 		DBGPRINT_ERR(("%s : exceed EEPROM size\n", __FUNCTION__));
 
@@ -1658,11 +1658,11 @@ static  INT DO_RACFG_CMD_ATE_E2PROM_WRITE_BULK(
 	memcpy(&len, pRaCfg->data, 2);
 	len = OS_NTOHS(len);
 
-	memcpy_exs(pAd, (UCHAR *)buffer + offset, (UCHAR *)pRaCfg->data + 2, len);
+	memcpy_exs(pAd, (unsigned char *)buffer + offset, (unsigned char *)pRaCfg->data + 2, len);
 
 	if ((offset + len) <= EEPROM_SIZE)
 	{
-		rt_ee_write_bulk(pAd,(USHORT *)(((UCHAR *)buffer) + offset), offset, len);
+		rt_ee_write_bulk(pAd,(USHORT *)(((unsigned char *)buffer) + offset), offset, len);
 	}
 	else
 	{
@@ -1693,7 +1693,7 @@ static  INT DO_RACFG_CMD_ATE_IO_WRITE_BULK(
 	
 	for (pos = 0; pos < len; pos += 4)
 	{
-		memcpy_exl(pAd, (UCHAR *)&value, pRaCfg->data+4+pos, 4);
+		memcpy_exl(pAd, (unsigned char *)&value, pRaCfg->data+4+pos, 4);
 		DBGPRINT(RT_DEBUG_TRACE,("Write %x %x\n", offset + pos, value));
 		RTMP_IO_WRITE32(pAd, ((offset+pos) & (0xffff)), value);
 	}
@@ -1738,7 +1738,7 @@ static  INT DO_RACFG_CMD_ATE_BBP_WRITE_BULK(
 	USHORT offset;
 	USHORT len;
 	USHORT pos;
-	UCHAR *value;
+	unsigned char *value;
 	
 	offset = OS_NTOHS(pRaCfg->status);
 	memcpy(&len, pRaCfg->data, 2);
@@ -2225,7 +2225,7 @@ INT RtmpDoAte(
 	struct ate_racfghdr *pRaCfg;
 	unsigned int ATEMagicNum;
 
-	os_alloc_mem_suspend(pAd, (UCHAR **)&pRaCfg, sizeof(struct ate_racfghdr));
+	os_alloc_mem_suspend(pAd, (unsigned char **)&pRaCfg, sizeof(struct ate_racfghdr));
 
 	if (!pRaCfg)
 	{
@@ -2401,7 +2401,7 @@ INT Set_BBPRead_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR value = 0, offset;
+	unsigned char value = 0, offset;
 
 	A2Hex(offset, arg);	
 			
@@ -2419,7 +2419,7 @@ INT Set_BBPWrite_Proc(
 {
 	USHORT offset = 0;
 	char * p2 = arg;
-	UCHAR value;
+	unsigned char value;
 	
 	while ((*p2 != ':') && (*p2 != '\0'))
 	{

@@ -43,7 +43,7 @@ NDIS_STATUS RtmpInsertPsQueue(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
 	IN MAC_TABLE_ENTRY *pMacEntry,
-	IN UCHAR QueIdx)
+	IN unsigned char QueIdx)
 {
 	unsigned long IrqFlags;
 #ifdef UAPSD_SUPPORT
@@ -311,10 +311,10 @@ BOOLEAN RtmpPsIndicate(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr, 
 	IN unsigned long Wcid, 
-	IN UCHAR Psm) 
+	IN unsigned char Psm) 
 {
 	MAC_TABLE_ENTRY *pEntry;
-    UCHAR old_psmode;
+    unsigned char old_psmode;
 
 	if (Wcid >= MAX_LEN_OF_MAC_TABLE)
 	{

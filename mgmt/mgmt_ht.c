@@ -37,7 +37,7 @@ INT ht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, HT_CAPABILITY_IE 
 }
 
 
-INT set_ht_fixed_mcs(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, UCHAR fixed_mcs, UCHAR mcs_bound)
+INT set_ht_fixed_mcs(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, unsigned char fixed_mcs, unsigned char mcs_bound)
 {
 	if (fixed_mcs == 32)
 	{
@@ -58,10 +58,10 @@ INT set_ht_fixed_mcs(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, UCHAR fixed_mcs
 }
 
 
-INT get_ht_max_mcs(RTMP_ADAPTER *pAd, UCHAR *desire_mcs, UCHAR *cap_mcs)
+INT get_ht_max_mcs(RTMP_ADAPTER *pAd, unsigned char *desire_mcs, unsigned char *cap_mcs)
 {
 	INT i, j;
-	UCHAR bitmask;
+	unsigned char bitmask;
 
 
 	for (i = 23; i >= 0; i--)
@@ -82,7 +82,7 @@ INT get_ht_max_mcs(RTMP_ADAPTER *pAd, UCHAR *desire_mcs, UCHAR *cap_mcs)
 }
 
 
-INT get_ht_cent_ch(RTMP_ADAPTER *pAd, UCHAR *rf_bw, UCHAR *ext_ch)
+INT get_ht_cent_ch(RTMP_ADAPTER *pAd, unsigned char *rf_bw, unsigned char *ext_ch)
 {
 	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_40) &&
 		(pAd->CommonCfg.RegTransmitSetting.field.EXTCHA == EXTCHA_ABOVE)
@@ -109,12 +109,12 @@ INT get_ht_cent_ch(RTMP_ADAPTER *pAd, UCHAR *rf_bw, UCHAR *ext_ch)
 }
 
 
-UCHAR get_cent_ch_by_htinfo(
+unsigned char get_cent_ch_by_htinfo(
 	RTMP_ADAPTER *pAd,
 	ADD_HT_INFO_IE *ht_op,
 	HT_CAPABILITY_IE *ht_cap)
 {
-	UCHAR cent_ch;
+	unsigned char cent_ch;
 
 	if ((ht_op->ControlChan > 2) &&
 		(ht_op->AddHtInfo.ExtChanOffset == EXTCHA_BELOW) &&
@@ -216,13 +216,13 @@ VOID RTMPSetHT(
 
 	/* Mimo power save, A-MSDU size, */
 	rt_ht_cap->AmsduEnable = (USHORT)pAd->CommonCfg.BACapability.field.AmsduEnable;
-	rt_ht_cap->AmsduSize = (UCHAR)pAd->CommonCfg.BACapability.field.AmsduSize;
-	rt_ht_cap->MimoPs = (UCHAR)pAd->CommonCfg.BACapability.field.MMPSmode;
-	rt_ht_cap->MpduDensity = (UCHAR)pAd->CommonCfg.BACapability.field.MpduDensity;
+	rt_ht_cap->AmsduSize = (unsigned char)pAd->CommonCfg.BACapability.field.AmsduSize;
+	rt_ht_cap->MimoPs = (unsigned char)pAd->CommonCfg.BACapability.field.MMPSmode;
+	rt_ht_cap->MpduDensity = (unsigned char)pAd->CommonCfg.BACapability.field.MpduDensity;
 
 	ht_cap->HtCapInfo.AMsduSize = (USHORT)pAd->CommonCfg.BACapability.field.AmsduSize;
 	ht_cap->HtCapInfo.MimoPs = (USHORT)pAd->CommonCfg.BACapability.field.MMPSmode;
-	ht_cap->HtCapParm.MpduDensity = (UCHAR)pAd->CommonCfg.BACapability.field.MpduDensity;
+	ht_cap->HtCapParm.MpduDensity = (unsigned char)pAd->CommonCfg.BACapability.field.MpduDensity;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : AMsduSize = %d, MimoPs = %d, MpduDensity = %d, MaxRAmpduFactor = %d\n",
 					rt_ht_cap->AmsduSize,
@@ -441,12 +441,12 @@ VOID RTMPSetHT(
 */
 VOID RTMPSetIndividualHT(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR apidx)
+	IN unsigned char apidx)
 {
 	RT_PHY_INFO *pDesired_ht_phy = NULL;
-	UCHAR TxStream = pAd->CommonCfg.TxStream;
-	UCHAR DesiredMcs = MCS_AUTO;
-	UCHAR encrypt_mode = Ndis802_11EncryptionDisabled;
+	unsigned char TxStream = pAd->CommonCfg.TxStream;
+	unsigned char DesiredMcs = MCS_AUTO;
+	unsigned char encrypt_mode = Ndis802_11EncryptionDisabled;
 
 	do
 	{
@@ -455,7 +455,7 @@ VOID RTMPSetIndividualHT(
 #ifdef APCLI_SUPPORT
 			if (apidx >= MIN_NET_DEVICE_FOR_APCLI)
 			{
-				UCHAR	idx = apidx - MIN_NET_DEVICE_FOR_APCLI;
+				unsigned char	idx = apidx - MIN_NET_DEVICE_FOR_APCLI;
 
 				if (idx < MAX_APCLI_NUM)
 				{
@@ -478,7 +478,7 @@ VOID RTMPSetIndividualHT(
 #ifdef WDS_SUPPORT
 			if (apidx >= MIN_NET_DEVICE_FOR_WDS)
 			{
-				UCHAR	idx = apidx - MIN_NET_DEVICE_FOR_WDS;
+				unsigned char	idx = apidx - MIN_NET_DEVICE_FOR_WDS;
 
 				if (idx < MAX_WDS_ENTRY)
 				{
@@ -669,13 +669,13 @@ INT	SetCommonHT(RTMP_ADAPTER *pAd)
 #endif /* DOT11_VHT_AC */
 
 	SetHT.PhyMode = (RT_802_11_PHY_MODE)pAd->CommonCfg.PhyMode;
-	SetHT.TransmitNo = ((UCHAR)pAd->Antenna.field.TxPath);
-	SetHT.HtMode = (UCHAR)pAd->CommonCfg.RegTransmitSetting.field.HTMODE;
-	SetHT.ExtOffset = (UCHAR)pAd->CommonCfg.RegTransmitSetting.field.EXTCHA;
+	SetHT.TransmitNo = ((unsigned char)pAd->Antenna.field.TxPath);
+	SetHT.HtMode = (unsigned char)pAd->CommonCfg.RegTransmitSetting.field.HTMODE;
+	SetHT.ExtOffset = (unsigned char)pAd->CommonCfg.RegTransmitSetting.field.EXTCHA;
 	SetHT.MCS = MCS_AUTO;
-	SetHT.BW = (UCHAR)pAd->CommonCfg.RegTransmitSetting.field.BW;
-	SetHT.STBC = (UCHAR)pAd->CommonCfg.RegTransmitSetting.field.STBC;
-	SetHT.SHORTGI = (UCHAR)pAd->CommonCfg.RegTransmitSetting.field.ShortGI;
+	SetHT.BW = (unsigned char)pAd->CommonCfg.RegTransmitSetting.field.BW;
+	SetHT.STBC = (unsigned char)pAd->CommonCfg.RegTransmitSetting.field.STBC;
+	SetHT.SHORTGI = (unsigned char)pAd->CommonCfg.RegTransmitSetting.field.ShortGI;
 
 	RTMPSetHT(pAd, &SetHT);
 
@@ -705,7 +705,7 @@ INT	SetCommonHT(RTMP_ADAPTER *pAd)
 */
 VOID RTMPUpdateHTIE(
 	IN RT_HT_CAPABILITY	*pRtHt,
-	IN UCHAR *pMcsSet,
+	IN unsigned char *pMcsSet,
 	OUT HT_CAPABILITY_IE *pHtCapability,
 	OUT ADD_HT_INFO_IE *pAddHtInfo)
 {

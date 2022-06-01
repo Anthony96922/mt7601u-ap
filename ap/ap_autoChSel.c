@@ -23,7 +23,7 @@
 #include "ap_autoChSel.h"
 
 
-extern UCHAR ZeroSsid[32];
+extern unsigned char ZeroSsid[32];
 
 static inline INT GetABandChOffset(
 	IN INT Channel)
@@ -43,10 +43,10 @@ unsigned long AutoChBssSearchWithSSID(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * Bssid,
 	IN unsigned char * pSsid,
-	IN UCHAR SsidLen,
-	IN UCHAR Channel)
+	IN unsigned char SsidLen,
+	IN unsigned char Channel)
 {
-	UCHAR i;
+	unsigned char i;
 	PBSSINFO pBssInfoTab = pAd->pBssInfoTab;
 
 	if(pBssInfoTab == NULL)
@@ -72,9 +72,9 @@ static inline VOID AutoChBssEntrySet(
 	OUT BSSENTRY *pBss, 
 	IN unsigned char * pBssid, 
 	IN CHAR Ssid[], 
-	IN UCHAR SsidLen, 
-	IN UCHAR Channel,
-	IN UCHAR ExtChOffset,
+	IN unsigned char SsidLen, 
+	IN unsigned char Channel,
+	IN unsigned char ExtChOffset,
 	IN CHAR Rssi)
 {
 	COPY_MAC_ADDR(pBss->Bssid, pBssid);
@@ -158,7 +158,7 @@ VOID UpdateChannelInfo(
 
 static inline INT GetChIdx(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR Channel)
+	IN unsigned char Channel)
 {
 	INT Idx;
 
@@ -173,10 +173,10 @@ static inline INT GetChIdx(
 static inline VOID AutoChannelSkipListSetDirty(
 	IN PRTMP_ADAPTER	pAd)
 {
-	UCHAR i;
+	unsigned char i;
 	for (i = 0; i < pAd->ApCfg.AutoChannelSkipListNum ; i++)
 	{
-		UCHAR channel_idx = GetChIdx(pAd, pAd->ApCfg.AutoChannelSkipList[i]);
+		unsigned char channel_idx = GetChIdx(pAd, pAd->ApCfg.AutoChannelSkipList[i]);
 		if (channel_idx != pAd->ChannelListNum)
 			pAd->pChannelInfo->SkipList[channel_idx] = TRUE;
 	}
@@ -184,9 +184,9 @@ static inline VOID AutoChannelSkipListSetDirty(
 
 static inline BOOLEAN AutoChannelSkipListCheck(
 	IN PRTMP_ADAPTER	pAd,
-	IN UCHAR			Ch)
+	IN unsigned char			Ch)
 {
-	UCHAR i;
+	unsigned char i;
 	BOOLEAN result = FALSE;
 
 	for (i = 0; i < pAd->ApCfg.AutoChannelSkipListNum ; i++)
@@ -201,12 +201,12 @@ static inline BOOLEAN AutoChannelSkipListCheck(
 }
 
 static inline BOOLEAN BW40_ChannelCheck(
-	IN UCHAR ch)
+	IN unsigned char ch)
 {
 	INT i;
 	BOOLEAN result = TRUE;
-	UCHAR NorBW40_CH[] = {140, 165};
-	UCHAR NorBW40ChNum = sizeof(NorBW40_CH) / sizeof(UCHAR);
+	unsigned char NorBW40_CH[] = {140, 165};
+	unsigned char NorBW40ChNum = sizeof(NorBW40_CH) / sizeof(unsigned char);
 
 	for (i=0; i<NorBW40ChNum; i++)
 	{
@@ -220,11 +220,11 @@ static inline BOOLEAN BW40_ChannelCheck(
 	return result;
 }
 
-static inline UCHAR SelectClearChannelRandom(
+static inline unsigned char SelectClearChannelRandom(
 	IN PRTMP_ADAPTER pAd
 	)
 {
-	UCHAR cnt, ch = 0, i, RadomIdx;
+	unsigned char cnt, ch = 0, i, RadomIdx;
 	/*BOOLEAN bFindIt = FALSE;*/
 	unsigned char TempChList[MAX_NUM_OF_CHANNELS] = {0};
 	
@@ -286,7 +286,7 @@ static inline UCHAR SelectClearChannelRandom(
 	NOTE:
 	==========================================================================
  */
-static inline UCHAR SelectClearChannelCCA(
+static inline unsigned char SelectClearChannelCCA(
 	IN PRTMP_ADAPTER pAd
 	)
 {
@@ -298,8 +298,8 @@ static inline UCHAR SelectClearChannelCCA(
 	BSSENTRY *pBss;
 	unsigned int min_dirty, min_falsecca;
 	int candidate_ch;
-	UCHAR  ExChannel[2] = {0}, candidate_ExChannel[2] = {0};	
-	UCHAR base;
+	unsigned char  ExChannel[2] = {0}, candidate_ExChannel[2] = {0};	
+	unsigned char base;
 
 	if (pBssInfoTab == NULL)
 	{
@@ -466,7 +466,7 @@ static inline UCHAR SelectClearChannelCCA(
 				}
 				else
 				{
-					UCHAR ExChannel_idx = 0;
+					unsigned char ExChannel_idx = 0;
 					if (pAd->ChannelList[channel_idx].Channel == 14)
 					{
 						dirtyness = 0xFFFFFFFF;
@@ -599,15 +599,15 @@ static inline UCHAR SelectClearChannelCCA(
 	==========================================================================
  */
 
-static inline UCHAR SelectClearChannelApCnt(
+static inline unsigned char SelectClearChannelApCnt(
 	IN PRTMP_ADAPTER pAd
 	)
 {
     /*PBSSINFO pBssInfoTab = pAd->pBssInfoTab; */
 	PCHANNELINFO pChannelInfo = pAd->pChannelInfo;
 	/*BSSENTRY *pBss; */
-	UCHAR channel_index = 0,dirty,base = 0;
-	UCHAR final_channel = 0;
+	unsigned char channel_index = 0,dirty,base = 0;
+	unsigned char final_channel = 0;
 
 	if (pChannelInfo == NULL)
 	{
@@ -758,7 +758,7 @@ static inline UCHAR SelectClearChannelApCnt(
 	for (dirty = 30; dirty <= 32; dirty++)
 	{
 		BOOLEAN candidate[MAX_NUM_OF_CHANNELS+1], candidate_num=0;
-		UCHAR min_ApCnt = 255;
+		unsigned char min_ApCnt = 255;
 		final_channel = 0;	
 		
 		NdisZeroMemory(candidate, MAX_NUM_OF_CHANNELS+1);
@@ -841,9 +841,9 @@ unsigned long AutoChBssInsertEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pBssid,
 	IN CHAR Ssid[],
-	IN UCHAR SsidLen, 
-	IN UCHAR ChannelNo,
-	IN UCHAR ExtChOffset,
+	IN unsigned char SsidLen, 
+	IN unsigned char ChannelNo,
+	IN unsigned char ExtChOffset,
 	IN CHAR Rssi)
 {
 	unsigned long	Idx;
@@ -879,7 +879,7 @@ void AutoChBssTableInit(
 	IN PRTMP_ADAPTER pAd)
 {
 /*	pAd->pBssInfoTab = (PBSSINFO)kmalloc(sizeof(BSSINFO), GFP_ATOMIC); */
-	os_alloc_mem(pAd, (UCHAR **)&pAd->pBssInfoTab, sizeof(BSSINFO));
+	os_alloc_mem(pAd, (unsigned char **)&pAd->pBssInfoTab, sizeof(BSSINFO));
 	if (pAd->pBssInfoTab)
 		NdisZeroMemory(pAd->pBssInfoTab, sizeof(BSSINFO));
 	else
@@ -892,7 +892,7 @@ void ChannelInfoInit(
 	IN PRTMP_ADAPTER pAd)
 {
 /*	pAd->pChannelInfo = (PCHANNELINFO)kmalloc(sizeof(CHANNELINFO), GFP_ATOMIC); */
-	os_alloc_mem(pAd, (UCHAR **)&pAd->pChannelInfo, sizeof(CHANNELINFO));
+	os_alloc_mem(pAd, (unsigned char **)&pAd->pChannelInfo, sizeof(CHANNELINFO));
 	if (pAd->pChannelInfo)
 		NdisZeroMemory(pAd->pChannelInfo, sizeof(CHANNELINFO));
 	else
@@ -947,11 +947,11 @@ void CheckPhyModeIsABand(
 }
 
 
-UCHAR SelectBestChannel(
+unsigned char SelectBestChannel(
 	IN PRTMP_ADAPTER pAd,	
 	IN ChannelSel_Alg Alg)
 {
-	UCHAR ch = 0;
+	unsigned char ch = 0;
 
 	/* init pAd->pChannelInfo->IsABand */
 	CheckPhyModeIsABand(pAd);
@@ -1018,11 +1018,11 @@ VOID APAutoChannelInit(IN PRTMP_ADAPTER pAd)
                    Ues the False CCA count and Rssi to choose
 	==========================================================================
  */
-UCHAR APAutoSelectChannel(
+unsigned char APAutoSelectChannel(
 	IN PRTMP_ADAPTER pAd,
 	IN ChannelSel_Alg Alg)
 {
-	UCHAR ch = 0, i;
+	unsigned char ch = 0, i;
 
 	/* passive scan channel 1-14. collect statistics */
 	

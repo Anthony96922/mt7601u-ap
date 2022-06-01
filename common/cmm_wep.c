@@ -152,14 +152,14 @@ UINT	RTMP_CALC_FCS32(
 VOID	RTMPInitWepEngine(
 	IN	unsigned char *			pIv,
 	IN	unsigned char *			pKey,
-	IN	UCHAR			KeyLen,
+	IN	unsigned char			KeyLen,
 	OUT	ARC4_CTX_STRUC  *pARC4_CTX)
 {	
-/*	UCHAR   seed[16];*/
+/*	unsigned char   seed[16];*/
 	unsigned char *	seed = NULL;
 	unsigned char	seed_len;
 		
-	os_alloc_mem(NULL, (UCHAR **)&seed, sizeof(UCHAR)*16);
+	os_alloc_mem(NULL, (unsigned char **)&seed, sizeof(unsigned char)*16);
 	if (seed == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: seed Allocate memory fail!!!\n", __FUNCTION__));
@@ -197,8 +197,8 @@ VOID	RTMPInitWepEngine(
 */
 VOID RTMPConstructWEPIVHdr(
 	IN	unsigned char 			key_idx,
-	IN	UCHAR			*pn,	
-	OUT	UCHAR			*iv_hdr)
+	IN	unsigned char			*pn,	
+	OUT	unsigned char			*iv_hdr)
 {	
 	NdisZeroMemory(iv_hdr, LEN_WEP_IV_HDR);
 
@@ -235,7 +235,7 @@ BOOLEAN	RTMPSoftEncryptWEP(
 	ARC4_CTX_STRUC *ARC4_CTX = NULL;
 	UINT 	FCSCRC32;
 
-	os_alloc_mem(NULL, (UCHAR **)&ARC4_CTX, sizeof(ARC4_CTX_STRUC));
+	os_alloc_mem(NULL, (unsigned char **)&ARC4_CTX, sizeof(ARC4_CTX_STRUC));
 	if (ARC4_CTX == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: ARC4_CTX Allocate memory fail!!!\n", __FUNCTION__));
@@ -306,7 +306,7 @@ BOOLEAN	RTMPSoftDecryptWEP(
 	UINT			trailfcs;
 	UINT    		crc32;
 	
-	os_alloc_mem(NULL, (UCHAR **)&ARC4_CTX, sizeof(ARC4_CTX_STRUC));
+	os_alloc_mem(NULL, (unsigned char **)&ARC4_CTX, sizeof(ARC4_CTX_STRUC));
 	if (ARC4_CTX == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: ARC4_CTX Allocate memory fail!!!\n", __FUNCTION__));

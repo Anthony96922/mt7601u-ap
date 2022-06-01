@@ -36,7 +36,7 @@
 
 #ifdef RTMP_EFUSE_SUPPORT
 /* MT7601_USB_V0_C-20130107 */
-UCHAR MT7601_EFUSE_DEFAULT_BIN[] = {
+unsigned char MT7601_EFUSE_DEFAULT_BIN[] = {
 	0x01, 0x76, 0x00, 0x0c, 0x00, 0x0c, 0x43, 0x26, 0x60, 0x40, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
 	0x01, 0x02, 0x8f, 0x14, 0x01, 0x76, 0x00, 0x00, 0x4a, 0x00, 0x01, 0x00, 0x80, 0x50, 0x08, 0x00, 
 	0x03, 0x00, 0x02, 0x00, 0x00, 0x00, 0xff, 0x02, 0x00, 0x20, 0x40, 0xff, 0xff, 0xff, 0xff, 0xff, 
@@ -88,7 +88,7 @@ static RTMP_REG_PAIR	MT7601_MACRegTable[] = {
 	{FCE_PARAM,		0x00254f0f},
 #endif /* CONFIG_RX_CSO_SUPPORT */
 };
-static UCHAR MT7601_NUM_MAC_REG_PARMS = (sizeof(MT7601_MACRegTable) / sizeof(RTMP_REG_PAIR));
+static unsigned char MT7601_NUM_MAC_REG_PARMS = (sizeof(MT7601_MACRegTable) / sizeof(RTMP_REG_PAIR));
 
 
 //1019 BBP CR
@@ -294,7 +294,7 @@ static RTMP_REG_PAIR MT7601_BBP_InitRegTb[] = {
 	{BBP_R195, 0x37},
 	{BBP_R196, 0x5A},
 };
-static UCHAR MT7601_BBP_InitRegTb_Size = (sizeof(MT7601_BBP_InitRegTb) / sizeof(RTMP_REG_PAIR));
+static unsigned char MT7601_BBP_InitRegTb_Size = (sizeof(MT7601_BBP_InitRegTb) / sizeof(RTMP_REG_PAIR));
 
 RTMP_REG_PAIR MT7601_BBP_BW20RegTb[] = {
 	{BBP_R69, 0x12},
@@ -312,7 +312,7 @@ RTMP_REG_PAIR MT7601_BBP_BW20RegTb[] = {
 	{BBP_R195, 0x83},
 	{BBP_R196, 0x17},
 };
-const UCHAR MT7601_BBP_BW20RegTb_Size = (sizeof(MT7601_BBP_BW20RegTb) / sizeof(RTMP_REG_PAIR));
+const unsigned char MT7601_BBP_BW20RegTb_Size = (sizeof(MT7601_BBP_BW20RegTb) / sizeof(RTMP_REG_PAIR));
 
 RTMP_REG_PAIR MT7601_BBP_BW40RegTb[] = {
 	{BBP_R69, 0x15},
@@ -330,7 +330,7 @@ RTMP_REG_PAIR MT7601_BBP_BW40RegTb[] = {
 	{BBP_R195, 0x83},
 	{BBP_R196, 0x16},
 };
-const UCHAR MT7601_BBP_BW40RegTb_Size = (sizeof(MT7601_BBP_BW40RegTb) / sizeof(RTMP_REG_PAIR));
+const unsigned char MT7601_BBP_BW40RegTb_Size = (sizeof(MT7601_BBP_BW40RegTb) / sizeof(RTMP_REG_PAIR));
 
 static RTMP_REG_PAIR MT7601_BBP_CommonRegTb[] = {
 	{BBP_R75, 0x60},
@@ -341,7 +341,7 @@ static RTMP_REG_PAIR MT7601_BBP_CommonRegTb[] = {
 	{BBP_R196, 0x60},
 
 };
-const static UCHAR MT7601_BBP_CommonRegTb_Size = (sizeof(MT7601_BBP_CommonRegTb) / sizeof(RTMP_REG_PAIR));
+const static unsigned char MT7601_BBP_CommonRegTb_Size = (sizeof(MT7601_BBP_CommonRegTb) / sizeof(RTMP_REG_PAIR));
 
 RTMP_REG_PAIR MT7601_BBP_HighTempBW20RegTb[] = {
 	{BBP_R69, 0x12},
@@ -359,7 +359,7 @@ RTMP_REG_PAIR MT7601_BBP_HighTempBW20RegTb[] = {
 	{BBP_R195, 0x83},
 	{BBP_R196, 0x17},
 };
-const UCHAR MT7601_BBP_HighTempBW20RegTb_Size = (sizeof(MT7601_BBP_HighTempBW20RegTb) / sizeof(RTMP_REG_PAIR));
+const unsigned char MT7601_BBP_HighTempBW20RegTb_Size = (sizeof(MT7601_BBP_HighTempBW20RegTb) / sizeof(RTMP_REG_PAIR));
 
 RTMP_REG_PAIR MT7601_BBP_HighTempBW40RegTb[] = {
 	{BBP_R69, 0x15},
@@ -377,7 +377,7 @@ RTMP_REG_PAIR MT7601_BBP_HighTempBW40RegTb[] = {
 	{BBP_R195, 0x83},
 	{BBP_R196, 0x16},
 };
-const UCHAR MT7601_BBP_HighTempBW40RegTb_Size = (sizeof(MT7601_BBP_HighTempBW40RegTb) / sizeof(RTMP_REG_PAIR));
+const unsigned char MT7601_BBP_HighTempBW40RegTb_Size = (sizeof(MT7601_BBP_HighTempBW40RegTb) / sizeof(RTMP_REG_PAIR));
 
 static RTMP_REG_PAIR MT7601_BBP_HighTempCommonRegTb[] = {
 	{BBP_R75, 0x60},
@@ -387,7 +387,7 @@ static RTMP_REG_PAIR MT7601_BBP_HighTempCommonRegTb[] = {
 	{BBP_R195, 0x88},
 	{BBP_R196, 0x60},
 };
-const static UCHAR MT7601_BBP_HighTempCommonRegTb_Size = (sizeof(MT7601_BBP_HighTempCommonRegTb) / sizeof(RTMP_REG_PAIR));
+const static unsigned char MT7601_BBP_HighTempCommonRegTb_Size = (sizeof(MT7601_BBP_HighTempCommonRegTb) / sizeof(RTMP_REG_PAIR));
 
 RTMP_REG_PAIR MT7601_BBP_LowTempBW20RegTb[] = {
 	{BBP_R69, 0x12},
@@ -410,7 +410,7 @@ RTMP_REG_PAIR MT7601_BBP_LowTempBW20RegTb[] = {
 	{BBP_R195, 0x88},
 	{BBP_R196, 0x5E},
 };
-const UCHAR MT7601_BBP_LowTempBW20RegTb_Size = (sizeof(MT7601_BBP_LowTempBW20RegTb) / sizeof(RTMP_REG_PAIR));
+const unsigned char MT7601_BBP_LowTempBW20RegTb_Size = (sizeof(MT7601_BBP_LowTempBW20RegTb) / sizeof(RTMP_REG_PAIR));
 
 RTMP_REG_PAIR MT7601_BBP_LowTempBW40RegTb[] = {
 	{BBP_R69, 0x15},
@@ -433,12 +433,12 @@ RTMP_REG_PAIR MT7601_BBP_LowTempBW40RegTb[] = {
 	{BBP_R195, 0x88},
 	{BBP_R196, 0x5B},
 };
-UCHAR MT7601_BBP_LowTempBW40RegTb_Size = (sizeof(MT7601_BBP_LowTempBW40RegTb) / sizeof(RTMP_REG_PAIR));
+unsigned char MT7601_BBP_LowTempBW40RegTb_Size = (sizeof(MT7601_BBP_LowTempBW40RegTb) / sizeof(RTMP_REG_PAIR));
 
 static RTMP_REG_PAIR MT7601_BBP_LowTempCommonRegTb[] = {
 	{BBP_R178, 0xFF},		// For CCK CH14 OBW
 };
-const static UCHAR MT7601_BBP_LowTempCommonRegTb_Size = (sizeof(MT7601_BBP_LowTempCommonRegTb) / sizeof(RTMP_REG_PAIR));
+const static unsigned char MT7601_BBP_LowTempCommonRegTb_Size = (sizeof(MT7601_BBP_LowTempCommonRegTb) / sizeof(RTMP_REG_PAIR));
 
 // 20121122 RF CR
 /* Bank	Register Value(Hex) */
@@ -831,7 +831,7 @@ VOID MT7601_RXDC_CAL(RTMP_ADAPTER *pAd)
 {
 #define MAX_RXDCOC_RETRY_CNT	20
 	UINT count;
-	UCHAR RValue;
+	unsigned char RValue;
 	unsigned int Mac_R1004;
 
 	RTMP_IO_READ32(pAd, MAC_SYS_CTRL, &Mac_R1004);
@@ -870,7 +870,7 @@ VOID MT7601_RXDC_CAL(RTMP_ADAPTER *pAd)
 
 VOID MT7601_INIT_CAL(RTMP_ADAPTER *pAd)
 {
-	UCHAR RfValue;
+	unsigned char RfValue;
 	unsigned int Mac_R1004;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==>%s\n", __FUNCTION__));
@@ -1093,7 +1093,7 @@ static VOID MT7601_ChipBBPAdjust(RTMP_ADAPTER *pAd)
 #if defined(DOT11_N_SUPPORT) && defined(DBG)
 	static char *ext_str[]={"extNone", "extAbove", "", "extBelow"};
 #endif
-	UCHAR rf_bw, ext_ch;
+	unsigned char rf_bw, ext_ch;
 
 #ifdef DOT11_N_SUPPORT
 	if (get_ht_cent_ch(pAd, &rf_bw, &ext_ch) == FALSE)
@@ -1125,9 +1125,9 @@ static VOID MT7601_ChipBBPAdjust(RTMP_ADAPTER *pAd)
 
 VOID MT7601_ChipAGCInit(
 	IN PRTMP_ADAPTER		pAd,
-	IN UCHAR			BandWidth)
+	IN unsigned char			BandWidth)
 {
-	UCHAR R66 = 0x14;
+	unsigned char R66 = 0x14;
 	CHAR lan_gain = GET_LNA_GAIN(pAd);
 	
 	if (pAd->LatchRfRegs.Channel <= 14) /* BG band */
@@ -1145,14 +1145,14 @@ VOID MT7601_ChipAGCInit(
 
 static VOID MT7601_ChipSwitchChannel(
 	struct _RTMP_ADAPTER *pAd,
-	UCHAR Channel,
+	unsigned char Channel,
 	BOOLEAN	 bScan)
 {
 
 	CHAR TxPwer = 0;
 	CHAR CCK1MPwr, CCK11MPwr;
-	UCHAR	index;
-	UCHAR RFValue = 0;
+	unsigned char	index;
+	unsigned char RFValue = 0;
 	unsigned int Value = 0;
 	unsigned int	value;
 	unsigned int ret;
@@ -1326,7 +1326,7 @@ static VOID MT7601_ChipSwitchChannel(
 	}
 	else
 	{
-		UCHAR BBPValue;
+		unsigned char BBPValue;
 		RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R4, &BBPValue);
 		BBPValue &= ~(0x20);
 		AndesBBPRandomWrite(pAd, 2,
@@ -1351,7 +1351,7 @@ static VOID MT7601_ChipSwitchChannel(
 
 NTSTATUS MT7601DisableTxRx(
 	RTMP_ADAPTER *pAd,
-	UCHAR Level)
+	unsigned char Level)
 {
 	unsigned int MacReg = 0;
 	unsigned int MTxCycle;
@@ -1578,7 +1578,7 @@ NTSTATUS MT7601DisableTxRx(
 
 
 #ifdef RTMP_USB_SUPPORT
-VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, UCHAR Stage)
+VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, unsigned char Stage)
 {
 #ifdef RTMP_MAC_USB
 	unsigned int ret;
@@ -1632,11 +1632,11 @@ VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, UCHAR Stage)
 }
 
 
-VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, UCHAR Stage)
+VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, unsigned char Stage)
 {
 	unsigned int MACValue = 0;
 	unsigned int rx_filter_flag;
-	UCHAR RFValue = 0;
+	unsigned char RFValue = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==> %s\n", __FUNCTION__));
 
@@ -2080,7 +2080,7 @@ VOID MT7601AsicTemperatureCompensation(
 	IN BOOLEAN				bPowerOn)
 {
 	INT32	CurrentTemper;
-	UCHAR	RfReg;
+	unsigned char	RfReg;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	INT32 high_temp_cr_threshold, low_temp_cr_threshold;
 
@@ -2252,9 +2252,9 @@ VOID MT7601_EnableTSSI(IN PRTMP_ADAPTER pAd)
 
 VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 {
-	UCHAR Rf_B5_R03, Rf_B4_R39, bbp_r47;
+	unsigned char Rf_B5_R03, Rf_B4_R39, bbp_r47;
 	INT i, count;
-	UCHAR RValue;
+	unsigned char RValue;
 	INT16 tssi_linear;
 	INT16 tssi0_db = 0, tssi0_db_hvga = 0;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
@@ -2431,11 +2431,11 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 	OUT 	char * 				TssiLinear1, 
 	OUT 	int * 				TargetPower)
 {
-	UCHAR BBPReg;
-	UCHAR PacketType;
-	UCHAR BbpR47;
-	UCHAR BBPR4, BBPR178;
-	UCHAR TxRate;
+	unsigned char BBPReg;
+	unsigned char PacketType;
+	unsigned char BbpR47;
+	unsigned char BBPR4, BBPR178;
+	unsigned char TxRate;
 	INT32 Power;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
@@ -2677,7 +2677,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 	IN char *	 				pDeltaPowerByBbpR1)
 {
 	INT32 TargetPower, CurrentPower, PowerDiff;
-	UCHAR TssiLinear0, TssiLinear1;
+	unsigned char TssiLinear0, TssiLinear1;
 	CHAR tssi_offset;
 	INT16 tssi_db, tssi_m_dc;
 	unsigned int value;
@@ -2808,7 +2808,7 @@ INT MT7601_Bootup_Read_Temperature(
 	OUT	CHAR*			Temperature)
 {
 	unsigned int	MAC0504, MAC050C;
-	UCHAR	BBPReg;
+	unsigned char	BBPReg;
 	int i;
 
 	RTMP_IO_READ32(pAd, 0x50C, &MAC050C);
@@ -2859,7 +2859,7 @@ INT MT7601_Read_Temperature(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	CHAR*			Temperature)
 {
-	UCHAR	BBPReg;
+	unsigned char	BBPReg;
 	int i;
 
 #ifdef RTMP_INTERNAL_TX_ALC
@@ -2895,9 +2895,9 @@ INT MT7601_Read_Temperature(
 
 VOID MT7601SetRxAnt(
 	IN PRTMP_ADAPTER    pAd,
-	IN UCHAR            Ant)
+	IN unsigned char            Ant)
 {
-	UCHAR Val;
+	unsigned char Val;
 
 	if ((RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_RESET_IN_PROGRESS))  ||
 	(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS))   ||
@@ -3120,7 +3120,7 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 /*
 	int (*loadFirmware)(struct _RTMP_ADAPTER *pAd);
 	int (*eraseFirmware)(struct _RTMP_ADAPTER *pAd);
-	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, UCHAR cmd, UCHAR token, UCHAR arg0, UCHAR arg1, BOOLEAN FlgIsNeedLocked);
+	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1, BOOLEAN FlgIsNeedLocked);
 */
 
 /*

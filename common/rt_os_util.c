@@ -52,16 +52,16 @@ VOID RtmpDrvMaxRateGet(
 #ifdef DOT11_N_SUPPORT
 	if (MODE >= MODE_HTMIX)
 	{
-	/*                	rate_index = 16 + ((UCHAR)pHtPhyMode->field.BW *16) + ((UCHAR)pHtPhyMode->field.ShortGI *32) + ((UCHAR)pHtPhyMode->field.MCS);
+	/*                	rate_index = 16 + ((unsigned char)pHtPhyMode->field.BW *16) + ((unsigned char)pHtPhyMode->field.ShortGI *32) + ((unsigned char)pHtPhyMode->field.MCS);
 */
-		rate_index = 16 + ((UCHAR)BW *24) + ((UCHAR)ShortGI *48) + ((UCHAR)MCS);
+		rate_index = 16 + ((unsigned char)BW *24) + ((unsigned char)ShortGI *48) + ((unsigned char)MCS);
 	}
 	else 
 #endif /* DOT11_N_SUPPORT */
 		if (MODE == MODE_OFDM)
-			rate_index = (UCHAR)(MCS) + 4;
+			rate_index = (unsigned char)(MCS) + 4;
 		else 
-			rate_index = (UCHAR)(MCS);
+			rate_index = (unsigned char)(MCS);
 
 	if (rate_index < 0)
 		rate_index = 0;
@@ -135,7 +135,7 @@ INT32  RtPrivIoctlSetVal(VOID)
 void * RtmpInitCompletion(VOID)
 {
 	struct completion *comp = NULL;
-	os_alloc_mem(NULL, (UCHAR **)&comp, sizeof(struct completion));
+	os_alloc_mem(NULL, (unsigned char **)&comp, sizeof(struct completion));
 	init_completion(comp);
 	return (void *)comp;
 }

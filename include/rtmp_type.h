@@ -44,7 +44,6 @@ typedef short INT16;
 typedef int INT32;
 typedef long long INT64;
 
-typedef unsigned char UCHAR;
 typedef unsigned short USHORT;
 typedef unsigned int UINT;
 #endif /* LINUX */
@@ -87,37 +86,37 @@ typedef struct _RTMP_REG_PAIR {
 } RTMP_REG_PAIR, *PRTMP_REG_PAIR;
 
 typedef struct _REG_PAIR {
-	UCHAR Register;
-	UCHAR Value;
+	unsigned char Register;
+	unsigned char Value;
 } REG_PAIR, *PREG_PAIR;
 
 typedef struct _REG_PAIR_CHANNEL {
-	UCHAR Register;
-	UCHAR FirstChannel;
-	UCHAR LastChannel;
-	UCHAR Value;
+	unsigned char Register;
+	unsigned char FirstChannel;
+	unsigned char LastChannel;
+	unsigned char Value;
 } REG_PAIR_CHANNEL, *PREG_PAIR_CHANNEL;
 
 typedef struct _REG_PAIR_BW {
-	UCHAR Register;
-	UCHAR BW;
-	UCHAR Value;
+	unsigned char Register;
+	unsigned char BW;
+	unsigned char Value;
 } REG_PAIR_BW, *PREG_PAIR_BW;
 
 
 typedef struct _REG_PAIR_PHY{
-	UCHAR reg;
-	UCHAR s_ch;
-	UCHAR e_ch;
-	UCHAR phy;	/* RF_MODE_XXX */
-	UCHAR bw;	/* RF_BW_XX */
-	UCHAR val;
+	unsigned char reg;
+	unsigned char s_ch;
+	unsigned char e_ch;
+	unsigned char phy;	/* RF_MODE_XXX */
+	unsigned char bw;	/* RF_BW_XX */
+	unsigned char val;
 }REG_PAIR_PHY;
 
 
 /* Register set pair for initialzation register set definition */
 typedef struct _RTMP_RF_REGS {
-	UCHAR Channel;
+	unsigned char Channel;
 	unsigned int R1;
 	unsigned int R2;
 	unsigned int R3;
@@ -125,10 +124,10 @@ typedef struct _RTMP_RF_REGS {
 } RTMP_RF_REGS, *PRTMP_RF_REGS;
 
 typedef struct _FREQUENCY_ITEM {
-	UCHAR Channel;
-	UCHAR N;
-	UCHAR R;
-	UCHAR K;
+	unsigned char Channel;
+	unsigned char N;
+	unsigned char R;
+	unsigned char K;
 } FREQUENCY_ITEM, *PFREQUENCY_ITEM;
 
 typedef int NTSTATUS;
@@ -148,9 +147,9 @@ typedef struct _QUEUE_HEADER {
 } QUEUE_HEADER, *PQUEUE_HEADER;
 
 typedef struct _BANK_RF_REG_PAIR {
-	UCHAR Bank;
-	UCHAR Register;
-	UCHAR Value;
+	unsigned char Bank;
+	unsigned char Register;
+	unsigned char Value;
 } BANK_RF_REG_PAIR, *PBANK_RF_REG_PAIR;
 
 typedef struct _R_M_W_REG{
@@ -160,10 +159,10 @@ typedef struct _R_M_W_REG{
 } R_M_W_REG, *PR_M_W_REG;
 
 typedef struct _RF_R_M_W_REG{
-	UCHAR Bank;
-	UCHAR Register;
-	UCHAR ClearBitMask;
-	UCHAR Value;
+	unsigned char Bank;
+	unsigned char Register;
+	unsigned char ClearBitMask;
+	unsigned char Value;
 } RF_R_M_W_REG, *PRF_R_M_W_REG;
 
 #endif /* __RTMP_TYPE_H__ */

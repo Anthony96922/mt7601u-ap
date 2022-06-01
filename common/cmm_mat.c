@@ -42,15 +42,15 @@ extern MATProtoOps MATProtoPPPoEDisHandle;
 extern MATProtoOps MATProtoPPPoESesHandle;
 extern MATProtoOps MATProtoIPv6Handle;
 
-extern UCHAR SNAP_802_1H[];
-extern UCHAR SNAP_BRIDGE_TUNNEL[];
+extern unsigned char SNAP_802_1H[];
+extern unsigned char SNAP_BRIDGE_TUNNEL[];
 
 #define MAX_MAT_NODE_ENTRY_NUM	128	/* We support maximum 128 node entry for our system */
 #define MAT_NODE_ENTRY_SIZE	40 /*28	// bytes   //change to 40 for IPv6Mac Table */
 
 typedef struct _MATNodeEntry
 {
-	UCHAR data[MAT_NODE_ENTRY_SIZE];
+	unsigned char data[MAT_NODE_ENTRY_SIZE];
 	struct _MATNodeEntry *next;
 }MATNodeEntry, *PMATNodeEntry;
 
@@ -110,7 +110,7 @@ unsigned char * MATDBEntryAlloc(IN MAT_STRUCT *pMatStruct, IN unsigned int size)
 	}
 	
 #else
-	UCHAR *pPtr = NULL;
+	unsigned char *pPtr = NULL;
 
 	os_alloc_mem(NULL, (unsigned char * *)&pPtr, size);
 	/*pPtr = kmalloc(size, MEM_ALLOC_FLAG); */
@@ -172,7 +172,7 @@ unsigned char * MATEngineTxHandle(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET	    pPkt,
 	IN UINT				ifIdx,
-	IN UCHAR    OpMode)
+	IN unsigned char    OpMode)
 {
 	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL,  pMacAddr = NULL;
 	unsigned short		protoType, protoType_ori;
@@ -373,7 +373,7 @@ NDIS_STATUS MATEngineInit(
 #ifdef KMALLOC_BATCH
 	/* Allocate memory for node entry, we totally allocate 128 entries and link them together. */
 /*	pAd->MatCfg.pMATNodeEntryPoll = kmalloc(sizeof(MATNodeEntry) * MAX_MAT_NODE_ENTRY_NUM, GFP_KERNEL); */
-	os_alloc_mem_suspend(NULL, (UCHAR **)&(pAd->MatCfg.pMATNodeEntryPoll), sizeof(MATNodeEntry) * MAX_MAT_NODE_ENTRY_NUM);
+	os_alloc_mem_suspend(NULL, (unsigned char **)&(pAd->MatCfg.pMATNodeEntryPoll), sizeof(MATNodeEntry) * MAX_MAT_NODE_ENTRY_NUM);
 	if (pAd->MatCfg.pMATNodeEntryPoll != NULL)
 	{
 		MATNodeEntry *pPtr=NULL;

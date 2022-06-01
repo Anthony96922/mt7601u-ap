@@ -425,7 +425,7 @@ PNET_DEV RtmpPhyNetDevInit(
 
 VOID *RtmpNetEthConvertDevSearch(
 	IN	VOID			*net_dev_,
-	IN	UCHAR			*pData)
+	IN	unsigned char			*pData)
 {
 	struct net_device *pNetDev;
 

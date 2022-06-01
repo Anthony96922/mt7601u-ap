@@ -84,7 +84,7 @@ VOID APPeerDlsReqAction(
     IN MLME_QUEUE_ELEM	*pElem)
 {
 	PMAC_TABLE_ENTRY	pDAEntry, pSAEntry;
-	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
+	unsigned char				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
 	unsigned short				CapabilityInfo;
 	unsigned short				DLSTimeout;
 	unsigned char *				pOutBuffer = NULL;
@@ -92,12 +92,12 @@ VOID APPeerDlsReqAction(
 	unsigned short				Status;
 	unsigned int				FrameLen = 0;
 	HEADER_802_11		DlsRspHdr;
-	UCHAR				Category = CATEGORY_DLS;
-	UCHAR				Action = ACTION_DLS_RESPONSE;
-    UCHAR				SupportedRatesLen = 0;
-    UCHAR				SupportedRates[MAX_LEN_OF_SUPPORTED_RATES];
+	unsigned char				Category = CATEGORY_DLS;
+	unsigned char				Action = ACTION_DLS_RESPONSE;
+    unsigned char				SupportedRatesLen = 0;
+    unsigned char				SupportedRates[MAX_LEN_OF_SUPPORTED_RATES];
 	HT_CAPABILITY_IE	HtCapability;
-	UCHAR				HtCapabilityLen;
+	unsigned char				HtCapabilityLen;
 
 
 	/* frame sanity check */
@@ -138,7 +138,7 @@ VOID APPeerDlsReqAction(
 	Fr = (PFRAME_802_11)pElem->Msg;
 
 /*	pOutBuffer = kmalloc(MAX_LEN_OF_MLME_BUFFER, MEM_ALLOC_FLAG); */
-	os_alloc_mem(pAd, (UCHAR **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
+	os_alloc_mem(pAd, (unsigned char **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
 	if(pOutBuffer == NULL)
 		return;
 
@@ -206,15 +206,15 @@ VOID APPeerDlsRspAction(
     IN MLME_QUEUE_ELEM	*pElem)
 {
 	PMAC_TABLE_ENTRY	pDAEntry, pSAEntry;
-	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
+	unsigned char				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
 	unsigned short				CapabilityInfo;
 	unsigned short				StatusCode;
 	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
 	unsigned int				FrameLen = 0;
-    UCHAR				SupportedRatesLen = 0;
-    UCHAR				SupportedRates[MAX_LEN_OF_SUPPORTED_RATES];
-	UCHAR				HtCapabilityLen;
+    unsigned char				SupportedRatesLen = 0;
+    unsigned char				SupportedRates[MAX_LEN_OF_SUPPORTED_RATES];
+	unsigned char				HtCapabilityLen;
 	HT_CAPABILITY_IE	HtCapability;
 
 
@@ -250,7 +250,7 @@ VOID APPeerDlsRspAction(
 	Fr = (PFRAME_802_11)pElem->Msg;
 
 /*	pOutBuffer = kmalloc(MAX_LEN_OF_MLME_BUFFER, MEM_ALLOC_FLAG); */
-	os_alloc_mem(pAd, (UCHAR **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
+	os_alloc_mem(pAd, (unsigned char **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
 	if (pOutBuffer == NULL)
 		return; /* fatal error, no available memory */
 
@@ -288,7 +288,7 @@ VOID APPeerDlsTearDownAction(
     IN MLME_QUEUE_ELEM	*pElem)
 {
 	PMAC_TABLE_ENTRY	pDAEntry, pSAEntry;
-	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
+	unsigned char				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
 	unsigned short				ReasonCode;
 	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
@@ -323,7 +323,7 @@ VOID APPeerDlsTearDownAction(
     Fr = (PFRAME_802_11)pElem->Msg;
 
 /*	pOutBuffer = kmalloc(MAX_LEN_OF_MLME_BUFFER, MEM_ALLOC_FLAG); */
-	os_alloc_mem(pAd, (UCHAR **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
+	os_alloc_mem(pAd, (unsigned char **)&pOutBuffer, MAX_LEN_OF_MLME_BUFFER);
 	if (pOutBuffer == NULL)
 		return; /* fatal error, no available memory */
 

@@ -35,7 +35,7 @@
 /* Todo - When overflow occurred, do re-key mechanism */
 #define	INC_TX_IV(_V, NUM)					\
 {											\
-	UCHAR	cnt = LEN_WAPI_TSC;				\
+	unsigned char	cnt = LEN_WAPI_TSC;				\
 	do										\
 	{										\
 		cnt--;								\
@@ -77,22 +77,22 @@ VOID RTMPInsertWapiIe(
 	IN	UINT			AuthMode,
 	IN	UINT			WepStatus,
 	OUT	unsigned char *			pWIe,
-	OUT	UCHAR			*w_len);
+	OUT	unsigned char			*w_len);
 
 BOOLEAN RTMPCheckWAIframe(
     IN unsigned char *           pData,
     IN unsigned long            DataByteCount);
 
 VOID RTMPConstructWPIIVHdr(
-	IN	UCHAR			key_id,
-	IN	UCHAR			*tx_iv, 
-	OUT UCHAR 			*iv_hdr);
+	IN	unsigned char			key_id,
+	IN	unsigned char			*tx_iv, 
+	OUT unsigned char 			*iv_hdr);
 
 extern INT	RTMPSoftEncryptSMS4(
 		IN	unsigned char *			pHeader,
 		IN  unsigned char *			pData,
 		IN	unsigned int			data_len,				
-		IN	UCHAR			key_id,
+		IN	unsigned char			key_id,
 		IN	unsigned char * 			pKey,
 		IN	unsigned char *			pIv);
 extern INT	RTMPSoftDecryptSMS4(
@@ -119,7 +119,7 @@ INT SMS4_TEST(void);
 
 BOOLEAN RTMPIsWapiCipher(
     IN PRTMP_ADAPTER    pAd,
-    IN UCHAR           	apidx);
+    IN unsigned char           	apidx);
 
 VOID RTMPIoctlQueryWapiConf(
 	IN PRTMP_ADAPTER pAd, 
@@ -157,7 +157,7 @@ VOID RTMPCancelWapiRekeyTimerAction(
 VOID RTMPGetWapiTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	UINT			Wcid,
-	OUT	UCHAR			*tx_tsc);
+	OUT	unsigned char			*tx_tsc);
 
 VOID WAPIInstallPairwiseKey(
 	PRTMP_ADAPTER		pAd,
@@ -174,10 +174,10 @@ VOID WAPIInstallSharedKey(
 
 BOOLEAN WAPI_InternalCmdAction(
 		IN  PRTMP_ADAPTER		pAd,
-		IN	UCHAR				AuthMode,
-		IN	UCHAR				apidx,
+		IN	unsigned char				AuthMode,
+		IN	unsigned char				apidx,
 		IN	unsigned char *				pAddr,
-		IN	UCHAR				flag);
+		IN	unsigned char				flag);
 
 #endif /* __WAPI_H__ */
 

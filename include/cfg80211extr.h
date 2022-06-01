@@ -149,12 +149,12 @@ VOID CFG80211DRV_PmkidConfig(
 
 VOID CFG80211_RegHint(
 	IN VOID						*pAdCB,
-	IN UCHAR					*pCountryIe,
+	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen);
 
 VOID CFG80211_RegHint11D(
 	IN VOID						*pAdCB,
-	IN UCHAR					*pCountryIe,
+	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen);
 
 VOID CFG80211_ScanEnd(
@@ -163,12 +163,12 @@ VOID CFG80211_ScanEnd(
 
 VOID CFG80211_ConnectResultInform(
 	IN VOID						*pAdCB,
-	IN UCHAR					*pBSSID,
-	IN UCHAR					*pReqIe,
+	IN unsigned char					*pBSSID,
+	IN unsigned char					*pReqIe,
 	IN unsigned int					ReqIeLen,
-	IN UCHAR					*pRspIe,
+	IN unsigned char					*pRspIe,
 	IN unsigned int					RspIeLen,
-	IN UCHAR					FlgIsSuccess);
+	IN unsigned char					FlgIsSuccess);
 
 BOOLEAN CFG80211_SupBandReInit(
 	IN VOID						*pAdCB);
@@ -176,13 +176,13 @@ BOOLEAN CFG80211_SupBandReInit(
 VOID CFG80211_RegRuleApply(
 	IN VOID						*pAdCB,
 	IN VOID						*pWiphy,
-	IN UCHAR					*pAlpha2);
+	IN unsigned char					*pAlpha2);
 
 VOID CFG80211_Scaning(
 	IN VOID						*pAdCB,
 	IN unsigned int					BssIdx,
 	IN unsigned int					ChanId,
-	IN UCHAR					*pFrame,
+	IN unsigned char					*pFrame,
 	IN unsigned int					FrameLen,
 	IN INT32					RSSI);
 

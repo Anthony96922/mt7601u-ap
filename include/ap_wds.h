@@ -91,11 +91,11 @@ BOOLEAN MacTableDeleteWDSEntry(
 BOOLEAN ApWdsAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
-	OUT	UCHAR		*pWcid);
+	OUT	unsigned char		*pWcid);
 	
 MAC_TABLE_ENTRY *WdsTableLookupByWcid(
     IN  PRTMP_ADAPTER   pAd, 
-	IN UCHAR wcid,
+	IN unsigned char wcid,
 	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount);
 
@@ -106,7 +106,7 @@ MAC_TABLE_ENTRY *WdsTableLookup(
 
 MAC_TABLE_ENTRY *FindWdsEntry(
 	IN PRTMP_ADAPTER	pAd,
-	IN UCHAR 			Wcid,
+	IN unsigned char 			Wcid,
 	IN unsigned char *			pAddr,
 	IN unsigned int			PhyMode);
 
@@ -125,18 +125,18 @@ VOID AsicUpdateWdsRxWCIDTable(
 
 VOID AsicUpdateWdsEncryption(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR wcid);
+	IN unsigned char wcid);
 
 VOID WdsPeerBeaconProc(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN USHORT CapabilityInfo,
-	IN UCHAR MaxSupportedRateIn500Kbps,
-	IN UCHAR MaxSupportedRateLen,
+	IN unsigned char MaxSupportedRateIn500Kbps,
+	IN unsigned char MaxSupportedRateLen,
 	IN BOOLEAN bWmmCapable,
 	IN unsigned long ClientRalinkIe,
 	IN HT_CAPABILITY_IE *pHtCapability,
-	IN UCHAR HtCapabilityLen);
+	IN unsigned char HtCapabilityLen);
 
 VOID APWdsInitialize(
 	IN PRTMP_ADAPTER pAd);
@@ -178,7 +178,7 @@ VOID AP_WDS_KeyNameMakeUp(
  */
 static inline BOOLEAN ValidWdsEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR WdsIndex)
+	IN unsigned char WdsIndex)
 {
 	BOOLEAN result;
 	PMAC_TABLE_ENTRY pMacEntry;

@@ -35,7 +35,7 @@
 /*#include <asm/checksum.h> */
 /*#include <net/ip6_checksum.h> */
 
-const UCHAR IPV6_LOOPBACKADDR[] ={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
+const unsigned char IPV6_LOOPBACKADDR[] ={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
 
 static NDIS_STATUS MATProto_IPv6_Init(MAT_STRUCT *pMatCfg);
 static NDIS_STATUS MATProto_IPv6_Exit(MAT_STRUCT *pMatCfg);
@@ -46,8 +46,8 @@ static unsigned char * MATProto_IPv6_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, 
 
 typedef struct _IPv6MacMappingEntry
 {
-	UCHAR ipv6Addr[16];	/* In network order */
-	UCHAR macAddr[MAC_ADDR_LEN];
+	unsigned char ipv6Addr[16];	/* In network order */
+	unsigned char macAddr[MAC_ADDR_LEN];
 	unsigned long lastTime;
 	struct _IPv6MacMappingEntry *pNext;
 }IPv6MacMappingEntry, *PIPv6MacMappingEntry;
@@ -57,7 +57,7 @@ typedef struct _IPv6MacMappingTable
 {
 	BOOLEAN			valid;
 	IPv6MacMappingEntry *hash[MAT_MAX_HASH_ENTRY_SUPPORT+1]; /*0~63 for specific station, 64 for broadcast MacAddress */
-	UCHAR			curMcastAddr[MAC_ADDR_LEN];	/* The multicast mac addr for currecnt received packet destined to ipv6 multicast addr */
+	unsigned char			curMcastAddr[MAC_ADDR_LEN];	/* The multicast mac addr for currecnt received packet destined to ipv6 multicast addr */
 }IPv6MacMappingTable;
 
 
@@ -70,7 +70,7 @@ struct _MATProtoOps MATProtoIPv6Handle =
 };
 
 static inline BOOLEAN needUpdateIPv6MacTB(
-	UCHAR 			*pMac,
+	unsigned char 			*pMac,
 	RT_IPV6_ADDR 	*pIPv6Addr)
 {
 	ASSERT(pIPv6Addr);
@@ -294,7 +294,7 @@ static unsigned char * IPv6MacTableLookUp(
 	if (IS_MULTICAST_IPV6_ADDR(*(RT_IPV6_ADDR *)pIPv6Addr))
 	{
 		pGroupMacAddr = (unsigned char *)&pIPv6MacTable->curMcastAddr;
-		ConvertMulticastIP2MAC(pIPv6Addr, (UCHAR **)(&pGroupMacAddr), ETH_P_IPV6);
+		ConvertMulticastIP2MAC(pIPv6Addr, (unsigned char **)(&pGroupMacAddr), ETH_P_IPV6);
 		return pIPv6MacTable->curMcastAddr;
 	}
     
@@ -332,8 +332,8 @@ static inline unsigned short int icmpv6_csum(
 	RT_IPV6_ADDR *saddr,
 	RT_IPV6_ADDR *daddr,
 	USHORT		  len,
-	UCHAR 		  proto,
-	UCHAR 		 *pICMPMsg)
+	unsigned char 		  proto,
+	unsigned char 		 *pICMPMsg)
 {
 	int 	carry;
 	unsigned int 	ulen;
@@ -397,7 +397,7 @@ static unsigned char * MATProto_IPv6_Rx(
 	unsigned char * pDstIPv6Addr;
 	
 	/* Fetch the IPv6 addres from the packet header. */
-	pDstIPv6Addr = (UCHAR *)(&((RT_IPV6_HDR *)pLayerHdr)->dstAddr);
+	pDstIPv6Addr = (unsigned char *)(&((RT_IPV6_HDR *)pLayerHdr)->dstAddr);
 	
 	pMacAddr = IPv6MacTableLookUp(pMatCfg, pDstIPv6Addr);
 	
@@ -607,7 +607,7 @@ static unsigned char * MATProto_IPv6_Tx(
 {
 	unsigned char * pSrcMac, pSrcIP;
 	BOOLEAN needUpdate;
-	UCHAR nextProtocol;
+	unsigned char nextProtocol;
 	unsigned int offset;	
 	HEADER_802_3 *pEthHdr;
 	RT_IPV6_HDR *pIPv6Hdr;
@@ -616,8 +616,8 @@ static unsigned char * MATProto_IPv6_Tx(
 	pIPv6Hdr = (RT_IPV6_HDR *)pLayerHdr;
 	pEthHdr = (HEADER_802_3 *)(GET_OS_PKT_DATAPTR(pSkb));
 	
-	pSrcMac = (UCHAR *)&pEthHdr->SAAddr2;
-	pSrcIP = (UCHAR *)&pIPv6Hdr->srcAddr;
+	pSrcMac = (unsigned char *)&pEthHdr->SAAddr2;
+	pSrcIP = (unsigned char *)&pIPv6Hdr->srcAddr;
 
 	
 	
@@ -713,7 +713,7 @@ static NDIS_STATUS IPv6MacTable_init(
 	else
 	{
 /*		pMatCfg->MatTableSet.IPv6MacTable = kmalloc(sizeof(IPv6MacMappingTable), GFP_KERNEL); */
-		os_alloc_mem_suspend(NULL, (UCHAR **)&(pMatCfg->MatTableSet.IPv6MacTable), sizeof(IPv6MacMappingTable));
+		os_alloc_mem_suspend(NULL, (unsigned char **)&(pMatCfg->MatTableSet.IPv6MacTable), sizeof(IPv6MacMappingTable));
 		if (pMatCfg->MatTableSet.IPv6MacTable)
 		{
 			pIPv6MacTable = (IPv6MacMappingTable *)pMatCfg->MatTableSet.IPv6MacTable;

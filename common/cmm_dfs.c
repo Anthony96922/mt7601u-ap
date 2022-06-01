@@ -393,7 +393,7 @@ INT	Set_ResetRadarHwDetect_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR channel = 0;
+	unsigned char channel = 0;
 #ifdef RT65xx
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	/* Reset status */
@@ -1151,7 +1151,7 @@ int SWRadarCheck(
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pRadarDetect->DfsSwParam;	
 	/*ENTRY_PLUS could be replace by (pDfsSwParam->sw_idx[id]+1)%128*/
 	USHORT	Total, SwIdxPlus = ENTRY_PLUS(pDfsSwParam->sw_idx[id], 1, NEW_DFS_DBG_PORT_ENT_NUM);
-	UCHAR	CounterToCheck;	
+	unsigned char	CounterToCheck;	
 	
 	if (!DFS_CHECK_FLAGS(pAd, pRadarDetect) ||
 		(SwIdxPlus == pDfsSwParam->hw_idx[id]))  /* no entry to process*/
@@ -2147,7 +2147,7 @@ static BOOLEAN DfsChannelCheck(
 	unsigned char i;
 	unsigned int W, T;
 	BOOLEAN radarDeclared = 0;
-	/*UCHAR BBP_1 = 0, BBP_2 = 0, BBP_3 = 0, BBP_4 = 0;*/
+	/*unsigned char BBP_1 = 0, BBP_2 = 0, BBP_3 = 0, BBP_4 = 0;*/
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("DFS HW check channel = 0x%x\n", DfsChannel));
@@ -2910,8 +2910,8 @@ VOID NewUsbTimerCB_Radar(
  	IN PRTMP_ADAPTER pAd)
 
 {
-	UCHAR channel=0;
-	UCHAR radarDeclared = 0;
+	unsigned char channel=0;
+	unsigned char radarDeclared = 0;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 
 #ifdef RALINK_ATE		
@@ -2982,11 +2982,11 @@ static VOID SwCheckDfsEventWithFw(
 		IN PRTMP_ADAPTER pAd)
 {
 	int k, NumEvent = 64; /* event number per event buffer */
-	UCHAR id = 0;
-	UCHAR BBPR127_Table[DFS_EVENT_BUFFER_SIZE];
-	UCHAR BBPR127_OWERID;
-	UCHAR OwenerIDValue = 0;
-	UCHAR BBP127TableIdx = 0;
+	unsigned char id = 0;
+	unsigned char BBPR127_Table[DFS_EVENT_BUFFER_SIZE];
+	unsigned char BBPR127_OWERID;
+	unsigned char OwenerIDValue = 0;
+	unsigned char BBP127TableIdx = 0;
 	DFS_EVENT DfsEvent;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pRadarDetect->DfsSwParam;	

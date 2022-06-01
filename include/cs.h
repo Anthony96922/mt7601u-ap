@@ -43,9 +43,9 @@ typedef struct CARRIER_DETECTION_s {
 	unsigned long Debug;
 	unsigned long OneSecIntCount;
 	unsigned char CarrierGoneThreshold;
-	UCHAR VGA_Mask;
-	UCHAR Packet_End_Mask;
-	UCHAR Rx_PE_Mask;
+	unsigned char VGA_Mask;
+	unsigned char Packet_End_Mask;
+	unsigned char Rx_PE_Mask;
 } CARRIER_DETECTION_STRUCT, *PCARRIER_DETECTION_STRUCT;
 
 #ifdef CARRIER_DETECTION_FIRMWARE_SUPPORT

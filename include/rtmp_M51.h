@@ -45,9 +45,9 @@ NDIS_STATUS isMCUNeedToLoadFIrmware(
 
 INT RtmpAsicSendCommandToMcu(
 	struct _RTMP_ADAPTER *pAd,
-	UCHAR Command,
-	UCHAR Token,
-	UCHAR Arg0,
-	UCHAR Arg1,
+	unsigned char Command,
+	unsigned char Token,
+	unsigned char Arg0,
+	unsigned char Arg1,
 	BOOLEAN FlgIsNeedLocked);
 #endif

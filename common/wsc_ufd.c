@@ -265,7 +265,7 @@ BOOLEAN WscGetXmlEncr(
 
 BOOLEAN WscGetXmlKey(
 	IN	STRING	*pXmlData,
-	OUT UCHAR	*pKey,
+	OUT unsigned char	*pKey,
 	OUT USHORT	*pKeyLen)
 {
 	STRING	*ptr, *pBuffer = pXmlData;
@@ -310,7 +310,7 @@ BOOLEAN WscGetXmlKey(
 
 BOOLEAN WscGetXmlKeyIndex(
 	IN	STRING	*pXmlData,
-	OUT UCHAR	*pKeyIndex)
+	OUT unsigned char	*pKeyIndex)
 {
 	STRING	*ptr, *pBuffer = pXmlData;
 
@@ -340,7 +340,7 @@ BOOLEAN WscGetXmlKeyIndex(
 
 BOOLEAN	WscReadProfileFromUfdFile(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR ApIdx,
+	IN unsigned char ApIdx,
 	IN char * pUfdFileName)
 {
 	PWSC_CREDENTIAL     pCredential = &pAd->ApCfg.MBSSID[ApIdx].WscControl.WscProfile.Profile[0];
@@ -371,7 +371,7 @@ BOOLEAN	WscReadProfileFromUfdFile(
 		{
 			fileLen += rv;
 		}
-		os_alloc_mem(pAd, (UCHAR **)&pXmlData, fileLen+1);
+		os_alloc_mem(pAd, (unsigned char **)&pXmlData, fileLen+1);
 		if (pXmlData == NULL)
 		{
 			RtmpOSFileClose(file_r);
@@ -472,7 +472,7 @@ ReadErr:
 
 BOOLEAN	WscWriteProfileToUfdFile(
 	IN	PRTMP_ADAPTER		pAd,
-	IN  UCHAR               ApIdx,
+	IN  unsigned char               ApIdx,
 	IN  char *				pUfdFileName)
 {
 	PWSC_CTRL           pWscControl = &pAd->ApCfg.MBSSID[ApIdx].WscControl;
@@ -481,8 +481,8 @@ BOOLEAN	WscWriteProfileToUfdFile(
 	RTMP_OS_FD			file_w;
 	char *				offset, pXmlTemplate = (char *)XML_TEMPLATE;
 	BOOLEAN				bFound = FALSE, bRtn = TRUE;
-	UCHAR				Guid[UUID_LEN_HEX];
-	UCHAR				Guid_Str[UUID_LEN_STR];
+	unsigned char				Guid[UUID_LEN_HEX];
+	unsigned char				Guid_Str[UUID_LEN_STR];
 
 	if (pUfdFileName == NULL)
 	{

@@ -91,7 +91,7 @@ static USHORT update_associated_mac_entry(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN IE_LISTS *ie_list,
-	IN UCHAR MaxSupportedRate)
+	IN unsigned char MaxSupportedRate)
 {
 	MULTISSID_STRUCT *wdev;
 #ifdef TXBF_SUPPORT
@@ -257,8 +257,8 @@ static USHORT update_associated_mac_entry(
 
 		pEntry->MpduDensity = ie_list->HTCapability.HtCapParm.MpduDensity;
 		pEntry->MaxRAmpduFactor = ie_list->HTCapability.HtCapParm.MaxRAmpduFactor;
-		pEntry->MmpsMode = (UCHAR)ie_list->HTCapability.HtCapInfo.MimoPs;
-		pEntry->AMsduSize = (UCHAR)ie_list->HTCapability.HtCapInfo.AMsduSize;
+		pEntry->MmpsMode = (unsigned char)ie_list->HTCapability.HtCapInfo.MimoPs;
+		pEntry->AMsduSize = (unsigned char)ie_list->HTCapability.HtCapInfo.AMsduSize;
 
 		if (pAd->CommonCfg.DesiredHtPhy.AmsduEnable && (pAd->CommonCfg.REGBACapability.field.AutoBA == FALSE))
 			CLIENT_STATUS_SET_FLAG(pEntry, fCLIENT_STATUS_AMSDU_INUSED);
@@ -334,7 +334,7 @@ static USHORT update_associated_mac_entry(
 	/* Set asic auto fall back */
 	if (wdev->bAutoTxRateSwitch == TRUE)
 	{
-		UCHAR TableSize = 0;
+		unsigned char TableSize = 0;
 		
 		MlmeSelectTxRateTable(pAd, pEntry, &pEntry->pTable, &TableSize, &pEntry->CurrTxRateIndex);
 		MlmeNewTxRate(pAd, pEntry);
@@ -352,7 +352,7 @@ static USHORT update_associated_mac_entry(
 		pEntry->bAutoTxRateSwitch = FALSE;
 		
 		/* If the legacy mode is set, overwrite the transmit setting of this entry. */
-		RTMPUpdateLegacyTxSetting((UCHAR)wdev->DesiredTransmitSetting.field.FixedTxMode, pEntry);
+		RTMPUpdateLegacyTxSetting((unsigned char)wdev->DesiredTransmitSetting.field.FixedTxMode, pEntry);
 	}
 
 
@@ -395,11 +395,11 @@ static USHORT APBuildAssociation(
     IN RTMP_ADAPTER *pAd,
     IN MAC_TABLE_ENTRY *pEntry,
     IN IE_LISTS *ie_list,
-    IN UCHAR MaxSupportedRateIn500Kbps,
+    IN unsigned char MaxSupportedRateIn500Kbps,
     OUT USHORT *pAid)
 {
 	USHORT StatusCode = MLME_SUCCESS;
-	UCHAR MaxSupportedRate = RATE_11;
+	unsigned char MaxSupportedRate = RATE_11;
 	MULTISSID_STRUCT *wdev;
 
 
@@ -591,14 +591,14 @@ VOID ap_cmm_peer_assoc_req_action(
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	unsigned long FrameLen = 0;
-	UCHAR MaxSupportedRate = 0;
-	UCHAR SupRateLen, PhyMode, FlgIs11bSta;
-	UCHAR i;
+	unsigned char MaxSupportedRate = 0;
+	unsigned char SupRateLen, PhyMode, FlgIs11bSta;
+	unsigned char i;
 	MAC_TABLE_ENTRY *pEntry;
 #ifdef DBG
-	UCHAR *sAssoc = isReassoc ? (unsigned char *) "ReASSOC" : (unsigned char *) "ASSOC";
+	unsigned char *sAssoc = isReassoc ? (unsigned char *) "ReASSOC" : (unsigned char *) "ASSOC";
 #endif /* DBG */
-	UCHAR SubType;
+	unsigned char SubType;
 	BOOLEAN bACLReject = FALSE;
 #ifdef DOT1X_SUPPORT
 	unsigned char * pPmkid = NULL;
@@ -607,7 +607,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	MULTISSID_STRUCT *wdev;
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&ie_list, sizeof(IE_LISTS));
+	os_alloc_mem(NULL, (unsigned char **)&ie_list, sizeof(IE_LISTS));
 	if (ie_list == NULL) {
 		DBGPRINT(RT_DEBUG_ERROR, ("%s(): mem alloc failed\n", __FUNCTION__));
 		return;
@@ -875,7 +875,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	if ((ie_list->ht_cap_len > 0) && WMODE_CAP_N(pAd->CommonCfg.PhyMode))
 	{
 		unsigned long TmpLen;
-		UCHAR HtLen1 = sizeof(pAd->CommonCfg.AddHTInfo);
+		unsigned char HtLen1 = sizeof(pAd->CommonCfg.AddHTInfo);
 		HT_CAPABILITY_IE HtCapabilityRsp;
 #ifdef RT_BIG_ENDIAN
 		HT_CAPABILITY_IE HtCapabilityTmp;
@@ -929,7 +929,7 @@ VOID ap_cmm_peer_assoc_req_action(
 		{
 			unsigned long TmpLen, infoPos;
 			unsigned char * pInfo;
-			UCHAR extInfoLen;
+			unsigned char extInfoLen;
 			BOOLEAN bNeedAppendExtIE = FALSE;
 			EXT_CAP_INFO_ELEMENT extCapInfo;
 
@@ -974,7 +974,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	 	{
 			OVERLAP_BSS_SCAN_IE OverlapScanParam;
 			unsigned long TmpLen;
-			UCHAR OverlapScanIE, ScanIELen;
+			unsigned char OverlapScanIE, ScanIELen;
 
 			OverlapScanIE = IE_OVERLAPBSS_SCAN_PARM;
 			ScanIELen = 14;
@@ -997,9 +997,9 @@ VOID ap_cmm_peer_assoc_req_action(
 #endif /* DOT11N_DRAFT3 */
 		if ((ie_list->RalinkIe) == 0 || (pAd->bBroadComHT == TRUE))
 		{
-			UCHAR epigram_ie_len;
-			UCHAR BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
-			UCHAR BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
+			unsigned char epigram_ie_len;
+			unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
+			unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
 
 			epigram_ie_len = ie_list->ht_cap_len + 4;
 #ifndef RT_BIG_ENDIAN
@@ -1050,7 +1050,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	if (wdev->bWmmCapable && CLIENT_STATUS_TEST_FLAG(pEntry, fCLIENT_STATUS_WMM_CAPABLE))
 	{
 		unsigned long TmpLen;
-		UCHAR WmeParmIe[26] = {IE_VENDOR_SPECIFIC, 24, 0x00, 0x50, 0xf2, 0x02, 0x01, 0x01, 0, 0};
+		unsigned char WmeParmIe[26] = {IE_VENDOR_SPECIFIC, 24, 0x00, 0x50, 0xf2, 0x02, 0x01, 0x01, 0, 0};
 		WmeParmIe[8] = pAd->ApCfg.BssEdcaParm.EdcaUpdateCount & 0x0f;
 #ifdef UAPSD_SUPPORT
 		UAPSD_MR_IE_FILL(WmeParmIe[8], &wdev->UapsdInfo);
@@ -1058,12 +1058,12 @@ VOID ap_cmm_peer_assoc_req_action(
 		for (i = QID_AC_BE; i <= QID_AC_VO; i++)
 		{
 			WmeParmIe[10 + (i * 4)] = (i << 5) +						/* b5-6 is ACI */
-						((UCHAR)pAd->ApCfg.BssEdcaParm.bACM[i] << 4) +		/* b4 is ACM */
+						((unsigned char)pAd->ApCfg.BssEdcaParm.bACM[i] << 4) +		/* b4 is ACM */
 						(pAd->ApCfg.BssEdcaParm.Aifsn[i] & 0x0f);		/* b0-3 is AIFSN */
 			WmeParmIe[11 + (i * 4)] = (pAd->ApCfg.BssEdcaParm.Cwmax[i] << 4) +		/* b5-8 is CWMAX */
 						(pAd->ApCfg.BssEdcaParm.Cwmin[i] & 0x0f);		/* b0-3 is CWMIN */
-			WmeParmIe[12 + (i * 4)] = (UCHAR)(pAd->ApCfg.BssEdcaParm.Txop[i] & 0xff);	/* low byte of TXOP */
-			WmeParmIe[13 + (i * 4)] = (UCHAR)(pAd->ApCfg.BssEdcaParm.Txop[i] >> 8);		/* high byte of TXOP */
+			WmeParmIe[12 + (i * 4)] = (unsigned char)(pAd->ApCfg.BssEdcaParm.Txop[i] & 0xff);	/* low byte of TXOP */
+			WmeParmIe[13 + (i * 4)] = (unsigned char)(pAd->ApCfg.BssEdcaParm.Txop[i] >> 8);		/* high byte of TXOP */
 		}
 
 		MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
@@ -1075,7 +1075,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	/* add Ralink-specific IE here - Byte0.b0=1 for aggregation, Byte0.b1=1 for piggy-back */
 	{
 		unsigned long TmpLen;
-		UCHAR RalinkSpecificIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
+		unsigned char RalinkSpecificIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
 
 		if (pAd->CommonCfg.bAggregationCapable)
 			RalinkSpecificIe[5] |= 0x1;
@@ -1094,10 +1094,10 @@ VOID ap_cmm_peer_assoc_req_action(
 #ifdef WSC_AP_SUPPORT
 	if (pEntry->bWscCapable)
 	{
-		UCHAR *pWscBuf = NULL, WscIeLen = 0;
+		unsigned char *pWscBuf = NULL, WscIeLen = 0;
 		unsigned long WscTmpLen = 0;
 
-		os_alloc_mem(NULL, (UCHAR **)&pWscBuf, 512);
+		os_alloc_mem(NULL, (unsigned char **)&pWscBuf, 512);
 		if (pWscBuf)
 		{
 			NdisZeroMemory(pWscBuf, 512);
@@ -1281,8 +1281,8 @@ VOID ap_cmm_peer_assoc_req_action(
 			if (pEntry->WepStatus == Ndis802_11WEPEnabled)
 			{
 				/* Set WEP key to ASIC */
-				UCHAR KeyIdx = 0;
-				UCHAR CipherAlg = 0;
+				unsigned char KeyIdx = 0;
+				unsigned char CipherAlg = 0;
 
 				KeyIdx = wdev->DefaultKeyId;					
 				CipherAlg = pAd->SharedKey[pEntry->apidx][KeyIdx].CipherAlg;
@@ -1363,7 +1363,7 @@ VOID APPeerDisassocReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	UCHAR Addr2[MAC_ADDR_LEN];
+	unsigned char Addr2[MAC_ADDR_LEN];
 	USHORT Reason;
 	unsigned short SeqNum;		
 	MAC_TABLE_ENTRY *pEntry;
@@ -1446,7 +1446,7 @@ VOID MbssKickOutStas(
 VOID APMlmeKickOutSta(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pStaAddr,
-	IN UCHAR Wcid,
+	IN unsigned char Wcid,
 	IN USHORT Reason)
 {
 	HEADER_802_11 DisassocHdr;
@@ -1454,8 +1454,8 @@ VOID APMlmeKickOutSta(
 	unsigned long FrameLen = 0;
 	NDIS_STATUS NStatus;
 	MAC_TABLE_ENTRY *pEntry;
-	UCHAR Aid;
-	UCHAR ApIdx;
+	unsigned char Aid;
+	unsigned char ApIdx;
 
 	pEntry = MacTableLookup(pAd, pStaAddr);
 

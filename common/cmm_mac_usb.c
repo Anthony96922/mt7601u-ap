@@ -313,7 +313,7 @@ Note:
 NDIS_STATUS	NICInitRecv(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UCHAR				i;
+	unsigned char				i;
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> NICInitRecv\n"));
@@ -371,7 +371,7 @@ Note:
 NDIS_STATUS	NICInitTransmit(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UCHAR			i, acidx;
+	unsigned char			i, acidx;
 	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
 	PTX_CONTEXT		pNullContext   = &(pAd->NullContext[0]);
 	PTX_CONTEXT		pPsPollContext = &(pAd->PsPollContext);
@@ -737,7 +737,7 @@ Note:
 NDIS_STATUS	NICInitRecv(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UCHAR				i;
+	unsigned char				i;
 	NDIS_STATUS			Status = NDIS_STATUS_SUCCESS;
 	POS_COOKIE			pObj = (POS_COOKIE) pAd->OS_Cookie;
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
@@ -833,7 +833,7 @@ Note:
 NDIS_STATUS	NICInitTransmit(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UCHAR			i, acidx;
+	unsigned char			i, acidx;
 	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
 	PTX_CONTEXT		pNullContext   = &(pAd->NullContext[0]);
 	PTX_CONTEXT		pPsPollContext = &(pAd->PsPollContext);
@@ -1403,13 +1403,13 @@ VOID RT28xx_UpdateBeaconToAsic(
 	IN unsigned long			UpdatePos)
 {
 	unsigned char *        	pBeaconFrame = NULL;
-	UCHAR  			*ptr;
+	unsigned char  			*ptr;
 	UINT  			i, padding;
 	BEACON_SYNC_STRUCT	*pBeaconSync = pAd->CommonCfg.pBeaconSync;
 	unsigned int			longValue;
 /*	USHORT			shortValue;*/
 	BOOLEAN			bBcnReq = FALSE;
-	UCHAR			bcn_idx = 0;
+	unsigned char			bcn_idx = 0;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 #ifdef CONFIG_AP_SUPPORT
@@ -1563,8 +1563,8 @@ VOID RTUSBBssBeaconStart(
 
 		for(apidx=0; apidx<NumOfBcn; apidx++)
 		{
-			UCHAR CapabilityInfoLocationInBeacon = 0;
-			UCHAR TimIELocationInBeacon = 0;
+			unsigned char CapabilityInfoLocationInBeacon = 0;
+			unsigned char TimIELocationInBeacon = 0;
 #ifdef CONFIG_AP_SUPPORT
 			IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 			{
@@ -2044,7 +2044,7 @@ VOID RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
 
 BOOLEAN AsicCheckCommandOk(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR		 Command)
+	IN unsigned char		 Command)
 {
 	unsigned int	CmdStatus, CID, i;
 	unsigned int	ThisCIDMask = 0;

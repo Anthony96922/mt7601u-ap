@@ -165,27 +165,27 @@ typedef enum _Dot1xInternalCmd {
 
 /* 802.1x authentication format */
 typedef struct _IEEE8021X_FRAME {
-	UCHAR Version;		/* 1.0 */
-	UCHAR Type;		/* 0 = EAP Packet */
+	unsigned char Version;		/* 1.0 */
+	unsigned char Type;		/* 0 = EAP Packet */
 	USHORT Length;
 } IEEE8021X_FRAME, *PIEEE8021X_FRAME;
 
 typedef struct GNU_PACKED _RSN_IE_HEADER_STRUCT {
-	UCHAR Eid;
-	UCHAR Length;
+	unsigned char Eid;
+	unsigned char Length;
 	USHORT Version;		/* Little endian format */
 } RSN_IE_HEADER_STRUCT, *PRSN_IE_HEADER_STRUCT;
 
 /* Cipher suite selector types */
 typedef struct GNU_PACKED _CIPHER_SUITE_STRUCT {
-	UCHAR Oui[3];
-	UCHAR Type;
+	unsigned char Oui[3];
+	unsigned char Type;
 } CIPHER_SUITE_STRUCT, *PCIPHER_SUITE_STRUCT;
 
 /* Authentication and Key Management suite selector */
 typedef struct GNU_PACKED _AKM_SUITE_STRUCT {
-	UCHAR Oui[3];
-	UCHAR Type;
+	unsigned char Oui[3];
+	unsigned char Type;
 } AKM_SUITE_STRUCT, *PAKM_SUITE_STRUCT;
 
 /* RSN capability */
@@ -198,14 +198,14 @@ typedef struct GNU_PACKED _RSN_CAPABILITY {
 } RSN_CAPABILITY, *PRSN_CAPABILITY;
 
 typedef struct _CIPHER_KEY {
-	UCHAR Key[16];		/* 128 bits max */
-	UCHAR TxMic[8];
-	UCHAR RxMic[8];
-	UCHAR TxTsc[16];	/* TSC value. Change it from 48bit to 128bit */
-	UCHAR RxTsc[16];	/* TSC value. Change it from 48bit to 128bit */
-	UCHAR CipherAlg;	/* 0:none, 1:WEP64, 2:WEP128, 3:TKIP, 4:AES, 5:CKIP64, 6:CKIP128 */
-	UCHAR KeyLen;		/* Key length for each key, 0: entry is invalid */
-	UCHAR Type;		/* Indicate Pairwise/Group when reporting MIC error */
+	unsigned char Key[16];		/* 128 bits max */
+	unsigned char TxMic[8];
+	unsigned char RxMic[8];
+	unsigned char TxTsc[16];	/* TSC value. Change it from 48bit to 128bit */
+	unsigned char RxTsc[16];	/* TSC value. Change it from 48bit to 128bit */
+	unsigned char CipherAlg;	/* 0:none, 1:WEP64, 2:WEP128, 3:TKIP, 4:AES, 5:CKIP64, 6:CKIP128 */
+	unsigned char KeyLen;		/* Key length for each key, 0: entry is invalid */
+	unsigned char Type;		/* Indicate Pairwise/Group when reporting MIC error */
 } CIPHER_KEY, *PCIPHER_KEY;
 
 #endif /* WPA_CMM_H */

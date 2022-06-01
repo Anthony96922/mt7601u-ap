@@ -48,14 +48,14 @@
 VOID 	AsicUpdateProtect(
 	IN PRTMP_ADAPTER pAd,
 	IN USHORT OperationMode,
-	IN UCHAR SetMask,
+	IN unsigned char SetMask,
 	IN BOOLEAN bDisableBGProtect,
 	IN BOOLEAN bNonGFExist)
 {
 	PROT_CFG_STRUC	ProtCfg, ProtCfg4;
 	unsigned int Protect[6];
 	USHORT offset;
-	UCHAR i;
+	unsigned char i;
 	unsigned int MacReg = 0;
 
 #ifdef RALINK_ATE
@@ -413,7 +413,7 @@ VOID AsicBBPAdjust(RTMP_ADAPTER *pAd)
  */
 VOID AsicSwitchChannel(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR Channel,
+	IN unsigned char Channel,
 	IN BOOLEAN bScan)
 {
 
@@ -456,7 +456,7 @@ VOID AsicSwitchChannel(
  */
 VOID AsicLockChannel(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR Channel)
+	IN unsigned char Channel)
 {
 }
 
@@ -481,10 +481,10 @@ VOID InitLookupTable(
 	int band_nums = 1;
 	const int Offset = 7;
 	EEPROM_WORD_STRUC WordStruct = {{0}};
-	UCHAR PlusStepNum[IEEE80211_BAND_NUMS][8] = {{0, 1, 3, 2, 3, 3, 3, 2}, {0, 1, 3, 2, 3, 3, 3, 2}};
-	UCHAR MinusStepNum[IEEE80211_BAND_NUMS][8] = {{1, 1, 1, 1, 1, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 0, 1}};
-	UCHAR Step[IEEE80211_BAND_NUMS] = {10, 10};
-	UCHAR RFValue = 0, BbpValue = 0;
+	unsigned char PlusStepNum[IEEE80211_BAND_NUMS][8] = {{0, 1, 3, 2, 3, 3, 3, 2}, {0, 1, 3, 2, 3, 3, 3, 2}};
+	unsigned char MinusStepNum[IEEE80211_BAND_NUMS][8] = {{1, 1, 1, 1, 1, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 0, 1}};
+	unsigned char Step[IEEE80211_BAND_NUMS] = {10, 10};
+	unsigned char RFValue = 0, BbpValue = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==> InitLookupTable\n"));
 
@@ -705,7 +705,7 @@ VOID AsicGetAutoAgcOffsetForTemperatureSensor(
 	BBP_R49_STRUC	BbpR49;
 	BOOLEAN			bAutoTxAgc = FALSE;
 	char *			pTxAgcCompensate = NULL;
-	UCHAR 			RFValue = 0;
+	unsigned char 			RFValue = 0;
 	CHAR			TuningTableUpperBound = 0, TuningTableIndex0 = 0, TuningTableIndex1 = 0;
 	INT 				CurrentTemp = 0;
 	INT RefTemp;
@@ -749,7 +749,7 @@ VOID AsicGetAutoAgcOffsetForTemperatureSensor(
 		{
 			unsigned int bbp_val;	
 			RTMP_BBP_IO_READ32(pAd, CORE_R35, &bbp_val);
-			CurrentTemp = (UCHAR)(bbp_val & 0xff);
+			CurrentTemp = (unsigned char)(bbp_val & 0xff);
 		}
 		else
 #endif /* RT65xx */
@@ -935,7 +935,7 @@ VOID AsicSetMcastWC(RTMP_ADAPTER *pAd)
 
 	==========================================================================
  */
-VOID AsicDelWcidTab(RTMP_ADAPTER *pAd, UCHAR Wcid) 
+VOID AsicDelWcidTab(RTMP_ADAPTER *pAd, unsigned char Wcid) 
 {
 	unsigned int offset;
 
@@ -1490,8 +1490,8 @@ VOID 	AsicSetSlotTime(
 */
 VOID AsicAddSharedKeyEntry(
 	IN PRTMP_ADAPTER 	pAd,
-	IN UCHAR		 	BssIndex,
-	IN UCHAR		 	KeyIdx,
+	IN unsigned char		 	BssIndex,
+	IN unsigned char		 	KeyIdx,
 	IN PCIPHER_KEY		pCipherKey)
 {
 	unsigned long offset; /*, csr0;*/
@@ -1500,7 +1500,7 @@ VOID AsicAddSharedKeyEntry(
 	unsigned char *		pKey = pCipherKey->Key;
 	unsigned char *		pTxMic = pCipherKey->TxMic;
 	unsigned char *		pRxMic = pCipherKey->RxMic;
-	UCHAR		CipherAlg = pCipherKey->CipherAlg;
+	unsigned char		CipherAlg = pCipherKey->CipherAlg;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("AsicAddSharedKeyEntry BssIndex=%d, KeyIdx=%d\n", BssIndex,KeyIdx));
 /*============================================================================================*/
@@ -1576,8 +1576,8 @@ VOID AsicAddSharedKeyEntry(
 /*	IRQL = DISPATCH_LEVEL*/
 VOID AsicRemoveSharedKeyEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR		 BssIndex,
-	IN UCHAR		 KeyIdx)
+	IN unsigned char		 BssIndex,
+	IN unsigned char		 KeyIdx)
 {
 	/*unsigned long SecCsr0;*/
 	SHAREDKEY_MODE_STRUC csr1;
@@ -1665,9 +1665,9 @@ VOID AsicUpdateRxWCIDTable(
 */
 VOID	AsicUpdateWcidAttributeEntry(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR			BssIdx,
-	IN 	UCHAR		 	KeyIdx,
-	IN 	UCHAR		 	CipherAlg,
+	IN	unsigned char			BssIdx,
+	IN 	unsigned char		 	KeyIdx,
+	IN 	unsigned char		 	CipherAlg,
 	IN	unsigned char			Wcid,
 	IN	unsigned char			KeyTabFlag)
 {
@@ -1729,7 +1729,7 @@ VOID	AsicUpdateWcidAttributeEntry(
 */
 VOID AsicAddPairwiseKeyEntry(
 	IN PRTMP_ADAPTER 	pAd,
-	IN UCHAR			WCID,
+	IN unsigned char			WCID,
 	IN PCIPHER_KEY		pCipherKey)
 {
 	INT i;
@@ -1738,7 +1738,7 @@ VOID AsicAddPairwiseKeyEntry(
 	unsigned char *		 pRxMic = pCipherKey->RxMic;
 #ifdef DBG
 	unsigned char * pKey = pCipherKey;
-	UCHAR		CipherAlg = pCipherKey->CipherAlg;
+	unsigned char		CipherAlg = pCipherKey->CipherAlg;
 #endif /* DBG */
 
 	/* EKEY*/
@@ -1793,7 +1793,7 @@ VOID AsicAddPairwiseKeyEntry(
 */	
 VOID AsicRemovePairwiseKeyEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR		 Wcid)
+	IN unsigned char		 Wcid)
 {
 	/* Set the specific WCID attribute entry as OPEN-NONE */
 	AsicUpdateWcidAttributeEntry(pAd, 
@@ -1808,10 +1808,10 @@ VOID AsicRemovePairwiseKeyEntry(
 
 BOOLEAN AsicSendCommandToMcu(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR Command,
-	IN UCHAR Token,
-	IN UCHAR Arg0,
-	IN UCHAR Arg1,
+	IN unsigned char Command,
+	IN unsigned char Token,
+	IN unsigned char Arg0,
+	IN unsigned char Arg1,
 	IN BOOLEAN in_atomic)
 {
 #ifdef RT65xx
@@ -1834,10 +1834,10 @@ BOOLEAN AsicSendCommandToMcu(
 
 BOOLEAN AsicSendCommandToMcuBBP(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR		 Command,
-	IN UCHAR		 Token,
-	IN UCHAR		 Arg0,
-	IN UCHAR		 Arg1,
+	IN unsigned char		 Command,
+	IN unsigned char		 Token,
+	IN unsigned char		 Arg0,
+	IN unsigned char		 Arg1,
 	IN BOOLEAN		FlgIsNeedLocked)
 {
 #ifdef RT65xx
@@ -1871,7 +1871,7 @@ BOOLEAN AsicSendCommandToMcuBBP(
  */
 VOID AsicSetRxAnt(
 	IN PRTMP_ADAPTER	pAd,
-	IN UCHAR			Ant)
+	IN unsigned char			Ant)
 {
 	if (pAd->chipOps.SetRxAnt)
 		pAd->chipOps.SetRxAnt(pAd, Ant);
@@ -1880,7 +1880,7 @@ VOID AsicSetRxAnt(
 
 VOID AsicTurnOffRFClk(
 	IN PRTMP_ADAPTER pAd, 
-	IN	UCHAR		Channel) 
+	IN	unsigned char		Channel) 
 {
 	if (pAd->chipOps.AsicRfTurnOff)
 	{
@@ -1891,7 +1891,7 @@ VOID AsicTurnOffRFClk(
 #if defined(RT28xx) || defined(RT2880) || defined(RT2883)
 		/* RF R2 bit 18 = 0*/
 		unsigned int			R1 = 0, R2 = 0, R3 = 0;
-		UCHAR			index;
+		unsigned char			index;
 		RTMP_RF_REGS	*RFRegTable;
 	
 		RFRegTable = RF2850RegTable;
@@ -1975,7 +1975,7 @@ VOID AsicUpdateWAPIPN(
 VOID AsicVCORecalibration(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR RFValue = 0;
+	unsigned char RFValue = 0;
 	unsigned int TxPinCfg = 0;
 	unsigned char mode = pAd->chipCap.FlgIsVcoReCalMode;
 
@@ -2145,7 +2145,7 @@ VOID RtmpStreamModeInit(
 	IN RTMP_ADAPTER *pAd)
 {
 	int chainIdx;
-	UCHAR *pMacAddr;
+	unsigned char *pMacAddr;
 
 	if (pAd->chipCap.FlgHwStreamMode == FALSE)
 		return;	
@@ -2237,7 +2237,7 @@ VOID AsicLoadWOWFirmware(
  * the null frame includes TxWI and 802.11 header 						*/
 VOID AsicWOWSendNullFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR TxRate,
+	IN unsigned char TxRate,
 	IN BOOLEAN bQosNull)
 {
 	
@@ -2389,7 +2389,7 @@ INT AsicReadAggCnt(RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len)
 #endif /* DOT11_N_SUPPORT */
 
 
-INT AsicSetChannel(RTMP_ADAPTER *pAd, UCHAR ch, UCHAR bw, UCHAR ext_ch, BOOLEAN bScan)
+INT AsicSetChannel(RTMP_ADAPTER *pAd, unsigned char ch, unsigned char bw, unsigned char ext_ch, BOOLEAN bScan)
 {
 	rtmp_bbp_set_bw(pAd, bw);
 

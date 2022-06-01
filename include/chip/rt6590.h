@@ -109,15 +109,15 @@ typedef struct _RT6590_FREQ_ITEM {
 #define RF_A_BAND_MB	0x08
 #define RF_A_BAND_HB	0x10
 typedef struct _RT6590_RF_SWITCH_ITEM {
-	UCHAR Bank;
-	UCHAR Register;
-	UCHAR Band; /* G_Band, A_Band_LB, A_Band_MB, A_Band_HB */
-	UCHAR BW;
-	UCHAR Value;
+	unsigned char Bank;
+	unsigned char Register;
+	unsigned char Band; /* G_Band, A_Band_LB, A_Band_MB, A_Band_HB */
+	unsigned char BW;
+	unsigned char Value;
 } RT6590_RF_SWITCH_ITEM, *PRT6590_RF_SWITCH_ITEM;
 
 typedef struct _RT6590_DCOC_Table {
-	UCHAR Band; /* G_Band, A_Band_LB, A_Band_MB, A_Band_HB */
+	unsigned char Band; /* G_Band, A_Band_LB, A_Band_MB, A_Band_HB */
 	RTMP_REG_PAIR RegDate;
 } RT6590_DOCO_Table, *PRT6590_DOCO_Table;
 

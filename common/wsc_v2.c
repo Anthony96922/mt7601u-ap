@@ -25,9 +25,9 @@
 #include    "wsc_tlv.h"
 
 BOOLEAN	WscAppendV2SubItem(
-	IN	UCHAR			SubID,
+	IN	unsigned char			SubID,
 	IN	unsigned char *			pData,
-	IN	UCHAR			DataLen,
+	IN	unsigned char			DataLen,
 	OUT	unsigned char *			pOutBuf,
 	OUT	unsigned char *			pOutBufLen);
 
@@ -231,7 +231,7 @@ BOOLEAN	WscGenV2Msg(
 	IN  BOOLEAN			bSelRegistrar,
 	IN	unsigned char *			pAuthorizedMACs,
 	IN  INT   			AuthorizedMACsLen,
-	OUT	UCHAR			**pOutBuf,
+	OUT	unsigned char			**pOutBuf,
 	OUT	INT				*pOutBufLen)
 {
 	unsigned char *			pWscV2Msg = NULL;
@@ -239,10 +239,10 @@ BOOLEAN	WscGenV2Msg(
 	PWSC_REG_DATA	pReg = &pWpsCtrl->RegData;
 	INT				templen = 0;
 		
-	os_alloc_mem(NULL, (UCHAR **)&pWscV2Msg, 128);
+	os_alloc_mem(NULL, (unsigned char **)&pWscV2Msg, 128);
 	if (pWscV2Msg)
 	{
-		UCHAR TmpLen = 0;
+		unsigned char TmpLen = 0;
 		pWscV2Msg[0] = 0x00;
 		pWscV2Msg[1] = 0x37;
 		pWscV2Msg[2] = 0x2A;
@@ -290,9 +290,9 @@ BOOLEAN	WscGenV2Msg(
 }
 
 BOOLEAN	WscAppendV2SubItem(
-	IN	UCHAR			SubID,
+	IN	unsigned char			SubID,
 	IN	unsigned char *			pData,
-	IN	UCHAR			DataLen,
+	IN	unsigned char			DataLen,
 	OUT	unsigned char *			pOutBuf,
 	OUT	unsigned char *			pOutBufLen)
 {
@@ -312,7 +312,7 @@ BOOLEAN	WscAppendV2SubItem(
 }
 
 BOOLEAN	WscParseV2SubItem(
-	IN	UCHAR			SubID,
+	IN	unsigned char			SubID,
 	IN	unsigned char *			pData,
 	IN	USHORT			DataLen,
 	OUT	unsigned char *			pOutBuf,
@@ -331,7 +331,7 @@ BOOLEAN	WscParseV2SubItem(
 			return TRUE;
     	}
     	Length = Length + 2 + pEid->Len; 
-        pEid = (PEID_STRUCT)((UCHAR*)pEid + 2 + pEid->Len);
+        pEid = (PEID_STRUCT)((unsigned char*)pEid + 2 + pEid->Len);
 	}
 	return FALSE;
 }

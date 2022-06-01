@@ -117,10 +117,10 @@ PPPoE Session Stage(Ethernet protocol type = 0x8864):
 #define PPPOE_DIS_UID_LEN		6
 typedef struct _UidMacMappingEntry
 {
-	UCHAR isServer;
-	UCHAR uIDAddByUs;				 /* If the host-uniq or AC-cookie is add by our driver, set it as 1, else set as 0. */
-	UCHAR uIDStr[PPPOE_DIS_UID_LEN]; /* String used for identify who sent this pppoe packet in discovery stage. */
-	UCHAR macAddr[MAC_ADDR_LEN];	 /* Mac address associated to this uid string. */
+	unsigned char isServer;
+	unsigned char uIDAddByUs;				 /* If the host-uniq or AC-cookie is add by our driver, set it as 1, else set as 0. */
+	unsigned char uIDStr[PPPOE_DIS_UID_LEN]; /* String used for identify who sent this pppoe packet in discovery stage. */
+	unsigned char macAddr[MAC_ADDR_LEN];	 /* Mac address associated to this uid string. */
 	unsigned long lastTime;
 	struct _UidMacMappingEntry *pNext;	/*Pointer to next entry in link-list of Uid hash table. */
 }UidMacMappingEntry, *PUidMacMappingEntry;
@@ -137,8 +137,8 @@ typedef struct _UidMacMappingTable
 typedef struct _SesMacMappingEntry
 {
 	unsigned short	sessionID;	/* In network order */
-	UCHAR	outMacAddr[MAC_ADDR_LEN];
-	UCHAR	inMacAddr[MAC_ADDR_LEN];
+	unsigned char	outMacAddr[MAC_ADDR_LEN];
+	unsigned char	inMacAddr[MAC_ADDR_LEN];
 	unsigned long 	lastTime;
 	struct	_SesMacMappingEntry *pNext;	
 }SesMacMappingEntry, *PSesMacMappingEntry;
@@ -337,7 +337,7 @@ static PUidMacMappingEntry UidMacTableUpdate(
 	UINT 				hashIdx, i=0, uIDAddByUs = 0;
 	UidMacMappingTable 	*pUidMacTable;
 	UidMacMappingEntry	*pEntry = NULL, *pPrev = NULL, *pNewEntry =NULL;
-	UCHAR 				hashVal = 0;
+	unsigned char 				hashVal = 0;
 	unsigned char *				pUIDStr= NULL;
 	unsigned long				now;
 
@@ -458,7 +458,7 @@ static PUidMacMappingEntry UidMacTableLookUp(
 {
     UINT 				hashIdx;
 	unsigned short				len;
-	UCHAR				hashValue = 0;
+	unsigned char				hashValue = 0;
     UidMacMappingEntry	*pEntry = NULL;
 	UidMacMappingTable *pUidMacTable;
 
@@ -949,7 +949,7 @@ static NDIS_STATUS MATProto_PPPoEDis_Init(
 	if (!pUidMacTable)
 	{
 /*		pMatCfg->MatTableSet.UidMacTable = (VOID *)kmalloc(sizeof(UidMacMappingTable), GFP_KERNEL); */
-		os_alloc_mem_suspend(NULL, (UCHAR **)&(pMatCfg->MatTableSet.UidMacTable), sizeof(UidMacMappingTable));
+		os_alloc_mem_suspend(NULL, (unsigned char **)&(pMatCfg->MatTableSet.UidMacTable), sizeof(UidMacMappingTable));
 		if (pMatCfg->MatTableSet.UidMacTable)
 		{
 			pUidMacTable = (UidMacMappingTable *)pMatCfg->MatTableSet.UidMacTable;
@@ -967,7 +967,7 @@ static NDIS_STATUS MATProto_PPPoEDis_Init(
 	if (!pSesMacTable)
 	{
 /*		pMatCfg->MatTableSet.SesMacTable = (VOID *)kmalloc(sizeof(SesMacMappingTable), GFP_KERNEL); */
-		os_alloc_mem_suspend(NULL, (UCHAR **)&(pMatCfg->MatTableSet.SesMacTable), sizeof(SesMacMappingTable));
+		os_alloc_mem_suspend(NULL, (unsigned char **)&(pMatCfg->MatTableSet.SesMacTable), sizeof(SesMacMappingTable));
 		if (pMatCfg->MatTableSet.SesMacTable)
 		{
 			pSesMacTable = (SesMacMappingTable *)pMatCfg->MatTableSet.SesMacTable;

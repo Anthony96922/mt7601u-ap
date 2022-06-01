@@ -105,7 +105,7 @@ VOID MLDSnooping(
 	IN unsigned char * pIpHeader,
 	IN PNET_DEV pDev);
 
-UCHAR IgmpMemberCnt(
+unsigned char IgmpMemberCnt(
 	IN PLIST_HEADER pList);
 
 VOID IgmpGroupDelMembers(
@@ -138,7 +138,7 @@ NDIS_STATUS IgmpPktInfoQuery(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pSrcBufVA,
 	IN PNDIS_PACKET pPacket,
-	IN UCHAR FromWhichBSSID,
+	IN unsigned char FromWhichBSSID,
 	OUT INT *pInIgmpGroup,
 	OUT PMULTICAST_FILTER_TABLE_ENTRY *ppGroupEntry);
 
@@ -147,7 +147,7 @@ NDIS_STATUS IgmpPktClone(
 	IN PNDIS_PACKET pPacket,
 	IN INT IgmpPktInGroup,
 	IN PMULTICAST_FILTER_TABLE_ENTRY pGroupEntry,
-	IN UCHAR QueIdx,
+	IN unsigned char QueIdx,
 	IN unsigned char UserPriority,
 	IN PNET_DEV pNetDev);
 

@@ -35,9 +35,9 @@
 /* Match total 6 bulkout endpoint to corresponding queue.*/
 
 #ifdef CONFIG_MULTI_CHANNEL
-UCHAR 	EpToQueue[6]={FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_HCCA, FIFO_MGMT};
+unsigned char 	EpToQueue[6]={FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_HCCA, FIFO_MGMT};
 #else
-UCHAR	EpToQueue[6]={FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_MGMT};
+unsigned char	EpToQueue[6]={FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_MGMT};
 #endif /* CONFIG_MULTI_CHANNEL */
 
 
@@ -59,9 +59,9 @@ VOID SoftwareFlowControl(
 	IN PRTMP_ADAPTER pAd) 
 {
 	BOOLEAN ResetBulkOutSize=FALSE;
-	UCHAR i=0,RunningQueueNo=0,QueIdx=0,HighWorkingAcCount=0;
+	unsigned char i=0,RunningQueueNo=0,QueIdx=0,HighWorkingAcCount=0;
 	UINT PacketsInQueueSize=0;
-	UCHAR Priority[]={1,0,2,3};
+	unsigned char Priority[]={1,0,2,3};
 	
 	for (i=0;i<NUM_OF_TX_RING;i++)
 	{
@@ -140,7 +140,7 @@ pAd->RunningQueueNoCount=0;
 VOID	RTUSBInitTxDesc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PTX_CONTEXT		pTxContext,
-	IN	UCHAR			BulkOutPipeId,
+	IN	unsigned char			BulkOutPipeId,
 	IN	usb_complete_t	Func)
 {
 	PURB				pUrb;
@@ -202,7 +202,7 @@ VOID	RTUSBInitTxDesc(
 VOID	RTUSBInitHTTxDesc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PHT_TX_CONTEXT	pTxContext,
-	IN	UCHAR			BulkOutPipeId,
+	IN	unsigned char			BulkOutPipeId,
 	IN	unsigned long			BulkOutSize,
 	IN	usb_complete_t	Func)
 {
@@ -322,8 +322,8 @@ VOID RTUSBInitCmdRspEventDesc(
 
 VOID	RTUSBBulkOutDataPacket(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR			BulkOutPipeId,
-	IN	UCHAR			Index)
+	IN	unsigned char			BulkOutPipeId,
+	IN	unsigned char			Index)
 {
 
 	PHT_TX_CONTEXT	pHTTXContext;
@@ -339,7 +339,7 @@ VOID	RTUSBBulkOutDataPacket(
 	BOOLEAN			bLasAlignmentsectiontRound = FALSE;
 #else
 	BOOLEAN			bTxQLastRound = FALSE;
-	UCHAR			allzero[4]= {0x0,0x0,0x0,0x0};
+	unsigned char			allzero[4]= {0x0,0x0,0x0,0x0};
 #endif /* USB_BULK_BUF_ALIGMENT */
 
 
@@ -751,7 +751,7 @@ USBHST_STATUS RTUSBBulkOutDataPacketComplete(URBCompleteStatus Status, purbb_t p
 	PHT_TX_CONTEXT	pHTTXContext;
 	PRTMP_ADAPTER	pAd;
 	POS_COOKIE 		pObj;
-	UCHAR			BulkOutPipeId;
+	unsigned char			BulkOutPipeId;
 	
 
 	pHTTXContext	= (PHT_TX_CONTEXT)RTMP_OS_USB_CONTEXT_GET(pURB);
@@ -922,7 +922,7 @@ USBHST_STATUS RTUSBBulkOutHCCANullFrameComplete(URBCompleteStatus Status, purbb_
 */
 VOID	RTUSBBulkOutMLMEPacket(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR			Index)
+	IN	unsigned char			Index)
 {
 	PTX_CONTEXT		pMLMEContext;
 	PURB			pUrb;
@@ -1485,7 +1485,7 @@ VOID	RTUSBKickBulkOut(
 VOID	RTUSBCleanUpDataBulkOutQueue(
 	IN	PRTMP_ADAPTER	pAd)
 {
-	UCHAR			Idx;			
+	unsigned char			Idx;			
 	PHT_TX_CONTEXT	pTxContext;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("--->CleanUpDataBulkOutQueue\n"));

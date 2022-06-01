@@ -302,8 +302,8 @@ struct ieee80211req_wpaie {
 struct hostapd_wpa_psk {
 	struct hostapd_wpa_psk *next;
 	int group;
-	UCHAR psk[32];
-	UCHAR addr[6];
+	unsigned char psk[32];
+	unsigned char addr[6];
 };
 
 #endif /*HOSTAPD_SUPPORT */
@@ -378,7 +378,7 @@ typedef enum _NDIS_802_11_STATUS_TYPE {
 	Ndis802_11StatusTypeMax	/* not a real type, defined as an upper bound */
 } NDIS_802_11_STATUS_TYPE, *PNDIS_802_11_STATUS_TYPE;
 
-typedef UCHAR NDIS_802_11_MAC_ADDRESS[6];
+typedef unsigned char NDIS_802_11_MAC_ADDRESS[6];
 
 typedef struct _NDIS_802_11_STATUS_INDICATION {
 	NDIS_802_11_STATUS_TYPE StatusType;
@@ -515,37 +515,37 @@ typedef unsigned long long NDIS_802_11_KEY_RSC;
 typedef struct GNU_PACKED _RADIUS_SRV_INFO {
 	unsigned int radius_ip;
 	unsigned int radius_port;
-	UCHAR radius_key[64];
-	UCHAR radius_key_len;
+	unsigned char radius_key[64];
+	unsigned char radius_key_len;
 } RADIUS_SRV_INFO, *PRADIUS_SRV_INFO;
 
 typedef struct GNU_PACKED _DOT1X_BSS_INFO {
-	UCHAR radius_srv_num;
+	unsigned char radius_srv_num;
 	RADIUS_SRV_INFO radius_srv_info[MAX_RADIUS_SRV_NUM];
-	UCHAR ieee8021xWEP;	/* dynamic WEP */
-	UCHAR key_index;
-	UCHAR key_length;	/* length of key in bytes */
-	UCHAR key_material[13];
-	UCHAR nasId[IFNAMSIZ];
-	UCHAR nasId_len;
+	unsigned char ieee8021xWEP;	/* dynamic WEP */
+	unsigned char key_index;
+	unsigned char key_length;	/* length of key in bytes */
+	unsigned char key_material[13];
+	unsigned char nasId[IFNAMSIZ];
+	unsigned char nasId_len;
 } DOT1X_BSS_INFO, *PDOT1X_BSS_INFO;
 
 typedef struct GNU_PACKED _DOT1X_CMM_CONF {
 	unsigned int Length;		/* Length of this structure */
-	UCHAR mbss_num;		/* indicate multiple BSS number */
+	unsigned char mbss_num;		/* indicate multiple BSS number */
 	unsigned int own_ip_addr;
 	unsigned int retry_interval;
 	unsigned int session_timeout_interval;
 	unsigned int quiet_interval;
-	UCHAR EAPifname[8][IFNAMSIZ];
-	UCHAR EAPifname_len[8];
-	UCHAR PreAuthifname[8][IFNAMSIZ];
-	UCHAR PreAuthifname_len[8];
+	unsigned char EAPifname[8][IFNAMSIZ];
+	unsigned char EAPifname_len[8];
+	unsigned char PreAuthifname[8][IFNAMSIZ];
+	unsigned char PreAuthifname_len[8];
 	DOT1X_BSS_INFO Dot1xBssInfo[8];
 } DOT1X_CMM_CONF, *PDOT1X_CMM_CONF;
 
 typedef struct GNU_PACKED _DOT1X_IDLE_TIMEOUT {
-	UCHAR StaAddr[6];
+	unsigned char StaAddr[6];
 	unsigned int idle_timeout;
 } DOT1X_IDLE_TIMEOUT, *PDOT1X_IDLE_TIMEOUT;
 #endif /* DOT1X_SUPPORT */
@@ -553,10 +553,10 @@ typedef struct GNU_PACKED _DOT1X_IDLE_TIMEOUT {
 #ifdef CONFIG_AP_SUPPORT
 typedef struct _NDIS_AP_802_11_KEY {
 	UINT Length;		/* Length of this structure */
-	UCHAR addr[6];
+	unsigned char addr[6];
 	UINT KeyIndex;
 	UINT KeyLength;		/* length of key in bytes */
-	UCHAR KeyMaterial[1];	/* variable length depending on above field */
+	unsigned char KeyMaterial[1];	/* variable length depending on above field */
 } NDIS_AP_802_11_KEY, *PNDIS_AP_802_11_KEY;
 #endif /* CONFIG_AP_SUPPORT */
 
@@ -569,7 +569,7 @@ typedef struct _NDIS_APCLI_802_11_KEY
     UINT           KeyLength;         
     NDIS_802_11_MAC_ADDRESS BSSID;
     NDIS_802_11_KEY_RSC KeyRSC;
-    UCHAR           KeyMaterial[1];     
+    unsigned char           KeyMaterial[1];     
 } NDIS_APCLI_802_11_KEY, *PNDIS_APCLI_802_11_KEY;
 #endif/* APCLI_WPA_SUPPLICANT_SUPPORT */
 #endif /* APCLI_SUPPORT */
@@ -586,7 +586,7 @@ typedef struct _NDIS_802_11_WEP {
 	UINT KeyIndex;		/* 0 is the per-client key, 1-N are the */
 	/* global keys */
 	UINT KeyLength;		/* length of key in bytes */
-	UCHAR KeyMaterial[1];	/* variable length depending on above field */
+	unsigned char KeyMaterial[1];	/* variable length depending on above field */
 } NDIS_802_11_WEP, *PNDIS_802_11_WEP;
 
 
@@ -609,19 +609,19 @@ typedef enum _NDIS_802_11_AUTHENTICATION_MODE {
 	Ndis802_11AuthModeMax	/* Not a real mode, defined as upper bound */
 } NDIS_802_11_AUTHENTICATION_MODE, *PNDIS_802_11_AUTHENTICATION_MODE;
 
-typedef UCHAR NDIS_802_11_RATES[NDIS_802_11_LENGTH_RATES];	/* Set of 8 data rates */
-typedef UCHAR NDIS_802_11_RATES_EX[NDIS_802_11_LENGTH_RATES_EX];	/* Set of 16 data rates */
+typedef unsigned char NDIS_802_11_RATES[NDIS_802_11_LENGTH_RATES];	/* Set of 8 data rates */
+typedef unsigned char NDIS_802_11_RATES_EX[NDIS_802_11_LENGTH_RATES_EX];	/* Set of 16 data rates */
 
 typedef struct GNU_PACKED _NDIS_802_11_SSID {
 	UINT SsidLength;	/* length of SSID field below, in bytes; */
 	/* this can be zero. */
-	UCHAR Ssid[NDIS_802_11_LENGTH_SSID];	/* SSID information field */
+	unsigned char Ssid[NDIS_802_11_LENGTH_SSID];	/* SSID information field */
 } NDIS_802_11_SSID, *PNDIS_802_11_SSID;
 
 typedef struct GNU_PACKED _NDIS_WLAN_BSSID {
 	unsigned long Length;		/* Length of this structure */
 	NDIS_802_11_MAC_ADDRESS MacAddress;	/* BSSID */
-	UCHAR Reserved[2];
+	unsigned char Reserved[2];
 	NDIS_802_11_SSID Ssid;	/* SSID */
 	unsigned long Privacy;		/* WEP encryption requirement */
 	NDIS_802_11_RSSI Rssi;	/* receive signal strength in dBm */
@@ -639,7 +639,7 @@ typedef struct GNU_PACKED _NDIS_802_11_BSSID_LIST {
 typedef struct {
 	BOOLEAN bValid;		/* 1: variable contains valid value */
 	USHORT StaNum;
-	UCHAR ChannelUtilization;
+	unsigned char ChannelUtilization;
 	USHORT RemainingAdmissionControl;	/* in unit of 32-us */
 } QBSS_LOAD_UI, *PQBSS_LOAD_UI;
 
@@ -647,7 +647,7 @@ typedef struct {
 typedef struct GNU_PACKED _NDIS_WLAN_BSSID_EX {
 	unsigned long Length;		/* Length of this structure */
 	NDIS_802_11_MAC_ADDRESS MacAddress;	/* BSSID */
-	UCHAR WpsAP; /* 0x00: not support WPS, 0x01: support normal WPS, 0x02: support Ralink auto WPS, 0x04: support Samsung WAC */
+	unsigned char WpsAP; /* 0x00: not support WPS, 0x01: support normal WPS, 0x02: support Ralink auto WPS, 0x04: support Samsung WAC */
 	CHAR MinSNR;
 	NDIS_802_11_SSID Ssid;	/* SSID */
 	UINT Privacy;		/* WEP encryption requirement */
@@ -658,7 +658,7 @@ typedef struct GNU_PACKED _NDIS_WLAN_BSSID_EX {
 	NDIS_802_11_NETWORK_INFRASTRUCTURE InfrastructureMode;
 	NDIS_802_11_RATES_EX SupportedRates;
 	unsigned long IELength;
-	UCHAR IEs[1];
+	unsigned char IEs[1];
 
 } NDIS_WLAN_BSSID_EX, *PNDIS_WLAN_BSSID_EX;
 
@@ -668,15 +668,15 @@ typedef struct GNU_PACKED _NDIS_802_11_BSSID_LIST_EX {
 } NDIS_802_11_BSSID_LIST_EX, *PNDIS_802_11_BSSID_LIST_EX;
 
 typedef struct GNU_PACKED _NDIS_802_11_FIXED_IEs {
-	UCHAR Timestamp[8];
+	unsigned char Timestamp[8];
 	USHORT BeaconInterval;
 	USHORT Capabilities;
 } NDIS_802_11_FIXED_IEs, *PNDIS_802_11_FIXED_IEs;
 
 typedef struct _NDIS_802_11_VARIABLE_IEs {
-	UCHAR ElementID;
-	UCHAR Length;		/* Number of bytes in data field */
-	UCHAR data[1];
+	unsigned char ElementID;
+	unsigned char Length;		/* Number of bytes in data field */
+	unsigned char data[1];
 } NDIS_802_11_VARIABLE_IEs, *PNDIS_802_11_VARIABLE_IEs;
 
 typedef unsigned long NDIS_802_11_FRAGMENTATION_THRESHOLD;
@@ -775,7 +775,7 @@ typedef enum _NDIS_802_11_MEDIA_STREAM_MODE {
 } NDIS_802_11_MEDIA_STREAM_MODE, *PNDIS_802_11_MEDIA_STREAM_MODE;
 
 /* PMKID Structures */
-typedef UCHAR NDIS_802_11_PMKID_VALUE[16];
+typedef unsigned char NDIS_802_11_PMKID_VALUE[16];
 
 #if defined(CONFIG_STA_SUPPORT) || defined(APCLI_WPA_SUPPLICANT_SUPPORT)
 typedef struct _BSSID_INFO {
@@ -803,7 +803,7 @@ typedef struct _NDIS_APCLI_802_11_PMKID
 typedef struct _AP_BSSID_INFO {
 	NDIS_802_11_MAC_ADDRESS MAC;
 	NDIS_802_11_PMKID_VALUE PMKID;
-	UCHAR PMK[32];
+	unsigned char PMK[32];
 	unsigned long RefreshTime;
 	BOOLEAN Valid;
 } AP_BSSID_INFO, *PAP_BSSID_INFO;
@@ -1046,7 +1046,7 @@ typedef struct _RT_802_11_LINK_STATUS {
 #ifdef SYSTEM_LOG_SUPPORT
 typedef struct _RT_802_11_EVENT_LOG {
 	LARGE_INTEGER SystemTime;	/* timestammp via NdisGetCurrentSystemTime() */
-	UCHAR Addr[MAC_ADDR_LENGTH];
+	unsigned char Addr[MAC_ADDR_LENGTH];
 	USHORT Event;		/* EVENT_xxx */
 } RT_802_11_EVENT_LOG, *PRT_802_11_EVENT_LOG;
 
@@ -1071,11 +1071,11 @@ typedef union _MACHTTRANSMIT_SETTING {
 } MACHTTRANSMIT_SETTING, *PMACHTTRANSMIT_SETTING;
 
 typedef struct _RT_802_11_MAC_ENTRY {
-	UCHAR ApIdx;
-	UCHAR Addr[MAC_ADDR_LENGTH];
-	UCHAR Aid;
-	UCHAR Psm;		/* 0:PWR_ACTIVE, 1:PWR_SAVE */
-	UCHAR MimoPs;		/* 0:MMPS_STATIC, 1:MMPS_DYNAMIC, 3:MMPS_Enabled */
+	unsigned char ApIdx;
+	unsigned char Addr[MAC_ADDR_LENGTH];
+	unsigned char Aid;
+	unsigned char Psm;		/* 0:PWR_ACTIVE, 1:PWR_SAVE */
+	unsigned char MimoPs;		/* 0:MMPS_STATIC, 1:MMPS_DYNAMIC, 3:MMPS_Enabled */
 	CHAR AvgRssi0;
 	CHAR AvgRssi1;
 	CHAR AvgRssi2;
@@ -1145,18 +1145,18 @@ typedef struct _RT_802_11_STA_CONFIG {
 /*  For OID Query or Set about BA structure */
 /* */
 typedef struct _OID_BACAP_STRUC {
-	UCHAR RxBAWinLimit;
-	UCHAR TxBAWinLimit;
-	UCHAR Policy;		/* 0: DELAY_BA 1:IMMED_BA  (//BA Policy subfiled value in ADDBA frame)   2:BA-not use. other value invalid */
-	UCHAR MpduDensity;	/* 0: DELAY_BA 1:IMMED_BA  (//BA Policy subfiled value in ADDBA frame)   2:BA-not use. other value invalid */
-	UCHAR AmsduEnable;	/*Enable AMSDU transmisstion */
-	UCHAR AmsduSize;	/* 0:3839, 1:7935 bytes. UINT  MSDUSizeToBytes[]        = { 3839, 7935}; */
-	UCHAR MMPSmode;		/* MIMO power save more, 0:static, 1:dynamic, 2:rsv, 3:mimo enable */
+	unsigned char RxBAWinLimit;
+	unsigned char TxBAWinLimit;
+	unsigned char Policy;		/* 0: DELAY_BA 1:IMMED_BA  (//BA Policy subfiled value in ADDBA frame)   2:BA-not use. other value invalid */
+	unsigned char MpduDensity;	/* 0: DELAY_BA 1:IMMED_BA  (//BA Policy subfiled value in ADDBA frame)   2:BA-not use. other value invalid */
+	unsigned char AmsduEnable;	/*Enable AMSDU transmisstion */
+	unsigned char AmsduSize;	/* 0:3839, 1:7935 bytes. UINT  MSDUSizeToBytes[]        = { 3839, 7935}; */
+	unsigned char MMPSmode;		/* MIMO power save more, 0:static, 1:dynamic, 2:rsv, 3:mimo enable */
 	BOOLEAN AutoBA;		/* Auto BA will automatically */
 } OID_BACAP_STRUC, *POID_BACAP_STRUC;
 
 typedef struct _RT_802_11_ACL_ENTRY {
-	UCHAR Addr[MAC_ADDR_LENGTH];
+	unsigned char Addr[MAC_ADDR_LENGTH];
 	USHORT Rsv;
 } RT_802_11_ACL_ENTRY, *PRT_802_11_ACL_ENTRY;
 
@@ -1170,14 +1170,14 @@ typedef struct _RT_802_11_WDS {
 	unsigned long Num;
 	NDIS_802_11_MAC_ADDRESS Entry[24 /*MAX_NUM_OF_WDS_LINK */ ];
 	unsigned long KeyLength;
-	UCHAR KeyMaterial[32];
+	unsigned char KeyMaterial[32];
 } RT_802_11_WDS, *PRT_802_11_WDS;
 
 typedef struct _RT_802_11_TX_RATES_ {
-	UCHAR SupRateLen;
-	UCHAR SupRate[MAX_LENGTH_OF_SUPPORT_RATES];
-	UCHAR ExtRateLen;
-	UCHAR ExtRate[MAX_LENGTH_OF_SUPPORT_RATES];
+	unsigned char SupRateLen;
+	unsigned char SupRate[MAX_LENGTH_OF_SUPPORT_RATES];
+	unsigned char ExtRateLen;
+	unsigned char ExtRate[MAX_LENGTH_OF_SUPPORT_RATES];
 } RT_802_11_TX_RATES, *PRT_802_11_TX_RATES;
 
 /* Definition of extra information code */
@@ -1200,22 +1200,22 @@ typedef struct _RT_802_11_TX_RATES_ {
 /* This is OID setting structure. So only GF or MM as Mode. This is valid when our wirelss mode has 802.11n in use. */
 typedef struct {
 	RT_802_11_PHY_MODE PhyMode;	/* */
-	UCHAR TransmitNo;
-	UCHAR HtMode;		/*HTMODE_GF or HTMODE_MM */
-	UCHAR ExtOffset;	/*extension channel above or below */
-	UCHAR MCS;
-	UCHAR BW;
-	UCHAR STBC;
-	UCHAR SHORTGI;
-	UCHAR rsv;
+	unsigned char TransmitNo;
+	unsigned char HtMode;		/*HTMODE_GF or HTMODE_MM */
+	unsigned char ExtOffset;	/*extension channel above or below */
+	unsigned char MCS;
+	unsigned char BW;
+	unsigned char STBC;
+	unsigned char SHORTGI;
+	unsigned char rsv;
 } OID_SET_HT_PHYMODE, *POID_SET_HT_PHYMODE;
 
 
 #ifdef LLTD_SUPPORT
 typedef struct _RT_LLTD_ASSOICATION_ENTRY {
-	UCHAR Addr[ETH_LENGTH_OF_ADDRESS];
+	unsigned char Addr[ETH_LENGTH_OF_ADDRESS];
 	unsigned short MOR;	/* maximum operational rate */
-	UCHAR phyMode;
+	unsigned char phyMode;
 } RT_LLTD_ASSOICATION_ENTRY, *PRT_LLTD_ASSOICATION_ENTRY;
 
 typedef struct _RT_LLTD_ASSOICATION_TABLE {
@@ -1235,8 +1235,8 @@ typedef struct _RT_LLTD_ASSOICATION_TABLE {
 
 
 typedef struct _RT_CHANNEL_LIST_INFO {
-	UCHAR ChannelList[MAX_NUM_OF_CHS];	/* list all supported channels for site survey */
-	UCHAR ChannelListNum;	/* number of channel in ChannelList[] */
+	unsigned char ChannelList[MAX_NUM_OF_CHS];	/* list all supported channels for site survey */
+	unsigned char ChannelListNum;	/* number of channel in ChannelList[] */
 } RT_CHANNEL_LIST_INFO, *PRT_CHANNEL_LIST_INFO;
 
 
@@ -1245,12 +1245,12 @@ typedef struct _WSC_CREDENTIAL {
 	NDIS_802_11_SSID SSID;	/* mandatory */
 	USHORT AuthType;	/* mandatory, 1: open, 2: wpa-psk, 4: shared, 8:wpa, 0x10: wpa2, 0x20: wpa2-psk */
 	USHORT EncrType;	/* mandatory, 1: none, 2: wep, 4: tkip, 8: aes */
-	UCHAR Key[64];		/* mandatory, Maximum 64 byte */
+	unsigned char Key[64];		/* mandatory, Maximum 64 byte */
 	USHORT KeyLength;
-	UCHAR MacAddr[MAC_ADDR_LENGTH];	/* mandatory, AP MAC address */
-	UCHAR KeyIndex;		/* optional, default is 1 */
-	UCHAR bFromUPnP;	/* TRUE: This credential is from external UPnP registrar */
-	UCHAR Rsvd[2];		/* Make alignment */
+	unsigned char MacAddr[MAC_ADDR_LENGTH];	/* mandatory, AP MAC address */
+	unsigned char KeyIndex;		/* optional, default is 1 */
+	unsigned char bFromUPnP;	/* TRUE: This credential is from external UPnP registrar */
+	unsigned char Rsvd[2];		/* Make alignment */
 } WSC_CREDENTIAL, *PWSC_CREDENTIAL;
 
 /* WSC configured profiles */
@@ -1267,27 +1267,27 @@ typedef enum _WAPI_PORT_SECURE_STATE {
 } WAPI_PORT_SECURE_STATE, *PWAPI_PORT_SECURE_STATE;
 
 typedef struct _WAPI_PORT_SECURE_STRUCT {
-	UCHAR Addr[MAC_ADDR_LENGTH];
+	unsigned char Addr[MAC_ADDR_LENGTH];
 	USHORT state;
 } WAPI_PORT_SECURE_STRUCT, *PWAPI_PORT_SECURE_STRUCT;
 
 typedef struct _WAPI_UCAST_KEY_STRUCT {
-	UCHAR Addr[MAC_ADDR_LENGTH];
+	unsigned char Addr[MAC_ADDR_LENGTH];
 	USHORT key_id;
-	UCHAR PTK[64];		/* unicast and additional key */
+	unsigned char PTK[64];		/* unicast and additional key */
 } WAPI_UCAST_KEY_STRUCT, *PWAPI_UCAST_KEY_STRUCT;
 
 typedef struct _WAPI_MCAST_KEY_STRUCT {
 	unsigned int key_id;
-	UCHAR m_tx_iv[16];
-	UCHAR key_announce[16];
-	UCHAR NMK[16];		/* notify master key */
+	unsigned char m_tx_iv[16];
+	unsigned char key_announce[16];
+	unsigned char NMK[16];		/* notify master key */
 } WAPI_MCAST_KEY_STRUCT, *PWAPI_MCAST_KEY_STRUCT;
 
 typedef struct _WAPI_WIE_STRUCT {
-	UCHAR addr[6];
+	unsigned char addr[6];
 	unsigned int wie_len;
-	UCHAR wie[90];		/* wapi information element */
+	unsigned char wie[90];		/* wapi information element */
 } WAPI_WIE_STRUCT, *PWAPI_WIE_STRUCT;
 
 #endif /* WAPI_SUPPORT */

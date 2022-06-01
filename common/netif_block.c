@@ -63,11 +63,11 @@ VOID releaseNetIf(
 
 VOID StopNetIfQueue(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR QueIdx,
+	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket)
 {
 	PNET_DEV NetDev = NULL;
-	UCHAR IfIdx = 0;
+	unsigned char IfIdx = 0;
 	BOOLEAN valid = FALSE;
 
 

@@ -105,8 +105,8 @@ typedef struct {
 	BOOLEAN fortyMHz;
 	int rows, columns;
 	int grouping;
-	UCHAR tag[EXP_MAX_BYTES];
-	UCHAR data[PROFILE_MAX_CARRIERS_40][EXP_MAX_BYTES];
+	unsigned char tag[EXP_MAX_BYTES];
+	unsigned char data[PROFILE_MAX_CARRIERS_40][EXP_MAX_BYTES];
 } PROFILE_DATA;
 
 extern PROFILE_DATA profData;
@@ -114,35 +114,35 @@ extern PROFILE_DATA profData;
 
 typedef
 struct {
-	UCHAR gBeg[2];
-	UCHAR gEnd[2];
-	UCHAR aLowBeg[2];
-	UCHAR aLowEnd[2];
-	UCHAR aMidBeg[2];
-	UCHAR aMidEnd[2];
-	UCHAR aHighBeg[2];
-	UCHAR aHighEnd[2];
+	unsigned char gBeg[2];
+	unsigned char gEnd[2];
+	unsigned char aLowBeg[2];
+	unsigned char aLowEnd[2];
+	unsigned char aMidBeg[2];
+	unsigned char aMidEnd[2];
+	unsigned char aHighBeg[2];
+	unsigned char aHighEnd[2];
 } ITXBF_PHASE_PARAMS;			// ITxBF BBP reg phase calibration parameters
 
 typedef
 struct {
-	UCHAR gBeg[2];
-	UCHAR gEnd[2];
-	UCHAR aLowBeg[2];
-	UCHAR aLowEnd[2];
-	UCHAR aMidBeg[2];
-	UCHAR aMidEnd[2];
-	UCHAR aHighBeg[2];
-	UCHAR aHighEnd[2];
+	unsigned char gBeg[2];
+	unsigned char gEnd[2];
+	unsigned char aLowBeg[2];
+	unsigned char aLowEnd[2];
+	unsigned char aMidBeg[2];
+	unsigned char aMidEnd[2];
+	unsigned char aHighBeg[2];
+	unsigned char aHighEnd[2];
 } ITXBF_LNA_PARAMS;			// ITxBF BBP reg LNA calibration parameters
 
 typedef
 struct {
-	UCHAR gBeg[2];
-	UCHAR gEnd[2];
-	UCHAR aLow[2];
-	UCHAR aMid[2];
-	UCHAR aHigh[2];
+	unsigned char gBeg[2];
+	unsigned char gEnd[2];
+	unsigned char aLow[2];
+	unsigned char aMid[2];
+	unsigned char aHigh[2];
 } ITXBF_DIV_PARAMS;				// ITxBF Divider Calibration parameters
 
 void ITxBFGetEEPROM(
@@ -155,7 +155,7 @@ INT ITxBFDividerCalibration(
 	IN RTMP_ADAPTER *pAd,
 	IN int calFunction,
 	IN int calMethod,
-	OUT UCHAR *divPhase);
+	OUT unsigned char *divPhase);
 
 VOID ITxBFLoadLNAComp(
 	IN RTMP_ADAPTER *pAd);
@@ -179,13 +179,13 @@ void Write_TxBfProfile(
 
 void Read_TagField(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN  UCHAR	*row,
+	IN  unsigned char	*row,
 	IN  int		profileNum);
 	
 // Write_TagField - write a profile tagfield
 void Write_TagField(
 	IN	RTMP_ADAPTER *pAd, 
-	IN  UCHAR	*row,
+	IN  unsigned char	*row,
 	IN  int		profileNum);
 	
 // displayTagfield - display one tagfield
@@ -196,7 +196,7 @@ void displayTagfield(
 	
 // Unpack an ITxBF matrix element from a row of bytes
 int Unpack_IBFValue(
-	IN UCHAR *row,
+	IN unsigned char *row,
 	IN int elemNum);
 
 int iCalcCalibration(

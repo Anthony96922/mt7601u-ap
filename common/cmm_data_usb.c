@@ -9,7 +9,7 @@
 #include	"rt_config.h"
 
 
-NDIS_STATUS RTUSBFreeDescriptorRelease(RTMP_ADAPTER *pAd, UCHAR BulkOutPipeId)
+NDIS_STATUS RTUSBFreeDescriptorRelease(RTMP_ADAPTER *pAd, unsigned char BulkOutPipeId)
 {
 	HT_TX_CONTEXT *pHTTXContext;
 	unsigned long IrqFlags;
@@ -45,7 +45,7 @@ NDIS_STATUS RTUSBFreeDescriptorRelease(RTMP_ADAPTER *pAd, UCHAR BulkOutPipeId)
 */
 NDIS_STATUS	RTUSBFreeDescRequest(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR BulkOutPipeId,
+	IN unsigned char BulkOutPipeId,
 	IN unsigned int req_cnt)
 {
 	NDIS_STATUS	 Status = NDIS_STATUS_FAILURE;
@@ -95,7 +95,7 @@ NDIS_STATUS	RTUSBFreeDescRequest(
 }
 
 
-BOOLEAN	RTUSBNeedQueueBackForAgg(RTMP_ADAPTER *pAd, UCHAR BulkOutPipeId)
+BOOLEAN	RTUSBNeedQueueBackForAgg(RTMP_ADAPTER *pAd, unsigned char BulkOutPipeId)
 {
 	HT_TX_CONTEXT *pHTTXContext;
 	BOOLEAN needQueBack = FALSE;
@@ -157,10 +157,10 @@ static VOID rlt_usb_write_txinfo(
 	IN TXINFO_STRUC *pTxInfo,
 	IN USHORT USBDMApktLen,
 	IN BOOLEAN bWiv,
-	IN UCHAR QueueSel,
-	IN UCHAR NextValid,
-	IN UCHAR TxBurst,
-	IN UCHAR pkt_80211 )
+	IN unsigned char QueueSel,
+	IN unsigned char NextValid,
+	IN unsigned char TxBurst,
+	IN unsigned char pkt_80211 )
 {
 #ifdef RLT_MAC
 	struct _TXINFO_NMAC_PKT *nmac_info;
@@ -203,7 +203,7 @@ VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 {
 	TXINFO_STRUC *pTxInfo;
 	TXWI_STRUC *pTxWI;
-	UCHAR *buf;
+	unsigned char *buf;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	USHORT data_len = sizeof(pAd->NullFrame);;
 
@@ -226,7 +226,7 @@ VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 			EpToQueue[MGMTPIPEIDX], FALSE, FALSE, 1);
 	RTMPWriteTxWI(pAd, pTxWI, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, 0,
 		      BSSID_WCID, data_len, 0, 0,
-		      (UCHAR)pAd->CommonCfg.MlmeTransmit.field.MCS,
+		      (unsigned char)pAd->CommonCfg.MlmeTransmit.field.MCS,
 		      IFS_BACKOFF, FALSE, &pAd->CommonCfg.MlmeTransmit);
 	RTMPMoveMemory((VOID *)&buf[TXWISize + TXINFO_SIZE], (VOID *)&pAd->NullFrame, data_len);
 	pNullContext->BulkOutSize = TXINFO_SIZE + TXWISize + TSO_SIZE + data_len + 4;
@@ -242,7 +242,7 @@ VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 */
 static inline NDIS_STATUS RtmpUSBCanDoWrite(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR QueIdx,
+	IN unsigned char QueIdx,
 	IN HT_TX_CONTEXT *pHTTXContext)
 {
 	NDIS_STATUS	canWrite = NDIS_STATUS_RESOURCES;
@@ -307,7 +307,7 @@ USHORT RtmpUSB_WriteSubTxResource(
 USHORT	RtmpUSB_WriteFragTxResource(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
-	IN UCHAR fragNum,
+	IN unsigned char fragNum,
 	OUT	USHORT *freeCnt)
 {
 	HT_TX_CONTEXT	*pHTTXContext;
@@ -316,7 +316,7 @@ USHORT	RtmpUSB_WriteFragTxResource(
 	TXINFO_STRUC	*pTxInfo;
 	TXWI_STRUC		*pTxWI;
 	unsigned char *			pWirelessPacket = NULL;
-	UCHAR			QueIdx;
+	unsigned char			QueIdx;
 	NDIS_STATUS		Status;
 	unsigned long	IrqFlags;
 	unsigned int			USBDMApktLen = 0, DMAHdrLen, padding;
@@ -517,8 +517,8 @@ USHORT RtmpUSB_WriteSingleTxResource(
 	unsigned int fillOffset;
 	TXINFO_STRUC *pTxInfo;
 	TXWI_STRUC *pTxWI;
-	UCHAR *pWirelessPacket, *buf;
-	UCHAR QueIdx;
+	unsigned char *pWirelessPacket, *buf;
+	unsigned char QueIdx;
 	unsigned long	IrqFlags;
 	NDIS_STATUS Status;
 	unsigned int hdr_copy_len, hdr_len, dma_len = 0, padding;
@@ -695,7 +695,7 @@ USHORT RtmpUSB_WriteSingleTxResource(
 USHORT RtmpUSB_WriteMultiTxResource(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
-	IN UCHAR frmNum,
+	IN unsigned char frmNum,
 	OUT USHORT *freeCnt)
 {
 	HT_TX_CONTEXT *pHTTXContext;
@@ -703,8 +703,8 @@ USHORT RtmpUSB_WriteMultiTxResource(
 	unsigned int fillOffset;
 	TXINFO_STRUC *pTxInfo;
 	TXWI_STRUC *pTxWI;
-	UCHAR *pWirelessPacket = NULL;
-	UCHAR QueIdx;
+	unsigned char *pWirelessPacket = NULL;
+	unsigned char QueIdx;
 	NDIS_STATUS Status;
 	unsigned long IrqFlags;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
@@ -837,7 +837,7 @@ VOID RtmpUSB_FinalWriteTxResource(
 	IN USHORT totalMPDUSize,
 	IN USHORT TxIdx)
 {
-	UCHAR			QueIdx;
+	unsigned char			QueIdx;
 	HT_TX_CONTEXT	*pHTTXContext;
 	unsigned int			fillOffset;
 	TXINFO_STRUC	*pTxInfo;
@@ -941,7 +941,7 @@ VOID RtmpUSB_FinalWriteTxResource(
 
 VOID RtmpUSBDataLastTxIdx(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR QueIdx,
+	IN unsigned char QueIdx,
 	IN USHORT TxIdx)
 {
 	/* DO nothing for USB.*/
@@ -959,7 +959,7 @@ VOID RtmpUSBDataLastTxIdx(
 VOID RtmpUSBDataKickOut(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
-	IN UCHAR QueIdx)
+	IN unsigned char QueIdx)
 {
 
 #ifdef CONFIG_MULTI_CHANNEL
@@ -980,14 +980,14 @@ VOID RtmpUSBDataKickOut(
  */
 int RtmpUSBMgmtKickOut(
 	IN RTMP_ADAPTER *pAd, 
-	IN UCHAR QueIdx,
+	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket,
-	IN UCHAR *pSrcBufVA,
+	IN unsigned char *pSrcBufVA,
 	IN UINT SrcBufLen)
 {
 	TXINFO_STRUC *pTxInfo;
 	unsigned long BulkOutSize;
-	UCHAR padLen;
+	unsigned char padLen;
 	unsigned char * pDest;
 	unsigned long SwIdx = pAd->MgmtRing.TxCpuIdx;
 	TX_CONTEXT *pMLMEContext = (PTX_CONTEXT)pAd->MgmtRing.Cell[SwIdx].AllocVa;
@@ -1081,8 +1081,8 @@ if (0) {
 
 VOID RtmpUSBNullFrameKickOut(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR QueIdx,
-	IN UCHAR *pNullFrame,
+	IN unsigned char QueIdx,
+	IN unsigned char *pNullFrame,
 	IN unsigned int frameLen)
 {
 
@@ -1108,7 +1108,7 @@ VOID RtmpUSBNullFrameKickOut(
 		PTX_CONTEXT pNullContext;
 		TXINFO_STRUC *pTxInfo;
 		TXWI_STRUC *pTxWI;
-		UCHAR *pWirelessPkt;
+		unsigned char *pWirelessPkt;
 		unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 		pNullContext = &(pAd->NullContext[0]);
@@ -1123,7 +1123,7 @@ VOID RtmpUSBNullFrameKickOut(
 		pTxInfo->TxInfoQSEL = FIFO_EDCA;
 		pTxWI = (TXWI_STRUC *)&pWirelessPkt[TXINFO_SIZE];
 		RTMPWriteTxWI(pAd, pTxWI,  FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, 0, BSSID_WCID, frameLen,
-			0, 0, (UCHAR)pAd->CommonCfg.MlmeTransmit.field.MCS, IFS_HTTXOP, FALSE, &pAd->CommonCfg.MlmeTransmit);
+			0, 0, (unsigned char)pAd->CommonCfg.MlmeTransmit.field.MCS, IFS_HTTXOP, FALSE, &pAd->CommonCfg.MlmeTransmit);
 #ifdef RT_BIG_ENDIAN
 		RTMPWIEndianChange(pAd, (unsigned char *)pTxWI, TYPE_TXWI);
 #endif /* RT_BIG_ENDIAN */
@@ -1178,7 +1178,7 @@ PNDIS_PACKET GetPacketFromRxRing(
 {
 	RX_CONTEXT *pRxContext;
 	PNDIS_PACKET pNetPkt;
-	UCHAR *pData;
+	unsigned char *pData;
 	unsigned long ThisFrameLen, RxBufferLength, valid_len;
 	RXWI_STRUC *pRxWI;
 	unsigned char RXWISize = pAd->chipCap.RXWISize;

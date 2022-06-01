@@ -170,7 +170,7 @@ VOID BigInteger_Init (
     if (*pBI != NULL)
         BigInteger_Free(pBI);
 
-	os_alloc_mem(NULL, (UCHAR **)pBI, sizeof(BIG_INTEGER));
+	os_alloc_mem(NULL, (unsigned char **)pBI, sizeof(BIG_INTEGER));
 /*    if ((*pBI = (PBIG_INTEGER) kmalloc(sizeof(BIG_INTEGER), GFP_ATOMIC)) == NULL) { */
     if (*pBI == NULL) {
         DEBUGPRINT("BigInteger_Init: allocate %d bytes memory failure.\n", (sizeof(BIG_INTEGER)));
@@ -230,7 +230,7 @@ VOID BigInteger_AllocSize (
         BigInteger_Free_AllocSize(pBI);
 
     if ((*pBI)->pIntegerArray == NULL) {        
-			os_alloc_mem(NULL, (UCHAR **)&((*pBI)->pIntegerArray), sizeof(unsigned int)*ArrayLength);
+			os_alloc_mem(NULL, (unsigned char **)&((*pBI)->pIntegerArray), sizeof(unsigned int)*ArrayLength);
 /*        if (((*pBI)->pIntegerArray = (unsigned int *) kmalloc(sizeof(unsigned int)*ArrayLength, GFP_ATOMIC)) == NULL) { */
         if ((*pBI)->pIntegerArray == NULL) {
             DEBUGPRINT("BigInteger_AllocSize: allocate %d bytes memory failure.\n", (sizeof(unsigned int)*ArrayLength));
@@ -1043,7 +1043,7 @@ VOID BigInteger_Montgomery_ExpMod (
             AllocLength = pBI_P->IntegerLength;
         } /* End of if */
 /*        pRValue = (unsigned char *) kmalloc(sizeof(unsigned char)*AllocLength, GFP_ATOMIC); */
-		os_alloc_mem(NULL, (UCHAR **)&pRValue, sizeof(unsigned char)*AllocLength);
+		os_alloc_mem(NULL, (unsigned char **)&pRValue, sizeof(unsigned char)*AllocLength);
 	if (pRValue == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():Alloc memory failed\n", __FUNCTION__));

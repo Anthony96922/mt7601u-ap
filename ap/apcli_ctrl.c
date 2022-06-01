@@ -101,7 +101,7 @@ VOID ApCliCtrlStateMachineInit(
 	IN STATE_MACHINE *Sm,
 	OUT STATE_MACHINE_FUNC Trans[])
 {
-	UCHAR i;
+	unsigned char i;
 
 	StateMachineInit(Sm, (STATE_MACHINE_FUNC*)Trans,
 		APCLI_MAX_CTRL_STATE, APCLI_MAX_CTRL_MSG,
@@ -202,8 +202,8 @@ static VOID ApCliCtrlJoinReqAction(
 			{
 				INT old_conf_mode = pWpsCtrl->WscConfMode;
 				ADD_HTINFO	RootApHtInfo, ApHtInfo;
-				UCHAR channel = pAd->CommonCfg.Channel, RootApChannel = pAd->ScanTab.BssEntry[bss_idx].Channel;
-				UCHAR RootApCentralChannel = pAd->ScanTab.BssEntry[bss_idx].CentralChannel;
+				unsigned char channel = pAd->CommonCfg.Channel, RootApChannel = pAd->ScanTab.BssEntry[bss_idx].Channel;
+				unsigned char RootApCentralChannel = pAd->ScanTab.BssEntry[bss_idx].CentralChannel;
 				ApHtInfo = pAd->CommonCfg.AddHTInfo.AddHtInfo;
 				RootApHtInfo = pAd->ScanTab.BssEntry[bss_idx].AddHtInfo.AddHtInfo;
 				

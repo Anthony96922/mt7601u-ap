@@ -28,7 +28,7 @@
 #include "rt_config.h"
 #include "action.h"
 
-extern UCHAR  ZeroSsid[32];
+extern unsigned char  ZeroSsid[32];
 
 
 static VOID ReservedAction(
@@ -98,7 +98,7 @@ VOID MlmeADDBAAction(
 
 {
 	MLME_ADDBA_REQ_STRUCT *pInfo;
-	UCHAR           Addr[6];
+	unsigned char           Addr[6];
 	unsigned char *         pOutBuffer = NULL;
 	NDIS_STATUS     NStatus;
 	unsigned long		Idx;
@@ -106,7 +106,7 @@ VOID MlmeADDBAAction(
 	unsigned long		FrameLen;
 	BA_ORI_ENTRY			*pBAEntry = NULL;
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR			apidx;
+	unsigned char			apidx;
 #endif /* CONFIG_AP_SUPPORT */
 
 	pInfo = (MLME_ADDBA_REQ_STRUCT *)Elem->Msg;
@@ -214,7 +214,7 @@ VOID MlmeDELBAAction(
 	unsigned long		FrameLen;
 	FRAME_BAR	FrameBar;
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR		apidx;
+	unsigned char		apidx;
 #endif /* CONFIG_AP_SUPPORT */
 	
 	pInfo = (MLME_DELBA_REQ_STRUCT *)Elem->Msg;	
@@ -344,7 +344,7 @@ VOID PeerDLSAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	UCHAR	Action = Elem->Msg[LENGTH_802_11+1];
+	unsigned char	Action = Elem->Msg[LENGTH_802_11+1];
 
 	switch(Action)
 	{
@@ -379,7 +379,7 @@ VOID PeerBAAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	UCHAR	Action = Elem->Msg[LENGTH_802_11+1];
+	unsigned char	Action = Elem->Msg[LENGTH_802_11+1];
 	
 	switch(Action)
 	{
@@ -398,13 +398,13 @@ VOID PeerBAAction(
 
 #ifdef DOT11N_DRAFT3
 #ifdef CONFIG_AP_SUPPORT
-extern UCHAR get_regulatory_class(IN PRTMP_ADAPTER pAd);
+extern unsigned char get_regulatory_class(IN PRTMP_ADAPTER pAd);
 
 VOID ApPublicAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	UCHAR	Action = Elem->Msg[LENGTH_802_11+1];
+	unsigned char	Action = Elem->Msg[LENGTH_802_11+1];
 	BSS_2040_COEXIST_IE		BssCoexist;
 	
 	/* Format as in IEEE 7.4.7.2*/
@@ -417,9 +417,9 @@ VOID ApPublicAction(
 
 VOID SendBSS2040CoexistMgmtAction(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR	Wcid,
-	IN	UCHAR	apidx,
-	IN	UCHAR	InfoReq)
+	IN	unsigned char	Wcid,
+	IN	unsigned char	apidx,
+	IN	unsigned char	InfoReq)
 {
 	unsigned char *			pOutBuffer = NULL;
 	NDIS_STATUS 	NStatus;
@@ -477,11 +477,11 @@ VOID SendBSS2040CoexistMgmtAction(
 
 BOOLEAN ChannelSwitchSanityCheck(
 	IN	PRTMP_ADAPTER	pAd,
-	IN    UCHAR  Wcid,
-	IN    UCHAR  NewChannel,
-	IN    UCHAR  Secondary) 
+	IN    unsigned char  Wcid,
+	IN    unsigned char  NewChannel,
+	IN    unsigned char  Secondary) 
 {
-	UCHAR		i;
+	unsigned char		i;
 	
 	if (Wcid >= MAX_LEN_OF_MAC_TABLE)
 		return FALSE;
@@ -510,11 +510,11 @@ BOOLEAN ChannelSwitchSanityCheck(
 
 VOID ChannelSwitchAction(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR Wcid,
-	IN UCHAR NewChannel,
-	IN UCHAR Secondary)
+	IN unsigned char Wcid,
+	IN unsigned char NewChannel,
+	IN unsigned char Secondary)
 {
-	UCHAR rf_channel = 0, rf_bw;
+	unsigned char rf_channel = 0, rf_bw;
 
 
 	DBGPRINT(RT_DEBUG_TRACE,("%s(): NewChannel=%d, Secondary=%d\n", 
@@ -573,7 +573,7 @@ VOID PeerPublicAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	UCHAR	Action = Elem->Msg[LENGTH_802_11+1];
+	unsigned char	Action = Elem->Msg[LENGTH_802_11+1];
 	if ((Elem->Wcid >= MAX_LEN_OF_MAC_TABLE)
 		)
 		return;
@@ -585,7 +585,7 @@ VOID PeerPublicAction(
 #ifdef DOT11N_DRAFT3
 		case ACTION_BSS_2040_COEXIST:	/* Format defined in IEEE 7.4.7a.1 in 11n Draf3.03*/
 			{
-				/*UCHAR	BssCoexist;*/
+				/*unsigned char	BssCoexist;*/
 				BSS_2040_COEXIST_ELEMENT		*pCoexistInfo;
 				BSS_2040_COEXIST_IE 			*pBssCoexistIe;
 				BSS_2040_INTOLERANT_CH_REPORT	*pIntolerantReport = NULL;
@@ -632,7 +632,7 @@ VOID PeerPublicAction(
 							/*&& (pIntolerantReport->RegulatoryClass == get_regulatory_class(pAd))*/)
 					{
 						int i;
-						UCHAR *ptr;
+						unsigned char *ptr;
 						INT retVal;
 						BSS_COEX_CH_RANGE coexChRange;
 
@@ -656,7 +656,7 @@ VOID PeerPublicAction(
 													pAd->ChannelList[coexChRange.effectChEnd].Channel));
 							for(i =0 ; i < (pIntolerantReport->Len -1); i++, ptr++)
 							{
-								UCHAR chEntry;
+								unsigned char chEntry;
 
 								chEntry = *ptr;
 								if (chEntry >= pAd->ChannelList[coexChRange.effectChStart].Channel && 
@@ -730,7 +730,7 @@ static VOID ReservedAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	UCHAR Category;
+	unsigned char Category;
 
 	if (Elem->MsgLen <= LENGTH_802_11)
 	{
@@ -764,7 +764,7 @@ static VOID respond_ht_information_exchange_action(
 	INT         	apidx;
 #endif /* CONFIG_AP_SUPPORT */
 	FRAME_HT_INFO	HTINFOframe, *pFrame;
-	UCHAR   		*pAddr;
+	unsigned char   		*pAddr;
 
 
 	/* 2. Always send back ADDBA Response */
@@ -819,8 +819,8 @@ static VOID respond_ht_information_exchange_action(
 #ifdef DOT11N_DRAFT3
 VOID SendNotifyBWActionFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR  Wcid,
-	IN UCHAR apidx)
+	IN unsigned char  Wcid,
+	IN unsigned char apidx)
 {
 	unsigned char *			pOutBuffer = NULL;
 	NDIS_STATUS 	NStatus;
@@ -867,7 +867,7 @@ VOID PeerHTAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	UCHAR Action = Elem->Msg[LENGTH_802_11+1];
+	unsigned char Action = Elem->Msg[LENGTH_802_11+1];
 	MAC_TABLE_ENTRY *pEntry;
 	
 	if (Elem->Wcid >= MAX_LEN_OF_MAC_TABLE)
@@ -960,7 +960,7 @@ VOID ORIBATimerTimeout(
 /*	NDIS_STATUS 	NStatus;*/
 /*	unsigned char *			pOutBuffer = NULL;*/
 /*	USHORT			Sequence;*/
-	UCHAR			TID;
+	unsigned char			TID;
 
 #ifdef RALINK_ATE
 	if (ATE_ON(pAd))
@@ -992,7 +992,7 @@ VOID SendRefreshBAR(
 	NDIS_STATUS 	NStatus;
 	unsigned char *			pOutBuffer = NULL;
 	USHORT			Sequence;
-	UCHAR			i, TID;
+	unsigned char			i, TID;
 	USHORT			idx;
 	BA_ORI_ENTRY	*pBAEntry;
 

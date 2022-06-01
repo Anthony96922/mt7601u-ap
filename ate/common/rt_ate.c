@@ -28,15 +28,15 @@
 #include "rt_config.h"
 
 #define ATE_BBP_REG_NUM	168
-UCHAR restore_BBP[ATE_BBP_REG_NUM]={0};
+unsigned char restore_BBP[ATE_BBP_REG_NUM]={0};
 
 /* 802.11 MAC Header, Type:Data, Length:24bytes + 6 bytes QOS/HTC + 2 bytes padding */
-UCHAR TemplateFrame[32] = {0x08,0x00,0x00,0x00,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+unsigned char TemplateFrame[32] = {0x08,0x00,0x00,0x00,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 		0x00,0xAA,0xBB,0x12,0x34,0x56,0x00,0x11,0x22,0xAA,0xBB,0xCC,0x00,0x00,
 		0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 
 extern FREQUENCY_ITEM *FreqItems3020;
-extern UCHAR NUM_OF_3020_CHNL;
+extern unsigned char NUM_OF_3020_CHNL;
 
 static unsigned int Default_TX_PIN_CFG;
 #define RA_TX_PIN_CFG 0x1328
@@ -95,10 +95,10 @@ CHAR ATEGetDesiredTSSI(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	CHAR desiredTSSI = 0;
-	UCHAR MCS = 0;
-	UCHAR MaxMCS = 7;
+	unsigned char MCS = 0;
+	unsigned char MaxMCS = 7;
 
-	MCS = (UCHAR)(pATEInfo->TxWI.TxWIMCS);
+	MCS = (unsigned char)(pATEInfo->TxWI.TxWIMCS);
 	
 	if (pATEInfo->TxWI.TxWIPHYMODE == MODE_CCK)
 	{
@@ -203,15 +203,15 @@ VOID DefaultATEAsicAdjustTxPower(
 	INT			index = 0, inner_index = 0, maxTxPwrCnt;
 	CHAR		DeltaPwr = 0;
 	BOOLEAN		bAutoTxAgc = FALSE;
-	UCHAR		TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep;
-	UCHAR		BbpR49 = 0, idx;
+	unsigned char		TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep;
+	unsigned char		BbpR49 = 0, idx;
 	char *		pTxAgcCompensate;
 	unsigned long		TxPwr[9];	/* NOTE: the TxPwr array size should be the maxima value of all supported chipset!!!! */
 	CHAR		Value;
 #ifdef RTMP_INTERNAL_TX_ALC
 	/* (non-positive number) including the transmit power controlled by the MAC and the BBP R1 */    
 	CHAR TotalDeltaPower = 0; 
-	UCHAR desiredTSSI = 0, currentTSSI = 0;
+	unsigned char desiredTSSI = 0, currentTSSI = 0;
 	const TX_POWER_TUNING_ENTRY_STRUCT *TxPowerTuningTable = pAd->chipCap.TxPowerTuningTable_2G;
 	PTX_POWER_TUNING_ENTRY_STRUCT pTxPowerTuningEntry = NULL;
 #endif /* RTMP_INTERNAL_TX_ALC */
@@ -706,9 +706,9 @@ VOID ATEAsicAdjustTxPower(
 CHAR ATEConvertToRssi(
 	IN PRTMP_ADAPTER pAd,
 	IN	CHAR	Rssi,
-	IN  UCHAR   RssiNumber)
+	IN  unsigned char   RssiNumber)
 {
-	UCHAR	RssiOffset, LNAGain;
+	unsigned char	RssiOffset, LNAGain;
 
 	/* Rssi equals to zero should be an invalid value */
 	if (Rssi == 0 || (RssiNumber >= 3))
@@ -802,9 +802,9 @@ VOID rt_ee_write_all(PRTMP_ADAPTER pAd, USHORT *Data)
 		if ( IS_MT7601(pAd) )
 		{
 			USHORT	length = 0x100;
-			UCHAR	*ptr = (UCHAR *)Data;
-			UCHAR	index;
-			UCHAR	AllFF[16] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+			unsigned char	*ptr = (unsigned char *)Data;
+			unsigned char	index;
+			unsigned char	AllFF[16] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 			for ( offset = 0 ; offset < length ; offset += 16 )
 			{
 				if ( memcmp( ptr, AllFF, 16 ) )
@@ -827,7 +827,7 @@ VOID rt_ee_write_all(PRTMP_ADAPTER pAd, USHORT *Data)
 			USHORT offset = 0;
 			USHORT length = EEPROM_SIZE;
 
-			RTUSBWriteEEPROM(pAd, offset, (UCHAR *)Data, length);
+			RTUSBWriteEEPROM(pAd, offset, (unsigned char *)Data, length);
 			return;
 		}
 	}
@@ -924,7 +924,7 @@ VOID DefaultATEAsicSwitchChannel(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int Value = 0;
 	CHAR TxPwer = 0, TxPwer2 = 0;
-	UCHAR BbpValue = 0, R66 = 0x30, Channel = 0;
+	unsigned char BbpValue = 0, R66 = 0x30, Channel = 0;
 
 	SYNC_CHANNEL_WITH_QA(pATEInfo, &Channel);
 
@@ -1043,13 +1043,13 @@ VOID DefaultATEAsicSwitchChannel(
 		/* A band, BW == 20 */
 		if (pATEInfo->TxWI.TxWIBW == BW_20)
 		{
-			R66 = (UCHAR)(0x32 + (GET_LNA_GAIN(pAd)*5)/3);
+			R66 = (unsigned char)(0x32 + (GET_LNA_GAIN(pAd)*5)/3);
     		ATE_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R66, R66);
 		}
 		else
 		{
 			/* A band, BW == 40 */
-			R66 = (UCHAR)(0x3A + (GET_LNA_GAIN(pAd)*5)/3);
+			R66 = (unsigned char)(0x3A + (GET_LNA_GAIN(pAd)*5)/3);
 			ATE_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R66, R66);
 		}
 	}
@@ -1082,7 +1082,7 @@ VOID ATEAsicSwitchChannel(
 VOID BbpSoftReset(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR BbpData = 0;
+	unsigned char BbpData = 0;
 
 	/* Soft reset, set BBP R21 bit0=1->0 */
 	ATE_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R21, &BbpData);
@@ -1119,8 +1119,8 @@ static VOID BbpHardReset(
 
 static int CheckMCSValid(
 	IN PRTMP_ADAPTER	pAd, 
-	IN UCHAR Mode,
-	IN UCHAR Mcs)
+	IN unsigned char Mode,
+	IN unsigned char Mcs)
 {
 	int index;
 	char * pRateTab = NULL;
@@ -1231,7 +1231,7 @@ static VOID SetJapanFilter(
 	IN		PRTMP_ADAPTER	pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 
 	/*
 		If Channel=14 and Bandwidth=20M and Mode=CCK, set BBP R4 bit5=1
@@ -1269,7 +1269,7 @@ VOID ATEDisableAsicProtect(
 	PROT_CFG_STRUC	ProtCfg, ProtCfg4;
 	unsigned int Protect[6];
 	USHORT			offset;
-	UCHAR			step;
+	unsigned char			step;
 	unsigned int MacReg = 0;
 
 	/* Config ASIC RTS threshold register */
@@ -1478,9 +1478,9 @@ static NDIS_STATUS ATESTART(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0, atemode=0, temp=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 #ifdef RTMP_MAC_USB
-	UCHAR LoopCount=0;
+	unsigned char LoopCount=0;
 #endif /* RTMP_MAC_USB */
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 	BOOLEAN Cancelled;
@@ -1535,7 +1535,7 @@ static NDIS_STATUS ATESTART(
 		if (pChipStruct->bBBPStoreTXCARR == TRUE)
 		{
 			unsigned int			bbp_index=0;
-			UCHAR			RestoreRfICType=pAd->RfIcType;
+			unsigned char			RestoreRfICType=pAd->RfIcType;
 
 			BbpHardReset(pAd);
 
@@ -1567,7 +1567,7 @@ static NDIS_STATUS ATESTART(
 		if (pChipStruct->bBBPStoreTXCARRSUPP == TRUE)
 		{
 			unsigned int			bbp_index=0;
-			UCHAR			RestoreRfICType=pAd->RfIcType;
+			unsigned char			RestoreRfICType=pAd->RfIcType;
 
 			BbpHardReset(pAd);
 
@@ -1602,7 +1602,7 @@ static NDIS_STATUS ATESTART(
 			if (pChipStruct->bBBPStoreTXCONT == TRUE)
 			{
 				unsigned int			bbp_index=0;
-				UCHAR			RestoreRfICType=pAd->RfIcType;
+				unsigned char			RestoreRfICType=pAd->RfIcType;
 
 				BbpHardReset(pAd);
 
@@ -1803,7 +1803,7 @@ static NDIS_STATUS ATESTOP(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0, ring_index=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 	BOOLEAN Cancelled;
 	
@@ -1812,7 +1812,7 @@ static NDIS_STATUS ATESTOP(
 	if (pChipStruct->bBBPLoadATESTOP == TRUE)
 	{
 		unsigned int			bbp_index=0;
-		UCHAR			RestoreRfICType=pAd->RfIcType;
+		unsigned char			RestoreRfICType=pAd->RfIcType;
 
 		BbpHardReset(pAd);
 
@@ -2009,7 +2009,7 @@ static NDIS_STATUS TXCARR(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
@@ -2089,7 +2089,7 @@ static NDIS_STATUS TXCONT(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
@@ -2276,7 +2276,7 @@ static NDIS_STATUS TXCARS(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
@@ -2362,14 +2362,14 @@ static NDIS_STATUS TXFRAME(
 	unsigned long			IrqFlags = 0;
 #endif /* RTMP_MAC_USB */
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 	STRING			IPGStr[8] = {0};
 #ifdef RTMP_INTERNAL_TX_ALC
 #if defined(RT3350) || defined(RT3352)
-	UCHAR		RFValue, BBP49Value;
+	unsigned char		RFValue, BBP49Value;
 	CHAR		ChannelPower = pATEInfo->TxPower0;
 	CHAR		*TssiRefPerChannel = pATEInfo->TssiRefPerChannel;
-	UCHAR		CurrentChannel = pATEInfo->Channel;
+	unsigned char		CurrentChannel = pATEInfo->Channel;
 #endif /* defined(RT3350) || defined(RT3352) */
 #endif /* RTMP_INTERNAL_TX_ALC */
 #ifdef RTMP_TEMPERATURE_COMPENSATION
@@ -2606,7 +2606,7 @@ static NDIS_STATUS RXFRAME(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	UCHAR			BbpData = 0;
+	unsigned char			BbpData = 0;
 #ifdef RTMP_MAC_USB
 	unsigned int			ring_index=0;
 #endif /* RTMP_MAC_USB */
@@ -3019,7 +3019,7 @@ INT	Set_ATE_CHANNEL_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR channel;
+	unsigned char channel;
 	
 
 	channel = simple_strtol(arg, 0, 10);
@@ -3431,8 +3431,8 @@ INT Set_ATE_PA_Bias_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR PABias = 0;
-	UCHAR RFValue;
+	unsigned char PABias = 0;
+	unsigned char RFValue;
 	
 	PABias = simple_strtol(arg, 0, 10);
 
@@ -3446,7 +3446,7 @@ INT Set_ATE_PA_Bias_Proc(
 
 	ATE_RF_IO_READ8_BY_REG_ID(pAd, RF_R19, (unsigned char *)&RFValue);
 	RFValue = (((RFValue & 0x0F) | (pATEInfo->PABias << 4)));
-	ATE_RF_IO_WRITE8_BY_REG_ID(pAd, RF_R19, (UCHAR)RFValue);
+	ATE_RF_IO_WRITE8_BY_REG_ID(pAd, RF_R19, (unsigned char)RFValue);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_ATE_PA_Bias_Proc (PABias = %d)\n", pATEInfo->PABias));
 	DBGPRINT(RT_DEBUG_TRACE, ("Ralink: Set_ATE_PA_Bias_Proc Success\n"));
@@ -3473,7 +3473,7 @@ INT	Default_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR RFFreqOffset = 0;
+	unsigned char RFFreqOffset = 0;
 
 	
 	RFFreqOffset = simple_strtol(arg, 0, 10);
@@ -3546,8 +3546,8 @@ INT	Default_Set_ATE_TX_BW_Proc(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	INT powerIndex;
-	UCHAR value = 0;
-	UCHAR BBPCurrentBW;
+	unsigned char value = 0;
+	unsigned char BBPCurrentBW;
 	
 	BBPCurrentBW = simple_strtol(arg, 0, 10);
 
@@ -3823,7 +3823,7 @@ INT	Set_ATE_TX_MCS_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR MCS;
+	unsigned char MCS;
 	INT result;
 
 	MCS = simple_strtol(arg, 0, 10);
@@ -3831,7 +3831,7 @@ INT	Set_ATE_TX_MCS_Proc(
 
 	if (result != -1)
 	{
-		pATEInfo->TxWI.TxWIMCS = (UCHAR)MCS;
+		pATEInfo->TxWI.TxWIMCS = (unsigned char)MCS;
 	}
 	else
 	{
@@ -3867,7 +3867,7 @@ INT	Set_ATE_TX_MODE_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR BbpData = 0;
+	unsigned char BbpData = 0;
 
 	pATEInfo->TxWI.TxWIPHYMODE = simple_strtol(arg, 0, 10);
 
@@ -3912,8 +3912,8 @@ INT	Set_ATE_TX_MODE_Proc(
 		if (pATEInfo->TxWI.TxWIPHYMODE == MODE_CCK)
 		{
 			USHORT value;
-			UCHAR  rf_offset;
-			UCHAR  rf_value;
+			unsigned char  rf_offset;
+			unsigned char  rf_value;
 
 			RT28xx_EEPROM_READ16(pAd, 0x126, value);
 			rf_value = value & 0x00FF;
@@ -3923,7 +3923,7 @@ INT	Set_ATE_TX_MODE_Proc(
 			    rf_offset = RF_R21;
 			if(rf_value == 0xff)
 			    rf_value = 0x4F;
-			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, rf_offset, (UCHAR)rf_value);
+			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, rf_offset, (unsigned char)rf_value);
 		
 			RT28xx_EEPROM_READ16(pAd, 0x12a, value);
 			rf_value = value & 0x00FF;
@@ -3933,7 +3933,7 @@ INT	Set_ATE_TX_MODE_Proc(
 			    rf_offset = RF_R29;
 			if(rf_value == 0xff)
 			    rf_value = 0x07;
-			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, rf_offset, (UCHAR)rf_value);
+			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, rf_offset, (unsigned char)rf_value);
 		
 
 			/* set RF_R24 */
@@ -3945,13 +3945,13 @@ INT	Set_ATE_TX_MODE_Proc(
 			{
 				value = 0x1F;
 			}
-			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, RF_R24, (UCHAR)value);
+			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, RF_R24, (unsigned char)value);
 		}
 		else
 		{
 			USHORT value;
-			UCHAR  rf_offset;
-			UCHAR  rf_value;
+			unsigned char  rf_offset;
+			unsigned char  rf_value;
 
 			RT28xx_EEPROM_READ16(pAd, 0x124, value);
 			rf_value = value & 0x00FF;
@@ -3961,7 +3961,7 @@ INT	Set_ATE_TX_MODE_Proc(
 			    rf_offset = RF_R21;
 			if(rf_value == 0xff)
 			    rf_value = 0x6F;
-			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, rf_offset, (UCHAR)rf_value);
+			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, rf_offset, (unsigned char)rf_value);
 		
 			RT28xx_EEPROM_READ16(pAd, 0x128, value);
 			rf_value = value & 0x00FF;
@@ -3971,7 +3971,7 @@ INT	Set_ATE_TX_MODE_Proc(
 			    rf_offset = RF_R29;
 			if(rf_value == 0xff)
 			    rf_value = 0x07;
-			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, rf_offset, (UCHAR)rf_value);
+			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, rf_offset, (unsigned char)rf_value);
 		
 			/* set RF_R24 */
 			if (pATEInfo->TxWI.BW == BW_40)
@@ -3982,7 +3982,7 @@ INT	Set_ATE_TX_MODE_Proc(
 			{
 				value = 0x18;
 			}
-			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, RF_R24, (UCHAR)value);
+			ATE_RF_IO_WRITE8_BY_REG_ID(pAd, RF_R24, (unsigned char)value);
 		}
 	}
 #endif /* RT3350 */
@@ -4452,10 +4452,10 @@ INT	Set_ATE_TXBF_DIVCAL_Proc(
 		DBGPRINT(RT_DEBUG_WARN, ("Divider Cal Done:\n"
 						"ch1-ch14 = [%2d, %2d] degrees\n"
 						"ant0-ant2 = [%2d, %2d] degrees\n",
-				(UCHAR)(divParams.gBeg[0]-divParams.gEnd[0])*360/256,
-				(UCHAR)(divParams.gBeg[1]-divParams.gEnd[1])*360/256,
-				(UCHAR)(divParams.gBeg[0]-divParams.gBeg[1])*360/256,
-				(UCHAR)(divParams.gEnd[0]-divParams.gEnd[1])*360/256) );
+				(unsigned char)(divParams.gBeg[0]-divParams.gEnd[0])*360/256,
+				(unsigned char)(divParams.gBeg[1]-divParams.gEnd[1])*360/256,
+				(unsigned char)(divParams.gBeg[0]-divParams.gBeg[1])*360/256,
+				(unsigned char)(divParams.gEnd[0]-divParams.gEnd[1])*360/256) );
 	}
 
 	/* A Band */
@@ -4519,7 +4519,7 @@ INT	Set_ATE_TXBF_LNACAL_Proc(
 	/* A Band */
 	if (value==0 || value==2)
 	{
-		static UCHAR channels[6] = {36, 64, 100, 128, 132, 165};
+		static unsigned char channels[6] = {36, 64, 100, 128, 132, 165};
 		for (i=0; i<6; i++)
 		{
 			pATEInfo->Channel = channels[i];
@@ -4548,7 +4548,7 @@ INT	Set_ATE_TXBF_LNACAL_Proc(
 */
 static BOOLEAN rtmp_ate_txbf_cal_valid_ch(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR channel)
+	IN unsigned char channel)
 {
 	BOOLEAN bValidCh;
 
@@ -4597,7 +4597,7 @@ INT Set_ATE_TXBF_INIT_Proc(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	int val;
 	USHORT eepromVal;
-	UCHAR cmdStr[32];
+	unsigned char cmdStr[32];
 	
 	val = simple_strtol(arg, 0, 10);
 	if (val != 1)
@@ -4682,8 +4682,8 @@ INT Set_ATE_TXBF_CAL_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR ch;
-	UCHAR cmdStr[32];
+	unsigned char ch;
+	unsigned char cmdStr[32];
 	
 	ch = simple_strtol(arg, 0, 10);
 	if (rtmp_ate_txbf_cal_valid_ch(pAd, ch) == FALSE)
@@ -4749,8 +4749,8 @@ INT Set_ATE_TXBF_GOLDEN_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR ch;
-	UCHAR cmdStr[32];
+	unsigned char ch;
+	unsigned char cmdStr[32];
 	USHORT eepromVal;
 	
 	ch = simple_strtol(arg, 0, 10);
@@ -4831,8 +4831,8 @@ INT Set_ATE_TXBF_VERIFY_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR ch;
-	UCHAR cmdStr[32];
+	unsigned char ch;
+	unsigned char cmdStr[32];
 	
 	ch = simple_strtol(arg, 0, 10);
 	if (rtmp_ate_txbf_cal_valid_ch(pAd, ch) == FALSE)
@@ -4881,7 +4881,7 @@ INT Set_ATE_ForceBBP_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR bbpReg;
+	unsigned char bbpReg;
 
 	bbpReg = simple_strtol(arg, 0, 10);
 
@@ -4916,9 +4916,9 @@ INT Set_ATE_TXBF_VERIFY_NoComp_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR ch;
-	UCHAR cmdStr[32];
-	UCHAR bbpR173 = 0;
+	unsigned char ch;
+	unsigned char cmdStr[32];
+	unsigned char bbpR173 = 0;
 	int retval;
 	
 	ch = simple_strtol(arg, 0, 10);
@@ -5369,7 +5369,7 @@ INT RT335x2_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
 	}
 
 
-CHAR InsertTssi(UCHAR InChannel, UCHAR Channel0, UCHAR Channel1,CHAR Tssi0, CHAR Tssi1)
+CHAR InsertTssi(unsigned char InChannel, unsigned char Channel0, unsigned char Channel1,CHAR Tssi0, CHAR Tssi1)
 {
 	CHAR     InTssi;
 	CHAR     ChannelDelta, InChannelDelta;
@@ -5390,8 +5390,8 @@ INT RT335xATETssiCalibrationExtend(
 	IN	char *			arg)
 {    
 	CHAR		TssiRefPerChannel[CFG80211_NUM_OF_CHAN_2GHZ], TssiDeltaPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
-	UCHAR		CurrentChannel;
-	UCHAR		BbpData = 0;
+	unsigned char		CurrentChannel;
+	unsigned char		BbpData = 0;
 	USHORT		EEPData;
 
 	if (pAd->ate.bTSSICalbrEnableG == FALSE)
@@ -5587,7 +5587,7 @@ INT Set_ATE_Read_TSSI_DC_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR BbpReg;
+	unsigned char BbpReg;
 
 	DBGPRINT(RT_DEBUG_TRACE,("Set_ATE_Read_TSSI_DC_Proc\n"));
 
@@ -5873,7 +5873,7 @@ VOID ReadQATxTypeFromBBP(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	UCHAR   Bbp22Value = 0, Bbp24Value = 0;
+	unsigned char   Bbp22Value = 0, Bbp24Value = 0;
 
 	ATE_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R22, &Bbp22Value);
 
@@ -5953,11 +5953,11 @@ VOID ReadQATxTypeFromBBP(
 
 NDIS_STATUS ATEBBPWriteWithRxChain(
 	IN RTMP_ADAPTER *pAd,
-	IN UCHAR bbpId,
+	IN unsigned char bbpId,
 	IN CHAR bbpVal,
 	IN RX_CHAIN_IDX rx_ch_idx)
 {
-	UCHAR idx = 0, val = 0;
+	unsigned char idx = 0, val = 0;
 
 	if (((pAd->MACVersion & 0xffff0000) < 0x28830000) || 
 		(pAd->Antenna.field.RxPath == 1))
@@ -6015,7 +6015,7 @@ INT Set_ADCDump_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	UCHAR BBP_R21_Ori=0,BBP_R60_Ori=0,BBP_R142_ORI=0,BBP_R143_ORI=0;
+	unsigned char BBP_R21_Ori=0,BBP_R60_Ori=0,BBP_R142_ORI=0,BBP_R143_ORI=0;
 	unsigned int MACValue=0,PBF_SYS_CTRL_ORI=0,PBF_CAP_CTRL_ORI=0;
 	unsigned int CaptureModeOffset=0,CaptureStartAddr=0;
 	unsigned int SMM_Addr;
@@ -6024,13 +6024,13 @@ INT Set_ADCDump_Proc(
 	char *					src = "ADCDump.txt";
 	RTMP_OS_FD				srcf;
 	RTMP_OS_FS_INFO			osFSInfo;
-	UCHAR				msg[128];
-	UCHAR				msg1[128];
+	unsigned char				msg[128];
+	unsigned char				msg1[128];
 	CAPTURE_MODE_SHARE_MEMORY     SMMValued;
 	CAPTURE_MODE_PACKET_BUFFER    PKTValue1d;
 	CAPTURE_MODE_PACKET_BUFFER    PKTValue2d;
-	UCHAR retval=0;
-	UCHAR DataSourceADC6=simple_strtol(arg, 0, 10);
+	unsigned char retval=0;
+	unsigned char DataSourceADC6=simple_strtol(arg, 0, 10);
 	
 	pAd->ate.Mode = ATE_START;
 

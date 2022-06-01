@@ -38,7 +38,7 @@ enum MCU_TYPE {
 
 struct _RTMP_ADAPTER;
 
-typedef void (*CMD_RSP_HANDLER)(struct _RTMP_ADAPTER *pAd, UCHAR *Data);
+typedef void (*CMD_RSP_HANDLER)(struct _RTMP_ADAPTER *pAd, unsigned char *Data);
 
 /*
  * CMD Unit (8051, Andes, ...,and etc)
@@ -46,10 +46,10 @@ typedef void (*CMD_RSP_HANDLER)(struct _RTMP_ADAPTER *pAd, UCHAR *Data);
 struct CMD_UNIT {
 	union {
 		struct {
-			UCHAR Command;
-			UCHAR Token;
-			UCHAR Arg0;
-			UCHAR Arg1;
+			unsigned char Command;
+			unsigned char Token;
+			unsigned char Arg0;
+			unsigned char Arg1;
 		} MCU51;
 		struct {
 			unsigned char Type;
@@ -67,7 +67,7 @@ struct CMD_UNIT {
 
 
 struct MCU_CTRL {
-	UCHAR CmdSeq;
+	unsigned char CmdSeq;
 	NDIS_SPIN_LOCK CmdRspEventListLock;
 	DL_LIST CmdRspEventList;
 };
@@ -75,11 +75,11 @@ struct MCU_CTRL {
 
 struct CMD_RSP_EVENT {
 	DL_LIST List;
-	UCHAR CmdSeq;	
+	unsigned char CmdSeq;	
 	unsigned int Timeout;
 	BOOLEAN NeedWait;
 	void *	AckDone;
-	UCHAR **RspPayload;
+	unsigned char **RspPayload;
 	USHORT *RspPayloadLen;
 };
 

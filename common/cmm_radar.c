@@ -65,7 +65,7 @@ VOID RadarDetectPeriodic(
 */
 BOOLEAN RadarChannelCheck(
 	IN PRTMP_ADAPTER	pAd,
-	IN UCHAR			Ch)
+	IN unsigned char			Ch)
 {
 	INT 	i;
 	BOOLEAN result = FALSE;
@@ -86,7 +86,7 @@ unsigned long JapRadarType(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned long		i;
-	const UCHAR	Channel[15]={52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140};
+	const unsigned char	Channel[15]={52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140};
 
 	if (pAd->CommonCfg.RDDurRegion != JAP)
 	{

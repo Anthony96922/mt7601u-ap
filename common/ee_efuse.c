@@ -103,7 +103,7 @@ typedef	union	_EFUSE_CTRL_STRUC {
 }	EFUSE_CTRL_STRUC, *PEFUSE_CTRL_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
-static UCHAR eFuseReadRegisters(
+static unsigned char eFuseReadRegisters(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	USHORT Offset, 
 	IN	USHORT Length, 
@@ -156,7 +156,7 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 	
 ========================================================================
 */
-UCHAR eFuseReadRegisters(
+unsigned char eFuseReadRegisters(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	USHORT Offset, 
 	IN	USHORT Length, 
@@ -241,7 +241,7 @@ UCHAR eFuseReadRegisters(
 		NdisMoveMemory(pData, &data, Length);
 	}
 
-	return (UCHAR) eFuseCtrlStruc.field.EFSROM_AOUT;
+	return (unsigned char) eFuseCtrlStruc.field.EFSROM_AOUT;
 	
 }
 
@@ -385,7 +385,7 @@ NTSTATUS eFuseRead(
 	IN	USHORT			Length)
 {
 	NTSTATUS Status = STATUS_SUCCESS;
-	UCHAR	EFSROM_AOUT;
+	unsigned char	EFSROM_AOUT;
 	int	i;
 	
 	for(i=0; i<Length; i+=2)
@@ -554,7 +554,7 @@ static NTSTATUS eFuseWriteRegisters(
 	USHORT	i,Loop=0, StartBlock=0, EndBlock=0;
 	USHORT	eFuseData;
 	USHORT	LogicalAddress, BlkNum = 0xffff;
-	UCHAR	EFSROM_AOUT;
+	unsigned char	EFSROM_AOUT;
 
 	USHORT addr,tmpaddr, InBuf[3], tmpOffset;
 	USHORT buffer[8];
@@ -873,7 +873,7 @@ NTSTATUS eFuseWrite(
 	USHORT* pValueX = (unsigned short *) pData;				/*value ...		*/
 	unsigned short * OddWriteByteBuf;
 /*	OddWriteByteBuf=(unsigned short *)kmalloc(sizeof(USHORT)*2, MEM_ALLOC_FLAG);*/
-	os_alloc_mem(NULL, (UCHAR **)&OddWriteByteBuf, sizeof(USHORT)*2);
+	os_alloc_mem(NULL, (unsigned char **)&OddWriteByteBuf, sizeof(USHORT)*2);
 	/* The input value=3070 will be stored as following*/
 	/* Little-endian		S	|	S	Big-endian*/
 	/* addr			1	0	|	0	1	*/
@@ -979,7 +979,7 @@ INT	set_eFuseLoadFromBin_Proc(
 	
 	memSize = 128 + MAX_EEPROM_BIN_FILE_SIZE + sizeof(USHORT) * 8;
 /*	memPtr = kmalloc(memSize, MEM_ALLOC_FLAG);*/
-	os_alloc_mem(NULL, (UCHAR **)&memPtr, memSize);
+	os_alloc_mem(NULL, (unsigned char **)&memPtr, memSize);
 	if (memPtr == NULL)
 		return FALSE;
 
@@ -1087,7 +1087,7 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 	USHORT	i,StartBlock=0,EndBlock=0;
 	USHORT	eFuseData;
 	USHORT	LogicalAddress, BlkNum = 0xffff;
-	UCHAR	EFSROM_AOUT,Loop=0;
+	unsigned char	EFSROM_AOUT,Loop=0;
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
 	USHORT	efuseDataOffset;
 	unsigned int	data,tempbuffer;
@@ -1791,17 +1791,17 @@ INT eFuse_init(RTMP_ADAPTER *pAd)
 				/* Calibration Free IC, but E-Fuse is empty */
 				DBGPRINT(RT_DEBUG_OFF, ("Calibration Free IC, Load calibration data...\n"));
 				
-				pAd->EEPROMImage[EEPROM_FREQ_OFFSET] = (UCHAR)(FrequencyOffset & 0xFF);
+				pAd->EEPROMImage[EEPROM_FREQ_OFFSET] = (unsigned char)(FrequencyOffset & 0xFF);
 
 				eFuseReadRegisters(pAd, EEPROM_TX0_TSSI_SLOPE, 2, &EfuseValue);
 				*(unsigned short *)(&pAd->EEPROMImage[EEPROM_TX0_TSSI_SLOPE]) = EfuseValue;
 				eFuseReadRegisters(pAd, EEPROM_TX0_TSSI_OFFSET_GROUP1, 2, &EfuseValue);
 				*(unsigned short *)(&pAd->EEPROMImage[EEPROM_TX0_TSSI_OFFSET_GROUP1]) = EfuseValue;
 				eFuseReadRegisters(pAd, EEPROM_TX0_TSSI_OFFSET, 2, &EfuseValue);
-				pAd->EEPROMImage[EEPROM_TX0_TSSI_OFFSET] = (UCHAR)(EfuseValue & 0xFF);;
+				pAd->EEPROMImage[EEPROM_TX0_TSSI_OFFSET] = (unsigned char)(EfuseValue & 0xFF);;
 
 				eFuseReadRegisters(pAd, EEPROM_G_TARGET_POWER, 2, &EfuseValue);
-				pAd->EEPROMImage[EEPROM_G_TARGET_POWER + 1] = (UCHAR)(EfuseValue >> 8);
+				pAd->EEPROMImage[EEPROM_G_TARGET_POWER + 1] = (unsigned char)(EfuseValue >> 8);
 
 				pAd->bCalFreeIC = TRUE;
 			}

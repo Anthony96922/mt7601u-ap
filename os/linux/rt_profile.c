@@ -142,7 +142,7 @@ NDIS_STATUS	RTMPReadParametersHook(
 #endif /*HOSTAPD_SUPPORT */
 
 /*	buffer = kmalloc(MAX_INI_BUFFER_SIZE, MEM_ALLOC_FLAG); */
-	os_alloc_mem(pAd, (UCHAR **)&buffer, MAX_INI_BUFFER_SIZE);
+	os_alloc_mem(pAd, (unsigned char **)&buffer, MAX_INI_BUFFER_SIZE);
 	if(buffer == NULL)
 		return NDIS_STATUS_FAILURE;
 	memset(buffer, 0x00, MAX_INI_BUFFER_SIZE);
@@ -236,13 +236,13 @@ VOID RtmpDrvSendWirelessEvent(
 	IN	VOID					*pAdSrc,
 	IN	USHORT					Event_flag,
 	IN	unsigned char *pAddr,
-	IN  UCHAR					BssIdx,
+	IN  unsigned char					BssIdx,
 	IN	CHAR					Rssi)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	char *pBuf = NULL, *pBufPtr = NULL;
 	USHORT	event, type, BufLen;	
-	UCHAR	event_table_len = 0;
+	unsigned char	event_table_len = 0;
 
 	if (pAd->CommonCfg.bWirelessEvent == FALSE)
 		return;
@@ -285,7 +285,7 @@ VOID RtmpDrvSendWirelessEvent(
  
 	/*Allocate memory and copy the msg. */
 /*	if((pBuf = kmalloc(IW_CUSTOM_MAX_LEN, GFP_ATOMIC)) != NULL) */
-	os_alloc_mem(NULL, (UCHAR **)&pBuf, IW_CUSTOM_MAX_LEN);
+	os_alloc_mem(NULL, (unsigned char **)&pBuf, IW_CUSTOM_MAX_LEN);
 	if(pBuf != NULL)
 	{
 		/*Prepare the payload */
@@ -430,7 +430,7 @@ void tbtt_tasklet(unsigned long data)
 void announce_802_3_packet(
 	IN VOID *pAdSrc,
 	IN PNDIS_PACKET pPacket,
-	IN UCHAR OpMode)
+	IN unsigned char OpMode)
 {
 #if defined(IKANOS_VX_1X0) || defined(INF_PPA_SUPPORT)
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
@@ -631,11 +631,11 @@ done:
 
 PNET_DEV get_netdev_from_bssid(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR			FromWhichBSSID)
+	IN	unsigned char			FromWhichBSSID)
 {
 	PNET_DEV dev_p = NULL;
 #ifdef CONFIG_AP_SUPPORT
-	UCHAR infRealIdx;
+	unsigned char infRealIdx;
 #endif /* CONFIG_AP_SUPPORT */
 
 	do

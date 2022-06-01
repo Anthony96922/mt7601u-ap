@@ -450,7 +450,7 @@ NTSTATUS	RTUSBWriteMACRegister(
 */
 NTSTATUS	RTUSBReadBBPRegister(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	UCHAR			Id,
+	IN	unsigned char			Id,
 	IN	unsigned char *			pValue)
 {
 	BBP_CSR_CFG_STRUC	BbpCsr;
@@ -486,7 +486,7 @@ NTSTATUS	RTUSBReadBBPRegister(
 		if ((BbpCsr.field.Busy == IDLE) &&
 			(BbpCsr.field.RegNum == Id))
 		{
-			*pValue = (UCHAR)BbpCsr.field.Value;
+			*pValue = (unsigned char)BbpCsr.field.Value;
 			break;
 		}
 	}
@@ -520,8 +520,8 @@ NTSTATUS	RTUSBReadBBPRegister(
 */
 NTSTATUS RTUSBWriteBBPRegister(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR Id,
-	IN UCHAR Value)
+	IN unsigned char Id,
+	IN unsigned char Value)
 {
 	BBP_CSR_CFG_STRUC BbpCsr;
 	int BusyCnt;
@@ -910,8 +910,8 @@ NDIS_STATUS	RTUSBEnqueueCmdFromNdis(
 NTSTATUS    RTUSB_VendorRequest(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned int			TransferFlags,
-	IN	UCHAR			RequestType,
-	IN	UCHAR			Request,
+	IN	unsigned char			RequestType,
+	IN	unsigned char			Request,
 	IN	USHORT			Value,
 	IN	USHORT			Index,
 	IN	void *			TransferBuffer,
@@ -1043,7 +1043,7 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
 
 	INT32 MACValue = 0;
-	UCHAR Index = 0;
+	unsigned char Index = 0;
 	int ret=0;
 	PHT_TX_CONTEXT	pHTTXContext;
 /*	RTMP_TX_RING *pTxRing;*/
@@ -1167,7 +1167,7 @@ static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 
 			if (pAd->bulkResetPipeid == 0)
 			{
-				UCHAR	pendingContext = 0;
+				unsigned char	pendingContext = 0;
 				PHT_TX_CONTEXT pHTTXContext = (PHT_TX_CONTEXT)(&pAd->TxContext[pAd->bulkResetPipeid ]);
 				PTX_CONTEXT pMLMEContext = (PTX_CONTEXT)(pAd->MgmtRing.Cell[pAd->MgmtRing.TxDmaIdx].AllocVa);
 				PTX_CONTEXT pNULLContext = (PTX_CONTEXT)(&pAd->PsPollContext);
@@ -1240,7 +1240,7 @@ static NTSTATUS ResetBulkInHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 				(!(RTMP_TEST_FLAG(pAd, (fRTMP_ADAPTER_RESET_IN_PROGRESS | fRTMP_ADAPTER_RADIO_OFF |
 												fRTMP_ADAPTER_HALT_IN_PROGRESS | fRTMP_ADAPTER_NIC_NOT_EXIST)))))
 	{
-		UCHAR	i;
+		unsigned char	i;
 
 		if (RTMP_TEST_FLAG(pAd, (fRTMP_ADAPTER_RESET_IN_PROGRESS | fRTMP_ADAPTER_RADIO_OFF |
 									fRTMP_ADAPTER_HALT_IN_PROGRESS | fRTMP_ADAPTER_NIC_NOT_EXIST)))
@@ -1332,7 +1332,7 @@ static NTSTATUS SetAsicWcidHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 	if (SetAsicWcid.WCID >= MAX_LEN_OF_MAC_TABLE)
 		return NDIS_STATUS_FAILURE;
 
-	offset = MAC_WCID_BASE + ((UCHAR)SetAsicWcid.WCID)*HW_WCID_ENTRY_SIZE;
+	offset = MAC_WCID_BASE + ((unsigned char)SetAsicWcid.WCID)*HW_WCID_ENTRY_SIZE;
 
 	DBGPRINT_RAW(RT_DEBUG_TRACE, ("CmdThread : CMDTHREAD_SET_ASIC_WCID : WCID = %ld, SetTid  = %lx, DeleteTid = %lx.\n",
 						SetAsicWcid.WCID, SetAsicWcid.SetTid, SetAsicWcid.DeleteTid));
@@ -1366,7 +1366,7 @@ static NTSTATUS DelAsicWcidHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 	if (SetAsicWcid.WCID >= MAX_LEN_OF_MAC_TABLE)
 		return NDIS_STATUS_FAILURE;
         
-        AsicDelWcidTab(pAd, (UCHAR)SetAsicWcid.WCID);
+        AsicDelWcidTab(pAd, (unsigned char)SetAsicWcid.WCID);
 
         return NDIS_STATUS_SUCCESS;
 }
@@ -1445,7 +1445,7 @@ static NTSTATUS SetAsicPairwiseKeyHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQel
 
 static NTSTATUS RemovePairwiseKeyHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
-	UCHAR Wcid = *((unsigned char *)(CMDQelmt->buffer));
+	unsigned char Wcid = *((unsigned char *)(CMDQelmt->buffer));
 
 	AsicRemovePairwiseKeyEntry(pAd, Wcid);
 	return NDIS_STATUS_SUCCESS;
@@ -1562,7 +1562,7 @@ static NTSTATUS APRecoverEXPAckTimeHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQe
 #ifdef LED_CONTROL_SUPPORT
 static NTSTATUS SetLEDStatusHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
-	UCHAR LEDStatus = *((unsigned char *)(CMDQelmt->buffer));
+	unsigned char LEDStatus = *((unsigned char *)(CMDQelmt->buffer));
 
 	RTMPSetLEDStatus(pAd, LEDStatus);
 
@@ -1991,7 +1991,7 @@ VOID RTUSBWatchDog(IN RTMP_ADAPTER *pAd)
 	{
 		USHORT				Idx;
 		PBA_REC_ENTRY		pBAEntry = NULL;
-		UCHAR				count = 0;
+		unsigned char				count = 0;
 		struct reordering_mpdu *mpdu_blk;
 
 		Idx = pAd->MacTab.Content[BSSID_WCID].BARecWcidArray[0];

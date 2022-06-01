@@ -272,7 +272,7 @@ INT rt28xx_ap_ioctl(
 				unsigned int len;
 
 				/* allocate memory */
-				os_alloc_mem(NULL, (UCHAR **)&prange, sizeof(struct iw_range));
+				os_alloc_mem(NULL, (unsigned char **)&prange, sizeof(struct iw_range));
 				if (prange == NULL)
 				{
 					DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));

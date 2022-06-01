@@ -389,7 +389,7 @@ typedef struct _WLAN_BT_COEX_SETTING
 	BOOLEAN					ampduOff;
 	BOOLEAN					coexSettingRunning;
 	BOOLEAN					RateSelectionForceToUseRSSI;
-	UCHAR					TxQualityFlag;
+	unsigned char					TxQualityFlag;
 	unsigned long					alc;
 	unsigned long					slna;
 }WLAN_BT_COEX_SETTING, *PWLAN_BT_COEX_SETTING;

@@ -54,7 +54,7 @@ static VOID ApCliInvalidStateWhenJoin(
 
 static VOID ApCliEnqueueProbeRequest(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR SsidLen,
+	IN unsigned char SsidLen,
 	OUT char * Ssid,
 	IN USHORT ifIndex);
 
@@ -76,7 +76,7 @@ VOID ApCliSyncStateMachineInit(
 	IN STATE_MACHINE *Sm,
 	OUT STATE_MACHINE_FUNC Trans[])
 {
-	UCHAR i;
+	unsigned char i;
 
 	StateMachineInit(Sm, (STATE_MACHINE_FUNC*)Trans,
 		APCLI_MAX_SYNC_STATE, APCLI_MAX_SYNC_MSG,
@@ -174,12 +174,12 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	USHORT LenVIE;
-	UCHAR *VarIE = NULL;
+	unsigned char *VarIE = NULL;
 	NDIS_802_11_VARIABLE_IEs *pVIE = NULL;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	PAPCLI_STRUCT pApCliEntry = NULL;
 #ifdef DOT11_N_SUPPORT
-        UCHAR CentralChannel;
+        unsigned char CentralChannel;
 #endif /* DOT11_N_SUPPORT */
 
 	USHORT ifIndex = (USHORT)(Elem->Priv);
@@ -189,7 +189,7 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 
 
 	/* Init Variable IE structure */
-	os_alloc_mem(NULL, (UCHAR **)&VarIE, MAX_VIE_LEN);
+	os_alloc_mem(NULL, (unsigned char **)&VarIE, MAX_VIE_LEN);
 	if (VarIE == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -198,7 +198,7 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 	pVIE = (PNDIS_802_11_VARIABLE_IEs) VarIE;
 	pVIE->Length = 0;
 	
-	os_alloc_mem(NULL, (UCHAR **)&ie_list, sizeof(BCN_IE_LIST));
+	os_alloc_mem(NULL, (unsigned char **)&ie_list, sizeof(BCN_IE_LIST));
 	if (ie_list == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate ie_list fail!!!\n", __FUNCTION__));
@@ -507,7 +507,7 @@ static VOID ApCliInvalidStateWhenJoin(
  */
 static VOID ApCliEnqueueProbeRequest(
 	IN PRTMP_ADAPTER pAd,
-	IN UCHAR SsidLen,
+	IN unsigned char SsidLen,
 	OUT char * Ssid,
 	IN USHORT ifIndex)
 {
@@ -515,9 +515,9 @@ static VOID ApCliEnqueueProbeRequest(
 	unsigned char *          pOutBuffer;
 	unsigned long           FrameLen = 0;
 	HEADER_802_11   Hdr80211;
-	UCHAR           SsidIe    = IE_SSID;
-	UCHAR           SupRateIe = IE_SUPP_RATES;
-	UCHAR ssidLen;
+	unsigned char           SsidIe    = IE_SSID;
+	unsigned char           SupRateIe = IE_SUPP_RATES;
+	unsigned char ssidLen;
 	CHAR ssid[MAX_LEN_OF_SSID];
 
 	DBGPRINT(RT_DEBUG_TRACE, ("force out a ProbeRequest ...\n"));

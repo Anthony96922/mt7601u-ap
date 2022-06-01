@@ -137,7 +137,7 @@ unsigned int GetAsicDefaultRetry(
 	return RetryLimit;
 }
 
-UCHAR GetAsicDefaultTxBA(
+unsigned char GetAsicDefaultTxBA(
 	IN PRTMP_ADAPTER pAd)
 {
         return pAd->CommonCfg.TxBASize;
@@ -149,7 +149,7 @@ unsigned int GetAsicVideoRetry(
 	return pAd->VideoTurbine.TxRetryLimit;
 }
 
-UCHAR GetAsicVideoTxBA(
+unsigned char GetAsicVideoTxBA(
 	IN PRTMP_ADAPTER pAd)
 {
 	return pAd->VideoTurbine.TxBASize;

@@ -20,7 +20,7 @@ INT get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, 
 }
 
 
-INT get_pkt_snr_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, UCHAR *snr)
+INT get_pkt_snr_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, unsigned char *snr)
 {
 	// TODO: shiang-6590, fix me for SNR info of RXWI!!
 	if (size < 3)

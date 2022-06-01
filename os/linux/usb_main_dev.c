@@ -382,7 +382,7 @@ static int rt2870_suspend(
 	//struct net_device *net_dev;
 	VOID *pAd = usb_get_intfdata(intf);
 #if (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)
-	UCHAR Flag;
+	unsigned char Flag;
 
 	RTMP_DRIVER_ADAPTER_RT28XX_WOW_STATUS(pAd, &Flag);
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
@@ -390,7 +390,7 @@ static int rt2870_suspend(
 	DBGPRINT(RT_DEBUG_TRACE, ("rt2870_suspend()\n"));
 
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
-	UCHAR Flag;
+	unsigned char Flag;
 	DBGPRINT(RT_DEBUG_ERROR, ("rt2870_suspend()\n"));
 
 #if (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)
@@ -433,12 +433,12 @@ static int rt2870_resume(
 	//struct net_device *net_dev;
 	VOID *pAd = usb_get_intfdata(intf);
 #if (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)
-	UCHAR Flag;
+	unsigned char Flag;
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
 
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
 	int pm_usage_cnt;
-	UCHAR Flag;
+	unsigned char Flag;
 #endif /* USB_SUPPORT_SELECTIVE_SUSPEND */
 
 #if (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)
@@ -642,7 +642,7 @@ static int rt2870_probe(
 /*RtmpDevInit============================================= */
 	/* Allocate RTMP_ADAPTER adapter structure */
 /*	handle = kmalloc(sizeof(struct os_cookie), GFP_KERNEL); */
-	os_alloc_mem(NULL, (UCHAR **)&handle, sizeof(struct os_cookie));
+	os_alloc_mem(NULL, (unsigned char **)&handle, sizeof(struct os_cookie));
 	if (handle == NULL)
 	{
 #ifdef DBG
@@ -714,12 +714,12 @@ static int rt2870_probe(
 
 #ifdef INF_PPA_SUPPORT
 /*	pAd->pDirectpathCb = (PPA_DIRECTPATH_CB *) kmalloc (sizeof(PPA_DIRECTPATH_CB), GFP_ATOMIC); */
-/*	os_alloc_mem(NULL, (UCHAR **)&(pAd->pDirectpathCb), sizeof(PPA_DIRECTPATH_CB)); */
+/*	os_alloc_mem(NULL, (unsigned char **)&(pAd->pDirectpathCb), sizeof(PPA_DIRECTPATH_CB)); */
 	RTMP_DRIVER_INF_PPA_INIT(pAd);
 #endif /* INF_PPA_SUPPORT */
 
 #ifdef PRE_ASSIGN_MAC_ADDR
-	UCHAR PermanentAddress[MAC_ADDR_LEN];
+	unsigned char PermanentAddress[MAC_ADDR_LEN];
 	RTMP_DRIVER_MAC_ADDR_GET(pAd, &PermanentAddress[0]);
 	DBGPRINT(RT_DEBUG_TRACE, ("%s MAC address: %02x:%02x:%02x:%02x:%02x:%02x\n", __FUNCTION__, PermanentAddress[0], PermanentAddress[1], PermanentAddress[2], PermanentAddress[3], PermanentAddress[4], PermanentAddress[5]));
 	/* Set up the Mac address */

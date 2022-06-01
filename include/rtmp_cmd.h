@@ -300,7 +300,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_CHAN {
 typedef struct __CMD_RTPRIV_IOCTL_80211_IBSS {
 
 	unsigned int BeaconInterval;
-	UCHAR *pSsid;
+	unsigned char *pSsid;
 } CMD_RTPRIV_IOCTL_80211_IBSS;
 
 typedef struct __CMD_RTPRIV_IOCTL_80211_STA {
@@ -351,7 +351,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_CONNECT {
 
 typedef struct __CMD_RTPRIV_IOCTL_80211_REG_NOTIFY {
 
-	UCHAR Alpha2[2];
+	unsigned char Alpha2[2];
 	VOID *pWiphy;
 } CMD_RTPRIV_IOCTL_80211_REG_NOTIFY;
 
@@ -387,7 +387,7 @@ typedef struct __RT_CMD_PARAM_SET {
 } RT_CMD_PARAM_SET;
 
 typedef struct __RT_CMD_SHARED_KEY_ADD {
-	IN UCHAR KeyIdx;
+	IN unsigned char KeyIdx;
 	IN BOOLEAN FlgHaveGTK;
 } RT_CMD_SHARED_KEY_ADD;
 
@@ -454,7 +454,7 @@ typedef struct __RT_CMD_STATS {
 typedef struct __RT_CMD_IW_STATS {
 
 	unsigned long priv_flags;
-	UCHAR *dev_addr;
+	unsigned char *dev_addr;
 
 	VOID *pStats;		/* point to pAd->iw_stats */
 
@@ -507,8 +507,8 @@ typedef struct __RT_CMD_STA_IOCTL_FREQ {
 } RT_CMD_STA_IOCTL_FREQ;
 
 typedef struct __RT_CMD_STA_IOCTL_BSS {
-	OUT UCHAR Bssid[6];
-	OUT UCHAR ChannelQuality;
+	OUT unsigned char Bssid[6];
+	OUT unsigned char ChannelQuality;
 	OUT CHAR Rssi;
 	OUT CHAR Noise;
 } RT_CMD_STA_IOCTL_BSS;
@@ -520,39 +520,39 @@ typedef struct __RT_CMD_STA_IOCTL_BSS_LIST {
 } RT_CMD_STA_IOCTL_BSS_LIST;
 
 typedef struct __RT_CMD_STA_IOCTL_SCAN {
-	IN UCHAR FlgScanThisSsid;
+	IN unsigned char FlgScanThisSsid;
 	IN unsigned int SsidLen;
 	IN CHAR *pSsid;
 	OUT INT32 Status;
 } RT_CMD_STA_IOCTL_SCAN;
 
 typedef struct __RT_CMD_STA_IOCTL_BSS_TABLE {
-	OUT UCHAR Bssid[6];
-	OUT UCHAR Channel;
-	OUT UCHAR BssType;
-	OUT UCHAR HtCapabilityLen;
+	OUT unsigned char Bssid[6];
+	OUT unsigned char Channel;
+	OUT unsigned char BssType;
+	OUT unsigned char HtCapabilityLen;
 
-	OUT UCHAR SupRate[12];
-	OUT UCHAR SupRateLen;
-	OUT UCHAR ExtRate[12];
-	OUT UCHAR ExtRateLen;
+	OUT unsigned char SupRate[12];
+	OUT unsigned char SupRateLen;
+	OUT unsigned char ExtRate[12];
+	OUT unsigned char ExtRateLen;
 
-	OUT UCHAR SsidLen;
+	OUT unsigned char SsidLen;
 	OUT CHAR Ssid[32];
 
 	OUT USHORT CapabilityInfo;
-	OUT UCHAR ChannelWidth, ShortGIfor40, ShortGIfor20, MCSSet;
+	OUT unsigned char ChannelWidth, ShortGIfor40, ShortGIfor20, MCSSet;
 
 	OUT USHORT WpaIeLen;
-	OUT UCHAR *pWpaIe;
+	OUT unsigned char *pWpaIe;
 
 	OUT USHORT RsnIeLen;
-	OUT UCHAR *pRsnIe;
+	OUT unsigned char *pRsnIe;
 
 	OUT USHORT WpsIeLen;
-	OUT UCHAR *pWpsIe;
+	OUT unsigned char *pWpsIe;
 
-	OUT UCHAR FlgIsPrivacyOn;
+	OUT unsigned char FlgIsPrivacyOn;
 
 	OUT RT_CMD_STA_IOCTL_BSS Signal;
 } RT_CMD_STA_IOCTL_BSS_TABLE;
@@ -561,11 +561,11 @@ typedef struct __RT_CMD_STA_IOCTL_SCAN_TABLE {
 	IN unsigned long priv_flags;
 	OUT unsigned int BssNr;
 	OUT RT_CMD_STA_IOCTL_BSS_TABLE *pBssTable;	/* must be freed by caller */
-	OUT UCHAR MainSharedKey[4][16];
+	OUT unsigned char MainSharedKey[4][16];
 } RT_CMD_STA_IOCTL_SCAN_TABLE;
 
 typedef struct __RT_CMD_STA_IOCTL_SSID {
-	IN UCHAR FlgAnySsid;
+	IN unsigned char FlgAnySsid;
 	INOUT unsigned int SsidLen;
 	INOUT CHAR *pSsid;
 	OUT INT32 Status;
@@ -668,7 +668,7 @@ typedef struct __RT_CMD_STA_IOCTL_SECURITY_ADV {
 
 typedef struct __RT_CMD_STA_IOCTL_RSN_IE {
 	INOUT unsigned int length;
-	INOUT UCHAR *pRsnIe;
+	INOUT unsigned char *pRsnIe;
 } RT_CMD_STA_IOCTL_RSN_IE;
 
 typedef struct __RT_CMD_STA_IOCTL_PMA_SA {
@@ -676,8 +676,8 @@ typedef struct __RT_CMD_STA_IOCTL_PMA_SA {
 #define RT_CMD_STA_IOCTL_PMA_SA_REMOVE					0x02
 #define RT_CMD_STA_IOCTL_PMA_SA_ADD						0x03
 	IN unsigned int Cmd;
-	IN UCHAR *pBssid;
-	IN UCHAR *pPmkid;
+	IN unsigned char *pBssid;
+	IN unsigned char *pPmkid;
 } RT_CMD_STA_IOCTL_PMA_SA;
 
 #endif /* __RTMP_CMD_H__ */

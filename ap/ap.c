@@ -143,9 +143,9 @@ VOID APStartUp(
 	unsigned int		/*offset,*/ i;
 	//unsigned int		Value = 0;
 	BOOLEAN		bWmmCapable = FALSE;
-	UCHAR		apidx;
+	unsigned char		apidx;
 	BOOLEAN		TxPreamble, SpectrumMgmt = FALSE;
-	UCHAR		phy_mode = pAd->CommonCfg.cfg_wmode;
+	unsigned char		phy_mode = pAd->CommonCfg.cfg_wmode;
 #ifdef DOT1X_SUPPORT
 	/* BOOLEAN		bDot1xReload = FALSE; */
 #endif /* DOT1X_SUPPORT */
@@ -232,7 +232,7 @@ VOID APStartUp(
 
 		/* decide the mixed WPA cipher combination */
 		if (pMbss->WepStatus == Ndis802_11Encryption4Enabled) {
-			switch ((UCHAR)pMbss->AuthMode) {
+			switch ((unsigned char)pMbss->AuthMode) {
 				/* WPA mode */
 				case Ndis802_11AuthModeWPA:
 				case Ndis802_11AuthModeWPAPSK:
@@ -482,7 +482,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 	*/
 	for (i = 0; i < MAX_LEN_OF_MAC_TABLE; i++) {
 		pAd->MacTab.Content[i].PortSecured  = WPA_802_1X_PORT_NOT_SECURED;
-		AsicRemovePairwiseKeyEntry(pAd, (UCHAR)i);
+		AsicRemovePairwiseKeyEntry(pAd, (unsigned char)i);
 	}
 
 	/* Init Security variables */
@@ -500,7 +500,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 
 		/* When WEP, TKIP or AES is enabled, set group key info to Asic */
 		if (pMbss->WepStatus == Ndis802_11WEPEnabled) {
-			UCHAR CipherAlg, idx;
+			unsigned char CipherAlg, idx;
 
 			for (idx = 0; idx < SHARE_KEY_NUM; idx++) {
 				CipherAlg = pAd->SharedKey[apidx][idx].CipherAlg;
@@ -531,7 +531,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 			GenRandom(pAd, pMbss->Bssid, pMbss->GNonce);
 
 			/* Derive GTK per BSSID */
-			WpaDeriveGTK(pMbss->GMK, (UCHAR*)pMbss->GNonce, pMbss->Bssid, pMbss->GTK, LEN_TKIP_GTK);
+			WpaDeriveGTK(pMbss->GMK, (unsigned char*)pMbss->GNonce, pMbss->Bssid, pMbss->GTK, LEN_TKIP_GTK);
 
 			/* Install Shared key */
 			WPAInstallSharedKey(pAd,
@@ -1329,8 +1329,8 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
 	IN  unsigned char * pAddr, 
 	OUT SST   *Sst, 
 	OUT USHORT *Aid,
-	OUT UCHAR *PsMode,
-	OUT UCHAR *Rate) 
+	OUT unsigned char *PsMode,
+	OUT unsigned char *Rate) 
 {
 	MAC_TABLE_ENTRY *pEntry = NULL;
 
@@ -1372,10 +1372,10 @@ BOOLEAN APPsIndicate(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr, 
 	IN unsigned long Wcid, 
-	IN UCHAR Psm) 
+	IN unsigned char Psm) 
 {
 	MAC_TABLE_ENTRY *pEntry;
-	UCHAR old_psmode;
+	unsigned char old_psmode;
 
 	if (Wcid >= MAX_LEN_OF_MAC_TABLE)
 		return PWR_ACTIVE;
@@ -1492,9 +1492,9 @@ VOID APUpdateOperationMode(
 VOID APUpdateCapabilityAndErpIe(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR  i, ErpIeContent = 0;
+	unsigned char  i, ErpIeContent = 0;
 	BOOLEAN ShortSlotCapable = pAd->CommonCfg.bUseShortSlotTime;
-	UCHAR	apidx;
+	unsigned char	apidx;
 	BOOLEAN	bUseBGProtection;
 	BOOLEAN	LegacyBssExist;
 
@@ -1611,7 +1611,7 @@ VOID APUpdateCapabilityAndErpIe(
 BOOLEAN ApCheckLongPreambleSTA(
 	IN PRTMP_ADAPTER pAd)
 {
-	UCHAR i;
+	unsigned char i;
 
 	for (i = 0; i < MAX_LEN_OF_MAC_TABLE; i++) {
 		PMAC_TABLE_ENTRY pEntry = &pAd->MacTab.Content[i];
@@ -1639,7 +1639,7 @@ BOOLEAN ApCheckLongPreambleSTA(
 BOOLEAN ApCheckAccessControlList(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *        pAddr,
-	IN UCHAR         Apidx)
+	IN unsigned char         Apidx)
 {
 	BOOLEAN Result = TRUE;
 
@@ -1678,7 +1678,7 @@ BOOLEAN ApCheckAccessControlList(
 */
 VOID ApUpdateAccessControlList(
     IN PRTMP_ADAPTER pAd,
-    IN UCHAR         Apidx)
+    IN unsigned char         Apidx)
 {
 	USHORT   AclIdx, MacIdx;
 	BOOLEAN  Matched;
@@ -1795,12 +1795,12 @@ VOID ApUpdateAccessControlList(
 VOID ApEnqueueNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *        pAddr,
-	IN UCHAR         TxRate,
-	IN UCHAR         PID,
-	IN UCHAR         apidx,
+	IN unsigned char         TxRate,
+	IN unsigned char         PID,
+	IN unsigned char         apidx,
 	IN BOOLEAN       bQosNull,
 	IN BOOLEAN       bEOSP,
-	IN UCHAR         OldUP)
+	IN unsigned char         OldUP)
 {
 	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
@@ -1825,7 +1825,7 @@ VOID ApEnqueueNullFrame(
 #ifdef UAPSD_SUPPORT
 			if (bQosNull)
 			{
-	        	        UCHAR *qos_p = ((UCHAR *)pNullFr) + Length;
+	        	        unsigned char *qos_p = ((unsigned char *)pNullFr) + Length;
 
 				pNullFr->FC.SubType = SUBTYPE_QOS_NULL;
 
@@ -2014,7 +2014,7 @@ VOID APOverlappingBSSScan(
 	IN RTMP_ADAPTER *pAd)
 {
 	BOOLEAN needFallBack = FALSE;
-	UCHAR Channel = pAd->CommonCfg.Channel;
+	unsigned char Channel = pAd->CommonCfg.Channel;
 	INT chStartIdx, chEndIdx, index,curPriChIdx, curSecChIdx;
 
 
@@ -2210,11 +2210,11 @@ BOOLEAN DOT1X_InternalCmdAction(
     IN	unsigned char			cmd)
 {
 	INT			apidx = MAIN_MBSSID;	
-	UCHAR 			RalinkIe[9] = {221, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
-	UCHAR			s_addr[MAC_ADDR_LEN];
-	UCHAR			EAPOL_IE[] = {0x88, 0x8e};
+	unsigned char 			RalinkIe[9] = {221, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
+	unsigned char			s_addr[MAC_ADDR_LEN];
+	unsigned char			EAPOL_IE[] = {0x88, 0x8e};
 	unsigned char			frame_len = LENGTH_802_3 + sizeof(RalinkIe);
-	UCHAR			FrameBuf[frame_len];
+	unsigned char			FrameBuf[frame_len];
 	unsigned char			offset = 0;
 	
 	/* Init the frame buffer */
@@ -2273,9 +2273,9 @@ BOOLEAN DOT1X_EapTriggerAction(
     IN  MAC_TABLE_ENTRY *pEntry)
 {
 	INT			apidx = MAIN_MBSSID;
-	UCHAR 			eapol_start_1x_hdr[4] = {0x01, 0x01, 0x00, 0x00};
+	unsigned char 			eapol_start_1x_hdr[4] = {0x01, 0x01, 0x00, 0x00};
 	unsigned char			frame_len = LENGTH_802_3 + sizeof(eapol_start_1x_hdr);
-	UCHAR			FrameBuf[frame_len];
+	unsigned char			FrameBuf[frame_len];
 	unsigned char			offset = 0;
 
 	if ((pEntry->AuthMode == Ndis802_11AuthModeWPA) || (pEntry->AuthMode == Ndis802_11AuthModeWPA2) || (pAd->ApCfg.MBSSID[apidx].IEEE8021X == TRUE))

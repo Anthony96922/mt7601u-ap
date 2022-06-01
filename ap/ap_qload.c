@@ -875,7 +875,7 @@ INT	Set_QloadAlarmTimeThreshold_Proc(
 	IN	char *			Arg)
 {
 #ifdef QLOAD_FUNC_BUSY_TIME_ALARM
-	pAd->QloadAlarmBusyTimeThreshold = (UCHAR)simple_strtol(Arg, 0, 10);
+	pAd->QloadAlarmBusyTimeThreshold = (unsigned char)simple_strtol(Arg, 0, 10);
 
 	QBSS_LoadAlarmReset(pAd);
 
@@ -906,7 +906,7 @@ INT	Set_QloadAlarmNumThreshold_Proc(
 	IN	char *			Arg)
 {
 #ifdef QLOAD_FUNC_BUSY_TIME_ALARM
-	pAd->QloadAlarmBusyNumThreshold = (UCHAR)simple_strtol(Arg, 0, 10);
+	pAd->QloadAlarmBusyNumThreshold = (unsigned char)simple_strtol(Arg, 0, 10);
 #endif /* QLOAD_FUNC_BUSY_TIME_ALARM */
 
 	return TRUE;

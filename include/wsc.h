@@ -46,13 +46,13 @@
 /* structure to store Simple Config Attributes Info */
 typedef struct GNU_PACKED _WSC_LV_INFO {
     USHORT  ValueLen;
-    UCHAR   Value[512];
+    unsigned char   Value[512];
 } WSC_LV_INFO;
 
 typedef struct GNU_PACKED _WSC_IE_HEADER {
-	UCHAR elemId;
-	UCHAR length;
-	UCHAR oui[4];
+	unsigned char elemId;
+	unsigned char length;
+	unsigned char oui[4];
 } WSC_IE_HEADER;
 
 /* WSC IE structure */
@@ -60,24 +60,24 @@ typedef	struct GNU_PACKED _WSC_IE
 {
 	USHORT	Type;
 	USHORT	Length;
-	UCHAR	Data[1];	/* variable length data */
+	unsigned char	Data[1];	/* variable length data */
 }	WSC_IE, *PWSC_IE;
 
 /* WSC fixed information within EAP */
 typedef	struct GNU_PACKED _WSC_FRAME
 {
-	UCHAR	SMI[3];
+	unsigned char	SMI[3];
 	UINT	VendorType;
-	UCHAR	OpCode;
-	UCHAR	Flags;
+	unsigned char	OpCode;
+	unsigned char	Flags;
 }	WSC_FRAME, *PWSC_FRAME;
 
 /* EAP frame format */
 typedef	struct GNU_PACKED _EAP_FRAME	{
-	UCHAR	Code;						/* 1 = Request, 2 = Response */
-	UCHAR	Id;
+	unsigned char	Code;						/* 1 = Request, 2 = Response */
+	unsigned char	Id;
 	USHORT	Length;
-	UCHAR	Type;						/* 1 = Identity, 0xfe = reserved, used by WSC */
+	unsigned char	Type;						/* 1 = Identity, 0xfe = reserved, used by WSC */
 }	EAP_FRAME, *PEAP_FRAME;
 
 static inline BOOLEAN WscCheckWSCHeader(
@@ -390,9 +390,9 @@ typedef struct _WSC_UUID_T{
 	unsigned int timeLow;
 	unsigned short timeMid;
 	unsigned short timeHi_Version;
-	UCHAR  clockSeqHi_Var;
-	UCHAR  clockSeqLow;
-	UCHAR  node[6];
+	unsigned char  clockSeqHi_Var;
+	unsigned char  clockSeqLow;
+	unsigned char  node[6];
 }WSC_UUID_T;
 
 /* For WSC state machine states. */
@@ -433,39 +433,39 @@ typedef	enum	_WscState
 typedef	struct	_WSC_MESSAGE
 {
 	INT	    Length;			/* Length of saved message */
-	UCHAR	Data[2048];		/* Contents */
+	unsigned char	Data[2048];		/* Contents */
 }	WSC_MESSAGE, *PWSC_MESSAGE;
 
 
 /* Data structure to hold Enrollee and Registrar information */
 typedef struct	_WSC_DEV_INFO
 {
-	UCHAR	Version;
-	UCHAR	Version2;
-	UCHAR	Uuid[16];
-	UCHAR	MacAddr[6];
-	UCHAR	DeviceName[32];
-	UCHAR	PriDeviceType[8];
-	UCHAR	SecDevTypList[MAX_2ND_DEV_TYPE_LIST_BUFFER]; /* 2nd Device Type List, ref. P2P Spec. v1.1 Table 29*/
+	unsigned char	Version;
+	unsigned char	Version2;
+	unsigned char	Uuid[16];
+	unsigned char	MacAddr[6];
+	unsigned char	DeviceName[32];
+	unsigned char	PriDeviceType[8];
+	unsigned char	SecDevTypList[MAX_2ND_DEV_TYPE_LIST_BUFFER]; /* 2nd Device Type List, ref. P2P Spec. v1.1 Table 29*/
 	USHORT	AuthTypeFlags;
 	USHORT	EncrTypeFlags;
-	UCHAR	ConnTypeFlags;
+	unsigned char	ConnTypeFlags;
 	USHORT	ConfigMethods;
-	UCHAR	ScState;
-	UCHAR	Manufacturer[64];
-	UCHAR	ModelName[32];
-	UCHAR	ModelNumber[32];
-	UCHAR	SerialNumber[32];
-	UCHAR	RfBand;
+	unsigned char	ScState;
+	unsigned char	Manufacturer[64];
+	unsigned char	ModelName[32];
+	unsigned char	ModelNumber[32];
+	unsigned char	SerialNumber[32];
+	unsigned char	RfBand;
 	UINT	OsVersion;
 	UINT	FeatureId;
 	USHORT	AssocState;
 	USHORT	DevPwdId;
 	USHORT	ConfigError;
-	UCHAR	Ssid[32];
-    UCHAR	NewKey[64 + 1]; /* not sure sprintf would add '\0' or not, add one byte for \0' */
+	unsigned char	Ssid[32];
+    unsigned char	NewKey[64 + 1]; /* not sure sprintf would add '\0' or not, add one byte for \0' */
     INT     NewKeyLen;
-    UCHAR   NewKeyIndex;
+    unsigned char   NewKeyIndex;
 }	WSC_DEV_INFO, *PWSC_DEV_INFO;
 
 /* data structure to store info of the instance of Registration protocol */
@@ -479,47 +479,47 @@ typedef	struct	_WSC_REG_DATA
 	/*Diffie Hellman parameters */
 /*	BIGNUM		*DH_PubKey_Peer; //peer's pub key stored in bignum format */
 /*	DH			*DHSecret;       //local key pair in bignum format */
-	UCHAR		EnrolleeRandom[192];	/* Saved random byte for public key generation */
+	unsigned char		EnrolleeRandom[192];	/* Saved random byte for public key generation */
 	
-	UCHAR		ReComputePke;
-	UCHAR		Pke[192];		/*enrollee's raw pub key */
-	UCHAR		Pkr[192];		/*registrar's raw pub key */
+	unsigned char		ReComputePke;
+	unsigned char		Pke[192];		/*enrollee's raw pub key */
+	unsigned char		Pkr[192];		/*registrar's raw pub key */
 
-	UCHAR		SecretKey[192];	/* Secret key calculated by enrollee */
+	unsigned char		SecretKey[192];	/* Secret key calculated by enrollee */
 	
-	UCHAR		StaEncrSettings[128];		/* to be sent in M2/M8 by reg & M7 by enrollee */
-	UCHAR		ApEncrSettings[1024];
+	unsigned char		StaEncrSettings[128];		/* to be sent in M2/M8 by reg & M7 by enrollee */
+	unsigned char		ApEncrSettings[1024];
 
 	/* Saved Message content for authenticator calculation */
 	WSC_MESSAGE	LastTx;
 	WSC_MESSAGE	LastRx;
 
 	/* Device password */
-	UCHAR		PIN[8];
-	UCHAR		PinCodeLen;
+	unsigned char		PIN[8];
+	unsigned char		PinCodeLen;
 	
 	/* From KDF Key */
-	UCHAR		AuthKey[32];
-	UCHAR		KeyWrapKey[16];
-	UCHAR		Emsk[32];
+	unsigned char		AuthKey[32];
+	unsigned char		KeyWrapKey[16];
+	unsigned char		Emsk[32];
 	
 	USHORT		EnrolleePwdId;
-	UCHAR		EnrolleeNonce[16];		/*N1, from enrollee */
-	UCHAR		RegistrarNonce[16];		/*N2, from registrar */
-	UCHAR		SelfNonce[16];
+	unsigned char		EnrolleeNonce[16];		/*N1, from enrollee */
+	unsigned char		RegistrarNonce[16];		/*N2, from registrar */
+	unsigned char		SelfNonce[16];
 
-	UCHAR		Psk1[16];
-	UCHAR		Psk2[16];
+	unsigned char		Psk1[16];
+	unsigned char		Psk2[16];
 
-	UCHAR		EHash1[32];
-	UCHAR		EHash2[32];
-	UCHAR		Es1[16];
-	UCHAR		Es2[16];
+	unsigned char		EHash1[32];
+	unsigned char		EHash2[32];
+	unsigned char		Es1[16];
+	unsigned char		Es2[16];
 
-	UCHAR		RHash1[32];
-	UCHAR		RHash2[32];
-	UCHAR		Rs1[16];
-	UCHAR		Rs2[16];
+	unsigned char		RHash1[32];
+	unsigned char		RHash2[32];
+	unsigned char		Rs1[16];
+	unsigned char		Rs2[16];
 }	WSC_REG_DATA, *PWSC_REG_DATA;
 
 
@@ -535,20 +535,20 @@ typedef struct _WSC_UPNP_NODE_INFO{
 #define MAX_PBC_STA_TABLE_SIZE	4
 typedef struct _WSC_STA_PBC_PROBE_INFO {
 	unsigned long				ReciveTime[MAX_PBC_STA_TABLE_SIZE];
-    UCHAR				WscPBCStaProbeCount;
-    UCHAR   			StaMacAddr[MAX_PBC_STA_TABLE_SIZE][MAC_ADDR_LEN];
-	UCHAR				Valid[MAX_PBC_STA_TABLE_SIZE];
+    unsigned char				WscPBCStaProbeCount;
+    unsigned char   			StaMacAddr[MAX_PBC_STA_TABLE_SIZE][MAC_ADDR_LEN];
+	unsigned char				Valid[MAX_PBC_STA_TABLE_SIZE];
 } WSC_STA_PBC_PROBE_INFO, *PWSC_STA_PBC_PROBE_INFO;
 
 
 
 typedef struct GNU_PACKED _WSC_PEER_DEV_INFO {
-	UCHAR	WscPeerDeviceName[32];
-	UCHAR	WscPeerManufacturer[64];
-	UCHAR	WscPeerModelName[32];
-	UCHAR	WscPeerModelNumber[32];
-	UCHAR	WscPeerSerialNumber[32];
-	UCHAR	WscPeerMAC[6];
+	unsigned char	WscPeerDeviceName[32];
+	unsigned char	WscPeerManufacturer[64];
+	unsigned char	WscPeerModelName[32];
+	unsigned char	WscPeerModelNumber[32];
+	unsigned char	WscPeerSerialNumber[32];
+	unsigned char	WscPeerMAC[6];
 } WSC_PEER_DEV_INFO, *PWSC_PEER_DEV_INFO;
 
 #ifdef WSC_V2_SUPPORT
@@ -561,7 +561,7 @@ typedef	struct	_WSC_TLV {
 	USHORT	TlvTag;
 	USHORT	TlvLen;
 	unsigned char *	pTlvData;
-	UCHAR	TlvType;	/* 0: ASCII, 1: Hex */
+	unsigned char	TlvType;	/* 0: ASCII, 1: Hex */
 } WSC_TLV, *PWSC_TLV;
 
 typedef	struct	_WSC_V2_INFO {
@@ -577,26 +577,26 @@ typedef	struct	_WSC_CTRL
 	INT             WscConfMode;    /* 0 Wsc not enable; 1 un-configure AP ; 3 un-configure AP with Proxy ; */
 	                                /* 5 un-configure AP with Registrar ; 7 un-configure AP with proxy and Registrar */
 	INT             WscMode;        /* 1 PIN ;2 PBC set from UI dynamically */
-	UCHAR           WscConfStatus;  /* 1 un-configured; 2 configured; need to update to .dat */
+	unsigned char           WscConfStatus;  /* 1 un-configured; 2 configured; need to update to .dat */
 	USHORT			WscConfigMethods;  /* Registrar support list. The List is bitwise. PBC:0x0080 Lable:0x0004 Display:0x0008 */
 	INT             WscStatus;      /* for user to monitor the status */
 	INT             WscState;    	/* WSC Protocl State: M1 to M8 */
 	UINT            WscPinCode;     /* record the UI's PIN code input when we are registrar */
-	UCHAR			WscPinCodeLen;	/* record the UI's PIN code input length when we are registrar */
+	unsigned char			WscPinCodeLen;	/* record the UI's PIN code input length when we are registrar */
 	BOOLEAN         WscEnrollee4digitPinCode;  /* flag to use 4 or 8 digit Device own PIN code. */
 	UINT            WscEnrolleePinCode; /* recored Device own PIN code. */
-	UCHAR			WscEnrolleePinCodeLen; /* recored Device own PIN code length */
+	unsigned char			WscEnrolleePinCodeLen; /* recored Device own PIN code length */
 	INT             WscSelReg;     /* record the UI's PIN code input when we are registrar */
 	NDIS_802_11_SSID	    WscSsid;		        /* select a desired ssid to connect for PIN mode */
-	UCHAR					WscPBCBssCount;			/* Count of PBC activated APs. */
-	UCHAR				    WscBssid[MAC_ADDR_LEN];	/* select a desired bssid to connect */
+	unsigned char					WscPBCBssCount;			/* Count of PBC activated APs. */
+	unsigned char				    WscBssid[MAC_ADDR_LEN];	/* select a desired bssid to connect */
 	WSC_REG_DATA	RegData;		/* Registrar pair data */
-	UCHAR           lastId;
-	UCHAR           WscUseUPnP;
+	unsigned char           lastId;
+	unsigned char           WscUseUPnP;
 	BOOLEAN         EapMsgRunning;  /* already recived Eap-Rsp(Identity) and sent M1 or Eap-Req(Start) */
-	UCHAR           WscRetryCount;
-	UCHAR           EntryIfIdx;
-	UCHAR           EntryAddr[MAC_ADDR_LEN];
+	unsigned char           WscRetryCount;
+	unsigned char           EntryIfIdx;
+	unsigned char           EntryAddr[MAC_ADDR_LEN];
 	BOOLEAN         Wsc2MinsTimerRunning;
 	RALINK_TIMER_STRUCT   Wsc2MinsTimer;
 	WSC_PROFILE			WscProfile;		/* Saved WSC profile after M8 */
@@ -625,7 +625,7 @@ typedef	struct	_WSC_CTRL
 	/* if the NIC cannot find any WPS PBC-enabled APs in the last scanning result. */
 	BOOLEAN 				bWPSWalkTimeExpiration;
 #endif /* WSC_LED_SUPPORT */
-    UCHAR               WpaPsk[64];
+    unsigned char               WpaPsk[64];
     INT                 WpaPskLen;
     BOOLEAN             bWscTrigger;        /* TRUE: AP-Enrollee & AP-Registrar work, FALSE: AP-Enrollee & AP-Registrar stop working */
     void *               pAd;
@@ -637,12 +637,12 @@ typedef	struct	_WSC_CTRL
 #endif /* CONFIG_AP_SUPPORT */
 	INT					WscKeyASCII; 		/*WscKeyASCII (0:Hex, 1:ASCII(random length), others: ASCII length(8~63, default 8)) */
 	INT					WscActionMode;
-	UCHAR                   Wsc_Uuid_E[UUID_LEN_HEX];
-	UCHAR                   Wsc_Uuid_Str[UUID_LEN_STR];
+	unsigned char                   Wsc_Uuid_E[UUID_LEN_HEX];
+	unsigned char                   Wsc_Uuid_Str[UUID_LEN_STR];
 
-	UCHAR				WpsApBand; /* Preferred WPS AP PHY type. Ref: PREFERRED_WPS_AP_PHY_TYPE */
+	unsigned char				WpsApBand; /* Preferred WPS AP PHY type. Ref: PREFERRED_WPS_AP_PHY_TYPE */
 /*add by woody */
-	UCHAR Flags;
+	unsigned char Flags;
 
 	WSC_PEER_DEV_INFO	WscPeerInfo;
 	BOOLEAN				bCheckMultiByte;
@@ -657,8 +657,8 @@ typedef	struct	_WSC_CTRL
 	RALINK_TIMER_STRUCT WscPinAttackCountCheckTimer;
 	BOOLEAN 			WscPinAttackCountCheckTimerRunning;
 	BOOLEAN				bSetupLock;
-	UCHAR				PinAttackCount;
-	UCHAR				MaxPinAttack;
+	unsigned char				PinAttackCount;
+	unsigned char				MaxPinAttack;
 	UINT				SetupLockTime; /* unit: minute */
 #endif /* CONFIG_AP_SUPPORT */
 	BOOLEAN				bWscAutoTigeer;
@@ -680,11 +680,11 @@ typedef	struct	_WSC_CTRL
 
 typedef struct GNU_PACKED _WSC_CONFIGURED_VALUE {
 	USHORT WscConfigured; /* 1 un-configured; 2 configured */
-	UCHAR	WscSsid[32 + 1];
+	unsigned char	WscSsid[32 + 1];
 	USHORT WscAuthMode;	/* mandatory, 0x01: open, 0x02: wpa-psk, 0x04: shared, 0x08:wpa, 0x10: wpa2, 0x20: wpa2-psk */
 	USHORT	WscEncrypType;	/* 0x01: none, 0x02: wep, 0x04: tkip, 0x08: aes */
-	UCHAR	DefaultKeyIdx;
-	UCHAR	WscWPAKey[64 + 1];
+	unsigned char	DefaultKeyIdx;
+	unsigned char	WscWPAKey[64 + 1];
 } WSC_CONFIGURED_VALUE;
 
 /* 
@@ -694,7 +694,7 @@ typedef struct GNU_PACKED _WSC_CONFIGURED_VALUE {
 /* Ralink specific message header for Linux specific NETLINK socket. */
 #define RTMP_WSC_NLMSG_HDR_LEN		30		/*signature(8) + envID(4) + ackID(4) + msgLen(4) + Flag(2) + segLen(2) + devAddr(6) */
 typedef struct GNU_PACKED _RTMP_WSC_NLMSG_HDR{
-	UCHAR	signature[8];	/* Signature used to identify that this's a Ralink specific NETLINK message. 
+	unsigned char	signature[8];	/* Signature used to identify that this's a Ralink specific NETLINK message. 
 								MUST be "RAWSCMSG" currently.
 							*/
 	UINT	envID;			/* Unique event Identification assigned by sender. */
@@ -706,7 +706,7 @@ typedef struct GNU_PACKED _RTMP_WSC_NLMSG_HDR{
 								need to do fragement for our msg. If one message was fragemented as serveral pieces, the 
 								user space receiver need to re-assemble it.
 							 */
-	UCHAR	devAddr[MAC_ADDR_LEN];		/* MAC address of the net device which send this netlink msg. */
+	unsigned char	devAddr[MAC_ADDR_LEN];		/* MAC address of the net device which send this netlink msg. */
 }RTMP_WSC_NLMSG_HDR;
 
 
@@ -740,11 +740,11 @@ char *   WscGetEncryTypeStr(
 #define WSC_U2KMSG_HDR_LEN	41
 typedef	struct GNU_PACKED _RTMP_WSC_U2KMSG_HDR{
 	UINT			envID;					/*Event ID. */
-	UCHAR			Addr1[MAC_ADDR_LEN];	/*RA, should be the MAC address of the AP. */
-	UCHAR			Addr2[MAC_ADDR_LEN];	/*TA, should be the ipAddress of remote UPnP Device/CotrnolPoint. */
-	UCHAR			Addr3[MAC_ADDR_LEN];	/*DA, Not used now. */
-	UCHAR			rsvWLHdr[2];			/*Reserved space for remained 802.11 hdr content. */
-	UCHAR			rsv1HHdr[LENGTH_802_1_H];/*Reserved space for 802.1h header */
+	unsigned char			Addr1[MAC_ADDR_LEN];	/*RA, should be the MAC address of the AP. */
+	unsigned char			Addr2[MAC_ADDR_LEN];	/*TA, should be the ipAddress of remote UPnP Device/CotrnolPoint. */
+	unsigned char			Addr3[MAC_ADDR_LEN];	/*DA, Not used now. */
+	unsigned char			rsvWLHdr[2];			/*Reserved space for remained 802.11 hdr content. */
+	unsigned char			rsv1HHdr[LENGTH_802_1_H];/*Reserved space for 802.1h header */
 	IEEE8021X_FRAME	IEEE8021XHdr;			/*802.1X header */
 	EAP_FRAME		EAPHdr;					/*EAP frame header. */
 }RTMP_WSC_U2KMSG_HDR;
@@ -773,13 +773,13 @@ typedef	struct GNU_PACKED _RTMP_WSC_U2KMSG_HDR{
 #define		WPS_CONFIG_METHODS_KEYPAD		0x0100
 
 typedef struct _UUID_BSSID_CH_INFO {
-	UCHAR	Uuid[16];
-	UCHAR	Bssid[MAC_ADDR_LEN];
-	UCHAR	Channel;
-	UCHAR	Band;
-	UCHAR	Ssid[MAX_LEN_OF_SSID];
-	UCHAR	SsidLen;
-	UCHAR   MacAddr[MAC_ADDR_LEN];
+	unsigned char	Uuid[16];
+	unsigned char	Bssid[MAC_ADDR_LEN];
+	unsigned char	Channel;
+	unsigned char	Band;
+	unsigned char	Ssid[MAX_LEN_OF_SSID];
+	unsigned char	SsidLen;
+	unsigned char   MacAddr[MAC_ADDR_LEN];
 } UUID_BSSID_CH_INFO, *PUUID_BSSID_CH_INFO;
 
 /*
@@ -810,7 +810,7 @@ typedef enum _WscSecurityMode{
 typedef struct _WSC_PEER_ENTRY {
 	struct _WSC_PEER_ENTRY *pNext;
 	unsigned long	receive_time;
-	UCHAR	mac_addr[MAC_ADDR_LEN];
+	unsigned char	mac_addr[MAC_ADDR_LEN];
 } WSC_PEER_ENTRY, *PWSC_PEER_ENTRY;
 
 

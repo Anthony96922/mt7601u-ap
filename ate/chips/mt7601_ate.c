@@ -34,17 +34,17 @@
 extern MT7601_FREQ_ITEM MT7601_Frequency_Plan[];
 extern unsigned int NUM_OF_MT7601_CHNL;
 extern RTMP_REG_PAIR MT7601_BBP_BW20RegTb[];
-extern UCHAR MT7601_BBP_BW20RegTb_Size;
+extern unsigned char MT7601_BBP_BW20RegTb_Size;
 extern RTMP_REG_PAIR MT7601_BBP_BW40RegTb[];
-extern UCHAR MT7601_BBP_BW40RegTb_Size;
+extern unsigned char MT7601_BBP_BW40RegTb_Size;
 extern RTMP_REG_PAIR MT7601_BBP_HighTempBW20RegTb[];
-extern UCHAR MT7601_BBP_HighTempBW20RegTb_Size;
+extern unsigned char MT7601_BBP_HighTempBW20RegTb_Size;
 extern RTMP_REG_PAIR MT7601_BBP_HighTempBW40RegTb[];
-extern UCHAR MT7601_BBP_HighTempBW40RegTb_Size;
+extern unsigned char MT7601_BBP_HighTempBW40RegTb_Size;
 extern RTMP_REG_PAIR MT7601_BBP_LowTempBW20RegTb[];
-extern UCHAR MT7601_BBP_LowTempBW20RegTb_Size;
+extern unsigned char MT7601_BBP_LowTempBW20RegTb_Size;
 extern RTMP_REG_PAIR MT7601_BBP_LowTempBW40RegTb[];
-extern UCHAR MT7601_BBP_LowTempBW40RegTb_Size;
+extern unsigned char MT7601_BBP_LowTempBW40RegTb_Size;
 
 VOID MT7601ATEAsicSwitchChannel(
     IN PRTMP_ADAPTER pAd)
@@ -52,9 +52,9 @@ VOID MT7601ATEAsicSwitchChannel(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int Value = 0;
 	CHAR TxPwer = 0;
-	UCHAR index = 0, Channel = 0;
+	unsigned char index = 0, Channel = 0;
 	/* added to prevent RF register reading error */
-	UCHAR RFValue = 0;
+	unsigned char RFValue = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
 	SYNC_CHANNEL_WITH_QA(pATEInfo, &Channel);
@@ -168,9 +168,9 @@ INT MT7601ATETxPwrHandler(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	CHAR TxPower = 0;
-	UCHAR MaxPower;
+	unsigned char MaxPower;
 	unsigned int RegValue = 0;
-	UCHAR Channel = pATEInfo->Channel;
+	unsigned char Channel = pATEInfo->Channel;
 
 #ifdef RALINK_QA
 	if ((pATEInfo->bQATxStart == TRUE) || (pATEInfo->bQARxStart == TRUE))
@@ -236,8 +236,8 @@ INT	MT7601_Set_ATE_TX_BW_Proc(
 	IN	char *			arg)
 {
 	INT powerIndex;
-	UCHAR value = 0;
-	UCHAR BBPCurrentBW;
+	unsigned char value = 0;
+	unsigned char BBPCurrentBW;
 	INT IdReg;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
@@ -395,12 +395,12 @@ BOOLEAN MT7601ATEGetTssiCompensationParam(
 	OUT 	int * 				TargetPower)
 {
 #define MAX_TSSI_WAITING_COUNT	40
-	UCHAR BBPReg;
-	UCHAR PacketType;
-	UCHAR BbpR47;
-	UCHAR TxRate;
+	unsigned char BBPReg;
+	unsigned char PacketType;
+	unsigned char BbpR47;
+	unsigned char TxRate;
 	INT32 Power;
-	UCHAR ch = 0;
+	unsigned char ch = 0;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 	if ((pAd->ate.Channel >= 1) && (pAd->ate.Channel <= 14))
@@ -648,11 +648,11 @@ VOID MT7601ATEAsicTxAlcGetAutoAgcOffset(
 	IN PRTMP_ADAPTER 			pAd)
 {
 	INT32 TargetPower, CurrentPower, PowerDiff;
-	UCHAR TssiLinear0, TssiLinear1;
+	unsigned char TssiLinear0, TssiLinear1;
 	CHAR tssi_offset;
 	INT16 tssi_db, tssi_m_dc;
 	unsigned int value;
-	UCHAR ch = 0;
+	unsigned char ch = 0;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 	//PATE_INFO pATEInfo = &(pAd->ate);
 
@@ -827,8 +827,8 @@ INT	MT7601_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UCHAR RFFreqOffset = 0;
-	UCHAR RFValue = 0;
+	unsigned char RFFreqOffset = 0;
+	unsigned char RFValue = 0;
 	RFFreqOffset = simple_strtol(arg, 0, 10);
 
 	pAd->ate.RFFreqOffset = RFFreqOffset;
@@ -858,7 +858,7 @@ INT	MT7601_Set_ATE_TX_FREQ_OFFSET_Proc(
 VOID MT7601ATERxVGAInit(
 	IN PRTMP_ADAPTER		pAd)
 {
-	UCHAR R66 = 0x14;
+	unsigned char R66 = 0x14;
 	
 	//RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R66, 0x14);
 

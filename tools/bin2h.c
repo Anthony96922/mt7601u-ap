@@ -143,7 +143,7 @@ int main(int argc ,char *argv[])
     fputs("\n",outfile);
     fputs("\n",outfile);
 
-    fprintf(outfile, "UCHAR %s[] = {\n", fw_name);
+    fprintf(outfile, "unsigned char %s[] = {\n", fw_name);
 
     while(1)
     {

@@ -376,7 +376,7 @@ VOID RT_AES_Encrypt (
     }
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&paes_ctx, sizeof(AES_CTX_STRUC));
+	os_alloc_mem(NULL, (unsigned char **)&paes_ctx, sizeof(AES_CTX_STRUC));
 	if (paes_ctx == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -562,7 +562,7 @@ VOID RT_AES_Decrypt (
     }
 
 	/* allocate memory */
-	os_alloc_mem(NULL, (UCHAR **)&paes_ctx, sizeof(AES_CTX_STRUC));
+	os_alloc_mem(NULL, (unsigned char **)&paes_ctx, sizeof(AES_CTX_STRUC));
 	if (paes_ctx == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
@@ -1459,7 +1459,7 @@ INT AES_Key_Wrap (
             KeyLength, AES_KEY128_LENGTH, AES_KEY192_LENGTH, AES_KEY256_LENGTH));
         return -1;
     } /* End of if */    
-	os_alloc_mem(NULL, (UCHAR **)&pResult, sizeof(unsigned char)*PlainTextLength);
+	os_alloc_mem(NULL, (unsigned char **)&pResult, sizeof(unsigned char)*PlainTextLength);
 /*    if ((pResult = (unsigned char *) kmalloc(sizeof(unsigned char)*PlainTextLength, GFP_ATOMIC)) == NULL) {
 */
     if (pResult == NULL) {
@@ -1554,7 +1554,7 @@ INT AES_Key_Unwrap (
             KeyLength, AES_KEY128_LENGTH, AES_KEY192_LENGTH, AES_KEY256_LENGTH));
         return -1;
     } /* End of if */    
-	os_alloc_mem(NULL, (UCHAR **)&pResult, sizeof(unsigned char)*PlainLength);
+	os_alloc_mem(NULL, (unsigned char **)&pResult, sizeof(unsigned char)*PlainLength);
 /*    if ((pResult = (unsigned char *) kmalloc(sizeof(unsigned char)*PlainLength, GFP_ATOMIC)) == NULL) {
 */
     if (pResult == NULL) {

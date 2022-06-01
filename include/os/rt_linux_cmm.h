@@ -30,7 +30,7 @@
 
 
 typedef struct _OS_RSTRUC  {
-	UCHAR *pContent; /* pointer to real structure content */
+	unsigned char *pContent; /* pointer to real structure content */
 } OS_RSTRUC;
 
 

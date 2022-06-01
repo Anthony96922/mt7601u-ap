@@ -28,7 +28,7 @@
 */
 #include "rt_config.h"
 
-extern UCHAR	EAPOL[];
+extern unsigned char	EAPOL[];
 
 /*
     ==========================================================================
@@ -78,7 +78,7 @@ BOOLEAN RTMPCheckMcast(
     IN PEID_STRUCT      eid_ptr,
     IN MAC_TABLE_ENTRY  *pEntry)
 {
-	UCHAR apidx;
+	unsigned char apidx;
 
 
 	ASSERT(pEntry);
@@ -103,7 +103,7 @@ BOOLEAN RTMPCheckMcast(
         }
         else if (eid_ptr->Eid == IE_WPA2)
         {
-            UCHAR   IE_Idx = 0;
+            unsigned char   IE_Idx = 0;
 
             /* When WPA1/WPA2 mix mode, the RSN_IE is stored in different structure */
             if ((pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA1WPA2) || 
@@ -139,7 +139,7 @@ BOOLEAN RTMPCheckUcast(
 {
 	unsigned char * 	pStaTmp;
 	USHORT	Count;
-	UCHAR 	apidx;
+	unsigned char 	apidx;
 
 	ASSERT(pEntry);
 	ASSERT(pEntry->apidx < pAd->ApCfg.BssidNum);
@@ -240,7 +240,7 @@ BOOLEAN RTMPCheckUcast(
     	}
     	else if (eid_ptr->Eid == IE_WPA2)
     	{
-    		UCHAR	IE_Idx = 0;
+    		unsigned char	IE_Idx = 0;
 
 			/* When WPA1/WPA2 mix mode, the RSN_IE is stored in different structure */
 			if ((pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA1WPA2) || (pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA1PSKWPA2PSK))
@@ -376,7 +376,7 @@ BOOLEAN RTMPCheckAUTH(
 {
 	unsigned char * pStaTmp;
 	USHORT Count;	
-	UCHAR 	apidx;
+	unsigned char 	apidx;
 
 	ASSERT(pEntry);
 	ASSERT(pEntry->apidx < pAd->ApCfg.BssidNum);
@@ -446,7 +446,7 @@ BOOLEAN RTMPCheckAUTH(
     	}
     	else if (eid_ptr->Eid == IE_WPA2)
     	{
-    		UCHAR	IE_Idx = 0;
+    		unsigned char	IE_Idx = 0;
 
 			/* When WPA1/WPA2 mix mode, the RSN_IE is stored in different structure */
 			if ((pAd->ApCfg.MBSSID[apidx].AuthMode == Ndis802_11AuthModeWPA1WPA2) || 
@@ -480,7 +480,7 @@ UINT	APValidateRSNIE(
 	IN PRTMP_ADAPTER    pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char *			pRsnIe,
-	IN UCHAR			rsnie_len)
+	IN unsigned char			rsnie_len)
 {
 	UINT StatusCode = MLME_SUCCESS;
 	PEID_STRUCT  eid_ptr;
@@ -532,7 +532,7 @@ UINT	APValidateRSNIE(
 	}
 	else
 	{
-        UCHAR CipherAlg = CIPHER_NONE;
+        unsigned char CipherAlg = CIPHER_NONE;
 		
         if (pEntry->WepStatus == Ndis802_11Encryption1Enabled)
             CipherAlg = CIPHER_WEP64;
@@ -733,7 +733,7 @@ VOID WPARetryExec(
 
 			if (pEntry->MatchAPCLITabIdx < MAX_APCLI_NUM)
 			{		
-				UCHAR ifIndex = pEntry->MatchAPCLITabIdx;				
+				unsigned char ifIndex = pEntry->MatchAPCLITabIdx;				
 								
 				DBGPRINT(RT_DEBUG_TRACE, ("(%s) ApCli interface[%d] startdown.\n", __FUNCTION__, ifIndex));
 				MlmeEnqueue(pAd, APCLI_CTRL_STATE_MACHINE, APCLI_CTRL_DISCONNECT_REQ, 0, NULL, ifIndex);
@@ -807,7 +807,7 @@ VOID GREKEYPeriodicExec(
 
 			/* Update GTK */
 			WpaDeriveGTK(pMbss->GMK, 
-						(UCHAR*)pMbss->GNonce, 
+						(unsigned char*)pMbss->GNonce, 
 						pMbss->Bssid, pMbss->GTK, LEN_TKIP_GTK);
 				
 			/* Process 2-way handshaking */
@@ -882,8 +882,8 @@ VOID WpaSend(
     IN  unsigned long           Len)
 {
     PEAP_HDR        	pEapHdr;
-    UCHAR         		Addr[MAC_ADDR_LEN];
-	UCHAR				Header802_3[LENGTH_802_3];
+    unsigned char         		Addr[MAC_ADDR_LEN];
+	unsigned char				Header802_3[LENGTH_802_3];
     MAC_TABLE_ENTRY 	*pEntry;
 	unsigned char *				pData;
     
@@ -968,8 +968,8 @@ VOID RTMPAddPMKIDCache(
 	IN  PRTMP_ADAPTER   		pAd,
 	IN	INT						apidx,
 	IN	unsigned char *				pAddr,
-	IN	UCHAR					*PMKID,
-	IN	UCHAR					*PMK)
+	IN	unsigned char					*PMKID,
+	IN	unsigned char					*PMK)
 {
 	INT	i, CacheIdx;
 
@@ -1096,12 +1096,12 @@ VOID RTMPMaintainPMKIDCache(
 
 VOID RTMPGetTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
-	IN	UCHAR			apidx,
+	IN	unsigned char			apidx,
 	OUT	unsigned char *			pTxTsc)
 {
 	USHORT			Wcid;
 	USHORT			offset;
-	UCHAR			IvEiv[8];
+	unsigned char			IvEiv[8];
 	int				i;
 
 	/* Sanity check of apidx */
@@ -1141,8 +1141,8 @@ VOID RTMPGetTxTscFromAsic(
 		RTMP_IO_READ32(pAd, offset+4, &temp2);
 		for ( i=0; i<4; i++)
 		{
-			IvEiv[i] = (UCHAR)(temp1 >> (i*8));
-			IvEiv[i+4] = (UCHAR)(temp2 >> (i*8));
+			IvEiv[i] = (unsigned char)(temp1 >> (i*8));
+			IvEiv[i+4] = (unsigned char)(temp2 >> (i*8));
 		}
 	}
 
@@ -1222,23 +1222,23 @@ VOID RTMPHandleSTAKey(
     IN PMAC_TABLE_ENTRY	pEntry,
     IN MLME_QUEUE_ELEM  *Elem) 
 {
-	extern UCHAR		OUI_WPA2_WEP40[];
+	extern unsigned char		OUI_WPA2_WEP40[];
 	unsigned long				FrameLen = 0;
 	unsigned char *				pOutBuffer = NULL;
-	UCHAR				Header802_3[14];
-	UCHAR				*mpool;
+	unsigned char				Header802_3[14];
+	unsigned char				*mpool;
 	PEAPOL_PACKET		pOutPacket;
 	PEAPOL_PACKET		pSTAKey;
 	PHEADER_802_11		pHeader;
-	UCHAR				Offset = 0;
+	unsigned char				Offset = 0;
 	unsigned long				MICMsgLen;
-	UCHAR				DA[MAC_ADDR_LEN];
-	UCHAR				Key_Data[512];
-	UCHAR				key_length;
-	UCHAR				mic[LEN_KEY_DESC_MIC];
-	UCHAR				rcv_mic[LEN_KEY_DESC_MIC];
-	UCHAR				digest[80];
-	UCHAR				temp[64];
+	unsigned char				DA[MAC_ADDR_LEN];
+	unsigned char				Key_Data[512];
+	unsigned char				key_length;
+	unsigned char				mic[LEN_KEY_DESC_MIC];
+	unsigned char				rcv_mic[LEN_KEY_DESC_MIC];
+	unsigned char				digest[80];
+	unsigned char				temp[64];
 	PMAC_TABLE_ENTRY	pDaEntry;
 
 	/*Benson add for big-endian 20081016--> */
@@ -1565,11 +1565,11 @@ VOID    ApcliWpaSendEapolStart(
 	IN	PAPCLI_STRUCT pApCliEntry)
 {
 	IEEE8021X_FRAME		Packet;
-	UCHAR               Header802_3[14];
+	unsigned char               Header802_3[14];
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> ApCliWpaSendEapolStart\n"));
 
-	NdisZeroMemory(Header802_3,sizeof(UCHAR)*14);
+	NdisZeroMemory(Header802_3,sizeof(unsigned char)*14);
 
 	MAKE_802_3_HEADER(Header802_3, pBssid, &pApCliEntry->CurrentAddress[0], EAPOL);
 	

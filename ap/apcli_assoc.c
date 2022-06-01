@@ -70,13 +70,13 @@ static VOID ApCliAssocPostProc(
 	IN unsigned char * pAddr2, 
 	IN USHORT CapabilityInfo, 
 	IN USHORT IfIndex, 
-	IN UCHAR SupRate[], 
-	IN UCHAR SupRateLen,
-	IN UCHAR ExtRate[],
-	IN UCHAR ExtRateLen,
+	IN unsigned char SupRate[], 
+	IN unsigned char SupRateLen,
+	IN unsigned char ExtRate[],
+	IN unsigned char ExtRateLen,
 	IN PEDCA_PARM pEdcaParm,
 	IN HT_CAPABILITY_IE *pHtCapability,
-	IN UCHAR HtCapabilityLen, 
+	IN unsigned char HtCapabilityLen, 
 	IN ADD_HT_INFO_IE *pAddHtInfo);
 
 DECLARE_TIMER_FUNCTION(ApCliAssocTimeout);
@@ -97,7 +97,7 @@ VOID ApCliAssocStateMachineInit(
 	IN  STATE_MACHINE *S, 
 	OUT STATE_MACHINE_FUNC Trans[]) 
 {
-	UCHAR i;
+	unsigned char i;
 
 	StateMachineInit(S, (STATE_MACHINE_FUNC*)Trans,
 		APCLI_MAX_ASSOC_STATE, APCLI_MAX_ASSOC_MSG,
@@ -174,25 +174,25 @@ static VOID ApCliMlmeAssocReqAction(
 {
 	NDIS_STATUS		 NStatus;
 	BOOLEAN          Cancelled;
-	UCHAR            ApAddr[6];
+	unsigned char            ApAddr[6];
 	HEADER_802_11    AssocHdr;
-	UCHAR            WmeIe[9] = {IE_VENDOR_SPECIFIC, 0x07, 0x00, 0x50, 0xf2, 0x02, 0x00, 0x01, 0x00};
+	unsigned char            WmeIe[9] = {IE_VENDOR_SPECIFIC, 0x07, 0x00, 0x50, 0xf2, 0x02, 0x00, 0x01, 0x00};
 	USHORT           ListenIntv;
 	unsigned long            Timeout;
 	USHORT           CapabilityInfo;
 	unsigned char *           pOutBuffer = NULL;
 	unsigned long            FrameLen = 0;
 	unsigned long            tmp;
-	UCHAR            SsidIe    = IE_SSID;
-	UCHAR            SupRateIe = IE_SUPP_RATES;
-	UCHAR            ExtRateIe = IE_EXT_SUPP_RATES;
+	unsigned char            SsidIe    = IE_SSID;
+	unsigned char            SupRateIe = IE_SUPP_RATES;
+	unsigned char            ExtRateIe = IE_EXT_SUPP_RATES;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 	USHORT			VarIesOffset = 0;
 #endif /* APCLI_WPA_SUPPLICANT_SUPPORT */
-	UCHAR RSNIe = IE_WPA;
+	unsigned char RSNIe = IE_WPA;
 	if (ifIndex >= MAX_APCLI_NUM)
 		return;
 
@@ -321,7 +321,7 @@ static VOID ApCliMlmeAssocReqAction(
 			if ((pAd->CommonCfg.bPiggyBackCapable) && ((pAd->ApCliMlmeAux.APRalinkIe & 0x00000003) == 3))
 			{
 				unsigned long TmpLen;
-				UCHAR RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x03, 0x00, 0x00, 0x00}; 
+				unsigned char RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x03, 0x00, 0x00, 0x00}; 
 				MakeOutgoingFrame(pOutBuffer+FrameLen,           &TmpLen,
 								  9,                             RalinkIe,
 								  END_OF_ARGS);
@@ -331,7 +331,7 @@ static VOID ApCliMlmeAssocReqAction(
 			if (pAd->ApCliMlmeAux.APRalinkIe & 0x00000001)
 			{
 				unsigned long TmpLen;
-				UCHAR RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x01, 0x00, 0x00, 0x00}; 
+				unsigned char RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x01, 0x00, 0x00, 0x00}; 
 				MakeOutgoingFrame(pOutBuffer+FrameLen,           &TmpLen,
 								  9,                             RalinkIe,
 								  END_OF_ARGS);
@@ -341,7 +341,7 @@ static VOID ApCliMlmeAssocReqAction(
 		else
 		{
 			unsigned long TmpLen;
-			UCHAR RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x06, 0x00, 0x00, 0x00}; 
+			unsigned char RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x06, 0x00, 0x00, 0x00}; 
 			MakeOutgoingFrame(pOutBuffer+FrameLen,		 &TmpLen,
 							  9,						 RalinkIe,
 							  END_OF_ARGS);
@@ -592,17 +592,17 @@ static VOID ApCliPeerAssocRspAction(
 {
 	BOOLEAN				Cancelled;
 	USHORT				CapabilityInfo, Status, Aid;
-	UCHAR				SupRate[MAX_LEN_OF_SUPPORTED_RATES], SupRateLen;
-	UCHAR				ExtRate[MAX_LEN_OF_SUPPORTED_RATES], ExtRateLen;
-	UCHAR				Addr2[MAC_ADDR_LEN];
+	unsigned char				SupRate[MAX_LEN_OF_SUPPORTED_RATES], SupRateLen;
+	unsigned char				ExtRate[MAX_LEN_OF_SUPPORTED_RATES], ExtRateLen;
+	unsigned char				Addr2[MAC_ADDR_LEN];
 	EDCA_PARM			EdcaParm;
-	UCHAR				CkipFlag;
+	unsigned char				CkipFlag;
 	APCLI_CTRL_MSG_STRUCT	ApCliCtrlMsg;
 	HT_CAPABILITY_IE	HtCapability;
 	ADD_HT_INFO_IE		AddHtInfo;	/* AP might use this additional ht info IE */
-	UCHAR				HtCapabilityLen;
-	UCHAR				AddHtInfoLen;
-	UCHAR				NewExtChannelOffset = 0xff;
+	unsigned char				HtCapabilityLen;
+	unsigned char				AddHtInfoLen;
+	unsigned char				NewExtChannelOffset = 0xff;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 
@@ -655,7 +655,7 @@ static VOID ApCliPeerDisassocAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	UCHAR         Addr2[MAC_ADDR_LEN];
+	unsigned char         Addr2[MAC_ADDR_LEN];
 	USHORT        Reason;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
@@ -746,13 +746,13 @@ static VOID ApCliAssocPostProc(
 	IN unsigned char * pAddr2, 
 	IN USHORT CapabilityInfo, 
 	IN USHORT IfIndex, 
-	IN UCHAR SupRate[], 
-	IN UCHAR SupRateLen,
-	IN UCHAR ExtRate[],
-	IN UCHAR ExtRateLen,
+	IN unsigned char SupRate[], 
+	IN unsigned char SupRateLen,
+	IN unsigned char ExtRate[],
+	IN unsigned char ExtRateLen,
 	IN PEDCA_PARM pEdcaParm,
 	IN HT_CAPABILITY_IE *pHtCapability,
-	IN UCHAR HtCapabilityLen, 
+	IN unsigned char HtCapabilityLen, 
 	IN ADD_HT_INFO_IE *pAddHtInfo)
 {
 

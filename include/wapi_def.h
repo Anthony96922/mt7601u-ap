@@ -78,9 +78,9 @@
 #define STATUS_WAPI_IV_MISMATCH		2
 #define STATUS_WAPI_MIC_DIFF		3
 
-extern UCHAR AE_BCAST_PN[LEN_WAPI_TSC];
-extern UCHAR ASUE_UCAST_PN[LEN_WAPI_TSC];
-extern UCHAR AE_UCAST_PN[LEN_WAPI_TSC];
+extern unsigned char AE_BCAST_PN[LEN_WAPI_TSC];
+extern unsigned char ASUE_UCAST_PN[LEN_WAPI_TSC];
+extern unsigned char AE_UCAST_PN[LEN_WAPI_TSC];
 
 /* WAPI authentication mode */
 typedef enum _WAPI_AUTH_MODE
@@ -100,13 +100,13 @@ typedef enum _KEY_TYPE_MODE
 /* the defintion of WAI header */
 typedef	struct GNU_PACKED _HEADER_WAI	{    
     USHORT          version;
-	UCHAR			type;
-	UCHAR			sub_type;
+	unsigned char			type;
+	unsigned char			sub_type;
 	USHORT			reserved;
 	USHORT			length;
 	USHORT			pkt_seq;
-	UCHAR			frag_seq;
-	UCHAR			flag;
+	unsigned char			frag_seq;
+	unsigned char			flag;
 }	HEADER_WAI, *PHEADER_WAI;
 
 /* For WAPI */
@@ -114,7 +114,7 @@ typedef struct GNU_PACKED _WAPIIE {
     USHORT  version;    
     USHORT  acount;
     struct GNU_PACKED {
-        UCHAR oui[4];
+        unsigned char oui[4];
     }auth[1];
 } WAPIIE, *PWAPIIE;
 
@@ -122,13 +122,13 @@ typedef struct GNU_PACKED _WAPIIE {
 typedef struct GNU_PACKED _WAPIIE_UCAST {
     USHORT ucount;
     struct GNU_PACKED {
-        UCHAR oui[4];
+        unsigned char oui[4];
     }ucast[1];
 } WAPIIE_UCAST,*PWAPIIE_UCAST;
 
 /* multi-cast key suite and capability */
 typedef struct GNU_PACKED _WAPIIE_MCAST {
-    UCHAR   mcast[4];
+    unsigned char   mcast[4];
     USHORT  capability;
 } WAPIIE_MCAST,*PWAPIIE_MCAST;
 
