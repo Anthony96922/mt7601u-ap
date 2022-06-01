@@ -8344,7 +8344,7 @@ NTSTATUS RTUSBWriteMACRegister(
 NTSTATUS RTUSBReadMACRegister(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	OUT	PUINT32			pValue);
+	OUT	unsigned int *pValue);
 
 NTSTATUS RTUSBSingleWrite(
 	IN 	RTMP_ADAPTER 	*pAd,

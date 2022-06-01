@@ -463,7 +463,7 @@ static VOID eFusePhysicalWriteRegisters(
 		efuseDataOffset =  EFUSE_DATA3;
 	for(i=0; i< 4; i++)
 	{
-		RTMP_IO_READ32(pAd, efuseDataOffset, (PUINT32) &eFuseDataBuffer[i]);
+		RTMP_IO_READ32(pAd, efuseDataOffset, (unsigned int *) &eFuseDataBuffer[i]);
 #if defined(RT3290) || defined(RT65xx) || defined(MT7601)
 	if (IS_RT3290(pAd) || IS_RT65XX(pAd) || IS_MT7601(pAd))
 			efuseDataOffset += 4;
@@ -1206,7 +1206,7 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 		i = 0;
 		while(i < 100)
 		{	
-			RTMP_IO_READ32(pAd, EFUSE_CTRL, (PUINT32) &eFuseCtrlStruc);
+			RTMP_IO_READ32(pAd, EFUSE_CTRL, (unsigned int *) &eFuseCtrlStruc);
 
 			if(eFuseCtrlStruc.field.EFSROM_KICK == 0)
 				break;
@@ -1239,7 +1239,7 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 		i = 0;
 		while(i < 500)
 		{	
-			RTMP_IO_READ32(pAd, EFUSE_CTRL, (PUINT32) &eFuseCtrlStruc);
+			RTMP_IO_READ32(pAd, EFUSE_CTRL, (unsigned int *) &eFuseCtrlStruc);
 
 			if(eFuseCtrlStruc.field.EFSROM_KICK == 0)
 				break;
@@ -1251,7 +1251,7 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 		efuseDataOffset =  EFUSE_DATA3;		
 		for(i=0; i< 4; i++)
 		{
-			RTMP_IO_READ32(pAd, efuseDataOffset, (PUINT32) &buffer[i]);
+			RTMP_IO_READ32(pAd, efuseDataOffset, (unsigned int *) &buffer[i]);
 			efuseDataOffset -=  4;		
 		}
 		/*Step1.2.5. Check if the data of efuse and the writing data are the same.*/

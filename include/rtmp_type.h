@@ -56,7 +56,6 @@ typedef unsigned long ULONG;
 
 typedef unsigned char *PUINT8;
 typedef unsigned short *PUINT16;
-typedef unsigned int *PUINT32;
 typedef unsigned long long *PUINT64;
 typedef int *PINT32;
 typedef long long *PINT64;
