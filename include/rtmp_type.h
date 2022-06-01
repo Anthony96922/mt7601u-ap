@@ -42,7 +42,6 @@
 /* For example, linux type definition */
 typedef short INT16;
 typedef int INT32;
-typedef long long INT64;
 #endif /* LINUX */
 
 /* modified for fixing compile warning on Sigma 8634 platform */
@@ -72,7 +71,7 @@ typedef union _LARGE_INTEGER {
 		INT32 HighPart;
 #endif
 	} u;
-	INT64 QuadPart;
+	long long QuadPart;
 } LARGE_INTEGER;
 
 
