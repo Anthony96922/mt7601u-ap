@@ -199,7 +199,7 @@ INT ATESetUpFrame(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	UINT pos = 0;
 	PTX_CONTEXT	pNullContext;
-	PUCHAR			pDest;
+	unsigned char *			pDest;
 	HTTRANSMIT_SETTING	TxHTPhyMode;
 	TXWI_STRUC *pTxWI;
 	TXINFO_STRUC *pTxInfo;	
@@ -244,7 +244,7 @@ INT ATESetUpFrame(
 		}
 
 #ifdef RT_BIG_ENDIAN
-		RTMPFrameEndianChange(pAd, (PUCHAR)&(pAd->NullFrame), DIR_READ, FALSE);
+		RTMPFrameEndianChange(pAd, (unsigned char *)&(pAd->NullFrame), DIR_READ, FALSE);
 #endif /* RT_BIG_ENDIAN */
 
 #ifdef RALINK_QA
@@ -392,9 +392,9 @@ INT ATESetUpFrame(
 	}
 
 #ifdef RT_BIG_ENDIAN
-	RTMPWIEndianChange(pAd, (PUCHAR)pTxWI, TYPE_TXWI);
-	RTMPFrameEndianChange(pAd, (((PUCHAR)pTxInfo) + TXWISize + TXINFO_SIZE), DIR_WRITE, FALSE);
-	RTMPDescriptorEndianChange((PUCHAR)pTxInfo, TYPE_TXINFO);
+	RTMPWIEndianChange(pAd, (unsigned char *)pTxWI, TYPE_TXWI);
+	RTMPFrameEndianChange(pAd, (((unsigned char *)pTxInfo) + TXWISize + TXINFO_SIZE), DIR_WRITE, FALSE);
+	RTMPDescriptorEndianChange((unsigned char *)pTxInfo, TYPE_TXINFO);
 #endif /* RT_BIG_ENDIAN */
 
 	hex_dump("ATE TX", &pAd->NullContext[0].TransferBuffer->field.WirelessPacket[0], TXWISize + TXINFO_SIZE);

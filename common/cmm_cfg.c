@@ -566,7 +566,7 @@ INT RT_CfgSetWPAPSKKey(
 	IN INT		keyStringLen,
 	IN UCHAR	*pHashStr,
 	IN INT		hashStrLen,
-	OUT PUCHAR	pPMKBuf)
+	OUT unsigned char *	pPMKBuf)
 {
 	UCHAR keyMaterial[40];
 
@@ -1183,7 +1183,7 @@ INT RTMP_COM_IoctlHandle(
 #ifdef APCLI_SUPPORT
 				if ((pStats->priv_flags == INT_APCLI))
 				{
-					INT ApCliIdx = ApCliIfLookUp(pAd, (PUCHAR)pStats->dev_addr);
+					INT ApCliIdx = ApCliIfLookUp(pAd, (unsigned char *)pStats->dev_addr);
 					if ((ApCliIdx >= 0) && VALID_WCID(pAd->ApCfg.ApCliTab[ApCliIdx].MacTabWCID))
 						pMacEntry = &pAd->MacTab.Content[pAd->ApCfg.ApCliTab[ApCliIdx].MacTabWCID];
 				}

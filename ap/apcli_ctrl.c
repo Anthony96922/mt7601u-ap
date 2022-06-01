@@ -192,7 +192,7 @@ static VOID ApCliCtrlJoinReqAction(
 		NdisMoveMemory(JoinReq.Ssid, pAd->ApCfg.ApCliTab[ifIndex].WscControl.WscSsid.Ssid, JoinReq.SsidLen);
 		if (pWpsCtrl->WscMode == 1) /* PIN */
 		{
-			bss_idx = BssSsidTableSearchBySSID(&pAd->ScanTab, (PUCHAR)(JoinReq.Ssid), JoinReq.SsidLen);
+			bss_idx = BssSsidTableSearchBySSID(&pAd->ScanTab, (unsigned char *)(JoinReq.Ssid), JoinReq.SsidLen);
 			if (bss_idx == BSS_NOT_FOUND)
 			{
 				ApSiteSurvey(pAd, NULL, SCAN_WSC_ACTIVE, FALSE);

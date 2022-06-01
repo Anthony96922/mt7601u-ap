@@ -258,7 +258,7 @@ void ba_reordering_resource_release(PRTMP_ADAPTER pAd)
 BOOLEAN ba_reordering_resource_init(PRTMP_ADAPTER pAd, int num)
 {
 	int     i;
-	PUCHAR  mem;
+	unsigned char *  mem;
 	struct reordering_mpdu *mpdu_blk;
 	struct reordering_list *freelist;
 
@@ -273,7 +273,7 @@ BOOLEAN ba_reordering_resource_init(PRTMP_ADAPTER pAd, int num)
 	DBGPRINT(RT_DEBUG_TRACE, ("Allocate %d memory for BA reordering\n", (UINT32)(num*sizeof(struct reordering_mpdu))));
 
 	/* allocate number of mpdu_blk memory */
-	os_alloc_mem(pAd, (PUCHAR *)&mem, (num*sizeof(struct reordering_mpdu)));
+	os_alloc_mem(pAd, (unsigned char * *)&mem, (num*sizeof(struct reordering_mpdu)));
 
 	pAd->mpdu_blk_pool.mem = mem;
 
@@ -566,7 +566,7 @@ VOID BAOriSessionAdd(
 	BOOLEAN		Cancelled;
 	UCHAR		TID;
 	USHORT		Idx;
-	PUCHAR		pOutBuffer2 = NULL;
+	unsigned char *		pOutBuffer2 = NULL;
 	NDIS_STATUS	NStatus;
 	ULONG		FrameLen;
 	FRAME_BAR	FrameBar;
@@ -1199,7 +1199,7 @@ VOID PeerAddBAReqAction(
 	UCHAR   Status = 1;
 	UCHAR   pAddr[6];
 	FRAME_ADDBA_RSP ADDframe;
-	PUCHAR         pOutBuffer = NULL;
+	unsigned char *         pOutBuffer = NULL;
 	NDIS_STATUS     NStatus;
 	PFRAME_ADDBA_REQ  pAddreqFrame = NULL;
 	/*UCHAR		BufSize;*/
@@ -1299,9 +1299,9 @@ VOID PeerAddBAReqAction(
 	{
 		BA_PARM		tmpBaParm;
 
-		NdisMoveMemory((PUCHAR)(&tmpBaParm), (PUCHAR)(&ADDframe.BaParm), sizeof(BA_PARM));
+		NdisMoveMemory((unsigned char *)(&tmpBaParm), (unsigned char *)(&ADDframe.BaParm), sizeof(BA_PARM));
 		*(USHORT *)(&tmpBaParm) = cpu2le16(*(USHORT *)(&tmpBaParm));
-		NdisMoveMemory((PUCHAR)(&ADDframe.BaParm), (PUCHAR)(&tmpBaParm), sizeof(BA_PARM));
+		NdisMoveMemory((unsigned char *)(&ADDframe.BaParm), (unsigned char *)(&tmpBaParm), sizeof(BA_PARM));
 	}
 #else
 	*(USHORT *)(&ADDframe.BaParm) = cpu2le16(*(USHORT *)(&ADDframe.BaParm));
@@ -1327,7 +1327,7 @@ VOID PeerAddBARspAction(
 
 {
 	/*UCHAR		Idx, i;*/
-	/*PUCHAR		   pOutBuffer = NULL;*/
+	/*unsigned char *		   pOutBuffer = NULL;*/
 	PFRAME_ADDBA_RSP    pFrame = NULL;
 	/*PBA_ORI_ENTRY		pBAEntry;*/
 	
@@ -1370,7 +1370,7 @@ VOID PeerDelBAAction(
 
 {
 	/*UCHAR				Idx;*/
-	/*PUCHAR				pOutBuffer = NULL;*/
+	/*unsigned char *				pOutBuffer = NULL;*/
 	PFRAME_DELBA_REQ    pDelFrame = NULL;
 	
 	DBGPRINT(RT_DEBUG_TRACE,("%s ==>\n", __FUNCTION__));
@@ -1460,7 +1460,7 @@ VOID SendPSMPAction(
 				   IN UCHAR				Wcid,
 				   IN UCHAR				Psmp) 
 {
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	FRAME_PSMP_ACTION Frame;
 	ULONG FrameLen;
@@ -1552,7 +1552,7 @@ VOID SendBeaconRequest(
 				   IN PRTMP_ADAPTER		pAd,
 				   IN UCHAR				Wcid)
 {
-	PUCHAR          	pOutBuffer = NULL;
+	unsigned char *          	pOutBuffer = NULL;
 	NDIS_STATUS     	NStatus;
 	FRAME_RM_REQ_ACTION   Frame;
 	ULONG           	FrameLen;

@@ -188,7 +188,7 @@
 
 #define WPA_OS_MALLOC(_p, _s)		\
 {									\
-	os_alloc_mem(NULL, (PUCHAR *)&_p, _s);		\
+	os_alloc_mem(NULL, (unsigned char * *)&_p, _s);		\
 }
 
 #define WPA_OS_FREE(_p)		\
@@ -258,7 +258,7 @@ VOID WpaShowAllsuite(
 	IN UINT rsnie_len);
 
 VOID RTMPInsertRSNIE(
-	IN PUCHAR pFrameBuf,
+	IN unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN unsigned char * rsnie_ptr,
 	IN UINT8 rsnie_len,
@@ -273,9 +273,9 @@ VOID RTMPInsertRSNIE(
 VOID RTMPToWirelessSta(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN PUCHAR pHeader802_3,
+	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
-	IN PUCHAR pData,
+	IN unsigned char * pData,
 	IN UINT DataLen,
 	IN BOOLEAN bClearFrame);
 
@@ -304,7 +304,7 @@ VOID GenRandom(
 BOOLEAN RTMPCheckWPAframe(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN PUCHAR pData,
+	IN unsigned char * pData,
 	IN ULONG DataByteCount,
 	IN UCHAR FromWhichBSSID);
 
@@ -312,14 +312,14 @@ BOOLEAN RTMPCheckWPAframe(
 BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN PUCHAR pData,
+	IN unsigned char * pData,
 	IN ULONG DataByteCount,
 	IN UCHAR FromWhichBSSID);
 #endif /* HDR_TRANS_SUPPORT */
 
 BOOLEAN RTMPParseEapolKeyData(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pKeyData,
+	IN unsigned char * pKeyData,
 	IN UCHAR KeyDataLen,
 	IN UCHAR GroupKeyIndex,
 	IN UCHAR MsgType,
@@ -329,7 +329,7 @@ BOOLEAN RTMPParseEapolKeyData(
 VOID WPA_ConstructKdeHdr(
 	IN UINT8 data_type,
 	IN UINT8 data_len,
-	OUT PUCHAR pBuf);
+	OUT unsigned char * pBuf);
 
 VOID ConstructEapolMsg(
 	IN PMAC_TABLE_ENTRY pEntry,
@@ -345,30 +345,30 @@ VOID ConstructEapolMsg(
 
 PCIPHER_KEY RTMPSwCipherKeySelection(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pIV,
+	IN unsigned char * pIV,
 	IN RX_BLK *pRxBlk,
 	IN PMAC_TABLE_ENTRY pEntry);
 
 NDIS_STATUS RTMPSoftDecryptionAction(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pHdr,
+	IN unsigned char * pHdr,
 	IN UCHAR UserPriority,
 	IN PCIPHER_KEY pKey,
-	INOUT PUCHAR pData,
+	INOUT unsigned char * pData,
 	INOUT UINT16 *DataByteCnt);
 
 VOID RTMPSoftConstructIVHdr(
 	IN UCHAR CipherAlg,
 	IN UCHAR key_id,
-	IN PUCHAR pTxIv,
-	OUT PUCHAR pHdrIv,
+	IN unsigned char * pTxIv,
+	OUT unsigned char * pHdrIv,
 	OUT UINT8 *hdr_iv_len);
 
 VOID RTMPSoftEncryptionAction(
 	IN PRTMP_ADAPTER pAd,
 	IN UCHAR CipherAlg,
-	IN PUCHAR pHdr,
-	IN PUCHAR pSrcBufData,
+	IN unsigned char * pHdr,
+	IN unsigned char * pSrcBufData,
 	IN UINT32 SrcBufLen,
 	IN UCHAR KeyIdx,
 	IN PCIPHER_KEY pKey,
@@ -420,7 +420,7 @@ PSTRING GetEapolMsgType(
 */
 UINT RTMP_CALC_FCS32(
 	IN UINT Fcs,
-	IN PUCHAR Cp,
+	IN unsigned char * Cp,
 	IN INT Len);
 
 VOID RTMPConstructWEPIVHdr(
@@ -430,15 +430,15 @@ VOID RTMPConstructWEPIVHdr(
 
 BOOLEAN RTMPSoftEncryptWEP(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pIvHdr,
+	IN unsigned char * pIvHdr,
 	IN PCIPHER_KEY pKey,
-	INOUT PUCHAR pData,
+	INOUT unsigned char * pData,
 	IN ULONG DataByteCnt);
 
 BOOLEAN RTMPSoftDecryptWEP(
 	IN PRTMP_ADAPTER pAd,
 	IN PCIPHER_KEY pKey,
-	INOUT PUCHAR pData,
+	INOUT unsigned char * pData,
 	INOUT UINT16 *DataByteCnt);
 
 /* 
@@ -448,10 +448,10 @@ BOOLEAN RTMPSoftDecryptWEP(
 */
 BOOLEAN RTMPSoftDecryptTKIP(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pHdr,
+	IN unsigned char * pHdr,
 	IN UCHAR UserPriority,
 	IN PCIPHER_KEY pKey,
-	INOUT PUCHAR pData,
+	INOUT unsigned char * pData,
 	IN UINT16 *DataByteCnt);
 
 VOID TKIP_GTK_KEY_WRAP(
@@ -475,7 +475,7 @@ VOID TKIP_GTK_KEY_UNWRAP(
 */
 BOOLEAN RTMPSoftDecryptAES(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pData,
+	IN unsigned char * pData,
 	IN ULONG DataByteCnt,
 	IN PCIPHER_KEY pWpaKey);
 
@@ -486,17 +486,17 @@ VOID RTMPConstructCCMPHdr(
 
 BOOLEAN RTMPSoftEncryptCCMP(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pHdr,
-	IN PUCHAR pIV,
-	IN PUCHAR pKey,
-	INOUT PUCHAR pData,
+	IN unsigned char * pHdr,
+	IN unsigned char * pIV,
+	IN unsigned char * pKey,
+	INOUT unsigned char * pData,
 	IN UINT32 DataLen);
 
 BOOLEAN RTMPSoftDecryptCCMP(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pHdr,
+	IN unsigned char * pHdr,
 	IN PCIPHER_KEY pKey,
-	INOUT PUCHAR pData,
+	INOUT unsigned char * pData,
 	INOUT UINT16 *DataLen);
 
 VOID CCMP_test_vector(

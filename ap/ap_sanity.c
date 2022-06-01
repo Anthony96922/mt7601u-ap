@@ -172,9 +172,9 @@ BOOLEAN PeerAssocReqCmmSanity(
 				{
 					EXT_HT_CAP_INFO extHtCapInfo;
 
-					NdisMoveMemory((PUCHAR)(&extHtCapInfo), (PUCHAR)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+					NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 					*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
-					NdisMoveMemory((PUCHAR)(&pHtCapability->ExtHtCapInfo), (PUCHAR)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
+					NdisMoveMemory((unsigned char *)(&pHtCapability->ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
 				}
 #else				
 				*(USHORT *)(&pHtCapability->ExtHtCapInfo) = cpu2le16(*(USHORT *)(&pHtCapability->ExtHtCapInfo));
@@ -229,9 +229,9 @@ BOOLEAN PeerAssocReqCmmSanity(
 								{
 									EXT_HT_CAP_INFO extHtCapInfo;
 
-									NdisMoveMemory((PUCHAR)(&extHtCapInfo), (PUCHAR)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+									NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 									*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
-									NdisMoveMemory((PUCHAR)(&pHtCapability->ExtHtCapInfo), (PUCHAR)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
+									NdisMoveMemory((unsigned char *)(&pHtCapability->ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
 								}
 #else				
 								*(USHORT *)(&pHtCapability->ExtHtCapInfo) = cpu2le16(*(USHORT *)(&pHtCapability->ExtHtCapInfo));
@@ -369,7 +369,7 @@ BOOLEAN PeerDisassocReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN ULONG MsgLen, 
-    OUT PUCHAR pAddr2, 
+    OUT unsigned char * pAddr2, 
     OUT	UINT16	*SeqNum,
     OUT USHORT *Reason) 
 {
@@ -395,7 +395,7 @@ BOOLEAN PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN ULONG MsgLen, 
-    OUT PUCHAR pAddr2, 
+    OUT unsigned char * pAddr2, 
     OUT	UINT16	*SeqNum, 
     OUT USHORT *Reason) 
 {
@@ -421,8 +421,8 @@ BOOLEAN APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN ULONG MsgLen, 
-    OUT PUCHAR pAddr1, 
-    OUT PUCHAR pAddr2, 
+    OUT unsigned char * pAddr1, 
+    OUT unsigned char * pAddr2, 
     OUT USHORT *Alg, 
     OUT USHORT *Seq, 
     OUT USHORT *Status, 

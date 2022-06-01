@@ -790,7 +790,7 @@ static UINT8 GetCurTxPwr(
 
 VOID InsertChannelRepIE(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN PSTRING pCountry,
 	IN UINT8 RegulatoryClass)
@@ -798,7 +798,7 @@ VOID InsertChannelRepIE(
 	ULONG TempLen;
 	UINT8 Len;
 	UINT8 IEId = IE_AP_CHANNEL_REPORT;
-	PUCHAR pChListPtr = NULL;
+	unsigned char * pChListPtr = NULL;
 	PDOT11_CHANNEL_SET pChannelSet = NULL;
 
 	Len = 1;
@@ -870,7 +870,7 @@ VOID InsertChannelRepIE(
  */
 VOID InsertDialogToken(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 DialogToken)
 {
@@ -898,7 +898,7 @@ VOID InsertDialogToken(
  */
  static VOID InsertTpcReqIE(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen)
 {
 	ULONG TempLen;
@@ -931,7 +931,7 @@ VOID InsertDialogToken(
  */
 VOID InsertTpcReportIE(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 TxPwr,
 	IN UINT8 LinkMargin)
@@ -976,7 +976,7 @@ VOID InsertTpcReportIE(
  */
 static VOID InsertMeasureReqIE(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 Len,
 	IN PMEASURE_REQ_INFO pMeasureReqIE)
@@ -1014,7 +1014,7 @@ static VOID InsertMeasureReqIE(
  */
 static VOID InsertMeasureReportIE(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN PMEASURE_REPORT_INFO pMeasureReportIE,
 	IN UINT8 ReportLnfoLen,
@@ -1059,7 +1059,7 @@ static VOID InsertMeasureReportIE(
  */
 VOID MakeMeasurementReqFrame(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pOutBuffer,
+	OUT unsigned char * pOutBuffer,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 TotalLen,
 	IN UINT8 Category,
@@ -1111,7 +1111,7 @@ VOID MakeMeasurementReqFrame(
  */
 VOID EnqueueMeasurementRep(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDA,
+	IN unsigned char * pDA,
 	IN UINT8 DialogToken,
 	IN UINT8 MeasureToken, 
 	IN UINT8 MeasureReqMode,
@@ -1119,7 +1119,7 @@ VOID EnqueueMeasurementRep(
 	IN UINT8 ReportInfoLen,
 	IN unsigned char * pReportInfo)
 {
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	ULONG FrameLen;
 	HEADER_802_11 ActHdr;
@@ -1169,10 +1169,10 @@ VOID EnqueueMeasurementRep(
  */
 VOID EnqueueTPCReq(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDA,
+	IN unsigned char * pDA,
 	IN UCHAR DialogToken)
 {
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	ULONG FrameLen;
 
@@ -1218,12 +1218,12 @@ VOID EnqueueTPCReq(
  */
 VOID EnqueueTPCRep(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDA,
+	IN unsigned char * pDA,
 	IN UINT8 DialogToken,
 	IN UINT8 TxPwr,
 	IN UINT8 LinkMargin)
 {
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	ULONG FrameLen;
 
@@ -1274,7 +1274,7 @@ VOID EnqueueTPCRep(
  */
 static VOID InsertChSwAnnIE(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 ChSwMode,
 	IN UINT8 NewChannel,
@@ -1317,11 +1317,11 @@ static VOID InsertChSwAnnIE(
  */
 VOID EnqueueChSwAnn(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDA, 
+	IN unsigned char * pDA, 
 	IN UINT8 ChSwMode,
 	IN UINT8 NewCh)
 {
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	ULONG FrameLen;
 
@@ -1387,8 +1387,8 @@ static BOOLEAN DfsRequirementCheck(
 
 VOID NotifyChSwAnnToPeerAPs(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pRA,
-	IN PUCHAR pTA,
+	IN unsigned char * pRA,
+	IN unsigned char * pTA,
 	IN UINT8 ChSwMode,
 	IN UINT8 Channel)
 {
@@ -1401,7 +1401,7 @@ VOID NotifyChSwAnnToPeerAPs(
 		{
 			if (ValidWdsEntry(pAd, i))
 			{
-				PUCHAR pDA = pAd->WdsTab.WdsEntry[i].PeerWdsAddr;
+				unsigned char * pDA = pAd->WdsTab.WdsEntry[i].PeerWdsAddr;
 
 				/* DA equal to SA. have no necessary orignal AP which found Radar signal.*/
 				if (MAC_ADDR_EQUAL(pTA, pDA))
@@ -1458,7 +1458,7 @@ static BOOLEAN PeerChSwAnnSanity(
 	OUT PCH_SW_ANN_INFO pChSwAnnInfo)
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
-	PUCHAR pFramePtr = Fr->Octet;
+	unsigned char * pFramePtr = Fr->Octet;
 	BOOLEAN result = FALSE;
 	PEID_STRUCT eid_ptr;
 
@@ -1473,7 +1473,7 @@ static BOOLEAN PeerChSwAnnSanity(
 		return result;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((PUCHAR)pFramePtr + MsgLen))
+	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1516,10 +1516,10 @@ static BOOLEAN PeerMeasureReqSanity(
 	OUT PMEASURE_REQ pMeasureReq)
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
-	PUCHAR pFramePtr = Fr->Octet;
+	unsigned char * pFramePtr = Fr->Octet;
 	BOOLEAN result = FALSE;
 	PEID_STRUCT eid_ptr;
-	PUCHAR ptr;
+	unsigned char * ptr;
 	UINT64 MeasureStartTime;
 	UINT16 MeasureDuration;
 
@@ -1538,7 +1538,7 @@ static BOOLEAN PeerMeasureReqSanity(
 	MsgLen -= 1;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((PUCHAR)pFramePtr + MsgLen))
+	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1546,7 +1546,7 @@ static BOOLEAN PeerMeasureReqSanity(
 				NdisMoveMemory(&pMeasureReqInfo->Token, eid_ptr->Octet, 1);
 				NdisMoveMemory(&pMeasureReqInfo->ReqMode.word, eid_ptr->Octet + 1, 1);
 				NdisMoveMemory(&pMeasureReqInfo->ReqType, eid_ptr->Octet + 2, 1);
-				ptr = (PUCHAR)(eid_ptr->Octet + 3);
+				ptr = (unsigned char *)(eid_ptr->Octet + 3);
 				NdisMoveMemory(&pMeasureReq->ChNum, ptr, 1);
 				NdisMoveMemory(&MeasureStartTime, ptr + 1, 8);
 				pMeasureReq->MeasureStartTime = SWAP64(MeasureStartTime);
@@ -1608,10 +1608,10 @@ static BOOLEAN PeerMeasureReportSanity(
 	OUT unsigned char * pReportBuf)
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
-	PUCHAR pFramePtr = Fr->Octet;
+	unsigned char * pFramePtr = Fr->Octet;
 	BOOLEAN result = FALSE;
 	PEID_STRUCT eid_ptr;
-	PUCHAR ptr;
+	unsigned char * ptr;
 
 	/* skip 802.11 header.*/
 	MsgLen -= sizeof(HEADER_802_11);
@@ -1628,7 +1628,7 @@ static BOOLEAN PeerMeasureReportSanity(
 	MsgLen -= 1;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((PUCHAR)pFramePtr + MsgLen))
+	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1639,7 +1639,7 @@ static BOOLEAN PeerMeasureReportSanity(
 				if (pMeasureReportInfo->ReportType == RM_BASIC)
 				{
 					PMEASURE_BASIC_REPORT pReport = (PMEASURE_BASIC_REPORT)pReportBuf;
-					ptr = (PUCHAR)(eid_ptr->Octet + 3);
+					ptr = (unsigned char *)(eid_ptr->Octet + 3);
 					NdisMoveMemory(&pReport->ChNum, ptr, 1);
 					NdisMoveMemory(&pReport->MeasureStartTime, ptr + 1, 8);
 					NdisMoveMemory(&pReport->MeasureDuration, ptr + 9, 2);
@@ -1649,7 +1649,7 @@ static BOOLEAN PeerMeasureReportSanity(
 				else if (pMeasureReportInfo->ReportType == RM_CCA)
 				{
 					PMEASURE_CCA_REPORT pReport = (PMEASURE_CCA_REPORT)pReportBuf;
-					ptr = (PUCHAR)(eid_ptr->Octet + 3);
+					ptr = (unsigned char *)(eid_ptr->Octet + 3);
 					NdisMoveMemory(&pReport->ChNum, ptr, 1);
 					NdisMoveMemory(&pReport->MeasureStartTime, ptr + 1, 8);
 					NdisMoveMemory(&pReport->MeasureDuration, ptr + 9, 2);
@@ -1659,7 +1659,7 @@ static BOOLEAN PeerMeasureReportSanity(
 				else if (pMeasureReportInfo->ReportType == RM_RPI_HISTOGRAM)
 				{
 					PMEASURE_RPI_REPORT pReport = (PMEASURE_RPI_REPORT)pReportBuf;
-					ptr = (PUCHAR)(eid_ptr->Octet + 3);
+					ptr = (unsigned char *)(eid_ptr->Octet + 3);
 					NdisMoveMemory(&pReport->ChNum, ptr, 1);
 					NdisMoveMemory(&pReport->MeasureStartTime, ptr + 1, 8);
 					NdisMoveMemory(&pReport->MeasureDuration, ptr + 9, 2);
@@ -1697,7 +1697,7 @@ static BOOLEAN PeerTpcReqSanity(
 	OUT unsigned char * pDialogToken)
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
-	PUCHAR pFramePtr = Fr->Octet;
+	unsigned char * pFramePtr = Fr->Octet;
 	BOOLEAN result = FALSE;
 	PEID_STRUCT eid_ptr;
 
@@ -1715,7 +1715,7 @@ static BOOLEAN PeerTpcReqSanity(
 	MsgLen -= 1;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((PUCHAR)pFramePtr + MsgLen))
+	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1754,7 +1754,7 @@ static BOOLEAN PeerTpcRepSanity(
 	OUT PTPC_REPORT_INFO pTpcRepInfo)
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
-	PUCHAR pFramePtr = Fr->Octet;
+	unsigned char * pFramePtr = Fr->Octet;
 	BOOLEAN result = FALSE;
 	PEID_STRUCT eid_ptr;
 
@@ -1772,7 +1772,7 @@ static BOOLEAN PeerTpcRepSanity(
 	MsgLen -= 1;
 
 	eid_ptr = (PEID_STRUCT)pFramePtr;
-	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((PUCHAR)pFramePtr + MsgLen))
+	while (((UCHAR*)eid_ptr + eid_ptr->Len + 1) < ((unsigned char *)pFramePtr + MsgLen))
 	{
 		switch(eid_ptr->Eid)
 		{
@@ -1946,7 +1946,7 @@ static VOID PeerTpcReqAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	PFRAME_802_11 pFr = (PFRAME_802_11)Elem->Msg;
-	PUCHAR pFramePtr = pFr->Octet;
+	unsigned char * pFramePtr = pFr->Octet;
 	UINT8 DialogToken;
 	UINT8 TxPwr = GetCurTxPwr(pAd, Elem->Wcid);
 	UINT8 LinkMargin = 0;
@@ -2102,7 +2102,7 @@ INT Set_MeasureReq_Proc(
 	UINT8 TotalLen;
 
 	HEADER_802_11 ActHdr;
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	ULONG FrameLen;
 
@@ -2312,7 +2312,7 @@ static PDOT11_REGULATORY_INFORMATION GetRugClassRegion(
 
 VOID RguClass_BuildBcnChList(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pBuf,
+	OUT unsigned char * pBuf,
 	OUT	unsigned long * pBufLen)
 {
 	INT loop;

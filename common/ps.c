@@ -136,7 +136,7 @@ VOID RtmpCleanupPsQueue(
 */
 VOID RtmpHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PUCHAR			pAddr,
+	IN	unsigned char *			pAddr,
 	IN	USHORT			Aid,
     IN	BOOLEAN			isActive)
 { 
@@ -309,7 +309,7 @@ VOID RtmpHandleRxPsPoll(
  */
 BOOLEAN RtmpPsIndicate(
 	IN PRTMP_ADAPTER pAd, 
-	IN PUCHAR pAddr, 
+	IN unsigned char * pAddr, 
 	IN ULONG Wcid, 
 	IN UCHAR Psm) 
 {

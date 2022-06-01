@@ -48,7 +48,7 @@ VOID RT28xx_WDS_Init(
 
 	RTMP_OS_NETDEV_OP_HOOK	netDevOpHook;
 
-	NdisZeroMemory((PUCHAR)&netDevOpHook, sizeof(RTMP_OS_NETDEV_OP_HOOK));
+	NdisZeroMemory((unsigned char *)&netDevOpHook, sizeof(RTMP_OS_NETDEV_OP_HOOK));
 	netDevOpHook.open = WdsVirtualIF_open;
 	netDevOpHook.stop = WdsVirtualIF_close;
 	netDevOpHook.xmit = WdsVirtualIFSendPackets;

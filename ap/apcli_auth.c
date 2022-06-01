@@ -156,7 +156,7 @@ static VOID ApCliMlmeAuthReqAction(
 	USHORT              Alg, Seq, Status;
 	ULONG               Timeout;
 	HEADER_802_11       AuthHdr; 
-	PUCHAR              pOutBuffer = NULL;
+	unsigned char *              pOutBuffer = NULL;
 	ULONG               FrameLen = 0;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
@@ -242,7 +242,7 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 	ULONG			c_len = 0;	
 	HEADER_802_11   AuthHdr;
 	NDIS_STATUS     NState;
-	PUCHAR          pOutBuffer = NULL;
+	unsigned char *          pOutBuffer = NULL;
 	ULONG           FrameLen = 0;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	UCHAR		  	ChallengeIe = IE_CHALLENGE_TEXT;
@@ -535,7 +535,7 @@ static VOID ApCliMlmeDeauthReqAction(
 {
 	PMLME_DEAUTH_REQ_STRUCT pDeauthReq;
 	HEADER_802_11 DeauthHdr;
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	ULONG FrameLen = 0;
 	NDIS_STATUS NStatus;
 	USHORT ifIndex = (USHORT)(Elem->Priv);

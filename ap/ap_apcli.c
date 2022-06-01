@@ -88,7 +88,7 @@ VOID RT28xx_ApCli_Close(
 /* --------------------------------- Private -------------------------------- */
 INT ApCliIfLookUp(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr)
+	IN unsigned char * pAddr)
 {
 	SHORT i;
 	SHORT ifIndex = -1;
@@ -134,8 +134,8 @@ VOID ApCliMgtMacHeaderInit(
     IN OUT PHEADER_802_11 pHdr80211, 
     IN UCHAR SubType, 
     IN UCHAR ToDs, 
-    IN PUCHAR pDA, 
-    IN PUCHAR pBssid,
+    IN unsigned char * pDA, 
+    IN unsigned char * pBssid,
     IN USHORT ifIndex)
 {
     NdisZeroMemory(pHdr80211, sizeof(HEADER_802_11));
@@ -303,12 +303,12 @@ BOOLEAN ApCliLinkUp(
 		}
 	
 		/* Insert the Remote AP to our MacTable. */
-		/*pMacEntry = MacTableInsertApCliEntry(pAd, (PUCHAR)(pAd->ApCliMlmeAux.Bssid)); */
-		pMacEntry = MacTableInsertEntry(pAd, (PUCHAR)(pAd->ApCliMlmeAux.Bssid), (ifIndex + MIN_NET_DEVICE_FOR_APCLI), OPMODE_AP, TRUE);
+		/*pMacEntry = MacTableInsertApCliEntry(pAd, (unsigned char *)(pAd->ApCliMlmeAux.Bssid)); */
+		pMacEntry = MacTableInsertEntry(pAd, (unsigned char *)(pAd->ApCliMlmeAux.Bssid), (ifIndex + MIN_NET_DEVICE_FOR_APCLI), OPMODE_AP, TRUE);
 		if (pMacEntry)
 		{
 			UCHAR Rates[MAX_LEN_OF_SUPPORTED_RATES];
-			PUCHAR pRates = Rates;
+			unsigned char * pRates = Rates;
 			UCHAR RatesLen;
 			UCHAR MaxSupportedRate = 0;
 
@@ -358,7 +358,7 @@ BOOLEAN ApCliLinkUp(
 			/* RSNIE. It depends on the AP-Client's authentication mode to store the corresponding RSNIE. */
 			if ((pMacEntry->AuthMode >= Ndis802_11AuthModeWPA) && (pAd->ApCliMlmeAux.VarIELen != 0))
 			{
-				PUCHAR              pVIE;
+				unsigned char *              pVIE;
 				UCHAR               len;
 				PEID_STRUCT         pEid;
 
@@ -949,7 +949,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *pMsg, 
     IN ULONG MsgLen, 
-    OUT PUCHAR pAddr2, 
+    OUT unsigned char * pAddr2, 
     OUT USHORT *pCapabilityInfo, 
     OUT USHORT *pStatus, 
     OUT USHORT *pAid, 
@@ -1070,7 +1070,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
 				/* handle WME PARAMTER ELEMENT */
 				if (NdisEqualMemory(pEid->Octet, WME_PARM_ELEM, 6) && (pEid->Len == 24))
 				{
-					PUCHAR ptr;
+					unsigned char * ptr;
 					int i;
         
 					/* parsing EDCA parameters */
@@ -1081,7 +1081,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
 					/*pEdcaParm->bMoreDataAck    = FALSE; // pEid->Octet[0] & 0x80; */
 					pEdcaParm->EdcaUpdateCount = pEid->Octet[6] & 0x0f;
 					pEdcaParm->bAPSDCapable    = (pEid->Octet[6] & 0x80) ? 1 : 0;
-					ptr = (PUCHAR) &pEid->Octet[8];
+					ptr = (unsigned char *) &pEid->Octet[8];
 					for (i=0; i<4; i++)
 					{
 						UCHAR aci = (*ptr & 0x60) >> 5; /* b5~6 is AC INDEX */
@@ -1110,7 +1110,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
 MAC_TABLE_ENTRY *ApCliTableLookUpByWcid(
 	IN PRTMP_ADAPTER pAd,
 	IN UCHAR wcid,
-	IN PUCHAR pAddrs)
+	IN unsigned char * pAddrs)
 {
 	ULONG ApCliIndex;
 	PMAC_TABLE_ENTRY pCurEntry = NULL;
@@ -1252,8 +1252,8 @@ BOOLEAN 	ApCliValidateRSNIE(
 	IN		USHORT			eid_len,
 	IN		USHORT			idx)
 {
-	PUCHAR              pVIE;
-	PUCHAR				pTmp;
+	unsigned char *              pVIE;
+	unsigned char *				pTmp;
 	UCHAR         		len;
 	PEID_STRUCT         pEid;			
 	CIPHER_SUITE		WPA;			/* AP announced WPA cipher suite */
@@ -1269,7 +1269,7 @@ BOOLEAN 	ApCliValidateRSNIE(
 	NDIS_802_11_AUTHENTICATION_MODE WPA2_AuthMode;
 	NDIS_802_11_AUTHENTICATION_MODE WPA2_AuthModeAux;
 
-	pVIE = (PUCHAR) pEid_ptr;
+	pVIE = (unsigned char *) pEid_ptr;
 	len	 = eid_len;
 
 	/*if (len >= MAX_LEN_OF_RSNIE || len <= MIN_LEN_OF_RSNIE) */
@@ -1774,7 +1774,7 @@ BOOLEAN  ApCliHandleRxBroadcastFrame(
 	if ((pRxInfo->MyBss == 0) && (pRxInfo->Decrypted == 0) && (pHeader->FC.Wep == 1)) 
 	{											
 		if (RTMPSoftDecryptionAction(pAd, 
-									 (PUCHAR)pHeader, 0, 
+									 (unsigned char *)pHeader, 0, 
 									 &pApCliEntry->SharedKey[pRxWI->RxWIKeyIndex], 
 									 pRxBlk->pData, 
 									 &(pRxBlk->DataSize)) == NDIS_STATUS_FAILURE)			
@@ -1808,7 +1808,7 @@ VOID APCliInstallPairwiseKey(
 
 BOOLEAN APCliInstallSharedKey(
 	IN  PRTMP_ADAPTER   pAd,
-	IN  PUCHAR          pKey,
+	IN  unsigned char *          pKey,
 	IN  UCHAR           KeyLen,
 	IN	UCHAR			DefaultKeyIdx,
 	IN  MAC_TABLE_ENTRY *pEntry)

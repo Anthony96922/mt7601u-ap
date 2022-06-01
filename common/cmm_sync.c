@@ -53,8 +53,8 @@ VOID BuildChannelList(
 	UCHAR i, j, index=0, num=0;
 	PCH_DESC pChDesc = NULL;
 	BOOLEAN bRegionFound = FALSE;
-	PUCHAR pChannelList;
-	PUCHAR pChannelListFlag;
+	unsigned char * pChannelList;
+	unsigned char * pChannelListFlag;
 
 	NdisZeroMemory(pAd->ChannelList, MAX_NUM_OF_CHANNELS * sizeof(CHANNEL_TX_POWER));
 

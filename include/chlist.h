@@ -108,7 +108,7 @@ VOID BuildChannelListEx(
 
 VOID BuildBeaconChList(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pBuf,
+	OUT unsigned char * pBuf,
 	OUT	unsigned long * pBufLen);
 #endif /* EXT_BUILD_CHANNEL_LIST */
 

@@ -39,8 +39,8 @@ const UCHAR IPV6_LOOPBACKADDR[] ={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
 
 static NDIS_STATUS MATProto_IPv6_Init(MAT_STRUCT *pMatCfg);
 static NDIS_STATUS MATProto_IPv6_Exit(MAT_STRUCT *pMatCfg);
-static PUCHAR MATProto_IPv6_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pDevMacAdr);
-static PUCHAR MATProto_IPv6_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pDevMacAdr);
+static unsigned char * MATProto_IPv6_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
+static unsigned char * MATProto_IPv6_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 
 #define RT_UDP_HDR_LEN	8
 
@@ -187,7 +187,7 @@ NDIS_STATUS  dumpIPv6MacTb(
 
 static NDIS_STATUS IPv6MacTableUpdate(
 	IN MAT_STRUCT		*pMatCfg,
-	IN PUCHAR			pMacAddr,
+	IN unsigned char *			pMacAddr,
 	IN PCHAR			pIPv6Addr)
 {
 	UINT 				hashIdx;
@@ -230,7 +230,7 @@ static NDIS_STATUS IPv6MacTableUpdate(
 				{
 	        		pPrev->pNext = pEntry->pNext;
 				}
-				MATDBEntryFree(pMatCfg, (PUCHAR)pEntry);
+				MATDBEntryFree(pMatCfg, (unsigned char *)pEntry);
 				
 				pEntry = (pPrev == NULL ? NULL: pPrev->pNext);
 				pMatCfg->nodeCount--;
@@ -276,14 +276,14 @@ static NDIS_STATUS IPv6MacTableUpdate(
 }
 
 
-static PUCHAR IPv6MacTableLookUp(
+static unsigned char * IPv6MacTableLookUp(
 	IN	MAT_STRUCT		*pMatCfg,
-	IN	PUCHAR			pIPv6Addr)
+	IN	unsigned char *			pIPv6Addr)
 {
     UINT 				hashIdx;
 	IPv6MacMappingTable	*pIPv6MacTable;
     IPv6MacMappingEntry	*pEntry = NULL;
-	PUCHAR 				pGroupMacAddr;
+	unsigned char * 				pGroupMacAddr;
 
 
 	pIPv6MacTable = (IPv6MacMappingTable *)pMatCfg->MatTableSet.IPv6MacTable;
@@ -293,7 +293,7 @@ static PUCHAR IPv6MacTableLookUp(
 	/*if IPV6 multicast address, need converting multicast group address to ethernet address. */
 	if (IS_MULTICAST_IPV6_ADDR(*(RT_IPV6_ADDR *)pIPv6Addr))
 	{
-		pGroupMacAddr = (PUCHAR)&pIPv6MacTable->curMcastAddr;
+		pGroupMacAddr = (unsigned char *)&pIPv6MacTable->curMcastAddr;
 		ConvertMulticastIP2MAC(pIPv6Addr, (UCHAR **)(&pGroupMacAddr), ETH_P_IPV6);
 		return pIPv6MacTable->curMcastAddr;
 	}
@@ -386,15 +386,15 @@ static inline unsigned short int icmpv6_csum(
 
 
 
-static PUCHAR MATProto_IPv6_Rx(
+static unsigned char * MATProto_IPv6_Rx(
 	IN MAT_STRUCT 		*pMatCfg, 
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR 			pLayerHdr,
-	IN PUCHAR			pDevMacAdr)
+	IN unsigned char * 			pLayerHdr,
+	IN unsigned char *			pDevMacAdr)
 {
 
-	PUCHAR pMacAddr;
-	PUCHAR pDstIPv6Addr;
+	unsigned char * pMacAddr;
+	unsigned char * pDstIPv6Addr;
 	
 	/* Fetch the IPv6 addres from the packet header. */
 	pDstIPv6Addr = (UCHAR *)(&((RT_IPV6_HDR *)pLayerHdr)->dstAddr);
@@ -408,8 +408,8 @@ static PUCHAR MATProto_IPv6_Rx(
 static PNDIS_PACKET ICMPv6_Handle_Tx(
 	IN MAT_STRUCT 		*pMatSrtuct,
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR			pLayerHdr,
-	IN PUCHAR 			pDevMacAdr,
+	IN unsigned char *			pLayerHdr,
+	IN unsigned char * 			pDevMacAdr,
 	IN UINT32			offset)
 {
 	RT_IPV6_HDR 			*pIPv6Hdr;
@@ -421,7 +421,7 @@ static PNDIS_PACKET ICMPv6_Handle_Tx(
 	
 	PNDIS_PACKET newSkb = NULL;
 	BOOLEAN needModify = FALSE;
-	PUCHAR pSrcMac;
+	unsigned char * pSrcMac;
 
 	pIPv6Hdr = (RT_IPV6_HDR *)pLayerHdr;
 	payloadLen = OS_NTOHS(pIPv6Hdr->payload_len);
@@ -584,14 +584,14 @@ static PNDIS_PACKET ICMPv6_Handle_Tx(
 			}
 		}
 
-		pICMPv6Hdr = (RT_ICMPV6_HDR *)((PUCHAR)pIPv6Hdr + ICMPOffset);
-		pSrcMac = (PUCHAR)((PUCHAR)pIPv6Hdr + offset);
+		pICMPv6Hdr = (RT_ICMPV6_HDR *)((unsigned char *)pIPv6Hdr + ICMPOffset);
+		pSrcMac = (unsigned char *)((unsigned char *)pIPv6Hdr + offset);
 		NdisMoveMemory(pSrcMac, pDevMacAdr, MAC_ADDR_LEN);
 		
 		/* Now re-calculate the Checksum. */
 		pICMPv6Hdr->chksum = 0;
 		pICMPv6Hdr->chksum = icmpv6_csum(&pIPv6Hdr->srcAddr, &pIPv6Hdr->dstAddr, ICMPMsgLen , 
-											IPV6_NEXT_HEADER_ICMPV6, (PUCHAR)pICMPv6Hdr);
+											IPV6_NEXT_HEADER_ICMPV6, (unsigned char *)pICMPv6Hdr);
 	}
 
 	return newSkb;
@@ -599,13 +599,13 @@ static PNDIS_PACKET ICMPv6_Handle_Tx(
 }
 
 
-static PUCHAR MATProto_IPv6_Tx(
+static unsigned char * MATProto_IPv6_Tx(
 	IN MAT_STRUCT 		*pMatCfg,
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR 			pLayerHdr,
-	IN PUCHAR			pDevMacAdr)
+	IN unsigned char * 			pLayerHdr,
+	IN unsigned char *			pDevMacAdr)
 {
-	PUCHAR pSrcMac, pSrcIP;
+	unsigned char * pSrcMac, pSrcIP;
 	BOOLEAN needUpdate;
 	UCHAR nextProtocol;
 	UINT32 offset;	
@@ -659,7 +659,7 @@ static PUCHAR MATProto_IPv6_Tx(
 			break;
 	}
 
-	return (PUCHAR)newSkb;
+	return (unsigned char *)newSkb;
 
 }
 
@@ -685,7 +685,7 @@ static NDIS_STATUS IPv6MacTable_RemoveAll(
 			while((pEntry = pIPv6MacTable->hash[i]) != NULL)
 		{
 				pIPv6MacTable->hash[i] = pEntry->pNext;
-				MATDBEntryFree(pMatCfg, (PUCHAR)pEntry);
+				MATDBEntryFree(pMatCfg, (unsigned char *)pEntry);
 			}
 		}
 	}

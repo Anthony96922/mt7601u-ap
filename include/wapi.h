@@ -76,11 +76,11 @@ int wpi_sms4_ofb_engine(
 VOID RTMPInsertWapiIe(
 	IN	UINT			AuthMode,
 	IN	UINT			WepStatus,
-	OUT	PUCHAR			pWIe,
+	OUT	unsigned char *			pWIe,
 	OUT	UCHAR			*w_len);
 
 BOOLEAN RTMPCheckWAIframe(
-    IN PUCHAR           pData,
+    IN unsigned char *           pData,
     IN ULONG            DataByteCount);
 
 VOID RTMPConstructWPIIVHdr(
@@ -89,22 +89,22 @@ VOID RTMPConstructWPIIVHdr(
 	OUT UCHAR 			*iv_hdr);
 
 extern INT	RTMPSoftEncryptSMS4(
-		IN	PUCHAR			pHeader,
-		IN  PUCHAR			pData,
+		IN	unsigned char *			pHeader,
+		IN  unsigned char *			pData,
 		IN	UINT32			data_len,				
 		IN	UCHAR			key_id,
-		IN	PUCHAR 			pKey,
-		IN	PUCHAR			pIv);
+		IN	unsigned char * 			pKey,
+		IN	unsigned char *			pIv);
 extern INT	RTMPSoftDecryptSMS4(
-		IN		PUCHAR			pHdr,
+		IN		unsigned char *			pHdr,
 		IN		BOOLEAN			bSanityIV,
 		IN 		PCIPHER_KEY		pKey,
-		INOUT 	PUCHAR			pData,
+		INOUT 	unsigned char *			pData,
 		INOUT 	UINT16			*DataByteCnt);
 
 VOID RTMPDeriveWapiGTK(
-	IN	PUCHAR			nmk,
-	OUT	PUCHAR			gtk_ptr);
+	IN	unsigned char *			nmk,
+	OUT	unsigned char *			gtk_ptr);
 
 VOID RT_SMS4_TEST(
 	IN UINT8			test);
@@ -176,7 +176,7 @@ BOOLEAN WAPI_InternalCmdAction(
 		IN  PRTMP_ADAPTER		pAd,
 		IN	UCHAR				AuthMode,
 		IN	UCHAR				apidx,
-		IN	PUCHAR				pAddr,
+		IN	unsigned char *				pAddr,
 		IN	UCHAR				flag);
 
 #endif /* __WAPI_H__ */

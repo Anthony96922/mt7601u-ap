@@ -90,7 +90,7 @@ NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	ra_dma_addr_t DataDMA;
-	PUCHAR DataBuffer;
+	unsigned char * DataBuffer;
 	TXINFO_NMAC_CMD *TxInfoCmd;	
 	INT32 SentLen;
 	UINT32 CurLen;
@@ -242,7 +242,7 @@ loadfw_protect:
 
 
 #ifdef RT_BIG_ENDIAN
-			RTMPDescriptorEndianChange((PUCHAR)TxInfoCmd, TYPE_TXINFO);
+			RTMPDescriptorEndianChange((unsigned char *)TxInfoCmd, TYPE_TXINFO);
 #endif
 			NdisMoveMemory(DataBuffer + sizeof(*TxInfoCmd), pChipCap->FWImageName + 32 + CurLen, SentLen);
 
@@ -403,7 +403,7 @@ loadfw_protect:
 			TxInfoCmd->d_port = CPU_TX_PORT;
 
 #ifdef RT_BIG_ENDIAN
-			RTMPDescriptorEndianChange((PUCHAR)TxInfoCmd, TYPE_TXINFO);
+			RTMPDescriptorEndianChange((unsigned char *)TxInfoCmd, TYPE_TXINFO);
 #endif
 			NdisMoveMemory(DataBuffer + sizeof(*TxInfoCmd), pChipCap->FWImageName + 32 + ILMLen + CurLen, SentLen);
 	
@@ -850,7 +850,7 @@ INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
 	TxInfoCmd->pkt_len = CmdUnit->u.ANDES.CmdPayloadLen;
 
 #ifdef RT_BIG_ENDIAN
-	RTMPDescriptorEndianChange((PUCHAR)TxInfoCmd, TYPE_TXINFO);
+	RTMPDescriptorEndianChange((unsigned char *)TxInfoCmd, TYPE_TXINFO);
 #endif
 
 	Pos += sizeof(*TxInfoCmd);

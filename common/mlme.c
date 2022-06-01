@@ -863,7 +863,7 @@ VOID MlmePeriodicExec(
 	==========================================================================
  */
 BOOLEAN MlmeValidateSSID(
-	IN PUCHAR	pSsid,
+	IN unsigned char *	pSsid,
 	IN UCHAR	SsidLen)
 {
 	int	index;
@@ -1741,7 +1741,7 @@ VOID BssTableInit(BSS_TABLE *Tab)
  */
 ULONG BssTableSearch(
 	IN BSS_TABLE *Tab, 
-	IN PUCHAR	 pBssid,
+	IN unsigned char *	 pBssid,
 	IN UCHAR	 Channel) 
 {
 	UCHAR i;
@@ -1765,8 +1765,8 @@ ULONG BssTableSearch(
 
 ULONG BssSsidTableSearch(
 	IN BSS_TABLE *Tab, 
-	IN PUCHAR	 pBssid,
-	IN PUCHAR	 pSsid,
+	IN unsigned char *	 pBssid,
+	IN unsigned char *	 pSsid,
 	IN UCHAR	 SsidLen,
 	IN UCHAR	 Channel) 
 {
@@ -1791,8 +1791,8 @@ ULONG BssSsidTableSearch(
 
 ULONG BssTableSearchWithSSID(
 	IN BSS_TABLE *Tab, 
-	IN PUCHAR	 Bssid,
-	IN PUCHAR	 pSsid,
+	IN unsigned char *	 Bssid,
+	IN unsigned char *	 pSsid,
 	IN UCHAR	 SsidLen,
 	IN UCHAR	 Channel)
 {
@@ -1816,7 +1816,7 @@ ULONG BssTableSearchWithSSID(
 
 ULONG BssSsidTableSearchBySSID(
 	IN BSS_TABLE *Tab,
-	IN PUCHAR	 pSsid,
+	IN unsigned char *	 pSsid,
 	IN UCHAR	 SsidLen)
 {
 	UCHAR i;
@@ -1835,7 +1835,7 @@ ULONG BssSsidTableSearchBySSID(
 /* IRQL = DISPATCH_LEVEL*/
 VOID BssTableDeleteEntry(
 	IN OUT	BSS_TABLE *Tab, 
-	IN		PUCHAR	  pBssid,
+	IN		unsigned char *	  pBssid,
 	IN		UCHAR	  Channel)
 {
 	UCHAR i, j;
@@ -2161,7 +2161,7 @@ VOID BssCipherParse(
 	IN OUT	PBSS_ENTRY	pBss)
 {
 	PEID_STRUCT 		 pEid;
-	PUCHAR				pTmp;
+	unsigned char *				pTmp;
 	PRSN_IE_HEADER_STRUCT			pRsnHeader;
 	PCIPHER_SUITE_STRUCT			pCipher;
 	PAKM_SUITE_STRUCT				pAKM;
@@ -2212,7 +2212,7 @@ VOID BssCipherParse(
 	while (Length > 0)
 	{
 		/* Parse cipher suite base on WPA1 & WPA2, they should be parsed differently*/
-		pTmp = ((PUCHAR) pBss->VarIEs) + pBss->VarIELen - Length;
+		pTmp = ((unsigned char *) pBss->VarIEs) + pBss->VarIELen - Length;
 		pEid = (PEID_STRUCT) pTmp;
 		switch (pEid->Eid)
 		{
@@ -2232,7 +2232,7 @@ VOID BssCipherParse(
 					This part should be improved in the future when AP supported multiple cipher suite.
 					For now, it's OK since almost all APs have fixed cipher suite supported.
 				*/
-				/* pTmp = (PUCHAR) pEid->Octet;*/
+				/* pTmp = (unsigned char *) pEid->Octet;*/
 				pTmp   += 11;
 
 				/* 
@@ -2614,7 +2614,7 @@ VOID BssCipherParse(
  */
 VOID MacAddrRandomBssid(
 	IN PRTMP_ADAPTER pAd, 
-	OUT PUCHAR pAddr) 
+	OUT unsigned char * pAddr) 
 {
 	INT i;
 
@@ -2646,8 +2646,8 @@ VOID MgtMacHeaderInit(
 	IN OUT PHEADER_802_11 pHdr80211, 
 	IN UCHAR SubType, 
 	IN UCHAR ToDs, 
-	IN PUCHAR pDA, 
-	IN PUCHAR pBssid) 
+	IN unsigned char * pDA, 
+	IN unsigned char * pBssid) 
 {
 	NdisZeroMemory(pHdr80211, sizeof(HEADER_802_11));
 	

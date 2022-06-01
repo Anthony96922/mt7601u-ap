@@ -78,7 +78,7 @@ static inline BOOLEAN ApAllowToSendPacket(
 	OUT UCHAR		*pWcid)
 {
 	PACKET_INFO 	PacketInfo;
-	PUCHAR			pSrcBufVA;
+	unsigned char *			pSrcBufVA;
 	UINT			SrcBufLen;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 	SST 			Sst;
@@ -89,7 +89,7 @@ static inline BOOLEAN ApAllowToSendPacket(
 	RTMP_QueryPacketInfo(pPacket, &PacketInfo, &pSrcBufVA, &SrcBufLen);
 #ifdef CLIENT_WDS
 	{
-		PUCHAR pEntryAddr;
+		unsigned char * pEntryAddr;
 		pEntry = APSsPsInquiry(pAd, pSrcBufVA, &Sst, &Aid, &PsMode, &Rate);
 		if ((pEntry == NULL)
 			&& (pEntryAddr = CliWds_ProxyLookup(pAd, pSrcBufVA)) != NULL)
@@ -1032,11 +1032,11 @@ static inline VOID APBuildCommon802_11Header(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 }
 
 
-static inline PUCHAR AP_Build_ARalink_Frame_Header(
+static inline unsigned char * AP_Build_ARalink_Frame_Header(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK		*pTxBlk)
 {
-	PUCHAR			pHeaderBufPtr;/*, pSaveBufPtr; */
+	unsigned char *			pHeaderBufPtr;/*, pSaveBufPtr; */
 	HEADER_802_11	*pHeader_802_11;
 	PNDIS_PACKET	pNextPacket;
 	UINT32			nextBufLen;
@@ -1085,7 +1085,7 @@ static inline PUCHAR AP_Build_ARalink_Frame_Header(
 
 	/* padding at front of LLC header. LLC header should at 4-bytes aligment. */
 	pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
-	pHeaderBufPtr = (PUCHAR)ROUND_UP(pHeaderBufPtr, 4);
+	pHeaderBufPtr = (unsigned char *)ROUND_UP(pHeaderBufPtr, 4);
 	pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 
 	
@@ -1115,7 +1115,7 @@ static inline BOOLEAN BuildHtcField(
 	IN RTMP_ADAPTER *pAd, 
 	IN TX_BLK *pTxBlk, 
 	IN  MAC_TABLE_ENTRY *pMacEntry, 
-	IN PUCHAR pHeaderBufPtr)
+	IN unsigned char * pHeaderBufPtr)
 {
 	BOOLEAN bHTCPlus = FALSE;
 	
@@ -1124,7 +1124,7 @@ static inline BOOLEAN BuildHtcField(
 }
 
 
-static inline PUCHAR AP_Build_AMSDU_Frame_Header(
+static inline unsigned char * AP_Build_AMSDU_Frame_Header(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk)
 {
@@ -1265,7 +1265,7 @@ static inline PUCHAR AP_Build_AMSDU_Frame_Header(
 		@@@ MpduHeaderLen excluding padding @@@
 	*/
 	pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
-	pHeaderBufPtr = (PUCHAR) ROUND_UP(pHeaderBufPtr, 4);
+	pHeaderBufPtr = (unsigned char *) ROUND_UP(pHeaderBufPtr, 4);
 	pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 		
 	return pHeaderBufPtr;
@@ -1311,11 +1311,11 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	)
 	{
 #ifndef VENDOR_FEATURE1_SUPPORT
-		NdisMoveMemory((PUCHAR)(&pTxBlk->HeaderBuf[TXINFO_SIZE]), (PUCHAR)(&pMacEntry->CachedBuf[0]), TXWISize + sizeof(HEADER_802_11));
+		NdisMoveMemory((unsigned char *)(&pTxBlk->HeaderBuf[TXINFO_SIZE]), (unsigned char *)(&pMacEntry->CachedBuf[0]), TXWISize + sizeof(HEADER_802_11));
 #else
 		pTxBlk->HeaderBuf = (UCHAR *)(pMacEntry->HeaderBuf);
 #endif /* VENDOR_FEATURE1_SUPPORT */
-		pHeaderBufPtr = (PUCHAR)(&pTxBlk->HeaderBuf[hdr_offset]);
+		pHeaderBufPtr = (unsigned char *)(&pTxBlk->HeaderBuf[hdr_offset]);
 		APBuildCache802_11Header(pAd, pTxBlk, pHeaderBufPtr);
 
 #ifdef SOFT_ENCRYPT
@@ -1375,7 +1375,7 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 		}
 #endif /* UAPSD_SUPPORT */
 		pTxBlk->MpduHeaderLen = pMacEntry->MpduHeaderLen;
-		pHeaderBufPtr = ((PUCHAR)pHeader_802_11) + pTxBlk->MpduHeaderLen;
+		pHeaderBufPtr = ((unsigned char *)pHeader_802_11) + pTxBlk->MpduHeaderLen;
 
 		pTxBlk->HdrPadLen = pMacEntry->HdrPadLen;
 
@@ -1546,7 +1546,7 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 			@@@ MpduHeaderLen excluding padding @@@ 
 		*/
 		pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
-		pHeaderBufPtr = (PUCHAR) ROUND_UP(pHeaderBufPtr, 4);
+		pHeaderBufPtr = (unsigned char *) ROUND_UP(pHeaderBufPtr, 4);
 		pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 
 #ifdef VENDOR_FEATURE1_SUPPORT
@@ -1587,7 +1587,7 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 			/* Encrypt the MPDU data by software */
 			RTMPSoftEncryptionAction(pAd, 
 									 pTxBlk->CipherAlg, 
-									 (PUCHAR)pHeader_802_11, 
+									 (unsigned char *)pHeader_802_11, 
 									pTxBlk->pSrcBufData, 
 									pTxBlk->SrcBufLen, 
 									pTxBlk->KeyIdx,
@@ -1636,17 +1636,17 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 		RTMPWriteTxWI_Data(pAd, (TXWI_STRUC *)(&pTxBlk->HeaderBuf[TXINFO_SIZE]), pTxBlk);
 
 
-		NdisZeroMemory((PUCHAR)(&pMacEntry->CachedBuf[0]), sizeof(pMacEntry->CachedBuf));
-		NdisMoveMemory((PUCHAR)(&pMacEntry->CachedBuf[0]), 
-						(PUCHAR)(&pTxBlk->HeaderBuf[TXINFO_SIZE]), 
-						(pHeaderBufPtr - (PUCHAR)(&pTxBlk->HeaderBuf[TXINFO_SIZE])));
+		NdisZeroMemory((unsigned char *)(&pMacEntry->CachedBuf[0]), sizeof(pMacEntry->CachedBuf));
+		NdisMoveMemory((unsigned char *)(&pMacEntry->CachedBuf[0]), 
+						(unsigned char *)(&pTxBlk->HeaderBuf[TXINFO_SIZE]), 
+						(pHeaderBufPtr - (unsigned char *)(&pTxBlk->HeaderBuf[TXINFO_SIZE])));
 
 #ifdef VENDOR_FEATURE1_SUPPORT
 		/* use space to get performance enhancement */
-		NdisZeroMemory((PUCHAR)(&pMacEntry->HeaderBuf[0]), sizeof(pMacEntry->HeaderBuf));
-		NdisMoveMemory((PUCHAR)(&pMacEntry->HeaderBuf[0]), 
-						(PUCHAR)(&pTxBlk->HeaderBuf[0]), 
-						(pHeaderBufPtr - (PUCHAR)(&pTxBlk->HeaderBuf[0])));
+		NdisZeroMemory((unsigned char *)(&pMacEntry->HeaderBuf[0]), sizeof(pMacEntry->HeaderBuf));
+		NdisMoveMemory((unsigned char *)(&pMacEntry->HeaderBuf[0]), 
+						(unsigned char *)(&pTxBlk->HeaderBuf[0]), 
+						(pHeaderBufPtr - (unsigned char *)(&pTxBlk->HeaderBuf[0])));
 #endif /* VENDOR_FEATURE1_SUPPORT */
 
 		pMacEntry->isCached = TRUE;
@@ -1734,7 +1734,7 @@ VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TX_BLK			*pTxBlk)
 {
-	PUCHAR			pWiBufPtr;
+	unsigned char *			pWiBufPtr;
 /*	UCHAR			QueIdx = pTxBlk->QueIdx; */
 	USHORT			FreeNumber = 1; /* no use */
 	MAC_TABLE_ENTRY	*pMacEntry;
@@ -1772,13 +1772,13 @@ VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
 	)
 	{
 		/* It should be cleared!!! */
-		/*NdisZeroMemory((PUCHAR)(&pTxBlk->HeaderBuf[0]), sizeof(pTxBlk->HeaderBuf)); */ 
-		NdisMoveMemory((PUCHAR)
+		/*NdisZeroMemory((unsigned char *)(&pTxBlk->HeaderBuf[0]), sizeof(pTxBlk->HeaderBuf)); */ 
+		NdisMoveMemory((unsigned char *)
 			       (&pTxBlk->HeaderBuf[TXINFO_SIZE]),
-			       (PUCHAR) (&pMacEntry->CachedBuf[0]),
+			       (unsigned char *) (&pMacEntry->CachedBuf[0]),
 			       TXWISize + WIFI_INFO_SIZE);
 
-		pWiBufPtr = (PUCHAR)(&pTxBlk->HeaderBuf[TXINFO_SIZE + TXWISize]);
+		pWiBufPtr = (unsigned char *)(&pTxBlk->HeaderBuf[TXINFO_SIZE + TXWISize]);
 		APBuildCacheWifiInfo(pAd, pTxBlk, pWiBufPtr);
 	}
 	else 
@@ -1839,9 +1839,9 @@ VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
 	{
 		RTMPWriteTxWI_Data(pAd, (TXWI_STRUC *)(&pTxBlk->HeaderBuf[TXINFO_SIZE]), pTxBlk);
 
-		NdisZeroMemory((PUCHAR)(&pMacEntry->CachedBuf[0]), sizeof(pMacEntry->CachedBuf));
-		NdisMoveMemory((PUCHAR)(&pMacEntry->CachedBuf[0]), 
-						(PUCHAR)(&pTxBlk->HeaderBuf[TXINFO_SIZE]), 
+		NdisZeroMemory((unsigned char *)(&pMacEntry->CachedBuf[0]), sizeof(pMacEntry->CachedBuf));
+		NdisMoveMemory((unsigned char *)(&pMacEntry->CachedBuf[0]), 
+						(unsigned char *)(&pTxBlk->HeaderBuf[TXINFO_SIZE]), 
 						TXWISize + WIFI_INFO_SIZE);
 
 
@@ -1936,7 +1936,7 @@ VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
 
 VOID AP_AMSDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
-	PUCHAR			pHeaderBufPtr;
+	unsigned char *			pHeaderBufPtr;
 	USHORT			freeCnt = 1; /* no use */
 	USHORT			subFramePayloadLen = 0;	/* AMSDU Subframe length without AMSDU-Header / Padding. */
 	USHORT			totalMPDUSize=0;
@@ -2337,7 +2337,7 @@ VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 
 	/* The remaining content of MPDU header should locate at 4-octets aligment	*/
 	pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
-	pHeaderBufPtr = (PUCHAR) ROUND_UP(pHeaderBufPtr, 4);
+	pHeaderBufPtr = (unsigned char *) ROUND_UP(pHeaderBufPtr, 4);
 	pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 
 #ifdef SOFT_ENCRYPT
@@ -2373,7 +2373,7 @@ VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 		/* Encrypt the MPDU data by software */
 		RTMPSoftEncryptionAction(pAd, 
 								 pTxBlk->CipherAlg, 
-								 (PUCHAR)wifi_hdr, 
+								 (unsigned char *)wifi_hdr, 
 								pTxBlk->pSrcBufData, 
 								pTxBlk->SrcBufLen, 
 								pTxBlk->KeyIdx,
@@ -2773,7 +2773,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 
 	/* The remaining content of MPDU header should locate at 4-octets aligment */
 	pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
-	pHeaderBufPtr = (PUCHAR) ROUND_UP(pHeaderBufPtr, 4);
+	pHeaderBufPtr = (unsigned char *) ROUND_UP(pHeaderBufPtr, 4);
 	pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 
 #ifdef SOFT_ENCRYPT
@@ -2937,7 +2937,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	if (TX_BLK_TEST_FLAG(pTxBlk, fTX_bSwEncrypt))
 	{
 		/* store the outgoing frame for calculating MIC per fragmented frame */
-		os_alloc_mem(pAd, (PUCHAR *)&tmp_ptr, pTxBlk->SrcBufLen);
+		os_alloc_mem(pAd, (unsigned char * *)&tmp_ptr, pTxBlk->SrcBufLen);
 		if (tmp_ptr == NULL)
 		{
 			DBGPRINT(RT_DEBUG_ERROR, ("!!!%s : no memory for SW MIC calculation !!!\n", 
@@ -2993,7 +2993,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 			/* Encrypt the MPDU data by software */
 			RTMPSoftEncryptionAction(pAd, 
 									 pTxBlk->CipherAlg, 
-									 (PUCHAR)pHeader_802_11, 
+									 (unsigned char *)pHeader_802_11, 
 									pTxBlk->pSrcBufData, 
 									pTxBlk->SrcBufLen, 
 									pTxBlk->KeyIdx,
@@ -3468,7 +3468,7 @@ BOOLEAN APCheckClass2Class3Error(
 */
 VOID APHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PUCHAR			pAddr,
+	IN	unsigned char *			pAddr,
 	IN	USHORT			Aid,
     IN	BOOLEAN			isActive)
 { 
@@ -3997,7 +3997,7 @@ BOOLEAN APCheckTkipMICValue(
 	if (RX_BLK_TEST_FLAG(pRxBlk, fRX_WDS))
 	{
 		pDA = pHeader->Addr3;
-		pSA = (PUCHAR)pHeader + sizeof(HEADER_802_11);
+		pSA = (unsigned char *)pHeader + sizeof(HEADER_802_11);
 	}
 	else if (RX_BLK_TEST_FLAG(pRxBlk, fRX_APCLI))
 	{
@@ -4101,7 +4101,7 @@ VOID APHandleRxMgmtFrame(
 		if ((pHeader->FC.SubType == SUBTYPE_AUTH) && 
 			(pHeader->FC.Wep == 1) && (pRxInfo->Decrypted == 0))
 		{
-			PUCHAR	pMgmt = (PUCHAR)pHeader;
+			unsigned char *	pMgmt = (unsigned char *)pHeader;
 			UINT16	mgmt_len = pRxWI->RxWIMPDUByteCnt;
 			PMAC_TABLE_ENTRY pEntry = NULL;
 
@@ -4238,7 +4238,7 @@ VOID APHandleRxControlFrame(
 		case SUBTYPE_PS_POLL:
 			{
 				USHORT Aid = pHeader->Duration & 0x3fff;
-				PUCHAR pAddr = pHeader->Addr2;
+				unsigned char * pAddr = pHeader->Addr2;
 
 				if (Aid < MAX_LEN_OF_MAC_TABLE)
 					APHandleRxPsPoll(pAd, pAddr, Aid, FALSE);
@@ -4323,7 +4323,7 @@ VOID APRxEAPOLFrameIndicate(
 			pAd->ApCfg.ApCliTab[pEntry->MatchAPCLITabIdx].IEEE8021X == TRUE &&
 		(EAP_CODE_SUCCESS == eapcode))
 		{
-				PUCHAR	Key; 			
+				unsigned char *	Key; 			
 				UCHAR 	CipherAlg;
 				int     idx = 0;
 				int BssIdx = pAd->ApCfg.BssidNum + MAX_MESH_NUM + pEntry->MatchAPCLITabIdx;
@@ -4488,9 +4488,9 @@ VOID APRxDataFrameAnnounce(
 			&& (pAd->ApCfg.IgmpSnoopEnable) 
 			&& IS_MULTICAST_MAC_ADDR(pRxBlk->pHeader->Addr3))
 		{
-			PUCHAR pDA = pRxBlk->pHeader->Addr3;
-			PUCHAR pSA = pRxBlk->pHeader->Addr2;
-			PUCHAR pData = NdisEqualMemory(SNAP_802_1H, pRxBlk->pData, 6) ? (pRxBlk->pData + 6) : pRxBlk->pData;
+			unsigned char * pDA = pRxBlk->pHeader->Addr3;
+			unsigned char * pSA = pRxBlk->pHeader->Addr2;
+			unsigned char * pData = NdisEqualMemory(SNAP_802_1H, pRxBlk->pData, 6) ? (pRxBlk->pData + 6) : pRxBlk->pData;
 			UINT16 protoType = OS_NTOHS(*((UINT16 *)(pData)));
 
 			if (protoType == ETH_P_IP)
@@ -4606,9 +4606,9 @@ VOID APRxDataFrameAnnounce_Hdr_Trns(
 			&& (pAd->ApCfg.IgmpSnoopEnable) 
 			&& IS_MULTICAST_MAC_ADDR(pRxBlk->pHeader->Addr3))
 		{
-			PUCHAR pDA = pRxBlk->pHeader->Addr3;
-			PUCHAR pSA = pRxBlk->pHeader->Addr2;
-			PUCHAR pData = NdisEqualMemory(SNAP_802_1H, pRxBlk->pData, 6) ? (pRxBlk->pData + 6) : pRxBlk->pData;
+			unsigned char * pDA = pRxBlk->pHeader->Addr3;
+			unsigned char * pSA = pRxBlk->pHeader->Addr2;
+			unsigned char * pData = NdisEqualMemory(SNAP_802_1H, pRxBlk->pData, 6) ? (pRxBlk->pData + 6) : pRxBlk->pData;
 			UINT16 protoType = OS_NTOHS(*((UINT16 *)(pData)));
 
 			if (protoType == ETH_P_IP)
@@ -5112,7 +5112,7 @@ if (0 /*!(pRxInfo->Mcast || pRxInfo->Bcast)*/){
 	if ((pHeader->FC.Wep == 1) && (pRxInfo->Decrypted == 0))
 	{	
 		if (RTMPSoftDecryptionAction(pAd, 
-								 	(PUCHAR)pHeader, 
+								 	(unsigned char *)pHeader, 
 									 UserPriority, 
 									 &pEntry->PairwiseKey, 
 								 	 pRxBlk->pData, 
@@ -5584,7 +5584,7 @@ if (0 /*!(pRxInfo->Mcast || pRxInfo->Bcast)*/){
 	if ((pHeader->FC.Wep == 1) && (pRxInfo->Decrypted == 0))
 	{	
 		if (RTMPSoftDecryptionAction(pAd, 
-								 	(PUCHAR)pHeader, 
+								 	(unsigned char *)pHeader, 
 									 UserPriority, 
 									 &pEntry->PairwiseKey, 
 								 	 pRxBlk->pTransData + 14, 
@@ -5767,8 +5767,8 @@ BOOLEAN APRxDoneInterruptHandle(RTMP_ADAPTER *pAd)
 
 
 #ifdef RT_BIG_ENDIAN
-		RTMPFrameEndianChange(pAd, (PUCHAR)pHeader, DIR_READ, TRUE);
-		RTMPWIEndianChange(pAd , (PUCHAR)pRxWI, TYPE_RXWI);
+		RTMPFrameEndianChange(pAd, (unsigned char *)pHeader, DIR_READ, TRUE);
+		RTMPWIEndianChange(pAd , (unsigned char *)pRxWI, TYPE_RXWI);
 #endif
 
 //+++Add by shiang for debug

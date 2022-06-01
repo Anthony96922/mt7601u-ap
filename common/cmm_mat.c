@@ -74,7 +74,7 @@ static MATProtoTable MATProtoTb[]=
 /* --------------------------------- Public Function-------------------------------- */
 NDIS_STATUS MATDBEntryFree(
 	IN MAT_STRUCT 	*pMatStruct, 
-	IN PUCHAR 		NodeEntry)
+	IN unsigned char * 		NodeEntry)
 {
 #ifdef KMALLOC_BATCH
 	MATNodeEntry *pPtr, *pMATNodeEntryPoll;
@@ -97,7 +97,7 @@ NDIS_STATUS MATDBEntryFree(
 
 }
 
-PUCHAR MATDBEntryAlloc(IN MAT_STRUCT *pMatStruct, IN UINT32 size)
+unsigned char * MATDBEntryAlloc(IN MAT_STRUCT *pMatStruct, IN UINT32 size)
 {
 #ifdef KMALLOC_BATCH
 	MATNodeEntry *pPtr = NULL, *pMATNodeEntryPoll;
@@ -112,16 +112,16 @@ PUCHAR MATDBEntryAlloc(IN MAT_STRUCT *pMatStruct, IN UINT32 size)
 #else
 	UCHAR *pPtr = NULL;
 
-	os_alloc_mem(NULL, (PUCHAR *)&pPtr, size);
+	os_alloc_mem(NULL, (unsigned char * *)&pPtr, size);
 	/*pPtr = kmalloc(size, MEM_ALLOC_FLAG); */
 
 #endif
 
-	return (PUCHAR)pPtr;
+	return (unsigned char *)pPtr;
 }
 
 
-VOID dumpPkt(PUCHAR pHeader, int len)
+VOID dumpPkt(unsigned char * pHeader, int len)
 {
 	int i;
 	PSTRING tmp;
@@ -168,17 +168,17 @@ VOID dumpPkt(PUCHAR pHeader, int len)
 		  handle DHCP packet.
 	========================================================================
  */
-PUCHAR MATEngineTxHandle(
+unsigned char * MATEngineTxHandle(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET	    pPkt,
 	IN UINT				ifIdx,
 	IN UCHAR    OpMode)
 {
-	PUCHAR 		pLayerHdr = NULL, pPktHdr = NULL,  pMacAddr = NULL;
+	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL,  pMacAddr = NULL;
 	UINT16		protoType, protoType_ori;
 	INT			i;
 	struct _MATProtoOps 	*pHandle = NULL;
-	PUCHAR  retSkb = NULL;
+	unsigned char *  retSkb = NULL;
 	BOOLEAN bVLANPkt = FALSE;
 
 
@@ -250,13 +250,13 @@ PUCHAR MATEngineTxHandle(
 	Note:
 	========================================================================
  */
-PUCHAR MATEngineRxHandle(
+unsigned char * MATEngineRxHandle(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET		pPkt,
 	IN UINT				infIdx)
 {
-	PUCHAR				pMacAddr = NULL;
-	PUCHAR 		pLayerHdr = NULL, pPktHdr = NULL;
+	unsigned char *				pMacAddr = NULL;
+	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL;
 	UINT16		protoType;
 	INT			i =0;
 	struct _MATProtoOps 	*pHandle = NULL;

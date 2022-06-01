@@ -289,7 +289,7 @@ BOOLEAN RTMPSpoofedMgmtDetection(
 
 VOID RTMPConflictSsidDetection(
 	IN PRTMP_ADAPTER	pAd,
-	IN PUCHAR			pSsid,
+	IN unsigned char *			pSsid,
 	IN UCHAR			SsidLen,
 	IN CHAR				Rssi0,
 	IN CHAR				Rssi1,
@@ -316,7 +316,7 @@ VOID RTMPConflictSsidDetection(
 
 BOOLEAN RTMPReplayAttackDetection(
 	IN PRTMP_ADAPTER	pAd,
-	IN PUCHAR			pAddr2,
+	IN unsigned char *			pAddr2,
 	IN CHAR				Rssi0,
 	IN CHAR				Rssi1,
 	IN CHAR				Rssi2,

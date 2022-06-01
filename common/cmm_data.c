@@ -318,7 +318,7 @@ NDIS_STATUS MiniportMMRequest(
 		{
 			/* We need to reserve space for rtmp hardware header. i.e., TxWI for RT2860 and TxInfo+TxWI for RT2870*/
 			NdisZeroMemory(&rtmpHwHdr, hw_len);
-			Status = RTMPAllocateNdisPacket(pAd, &pPacket, (PUCHAR)&rtmpHwHdr, hw_len, pData, Length);
+			Status = RTMPAllocateNdisPacket(pAd, &pPacket, (unsigned char *)&rtmpHwHdr, hw_len, pData, Length);
 			if (Status != NDIS_STATUS_SUCCESS)
 			{
 				DBGPRINT(RT_DEBUG_WARN, ("MiniportMMRequest (error:: can't allocate NDIS PACKET)\n"));
@@ -528,7 +528,7 @@ NDIS_STATUS MlmeHardTransmit(
 	UINT8 TXWISize = pAd->chipCap.TXWISize;
 #endif /* CONFIG_AP_SUPPORT */
 	PACKET_INFO 	PacketInfo;
-	PUCHAR			pSrcBufVA;
+	unsigned char *			pSrcBufVA;
 	UINT			SrcBufLen;
 
 	if ((pAd->Dot11_H.RDMode != RD_NORMAL_MODE)
@@ -730,7 +730,7 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 	}
 
 #ifdef RT_BIG_ENDIAN
-	RTMPFrameEndianChange(pAd, (PUCHAR)pHeader_802_11, DIR_WRITE, FALSE);
+	RTMPFrameEndianChange(pAd, (unsigned char *)pHeader_802_11, DIR_WRITE, FALSE);
 #endif
 
 	
@@ -770,7 +770,7 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 				IFS_BACKOFF, FALSE, &pMacEntry->MaxHTPhyMode);
 
 #ifdef RT_BIG_ENDIAN
-	RTMPWIEndianChange(pAd, (PUCHAR)pFirstTxWI, TYPE_TXWI);
+	RTMPWIEndianChange(pAd, (unsigned char *)pFirstTxWI, TYPE_TXWI);
 #endif
 
 //+++Add by shiang for debug
@@ -970,7 +970,7 @@ BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 		pTxBlk->pMacEntry = NULL;
 		{
 #ifdef MCAST_RATE_SPECIFIC
-			PUCHAR pDA = GET_OS_PKT_DATAPTR(pPacket);
+			unsigned char * pDA = GET_OS_PKT_DATAPTR(pPacket);
 			if (((*pDA & 0x01) == 0x01) && (*pDA != 0xff))
 				pTxBlk->pTransmit = &pAd->CommonCfg.MCastPhyMode;
 			else
@@ -1033,8 +1033,8 @@ BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 #ifdef CLIENT_WDS
 				if (IS_ENTRY_CLIWDS(pMacEntry))
 				{
-					PUCHAR pDA = GET_OS_PKT_DATAPTR(pPacket);
-					PUCHAR pSA = GET_OS_PKT_DATAPTR(pPacket) + MAC_ADDR_LEN;
+					unsigned char * pDA = GET_OS_PKT_DATAPTR(pPacket);
+					unsigned char * pSA = GET_OS_PKT_DATAPTR(pPacket) + MAC_ADDR_LEN;
 					if (((pMacEntry->apidx < MAX_MBSSID_NUM(pAd))
 						&& !MAC_ADDR_EQUAL(pSA, pAd->ApCfg.MBSSID[pMacEntry->apidx].Bssid))
 						|| !MAC_ADDR_EQUAL(pDA, pMacEntry->Addr)
@@ -1269,7 +1269,7 @@ VOID RTMPDeQueuePacket(
 			}
 
 			pTxBlk = &TxBlk;
-			NdisZeroMemory((PUCHAR)pTxBlk, sizeof(TX_BLK));
+			NdisZeroMemory((unsigned char *)pTxBlk, sizeof(TX_BLK));
 			
 			pTxBlk->QueIdx = QueIdx;
 
@@ -1635,7 +1635,7 @@ VOID RTMPResumeMsduTransmission(
 UINT deaggregate_AMSDU_announce(
 	IN	PRTMP_ADAPTER	pAd,
 	PNDIS_PACKET		pPacket,
-	IN	PUCHAR			pData,
+	IN	unsigned char *			pData,
 	IN	ULONG			DataSize,
 	IN	UCHAR			OpMode)
 {
@@ -1645,7 +1645,7 @@ UINT deaggregate_AMSDU_announce(
 	UINT			nMSDU;
     UCHAR			Header802_3[14];
 
-	PUCHAR			pPayload, pDA, pSA, pRemovedLLCSNAP;
+	unsigned char *			pPayload, pDA, pSA, pRemovedLLCSNAP;
 	PNDIS_PACKET	pClonePacket;
 
 #ifdef CONFIG_AP_SUPPORT
@@ -1772,11 +1772,11 @@ UINT BA_Reorder_AMSDU_Annnounce(
 	IN	PNDIS_PACKET	pPacket,
 	IN	UCHAR			OpMode)
 {
-	PUCHAR			pData;
+	unsigned char *			pData;
 	USHORT			DataSize;
 	UINT			nMSDU = 0;
 
-	pData = (PUCHAR) GET_OS_PKT_DATAPTR(pPacket);
+	pData = (unsigned char *) GET_OS_PKT_DATAPTR(pPacket);
 	DataSize = (USHORT) GET_OS_PKT_LEN(pPacket);
 
 	nMSDU = deaggregate_AMSDU_announce(pAd, pPacket, pData, DataSize, OpMode);
@@ -1809,7 +1809,7 @@ VOID Indicate_AMSDU_Packet(
 VOID AssocParmFill(
 	IN PRTMP_ADAPTER pAd,
 	IN OUT MLME_ASSOC_REQ_STRUCT *AssocReq,
-	IN PUCHAR                     pAddr,
+	IN unsigned char *                     pAddr,
 	IN USHORT                     CapabilityInfo,
 	IN ULONG                      Timeout,
 	IN USHORT                     ListenIntv)
@@ -1833,7 +1833,7 @@ VOID AssocParmFill(
 VOID DisassocParmFill(
 	IN PRTMP_ADAPTER pAd,
 	IN OUT MLME_DISASSOC_REQ_STRUCT *DisassocReq,
-	IN PUCHAR pAddr,
+	IN unsigned char * pAddr,
 	IN USHORT Reason)
 {
 	COPY_MAC_ADDR(DisassocReq->Addr, pAddr);
@@ -1846,12 +1846,12 @@ BOOLEAN RTMPCheckEtherType(
 	IN	PNDIS_PACKET	pPacket,
 	IN	PMAC_TABLE_ENTRY pMacEntry,
 	IN	UCHAR			OpMode,
-	OUT PUCHAR pUserPriority,
-	OUT PUCHAR pQueIdx)
+	OUT unsigned char * pUserPriority,
+	OUT unsigned char * pQueIdx)
 {
 	USHORT	TypeLen;
 	UCHAR	Byte0, Byte1;
-	PUCHAR	pSrcBuf;
+	unsigned char *	pSrcBuf;
 	UINT32	pktLen;
 	UINT16 	srcPort, dstPort;
 #ifdef CONFIG_AP_SUPPORT
@@ -2490,7 +2490,7 @@ VOID CmmRxRalinkFrameIndicate(
 	UCHAR			Header802_3[LENGTH_802_3];
 	UINT16			Msdu2Size;
 	UINT16 			Payload1Size, Payload2Size;
-	PUCHAR 			pData2;
+	unsigned char * 			pData2;
 	PNDIS_PACKET	pPacket2 = NULL;
 	USHORT			VLAN_VID = 0, VLAN_Priority = 0;
 
@@ -2801,7 +2801,7 @@ BOOLEAN RTMPExpandPacketForSwEncrypt(
 VOID RTMPUpdateSwCacheCipherInfo(	
 	IN  PRTMP_ADAPTER   pAd,
 	IN	PTX_BLK			pTxBlk,
-	IN	PUCHAR			pHdr)
+	IN	unsigned char *			pHdr)
 {
 	PHEADER_802_11 		pHeader_802_11;
 	PMAC_TABLE_ENTRY	pMacEntry;
@@ -2847,7 +2847,7 @@ VOID RTMPUpdateSwCacheCipherInfo(
  */
 VOID RtmpEnqueueNullFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR        pAddr,
+	IN unsigned char *        pAddr,
 	IN UCHAR         TxRate,
 	IN UCHAR         PID,
 	IN UCHAR         apidx,
@@ -2857,11 +2857,11 @@ VOID RtmpEnqueueNullFrame(
 {
 	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
-	PUCHAR pFrame;
+	unsigned char * pFrame;
 	ULONG		   Length;
 
 	/* since TxRate may change, we have to change Duration each time */
-	NState = MlmeAllocateMemory(pAd, (PUCHAR *)&pFrame);
+	NState = MlmeAllocateMemory(pAd, (unsigned char * *)&pFrame);
 	pNullFr = (PHEADER_802_11) pFrame;
     Length = sizeof(HEADER_802_11);
 
@@ -2892,7 +2892,7 @@ VOID RtmpEnqueueNullFrame(
 #endif /* UAPSD_SUPPORT */
 
 		DBGPRINT(RT_DEBUG_INFO, ("send NULL Frame @%d Mbps to AID#%d...\n", RateIdToMbps[TxRate], PID & 0x3f));
-		MiniportMMRequest(pAd, MapUserPriorityToAccessCategory[7], (PUCHAR)pNullFr, Length);
+		MiniportMMRequest(pAd, MapUserPriorityToAccessCategory[7], (unsigned char *)pNullFr, Length);
 		MlmeFreeMemory(pAd, pFrame);
 	}
 }
@@ -2900,7 +2900,7 @@ VOID RtmpEnqueueNullFrame(
 
 
 #ifdef RLT_MAC
-BOOLEAN CmdRspEventCallbackHandle(PRTMP_ADAPTER pAd, PUCHAR pRspBuffer)
+BOOLEAN CmdRspEventCallbackHandle(PRTMP_ADAPTER pAd, unsigned char * pRspBuffer)
 {
 
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
@@ -2908,7 +2908,7 @@ BOOLEAN CmdRspEventCallbackHandle(PRTMP_ADAPTER pAd, PUCHAR pRspBuffer)
 	RXFCE_INFO_CMD *pFceInfo = (RXFCE_INFO_CMD *)pRspBuffer;
 
 #ifdef RT_BIG_ENDIAN
-	RTMPDescriptorEndianChange((PUCHAR)pFceInfo, TYPE_RXINFO);
+	RTMPDescriptorEndianChange((unsigned char *)pFceInfo, TYPE_RXINFO);
 #endif
 
 
@@ -2986,7 +2986,7 @@ BOOLEAN CmdRspEventHandle(RTMP_ADAPTER *pAd)
 #ifdef CONFIG_AP_SUPPORT
 MAC_TABLE_ENTRY *MulTestTableLookup(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr,
+	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount)
 {
 	USHORT HashIdx;
@@ -3017,7 +3017,7 @@ MAC_TABLE_ENTRY *MulTestTableLookup(
 
 MAC_TABLE_ENTRY *MacTableInsertMulTestEntry(
 	IN  PRTMP_ADAPTER   pAd, 
-	IN  PUCHAR pAddr,
+	IN  unsigned char * pAddr,
 	UINT WdsTabIdx)
 {
 	PMAC_TABLE_ENTRY pEntry = NULL;
@@ -3301,7 +3301,7 @@ VOID AsicUpdateMulTestEncryption(
 			NdisZeroMemory(&pEntry->PairwiseKey, sizeof(CIPHER_KEY));   
 
 			/* Assign key material and its length */
-			NdisMoveMemory((PUCHAR)(&pEntry->PairwiseKey), (PUCHAR)(&pAd->MulTestTab.WdsEntry[WdsIdex].WdsKey), sizeof(CIPHER_KEY));
+			NdisMoveMemory((unsigned char *)(&pEntry->PairwiseKey), (unsigned char *)(&pAd->MulTestTab.WdsEntry[WdsIdex].WdsKey), sizeof(CIPHER_KEY));
 
 			DBGPRINT(RT_DEBUG_ERROR, ("pEntry->PairwiseKey.CipherAlg = (%d)\n", pEntry->PairwiseKey.CipherAlg));
 	

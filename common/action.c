@@ -99,7 +99,7 @@ VOID MlmeADDBAAction(
 {
 	MLME_ADDBA_REQ_STRUCT *pInfo;
 	UCHAR           Addr[6];
-	PUCHAR         pOutBuffer = NULL;
+	unsigned char *         pOutBuffer = NULL;
 	NDIS_STATUS     NStatus;
 	ULONG		Idx;
 	FRAME_ADDBA_REQ  Frame;
@@ -167,9 +167,9 @@ VOID MlmeADDBAAction(
 		{
 			BA_PARM		tmpBaParm;
 
-			NdisMoveMemory((PUCHAR)(&tmpBaParm), (PUCHAR)(&Frame.BaParm), sizeof(BA_PARM));
+			NdisMoveMemory((unsigned char *)(&tmpBaParm), (unsigned char *)(&Frame.BaParm), sizeof(BA_PARM));
 			*(USHORT *)(&tmpBaParm) = cpu2le16(*(USHORT *)(&tmpBaParm));
-			NdisMoveMemory((PUCHAR)(&Frame.BaParm), (PUCHAR)(&tmpBaParm), sizeof(BA_PARM));
+			NdisMoveMemory((unsigned char *)(&Frame.BaParm), (unsigned char *)(&tmpBaParm), sizeof(BA_PARM));
 		}
 #else
 		*(USHORT *)(&(Frame.BaParm)) = cpu2le16((*(USHORT *)(&(Frame.BaParm))));
@@ -206,8 +206,8 @@ VOID MlmeDELBAAction(
     IN MLME_QUEUE_ELEM *Elem) 
 {
 	MLME_DELBA_REQ_STRUCT *pInfo;
-	PUCHAR         pOutBuffer = NULL;
-	PUCHAR		   pOutBuffer2 = NULL;
+	unsigned char *         pOutBuffer = NULL;
+	unsigned char *		   pOutBuffer2 = NULL;
 	NDIS_STATUS     NStatus;
 	ULONG		Idx;
 	FRAME_DELBA_REQ  Frame;
@@ -329,7 +329,7 @@ VOID MlmeInvalidAction(
     IN PRTMP_ADAPTER pAd, 
     IN MLME_QUEUE_ELEM *Elem) 
 {
-	/*PUCHAR		   pOutBuffer = NULL;*/
+	/*unsigned char *		   pOutBuffer = NULL;*/
 	/*Return the receiving frame except the MSB of category filed set to 1.  7.3.1.11*/
 }
 
@@ -421,18 +421,18 @@ VOID SendBSS2040CoexistMgmtAction(
 	IN	UCHAR	apidx,
 	IN	UCHAR	InfoReq)
 {
-	PUCHAR			pOutBuffer = NULL;
+	unsigned char *			pOutBuffer = NULL;
 	NDIS_STATUS 	NStatus;
 	FRAME_ACTION_HDR	Frame;
 	ULONG			FrameLen;
 	BSS_2040_COEXIST_ELEMENT		BssCoexistInfo;
 	BSS_2040_INTOLERANT_CH_REPORT	BssIntolerantInfo;
-	PUCHAR		pAddr1;
+	unsigned char *		pAddr1;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("SendBSS2040CoexistMgmtAction(): Wcid=%d, apidx=%d, InfoReq=%d!\n", Wcid, apidx, InfoReq));
 	
-	NdisZeroMemory((PUCHAR)&BssCoexistInfo, sizeof(BSS_2040_COEXIST_ELEMENT));
-	NdisZeroMemory((PUCHAR)&BssIntolerantInfo, sizeof(BSS_2040_INTOLERANT_CH_REPORT));
+	NdisZeroMemory((unsigned char *)&BssCoexistInfo, sizeof(BSS_2040_COEXIST_ELEMENT));
+	NdisZeroMemory((unsigned char *)&BssIntolerantInfo, sizeof(BSS_2040_INTOLERANT_CH_REPORT));
 	
 	BssCoexistInfo.ElementID = IE_2040_BSS_COEXIST;
 	BssCoexistInfo.Len = 1;
@@ -600,12 +600,12 @@ VOID PeerPublicAction(
 
 				
 				pCoexistInfo = (BSS_2040_COEXIST_ELEMENT *) &Elem->Msg[LENGTH_802_11+2];
-				/*hex_dump("CoexistInfo", (PUCHAR)pCoexistInfo, sizeof(BSS_2040_COEXIST_ELEMENT));*/
+				/*hex_dump("CoexistInfo", (unsigned char *)pCoexistInfo, sizeof(BSS_2040_COEXIST_ELEMENT));*/
 				if (Elem->MsgLen >= (LENGTH_802_11 + sizeof(BSS_2040_COEXIST_ELEMENT) + sizeof(BSS_2040_INTOLERANT_CH_REPORT)))
 				{
-					pIntolerantReport = (BSS_2040_INTOLERANT_CH_REPORT *)((PUCHAR)pCoexistInfo + sizeof(BSS_2040_COEXIST_ELEMENT));
+					pIntolerantReport = (BSS_2040_INTOLERANT_CH_REPORT *)((unsigned char *)pCoexistInfo + sizeof(BSS_2040_COEXIST_ELEMENT));
 				}
-				/*hex_dump("IntolerantReport ", (PUCHAR)pIntolerantReport, sizeof(BSS_2040_INTOLERANT_CH_REPORT));*/
+				/*hex_dump("IntolerantReport ", (unsigned char *)pIntolerantReport, sizeof(BSS_2040_INTOLERANT_CH_REPORT));*/
 				
 				if(pAd->CommonCfg.bBssCoexEnable == FALSE || (pAd->CommonCfg.bForty_Mhz_Intolerant == TRUE))
 				{
@@ -681,7 +681,7 @@ VOID PeerPublicAction(
 					{
 						int apidx;
 						
-						NdisMoveMemory((PUCHAR)&pAd->CommonCfg.LastBSSCoexist2040, (PUCHAR)pBssCoexistIe, sizeof(BSS_2040_COEXIST_IE));
+						NdisMoveMemory((unsigned char *)&pAd->CommonCfg.LastBSSCoexist2040, (unsigned char *)pBssCoexistIe, sizeof(BSS_2040_COEXIST_IE));
 						pAd->CommonCfg.Bss2040CoexistFlag |= BSS_2040_COEXIST_INFO_SYNC;
 
 						if (!(pAd->CommonCfg.Bss2040CoexistFlag & BSS_2040_COEXIST_TIMER_FIRED))
@@ -757,7 +757,7 @@ static VOID respond_ht_information_exchange_action(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	PUCHAR			pOutBuffer = NULL;
+	unsigned char *			pOutBuffer = NULL;
 	NDIS_STATUS		NStatus;
 	ULONG			FrameLen;
 #ifdef CONFIG_AP_SUPPORT
@@ -822,11 +822,11 @@ VOID SendNotifyBWActionFrame(
 	IN UCHAR  Wcid,
 	IN UCHAR apidx)
 {
-	PUCHAR			pOutBuffer = NULL;
+	unsigned char *			pOutBuffer = NULL;
 	NDIS_STATUS 	NStatus;
 	FRAME_ACTION_HDR	Frame;
 	ULONG			FrameLen;
-	PUCHAR			pAddr1;
+	unsigned char *			pAddr1;
 
 	
 	NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);  /*Get an unused nonpaged memory*/
@@ -958,7 +958,7 @@ VOID ORIBATimerTimeout(
 /*	FRAME_BAR			FrameBar;*/
 /*	ULONG			FrameLen;*/
 /*	NDIS_STATUS 	NStatus;*/
-/*	PUCHAR			pOutBuffer = NULL;*/
+/*	unsigned char *			pOutBuffer = NULL;*/
 /*	USHORT			Sequence;*/
 	UCHAR			TID;
 
@@ -990,7 +990,7 @@ VOID SendRefreshBAR(
 	FRAME_BAR		FrameBar;
 	ULONG			FrameLen;
 	NDIS_STATUS 	NStatus;
-	PUCHAR			pOutBuffer = NULL;
+	unsigned char *			pOutBuffer = NULL;
 	USHORT			Sequence;
 	UCHAR			i, TID;
 	USHORT			idx;
@@ -1056,9 +1056,9 @@ VOID SendRefreshBAR(
 VOID ActHeaderInit(
     IN	PRTMP_ADAPTER	pAd, 
     IN OUT PHEADER_802_11 pHdr80211, 
-    IN PUCHAR Addr1, 
-    IN PUCHAR Addr2,
-    IN PUCHAR Addr3) 
+    IN unsigned char * Addr1, 
+    IN unsigned char * Addr2,
+    IN unsigned char * Addr3) 
 {
     NdisZeroMemory(pHdr80211, sizeof(HEADER_802_11));
     pHdr80211->FC.Type = BTYPE_MGMT;
@@ -1072,8 +1072,8 @@ VOID ActHeaderInit(
 VOID BarHeaderInit(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN OUT PFRAME_BAR pCntlBar, 
-	IN PUCHAR pDA,
-	IN PUCHAR pSA) 
+	IN unsigned char * pDA,
+	IN unsigned char * pSA) 
 {
 /*	USHORT	Duration;*/
 
@@ -1108,7 +1108,7 @@ VOID BarHeaderInit(
  */
 VOID InsertActField(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 Category,
 	IN UINT8 ActCode)

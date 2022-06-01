@@ -42,7 +42,7 @@ Arguments:
 */
 VOID ARC4_INIT (
     IN ARC4_CTX_STRUC *pARC4_CTX,
-    IN PUCHAR pKey,
+    IN unsigned char * pKey,
 	IN UINT KeyLength)
 {
     UINT BlockIndex = 0, SWAPIndex = 0, KeyIndex = 0;

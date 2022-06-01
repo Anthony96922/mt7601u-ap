@@ -99,7 +99,7 @@ VOID ApCliAssocStateMachineInit(
 MAC_TABLE_ENTRY *ApCliTableLookUpByWcid(
 	IN PRTMP_ADAPTER pAd,
 	IN UCHAR wcid,
-	IN PUCHAR pAddrs);
+	IN unsigned char * pAddrs);
 
 
 BOOLEAN ApCliAllowToSendPacket(
@@ -124,7 +124,7 @@ VOID RT28xx_ApCli_Close(
 
 INT ApCliIfLookUp(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr);
+	IN unsigned char * pAddr);
 
 
 INT ApCli_VirtualIF_PacketSend(
@@ -142,8 +142,8 @@ VOID ApCliMgtMacHeaderInit(
     IN OUT PHEADER_802_11 pHdr80211, 
     IN UCHAR SubType, 
     IN UCHAR ToDs, 
-    IN PUCHAR pDA, 
-    IN PUCHAR pBssid,
+    IN unsigned char * pDA, 
+    IN unsigned char * pBssid,
     IN USHORT ifIndex);
 
 #ifdef DOT11_N_SUPPORT
@@ -187,7 +187,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *pMsg, 
     IN ULONG MsgLen, 
-    OUT PUCHAR pAddr2, 
+    OUT unsigned char * pAddr2, 
     OUT USHORT *pCapabilityInfo, 
     OUT USHORT *pStatus, 
     OUT USHORT *pAid, 
@@ -220,14 +220,14 @@ VOID	ApCliPeerGroupMsg1Action(
 
 BOOLEAN ApCliCheckRSNIE(
 	IN  PRTMP_ADAPTER   pAd,
-	IN  PUCHAR          pData,
+	IN  unsigned char *          pData,
 	IN  UCHAR           DataLen,
 	IN  MAC_TABLE_ENTRY *pEntry,
 	OUT	UCHAR			*Offset);
 
 BOOLEAN ApCliParseKeyData(
 	IN  PRTMP_ADAPTER   pAd,
-	IN  PUCHAR          pKeyData,
+	IN  unsigned char *          pKeyData,
 	IN  UCHAR           KeyDataLen,
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN	UCHAR			IfIdx,
@@ -245,7 +245,7 @@ VOID APCliInstallPairwiseKey(
 
 BOOLEAN APCliInstallSharedKey(
 	IN  PRTMP_ADAPTER   pAd,
-	IN  PUCHAR          pKey,
+	IN  unsigned char *          pKey,
 	IN  UCHAR           KeyLen,
 	IN	UCHAR			DefaultKeyIdx,
 	IN  MAC_TABLE_ENTRY *pEntry);

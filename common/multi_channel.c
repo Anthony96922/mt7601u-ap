@@ -53,7 +53,7 @@ VOID RtmpPrepareHwNullFrame(
 	UINT8 TXWISize = pAd->chipCap.TXWISize;
 	TXWI_STRUC *pTxWI;
 	TXINFO_STRUC *pTxInfo;
-	PUCHAR pNullFrame;
+	unsigned char * pNullFrame;
 	PHEADER_802_11 pNullFr;
 	UINT32 frameLen;
 	UINT32 totalLen;
@@ -64,7 +64,7 @@ VOID RtmpPrepareHwNullFrame(
 
 #ifdef RT_BIG_ENDIAN
 	NDIS_STATUS    NState;
-	PUCHAR pNullFrBuf;
+	unsigned char * pNullFrBuf;
 #endif /* RT_BIG_ENDIAN */
 
 
@@ -121,14 +121,14 @@ VOID RtmpPrepareHwNullFrame(
 	ptr = pAd->NullFrBuf;
 
 #ifdef RT_BIG_ENDIAN
-	NState = os_alloc_mem(pAd, (PUCHAR *) &pNullFrBuf, 100);
+	NState = os_alloc_mem(pAd, (unsigned char * *) &pNullFrBuf, 100);
 	if ( NState == NDIS_STATUS_FAILURE )
 		return;
 
 	NdisZeroMemory(pNullFrame, 100);
 	NdisMoveMemory(pNullFrBuf, pAd->NullFrBuf, totalLen);
 	RTMPWIEndianChange(pAd, pNullFrBuf, TYPE_TXWI);
-	RTMPFrameEndianChange(pAd, (PUCHAR)pNullFrBuf + TXWISize, DIR_WRITE, FALSE);
+	RTMPFrameEndianChange(pAd, (unsigned char *)pNullFrBuf + TXWISize, DIR_WRITE, FALSE);
 
 	ptr = pNullFrBuf;
 #endif /* RT_BIG_ENDIAN */
@@ -166,7 +166,7 @@ VOID RTMPHwSendNullFrame(
 	UCHAR *ptr;
 	UINT32 longValue;
 #ifdef RT_BIG_ENDIAN
-	PUCHAR pNullFrame;
+	unsigned char * pNullFrame;
 #endif /* RT_BIG_ENDIAN */
 	UINT32 Data = 0;
 
@@ -238,7 +238,7 @@ VOID RTMPHwSendNullFrame(
  */
 VOID RtmpEnqueueLastNullFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr,
+	IN unsigned char * pAddr,
 	IN UCHAR TxRate,
 	IN UCHAR PID,
 	IN UCHAR apidx,

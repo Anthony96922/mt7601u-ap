@@ -57,9 +57,9 @@
 
 BOOLEAN APBridgeToWirelessSta(
     IN  PRTMP_ADAPTER   pAd,
-    IN  PUCHAR          pHeader,
+    IN  unsigned char *          pHeader,
     IN  UINT            HdrLen,
-    IN  PUCHAR          pData,
+    IN  unsigned char *          pData,
     IN  UINT            DataLen,
     IN  ULONG           fromwdsidx);
 
@@ -106,17 +106,17 @@ BOOLEAN APCheckClass2Class3Error(
 
 VOID APHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PUCHAR			pAddr,
+	IN	unsigned char *			pAddr,
 	IN	USHORT			Aid,
     IN	BOOLEAN			isActive);
 
 VOID    RTMPDescriptorEndianChange(
-    IN  PUCHAR          pData,
+    IN  unsigned char *          pData,
     IN  ULONG           DescriptorType);
     
 VOID    RTMPFrameEndianChange(
     IN  PRTMP_ADAPTER   pAd,
-    IN  PUCHAR          pData,
+    IN  unsigned char *          pData,
     IN  ULONG           Dir,
     IN  BOOLEAN         FromRxDoneInt);
 
@@ -135,7 +135,7 @@ VOID MbssKickOutStas(
 
 VOID APMlmeKickOutSta(
     IN PRTMP_ADAPTER pAd, 
-	IN PUCHAR pStaAddr, 
+	IN unsigned char * pStaAddr, 
 	IN UCHAR Wcid,
 	IN USHORT Reason);
 
@@ -152,9 +152,9 @@ VOID	RTMPAddClientSec(
 	IN	UCHAR	BssIdx,
 	IN UCHAR		 KeyIdx,
 	IN UCHAR		 CipherAlg,
-	IN PUCHAR		 pKey,
-	IN PUCHAR		 pTxMic,
-	IN PUCHAR		 pRxMic,
+	IN unsigned char *		 pKey,
+	IN unsigned char *		 pTxMic,
+	IN unsigned char *		 pRxMic,
 	IN MAC_TABLE_ENTRY *pEntry);
 */
 
@@ -242,13 +242,13 @@ VOID ApSiteSurvey(
 	IN	BOOLEAN				ChannelSel);
 
 VOID SupportRate(
-	IN PUCHAR SupRate,
+	IN unsigned char * SupRate,
 	IN UCHAR SupRateLen,
-	IN PUCHAR ExtRate,
+	IN unsigned char * ExtRate,
 	IN UCHAR ExtRateLen,
-	OUT PUCHAR *Rates,
-	OUT PUCHAR RatesLen,
-	OUT PUCHAR pMaxSupportRate);
+	OUT unsigned char * *Rates,
+	OUT unsigned char * RatesLen,
+	OUT unsigned char * pMaxSupportRate);
 
 
 BOOLEAN ApScanRunning(
@@ -330,7 +330,7 @@ UINT32 MacTableAssocStaNumGet(
 
 MAC_TABLE_ENTRY *APSsPsInquiry(
     IN  PRTMP_ADAPTER   pAd, 
-    IN  PUCHAR          pAddr, 
+    IN  unsigned char *          pAddr, 
     OUT SST             *Sst, 
     OUT USHORT          *Aid,
     OUT UCHAR           *PsMode,
@@ -338,14 +338,14 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
 
 BOOLEAN APPsIndicate(
     IN  PRTMP_ADAPTER   pAd, 
-    IN  PUCHAR          pAddr, 
+    IN  unsigned char *          pAddr, 
 	IN ULONG Wcid, 
     IN  UCHAR           Psm);
 
 #ifdef SYSTEM_LOG_SUPPORT
 VOID ApLogEvent(
     IN PRTMP_ADAPTER    pAd,
-    IN PUCHAR           pAddr,
+    IN unsigned char *           pAddr,
     IN USHORT           Event);
 #else
 #define ApLogEvent(_pAd, _pAddr, _Event)
@@ -361,7 +361,7 @@ VOID APUpdateCapabilityAndErpIe(
 
 BOOLEAN ApCheckAccessControlList(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR        pAddr,
+	IN unsigned char *        pAddr,
 	IN UCHAR         Apidx);
 
 VOID ApUpdateAccessControlList(
@@ -370,7 +370,7 @@ VOID ApUpdateAccessControlList(
 
 VOID ApEnqueueNullFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR        pAddr,
+	IN unsigned char *        pAddr,
 	IN UCHAR         TxRate,
 	IN UCHAR         PID,
 	IN UCHAR         apidx,
@@ -393,7 +393,7 @@ BOOLEAN PeerDisassocReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN ULONG MsgLen, 
-    OUT PUCHAR pAddr2, 
+    OUT unsigned char * pAddr2, 
     OUT	UINT16	*SeqNum,
     OUT USHORT *Reason);
 
@@ -401,7 +401,7 @@ BOOLEAN PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN ULONG MsgLen, 
-    OUT PUCHAR pAddr2, 
+    OUT unsigned char * pAddr2, 
    	OUT	UINT16	*SeqNum,    
     OUT USHORT *Reason);
 
@@ -409,8 +409,8 @@ BOOLEAN APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN ULONG MsgLen, 
-	OUT PUCHAR pAddr1, 
-    OUT PUCHAR pAddr2, 
+	OUT unsigned char * pAddr1, 
+    OUT unsigned char * pAddr2, 
     OUT USHORT *Alg, 
     OUT USHORT *Seq, 
     OUT USHORT *Status, 

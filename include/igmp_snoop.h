@@ -61,48 +61,48 @@ VOID MultiCastFilterTableReset(
 
 BOOLEAN MulticastFilterTableInsertEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pGrpId,
-	IN PUCHAR pMemberAddr,
+	IN unsigned char * pGrpId,
+	IN unsigned char * pMemberAddr,
 	IN PNET_DEV dev,
 	IN MulticastFilterEntryType type);
 
 BOOLEAN MulticastFilterTableDeleteEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pGrpId,
-	IN PUCHAR pMemberAddr,
+	IN unsigned char * pGrpId,
+	IN unsigned char * pMemberAddr,
 	IN PNET_DEV dev);
 
 PMULTICAST_FILTER_TABLE_ENTRY MulticastFilterTableLookup(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
-	IN PUCHAR pAddr,
+	IN unsigned char * pAddr,
 	IN PNET_DEV dev);
 
 BOOLEAN isIgmpPkt(
-	IN PUCHAR pDstMacAddr,
-	IN PUCHAR pIpHeader);
+	IN unsigned char * pDstMacAddr,
+	IN unsigned char * pIpHeader);
 
 VOID IGMPSnooping(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDstMacAddr,
-	IN PUCHAR pSrcMacAddr,
-	IN PUCHAR pIpHeader,
+	IN unsigned char * pDstMacAddr,
+	IN unsigned char * pSrcMacAddr,
+	IN unsigned char * pIpHeader,
 	IN PNET_DEV pDev);
 
 BOOLEAN isMldPkt(
-	IN PUCHAR pDstMacAddr,
-	IN PUCHAR pIpHeader,
+	IN unsigned char * pDstMacAddr,
+	IN unsigned char * pIpHeader,
 	OUT UINT8 *pProtoType,
-	OUT PUCHAR *pMldHeader);
+	OUT unsigned char * *pMldHeader);
 
 BOOLEAN IPv6MulticastFilterExcluded(
-	IN PUCHAR pDstMacAddr,
-	IN PUCHAR pIpHeader);
+	IN unsigned char * pDstMacAddr,
+	IN unsigned char * pIpHeader);
 
 VOID MLDSnooping(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDstMacAddr,
-	IN PUCHAR pSrcMacAddr,
-	IN PUCHAR pIpHeader,
+	IN unsigned char * pDstMacAddr,
+	IN unsigned char * pSrcMacAddr,
+	IN unsigned char * pIpHeader,
 	IN PNET_DEV pDev);
 
 UCHAR IgmpMemberCnt(
@@ -110,7 +110,7 @@ UCHAR IgmpMemberCnt(
 
 VOID IgmpGroupDelMembers(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pMemberAddr,
+	IN unsigned char * pMemberAddr,
 	IN PNET_DEV pDev);
 
 INT Set_IgmpSn_Enable_Proc(
@@ -136,7 +136,7 @@ void rtmp_read_igmp_snoop_from_file(
 
 NDIS_STATUS IgmpPktInfoQuery(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pSrcBufVA,
+	IN unsigned char * pSrcBufVA,
 	IN PNDIS_PACKET pPacket,
 	IN UCHAR FromWhichBSSID,
 	OUT INT *pInIgmpGroup,

@@ -114,7 +114,7 @@ VOID WpaSendMicFailureToWpaSupplicant(
 	if(bUnicast)
 		sprintf(custom, "%s unicast", custom);
 
-	RtmpOSWrielessEventSend(pNetDev, RT_WLAN_EVENT_CUSTOM, -1, NULL, (PUCHAR)custom, strlen(custom));
+	RtmpOSWrielessEventSend(pNetDev, RT_WLAN_EVENT_CUSTOM, -1, NULL, (unsigned char *)custom, strlen(custom));
 	
 	return;
 }

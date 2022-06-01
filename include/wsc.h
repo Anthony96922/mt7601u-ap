@@ -81,7 +81,7 @@ typedef	struct GNU_PACKED _EAP_FRAME	{
 }	EAP_FRAME, *PEAP_FRAME;
 
 static inline BOOLEAN WscCheckWSCHeader(
-    IN  PUCHAR              pData)
+    IN  unsigned char *              pData)
 {
     PWSC_FRAME			pWsc;
 
@@ -560,7 +560,7 @@ typedef struct GNU_PACKED _WSC_PEER_DEV_INFO {
 typedef	struct	_WSC_TLV {
 	USHORT	TlvTag;
 	USHORT	TlvLen;
-	PUCHAR	pTlvData;
+	unsigned char *	pTlvData;
 	UCHAR	TlvType;	/* 0: ASCII, 1: Hex */
 } WSC_TLV, *PWSC_TLV;
 
@@ -663,14 +663,14 @@ typedef	struct	_WSC_CTRL
 #endif /* CONFIG_AP_SUPPORT */
 	BOOLEAN				bWscAutoTigeer;
 	BOOLEAN				bWscFragment;
-	PUCHAR				pWscRxBuf;
+	unsigned char *				pWscRxBuf;
 	INT					WscRxBufLen;
 	USHORT				WscFragSize;
 	INT					WscTxBufLen;
-	PUCHAR				pWscTxBuf;
+	unsigned char *				pWscTxBuf;
 	BOOLEAN				bWscLastOne;
 	BOOLEAN				bWscFirstOne;
-	PUCHAR				pWscCurBufIdx;
+	unsigned char *				pWscCurBufIdx;
 	NDIS_SPIN_LOCK		WscPeerListSemLock;
 	LIST_HEADER			WscPeerList;
 	RALINK_TIMER_STRUCT M2DTimer;

@@ -312,12 +312,12 @@ INT Set_PeerRtspPort_Proc(
 VOID WfdMakeWfdIE(
 	IN	PRTMP_ADAPTER	pAd,
 	IN 	ULONG			WfdIeBitmap,
-	OUT	PUCHAR			pOutBuf,
+	OUT	unsigned char *			pOutBuf,
 	OUT	unsigned long *pIeLen)
 {
 	PRT_WFD_CONFIG	pWFDCtrl = &pAd->StaCfg.WfdCfg;
 	UCHAR			WfdIEFixed[6] = {0xdd, 0x0c, 0x50, 0x6f, 0x9a, 0x0a};	 /* Length will be modified later */
-	PUCHAR			pData, pBuf;
+	unsigned char *			pData, pBuf;
 	ULONG			TempLen;
 	ULONG			Len = 0;
 	INT 			index, i = 0;
@@ -360,12 +360,12 @@ VOID WfdMakeWfdIE(
 ULONG InsertWfdSubelmtTlv(
 	IN PRTMP_ADAPTER 	pAd,
 	IN UCHAR			SubId,
-	IN PUCHAR			pInBuffer,
-	IN PUCHAR			pOutBuffer,
+	IN unsigned char *			pInBuffer,
+	IN unsigned char *			pOutBuffer,
 	IN UINT				Action)
 {
 	PRT_WFD_CONFIG	pWFDCtrl = &pAd->StaCfg.WfdCfg;
-	PUCHAR	pDest;
+	unsigned char *	pDest;
 	ULONG	Length, tmpValue = 0;
 	USHORT	EidLen = 0;
 
@@ -633,7 +633,7 @@ VOID WfdParseSubElmt(
 	WFD_DEVICE_INFO DevInfo;
 	PP2PEID_STRUCT pWfdEid;
 	PEID_STRUCT	pEid;
-	PUCHAR 		pWfdIe = NULL;
+	unsigned char * 		pWfdIe = NULL;
 	ULONG		AccuWfdIELen;
 	ULONG		AccuIeLen = 0;
 	ULONG		Length = 0;

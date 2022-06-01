@@ -969,7 +969,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
     IN PRTMP_ADAPTER pAd,
     IN ULONG idx) 
 {
-	PUCHAR					pTable;
+	unsigned char *					pTable;
 	UCHAR					CurrRateIdx;
 	ULONG					AccuTxTotalCnt, TxTotalCnt, TxCnt;
 	ULONG					TxErrorRatio = 0;
@@ -1290,7 +1290,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
  */
 VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, ULONG i)
 {
-	PUCHAR pTable;
+	unsigned char * pTable;
 	UCHAR UpRateIdx, DownRateIdx, CurrRateIdx, TrainUp, TrainDown;
 	ULONG TxTotalCnt, TxSuccess, TxRetransmit, TxFailCount, TxErrorRatio;
 	MAC_TABLE_ENTRY *pEntry;

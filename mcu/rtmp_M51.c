@@ -222,10 +222,10 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	DBGPRINT(RT_DEBUG_OFF, ("%s - Use default firmware!\n", __FUNCTION__));
 
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	PUCHAR			src;
+	unsigned char *			src;
 	RTMP_OS_FD		srcf;
 	INT 				retval, i;
-	PUCHAR			pFirmwareImage;
+	unsigned char *			pFirmwareImage;
 	INT				FileLength = 0;
 	UINT32			MacReg;
 	ULONG			Index;
@@ -288,7 +288,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 			}
 			else
 			{
-				PUCHAR ptr = pFirmwareImage;
+				unsigned char * ptr = pFirmwareImage;
 				USHORT crc = 0xffff;
 
 
@@ -394,7 +394,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 #else
 
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	PUCHAR			pFirmwareImage;
+	unsigned char *			pFirmwareImage;
 	ULONG			FileLength;
 	UINT32			Version = (pAd->MACVersion >> 16);
 #ifdef RTMP_MAC_USB
@@ -505,7 +505,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 		if ((Version != 0x2860) && (Version != 0x2872) && (Version != 0x3070)) 
 		{	/* Use Firmware V2.*/
 			/*printk("KH:Use New Version,part2\n");*/
-			pFirmwareImage = (PUCHAR)&FirmwareImage[FIRMWAREIMAGEV1_LENGTH];
+			pFirmwareImage = (unsigned char *)&FirmwareImage[FIRMWAREIMAGEV1_LENGTH];
 			FileLength = FIRMWAREIMAGEV2_LENGTH;
 		}
 		else
@@ -526,13 +526,13 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 			{
 				if (pAd->WOW_Cfg.bWOWFirmware == TRUE)
 				{
-					pFirmwareImage = (PUCHAR)&FirmwareImage[FIRMWAREIMAGEV3_LENGTH]; /* WOW offset: 0x2000 */
+					pFirmwareImage = (unsigned char *)&FirmwareImage[FIRMWAREIMAGEV3_LENGTH]; /* WOW offset: 0x2000 */
 					FileLength = FIRMWAREIMAGEV1_LENGTH; /* 0x1000 */
 					DBGPRINT(RT_DEBUG_OFF, ("%s: Load WOW firmware!!\n", __FUNCTION__));
 				}
 				else
 				{
-					pFirmwareImage = (PUCHAR)&FirmwareImage[FIRMWAREIMAGEV2_LENGTH]; /* normal offset: 0x1000 */
+					pFirmwareImage = (unsigned char *)&FirmwareImage[FIRMWAREIMAGEV2_LENGTH]; /* normal offset: 0x1000 */
 					FileLength = FIRMWAREIMAGEV1_LENGTH; /* 0x1000 */
 					DBGPRINT(RT_DEBUG_OFF, ("%s: Load normal firmware!!\n", __FUNCTION__));
 				}

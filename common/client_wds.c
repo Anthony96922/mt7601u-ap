@@ -113,9 +113,9 @@ VOID CliWdsEntyFree(
 }
 
 
-PUCHAR CliWds_ProxyLookup(
+unsigned char * CliWds_ProxyLookup(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pMac)
+	IN unsigned char * pMac)
 {
 	UINT8 HashId = (*(pMac + 5) & (CLIWDS_HASH_TAB_SIZE - 1));
 	PCLIWDS_PROXY_ENTRY pCliWdsEntry;
@@ -144,7 +144,7 @@ PUCHAR CliWds_ProxyLookup(
 VOID CliWds_ProxyTabUpdate(
 	IN PRTMP_ADAPTER pAd,
 	IN SHORT Aid,
-	IN PUCHAR pMac)
+	IN unsigned char * pMac)
 {
 	UINT8 HashId = (*(pMac + 5) & (CLIWDS_HASH_TAB_SIZE - 1));
 	PCLIWDS_PROXY_ENTRY pCliWdsEntry;

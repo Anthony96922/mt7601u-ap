@@ -1033,13 +1033,13 @@ static  INT DO_RACFG_CMD_TX_START(
 #ifdef RTMP_MAC_USB
 		NdisMoveMemory(&pATEInfo->TxInfo, pRaCfg->data - 2, TxInfoSize);
 #ifdef RT_BIG_ENDIAN
-		RTMPDescriptorEndianChange((PUCHAR) &pATEInfo->TxInfo, TYPE_TXINFO);
+		RTMPDescriptorEndianChange((unsigned char *) &pATEInfo->TxInfo, TYPE_TXINFO);
 #endif /* RT_BIG_ENDIAN */
 #endif /* RTMP_MAC_USB */
 
 		NdisMoveMemory(&pATEInfo->TxWI, pRaCfg->data + 2, TXWISize);						
 #ifdef RT_BIG_ENDIAN
-		RTMPWIEndianChange(pAd, (PUCHAR)&pATEInfo->TxWI, TYPE_TXWI);
+		RTMPWIEndianChange(pAd, (unsigned char *)&pATEInfo->TxWI, TYPE_TXWI);
 #endif /* RT_BIG_ENDIAN */
 
 		NdisMoveMemory(&pATEInfo->TxCount, pRaCfg->data + TXWISize + 2, 4);
@@ -1215,7 +1215,7 @@ static  INT DO_RACFG_CMD_ATE_SET_BW(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_BW\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 
@@ -1239,7 +1239,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER0(
 
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_TX_POWER0\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_TX_POWER0_Proc(pAd, str);
@@ -1262,7 +1262,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER1(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_TX_POWER1\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_TX_POWER1_Proc(pAd, str);
@@ -1286,7 +1286,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER2(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_TX_POWER2\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_TX_POWER2_Proc(pAd, str);
@@ -1310,7 +1310,7 @@ static  INT DO_RACFG_CMD_ATE_SET_FREQ_OFFSET(
 
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_FREQ_OFFSET\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_TX_FREQ_OFFSET_Proc(pAd, str);
@@ -1404,7 +1404,7 @@ static  INT DO_RACFG_CMD_ATE_SEL_TX_ANTENNA(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SEL_TX_ANTENNA\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_TX_Antenna_Proc(pAd, str);
@@ -1427,7 +1427,7 @@ static  INT DO_RACFG_CMD_ATE_SEL_RX_ANTENNA(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SEL_RX_ANTENNA\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_RX_Antenna_Proc(pAd, str);
@@ -1450,7 +1450,7 @@ static  INT DO_RACFG_CMD_ATE_SET_PREAMBLE(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_PREAMBLE\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_TX_MODE_Proc(pAd, str);
@@ -1473,7 +1473,7 @@ static  INT DO_RACFG_CMD_ATE_SET_CHANNEL(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_CHANNEL\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_CHANNEL_Proc(pAd, str);
@@ -1492,7 +1492,7 @@ static  INT DO_RACFG_CMD_ATE_SET_ADDR1(
 	PATE_INFO pATEInfo = &(pAd->ate);
 
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_ADDR1\n"));
-	memcpy(pATEInfo->Addr1, (PUCHAR)(pRaCfg->data - 2), MAC_ADDR_LEN);
+	memcpy(pATEInfo->Addr1, (unsigned char *)(pRaCfg->data - 2), MAC_ADDR_LEN);
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status), NDIS_STATUS_SUCCESS);
 
@@ -1508,7 +1508,7 @@ static  INT DO_RACFG_CMD_ATE_SET_ADDR2(
 	PATE_INFO pATEInfo = &(pAd->ate);
 
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_ADDR2\n"));
-	memcpy(pATEInfo->Addr2, (PUCHAR)(pRaCfg->data - 2), MAC_ADDR_LEN);
+	memcpy(pATEInfo->Addr2, (unsigned char *)(pRaCfg->data - 2), MAC_ADDR_LEN);
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status), NDIS_STATUS_SUCCESS);
 
@@ -1524,7 +1524,7 @@ static  INT DO_RACFG_CMD_ATE_SET_ADDR3(
 	PATE_INFO pATEInfo = &(pAd->ate);
 
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_ADDR3\n"));
-	memcpy(pATEInfo->Addr3, (PUCHAR)(pRaCfg->data - 2), MAC_ADDR_LEN);
+	memcpy(pATEInfo->Addr3, (unsigned char *)(pRaCfg->data - 2), MAC_ADDR_LEN);
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status), NDIS_STATUS_SUCCESS);
 
@@ -1544,7 +1544,7 @@ static  INT DO_RACFG_CMD_ATE_SET_RATE(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_RATE\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_TX_MCS_Proc(pAd, str);
@@ -1567,7 +1567,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_LEN(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_TX_FRAME_LEN\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 	Set_ATE_TX_LENGTH_Proc(pAd, str);
@@ -1590,7 +1590,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_COUNT(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_SET_TX_FRAME_COUNT\n"));				
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 
 	{
@@ -1835,7 +1835,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_PHASE_CAL(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_PHASE_CAL\n"));
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 
@@ -1860,7 +1860,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_GOLDEN_INIT(
 	
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_GOLDEN_INIT\n"));
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 
@@ -1884,7 +1884,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY(
 
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_VERIFY\n"));
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 
@@ -1911,7 +1911,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP(
 
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP\n"));
 
-	memcpy((PUCHAR)&value, (PUCHAR)&(pRaCfg->status), 2);
+	memcpy((unsigned char *)&value, (unsigned char *)&(pRaCfg->status), 2);
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 
@@ -2234,7 +2234,7 @@ INT RtmpDoAte(
 	}
 				
 	NdisZeroMemory(pRaCfg, sizeof(struct ate_racfghdr));
-	Status = copy_from_user((PUCHAR)pRaCfg, wrq->u.data.pointer, wrq->u.data.length);
+	Status = copy_from_user((unsigned char *)pRaCfg, wrq->u.data.pointer, wrq->u.data.length);
 	
 	if (Status)
 	{

@@ -3444,7 +3444,7 @@ INT Set_ATE_PA_Bias_Proc(
 
 	pATEInfo->PABias = PABias;
 
-	ATE_RF_IO_READ8_BY_REG_ID(pAd, RF_R19, (PUCHAR)&RFValue);
+	ATE_RF_IO_READ8_BY_REG_ID(pAd, RF_R19, (unsigned char *)&RFValue);
 	RFValue = (((RFValue & 0x0F) | (pATEInfo->PABias << 4)));
 	ATE_RF_IO_WRITE8_BY_REG_ID(pAd, RF_R19, (UCHAR)RFValue);
 
@@ -4148,7 +4148,7 @@ INT Set_ATE_Load_E2P_Proc(
 	if (value > 0)
 	{
 		/* zero the e2p buffer */
-		NdisZeroMemory((PUCHAR)WriteEEPROM, EEPROM_SIZE);
+		NdisZeroMemory((unsigned char *)WriteEEPROM, EEPROM_SIZE);
 
 		RtmpOSFSInfoChange(&osFSInfo, TRUE);
 
@@ -5421,9 +5421,9 @@ INT RT335xATETssiCalibrationExtend(
 	if(pAd->bUseEfuse)
 	{
 		if(pAd->bFroceEEPROMBuffer)
-			NdisMoveMemory(&(pAd->EEPROMImage[EEPROM_TSSI_OVER_OFDM_54]), (PUCHAR) (&EEPData) ,2);
+			NdisMoveMemory(&(pAd->EEPROMImage[EEPROM_TSSI_OVER_OFDM_54]), (unsigned char *) (&EEPData) ,2);
 		else
-			eFuseWrite(pAd, EEPROM_TSSI_OVER_OFDM_54, (PUCHAR) (&EEPData), 2);
+			eFuseWrite(pAd, EEPROM_TSSI_OVER_OFDM_54, (unsigned char *) (&EEPData), 2);
 	}
 	else
 #endif /* RTMP_EFUSE_SUPPORT */
@@ -5469,9 +5469,9 @@ INT RT335xATETssiCalibrationExtend(
 	if (pAd->bUseEfuse)
 	{
 		if (pAd->bFroceEEPROMBuffer)
-			NdisMoveMemory(&(pAd->EEPROMImage[EEPROM_TX_POWER_OFFSET_OVER_CH_1-1]), (PUCHAR)(&EEPData), 2);
+			NdisMoveMemory(&(pAd->EEPROMImage[EEPROM_TX_POWER_OFFSET_OVER_CH_1-1]), (unsigned char *)(&EEPData), 2);
 		else
-			eFuseWrite(pAd, EEPROM_TX_POWER_OFFSET_OVER_CH_1-1, (PUCHAR) (&EEPData), 2);
+			eFuseWrite(pAd, EEPROM_TX_POWER_OFFSET_OVER_CH_1-1, (unsigned char *) (&EEPData), 2);
 	}
 	else
 #endif /* RTMP_EFUSE_SUPPORT */
@@ -5488,9 +5488,9 @@ INT RT335xATETssiCalibrationExtend(
 		if (pAd->bUseEfuse)
 		{
 			if (pAd->bFroceEEPROMBuffer)
-				NdisMoveMemory(&(pAd->EEPROMImage[(EEPROM_TX_POWER_OFFSET_OVER_CH_3 +((CurrentChannel-3)/2))]), (PUCHAR)(&EEPData), 2);
+				NdisMoveMemory(&(pAd->EEPROMImage[(EEPROM_TX_POWER_OFFSET_OVER_CH_3 +((CurrentChannel-3)/2))]), (unsigned char *)(&EEPData), 2);
 			else
-				eFuseWrite(pAd, (EEPROM_TX_POWER_OFFSET_OVER_CH_3 +((CurrentChannel-3)/2)), (PUCHAR) (&EEPData), 2);
+				eFuseWrite(pAd, (EEPROM_TX_POWER_OFFSET_OVER_CH_3 +((CurrentChannel-3)/2)), (unsigned char *) (&EEPData), 2);
 		}
 		else
 #endif /* RTMP_EFUSE_SUPPORT */
@@ -5510,9 +5510,9 @@ INT RT335xATETssiCalibrationExtend(
 	if (pAd->bUseEfuse)
 	{
 		if (pAd->bFroceEEPROMBuffer)
-			NdisMoveMemory(&(pAd->EEPROMImage[EEPROM_TSSI_ENABLE]), (PUCHAR)(&EEPData), 2);
+			NdisMoveMemory(&(pAd->EEPROMImage[EEPROM_TSSI_ENABLE]), (unsigned char *)(&EEPData), 2);
 		else
-			eFuseWrite(pAd, EEPROM_TSSI_ENABLE, (PUCHAR)(&EEPData), 2);
+			eFuseWrite(pAd, EEPROM_TSSI_ENABLE, (unsigned char *)(&EEPData), 2);
 	}
 	else
 #endif /* RTMP_EFUSE_SUPPORT */
@@ -5528,9 +5528,9 @@ INT RT335xATETssiCalibrationExtend(
 	if (pAd->bUseEfuse)
 	{
 		if (pAd->bFroceEEPROMBuffer)
-			NdisMoveMemory(&(pAd->EEPROMImage[EEPROM_TSSI_MODE_EXTEND]), (PUCHAR)(&EEPData), 2);
+			NdisMoveMemory(&(pAd->EEPROMImage[EEPROM_TSSI_MODE_EXTEND]), (unsigned char *)(&EEPData), 2);
 		else
-			eFuseWrite(pAd, EEPROM_TSSI_MODE_EXTEND, (PUCHAR)(&EEPData), 2);
+			eFuseWrite(pAd, EEPROM_TSSI_MODE_EXTEND, (unsigned char *)(&EEPData), 2);
 	}
 	else
 #endif /* RTMP_EFUSE_SUPPORT */
@@ -5816,8 +5816,8 @@ NDIS_STATUS ATEInit(
 #ifdef RTMP_INTERNAL_TX_ALC
 #if defined(RT3350) || defined(RT3352)
 	pATEInfo->bTSSICalbrEnableG = FALSE;
-	NdisZeroMemory((PUCHAR)&(pATEInfo->TssiRefPerChannel), CFG80211_NUM_OF_CHAN_2GHZ);
-	NdisZeroMemory((PUCHAR)&(pATEInfo->TssiDeltaPerChannel), CFG80211_NUM_OF_CHAN_2GHZ);
+	NdisZeroMemory((unsigned char *)&(pATEInfo->TssiRefPerChannel), CFG80211_NUM_OF_CHAN_2GHZ);
+	NdisZeroMemory((unsigned char *)&(pATEInfo->TssiDeltaPerChannel), CFG80211_NUM_OF_CHAN_2GHZ);
 #endif /* defined(RT3350) || defined(RT3352) */
 #endif /* RTMP_INTERNAL_TX_ALC */
 	/* Default TXCONT/TXCARR/TXCARS mechanism is TX_METHOD_1 */

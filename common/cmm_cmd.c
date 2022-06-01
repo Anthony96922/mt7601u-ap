@@ -114,14 +114,14 @@ NDIS_STATUS RTEnqueueInternalCmd(
 	PCmdQElmt	cmdqelmt = NULL;
 
 
-	status = os_alloc_mem(pAd, (PUCHAR *)&cmdqelmt, sizeof(CmdQElmt));
+	status = os_alloc_mem(pAd, (unsigned char * *)&cmdqelmt, sizeof(CmdQElmt));
 	if ((status != NDIS_STATUS_SUCCESS) || (cmdqelmt == NULL))
 		return (NDIS_STATUS_RESOURCES);
 	NdisZeroMemory(cmdqelmt, sizeof(CmdQElmt));
 
 	if(InformationBufferLength > 0)
 	{
-		status = os_alloc_mem(pAd, (PUCHAR *)&cmdqelmt->buffer, InformationBufferLength);
+		status = os_alloc_mem(pAd, (unsigned char * *)&cmdqelmt->buffer, InformationBufferLength);
 		if ((status != NDIS_STATUS_SUCCESS) || (cmdqelmt->buffer == NULL))
 		{
 			os_free_mem(pAd, cmdqelmt);

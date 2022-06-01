@@ -98,7 +98,7 @@ static void kd_hmac_sha256(
 VOID RTMPInsertWapiIe(	
 	IN	UINT			AuthMode,
 	IN	UINT			WepStatus,
-	OUT	PUCHAR			pWIe,
+	OUT	unsigned char *			pWIe,
 	OUT	UCHAR			*w_len)
 {			
 	WAPIIE	*pWapiHdr = (WAPIIE*)pWIe;
@@ -167,7 +167,7 @@ VOID RTMPInsertWapiIe(
     ==========================================================================
 */
 BOOLEAN RTMPCheckWAIframe(
-    IN PUCHAR           pData,
+    IN unsigned char *           pData,
     IN ULONG            DataByteCount)
 {
     if(DataByteCount < (LENGTH_802_1_H + LENGTH_WAI_H))
@@ -257,8 +257,8 @@ VOID RTMPConstructWPIIVHdr(
 }
 
 VOID RTMPDeriveWapiGTK(
-	IN	PUCHAR			nmk,
-	OUT	PUCHAR			gtk_ptr)
+	IN	unsigned char *			nmk,
+	OUT	unsigned char *			gtk_ptr)
 {
 	const char group_context[100] = "multicast or station key expansion for station unicast and multicast and broadcast";		
 
@@ -647,7 +647,7 @@ static VOID RTMPQueryWapiConfPerBss(
 			if (pMbss->WapiPskType == HEX_MODE)
 			{
 				pConf->psk_len = pMbss->WAPIPassPhraseLen / 2;
-				AtoH((PSTRING) pMbss->WAPIPassPhrase, (PUCHAR) pConf->psk, pConf->psk_len);
+				AtoH((PSTRING) pMbss->WAPIPassPhrase, (unsigned char *) pConf->psk, pConf->psk_len);
 			}
 			else
 			{
@@ -693,7 +693,7 @@ VOID RTMPIoctlQueryWapiConf(
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPIoctlQueryWapiConf==>\n"));
 
 	/* Allocate memory for WAPI configuration */
-	os_alloc_mem(NULL, (PUCHAR *)&buf, sizeof(WAPI_CONF));
+	os_alloc_mem(NULL, (unsigned char * *)&buf, sizeof(WAPI_CONF));
 
 	if (buf == NULL)
 	{
@@ -703,7 +703,7 @@ VOID RTMPIoctlQueryWapiConf(
 
 	pConf = (PWAPI_CONF)buf;
 	
-	NdisZeroMemory((PUCHAR)pConf, sizeof(WAPI_CONF));
+	NdisZeroMemory((unsigned char *)pConf, sizeof(WAPI_CONF));
 	
 	/* get MBSS number */
 #ifdef CONFIG_AP_SUPPORT
@@ -969,7 +969,7 @@ BOOLEAN WAPI_InternalCmdAction(
 		IN  PRTMP_ADAPTER		pAd,
 		IN	UCHAR				AuthMode,
 		IN	UCHAR				apidx,
-		IN	PUCHAR				pAddr,
+		IN	unsigned char *				pAddr,
 		IN	UCHAR				flag)
 {												   
     if ((AuthMode == Ndis802_11AuthModeWAICERT) || 

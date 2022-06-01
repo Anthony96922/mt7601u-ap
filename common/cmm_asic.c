@@ -878,7 +878,7 @@ IN PRTMP_ADAPTER pAd)
  */
 VOID AsicSetBssid(
 	IN PRTMP_ADAPTER pAd, 
-	IN PUCHAR pBssid) 
+	IN unsigned char * pBssid) 
 {
 	ULONG		  Addr4;
 
@@ -1090,7 +1090,7 @@ VOID AsicEnableIbssSync(
 	IN PRTMP_ADAPTER pAd)
 {
 	BCN_TIME_CFG_STRUC csr9;
-	PUCHAR			ptr;
+	unsigned char *			ptr;
 	UINT i;
 	ULONG beaconBaseLocation = 0;
 	USHORT			beaconLen = (USHORT) pAd->BeaconTxWI.TxWIMPDUByteCnt;
@@ -1101,8 +1101,8 @@ VOID AsicEnableIbssSync(
 	{
 	TXWI_STRUC		localTxWI;
 	
-	NdisMoveMemory((PUCHAR)&localTxWI, (PUCHAR)&pAd->BeaconTxWI, TXWISize);
-	RTMPWIEndianChange(pAd, (PUCHAR)&localTxWI, TYPE_TXWI);
+	NdisMoveMemory((unsigned char *)&localTxWI, (unsigned char *)&pAd->BeaconTxWI, TXWISize);
+	RTMPWIEndianChange(pAd, (unsigned char *)&localTxWI, TYPE_TXWI);
 	beaconLen = (USHORT) localTxWI.TxWIMPDUByteCnt;
 	}
 #endif /* RT_BIG_ENDIAN */
@@ -1122,7 +1122,7 @@ VOID AsicEnableIbssSync(
 
 #ifdef RTMP_MAC_USB
 	/* move BEACON TXD and frame content to on-chip memory*/
-	ptr = (PUCHAR)&pAd->BeaconTxWI;
+	ptr = (unsigned char *)&pAd->BeaconTxWI;
 	for (i=0; i < TXWISize; i+=2)
 	{
 		longptr =  *ptr + (*(ptr+1)<<8);
@@ -1497,9 +1497,9 @@ VOID AsicAddSharedKeyEntry(
 	ULONG offset; /*, csr0;*/
 	SHAREDKEY_MODE_STRUC csr1;
 
-	PUCHAR		pKey = pCipherKey->Key;
-	PUCHAR		pTxMic = pCipherKey->TxMic;
-	PUCHAR		pRxMic = pCipherKey->RxMic;
+	unsigned char *		pKey = pCipherKey->Key;
+	unsigned char *		pTxMic = pCipherKey->TxMic;
+	unsigned char *		pRxMic = pCipherKey->RxMic;
 	UCHAR		CipherAlg = pCipherKey->CipherAlg;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("AsicAddSharedKeyEntry BssIndex=%d, KeyIdx=%d\n", BssIndex,KeyIdx));
@@ -1634,7 +1634,7 @@ VOID AsicUpdateWCIDIVEIV(
 VOID AsicUpdateRxWCIDTable(
 	IN PRTMP_ADAPTER pAd,
 	IN USHORT		WCID,
-	IN PUCHAR        pAddr)
+	IN unsigned char *        pAddr)
 {
 	ULONG offset;
 	ULONG Addr;
@@ -1734,10 +1734,10 @@ VOID AsicAddPairwiseKeyEntry(
 {
 	INT i;
 	ULONG 		offset;
-	PUCHAR		 pTxMic = pCipherKey->TxMic;
-	PUCHAR		 pRxMic = pCipherKey->RxMic;
+	unsigned char *		 pTxMic = pCipherKey->TxMic;
+	unsigned char *		 pRxMic = pCipherKey->RxMic;
 #ifdef DBG
-	PUCHAR pKey = pCipherKey;
+	unsigned char * pKey = pCipherKey;
 	UCHAR		CipherAlg = pCipherKey->CipherAlg;
 #endif /* DBG */
 
@@ -2109,7 +2109,7 @@ UINT32 StreamModeRegVal(
 */
 VOID AsicSetStreamMode(
 	IN RTMP_ADAPTER *pAd,
-	IN PUCHAR pMacAddr,
+	IN unsigned char * pMacAddr,
 	IN INT chainIdx,
 	IN BOOLEAN bEnabled)
 {
@@ -2242,9 +2242,9 @@ VOID AsicWOWSendNullFrame(
 {
 	
 	TXWI_STRUC *TxWI;
-	PUCHAR NullFrame;
+	unsigned char * NullFrame;
 	UINT8  packet_len;
-	PUCHAR ptr;
+	unsigned char * ptr;
 	USHORT offset;
 	UINT32 cipher = pAd->StaCfg.GroupCipher;
 	UINT32 Value;
@@ -2253,12 +2253,12 @@ VOID AsicWOWSendNullFrame(
 
 	ComposeNullFrame(pAd);	
 	TxWI = (TXWI_STRUC *)&pAd->NullContext[0].TransferBuffer->field.WirelessPacket[TXINFO_SIZE];
-	NullFrame = (PUCHAR)&pAd->NullFrame;
+	NullFrame = (unsigned char *)&pAd->NullFrame;
 	packet_len = TxWI->TxWIMPDUByteCnt;
 
 	DBGPRINT(RT_DEBUG_OFF, ("TxWI:\n"));
 	/* copy TxWI to MCU memory */
-	ptr = (PUCHAR)TxWI;
+	ptr = (unsigned char *)TxWI;
 	for (offset = 0; offset < TXWISize; offset += 4)  
 	{
 		RTMPMoveMemory(&Value, ptr+offset, 4);
@@ -2268,7 +2268,7 @@ VOID AsicWOWSendNullFrame(
 
 	DBGPRINT(RT_DEBUG_OFF, ("802.11 header:\n"));
 	/* copy 802.11 header to memory */
-	ptr = (PUCHAR)NullFrame;
+	ptr = (unsigned char *)NullFrame;
 	for (offset = 0; offset < packet_len; offset += 4)
 	{
 		RTMPMoveMemory(&Value, ptr+offset, 4);
@@ -2434,7 +2434,7 @@ VOID RT28xxAndesWOWEnable(
 
 	CmdUnit.u.ANDES.Type = CMD_WOW_FEATURE; /* feature enable */
 	CmdUnit.u.ANDES.CmdPayloadLen = sizeof(NEW_WOW_PARAM_STRUCT);
-	CmdUnit.u.ANDES.CmdPayload = (PUCHAR)&wow_param;
+	CmdUnit.u.ANDES.CmdPayload = (unsigned char *)&wow_param;
 
 	Ret = AsicSendCmdToAndes(pAd, &CmdUnit);
 
@@ -2456,7 +2456,7 @@ VOID RT28xxAndesWOWEnable(
 	
 	CmdUnit.u.ANDES.Type = CMD_WOW_CONFIG; /* WOW config */
 	CmdUnit.u.ANDES.CmdPayloadLen = sizeof(NEW_WOW_MASK_CFG_STRUCT);
-	CmdUnit.u.ANDES.CmdPayload = (PUCHAR)&mask_cfg;
+	CmdUnit.u.ANDES.CmdPayload = (unsigned char *)&mask_cfg;
 
 	Ret = AsicSendCmdToAndes(pAd, &CmdUnit);
 
@@ -2496,7 +2496,7 @@ VOID RT28xxAndesWOWEnable(
 		
 		CmdUnit.u.ANDES.Type = CMD_WOW_CONFIG; /* WOW config */
 		CmdUnit.u.ANDES.CmdPayloadLen = sizeof(NEW_WOW_SEC_CFG_STRUCT);
-		CmdUnit.u.ANDES.CmdPayload = (PUCHAR)&sec_cfg;
+		CmdUnit.u.ANDES.CmdPayload = (unsigned char *)&sec_cfg;
 	
 		Ret = AsicSendCmdToAndes(pAd, &CmdUnit);
 	
@@ -2521,7 +2521,7 @@ VOID RT28xxAndesWOWEnable(
 
 	CmdUnit.u.ANDES.Type = CMD_WOW_CONFIG; /* WOW config */
 	CmdUnit.u.ANDES.CmdPayloadLen = sizeof(NEW_WOW_INFRA_CFG_STRUCT);
-	CmdUnit.u.ANDES.CmdPayload = (PUCHAR)&infra_cfg;
+	CmdUnit.u.ANDES.CmdPayload = (unsigned char *)&infra_cfg;
 
 	if (OPSTATUS_TEST_FLAG(pAd, fOP_STATUS_MEDIA_STATE_CONNECTED))
 		infra_cfg.AP_Status = TRUE;
@@ -2564,7 +2564,7 @@ VOID RT28xxAndesWOWEnable(
 
 	CmdUnit.u.ANDES.Type = CMD_WOW_FEATURE; /* feature enable */
 	CmdUnit.u.ANDES.CmdPayloadLen = sizeof(NEW_WOW_PARAM_STRUCT);
-	CmdUnit.u.ANDES.CmdPayload = (PUCHAR)&wow_param;
+	CmdUnit.u.ANDES.CmdPayload = (unsigned char *)&wow_param;
 
 	Ret = AsicSendCmdToAndes(pAd, &CmdUnit);
 
@@ -2585,7 +2585,7 @@ VOID RT28xxAndesWOWEnable(
 
 	CmdUnit.u.ANDES.Type = CMD_WOW_FEATURE; /* feature enable */
 	CmdUnit.u.ANDES.CmdPayloadLen = sizeof(NEW_WOW_PARAM_STRUCT);
-	CmdUnit.u.ANDES.CmdPayload = (PUCHAR)&wow_param.Parameter;
+	CmdUnit.u.ANDES.CmdPayload = (unsigned char *)&wow_param.Parameter;
 
 	Ret = AsicSendCmdToAndes(pAd, &CmdUnit);
 
@@ -2626,7 +2626,7 @@ VOID RT28xxAndesWOWDisable(
 
     CmdUnit.u.ANDES.Type = CMD_WOW_FEATURE; /* WOW enable */
     CmdUnit.u.ANDES.CmdPayloadLen = sizeof(NEW_WOW_PARAM_STRUCT);
-    CmdUnit.u.ANDES.CmdPayload = (PUCHAR)&param;
+    CmdUnit.u.ANDES.CmdPayload = (unsigned char *)&param;
 
     Ret = AsicSendCmdToAndes(pAd, &CmdUnit);
 
@@ -2646,7 +2646,7 @@ VOID RT28xxAndesWOWDisable(
 
     CmdUnit.u.ANDES.Type = CMD_WOW_FEATURE;
     CmdUnit.u.ANDES.CmdPayloadLen = sizeof(NEW_WOW_PARAM_STRUCT);
-    CmdUnit.u.ANDES.CmdPayload = (PUCHAR)&param;
+    CmdUnit.u.ANDES.CmdPayload = (unsigned char *)&param;
 
     Ret = AsicSendCmdToAndes(pAd, &CmdUnit);
 

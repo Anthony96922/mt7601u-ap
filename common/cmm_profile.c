@@ -43,7 +43,7 @@ BOOLEAN rtstrmactohex(PSTRING s1, PSTRING s2)
 			*ptokE++ = '\0';
 		if ((strlen(ptokS) != 2) || (!isxdigit(*ptokS)) || (!isxdigit(*(ptokS+1))))
 			break; /* fail*/
-		AtoH(ptokS, (PUCHAR)&s2[i++], 1);
+		AtoH(ptokS, (unsigned char *)&s2[i++], 1);
 		ptokS = ptokE;
 		if (ptokS == NULL)
 			break;
@@ -376,7 +376,7 @@ INT RTMPGetKeyParameter(
 
 
 	keyLen = strlen(key);
-	os_alloc_mem(NULL, (PUCHAR *)&pMemBuf, MAX_PARAM_BUFFER_SIZE * 2);
+	os_alloc_mem(NULL, (unsigned char * *)&pMemBuf, MAX_PARAM_BUFFER_SIZE * 2);
 	if (pMemBuf == NULL)
 		return (FALSE);
 	
@@ -388,7 +388,7 @@ INT RTMPGetKeyParameter(
 	/*find section*/
 	if((offset = RTMPFindSection(buffer)) == NULL)
 	{
-		os_free_mem(NULL, (PUCHAR)pMemBuf);
+		os_free_mem(NULL, (unsigned char *)pMemBuf);
 		return (FALSE);
 	}
 
@@ -399,7 +399,7 @@ INT RTMPGetKeyParameter(
 	/*search key*/
 	if((start_ptr=rtstrstr(offset, temp_buf1)) == NULL)
 	{
-		os_free_mem(NULL, (PUCHAR)pMemBuf);
+		os_free_mem(NULL, (unsigned char *)pMemBuf);
 		return (FALSE);
 	}
 
@@ -409,7 +409,7 @@ INT RTMPGetKeyParameter(
 
 	if (end_ptr<start_ptr)
 	{
-		os_free_mem(NULL, (PUCHAR)pMemBuf);
+		os_free_mem(NULL, (unsigned char *)pMemBuf);
 		return (FALSE);
 	}
 
@@ -418,7 +418,7 @@ INT RTMPGetKeyParameter(
 
 	if((start_ptr=rtstrstr(temp_buf2, "=")) == NULL)
 	{
-		os_free_mem(NULL, (PUCHAR)pMemBuf);
+		os_free_mem(NULL, (unsigned char *)pMemBuf);
 		return (FALSE);
 	}
 	ptr = (start_ptr +1);
@@ -435,7 +435,7 @@ INT RTMPGetKeyParameter(
 	memset(dest, 0x00, destsize);
 	strncpy(dest, ptr, ((len >= destsize) ? destsize: len));
 
-	os_free_mem(NULL, (PUCHAR)pMemBuf);
+	os_free_mem(NULL, (unsigned char *)pMemBuf);
 	
 	return TRUE;
 }
@@ -475,15 +475,15 @@ INT RTMPGetKeyParameterWithOffset(
 	if (*end_offset >= MAX_INI_BUFFER_SIZE)
 		return (FALSE);
 
-	os_alloc_mem(NULL, (PUCHAR *)&temp_buf1, MAX_PARAM_BUFFER_SIZE);
+	os_alloc_mem(NULL, (unsigned char * *)&temp_buf1, MAX_PARAM_BUFFER_SIZE);
 
 	if (temp_buf1 == NULL)
 		return FALSE;
 	
-	os_alloc_mem(NULL, (PUCHAR *)&temp_buf2, MAX_PARAM_BUFFER_SIZE);
+	os_alloc_mem(NULL, (unsigned char * *)&temp_buf2, MAX_PARAM_BUFFER_SIZE);
 	if (temp_buf2 == NULL)
 	{
-		os_free_mem(NULL, (PUCHAR)temp_buf1);
+		os_free_mem(NULL, (unsigned char *)temp_buf1);
 		return FALSE;
 	}
 
@@ -492,8 +492,8 @@ INT RTMPGetKeyParameterWithOffset(
 	{
 		if ((offset = RTMPFindSection(buffer)) == NULL)
 		{
-			os_free_mem(NULL, (PUCHAR)temp_buf1);
-			os_free_mem(NULL, (PUCHAR)temp_buf2);
+			os_free_mem(NULL, (unsigned char *)temp_buf1);
+			os_free_mem(NULL, (unsigned char *)temp_buf2);
 			return FALSE;
 		}
 	}
@@ -507,8 +507,8 @@ INT RTMPGetKeyParameterWithOffset(
 	/* search key */
 	if((start_ptr=rtstrstr(offset, temp_buf1)) == NULL)
 	{
-		os_free_mem(NULL, (PUCHAR)temp_buf1);
-		os_free_mem(NULL, (PUCHAR)temp_buf2);
+		os_free_mem(NULL, (unsigned char *)temp_buf1);
+		os_free_mem(NULL, (unsigned char *)temp_buf2);
 		return FALSE;
 	}
 
@@ -518,8 +518,8 @@ INT RTMPGetKeyParameterWithOffset(
 	
 	if (end_ptr < start_ptr)
 	{
-		os_free_mem(NULL, (PUCHAR)temp_buf1);
-		os_free_mem(NULL, (PUCHAR)temp_buf2);
+		os_free_mem(NULL, (unsigned char *)temp_buf1);
+		os_free_mem(NULL, (unsigned char *)temp_buf2);
 		return FALSE;
 	}
 
@@ -531,8 +531,8 @@ INT RTMPGetKeyParameterWithOffset(
 	strcpy(temp_buf1, temp_buf2);
 	if((start_ptr=rtstrstr(temp_buf1, "=")) == NULL)
 	{
-		os_free_mem(NULL, (PUCHAR)temp_buf1);
-		os_free_mem(NULL, (PUCHAR)temp_buf2);
+		os_free_mem(NULL, (unsigned char *)temp_buf1);
+		os_free_mem(NULL, (unsigned char *)temp_buf2);
 		return FALSE;
 	}
 
@@ -551,8 +551,8 @@ INT RTMPGetKeyParameterWithOffset(
 	memset(dest, 0x00, destsize);
 	strncpy(dest, ptr, len >= destsize ? destsize : len);
 
-	os_free_mem(NULL, (PUCHAR)temp_buf1);
-	os_free_mem(NULL, (PUCHAR)temp_buf2);
+	os_free_mem(NULL, (unsigned char *)temp_buf1);
+	os_free_mem(NULL, (unsigned char *)temp_buf2);
 	return TRUE;
 }
 
@@ -858,7 +858,7 @@ static void rtmp_read_ap_client_from_file(
 				(pApCliEntry->AuthMode != Ndis802_11AuthModeWPA2PSK))
 				retval = FALSE;
 
-			retval = RT_CfgSetWPAPSKKey(pAd, macptr, strlen(macptr), (PUCHAR)pApCliEntry->CfgSsid, (INT)pApCliEntry->CfgSsidLen, pApCliEntry->PMK);
+			retval = RT_CfgSetWPAPSKKey(pAd, macptr, strlen(macptr), (unsigned char *)pApCliEntry->CfgSsid, (INT)pApCliEntry->CfgSsidLen, pApCliEntry->PMK);
 			if (retval == TRUE)
 			{
 				/* Start STA supplicant WPA state machine*/
@@ -1495,7 +1495,7 @@ static int rtmp_parse_wpapsk_buffer_from_file(IN PRTMP_ADAPTER pAd,IN PSTRING bu
 
 	DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) WPAPSK_KEY = %s\n", i, tmpbuf));
 
-	ret = RT_CfgSetWPAPSKKey(pAd, tmpbuf, len, (PUCHAR)pAd->ApCfg.MBSSID[i].Ssid, pAd->ApCfg.MBSSID[i].SsidLen, pAd->ApCfg.MBSSID[i].PMK);
+	ret = RT_CfgSetWPAPSKKey(pAd, tmpbuf, len, (unsigned char *)pAd->ApCfg.MBSSID[i].Ssid, pAd->ApCfg.MBSSID[i].SsidLen, pAd->ApCfg.MBSSID[i].PMK);
 	if (ret == FALSE)
 		return FALSE;
 
@@ -3655,7 +3655,7 @@ BOOLEAN RTMP_CardInfoRead(
 				snprintf(card_id_buf, sizeof(card_id_buf), "%02dCARDTYPE%s",
 						card_match_id, RFIC_word);
 
-				if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
+				if ((start_ptr = (unsigned char *)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
 					/* we found the card ID*/
 					LETTER_CASE_TRANSLATE(start_ptr, card_id_buf);
 				}
@@ -3677,7 +3677,7 @@ BOOLEAN RTMP_CardInfoRead(
 							mac[3], mac[4], mac[5]);
 
 					/* try to find the key word in the card file */
-					if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
+					if ((start_ptr = (unsigned char *)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
 						LETTER_CASE_TRANSLATE(start_ptr, card_id_buf);
 
 						/* get the row ID (2 ASCII characters) */
@@ -3697,7 +3697,7 @@ BOOLEAN RTMP_CardInfoRead(
 						snprintf(card_id_buf, sizeof(card_id_buf), "%02dCARDTYPE%s",
 								card_index, RFIC_word);
 
-						if ((start_ptr = (PUCHAR)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
+						if ((start_ptr = (unsigned char *)rtstrstruncasecmp(buffer, card_id_buf)) != NULL) {
 							LETTER_CASE_TRANSLATE(start_ptr, card_id_buf);
 
 							if (MC_CardUsed[card_index] == 0) {
@@ -3972,7 +3972,7 @@ VOID rtmp_read_multest_from_file(
 		if (((pAd->MulTestTab.WdsEntry[0].WepStatus == Ndis802_11Encryption2Enabled)
 				|| (pAd->MulTestTab.WdsEntry[0].WepStatus == Ndis802_11Encryption3Enabled))
 			&& (strlen(tmpbuf) >= 8) && (strlen(tmpbuf) <= 64)) {
-			RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (PUCHAR)RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
+			RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (unsigned char *)RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
 			if (pAd->MulTestTab.WdsEntry[0].WepStatus == Ndis802_11Encryption3Enabled)
 				pAd->MulTestTab.WdsEntry[0].WdsKey.CipherAlg = CIPHER_AES;
 			else
@@ -4036,7 +4036,7 @@ VOID rtmp_read_multest_from_file(
 #endif /* WAPI_SUPPORT */
 					) {
 					if ((strlen(tmpbuf) >= 8) && (strlen(tmpbuf) <= 64)) {
-						RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (PUCHAR) RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
+						RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (unsigned char *) RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
 
 						if (pAd->MulTestTab.WdsEntry[i].WepStatus == Ndis802_11Encryption3Enabled) {
 							pAd->MulTestTab.WdsEntry[i].WdsKey.CipherAlg = CIPHER_AES;
@@ -4229,7 +4229,7 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 
 
 				StartCh->num ++;
-				os_alloc_mem(pAd, (PUCHAR *)&temp, StartCh->num);
+				os_alloc_mem(pAd, (unsigned char * *)&temp, StartCh->num);
 				if (StartCh->Channel != NULL) {
 					NdisMoveMemory(temp, StartCh->Channel, StartCh->num-1);
 					os_free_mem(pAd, StartCh->Channel);

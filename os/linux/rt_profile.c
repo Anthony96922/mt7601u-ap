@@ -235,7 +235,7 @@ NDIS_STATUS	RTMPReadParametersHook(
 VOID RtmpDrvSendWirelessEvent(
 	IN	VOID					*pAdSrc,
 	IN	USHORT					Event_flag,
-	IN	PUCHAR 					pAddr,
+	IN	unsigned char * 					pAddr,
 	IN  UCHAR					BssIdx,
 	IN	CHAR					Rssi)
 {
@@ -323,7 +323,7 @@ VOID RtmpDrvSendWirelessEvent(
 		pBufPtr[pBufPtr - pBuf] = '\0';
 		BufLen = pBufPtr - pBuf;
 		
-		RtmpOSWrielessEventSend(pAd->net_dev, RT_WLAN_EVENT_CUSTOM, Event_flag, NULL, (PUCHAR)pBuf, BufLen);
+		RtmpOSWrielessEventSend(pAd->net_dev, RT_WLAN_EVENT_CUSTOM, Event_flag, NULL, (unsigned char *)pBuf, BufLen);
 		/*DBGPRINT(RT_DEBUG_TRACE, ("%s : %s\n", __FUNCTION__, pBuf)); */
 	
 /*		kfree(pBuf); */

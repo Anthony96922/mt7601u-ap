@@ -433,7 +433,7 @@ INT rtmp_cfo_track(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, INT lastClient)
 			SHORT foValue, offset = pEntry->freqOffset;
 			UCHAR RFValue;
 
-			RT30xxReadRFRegister(pAd, RF_R17, (PUCHAR)&RFValue);
+			RT30xxReadRFRegister(pAd, RF_R17, (unsigned char *)&RFValue);
 			RFValue &= 0x7F;
 
 			if (offset > 32)

@@ -33,13 +33,13 @@
 
 static NDIS_STATUS MATProto_IP_Init(MAT_STRUCT *pMatCfg);
 static NDIS_STATUS MATProto_IP_Exit(MAT_STRUCT *pMatCfg);
-static PUCHAR MATProto_IP_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pMacAddr);
-static PUCHAR MATProto_IP_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pMacAddr);
+static unsigned char * MATProto_IP_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
+static unsigned char * MATProto_IP_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
 
 static NDIS_STATUS MATProto_ARP_Init(MAT_STRUCT *pMatCfg);
 static NDIS_STATUS MATProto_ARP_Exit(MAT_STRUCT *pMatCfg);
-static PUCHAR MATProto_ARP_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pMacAddr);
-static PUCHAR MATProto_ARP_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb,PUCHAR pLayerHdr, PUCHAR pMacAddr);
+static unsigned char * MATProto_ARP_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
+static unsigned char * MATProto_ARP_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb,unsigned char * pLayerHdr, unsigned char * pMacAddr);
 
 #define IPV4_ADDR_LEN 4
 
@@ -129,7 +129,7 @@ VOID dumpIPMacTb(
 
 
 static inline NDIS_STATUS getDstIPFromIpPkt(
-	IN PUCHAR pIpHdr, 
+	IN unsigned char * pIpHdr, 
 	IN UINT *dstIP)
 {
 	
@@ -143,7 +143,7 @@ static inline NDIS_STATUS getDstIPFromIpPkt(
 }
 
 static inline NDIS_STATUS getSrcIPFromIpPkt(
-	IN PUCHAR pIpHdr,
+	IN unsigned char * pIpHdr,
 	IN UINT   *pSrcIP)
 {
 	
@@ -159,7 +159,7 @@ static inline NDIS_STATUS getSrcIPFromIpPkt(
 
 static NDIS_STATUS IPMacTableUpdate(
 	IN MAT_STRUCT		*pMatCfg,
-	IN PUCHAR			pMacAddr,
+	IN unsigned char *			pMacAddr,
 	IN UINT				ipAddr)
 {
 	UINT 				hashIdx;
@@ -209,7 +209,7 @@ static NDIS_STATUS IPMacTableUpdate(
 				{	
 					pPrev->pNext = pEntry->pNext;
 				}
-				MATDBEntryFree(pMatCfg, (PUCHAR)pEntry);
+				MATDBEntryFree(pMatCfg, (unsigned char *)pEntry);
 
 				pEntry = (pPrev == NULL ? NULL: pPrev->pNext);
 				pMatCfg->nodeCount--;
@@ -253,14 +253,14 @@ static NDIS_STATUS IPMacTableUpdate(
 }
 
 
-static PUCHAR IPMacTableLookUp(
+static unsigned char * IPMacTableLookUp(
 	IN MAT_STRUCT	*pMatCfg,
 	IN UINT			ipAddr)
 {
 	IPMacMappingTable *pIPMacTable;
 	UINT 				hashIdx, ip;
 	IPMacMappingEntry	*pEntry = NULL;
-	PUCHAR				pGroupMacAddr;
+	unsigned char *				pGroupMacAddr;
 
 	pIPMacTable = (IPMacMappingTable *)pMatCfg->MatTableSet.IPMacTable;
 
@@ -274,8 +274,8 @@ static PUCHAR IPMacTableLookUp(
 	ip = ntohl(ipAddr);	
 	if (IS_MULTICAST_IP(ip))	
 	{
-		pGroupMacAddr = (PUCHAR)(&pIPMacTable->curMcastAddr);
-		ConvertMulticastIP2MAC((PUCHAR) &ipAddr, (UCHAR **)(&pGroupMacAddr), ETH_P_IP);
+		pGroupMacAddr = (unsigned char *)(&pIPMacTable->curMcastAddr);
+		ConvertMulticastIP2MAC((unsigned char *) &ipAddr, (UCHAR **)(&pGroupMacAddr), ETH_P_IP);
 		return pIPMacTable->curMcastAddr;	
 	}
 
@@ -333,7 +333,7 @@ static NDIS_STATUS IPMacTable_RemoveAll(
 			while((pEntry = pIPMacTable->hash[i]) != NULL)
 			{
 				pIPMacTable->hash[i] = pEntry->pNext;
-				MATDBEntryFree(pMatCfg, (PUCHAR)pEntry);
+				MATDBEntryFree(pMatCfg, (unsigned char *)pEntry);
 			}
 		}
 	}
@@ -412,14 +412,14 @@ static NDIS_STATUS MATProto_ARP_Exit(
 	return status;
 }
 
-static PUCHAR MATProto_ARP_Rx(
+static unsigned char * MATProto_ARP_Rx(
 	IN MAT_STRUCT 		*pMatCfg, 
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR			pLayerHdr,
-	IN PUCHAR 			pMacAddr)
+	IN unsigned char *			pLayerHdr,
+	IN unsigned char * 			pMacAddr)
 {
-	PUCHAR pArpHdr = NULL, pRealMac = NULL;
-	PUCHAR	tgtMac, tgtIP;
+	unsigned char * pArpHdr = NULL, pRealMac = NULL;
+	unsigned char *	tgtMac, tgtIP;
 	BOOLEAN isUcastMac, isGoodIP;
 
 	
@@ -455,16 +455,16 @@ static PUCHAR MATProto_ARP_Rx(
 	return pRealMac;
 }
 
-static PUCHAR MATProto_ARP_Tx(
+static unsigned char * MATProto_ARP_Tx(
 	IN MAT_STRUCT 		*pMatCfg,
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR 			pLayerHdr,
-	IN PUCHAR 			pMacAddr)
+	IN unsigned char * 			pLayerHdr,
+	IN unsigned char * 			pMacAddr)
 {
-	PUCHAR	pSMac, pSIP;
+	unsigned char *	pSMac, pSIP;
 	BOOLEAN isUcastMac, isGoodIP;
 	NET_PRO_ARP_HDR *arpHdr;
-	PUCHAR pPktHdr;
+	unsigned char * pPktHdr;
 	PNDIS_PACKET newSkb = NULL;
 
 	pPktHdr = GET_OS_PKT_DATAPTR(pSkb);
@@ -481,8 +481,8 @@ static PUCHAR MATProto_ARP_Tx(
 		return NULL;
 
 	/* We just take care about the sender(Mac/IP address) fields. */
-	pSMac =(PUCHAR)(pLayerHdr + 8);
-	pSIP = (PUCHAR)(pSMac + MAC_ADDR_LEN);
+	pSMac =(unsigned char *)(pLayerHdr + 8);
+	pSIP = (unsigned char *)(pSMac + MAC_ADDR_LEN);
 	
 	isUcastMac = IS_UCAST_MAC(pSMac);
 	isGoodIP = IS_GOOD_IP(get_unaligned32((PUINT) pSIP));
@@ -507,9 +507,9 @@ static PUCHAR MATProto_ARP_Tx(
 			if(newSkb) 
 			{
 				if (IS_VLAN_PACKET(GET_OS_PKT_DATAPTR(newSkb)))
-					pSMac = (PUCHAR)(GET_OS_PKT_DATAPTR(newSkb) + MAT_VLAN_ETH_HDR_LEN + 8);
+					pSMac = (unsigned char *)(GET_OS_PKT_DATAPTR(newSkb) + MAT_VLAN_ETH_HDR_LEN + 8);
 				else
-					pSMac = (PUCHAR)(GET_OS_PKT_DATAPTR(newSkb) + MAT_ETHER_HDR_LEN + 8);
+					pSMac = (unsigned char *)(GET_OS_PKT_DATAPTR(newSkb) + MAT_ETHER_HDR_LEN + 8);
 			}
 		}
 		
@@ -517,7 +517,7 @@ static PUCHAR MATProto_ARP_Tx(
 		NdisMoveMemory(pSMac, pMacAddr, MAC_ADDR_LEN);
 	}
 
-	return (PUCHAR)newSkb;
+	return (unsigned char *)newSkb;
 }
 
 
@@ -543,13 +543,13 @@ static NDIS_STATUS MATProto_IP_Exit(
 }
 
 
-static PUCHAR MATProto_IP_Rx(
+static unsigned char * MATProto_IP_Rx(
 	IN MAT_STRUCT 		*pMatCfg, 
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR 			pLayerHdr,
-	IN PUCHAR 			pDevMacAdr)
+	IN unsigned char * 			pLayerHdr,
+	IN unsigned char * 			pDevMacAdr)
 {
-	PUCHAR	 pMacAddr;
+	unsigned char *	 pMacAddr;
 	UINT   	dstIP;
 	
 	/* Fetch the IP addres from the packet header. */
@@ -560,16 +560,16 @@ static PUCHAR MATProto_IP_Rx(
 }
 
 static UCHAR  DHCP_MAGIC[]= {0x63, 0x82, 0x53, 0x63};
-static PUCHAR MATProto_IP_Tx(
+static unsigned char * MATProto_IP_Tx(
 	IN MAT_STRUCT 		*pMatCfg,
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR 			pLayerHdr,
-	IN PUCHAR 			pDevMacAdr)
+	IN unsigned char * 			pLayerHdr,
+	IN unsigned char * 			pDevMacAdr)
 {
-	PUCHAR pSrcMac;
-	PUCHAR pSrcIP;
+	unsigned char * pSrcMac;
+	unsigned char * pSrcIP;
 	BOOLEAN needUpdate;
-	PUCHAR pPktHdr;
+	unsigned char * pPktHdr;
 
 	pPktHdr = GET_OS_PKT_DATAPTR(pSkb);
 	
@@ -584,7 +584,7 @@ static PUCHAR MATProto_IP_Tx(
 	/*For UDP packet, we need to check about the DHCP packet, to modify the flag of DHCP discovey/request as broadcast. */
 	if (*(pLayerHdr + 9) == 0x11)
 	{
-		PUCHAR udpHdr;
+		unsigned char * udpHdr;
 		UINT16 srcPort, dstPort;
 		
 		udpHdr = pLayerHdr + 20;
@@ -593,7 +593,7 @@ static PUCHAR MATProto_IP_Tx(
 		
 		if (srcPort==68 && dstPort==67) /*It's a DHCP packet */
 		{
-			PUCHAR bootpHdr;
+			unsigned char * bootpHdr;
 			UINT16 bootpFlag;	
 			
 			bootpHdr = udpHdr + 8;
@@ -601,7 +601,7 @@ static PUCHAR MATProto_IP_Tx(
 			DBGPRINT(RT_DEBUG_TRACE, ("is bootp packet! bootpFlag=0x%x\n", bootpFlag));
 			if (bootpFlag != 0x8000) /*check if it's a broadcast request. */
 			{
-				PUCHAR dhcpHdr;
+				unsigned char * dhcpHdr;
 				
 				dhcpHdr = bootpHdr + 236;
 				

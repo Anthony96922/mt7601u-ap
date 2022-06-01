@@ -28,7 +28,7 @@ CHAR RTMP_GetTxPwr(
  */
 VOID MakeMeasurementReqFrame(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pOutBuffer,
+	OUT unsigned char * pOutBuffer,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 TotalLen,
 	IN UINT8 Category,
@@ -52,7 +52,7 @@ VOID MakeMeasurementReqFrame(
  */
 VOID EnqueueMeasurementRep(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDA,
+	IN unsigned char * pDA,
 	IN UINT8 DialogToken,
 	IN UINT8 MeasureToken, 
 	IN UINT8 MeasureReqMode,
@@ -74,7 +74,7 @@ VOID EnqueueMeasurementRep(
  */
 VOID EnqueueTPCReq(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDA,
+	IN unsigned char * pDA,
 	IN UCHAR DialogToken);
 
 /*
@@ -91,7 +91,7 @@ VOID EnqueueTPCReq(
  */
 VOID EnqueueTPCRep(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDA,
+	IN unsigned char * pDA,
 	IN UINT8 DialogToken,
 	IN UINT8 TxPwr,
 	IN UINT8 LinkMargin);
@@ -113,7 +113,7 @@ VOID EnqueueTPCRep(
  */
 VOID EnqueueChSwAnn(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pDA, 
+	IN unsigned char * pDA, 
 	IN UINT8 ChSwMode,
 	IN UINT8 NewCh);
 #endif /* WDS_SUPPORT */
@@ -176,21 +176,21 @@ VOID MeasureReqDelete(
 
 VOID InsertChannelRepIE(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN PSTRING pCountry,
 	IN UINT8 RegulatoryClass);
 
 VOID InsertTpcReportIE(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 TxPwr,
 	IN UINT8 LinkMargin);
 
 VOID InsertDialogToken(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pFrameBuf,
+	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
 	IN UINT8 DialogToken);
 
@@ -202,14 +202,14 @@ VOID TpcReqTabExit(
 
 VOID NotifyChSwAnnToPeerAPs(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pRA,
-	IN PUCHAR pTA,
+	IN unsigned char * pRA,
+	IN unsigned char * pTA,
 	IN UINT8 ChSwMode,
 	IN UINT8 Channel);
 
 VOID RguClass_BuildBcnChList(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pBuf,
+	OUT unsigned char * pBuf,
 	OUT	unsigned long * pBufLen);
 #endif /* __SPECTRUM_H__ */
 

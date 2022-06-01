@@ -216,7 +216,7 @@ VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 	COPY_MAC_ADDR(pAd->NullFrame.Addr1, pAd->CommonCfg.Bssid);
 	COPY_MAC_ADDR(pAd->NullFrame.Addr2, pAd->CurrentAddress);
 	COPY_MAC_ADDR(pAd->NullFrame.Addr3, pAd->CommonCfg.Bssid);
-	buf = (PUCHAR)&pNullContext->TransferBuffer->field.WirelessPacket[0];
+	buf = (unsigned char *)&pNullContext->TransferBuffer->field.WirelessPacket[0];
 
 	RTMPZeroMemory(buf, 100);
 	pTxInfo = (TXINFO_STRUC *)buf;
@@ -315,7 +315,7 @@ USHORT	RtmpUSB_WriteFragTxResource(
 	UINT32			fillOffset;
 	TXINFO_STRUC	*pTxInfo;
 	TXWI_STRUC		*pTxWI;
-	PUCHAR			pWirelessPacket = NULL;
+	unsigned char *			pWirelessPacket = NULL;
 	UCHAR			QueIdx;
 	NDIS_STATUS		Status;
 	unsigned long	IrqFlags;
@@ -383,7 +383,7 @@ USHORT	RtmpUSB_WriteFragTxResource(
 		}
 	}
 	
-	NdisZeroMemory((PUCHAR)(&pTxBlk->HeaderBuf[0]), TXINFO_SIZE);
+	NdisZeroMemory((unsigned char *)(&pTxBlk->HeaderBuf[0]), TXINFO_SIZE);
 	pTxInfo = (TXINFO_STRUC *)(&pTxBlk->HeaderBuf[0]);
 	pTxWI= (TXWI_STRUC *)(&pTxBlk->HeaderBuf[TXINFO_SIZE]);
 
@@ -451,7 +451,7 @@ USHORT	RtmpUSB_WriteFragTxResource(
 
 	NdisMoveMemory(pWirelessPacket, pTxBlk->HeaderBuf, TXINFO_SIZE + TXWISize + hwHdrLen); 
 #ifdef RT_BIG_ENDIAN
-	RTMPFrameEndianChange(pAd, (PUCHAR)(pWirelessPacket + TXINFO_SIZE + TXWISize), DIR_WRITE, FALSE);
+	RTMPFrameEndianChange(pAd, (unsigned char *)(pWirelessPacket + TXINFO_SIZE + TXWISize), DIR_WRITE, FALSE);
 #endif /* RT_BIG_ENDIAN */
 	pWirelessPacket += (TXINFO_SIZE + TXWISize + hwHdrLen);
 	pHTTXContext->CurWriteRealPos += (TXINFO_SIZE + TXWISize + hwHdrLen);
@@ -595,7 +595,7 @@ USHORT RtmpUSB_WriteSingleTxResource(
 
 		NdisMoveMemory(pWirelessPacket, pTxBlk->HeaderBuf, hdr_copy_len);
 #ifdef RT_BIG_ENDIAN
-		RTMPFrameEndianChange(pAd, (PUCHAR)(pWirelessPacket + TXINFO_SIZE + TXWISize + TSO_SIZE), DIR_WRITE, FALSE);
+		RTMPFrameEndianChange(pAd, (unsigned char *)(pWirelessPacket + TXINFO_SIZE + TXWISize + TSO_SIZE), DIR_WRITE, FALSE);
 #endif /* RT_BIG_ENDIAN */
 		pWirelessPacket += (hdr_copy_len);
 
@@ -769,7 +769,7 @@ USHORT RtmpUSB_WriteMultiTxResource(
 			/* Copy it.*/
 			NdisMoveMemory(pWirelessPacket, pTxBlk->HeaderBuf, pTxBlk->Priv); 
 #ifdef RT_BIG_ENDIAN
-			RTMPFrameEndianChange(pAd, (PUCHAR)(pWirelessPacket+ TXINFO_SIZE + TXWISize), DIR_WRITE, FALSE);
+			RTMPFrameEndianChange(pAd, (unsigned char *)(pWirelessPacket+ TXINFO_SIZE + TXWISize), DIR_WRITE, FALSE);
 #endif /* RT_BIG_ENDIAN */
 			pHTTXContext->CurWriteRealPos += pTxBlk->Priv;
 			pWirelessPacket += pTxBlk->Priv;
@@ -844,7 +844,7 @@ VOID RtmpUSB_FinalWriteTxResource(
 	TXWI_STRUC		*pTxWI;
 	UINT32			USBDMApktLen, padding;
 	unsigned long	IrqFlags;
-	PUCHAR			pWirelessPacket;
+	unsigned char *			pWirelessPacket;
 
 	QueIdx = pTxBlk->QueIdx;
 	pHTTXContext  = &pAd->TxContext[QueIdx];
@@ -857,10 +857,10 @@ VOID RtmpUSB_FinalWriteTxResource(
 #ifndef USB_BULK_BUF_ALIGMENT
 		if (((pHTTXContext->ENextBulkOutPosition == pHTTXContext->CurWritePosition) || ((pHTTXContext->ENextBulkOutPosition-8) == pHTTXContext->CurWritePosition))
 			&& (pHTTXContext->bCopySavePad == TRUE))
-			pWirelessPacket = (PUCHAR)(&pHTTXContext->SavedPad[0]);
+			pWirelessPacket = (unsigned char *)(&pHTTXContext->SavedPad[0]);
 		else 
 #endif /* USB_BULK_BUF_ALIGMENT */
-			pWirelessPacket = (PUCHAR)(&pHTTXContext->TransferBuffer->field.WirelessPacket[fillOffset]);
+			pWirelessPacket = (unsigned char *)(&pHTTXContext->TransferBuffer->field.WirelessPacket[fillOffset]);
 
 		
 		/* Update TxInfo->USBDMApktLen , */
@@ -988,7 +988,7 @@ int RtmpUSBMgmtKickOut(
 	TXINFO_STRUC *pTxInfo;
 	ULONG BulkOutSize;
 	UCHAR padLen;
-	PUCHAR pDest;
+	unsigned char * pDest;
 	ULONG SwIdx = pAd->MgmtRing.TxCpuIdx;
 	TX_CONTEXT *pMLMEContext = (PTX_CONTEXT)pAd->MgmtRing.Cell[SwIdx].AllocVa;
 	ULONG IrqFlags;
@@ -1019,7 +1019,7 @@ if (0) {
 	ASSERT((padLen <= RTMP_PKT_TAIL_PADDING));
 	
 	/* Now memzero all extra padding bytes.*/
-	pDest = (PUCHAR)(pSrcBufVA + SrcBufLen);
+	pDest = (unsigned char *)(pSrcBufVA + SrcBufLen);
 	OS_PKT_TAIL_BUF_EXTEND(pPacket, padLen);
 	NdisZeroMemory(pDest, padLen);
 
@@ -1115,7 +1115,7 @@ VOID RtmpUSBNullFrameKickOut(
 
 		/* Set the in use bit*/
 		pNullContext->InUse = TRUE;
-		pWirelessPkt = (PUCHAR)&pNullContext->TransferBuffer->field.WirelessPacket[0];
+		pWirelessPkt = (unsigned char *)&pNullContext->TransferBuffer->field.WirelessPacket[0];
 
 		RTMPZeroMemory(&pWirelessPkt[0], 100);
 		pTxInfo = (TXINFO_STRUC *)&pWirelessPkt[0];
@@ -1125,11 +1125,11 @@ VOID RtmpUSBNullFrameKickOut(
 		RTMPWriteTxWI(pAd, pTxWI,  FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, 0, BSSID_WCID, frameLen,
 			0, 0, (UCHAR)pAd->CommonCfg.MlmeTransmit.field.MCS, IFS_HTTXOP, FALSE, &pAd->CommonCfg.MlmeTransmit);
 #ifdef RT_BIG_ENDIAN
-		RTMPWIEndianChange(pAd, (PUCHAR)pTxWI, TYPE_TXWI);
+		RTMPWIEndianChange(pAd, (unsigned char *)pTxWI, TYPE_TXWI);
 #endif /* RT_BIG_ENDIAN */
 		RTMPMoveMemory(&pWirelessPkt[TXWISize + TXINFO_SIZE + TSO_SIZE], pNullFrame, frameLen);
 #ifdef RT_BIG_ENDIAN
-		RTMPFrameEndianChange(pAd, (PUCHAR)&pWirelessPkt[TXINFO_SIZE + TXWISize + TSO_SIZE], DIR_WRITE, FALSE);
+		RTMPFrameEndianChange(pAd, (unsigned char *)&pWirelessPkt[TXINFO_SIZE + TXWISize + TSO_SIZE], DIR_WRITE, FALSE);
 #endif /* RT_BIG_ENDIAN */
 		pNullContext->BulkOutSize =  TXINFO_SIZE + TXWISize + TSO_SIZE + frameLen + 4;
 
@@ -1272,7 +1272,7 @@ if (0) {
 	RTMP_USB_PKT_COPY(get_netdev_from_bssid(pAd, BSS0), pNetPkt, ThisFrameLen, pData);
 
 #ifdef RT_BIG_ENDIAN
-	RTMPDescriptorEndianChange((PUCHAR)pRxInfo, TYPE_RXINFO);
+	RTMPDescriptorEndianChange((unsigned char *)pRxInfo, TYPE_RXINFO);
 #endif /* RT_BIG_ENDIAN */	
 
 #ifdef RLT_MAC

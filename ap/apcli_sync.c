@@ -512,7 +512,7 @@ static VOID ApCliEnqueueProbeRequest(
 	IN USHORT ifIndex)
 {
 	NDIS_STATUS     NState;
-	PUCHAR          pOutBuffer;
+	unsigned char *          pOutBuffer;
 	ULONG           FrameLen = 0;
 	HEADER_802_11   Hdr80211;
 	UCHAR           SsidIe    = IE_SSID;

@@ -87,7 +87,7 @@ VOID APPeerDlsReqAction(
 	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
 	UINT16				CapabilityInfo;
 	UINT16				DLSTimeout;
-	PUCHAR				pOutBuffer = NULL;
+	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
 	UINT16				Status;
 	UINT32				FrameLen = 0;
@@ -209,7 +209,7 @@ VOID APPeerDlsRspAction(
 	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
 	UINT16				CapabilityInfo;
 	UINT16				StatusCode;
-	PUCHAR				pOutBuffer = NULL;
+	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
 	UINT32				FrameLen = 0;
     UCHAR				SupportedRatesLen = 0;
@@ -290,7 +290,7 @@ VOID APPeerDlsTearDownAction(
 	PMAC_TABLE_ENTRY	pDAEntry, pSAEntry;
 	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
 	UINT16				ReasonCode;
-	PUCHAR				pOutBuffer = NULL;
+	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
 	UINT32				FrameLen = 0;
 

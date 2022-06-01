@@ -41,15 +41,15 @@ VOID CliWdsEntyFree(
 	IN PCLIWDS_PROXY_ENTRY pCliWdsEntry);
 
 
-PUCHAR CliWds_ProxyLookup(
+unsigned char * CliWds_ProxyLookup(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pMac);
+	IN unsigned char * pMac);
 
 
 VOID CliWds_ProxyTabUpdate(
 	IN PRTMP_ADAPTER pAd,
 	IN SHORT Aid,
-	IN PUCHAR pMac);
+	IN unsigned char * pMac);
 
 
 VOID CliWds_ProxyTabMaintain(

@@ -254,7 +254,7 @@ INT CFG80211DRV_IoctlHandle(
 				
 					if (WfdIeBitmap > 0)
 					{
-						PUCHAR		pOutBuffer;
+						unsigned char *		pOutBuffer;
 						NDIS_STATUS   NStatus;
 						
 						NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);  /* Get an unused nonpaged memory */
@@ -846,7 +846,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 		{
 			ULONG	Addr4;
 			UINT32	regValue;
-			PUCHAR pP2PBssid = &pAd->CurrentAddress[0];
+			unsigned char * pP2PBssid = &pAd->CurrentAddress[0];
 		
 			Addr4 = (ULONG)(pP2PBssid[0])	    | 
 				(ULONG)(pP2PBssid[1] << 8)  | 
@@ -888,7 +888,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
         RTMPWriteTxWI(pAd, pTxWI, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, 0, BSS0Mcast_WCID,
                 pBeacon->beacon_len, PID_MGMT, 0, 0,IFS_HTTXOP, FALSE, &BeaconTransmit);
 
-        ptr = (PUCHAR)&pAd->BeaconTxWI;
+        ptr = (unsigned char *)&pAd->BeaconTxWI;
 #ifdef RT_BIG_ENDIAN
         RTMPWIEndianChange(ptr, TYPE_TXWI);
 #endif

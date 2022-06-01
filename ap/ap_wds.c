@@ -69,7 +69,7 @@ BOOLEAN ApWdsAllowToSendPacket(
 
 LONG WdsEntryAlloc(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr)
+	IN unsigned char * pAddr)
 {
 	INT i;
 	LONG WdsTabIdx = -1;
@@ -105,7 +105,7 @@ LONG WdsEntryAlloc(
 
 VOID WdsEntryDel(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr)
+	IN unsigned char * pAddr)
 {
 	INT i;
 
@@ -136,7 +136,7 @@ VOID WdsEntryDel(
 BOOLEAN MacTableDeleteWDSEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN USHORT wcid,
-	IN PUCHAR pAddr)
+	IN unsigned char * pAddr)
 {
 	if (wcid >= MAX_LEN_OF_MAC_TABLE)
 		return FALSE;
@@ -158,7 +158,7 @@ from index MAX_AID_BA.
 */
 MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 	IN  PRTMP_ADAPTER   pAd, 
-	IN  PUCHAR pAddr,
+	IN  unsigned char * pAddr,
 	UINT WdsTabIdx)
 {
 	PMAC_TABLE_ENTRY pEntry = NULL;
@@ -292,7 +292,7 @@ MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 MAC_TABLE_ENTRY *WdsTableLookupByWcid(
 	IN PRTMP_ADAPTER pAd,
 	IN UCHAR wcid,
-	IN PUCHAR pAddr,
+	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount)
 {
 	/*USHORT HashIdx; */
@@ -341,7 +341,7 @@ MAC_TABLE_ENTRY *WdsTableLookupByWcid(
 
 MAC_TABLE_ENTRY *WdsTableLookup(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr,
+	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount)
 {
 	USHORT HashIdx;
@@ -374,7 +374,7 @@ MAC_TABLE_ENTRY *WdsTableLookup(
 MAC_TABLE_ENTRY *FindWdsEntry(
 	IN PRTMP_ADAPTER	pAd,
 	IN UCHAR 			Wcid,
-	IN PUCHAR			pAddr,
+	IN unsigned char *			pAddr,
 	IN UINT32			PhyMode)
 {
 	MAC_TABLE_ENTRY *pEntry;
@@ -925,7 +925,7 @@ VOID rtmp_read_wds_from_file(
 				|| (pAd->WdsTab.WdsEntry[0].WepStatus == Ndis802_11Encryption3Enabled))
 			&& (strlen(tmpbuf) >= 8) && (strlen(tmpbuf) <= 64))
 		{
-			RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (PUCHAR)RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
+			RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (unsigned char *)RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
 			if (pAd->WdsTab.WdsEntry[0].WepStatus == Ndis802_11Encryption3Enabled)
 				pAd->WdsTab.WdsEntry[0].WdsKey.CipherAlg = CIPHER_AES;
 			else
@@ -1003,7 +1003,7 @@ VOID rtmp_read_wds_from_file(
 				{
 					if ((strlen(tmpbuf) >= 8) && (strlen(tmpbuf) <= 64))
 					{
-						RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (PUCHAR) RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
+						RT_CfgSetWPAPSKKey(pAd, tmpbuf, strlen(tmpbuf), (unsigned char *) RALINK_PASSPHRASE, sizeof(RALINK_PASSPHRASE), keyMaterial);
 						if (pAd->WdsTab.WdsEntry[i].WepStatus == Ndis802_11Encryption3Enabled)
 							pAd->WdsTab.WdsEntry[i].WdsKey.CipherAlg = CIPHER_AES;
 						else

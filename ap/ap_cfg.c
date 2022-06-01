@@ -1434,7 +1434,7 @@ INT RTMPAPSetInformation(
 				for (BssIdx = 0; BssIdx < pPmkId->BSSIDInfoCount; BssIdx++)
 				{
 					/* point to the indexed BSSID_INFO structure */
-					pBssIdInfo = (PBSSID_INFO) ((PUCHAR) pPmkId + 2 * sizeof(UINT) + BssIdx * sizeof(BSSID_INFO));
+					pBssIdInfo = (PBSSID_INFO) ((unsigned char *) pPmkId + 2 * sizeof(UINT) + BssIdx * sizeof(BSSID_INFO));
 					/* Find the entry in the saved data base. */
 					for (CachedIdx = 0; CachedIdx < pAd->ApCfg.ApCliTab[ifIndex].SavedPMKNum; CachedIdx++)
 					{
@@ -1593,7 +1593,7 @@ INT RTMPAPSetInformation(
 				else
 				{
 					UCHAR CipherAlg = 0;
-					PUCHAR Key;
+					unsigned char * Key;
 
 					/* Zero the specific shared key */
 					NdisZeroMemory(&pAd->ApCfg.ApCliTab[ifIndex].SharedKey[KeyIdx], sizeof(CIPHER_KEY));
@@ -1943,7 +1943,7 @@ INT RTMPAPSetInformation(
 #ifdef WSC_AP_SUPPORT
 		case RT_OID_WSC_SET_SELECTED_REGISTRAR:
 			{
-				PUCHAR      upnpInfo;
+				unsigned char *      upnpInfo;
 				UCHAR	    apidx = pObj->ioctl_if;
 				
 #ifdef HOSTAPD_SUPPORT
@@ -1995,7 +1995,7 @@ INT RTMPAPSetInformation(
 		case RT_OID_WSC_EAPMSG:
 			{
 				RTMP_WSC_U2KMSG_HDR *msgHdr = NULL;
-				PUCHAR pUPnPMsg = NULL;
+				unsigned char * pUPnPMsg = NULL;
 				UINT msgLen = 0, Machine = 0, msgType = 0;
 				int retVal, senderID = 0;
 #ifdef HOSTAPD_SUPPORT
@@ -3015,7 +3015,7 @@ INT RTMPAPQueryInformation(
 	BOOLEAN				apcliEn = FALSE;
 	INT 				i, Padding = 0;
 	ULONG 				BssBufSize;
-	PUCHAR				pBuf = NULL, pPtr=NULL;
+	unsigned char *				pBuf = NULL, pPtr=NULL;
 	NDIS_802_11_BSSID_LIST_EX	*pBssidList = NULL;
 	USHORT				BssLen = 0;
 	PNDIS_WLAN_BSSID_EX		pBss;
@@ -3110,7 +3110,7 @@ INT RTMPAPQueryInformation(
 		pBssidList->NumberOfItems = pAd->ScanTab.BssNr;
             
 		BssLen = 4; /* Consist of NumberOfItems */
-		pPtr = (PUCHAR) &pBssidList->Bssid[0];
+		pPtr = (unsigned char *) &pBssidList->Bssid[0];
 		for (i = 0; i < pAd->ScanTab.BssNr; i++) 
 		{
 			pBss = (PNDIS_WLAN_BSSID_EX) pPtr;
@@ -5428,7 +5428,7 @@ INT	Set_AP_WPAPSK_Proc(
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_WPAPSK_Proc::(WPAPSK=%s)\n", arg));
 
 	pMBSSStruct = &pAd->ApCfg.MBSSID[apidx];
-	retval = RT_CfgSetWPAPSKKey(pAd, arg, strlen(arg), (PUCHAR)pMBSSStruct->Ssid, pMBSSStruct->SsidLen, pMBSSStruct->PMK);
+	retval = RT_CfgSetWPAPSKKey(pAd, arg, strlen(arg), (unsigned char *)pMBSSStruct->Ssid, pMBSSStruct->SsidLen, pMBSSStruct->PMK);
 	if (retval == FALSE)
 		return FALSE;
 
@@ -6029,7 +6029,7 @@ VOID RTMPIoctlQueryRadiusConf(
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPIoctlQueryRadiusConf==>\n"));
 	
 	/* Allocate memory */
-	os_alloc_mem(NULL, (PUCHAR *)&mpool, sizeof(DOT1X_CMM_CONF));	
+	os_alloc_mem(NULL, (unsigned char * *)&mpool, sizeof(DOT1X_CMM_CONF));	
 	if (mpool == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("!!!%s: out of resource!!!\n", __FUNCTION__));
@@ -6148,7 +6148,7 @@ VOID RTMPIoctlRadiusData(
     	|| (pAd->ApCfg.MBSSID[pObj->ioctl_if].AuthMode == Ndis802_11AuthModeWPA2)
     	|| (pAd->ApCfg.MBSSID[pObj->ioctl_if].AuthMode == Ndis802_11AuthModeWPA1WPA2) 
     	|| (pAd->ApCfg.MBSSID[pObj->ioctl_if].IEEE8021X == TRUE))
-    	WpaSend(pAd, (PUCHAR)wrq->u.data.pointer, wrq->u.data.length);
+    	WpaSend(pAd, (unsigned char *)wrq->u.data.pointer, wrq->u.data.length);
 }
 
 /* 
@@ -6193,7 +6193,7 @@ VOID RTMPIoctlAddWPAKey(
 	else	/* Old WEP stuff */
 	{
 		UCHAR	CipherAlg;
-		PUCHAR	Key;
+		unsigned char *	Key;
 
 		if(pKey->KeyLength > 16)
 			return;
@@ -7746,7 +7746,7 @@ INT Set_ApCli_Ssid_Proc(
 
 			RT_CfgSetWPAPSKKey(pAd, (PSTRING)PskKey, 
 									pAd->ApCfg.ApCliTab[ifIndex].PSKLen,
-									(PUCHAR)pAd->ApCfg.ApCliTab[ifIndex].CfgSsid, 
+									(unsigned char *)pAd->ApCfg.ApCliTab[ifIndex].CfgSsid, 
 									pAd->ApCfg.ApCliTab[ifIndex].CfgSsidLen, 
 									pAd->ApCfg.ApCliTab[ifIndex].PMK);
 		}
@@ -8001,7 +8001,7 @@ INT	Set_ApCli_WPAPSK_Proc(
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_ApCli_WPAPSK_Proc::(WPAPSK=%s)\n", arg));
 
-	retval = RT_CfgSetWPAPSKKey(pAd, arg, strlen(arg), (PUCHAR)pApCliEntry->CfgSsid, pApCliEntry->CfgSsidLen, pApCliEntry->PMK);
+	retval = RT_CfgSetWPAPSKKey(pAd, arg, strlen(arg), (unsigned char *)pApCliEntry->CfgSsid, pApCliEntry->CfgSsidLen, pApCliEntry->PMK);
 	if (retval == FALSE)
 		return FALSE;
 	
@@ -8687,7 +8687,7 @@ INT	Set_AP_WscGetConf_Proc(
 		{
 			WscAssignEntryMAC(pAd, pWscControl);
 			WscSendUPnPConfReqMsg(pAd, pWscControl->EntryIfIdx, 
-	    							(PUCHAR)pAd->ApCfg.MBSSID[pWscControl->EntryIfIdx].Ssid, 
+	    							(unsigned char *)pAd->ApCfg.MBSSID[pWscControl->EntryIfIdx].Ssid, 
 	    							pAd->ApCfg.MBSSID[apidx].Bssid, 3, 0, AP_MODE);
 		}
 		else
@@ -10489,7 +10489,7 @@ VOID RTMPApCliAddKey(
 	else	/* dynamic WEP from wpa_supplicant */
 	{
 		UCHAR	CipherAlg;
-    	PUCHAR	Key;
+    	unsigned char *	Key;
 
 		if(pKey->KeyLength == 32)
 			goto end;
@@ -11275,7 +11275,7 @@ INT	Set_TestTxFrameProc(
 	{
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
-		PUCHAR	pOutBuffer = NULL;
+		unsigned char *	pOutBuffer = NULL;
 		ULONG	FrameLen = 0;
 		//ULONG	TempLen;
 		UCHAR	idxCount;
@@ -11490,7 +11490,7 @@ INT	Set_TestTxFrame1Proc(
 	{
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
-		PUCHAR	pOutBuffer = NULL;
+		unsigned char *	pOutBuffer = NULL;
 		ULONG	FrameLen = 0;
 		ULONG	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
@@ -11559,7 +11559,7 @@ INT	Set_TestTxFrame2Proc(
 	{
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
-		PUCHAR	pOutBuffer = NULL;
+		unsigned char *	pOutBuffer = NULL;
 		ULONG	FrameLen = 0;
 		ULONG	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
@@ -11629,7 +11629,7 @@ INT	Set_TestTxFrame3Proc(
 	{
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
-		PUCHAR	pOutBuffer = NULL;
+		unsigned char *	pOutBuffer = NULL;
 		ULONG	FrameLen = 0;
 		ULONG	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
@@ -11699,7 +11699,7 @@ INT	Set_TestTxFrame4Proc(
 	{
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
-		PUCHAR	pOutBuffer = NULL;
+		unsigned char *	pOutBuffer = NULL;
 		ULONG	FrameLen = 0;
 		ULONG	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
@@ -11797,7 +11797,7 @@ INT	Set_TestWAPIFrameProc(
 	{
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
-		PUCHAR	pOutBuffer = NULL;
+		unsigned char *	pOutBuffer = NULL;
 		ULONG	FrameLen = 0;
 		ULONG	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;

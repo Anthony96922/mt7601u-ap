@@ -412,7 +412,7 @@ VOID GetSingleSkuDeltaPower(
 	IN PRTMP_ADAPTER pAd,
 	IN PCHAR pTotalDeltaPower,
 	INOUT unsigned long * pSingleSKUTotalDeltaPwr,
-	INOUT PUCHAR pSingleSKUBbpR1Offset) 
+	INOUT unsigned char * pSingleSKUBbpR1Offset) 
 {
 	INT i, j;
 	CHAR Value;

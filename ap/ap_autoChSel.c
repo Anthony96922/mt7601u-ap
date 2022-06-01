@@ -41,8 +41,8 @@ static inline INT GetABandChOffset(
 
 ULONG AutoChBssSearchWithSSID(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR Bssid,
-	IN PUCHAR pSsid,
+	IN unsigned char * Bssid,
+	IN unsigned char * pSsid,
 	IN UCHAR SsidLen,
 	IN UCHAR Channel)
 {
@@ -70,7 +70,7 @@ ULONG AutoChBssSearchWithSSID(
 
 static inline VOID AutoChBssEntrySet(
 	OUT BSSENTRY *pBss, 
-	IN PUCHAR pBssid, 
+	IN unsigned char * pBssid, 
 	IN CHAR Ssid[], 
 	IN UCHAR SsidLen, 
 	IN UCHAR Channel,
@@ -839,7 +839,7 @@ static inline UCHAR SelectClearChannelApCnt(
 
 ULONG AutoChBssInsertEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pBssid,
+	IN unsigned char * pBssid,
 	IN CHAR Ssid[],
 	IN UCHAR SsidLen, 
 	IN UCHAR ChannelNo,
@@ -855,7 +855,7 @@ ULONG AutoChBssInsertEntry(
 		return BSS_NOT_FOUND;
 	}
 
-	Idx = AutoChBssSearchWithSSID(pAd, pBssid, (PUCHAR)Ssid, SsidLen, ChannelNo);
+	Idx = AutoChBssSearchWithSSID(pAd, pBssid, (unsigned char *)Ssid, SsidLen, ChannelNo);
 	if (Idx == BSS_NOT_FOUND) 
 	{
 		if (pBssInfoTab->BssNr >= MAX_LEN_OF_BSS_TABLE)

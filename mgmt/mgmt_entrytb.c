@@ -40,7 +40,7 @@ VOID set_entry_phy_cfg(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 */
 MAC_TABLE_ENTRY *MacTableLookup(
 	IN PRTMP_ADAPTER pAd,
-	PUCHAR pAddr)
+	unsigned char * pAddr)
 {
 	ULONG HashIdx;
 	MAC_TABLE_ENTRY *pEntry = NULL;
@@ -64,7 +64,7 @@ MAC_TABLE_ENTRY *MacTableLookup(
 
 MAC_TABLE_ENTRY *MacTableInsertEntry(
 	IN  PRTMP_ADAPTER   pAd,
-	IN  PUCHAR			pAddr,
+	IN  unsigned char *			pAddr,
 	IN	UCHAR			apidx,
 	IN	UCHAR			OpMode,
 	IN BOOLEAN	CleanAll)
@@ -407,7 +407,7 @@ MAC_TABLE_ENTRY *MacTableInsertEntry(
 BOOLEAN MacTableDeleteEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN USHORT wcid,
-	IN PUCHAR pAddr)
+	IN unsigned char * pAddr)
 {
 	USHORT HashIdx;
 	MAC_TABLE_ENTRY *pEntry, *pPrevEntry, *pProbeEntry;
@@ -483,7 +483,7 @@ BOOLEAN MacTableDeleteEntry(
 #endif /* WAPI_SUPPORT */
 
 #ifdef IGMP_SNOOP_SUPPORT
-				IgmpGroupDelMembers(pAd, (PUCHAR)pEntry->Addr, pAd->ApCfg.MBSSID[pEntry->apidx].MSSIDDev);
+				IgmpGroupDelMembers(pAd, (unsigned char *)pEntry->Addr, pAd->ApCfg.MBSSID[pEntry->apidx].MSSIDDev);
 #endif /* IGMP_SNOOP_SUPPORT */
 				pAd->ApCfg.MBSSID[pEntry->apidx].StaCount--;
 				pAd->ApCfg.EntryClientCount--;
@@ -630,7 +630,7 @@ VOID MacTableReset(
 	int         i;
 	BOOLEAN     Cancelled;    
 #ifdef CONFIG_AP_SUPPORT
-	PUCHAR      pOutBuffer = NULL;
+	unsigned char *      pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	ULONG       FrameLen = 0;
 	HEADER_802_11 DeAuthHdr;

@@ -1565,7 +1565,7 @@ CH_REGION ChRegion[] =
 };
 
 static PCH_REGION GetChRegion(
-	IN PUCHAR CntryCode)
+	IN unsigned char * CntryCode)
 {
 	INT loop = 0;
 	PCH_REGION pChRegion = NULL;
@@ -1589,7 +1589,7 @@ static PCH_REGION GetChRegion(
 
 static VOID ChBandCheck(
 	IN UCHAR PhyMode,
-	OUT PUCHAR pChType)
+	OUT unsigned char * pChType)
 {
 	*pChType = 0;
 	if (WMODE_CAP_5G(PhyMode))
@@ -1752,7 +1752,7 @@ VOID BuildChannelListEx(
 
 VOID BuildBeaconChList(
 	IN PRTMP_ADAPTER pAd,
-	OUT PUCHAR pBuf,
+	OUT unsigned char * pBuf,
 	OUT	unsigned long * pBufLen)
 {
 	INT i;

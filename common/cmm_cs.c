@@ -139,7 +139,7 @@ VOID CarrierDetectionPeriodicStateCtrl(
 	if (pAd->CommonCfg.CarrierDetect.Debug == RT_DEBUG_TRACE)
 	{
 		CARRIER_DETECT_DEBUG CarrDetectDebug;
-		RTUSBMultiRead(pAd, 0x4CB0, (PUCHAR) &CarrDetectDebug, sizeof(CarrDetectDebug));
+		RTUSBMultiRead(pAd, 0x4CB0, (unsigned char *) &CarrDetectDebug, sizeof(CarrDetectDebug));
 		printk("delta_div = 0x%02X, rRadarToneCount = %u, Recheck = %u, Criteria = %u, Threshold = 0x%08X, VGA_Mask = 0x%04X\n",
 				CarrDetectDebug.delta_div,
 				CarrDetectDebug.RadarToneCount,
@@ -149,7 +149,7 @@ VOID CarrierDetectionPeriodicStateCtrl(
 				CarrDetectDebug.VGA_Mask);
 	}
 
-	RTUSBMultiRead(pAd, RADAR_TONE_COUNT, (PUCHAR) &CarrDetectParam, sizeof(CarrDetectParam));
+	RTUSBMultiRead(pAd, RADAR_TONE_COUNT, (unsigned char *) &CarrDetectParam, sizeof(CarrDetectParam));
 	switch(*pCD_State)
 	{
 		case CD_NORMAL:
@@ -335,7 +335,7 @@ INT Set_CarrierCriteria_Proc(
 #ifdef CARRIER_DETECTION_FIRMWARE_SUPPORT
 	{
 		USHORT sVal = (USHORT) (Value >> 6); /* convert unit from 16us to ms:(2^4 /2^10)  */
-		RTUSBMultiWrite(pAd, CD_CRITERIA, (PUCHAR) &sVal, 2, FALSE);
+		RTUSBMultiWrite(pAd, CD_CRITERIA, (unsigned char *) &sVal, 2, FALSE);
 		/* send enable cmd to mcu to take effect */
 		AsicSendCommandToMcu(pAd, CD_ONOFF_MCU_CMD, 0xff, 0x01, 0x00, FALSE);
 	}
@@ -614,7 +614,7 @@ VOID CarrierDetectionStart(PRTMP_ADAPTER pAd)
 #ifdef CARRIER_DETECTION_FIRMWARE_SUPPORT
 		{
 		USHORT criteria = (USHORT) (pAd->CommonCfg.CarrierDetect.criteria >> 6); /* convert unit from 16us to 1ms:(2^4 /2^10)  */
-		RTUSBMultiWrite(pAd, CD_CRITERIA, (PUCHAR) &criteria, 2, FALSE);
+		RTUSBMultiWrite(pAd, CD_CRITERIA, (unsigned char *) &criteria, 2, FALSE);
 		RTMP_IO_WRITE8(pAd, CD_CHECK_COUNT, pAd->CommonCfg.CarrierDetect.recheck1);
 		AsicSendCommandToMcu(pAd, CD_ONOFF_MCU_CMD, 0xff, 0x01, 0x00, FALSE);
 		}

@@ -137,7 +137,7 @@ BOOLEAN RTMPCheckUcast(
     IN PEID_STRUCT      eid_ptr,
     IN MAC_TABLE_ENTRY	*pEntry)
 {
-	PUCHAR 	pStaTmp;
+	unsigned char * 	pStaTmp;
 	USHORT	Count;
 	UCHAR 	apidx;
 
@@ -155,7 +155,7 @@ BOOLEAN RTMPCheckUcast(
 	}	
 
 	/* Store STA RSN_IE capability */
-	pStaTmp = (PUCHAR)&eid_ptr->Octet[0];
+	pStaTmp = (unsigned char *)&eid_ptr->Octet[0];
 	if(eid_ptr->Eid == IE_WPA2)
 	{
 		/* skip Version(2),Multicast cipter(4) 2+4==6 */
@@ -313,9 +313,9 @@ BOOLEAN RTMPCheckUcast(
          FALSE otherwise
     ==========================================================================
 */
-BOOLEAN RTMPCheckAKM(PUCHAR sta_akm, PUCHAR ap_rsn_ie, INT iswpa2)
+BOOLEAN RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, INT iswpa2)
 {
-	PUCHAR pTmp;
+	unsigned char * pTmp;
 	USHORT Count;
 
 	pTmp = ap_rsn_ie;
@@ -374,7 +374,7 @@ BOOLEAN RTMPCheckAUTH(
     IN PEID_STRUCT      eid_ptr,
     IN MAC_TABLE_ENTRY	*pEntry)
 {
-	PUCHAR pStaTmp;
+	unsigned char * pStaTmp;
 	USHORT Count;	
 	UCHAR 	apidx;
 
@@ -390,7 +390,7 @@ BOOLEAN RTMPCheckAUTH(
 	}	
 
 	/* Store STA RSN_IE capability */
-	pStaTmp = (PUCHAR)&eid_ptr->Octet[0];
+	pStaTmp = (unsigned char *)&eid_ptr->Octet[0];
 	if(eid_ptr->Eid == IE_WPA2)
 	{
 		/* skip Version(2),Multicast cipter(4) 2+4==6 */
@@ -479,7 +479,7 @@ BOOLEAN RTMPCheckAUTH(
 UINT	APValidateRSNIE(
 	IN PRTMP_ADAPTER    pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN PUCHAR			pRsnIe,
+	IN unsigned char *			pRsnIe,
 	IN UCHAR			rsnie_len)
 {
 	UINT StatusCode = MLME_SUCCESS;
@@ -878,14 +878,14 @@ VOID GREKEYPeriodicExec(
 */
 VOID WpaSend(
     IN  PRTMP_ADAPTER   pAdapter,
-    IN  PUCHAR          pPacket,
+    IN  unsigned char *          pPacket,
     IN  ULONG           Len)
 {
     PEAP_HDR        	pEapHdr;
     UCHAR         		Addr[MAC_ADDR_LEN];
 	UCHAR				Header802_3[LENGTH_802_3];
     MAC_TABLE_ENTRY 	*pEntry;
-	PUCHAR				pData;
+	unsigned char *				pData;
     
     
     NdisMoveMemory(Addr, pPacket, 6);
@@ -967,7 +967,7 @@ VOID WpaSend(
 VOID RTMPAddPMKIDCache(
 	IN  PRTMP_ADAPTER   		pAd,
 	IN	INT						apidx,
-	IN	PUCHAR				pAddr,
+	IN	unsigned char *				pAddr,
 	IN	UCHAR					*PMKID,
 	IN	UCHAR					*PMK)
 {
@@ -1030,7 +1030,7 @@ VOID RTMPAddPMKIDCache(
 INT RTMPSearchPMKIDCache(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	INT				apidx,
-	IN	PUCHAR		pAddr)
+	IN	unsigned char *		pAddr)
 {
 	INT	i = 0;
 	
@@ -1097,7 +1097,7 @@ VOID RTMPMaintainPMKIDCache(
 VOID RTMPGetTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	UCHAR			apidx,
-	OUT	PUCHAR			pTxTsc)
+	OUT	unsigned char *			pTxTsc)
 {
 	USHORT			Wcid;
 	USHORT			offset;
@@ -1224,7 +1224,7 @@ VOID RTMPHandleSTAKey(
 {
 	extern UCHAR		OUI_WPA2_WEP40[];
 	ULONG				FrameLen = 0;
-	PUCHAR				pOutBuffer = NULL;
+	unsigned char *				pOutBuffer = NULL;
 	UCHAR				Header802_3[14];
 	UCHAR				*mpool;
 	PEAPOL_PACKET		pOutPacket;
@@ -1264,8 +1264,8 @@ VOID RTMPHandleSTAKey(
     
 	pSTAKey = (PEAPOL_PACKET)&Elem->Msg[LENGTH_802_11 + LENGTH_802_1_H + Offset];	
 	/*Benson add for big-endian 20081016--> */
-	NdisZeroMemory((PUCHAR)&peerKeyInfo, sizeof(peerKeyInfo));
-	NdisMoveMemory((PUCHAR)&peerKeyInfo, (PUCHAR)&pSTAKey->KeyDesc.KeyInfo, sizeof(KEY_INFO));
+	NdisZeroMemory((unsigned char *)&peerKeyInfo, sizeof(peerKeyInfo));
+	NdisMoveMemory((unsigned char *)&peerKeyInfo, (unsigned char *)&pSTAKey->KeyDesc.KeyInfo, sizeof(KEY_INFO));
 	*((USHORT *)&peerKeyInfo) = cpu2le16(*((USHORT *)&peerKeyInfo));
 	/*Benson add 20081016 <-- */
 	
@@ -1326,11 +1326,11 @@ VOID RTMPHandleSTAKey(
 	NdisZeroMemory(pSTAKey->KeyDesc.KeyMic, LEN_KEY_DESC_MIC);
     if (pEntry->WepStatus == Ndis802_11Encryption2Enabled)
     {
-        RT_HMAC_MD5(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, (PUCHAR)pSTAKey, MICMsgLen, mic, MD5_DIGEST_SIZE);
+        RT_HMAC_MD5(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, (unsigned char *)pSTAKey, MICMsgLen, mic, MD5_DIGEST_SIZE);
     }
     else
     {
-        RT_HMAC_SHA1(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, (PUCHAR)pSTAKey,  MICMsgLen, digest, SHA1_DIGEST_SIZE);
+        RT_HMAC_SHA1(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, (unsigned char *)pSTAKey,  MICMsgLen, digest, SHA1_DIGEST_SIZE);
         NdisMoveMemory(mic, digest, LEN_KEY_DESC_MIC);
     }
 
@@ -1370,7 +1370,7 @@ VOID RTMPHandleSTAKey(
 	        break;
 	    }
     	
-		MlmeAllocateMemory(pAd, (PUCHAR *)&pOutBuffer);  /* allocate memory */
+		MlmeAllocateMemory(pAd, (unsigned char * *)&pOutBuffer);  /* allocate memory */
         if(pOutBuffer == NULL)
             break;
 
@@ -1380,10 +1380,10 @@ VOID RTMPHandleSTAKey(
         ADD_ONE_To_64BIT_VAR(pDaEntry->R_Counter);
 
 		/* Allocate memory for output */
-		os_alloc_mem(NULL, (PUCHAR *)&mpool, TX_EAPOL_BUFFER);
+		os_alloc_mem(NULL, (unsigned char * *)&mpool, TX_EAPOL_BUFFER);
 		if (mpool == NULL)
 	    {
-			MlmeFreeMemory(pAd, (PUCHAR)pOutBuffer);
+			MlmeFreeMemory(pAd, (unsigned char *)pOutBuffer);
 	        DBGPRINT(RT_DEBUG_ERROR, ("!!!%s : no memory!!!\n", __FUNCTION__));
 	        return;
 	    }
@@ -1503,9 +1503,9 @@ VOID RTMPHandleSTAKey(
             NdisMoveMemory(pOutPacket->KeyDesc.KeyMic, mic, LEN_KEY_DESC_MIC);
         }
 
-        RTMPToWirelessSta(pAd, pDaEntry, Header802_3, LENGTH_802_3, (PUCHAR)pOutPacket, pOutPacket->Body_Len[1] + 4, FALSE);
+        RTMPToWirelessSta(pAd, pDaEntry, Header802_3, LENGTH_802_3, (unsigned char *)pOutPacket, pOutPacket->Body_Len[1] + 4, FALSE);
 
-        MlmeFreeMemory(pAd, (PUCHAR)pOutBuffer);
+        MlmeFreeMemory(pAd, (unsigned char *)pOutBuffer);
 		os_free_mem(NULL, mpool);
     }while(FALSE);
     
@@ -1560,7 +1560,7 @@ const CHAR* ether_sprintf(const UINT8 *mac)
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT 
 VOID    ApcliWpaSendEapolStart(
 	IN	PRTMP_ADAPTER	pAd,
-	IN  PUCHAR          pBssid,
+	IN  unsigned char *          pBssid,
 	IN  PMAC_TABLE_ENTRY pMacEntry,
 	IN	PAPCLI_STRUCT pApCliEntry)
 {
@@ -1581,7 +1581,7 @@ VOID    ApcliWpaSendEapolStart(
 	
 	// Copy frame to Tx ring
 	RTMPToWirelessSta((PRTMP_ADAPTER)pAd, pMacEntry,
-					 Header802_3, LENGTH_802_3, (PUCHAR)&Packet, 4, TRUE);
+					 Header802_3, LENGTH_802_3, (unsigned char *)&Packet, 4, TRUE);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WpaSendEapolStart\n"));
 }
@@ -1590,12 +1590,12 @@ VOID    ApcliWpaSendEapolStart(
 // If the received frame is EAP-Packet ,find out its EAP-Code (Request(0x01), Response(0x02), Success(0x03), Failure(0x04)).
 INT	    ApcliWpaCheckEapCode(
 	IN  PRTMP_ADAPTER   		pAd,
-	IN  PUCHAR				pFrame,
+	IN  unsigned char *				pFrame,
 	IN  USHORT				FrameLen,
 	IN  USHORT				OffSet)
 {
 	
-	PUCHAR	pData;
+	unsigned char *	pData;
 	INT	result = 0;
 		
 	if( FrameLen < OffSet + LENGTH_EAPOL_H + LENGTH_EAP_H ) 

@@ -26,10 +26,10 @@
 
 BOOLEAN	WscAppendV2SubItem(
 	IN	UCHAR			SubID,
-	IN	PUCHAR			pData,
+	IN	unsigned char *			pData,
 	IN	UCHAR			DataLen,
-	OUT	PUCHAR			pOutBuf,
-	OUT	PUCHAR			pOutBufLen);
+	OUT	unsigned char *			pOutBuf,
+	OUT	unsigned char *			pOutBufLen);
 
 #ifdef CONFIG_AP_SUPPORT
 VOID 	WscOnOff(
@@ -66,7 +66,7 @@ VOID 	WscOnOff(
 VOID	WscAddEntryToAclList(
 	IN  PRTMP_ADAPTER	pAd,
 	IN	INT				ApIdx,
-	IN  PUCHAR			pMacAddr)
+	IN  unsigned char *			pMacAddr)
 {
 	PRT_802_11_ACL	pACL = NULL;
 	INT				i;
@@ -229,12 +229,12 @@ VOID	WscCheckPinAttackCount(
 BOOLEAN	WscGenV2Msg(
 	IN  PWSC_CTRL		pWpsCtrl,
 	IN  BOOLEAN			bSelRegistrar,
-	IN	PUCHAR			pAuthorizedMACs,
+	IN	unsigned char *			pAuthorizedMACs,
 	IN  INT   			AuthorizedMACsLen,
 	OUT	UCHAR			**pOutBuf,
 	OUT	INT				*pOutBufLen)
 {
-	PUCHAR			pWscV2Msg = NULL;
+	unsigned char *			pWscV2Msg = NULL;
 	USHORT			WscV2MsgLen = 0;
 	PWSC_REG_DATA	pReg = &pWpsCtrl->RegData;
 	INT				templen = 0;
@@ -291,12 +291,12 @@ BOOLEAN	WscGenV2Msg(
 
 BOOLEAN	WscAppendV2SubItem(
 	IN	UCHAR			SubID,
-	IN	PUCHAR			pData,
+	IN	unsigned char *			pData,
 	IN	UCHAR			DataLen,
-	OUT	PUCHAR			pOutBuf,
-	OUT	PUCHAR			pOutBufLen)
+	OUT	unsigned char *			pOutBuf,
+	OUT	unsigned char *			pOutBufLen)
 {
-	PUCHAR	pBuf = NULL;
+	unsigned char *	pBuf = NULL;
 	os_alloc_mem(NULL, &pBuf, DataLen + 10);
 	if (pBuf)
 	{
@@ -313,10 +313,10 @@ BOOLEAN	WscAppendV2SubItem(
 
 BOOLEAN	WscParseV2SubItem(
 	IN	UCHAR			SubID,
-	IN	PUCHAR			pData,
+	IN	unsigned char *			pData,
 	IN	USHORT			DataLen,
-	OUT	PUCHAR			pOutBuf,
-	OUT	PUCHAR			pOutBufLen)
+	OUT	unsigned char *			pOutBuf,
+	OUT	unsigned char *			pOutBufLen)
 {
 	PEID_STRUCT   pEid;
 	USHORT		  Length = 0;
@@ -369,7 +369,7 @@ VOID	WscSendEapFragData(
 	IN	PMAC_TABLE_ENTRY	pEntry)
 {
 	INT 	DataLen = 0;
-	PUCHAR	pData = NULL;
+	unsigned char *	pData = NULL;
 	
 	if (pEntry == NULL)
 	{

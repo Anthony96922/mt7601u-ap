@@ -89,7 +89,7 @@ VOID APPeerProbeReqAction(
 	UCHAR SsidLen;
 	HEADER_802_11 ProbeRspHdr;
 	NDIS_STATUS NStatus;
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	ULONG FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
 	LARGE_INTEGER FakeTimestamp;
 	UCHAR DsLen = 1, ErpIeLen = 1, apidx = 0, PhyMode, SupRateLen, RSNIe = IE_WPA, RSNIe2 = IE_WPA2;
@@ -305,9 +305,9 @@ VOID APPeerProbeReqAction(
 			{
 				EXT_HT_CAP_INFO extHtCapInfo;
 
-				NdisMoveMemory((PUCHAR)(&extHtCapInfo), (PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+				NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 				*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
-				NdisMoveMemory((PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), (PUCHAR)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+				NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 			}
 #else
 			*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = cpu2le16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));
@@ -419,9 +419,9 @@ VOID APPeerProbeReqAction(
 				{
 					EXT_HT_CAP_INFO extHtCapInfo;
 
-					NdisMoveMemory((PUCHAR)(&extHtCapInfo), (PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+					NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 					*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
-					NdisMoveMemory((PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), (PUCHAR)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+					NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 				}
 #else
 				*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = cpu2le16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));
@@ -651,7 +651,7 @@ VOID APPeerBeaconAction(
 		pVIE = (PNDIS_802_11_VARIABLE_IEs) VarIE;
 		pVIE->Length = 0;
 
-		pRates = (PUCHAR)Rates;
+		pRates = (unsigned char *)Rates;
 
 		ie_list->Channel = Elem->Channel;
 		RealRssi = RTMPMaxRssi(pAd, ConvertToRssi(pAd, Elem->Rssi0, RSSI_0, Elem->AntSel, BW_20),
@@ -678,7 +678,7 @@ VOID APPeerBeaconAction(
 
 #ifdef IDS_SUPPORT
 		/* Conflict SSID detection */
-		RTMPConflictSsidDetection(pAd, (PUCHAR)ie_list->Ssid, ie_list->SsidLen, (CHAR)Elem->Rssi0, (CHAR)Elem->Rssi1, (CHAR)Elem->Rssi2, Elem->AntSel);
+		RTMPConflictSsidDetection(pAd, (unsigned char *)ie_list->Ssid, ie_list->SsidLen, (CHAR)Elem->Rssi0, (CHAR)Elem->Rssi1, (CHAR)Elem->Rssi2, Elem->AntSel);
 #endif /* IDS_SUPPORT */
 
 #ifdef DOT11_N_SUPPORT
@@ -812,7 +812,7 @@ __End_Of_APPeerBeaconAction:
 IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 {
 	if (ie_list->Channel == pAd->ApCfg.AutoChannel_Channel) {
-		if (AutoChBssSearchWithSSID(pAd, ie_list->Bssid, (PUCHAR)ie_list->Ssid, ie_list->SsidLen, ie_list->Channel) == BSS_NOT_FOUND)
+		if (AutoChBssSearchWithSSID(pAd, ie_list->Bssid, (unsigned char *)ie_list->Ssid, ie_list->SsidLen, ie_list->Channel) == BSS_NOT_FOUND)
 			pAd->pChannelInfo->ApCnt[pAd->ApCfg.current_channel_index]++;
 		AutoChBssInsertEntry(pAd, ie_list->Bssid, ie_list->Ssid, ie_list->SsidLen, ie_list->Channel, ie_list->NewExtChannelOffset, RealRssi);
 	}
@@ -1067,7 +1067,7 @@ __End_Of_APPeerBeaconAtScanAction:
 IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 {
 	if (ie_list->Channel == pAd->ApCfg.AutoChannel_Channel) {
-		if (AutoChBssSearchWithSSID(pAd, ie_list->Bssid, (PUCHAR)ie_list->Ssid, ie_list->SsidLen, ie_list->Channel) == BSS_NOT_FOUND)
+		if (AutoChBssSearchWithSSID(pAd, ie_list->Bssid, (unsigned char *)ie_list->Ssid, ie_list->SsidLen, ie_list->Channel) == BSS_NOT_FOUND)
 			pAd->pChannelInfo->ApCnt[pAd->ApCfg.current_channel_index]++;
 
 		AutoChBssInsertEntry(pAd, ie_list->Bssid, (CHAR *)ie_list->Ssid, ie_list->SsidLen, ie_list->Channel, ie_list->NewExtChannelOffset, RealRssi);   
@@ -1147,13 +1147,13 @@ BOOLEAN ApScanRunning(
 #endif /* AP_SCAN_SUPPORT */
 
 VOID SupportRate(
-	IN PUCHAR SupRate,
+	IN unsigned char * SupRate,
 	IN UCHAR SupRateLen,
-	IN PUCHAR ExtRate,
+	IN unsigned char * ExtRate,
 	IN UCHAR ExtRateLen,
-	OUT PUCHAR *ppRates,
-	OUT PUCHAR RatesLen,
-	OUT PUCHAR pMaxSupportRate)
+	OUT unsigned char * *ppRates,
+	OUT unsigned char * RatesLen,
+	OUT unsigned char * pMaxSupportRate)
 {
 	INT i;
 

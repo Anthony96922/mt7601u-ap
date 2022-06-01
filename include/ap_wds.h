@@ -71,21 +71,21 @@ if ((pAd->WdsTab.WdsEntry[ifidx].dev != NULL) && (RTMP_OS_NETDEV_STATE_RUNNING(p
 
 LONG WdsEntryAlloc(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr);
+	IN unsigned char * pAddr);
 
 VOID WdsEntryDel(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pAddr);
+	IN unsigned char * pAddr);
 
 MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 	IN  PRTMP_ADAPTER   pAd, 
-	IN  PUCHAR pAddr,
+	IN  unsigned char * pAddr,
 	UINT WdsTabIdx);
 
 BOOLEAN MacTableDeleteWDSEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN USHORT wcid,
-	IN PUCHAR pAddr);
+	IN unsigned char * pAddr);
 
 
 BOOLEAN ApWdsAllowToSendPacket(
@@ -96,18 +96,18 @@ BOOLEAN ApWdsAllowToSendPacket(
 MAC_TABLE_ENTRY *WdsTableLookupByWcid(
     IN  PRTMP_ADAPTER   pAd, 
 	IN UCHAR wcid,
-	IN PUCHAR pAddr,
+	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount);
 
 MAC_TABLE_ENTRY *WdsTableLookup(
     IN  PRTMP_ADAPTER   pAd, 
-    IN  PUCHAR          pAddr,
+    IN  unsigned char *          pAddr,
 	IN BOOLEAN bResetIdelCount);
 
 MAC_TABLE_ENTRY *FindWdsEntry(
 	IN PRTMP_ADAPTER	pAd,
 	IN UCHAR 			Wcid,
-	IN PUCHAR			pAddr,
+	IN unsigned char *			pAddr,
 	IN UINT32			PhyMode);
 
 VOID WdsTableMaintenance(

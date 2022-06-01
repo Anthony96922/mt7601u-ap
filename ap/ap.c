@@ -1088,7 +1088,7 @@ VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 			RTMPSendWirelessEvent(pAd, IW_AGEOUT_EVENT_FLAG, pEntry->Addr, 0, 0);
 
 			if (pEntry->Sst == SST_ASSOC) {
-				PUCHAR      pOutBuffer = NULL;
+				unsigned char *      pOutBuffer = NULL;
 				NDIS_STATUS NStatus;
 				ULONG       FrameLen = 0;
 				HEADER_802_11 DeAuthHdr;
@@ -1326,7 +1326,7 @@ UINT32 MacTableAssocStaNumGet(
 */
 MAC_TABLE_ENTRY *APSsPsInquiry(
 	IN  PRTMP_ADAPTER   pAd, 
-	IN  PUCHAR pAddr, 
+	IN  unsigned char * pAddr, 
 	OUT SST   *Sst, 
 	OUT USHORT *Aid,
 	OUT UCHAR *PsMode,
@@ -1370,7 +1370,7 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
  */
 BOOLEAN APPsIndicate(
 	IN PRTMP_ADAPTER pAd, 
-	IN PUCHAR pAddr, 
+	IN unsigned char * pAddr, 
 	IN ULONG Wcid, 
 	IN UCHAR Psm) 
 {
@@ -1423,7 +1423,7 @@ BOOLEAN APPsIndicate(
  */
 VOID ApLogEvent(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR   pAddr,
+	IN unsigned char *   pAddr,
 	IN USHORT   Event)
 {
 	if (pAd->EventTab.Num < MAX_NUM_OF_EVENT)
@@ -1638,7 +1638,7 @@ BOOLEAN ApCheckLongPreambleSTA(
 */
 BOOLEAN ApCheckAccessControlList(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR        pAddr,
+	IN unsigned char *        pAddr,
 	IN UCHAR         Apidx)
 {
 	BOOLEAN Result = TRUE;
@@ -1683,7 +1683,7 @@ VOID ApUpdateAccessControlList(
 	USHORT   AclIdx, MacIdx;
 	BOOLEAN  Matched;
 
-	PUCHAR      pOutBuffer = NULL;
+	unsigned char *      pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	ULONG       FrameLen = 0;
 	HEADER_802_11 DisassocHdr;
@@ -1794,7 +1794,7 @@ VOID ApUpdateAccessControlList(
  */
 VOID ApEnqueueNullFrame(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR        pAddr,
+	IN unsigned char *        pAddr,
 	IN UCHAR         TxRate,
 	IN UCHAR         PID,
 	IN UCHAR         apidx,
@@ -1804,12 +1804,12 @@ VOID ApEnqueueNullFrame(
 {
 	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
-	PUCHAR pFrame;
+	unsigned char * pFrame;
 	ULONG		   Length;
 
 
 	/* since TxRate may change, we have to change Duration each time */
-	NState = MlmeAllocateMemory(pAd, (PUCHAR *)&pFrame);
+	NState = MlmeAllocateMemory(pAd, (unsigned char * *)&pFrame);
 	pNullFr = (PHEADER_802_11) pFrame;
 	Length = sizeof(HEADER_802_11);
 
@@ -1837,7 +1837,7 @@ VOID ApEnqueueNullFrame(
 #endif /* UAPSD_SUPPORT */
 
 			DBGPRINT(RT_DEBUG_INFO, ("send NULL Frame @%d Mbps to AID#%d...\n", RateIdToMbps[TxRate], PID & 0x3f));
-			MiniportMMRequest(pAd, MapUserPriorityToAccessCategory[7], (PUCHAR)pNullFr, Length);
+			MiniportMMRequest(pAd, MapUserPriorityToAccessCategory[7], (unsigned char *)pNullFr, Length);
 		}
 		MlmeFreeMemory(pAd, pFrame);
 	}

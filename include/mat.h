@@ -178,8 +178,8 @@ typedef struct _MAT_STRUCT_
 typedef struct _MATProtoOps
 {
 	NDIS_STATUS 	(*init)(MAT_STRUCT *pMatCfg);
-	PUCHAR			(*tx)(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pMacAddr);
-	PUCHAR			(*rx)(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pMacAddr);
+	unsigned char *			(*tx)(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
+	unsigned char *			(*rx)(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
 	NDIS_STATUS		(*exit)(MAT_STRUCT *pMatCfg);
 }MATProtoOps, *PMATProtoOps;
 
@@ -191,17 +191,17 @@ typedef struct _MATProtoTable
 }MATProtoTable, *PMATProtoTable;
 
 
-VOID dumpPkt(PUCHAR pHeader, int len);
+VOID dumpPkt(unsigned char * pHeader, int len);
 
 /*#define KMALLOC_BATCH */
 
-PUCHAR MATDBEntryAlloc(
+unsigned char * MATDBEntryAlloc(
 	IN MAT_STRUCT 	*pMatStruct, 
 	IN UINT32 		size);
 
 NDIS_STATUS MATDBEntryFree(
 	IN MAT_STRUCT 	*pMatStruct, 
-	IN PUCHAR 		NodeEntry);
+	IN unsigned char * 		NodeEntry);
 
 		
 #endif /* _MAT_H_ */

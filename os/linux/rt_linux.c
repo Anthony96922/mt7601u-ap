@@ -208,7 +208,7 @@ NDIS_STATUS os_alloc_mem(
 	OUT UCHAR **mem,
 	IN ULONG size)
 {
-	*mem = (PUCHAR) kmalloc(size, GFP_ATOMIC);
+	*mem = (unsigned char *) kmalloc(size, GFP_ATOMIC);
 	if (*mem) {
 #ifdef VENDOR_FEATURE4_SUPPORT
 		OS_NumOfMemAlloc++;
@@ -224,7 +224,7 @@ NDIS_STATUS os_alloc_mem_suspend(
 	OUT UCHAR **mem,
 	IN ULONG size)
 {
-	*mem = (PUCHAR) kmalloc(size, GFP_KERNEL);
+	*mem = (unsigned char *) kmalloc(size, GFP_KERNEL);
 	if (*mem) {
 #ifdef VENDOR_FEATURE4_SUPPORT
 		OS_NumOfMemAlloc++;
@@ -411,11 +411,11 @@ VOID RTMPFreeNdisPacket(
 NDIS_STATUS Sniff2BytesFromNdisBuffer(
 	IN PNDIS_BUFFER pFirstBuffer,
 	IN UCHAR DesiredOffset,
-	OUT PUCHAR pByte0,
-	OUT PUCHAR pByte1)
+	OUT unsigned char * pByte0,
+	OUT unsigned char * pByte1)
 {
-	*pByte0 = *(PUCHAR) (pFirstBuffer + DesiredOffset);
-	*pByte1 = *(PUCHAR) (pFirstBuffer + DesiredOffset + 1);
+	*pByte0 = *(unsigned char *) (pFirstBuffer + DesiredOffset);
+	*pByte1 = *(unsigned char *) (pFirstBuffer + DesiredOffset + 1);
 
 	return NDIS_STATUS_SUCCESS;
 }
@@ -469,7 +469,7 @@ PNDIS_PACKET DuplicatePacket(
 	UCHAR *pData;
 
 	DataSize = (USHORT) GET_OS_PKT_LEN(pPacket);
-	pData = (PUCHAR) GET_OS_PKT_DATAPTR(pPacket);
+	pData = (unsigned char *) GET_OS_PKT_DATAPTR(pPacket);
 
 	skb = skb_clone(RTPKT_TO_OSPKT(pPacket), MEM_ALLOC_FLAG);
 	if (skb) {
@@ -485,9 +485,9 @@ PNDIS_PACKET DuplicatePacket(
 
 PNDIS_PACKET duplicate_pkt(
 	IN PNET_DEV pNetDev,
-	IN PUCHAR pHeader802_3,
+	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
-	IN PUCHAR pData,
+	IN unsigned char * pData,
 	IN ULONG DataSize,
 	IN UCHAR FromWhichBSSID)
 {
@@ -544,9 +544,9 @@ PNDIS_PACKET duplicate_pkt_with_VLAN(
 	IN PNET_DEV pNetDev,
 	IN USHORT VLAN_VID,
 	IN USHORT VLAN_Priority,
-	IN PUCHAR pHeader802_3,
+	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
-	IN PUCHAR pData,
+	IN unsigned char * pData,
 	IN ULONG DataSize,
 	IN UCHAR FromWhichBSSID,
 	IN UCHAR *TPID)
@@ -599,7 +599,7 @@ BOOLEAN RTMPL2FrameTxAction(
 	IN PNET_DEV pNetDev,
 	IN RTMP_CB_8023_PACKET_ANNOUNCE _announce_802_3_packet,
 	IN UCHAR apidx,
-	IN PUCHAR pData,
+	IN unsigned char * pData,
 	IN UINT32 data_len,
 	IN	UCHAR			OpMode)
 {
@@ -673,7 +673,7 @@ PNDIS_PACKET ExpandPacket(
 PNDIS_PACKET ClonePacket(
 	IN VOID *pReserved,
 	IN PNDIS_PACKET pPacket,
-	IN PUCHAR pData,
+	IN unsigned char * pData,
 	IN ULONG DataSize)
 {
 	struct sk_buff *pRxPkt;
@@ -722,7 +722,7 @@ void wlan_802_11_to_802_3_packet(
 	IN PNDIS_PACKET pRxPacket,
 	IN UCHAR *pData,
 	IN ULONG DataSize,
-	IN PUCHAR pHeader802_3,
+	IN unsigned char * pHeader802_3,
 	IN UCHAR FromWhichBSSID,
 	IN UCHAR *TPID)
 {
@@ -830,7 +830,7 @@ void hex_dump(char *str, UCHAR *pSrcBufVA, UINT SrcBufLen)
 VOID RtmpOsSendWirelessEvent(
 	IN VOID *pAd,
 	IN USHORT Event_flag,
-	IN PUCHAR pAddr,
+	IN unsigned char * pAddr,
 	IN UCHAR BssIdx,
 	IN CHAR Rssi,
 	IN RTMP_OS_SEND_WLAN_EVENT pFunc)
@@ -1091,7 +1091,7 @@ static inline NDIS_STATUS __RtmpOSTaskInit(
 	ASSERT(pTask);
 
 #ifndef KTHREAD_SUPPORT
-	NdisZeroMemory((PUCHAR) (pTask), sizeof (OS_TASK));
+	NdisZeroMemory((unsigned char *) (pTask), sizeof (OS_TASK));
 #endif
 
 	len = strlen(pTaskName);
@@ -1210,8 +1210,8 @@ int RtmpOSWrielessEventSend(
 	IN PNET_DEV pNetDev,
 	IN UINT32 eventType,
 	IN INT flags,
-	IN PUCHAR pSrcMac,
-	IN PUCHAR pData,
+	IN unsigned char * pSrcMac,
+	IN unsigned char * pData,
 	IN UINT32 dataLen)
 {
 	union iwreq_data wrqu;
@@ -1240,8 +1240,8 @@ int RtmpOSWrielessEventSendExt(
 	IN PNET_DEV pNetDev,
 	IN UINT32 eventType,
 	IN INT flags,
-	IN PUCHAR pSrcMac,
-	IN PUCHAR pData,
+	IN unsigned char * pSrcMac,
+	IN unsigned char * pData,
 	IN UINT32 dataLen,
 	IN UINT32 family)
 {
@@ -1271,8 +1271,8 @@ int RtmpOSWrielessEventSendExt(
 int RtmpOSNetDevAddrSet(
 	IN UCHAR OpMode,
 	IN PNET_DEV pNetDev,
-	IN PUCHAR pMacAddr,
-	IN PUCHAR dev_name)
+	IN unsigned char * pMacAddr,
+	IN unsigned char * dev_name)
 {
 	struct net_device *net_dev;
 
@@ -1670,9 +1670,9 @@ PNET_DEV RtmpOSNetDevCreate(
 UCHAR VLAN_8023_Header_Copy(
 	IN USHORT VLAN_VID,
 	IN USHORT VLAN_Priority,
-	IN PUCHAR pHeader802_3,
+	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
-	OUT PUCHAR pData,
+	OUT unsigned char * pData,
 	IN UCHAR FromWhichBSSID,
 	IN UCHAR *TPID)
 {
@@ -4753,7 +4753,7 @@ VOID RtmpOsPktBodyCopy(
 	PNET_DEV pNetDev,
 	PNDIS_PACKET pNetPkt,
 	ULONG ThisFrameLen,
-	PUCHAR pData)
+	unsigned char * pData)
 {
 	memcpy(skb_put(pNetPkt, ThisFrameLen), pData, ThisFrameLen);
 	SET_OS_PKT_NETDEV(pNetPkt, pNetDev);
@@ -4900,7 +4900,7 @@ Return Value:
 Note:
 ========================================================================
 */
-PUCHAR RtmpOsPktTailBufExtend(PNDIS_PACKET pNetPkt, UINT Len)
+unsigned char * RtmpOsPktTailBufExtend(PNDIS_PACKET pNetPkt, UINT Len)
 {
 	return OS_PKT_TAIL_BUF_EXTEND(pNetPkt, Len);
 }
@@ -4942,7 +4942,7 @@ Return Value:
 Note:
 ========================================================================
 */
-PUCHAR RtmpOsPktHeadBufExtend(PNDIS_PACKET pNetPkt, UINT Len)
+unsigned char * RtmpOsPktHeadBufExtend(PNDIS_PACKET pNetPkt, UINT Len)
 {
 	return OS_PKT_HEAD_BUF_EXTEND(pNetPkt, Len);
 }

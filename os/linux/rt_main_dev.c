@@ -524,7 +524,7 @@ static int rt28xx_send_packets(
 		return 0;
 	}
 
-	NdisZeroMemory((PUCHAR)&skb_p->cb[CB_OFF], 15);
+	NdisZeroMemory((unsigned char *)&skb_p->cb[CB_OFF], 15);
 	RTMP_SET_PACKET_NET_DEVICE_MBSSID(skb_p, MAIN_MBSSID);
 	MEM_DBG_PKT_ALLOC_INC(skb_p);
 
@@ -548,7 +548,7 @@ struct iw_statistics *rt28xx_get_wireless_stats(struct net_device *net_dev)
 
 
 	pDrvIwStats->priv_flags = RT_DEV_PRIV_FLAGS_GET(net_dev);
-	pDrvIwStats->dev_addr = (PUCHAR)net_dev->dev_addr;
+	pDrvIwStats->dev_addr = (unsigned char *)net_dev->dev_addr;
 
 	if (RTMP_DRIVER_IW_STATS_GET(pAd, pDrvIwStats) != NDIS_STATUS_SUCCESS)
 		return NULL;

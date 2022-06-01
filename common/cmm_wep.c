@@ -118,7 +118,7 @@ UINT FCSTAB_32[256] =
 */
 UINT	RTMP_CALC_FCS32(
 	IN	UINT	Fcs,
-	IN	PUCHAR	Cp,
+	IN	unsigned char *	Cp,
 	IN	INT		Len)
 {
 	while (Len--)
@@ -150,13 +150,13 @@ UINT	RTMP_CALC_FCS32(
 	========================================================================
 */
 VOID	RTMPInitWepEngine(
-	IN	PUCHAR			pIv,
-	IN	PUCHAR			pKey,
+	IN	unsigned char *			pIv,
+	IN	unsigned char *			pKey,
 	IN	UCHAR			KeyLen,
 	OUT	ARC4_CTX_STRUC  *pARC4_CTX)
 {	
 /*	UCHAR   seed[16];*/
-	PUCHAR	seed = NULL;
+	unsigned char *	seed = NULL;
 	UINT8	seed_len;
 		
 	os_alloc_mem(NULL, (UCHAR **)&seed, sizeof(UCHAR)*16);
@@ -227,9 +227,9 @@ VOID RTMPConstructWEPIVHdr(
 */
 BOOLEAN	RTMPSoftEncryptWEP(
 	IN 		PRTMP_ADAPTER 	pAd,
-	IN 		PUCHAR			pIvHdr,
+	IN 		unsigned char *			pIvHdr,
 	IN 		PCIPHER_KEY		pKey,
-	INOUT 	PUCHAR			pData,
+	INOUT 	unsigned char *			pData,
 	IN 		ULONG			DataByteCnt)
 {
 	ARC4_CTX_STRUC *ARC4_CTX = NULL;
@@ -260,7 +260,7 @@ BOOLEAN	RTMPSoftEncryptWEP(
 	FCSCRC32 = cpu2le32(FCSCRC32);
 
 	/* Append 4-bytes ICV after the MPDU data */
-	NdisMoveMemory(pData + DataByteCnt, (PUCHAR)&FCSCRC32, LEN_ICV);
+	NdisMoveMemory(pData + DataByteCnt, (unsigned char *)&FCSCRC32, LEN_ICV);
 
 	/* Encrypt the MPDU plaintext data and ICV using ARC4 with a seed */
 	ARC4_Compute(ARC4_CTX, pData, DataByteCnt + LEN_ICV, pData);
@@ -294,14 +294,14 @@ BOOLEAN	RTMPSoftEncryptWEP(
 BOOLEAN	RTMPSoftDecryptWEP(
 	IN 		PRTMP_ADAPTER 	pAd,
 	IN 		PCIPHER_KEY		pKey,
-	INOUT 	PUCHAR			pData,
+	INOUT 	unsigned char *			pData,
 	INOUT 	UINT16			*DataByteCnt)
 {
 	/*ARC4_CTX_STRUC 	ARC4_CTX;*/
 	ARC4_CTX_STRUC 	*ARC4_CTX = NULL;
-	PUCHAR			plaintext_ptr;
+	unsigned char *			plaintext_ptr;
 	UINT16			plaintext_len;
-	PUCHAR			ciphertext_ptr;
+	unsigned char *			ciphertext_ptr;
 	UINT16			ciphertext_len;
 	UINT			trailfcs;
 	UINT    		crc32;

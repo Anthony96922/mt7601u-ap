@@ -97,7 +97,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 	HEADER_802_11 BcnHdr;
 	LARGE_INTEGER FakeTimestamp;
 	ULONG FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
-	PUCHAR pBeaconFrame = (PUCHAR)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
+	unsigned char * pBeaconFrame = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	UCHAR *ptr;
 	UINT i;
 	UINT32 longValue, reg_base;
@@ -231,7 +231,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 	/*
 		step 6. move BEACON TXD and frame content to on-chip memory
 	*/
-	ptr = (PUCHAR)&pAd->BeaconTxWI;
+	ptr = (unsigned char *)&pAd->BeaconTxWI;
 #ifdef RT_BIG_ENDIAN
 	RTMPWIEndianChange(pAd, ptr, TYPE_TXWI);
 #endif
@@ -244,7 +244,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 	}
 
 	/* update BEACON frame content. start right after the TXWI field. */
-	ptr = (PUCHAR)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
+	ptr = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 #ifdef RT_BIG_ENDIAN
 	RTMPFrameEndianChange(pAd, ptr, DIR_WRITE, FALSE);
 #endif
@@ -274,7 +274,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 */
 VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 {
-	UCHAR *pBeaconFrame = (PUCHAR)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
+	UCHAR *pBeaconFrame = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	UCHAR *ptr;
 	ULONG FrameLen = pAd->ApCfg.MBSSID[apidx].TimIELocationInBeacon;
 	ULONG UpdatePos = pAd->ApCfg.MBSSID[apidx].TimIELocationInBeacon;
@@ -440,9 +440,9 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 		{
 			EXT_HT_CAP_INFO extHtCapInfo;
 
-			NdisMoveMemory((PUCHAR)(&extHtCapInfo), (PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+			NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 			*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
-			NdisMoveMemory((PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), (PUCHAR)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 		}
 #else
 		*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));
@@ -496,7 +496,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 		/* 7.3.2.27 Extended Capabilities IE */
 		{
 			ULONG infoPos;
-			PUCHAR pInfo;
+			unsigned char * pInfo;
 			UCHAR extInfoLen;
 			BOOLEAN	bNeedAppendExtIE = FALSE;
 			EXT_CAP_INFO_ELEMENT extCapInfo;
@@ -514,7 +514,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
 
-			pInfo = (PUCHAR)(&extCapInfo);
+			pInfo = (unsigned char *)(&extCapInfo);
 			for (infoPos = 0; infoPos < extInfoLen; infoPos++) {
 				if (pInfo[infoPos] != 0) {
 					bNeedAppendExtIE = TRUE;
@@ -698,9 +698,9 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 		{
 			EXT_HT_CAP_INFO extHtCapInfo;
 
-			NdisMoveMemory((PUCHAR)(&extHtCapInfo), (PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+			NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 			*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
-			NdisMoveMemory((PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), (PUCHAR)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 		}
 #else
 			*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));

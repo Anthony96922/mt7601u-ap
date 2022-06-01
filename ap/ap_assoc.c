@@ -35,7 +35,7 @@ static void ap_assoc_info_debugshow(
 	IN IE_LISTS *ie_list)
 {
 #ifdef DBG
-	PUCHAR sAssoc = isReassoc ? (PUCHAR) "ReASSOC" : (PUCHAR) "ASSOC";
+	unsigned char * sAssoc = isReassoc ? (unsigned char *) "ReASSOC" : (unsigned char *) "ASSOC";
 #endif /* DBG */
 	MULTISSID_STRUCT *wdev;
 
@@ -588,7 +588,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	USHORT CapabilityInfoForAssocResp;
 	USHORT StatusCode = MLME_SUCCESS;
 	USHORT Aid;
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	ULONG FrameLen = 0;
 	UCHAR MaxSupportedRate = 0;
@@ -596,7 +596,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	UCHAR i;
 	MAC_TABLE_ENTRY *pEntry;
 #ifdef DBG
-	UCHAR *sAssoc = isReassoc ? (PUCHAR) "ReASSOC" : (PUCHAR) "ASSOC";
+	UCHAR *sAssoc = isReassoc ? (unsigned char *) "ReASSOC" : (unsigned char *) "ASSOC";
 #endif /* DBG */
 	UCHAR SubType;
 	BOOLEAN bACLReject = FALSE;
@@ -901,9 +901,9 @@ VOID ap_cmm_peer_assoc_req_action(
 		{
 			EXT_HT_CAP_INFO extHtCapInfo;
 
-			NdisMoveMemory((PUCHAR)(&extHtCapInfo), (PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+			NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 			*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
-			NdisMoveMemory((PUCHAR)(&HtCapabilityTmp.ExtHtCapInfo), (PUCHAR)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
+			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
 		}
 #else
 		*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));
@@ -928,7 +928,7 @@ VOID ap_cmm_peer_assoc_req_action(
 		/* 7.3.2.27 Extended Capabilities IE */
 		{
 			ULONG TmpLen, infoPos;
-			PUCHAR pInfo;
+			unsigned char * pInfo;
 			UCHAR extInfoLen;
 			BOOLEAN bNeedAppendExtIE = FALSE;
 			EXT_CAP_INFO_ELEMENT extCapInfo;
@@ -946,7 +946,7 @@ VOID ap_cmm_peer_assoc_req_action(
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
 
-			pInfo = (PUCHAR)(&extCapInfo);
+			pInfo = (unsigned char *)(&extCapInfo);
 			for (infoPos = 0; infoPos < extInfoLen; infoPos++)
 			{
 				if (pInfo[infoPos] != 0)
@@ -1445,12 +1445,12 @@ VOID MbssKickOutStas(
  */
 VOID APMlmeKickOutSta(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pStaAddr,
+	IN unsigned char * pStaAddr,
 	IN UCHAR Wcid,
 	IN USHORT Reason)
 {
 	HEADER_802_11 DisassocHdr;
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	ULONG FrameLen = 0;
 	NDIS_STATUS NStatus;
 	MAC_TABLE_ENTRY *pEntry;
@@ -1534,7 +1534,7 @@ VOID APCls3errAction(
 	IN	PHEADER_802_11	pHeader)
 {
 	HEADER_802_11 DisassocHdr;
-	PUCHAR pOutBuffer = NULL;
+	unsigned char * pOutBuffer = NULL;
 	ULONG FrameLen = 0;
 	NDIS_STATUS NStatus;
 	USHORT Reason = REASON_CLS3ERR;

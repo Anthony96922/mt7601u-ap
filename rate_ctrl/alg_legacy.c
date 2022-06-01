@@ -40,7 +40,7 @@
 VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 {
 	INT i;
-	PUCHAR pTable;
+	unsigned char * pTable;
 	UCHAR TableSize = 0, InitTxRateIdx, TrainUp, TrainDown;
 	UCHAR UpRateIdx, DownRateIdx, CurrRateIdx;
 	MAC_TABLE_ENTRY *pEntry;
@@ -420,7 +420,7 @@ VOID APQuickResponeForRateUpExec(
 {
 	PRTMP_ADAPTER			pAd = (PRTMP_ADAPTER)FunctionContext;
 	ULONG					i;
-	PUCHAR					pTable;
+	unsigned char *					pTable;
 	UCHAR					TableSize = 0;
 	UCHAR					CurrRateIdx;
 	ULONG					AccuTxTotalCnt, TxTotalCnt, TxCnt;

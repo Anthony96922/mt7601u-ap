@@ -153,7 +153,7 @@ static VOID QBSS_LoadAlarm(
 				RTMPSendWirelessEvent(pAd, IW_AGEOUT_EVENT_FLAG, pEntry->Addr, 0, 0); 
 
 				{
-					PUCHAR      pOutBuffer = NULL;
+					unsigned char *      pOutBuffer = NULL;
 					NDIS_STATUS NStatus;
 					ULONG       FrameLen = 0;
 					HEADER_802_11 DeAuthHdr;

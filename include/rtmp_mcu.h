@@ -54,9 +54,9 @@ struct CMD_UNIT {
 		struct {
 			UINT8 Type;
 			USHORT CmdPayloadLen;
-			PUCHAR CmdPayload;
+			unsigned char * CmdPayload;
 			USHORT RspPayloadLen;
-			PUCHAR RspPayload;
+			unsigned char * RspPayload;
 			ULONG Timeout;
 			BOOLEAN NeedRsp;
 			BOOLEAN NeedWait;

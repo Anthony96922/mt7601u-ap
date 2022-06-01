@@ -2325,7 +2325,7 @@ VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 		else if (i == 2)
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, &pTxALCData->TssiDC0_HVGA);
 		else
-			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, (PUCHAR)&tssi_linear);
+			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, (unsigned char *)&tssi_linear);
 
 		tssi_linear = tssi_linear & 0xff;
 		tssi_linear = (tssi_linear & 0x80) ? tssi_linear - 0x100 : tssi_linear;

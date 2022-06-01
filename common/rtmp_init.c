@@ -2238,12 +2238,12 @@ ULONG	RTMPCompareMemory(
 	IN	void *	pSrc2,
 	IN	ULONG	Length)
 {
-	PUCHAR	pMem1;
-	PUCHAR	pMem2;
+	unsigned char *	pMem1;
+	unsigned char *	pMem2;
 	ULONG	Index = 0;
 
-	pMem1 = (PUCHAR) pSrc1;
-	pMem2 = (PUCHAR) pSrc2;
+	pMem1 = (unsigned char *) pSrc1;
+	pMem2 = (unsigned char *) pSrc2;
 
 	for (Index = 0; Index < Length; Index++)
 	{
@@ -2282,10 +2282,10 @@ VOID	RTMPZeroMemory(
 	IN	void *	pSrc,
 	IN	ULONG	Length)
 {
-	PUCHAR	pMem;
+	unsigned char *	pMem;
 	ULONG	Index = 0;
 
-	pMem = (PUCHAR) pSrc;
+	pMem = (unsigned char *) pSrc;
 
 	for (Index = 0; Index < Length; Index++)
 	{
@@ -2320,14 +2320,14 @@ VOID RTMPMoveMemory(
 	IN	void *	pSrc,
 	IN	ULONG	Length)
 {
-	PUCHAR	pMem1;
-	PUCHAR	pMem2;
+	unsigned char *	pMem1;
+	unsigned char *	pMem2;
 	UINT	Index;
 
 	ASSERT((Length==0) || (pDest && pSrc));
 
-	pMem1 = (PUCHAR) pDest;
-	pMem2 = (PUCHAR) pSrc;
+	pMem1 = (unsigned char *) pDest;
+	pMem2 = (unsigned char *) pSrc;
 
 	for (Index = 0; Index < Length; Index++)
 	{
@@ -2994,13 +2994,13 @@ UCHAR BtoH(STRING ch)
 
 /* IRQL = PASSIVE_LEVEL*/
 
-void AtoH(PSTRING src, PUCHAR dest, int destlen)
+void AtoH(PSTRING src, unsigned char * dest, int destlen)
 {
 	PSTRING srcptr;
-	PUCHAR destTemp;
+	unsigned char * destTemp;
 
 	srcptr = src;	
-	destTemp = (PUCHAR) dest; 
+	destTemp = (unsigned char *) dest; 
 
 	while(destlen--)
 	{
@@ -3529,7 +3529,7 @@ INT RtmpRaDevCtrlInit(VOID *pAdSrc, RTMP_INF_TYPE infType)
 	RTMP_SEM_EVENT_INIT(&(pAd->UsbVendorReq_semaphore), &pAd->RscSemMemList);
 	RTMP_SEM_EVENT_INIT(&(pAd->reg_atomic), &pAd->RscSemMemList);
 	RTMP_SEM_EVENT_INIT(&(pAd->hw_atomic), &pAd->RscSemMemList);
-	os_alloc_mem(pAd, (PUCHAR *)&pAd->UsbVendorReqBuf, MAX_PARAM_BUFFER_SIZE - 1);
+	os_alloc_mem(pAd, (unsigned char * *)&pAd->UsbVendorReqBuf, MAX_PARAM_BUFFER_SIZE - 1);
 	if (pAd->UsbVendorReqBuf == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("Allocate vendor request temp buffer failed!\n"));

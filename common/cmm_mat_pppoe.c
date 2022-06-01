@@ -35,13 +35,13 @@
 
 static NDIS_STATUS MATProto_PPPoEDis_Init(MAT_STRUCT *pMatStruct);
 static NDIS_STATUS MATProto_PPPoEDis_Exit(MAT_STRUCT *pMatStruct);
-static PUCHAR MATProto_PPPoEDis_Rx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pDevMacAdr);
-static PUCHAR MATProto_PPPoEDis_Tx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pDevMacAdr);
+static unsigned char * MATProto_PPPoEDis_Rx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
+static unsigned char * MATProto_PPPoEDis_Tx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 
 static NDIS_STATUS MATProto_PPPoESes_Init(MAT_STRUCT *pMatStruct);
 static NDIS_STATUS MATProto_PPPoESes_Exit(MAT_STRUCT *pMatStruct);
-static PUCHAR MATProto_PPPoESes_Rx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pDevMacAdr);
-static PUCHAR MATProto_PPPoESes_Tx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, PUCHAR pLayerHdr, PUCHAR pDevMacAdr);
+static unsigned char * MATProto_PPPoESes_Rx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
+static unsigned char * MATProto_PPPoESes_Tx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 
 
 /*
@@ -280,7 +280,7 @@ static NDIS_STATUS UidMacTable_RemoveAll(
 			while((pEntry = pUidMacTable->uidHash[i]) != NULL)
 			{
 				pUidMacTable->uidHash[i] = pEntry->pNext;
-				MATDBEntryFree(pMatCfg, (PUCHAR)pEntry);
+				MATDBEntryFree(pMatCfg, (unsigned char *)pEntry);
 			}
 		}
 	}
@@ -312,7 +312,7 @@ static NDIS_STATUS SesMacTable_RemoveAll(
 			while((pEntry = pSesMacTable->sesHash[i]) != NULL)
 		{
 				pSesMacTable->sesHash[i] = pEntry->pNext;
-				MATDBEntryFree(pMatCfg, (PUCHAR)pEntry);
+				MATDBEntryFree(pMatCfg, (unsigned char *)pEntry);
 			}
 		}
 	}
@@ -328,9 +328,9 @@ static NDIS_STATUS SesMacTable_RemoveAll(
 
 static PUidMacMappingEntry UidMacTableUpdate(
 	IN MAT_STRUCT		*pMatCfg,
-	IN PUCHAR			pInMac,
-	IN PUCHAR			pOutMac,
-	IN PUCHAR			pTagInfo,
+	IN unsigned char *			pInMac,
+	IN unsigned char *			pOutMac,
+	IN unsigned char *			pTagInfo,
 	IN UINT16			tagLen,
 	IN UINT16			isServer)
 {
@@ -338,7 +338,7 @@ static PUidMacMappingEntry UidMacTableUpdate(
 	UidMacMappingTable 	*pUidMacTable;
 	UidMacMappingEntry	*pEntry = NULL, *pPrev = NULL, *pNewEntry =NULL;
 	UCHAR 				hashVal = 0;
-	PUCHAR				pUIDStr= NULL;
+	unsigned char *				pUIDStr= NULL;
 	ULONG				now;
 
 
@@ -402,7 +402,7 @@ static PUidMacMappingEntry UidMacTableUpdate(
 					}
 
 					/*After remove this entry from macHash list and uidHash list, now free it! */
-					MATDBEntryFree(pMatCfg, (PUCHAR)pEntry);
+					MATDBEntryFree(pMatCfg, (unsigned char *)pEntry);
 					pMatCfg->nodeCount--;
 					pEntry = (pPrev == NULL ? NULL: pPrev->pNext);
 	        		} 
@@ -453,7 +453,7 @@ static PUidMacMappingEntry UidMacTableUpdate(
 
 static PUidMacMappingEntry UidMacTableLookUp(
 	IN MAT_STRUCT 		*pMatCfg,
-	IN PUCHAR			pTagInfo,
+	IN unsigned char *			pTagInfo,
 	IN UINT16			tagLen)
 {
     UINT 				hashIdx;
@@ -497,9 +497,9 @@ static PUidMacMappingEntry UidMacTableLookUp(
 }
 
 
-static PUCHAR getInMacByOutMacFromSesMacTb(
+static unsigned char * getInMacByOutMacFromSesMacTb(
 	IN MAT_STRUCT *pMatCfg,
-	IN PUCHAR outMac,
+	IN unsigned char * outMac,
 	IN UINT16 sesID)
 {
 	UINT16 				hashIdx;
@@ -544,9 +544,9 @@ static PUCHAR getInMacByOutMacFromSesMacTb(
 */
 static NDIS_STATUS SesMacTableUpdate(
 	IN MAT_STRUCT 	*pMatCfg,
-	IN PUCHAR 		inMacAddr,
+	IN unsigned char * 		inMacAddr,
 	IN UINT16 		sesID,
-	IN PUCHAR 		outMacAddr)
+	IN unsigned char * 		outMacAddr)
 {
 	UINT16 hashIdx;
 	SesMacMappingEntry *pEntry, *pPrev, *pNewEntry;
@@ -595,7 +595,7 @@ static NDIS_STATUS SesMacTableUpdate(
 				{	
 	        		pPrev->pNext = pEntry->pNext;
 				}
-				MATDBEntryFree(pMatCfg, (PUCHAR)pEntry);
+				MATDBEntryFree(pMatCfg, (unsigned char *)pEntry);
 				pMatCfg->nodeCount--;
 				pEntry = (pPrev == NULL ? NULL: pPrev->pNext);
         	} 
@@ -643,13 +643,13 @@ static NDIS_STATUS SesMacTableUpdate(
 	When Rx, check if the PPPoE tag "Host-uniq" exists or not.
 	If exists, we check our database and convert the dstMac to correct one.
  */
-static PUCHAR MATProto_PPPoEDis_Rx(
+static unsigned char * MATProto_PPPoEDis_Rx(
 	IN MAT_STRUCT 		*pMatCfg,
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR			pLayerHdr,
-	IN PUCHAR			pDevMacAdr)
+	IN unsigned char *			pLayerHdr,
+	IN unsigned char *			pDevMacAdr)
 {
-	PUCHAR pData, pSrvMac = NULL, pCliMac= NULL, pOutMac=NULL, pInMac = NULL, pTagContent = NULL, pPayloadLen;
+	unsigned char * pData, pSrvMac = NULL, pCliMac= NULL, pOutMac=NULL, pInMac = NULL, pTagContent = NULL, pPayloadLen;
 	UINT16 payloadLen, leftLen;
 	UINT16 tagID, tagLen =0;
 	UINT16 needUpdateSesTb= 0, sesID=0, isPADT = 0;
@@ -671,8 +671,8 @@ static PUCHAR MATProto_PPPoEDis_Rx(
 		case PPPOE_CODE_PADS:
 			needUpdateSesTb = 1;
 			findTag = PPPOE_TAG_ID_HOST_UNIQ;
-			pCliMac = (PUCHAR)(GET_OS_PKT_DATAPTR(pSkb));
-			pSrvMac = (PUCHAR)(GET_OS_PKT_DATAPTR(pSkb) + 6);
+			pCliMac = (unsigned char *)(GET_OS_PKT_DATAPTR(pSkb));
+			pSrvMac = (unsigned char *)(GET_OS_PKT_DATAPTR(pSkb) + 6);
 			break;
 		case PPPOE_CODE_PADR:
 			/*It's a packet send by a PPPoE client which in front of our device. */
@@ -683,7 +683,7 @@ static PUCHAR MATProto_PPPoEDis_Rx(
 			return NULL;
 		case PPPOE_CODE_PADT:
 			isPADT = 1;
-			pOutMac= (PUCHAR)(GET_OS_PKT_DATAPTR(pSkb) + 6);
+			pOutMac= (unsigned char *)(GET_OS_PKT_DATAPTR(pSkb) + 6);
 			break;
 		default:
 		return NULL;
@@ -741,12 +741,12 @@ static PUCHAR MATProto_PPPoEDis_Rx(
 		{
 			if (pEntry->uIDAddByUs)
 			{
-				PUCHAR tagHead, nextTagHead;
+				unsigned char * tagHead, nextTagHead;
 				UINT removedTagLen, tailLen;
 
 				removedTagLen = 4 + tagLen;  	/*The total length tag ID/info we want to remove. */
 				tagHead = pTagContent - 4;	/*The start address of the tag we want to remove in sk bufffer */
-				tailLen = GET_OS_PKT_LEN(pSkb) - (pTagContent - (PUCHAR)(GET_OS_PKT_DATAPTR(pSkb))) - removedTagLen; /*Total left bytes we want to move. */
+				tailLen = GET_OS_PKT_LEN(pSkb) - (pTagContent - (unsigned char *)(GET_OS_PKT_DATAPTR(pSkb))) - removedTagLen; /*Total left bytes we want to move. */
 				if (tailLen)
 				{
 					nextTagHead = pTagContent + tagLen;	/*The start address of next tag ID/info in sk buffer. */
@@ -786,20 +786,20 @@ static PUCHAR MATProto_PPPoEDis_Rx(
     Host-uniq TAG ID= 0x0103
     AC-Cookie TAG ID= 0x0104
  */
-static PUCHAR MATProto_PPPoEDis_Tx(
+static unsigned char * MATProto_PPPoEDis_Tx(
 	IN MAT_STRUCT 		*pMatStruct,
 	IN PNDIS_PACKET 		pSkb,
-	IN PUCHAR 			pLayerHdr,
-	IN PUCHAR			pDevMacAdr)
+	IN unsigned char * 			pLayerHdr,
+	IN unsigned char *			pDevMacAdr)
 {
-	PUCHAR pData, pTagContent = NULL, pPayloadLen, pPPPPoETail;
-	PUCHAR pSrcMac, pDstMac;
+	unsigned char * pData, pTagContent = NULL, pPayloadLen, pPPPPoETail;
+	unsigned char * pSrcMac, pDstMac;
 	UINT16 payloadLen, leftLen, offset;
 	UINT16 tagID, tagLen =0;
 	UINT16 isServer = 0, needUpdateSesTb= 0, sesID = 0;
 	UINT16 findTag=0;
 	PUidMacMappingEntry pEntry = NULL; 
-	PUCHAR pPktHdr;
+	unsigned char * pPktHdr;
 	PNDIS_PACKET pModSkb = NULL;
 
 	pPktHdr = GET_OS_PKT_DATAPTR(pSkb);
@@ -855,7 +855,7 @@ static PUCHAR MATProto_PPPoEDis_Tx(
 	/* Get the payload length, and  shift the payload length field(length = 2) to next field. */
 	payloadLen = OS_NTOHS(get_unaligned((unsigned short *)(pData)));
 	pPayloadLen = pData;
-	offset = pPayloadLen - (PUCHAR)(GET_OS_PKT_DATAPTR(pSkb));
+	offset = pPayloadLen - (unsigned char *)(GET_OS_PKT_DATAPTR(pSkb));
 	pData += 2; 
 
 
@@ -887,7 +887,7 @@ static PUCHAR MATProto_PPPoEDis_Tx(
 	
 	if (pEntry && (pTagContent == NULL))
 	{
-		PUCHAR tailHead;
+		unsigned char * tailHead;
 
 		if(OS_PKT_CLONED(pSkb))
 		{
@@ -934,7 +934,7 @@ static PUCHAR MATProto_PPPoEDis_Tx(
 	if (needUpdateSesTb)
 		SesMacTableUpdate(pMatStruct, pSrcMac, sesID, pDstMac);
 	
-	return (PUCHAR)pModSkb;
+	return (unsigned char *)pModSkb;
 }
 
 
@@ -1004,13 +1004,13 @@ static NDIS_STATUS MATProto_PPPoEDis_Exit(
 		if it's not a server, check the session ID and find out the cor
 		
  */
-static PUCHAR MATProto_PPPoESes_Rx(
+static unsigned char * MATProto_PPPoESes_Rx(
 	IN MAT_STRUCT 		*pMatCfg,
 	IN PNDIS_PACKET		pSkb,
-	IN PUCHAR			pLayerHdr,
-	IN PUCHAR			pDevMacAdr)
+	IN unsigned char *			pLayerHdr,
+	IN unsigned char *			pDevMacAdr)
 {
-	PUCHAR srcMac, dstMac = NULL, pData;	
+	unsigned char * srcMac, dstMac = NULL, pData;	
 	UINT16 sesID;
 	
 	srcMac = (GET_OS_PKT_DATAPTR(pSkb) + 6);
@@ -1029,11 +1029,11 @@ static PUCHAR MATProto_PPPoESes_Rx(
 }
 
 /* PPPoE Session stage Tx handler */
-static PUCHAR MATProto_PPPoESes_Tx(
+static unsigned char * MATProto_PPPoESes_Tx(
 	IN MAT_STRUCT 		*pMatStruct,
 	IN PNDIS_PACKET 		pSkb,
-	IN PUCHAR 			pLayerHdr,
-	IN PUCHAR			pDevMacAdr)
+	IN unsigned char * 			pLayerHdr,
+	IN unsigned char *			pDevMacAdr)
 {
 
 	/*

@@ -123,7 +123,7 @@ NTSTATUS	RTUSBFirmwareOpmode(
 */
 NTSTATUS RTUSBFirmwareWrite(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR		pFwImage,
+	IN unsigned char *		pFwImage,
 	IN ULONG		FwLen)
 {
 	UINT32		MacReg;
@@ -195,7 +195,7 @@ NTSTATUS	RTUSBVenderReset(
 NTSTATUS	RTUSBMultiRead(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	OUT	PUCHAR			pData,
+	OUT	unsigned char *			pData,
 	IN	USHORT			length)
 {
 	NTSTATUS	Status;
@@ -233,13 +233,13 @@ NTSTATUS	RTUSBMultiRead(
 NTSTATUS RTUSBMultiWrite_nBytes(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	IN	PUCHAR			pData,
+	IN	unsigned char *			pData,
 	IN	USHORT			length,
 	IN	USHORT			batchLen)
 {
 	NTSTATUS Status = STATUS_SUCCESS;
 	USHORT index = Offset, actLen = batchLen, leftLen = length;
-	PUCHAR pSrc = pData;
+	unsigned char * pSrc = pData;
 
 
 	do
@@ -288,7 +288,7 @@ NTSTATUS RTUSBMultiWrite_nBytes(
 NTSTATUS	RTUSBMultiWrite_OneByte(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	IN	PUCHAR			pData)
+	IN	unsigned char *			pData)
 {
 	NTSTATUS	Status;
 
@@ -309,7 +309,7 @@ NTSTATUS	RTUSBMultiWrite_OneByte(
 NTSTATUS	RTUSBMultiWrite(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	IN	PUCHAR			pData,
+	IN	unsigned char *			pData,
 	IN	USHORT			length,
 	IN	BOOLEAN			bWriteHigh)
 {
@@ -317,7 +317,7 @@ NTSTATUS	RTUSBMultiWrite(
 
 
 	USHORT          index = 0,Value;
-	PUCHAR          pSrc = pData;
+	unsigned char *          pSrc = pData;
 	USHORT          resude = 0;
 
 	resude = length % 2;
@@ -451,7 +451,7 @@ NTSTATUS	RTUSBWriteMACRegister(
 NTSTATUS	RTUSBReadBBPRegister(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	UCHAR			Id,
-	IN	PUCHAR			pValue)
+	IN	unsigned char *			pValue)
 {
 	BBP_CSR_CFG_STRUC	BbpCsr;
 	int i, k, ret;
@@ -641,7 +641,7 @@ done:
 NTSTATUS RTUSBReadEEPROM(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	OUT	PUCHAR			pData,
+	OUT	unsigned char *			pData,
 	IN	USHORT			length)
 {
 	NTSTATUS	Status = STATUS_SUCCESS;
@@ -677,7 +677,7 @@ NTSTATUS RTUSBReadEEPROM(
 NTSTATUS RTUSBWriteEEPROM(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	IN	PUCHAR			pData,
+	IN	unsigned char *			pData,
 	IN	USHORT			length)
 {
 	NTSTATUS	Status = STATUS_SUCCESS;
@@ -704,7 +704,7 @@ NTSTATUS RTUSBReadEEPROM16(
 	NTSTATUS status;
 	USHORT  localData;
 
-	status = RTUSBReadEEPROM(pAd, offset, (PUCHAR)(&localData), 2);
+	status = RTUSBReadEEPROM(pAd, offset, (unsigned char *)(&localData), 2);
 	if (status == STATUS_SUCCESS)
 		*pData = le2cpu16(localData);
 
@@ -720,7 +720,7 @@ NTSTATUS RTUSBWriteEEPROM16(
 	USHORT tmpVal;
 
 	tmpVal = cpu2le16(value);
-	return RTUSBWriteEEPROM(pAd, offset, (PUCHAR)&(tmpVal), 2);
+	return RTUSBWriteEEPROM(pAd, offset, (unsigned char *)&(tmpVal), 2);
 }
 
 /*
@@ -817,14 +817,14 @@ NDIS_STATUS	RTUSBEnqueueCmdFromNdis(
 	else
 		return (NDIS_STATUS_RESOURCES);
 
-	status = os_alloc_mem(pAd, (PUCHAR *)(&cmdqelmt), sizeof(CmdQElmt));
+	status = os_alloc_mem(pAd, (unsigned char * *)(&cmdqelmt), sizeof(CmdQElmt));
 	if ((status != NDIS_STATUS_SUCCESS) || (cmdqelmt == NULL))
 		return (NDIS_STATUS_RESOURCES);
 
 		cmdqelmt->buffer = NULL;
 		if (pInformationBuffer != NULL)
 		{
-			status = os_alloc_mem(pAd, (PUCHAR *)&cmdqelmt->buffer, InformationBufferLength);
+			status = os_alloc_mem(pAd, (unsigned char * *)&cmdqelmt->buffer, InformationBufferLength);
 			if ((status != NDIS_STATUS_SUCCESS) || (cmdqelmt->buffer == NULL))
 			{
 /*				kfree(cmdqelmt);*/
@@ -1445,7 +1445,7 @@ static NTSTATUS SetAsicPairwiseKeyHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQel
 
 static NTSTATUS RemovePairwiseKeyHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
-	UCHAR Wcid = *((PUCHAR)(CMDQelmt->buffer));
+	UCHAR Wcid = *((unsigned char *)(CMDQelmt->buffer));
 
 	AsicRemovePairwiseKeyEntry(pAd, Wcid);
 	return NDIS_STATUS_SUCCESS;
@@ -1562,7 +1562,7 @@ static NTSTATUS APRecoverEXPAckTimeHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQe
 #ifdef LED_CONTROL_SUPPORT
 static NTSTATUS SetLEDStatusHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
-	UCHAR LEDStatus = *((PUCHAR)(CMDQelmt->buffer));
+	UCHAR LEDStatus = *((unsigned char *)(CMDQelmt->buffer));
 
 	RTMPSetLEDStatus(pAd, LEDStatus);
 

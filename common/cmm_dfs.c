@@ -279,7 +279,7 @@ static BOOLEAN ChirpRadarCheck(
 
 static BOOLEAN DfsEventDataFetch(
 		IN PRTMP_ADAPTER pAd,
-		IN PUCHAR		  pData,
+		IN unsigned char *		  pData,
 		OUT PDFS_EVENT pDfsEvent);
 
 static VOID DfsCheckBusyIdle(
@@ -484,7 +484,7 @@ INT	Set_RadarSetTbl1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	PSTRING			arg)
 {
-	PUCHAR p2 = arg;
+	unsigned char * p2 = arg;
 	ULONG idx, value;
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
 	
@@ -516,7 +516,7 @@ INT	Set_RadarSetTbl2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	PSTRING			arg)
 {
-	PUCHAR p2 = arg;
+	unsigned char * p2 = arg;
 	ULONG idx, value;
 	
 	while((*p2 != ':') && (*p2 != '\0'))
@@ -551,7 +551,7 @@ INT	Set_ChBusyThrd_Proc(
 	IN	PSTRING			arg)
 {
 	int i;
-	PUCHAR p1 = arg, p2;
+	unsigned char * p1 = arg, p2;
 	ULONG value;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	
@@ -599,7 +599,7 @@ INT	Set_RssiThrd_Proc(
 	IN	PSTRING			arg)
 {
 	int i;
-	PUCHAR p1 = arg, p2;
+	unsigned char * p1 = arg, p2;
 	ULONG value;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	
@@ -2211,7 +2211,7 @@ static BOOLEAN DfsChannelCheck(
 
 static BOOLEAN DfsEventDataFetch(
 		IN PRTMP_ADAPTER pAd,
-		IN PUCHAR		  pData,
+		IN unsigned char *		  pData,
 		OUT PDFS_EVENT pDfsEvent)
 {
 	pDfsEvent->EngineId = pData[0];
@@ -3024,7 +3024,7 @@ static VOID SwCheckDfsEventWithFw(
 
 		for (k = 0; k < NumEvent; k++)
 		{
-			PUCHAR pTableOffset = NULL; 
+			unsigned char * pTableOffset = NULL; 
 			if (IS_RT3572(pAd))
 			{
 				pTableOffset = (BBPR127_Table+1) + (DFS_EVENT_SIZE*k);

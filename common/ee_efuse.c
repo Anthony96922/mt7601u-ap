@@ -132,7 +132,7 @@ static VOID eFuseWritePhysical(
 	IN	PRTMP_ADAPTER	pAd,	
   	PUSHORT lpInBuffer,
 	ULONG nInBufferSize,
-  	PUCHAR lpOutBuffer,
+  	unsigned char * lpOutBuffer,
   	ULONG nOutBufferSize);
 
 
@@ -821,7 +821,7 @@ static VOID eFuseWritePhysical(
 	IN	PRTMP_ADAPTER	pAd,	
   	PUSHORT lpInBuffer,
 	ULONG nInBufferSize,
-  	PUCHAR lpOutBuffer,
+  	unsigned char * lpOutBuffer,
   	ULONG nOutBufferSize  
 )
 {

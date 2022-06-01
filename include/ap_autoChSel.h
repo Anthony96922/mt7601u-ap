@@ -27,8 +27,8 @@
 
 ULONG AutoChBssSearchWithSSID(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR Bssid,
-	IN PUCHAR pSsid,
+	IN unsigned char * Bssid,
+	IN unsigned char * pSsid,
 	IN UCHAR SsidLen,
 	IN UCHAR Channel);
 
@@ -42,7 +42,7 @@ VOID UpdateChannelInfo(
 
 ULONG AutoChBssInsertEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN PUCHAR pBssid,
+	IN unsigned char * pBssid,
 	IN CHAR Ssid[],
 	IN UCHAR SsidLen, 
 	IN UCHAR ChannelNo,
