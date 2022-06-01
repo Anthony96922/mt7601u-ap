@@ -1341,7 +1341,7 @@ BOOLEAN RTMPCheckStrPrintAble(
 #if defined(CONFIG_STA_SUPPORT) || defined(APCLI_WPA_SUPPLICANT_SUPPORT)
 NDIS_STATUS RTMPWPARemoveKeyProc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PVOID			pBuf)
+	IN	void *			pBuf)
 {
 	PNDIS_802_11_REMOVE_KEY pKey;
 	ULONG					KeyIdx;

@@ -628,7 +628,7 @@ typedef	struct	_WSC_CTRL
     UCHAR               WpaPsk[64];
     INT                 WpaPskLen;
     BOOLEAN             bWscTrigger;        /* TRUE: AP-Enrollee & AP-Registrar work, FALSE: AP-Enrollee & AP-Registrar stop working */
-    PVOID               pAd;
+    void *               pAd;
     UINT                WscLastPinFromEnrollee;
     BOOLEAN             WscRejectSamePinFromEnrollee;
 #ifdef CONFIG_AP_SUPPORT

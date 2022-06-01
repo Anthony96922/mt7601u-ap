@@ -38,7 +38,7 @@
 	void rtmp_timer_##_func(unsigned long data)
 
 #define GET_TIMER_FUNCTION(_func)				\
-	(PVOID)rtmp_timer_##_func
+	(void *)rtmp_timer_##_func
 
 /* ----------------- Timer Related MARCO ---------------*/
 /* In some os or chipset, we have a lot of timer functions and will read/write register, */
@@ -48,10 +48,10 @@
 #ifdef RTMP_TIMER_TASK_SUPPORT
 typedef VOID(
 	*RTMP_TIMER_TASK_HANDLE) (
-	IN PVOID SystemSpecific1,
-	IN PVOID FunctionContext,
-	IN PVOID SystemSpecific2,
-	IN PVOID SystemSpecific3);
+	IN void * SystemSpecific1,
+	IN void * FunctionContext,
+	IN void * SystemSpecific2,
+	IN void * SystemSpecific3);
 #endif /* RTMP_TIMER_TASK_SUPPORT */
 
 typedef struct _RALINK_TIMER_STRUCT {
@@ -103,7 +103,7 @@ void rtmp_timer_##_func(unsigned long data)										\
 {																			\
 	PRALINK_TIMER_STRUCT	pTimer = (PRALINK_TIMER_STRUCT) data;				\
 																			\
-	_func(NULL, (PVOID) pTimer->cookie, NULL, pTimer); 							\
+	_func(NULL, (void *) pTimer->cookie, NULL, pTimer); 							\
 	if (pTimer->Repeat)														\
 		RTMP_OS_Add_Timer(&pTimer->TimerObj, pTimer->TimerValue);			\
 }

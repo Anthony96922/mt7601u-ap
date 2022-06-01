@@ -132,12 +132,12 @@ INT32  RtPrivIoctlSetVal(VOID)
 
 
 #ifdef RTMP_USB_SUPPORT
-PVOID RtmpInitCompletion(VOID)
+void * RtmpInitCompletion(VOID)
 {
 	struct completion *comp = NULL;
 	os_alloc_mem(NULL, (UCHAR **)&comp, sizeof(struct completion));
 	init_completion(comp);
-	return (PVOID)comp;
+	return (void *)comp;
 }
 
 

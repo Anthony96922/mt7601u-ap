@@ -5,7 +5,7 @@
 
 typedef struct _CmdQElmt {
 	UINT command;
-	PVOID buffer;
+	void * buffer;
 	ULONG bufferlength;
 	BOOLEAN CmdFromNdis;
 	BOOLEAN SetOperation;

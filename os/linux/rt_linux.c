@@ -117,7 +117,7 @@ static inline VOID __RTMP_OS_Init_Timer(
 	IN VOID *pReserved,
 	IN OS_NDIS_MINIPORT_TIMER * pTimer,
 	IN TIMER_FUNCTION function,
-	IN PVOID data)
+	IN void * data)
 {
 	if (!timer_pending(pTimer)) {
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4,15,0)
@@ -238,7 +238,7 @@ NDIS_STATUS os_alloc_mem_suspend(
 /* pAd MUST allow to be NULL */
 NDIS_STATUS os_free_mem(
 	IN VOID *pReserved,
-	IN PVOID mem)
+	IN void * mem)
 {
 	ASSERT(mem);
 	kfree(mem);
@@ -1399,9 +1399,9 @@ INT RtmpOSNetDevAlloc(
 
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,31)
-INT RtmpOSNetDevOpsAlloc(PVOID *pNetDevOps)
+INT RtmpOSNetDevOpsAlloc(void * *pNetDevOps)
 {
-	*pNetDevOps = (PVOID) vmalloc(sizeof (struct net_device_ops));
+	*pNetDevOps = (void *) vmalloc(sizeof (struct net_device_ops));
 	if (*pNetDevOps) {
 		NdisZeroMemory(*pNetDevOps, sizeof (struct net_device_ops));
 		return NDIS_STATUS_SUCCESS;
@@ -1635,7 +1635,7 @@ PNET_DEV RtmpOSNetDevCreate(
 		return NULL;
 	}
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,31)
-	status = RtmpOSNetDevOpsAlloc((PVOID) & pNetDevOps);
+	status = RtmpOSNetDevOpsAlloc((void *) & pNetDevOps);
 	if (status != NDIS_STATUS_SUCCESS) {
 		/* error! no any available ra name can be used! */
 		DBGPRINT(RT_DEBUG_TRACE, ("Allocate net device ops fail!\n"));
@@ -1758,8 +1758,8 @@ NDIS_STATUS AdapterBlockAllocateMemory(VOID *handle, VOID **ppAd, UINT32 SizeOfp
 	}
 #endif /* OS_ABL_FUNC_SUPPORT */
 
-/*	*ppAd = (PVOID)vmalloc(sizeof(RTMP_ADAPTER)); //pci_alloc_consistent(pci_dev, sizeof(RTMP_ADAPTER), phy_addr); */
-	*ppAd = (PVOID) vmalloc(SizeOfpAd);	/*pci_alloc_consistent(pci_dev, sizeof(RTMP_ADAPTER), phy_addr); */
+/*	*ppAd = (void *)vmalloc(sizeof(RTMP_ADAPTER)); //pci_alloc_consistent(pci_dev, sizeof(RTMP_ADAPTER), phy_addr); */
+	*ppAd = (void *) vmalloc(SizeOfpAd);	/*pci_alloc_consistent(pci_dev, sizeof(RTMP_ADAPTER), phy_addr); */
 	if (*ppAd) {
 		NdisZeroMemory(*ppAd, SizeOfpAd);
 		return NDIS_STATUS_SUCCESS;
@@ -3454,7 +3454,7 @@ VOID RTMP_OS_Init_Timer(
 	VOID *pReserved,
 	NDIS_MINIPORT_TIMER *pTimerOrg,
 	TIMER_FUNCTION function,
-	PVOID data,
+	void * data,
 	LIST_HEADER *pTimerList)
 {
 	OS_NDIS_MINIPORT_TIMER *pTimer;
@@ -5177,7 +5177,7 @@ VOID RTMP_OS_Init_Timer(
 	VOID *pReserved,
 	NDIS_MINIPORT_TIMER *pTimerOrg,
 	TIMER_FUNCTION function,
-	PVOID data,
+	void * data,
 	LIST_HEADER *pTimerList)
 {
 	__RTMP_OS_Init_Timer(pReserved, pTimerOrg, function, data);

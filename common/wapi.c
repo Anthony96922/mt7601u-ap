@@ -738,10 +738,10 @@ VOID RTMPIoctlQueryWapiConf(
     ==========================================================================
 */  
 VOID RTMPWapiUskRekeyPeriodicExec(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
     UINT32          	tmp_cnt = 0;    
     PMAC_TABLE_ENTRY 	pEntry = (PMAC_TABLE_ENTRY)FunctionContext;
@@ -782,10 +782,10 @@ VOID RTMPWapiUskRekeyPeriodicExec(
     ==========================================================================
 */  
 VOID RTMPWapiMskRekeyPeriodicExec(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
     UINT            i;
     UINT32          tmp_cnt = 0;    

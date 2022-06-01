@@ -184,7 +184,7 @@ NDIS_SPIN_LOCK TimerSemLock;
 	========================================================================
 */
 NDIS_STATUS	RTMPAllocAdapterBlock(
-	IN  PVOID	handle,
+	IN  void *	handle,
 	OUT	VOID	**ppAdapter)
 {
 	PRTMP_ADAPTER	pAd = NULL;
@@ -219,7 +219,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 		}
 		NdisZeroMemory(pBeaconBuf, MAX_BEACON_SIZE);
 
-		Status = AdapterBlockAllocateMemory(handle, (PVOID *)&pAd, sizeof(RTMP_ADAPTER));
+		Status = AdapterBlockAllocateMemory(handle, (void * *)&pAd, sizeof(RTMP_ADAPTER));
 		if (Status != NDIS_STATUS_SUCCESS)
 		{
 			DBGPRINT_ERR(("Failed to allocate memory - ADAPTER\n"));
@@ -2234,8 +2234,8 @@ VOID NICEraseFirmware(
 	========================================================================
 */
 ULONG	RTMPCompareMemory(
-	IN	PVOID	pSrc1,
-	IN	PVOID	pSrc2,
+	IN	void *	pSrc1,
+	IN	void *	pSrc2,
 	IN	ULONG	Length)
 {
 	PUCHAR	pMem1;
@@ -2279,7 +2279,7 @@ ULONG	RTMPCompareMemory(
 	========================================================================
 */
 VOID	RTMPZeroMemory(
-	IN	PVOID	pSrc,
+	IN	void *	pSrc,
 	IN	ULONG	Length)
 {
 	PUCHAR	pMem;
@@ -2316,8 +2316,8 @@ VOID	RTMPZeroMemory(
 	========================================================================
 */
 VOID RTMPMoveMemory(
-	OUT	PVOID	pDest,
-	IN	PVOID	pSrc,
+	OUT	void *	pDest,
+	IN	void *	pSrc,
 	IN	ULONG	Length)
 {
 	PUCHAR	pMem1;
@@ -3147,8 +3147,8 @@ VOID RTMP_AllTimerListRelease(RTMP_ADAPTER *pAd)
 VOID	RTMPInitTimer(
 	IN	PRTMP_ADAPTER			pAd,
 	IN	PRALINK_TIMER_STRUCT	pTimer,
-	IN	PVOID					pTimerFunc,
-	IN	PVOID					pData,
+	IN	void *					pTimerFunc,
+	IN	void *					pData,
 	IN	BOOLEAN					Repeat)
 {
 	RTMP_SEM_LOCK(&TimerSemLock);
@@ -3167,7 +3167,7 @@ VOID	RTMPInitTimer(
 	pTimer->cookie = (ULONG) pData;
 	pTimer->pAd = pAd;
 
-	RTMP_OS_Init_Timer(pAd, &pTimer->TimerObj,	pTimerFunc, (PVOID) pTimer, &pAd->RscTimerMemList);	
+	RTMP_OS_Init_Timer(pAd, &pTimer->TimerObj,	pTimerFunc, (void *) pTimer, &pAd->RscTimerMemList);	
 	DBGPRINT(RT_DEBUG_TRACE,("%s: %lx\n",__FUNCTION__, (ULONG)pTimer));
 
 	RTMP_SEM_UNLOCK(&TimerSemLock);

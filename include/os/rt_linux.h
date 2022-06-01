@@ -1549,7 +1549,7 @@ USBHST_STATUS ATE_RTUSBBulkOutDataPacketComplete(URBCompleteStatus Status, purbb
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,31)
 INT RtmpOSNetDevOpsAlloc(
-	IN PVOID *pNetDevOps);
+	IN void * *pNetDevOps);
 #endif
 
 #define RTMP_OS_MAX_SCAN_DATA_GET()		IW_SCAN_MAX_DATA

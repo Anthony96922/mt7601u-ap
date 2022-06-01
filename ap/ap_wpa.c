@@ -630,10 +630,10 @@ VOID HandleCounterMeasure(
     ==========================================================================
 */
 VOID CMTimerExec(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
     UINT            i,j=0;
     PRTMP_ADAPTER   pAd = (PRTMP_ADAPTER)FunctionContext;
@@ -655,10 +655,10 @@ VOID CMTimerExec(
 }
    
 VOID WPARetryExec(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
     MAC_TABLE_ENTRY     *pEntry = (MAC_TABLE_ENTRY *)FunctionContext;
 
@@ -752,10 +752,10 @@ VOID WPARetryExec(
     ==========================================================================
 */  
 VOID GREKEYPeriodicExec(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
     UINT            i, apidx;
     ULONG           temp_counter = 0;

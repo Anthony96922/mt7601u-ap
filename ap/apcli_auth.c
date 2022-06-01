@@ -32,10 +32,10 @@
 #include "rt_config.h"
 
 static VOID ApCliAuthTimeout(
-	IN PVOID SystemSpecific1, 
-	IN PVOID FunctionContext, 
-	IN PVOID SystemSpecific2, 
-	IN PVOID SystemSpecific3);
+	IN void * SystemSpecific1, 
+	IN void * FunctionContext, 
+	IN void * SystemSpecific2, 
+	IN void * SystemSpecific3);
 
 static VOID ApCliMlmeAuthReqAction(
 	IN PRTMP_ADAPTER pAd, 
@@ -126,10 +126,10 @@ VOID ApCliAuthStateMachineInit(
 	==========================================================================
  */
 static VOID ApCliAuthTimeout(
-	IN PVOID SystemSpecific1, 
-	IN PVOID FunctionContext, 
-	IN PVOID SystemSpecific2, 
-	IN PVOID SystemSpecific3)
+	IN void * SystemSpecific1, 
+	IN void * FunctionContext, 
+	IN void * SystemSpecific2, 
+	IN void * SystemSpecific3)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)FunctionContext;
 

@@ -28,16 +28,16 @@ BA_REC_ENTRY *BATableAllocRecEntry(
 								  OUT USHORT          *Idx);
 
 VOID BAOriSessionSetupTimeout(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3);
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3);
 
 VOID BARecSessionIdleTimeout(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3);
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3);
 
 
 BUILD_TIMER_FUNCTION(BAOriSessionSetupTimeout);
@@ -1098,10 +1098,10 @@ VOID BASessionTearDownALL(
 	==========================================================================
  */
 VOID BAOriSessionSetupTimeout(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
 	BA_ORI_ENTRY    *pBAEntry = (BA_ORI_ENTRY *)FunctionContext;
 	MAC_TABLE_ENTRY *pEntry;
@@ -1133,7 +1133,7 @@ VOID BAOriSessionSetupTimeout(
 		AddbaReq.BaBufSize = pAd->CommonCfg.BACapability.field.RxBAWinLimit;
 		AddbaReq.TimeOutValue = 0;
 		AddbaReq.Token = pBAEntry->Token;
-		MlmeEnqueue(pAd, ACTION_STATE_MACHINE, MT2_MLME_ADD_BA_CATE, sizeof(MLME_ADDBA_REQ_STRUCT), (PVOID)&AddbaReq, 0);
+		MlmeEnqueue(pAd, ACTION_STATE_MACHINE, MT2_MLME_ADD_BA_CATE, sizeof(MLME_ADDBA_REQ_STRUCT), (void *)&AddbaReq, 0);
 		RTMP_MLME_HANDLER(pAd);
 		DBGPRINT(RT_DEBUG_TRACE,("BA Ori Session Timeout(%d) : Send ADD BA again\n", pBAEntry->Token));
 
@@ -1161,10 +1161,10 @@ VOID BAOriSessionSetupTimeout(
 	==========================================================================
  */
 VOID BARecSessionIdleTimeout(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
 	
 	BA_REC_ENTRY    *pBAEntry = (BA_REC_ENTRY *)FunctionContext;

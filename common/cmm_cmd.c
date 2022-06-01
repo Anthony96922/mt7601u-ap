@@ -107,7 +107,7 @@ VOID	RTThreadDequeueCmd(
 NDIS_STATUS RTEnqueueInternalCmd(
 	IN PRTMP_ADAPTER	pAd,
 	IN NDIS_OID			Oid,
-	IN PVOID			pInformationBuffer,
+	IN void *			pInformationBuffer,
 	IN UINT32			InformationBufferLength)
 {
 	NDIS_STATUS	status;

@@ -78,7 +78,7 @@ struct CMD_RSP_EVENT {
 	UCHAR CmdSeq;	
 	UINT32 Timeout;
 	BOOLEAN NeedWait;
-	PVOID	AckDone;
+	void *	AckDone;
 	UCHAR **RspPayload;
 	USHORT *RspPayloadLen;
 };

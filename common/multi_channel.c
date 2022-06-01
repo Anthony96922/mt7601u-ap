@@ -298,20 +298,20 @@ VOID RtmpEnqueueLastNullFrame(
 
 
 VOID MCC_ChangeAction(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
 	RTMP_ADAPTER *pAd = (PRTMP_ADAPTER)FunctionContext;
 	RtmpOsTaskWakeUp(&(pAd->MultiChannelTask));
 }
 
 VOID ConcurrentP2PConnectTimeout(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3) 
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3) 
 {
 	int i;
 	RTMP_ADAPTER *pAd = (PRTMP_ADAPTER)FunctionContext;

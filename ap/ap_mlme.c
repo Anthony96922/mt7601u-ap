@@ -36,10 +36,10 @@ int DetectOverlappingPeriodicRound;
 
 #ifdef DOT11N_DRAFT3
 VOID Bss2040CoexistTimeOut(
-	IN PVOID SystemSpecific1, 
-	IN PVOID FunctionContext, 
-	IN PVOID SystemSpecific2, 
-	IN PVOID SystemSpecific3)
+	IN void * SystemSpecific1, 
+	IN void * FunctionContext, 
+	IN void * SystemSpecific2, 
+	IN void * SystemSpecific3)
 {
 	int apidx;
 	PRTMP_ADAPTER	pAd = (RTMP_ADAPTER *)FunctionContext;
@@ -68,10 +68,10 @@ VOID Bss2040CoexistTimeOut(
 
 
 VOID APDetectOverlappingExec(
-	IN PVOID SystemSpecific1, 
-	IN PVOID FunctionContext, 
-	IN PVOID SystemSpecific2, 
-	IN PVOID SystemSpecific3) 
+	IN void * SystemSpecific1, 
+	IN void * FunctionContext, 
+	IN void * SystemSpecific2, 
+	IN void * SystemSpecific3) 
 {
 #ifdef DOT11_N_SUPPORT
 	PRTMP_ADAPTER	pAd = (RTMP_ADAPTER *)FunctionContext;

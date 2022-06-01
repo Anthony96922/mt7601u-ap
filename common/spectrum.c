@@ -1128,7 +1128,7 @@ VOID EnqueueMeasurementRep(
 	/* build action frame header.*/
 	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pDA, pAd->CurrentAddress);
 
-	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
+	NStatus = MlmeAllocateMemory(pAd, (void *)&pOutBuffer);  /*Get an unused nonpaged memory*/
 	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
@@ -1181,7 +1181,7 @@ VOID EnqueueTPCReq(
 	/* build action frame header.*/
 	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pDA, pAd->CurrentAddress);
 
-	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
+	NStatus = MlmeAllocateMemory(pAd, (void *)&pOutBuffer);  /*Get an unused nonpaged memory*/
 	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
@@ -1233,7 +1233,7 @@ VOID EnqueueTPCRep(
 	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pDA,
 						pAd->CurrentAddress);
 
-	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
+	NStatus = MlmeAllocateMemory(pAd, (void *)&pOutBuffer);  /*Get an unused nonpaged memory*/
 	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
@@ -1331,7 +1331,7 @@ VOID EnqueueChSwAnn(
 	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pDA,
 						pAd->CurrentAddress);
 
-	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
+	NStatus = MlmeAllocateMemory(pAd, (void *)&pOutBuffer);  /*Get an unused nonpaged memory*/
 	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
@@ -2106,7 +2106,7 @@ INT Set_MeasureReq_Proc(
 	NDIS_STATUS NStatus;
 	ULONG FrameLen;
 
-	NStatus = MlmeAllocateMemory(pAd, (PVOID)&pOutBuffer);  /*Get an unused nonpaged memory*/
+	NStatus = MlmeAllocateMemory(pAd, (void *)&pOutBuffer);  /*Get an unused nonpaged memory*/
 	if (NStatus != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));

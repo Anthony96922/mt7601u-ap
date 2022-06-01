@@ -52,10 +52,10 @@ BUILD_TIMER_FUNCTION(BeaconUpdateExec);
 
 #ifdef CONFIG_AP_SUPPORT
 extern VOID APDetectOverlappingExec(
-				IN PVOID SystemSpecific1, 
-				IN PVOID FunctionContext, 
-				IN PVOID SystemSpecific2, 
-				IN PVOID SystemSpecific3);
+				IN void * SystemSpecific1, 
+				IN void * FunctionContext, 
+				IN void * SystemSpecific2, 
+				IN void * SystemSpecific3);
 
 BUILD_TIMER_FUNCTION(APDetectOverlappingExec);
 
@@ -161,7 +161,7 @@ static void RtmpTimerQHandle(RTMP_ADAPTER *pAd)
 			if (pTimer)
 			{
 				if ((pTimer->handle != NULL) && (!pAd->PM_FlgSuspend))
-					pTimer->handle(NULL, (PVOID) pTimer->cookie, NULL, pTimer);
+					pTimer->handle(NULL, (void *) pTimer->cookie, NULL, pTimer);
 				if ((pTimer->Repeat) && (pTimer->State == FALSE))
 					RTMP_OS_Add_Timer(&pTimer->TimerObj, pTimer->TimerValue);
 			}

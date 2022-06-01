@@ -603,7 +603,7 @@ static int rt2870_probe(
 	struct  net_device		*net_dev = NULL;
 	VOID       				*pAd = (VOID *) NULL;
 	INT                 	status, rv;
-	PVOID					handle;
+	void *					handle;
 	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
 	ULONG					OpMode;
 #ifdef CONFIG_PM

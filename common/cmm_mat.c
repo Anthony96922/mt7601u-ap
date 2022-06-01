@@ -219,7 +219,7 @@ PUCHAR MATEngineTxHandle(
 
 
 			if (pHandle->tx!=NULL)
-				retSkb = pHandle->tx((PVOID)&pAd->MatCfg, RTPKT_TO_OSPKT(pPkt), pLayerHdr, pMacAddr);
+				retSkb = pHandle->tx((void *)&pAd->MatCfg, RTPKT_TO_OSPKT(pPkt), pLayerHdr, pMacAddr);
 
 			return retSkb;
 		}
@@ -284,7 +284,7 @@ PUCHAR MATEngineRxHandle(
 			pLayerHdr = (pPktHdr + MAT_ETHER_HDR_LEN);
 /*			RTMP_SEM_LOCK(&MATDBLock); */
 			if(pHandle->rx!=NULL)
-				pMacAddr = pHandle->rx((PVOID)&pAd->MatCfg, RTPKT_TO_OSPKT(pPkt), pLayerHdr, NULL);
+				pMacAddr = pHandle->rx((void *)&pAd->MatCfg, RTPKT_TO_OSPKT(pPkt), pLayerHdr, NULL);
 /*			RTMP_SEM_UNLOCK(&MATDBLock); */
 			break;
 		}

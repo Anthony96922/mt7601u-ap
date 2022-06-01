@@ -6234,10 +6234,10 @@ INT Set_ADCDump_Proc(
 
 /* one-second periodic execution */
 VOID ATEPeriodicExec(
-	IN PVOID SystemSpecific1, 
-	IN PVOID FunctionContext, 
-	IN PVOID SystemSpecific2, 
-	IN PVOID SystemSpecific3)
+	IN void * SystemSpecific1, 
+	IN void * FunctionContext, 
+	IN void * SystemSpecific2, 
+	IN void * SystemSpecific3)
 {
 	PRTMP_ADAPTER pAd = (RTMP_ADAPTER *)FunctionContext;
 	PATE_INFO pATEInfo = &(pAd->ate);

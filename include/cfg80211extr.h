@@ -188,7 +188,7 @@ VOID CFG80211_Scaning(
 
 #ifdef RFKILL_HW_SUPPORT
 VOID CFG80211_RFKillStatusUpdate(
-	IN PVOID					pAd,
+	IN void *					pAd,
 	IN BOOLEAN					active);
 #endif /* RFKILL_HW_SUPPORT */
 

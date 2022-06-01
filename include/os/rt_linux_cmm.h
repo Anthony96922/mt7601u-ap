@@ -49,7 +49,7 @@ void Rtmp_Drv_Ops_##_func(VOID *__pDrvOps, VOID *__pNetOps, 	\
 }
 
 #define RTMP_GET_DRV_OPS_FUNCTION(_func)						\
-	(PVOID)Rtmp_Drv_Ops_##_func
+	(void *)Rtmp_Drv_Ops_##_func
 
 #define RTMP_DRV_OPS_FUNCTION_BODY(_func)						\
 	Rtmp_Drv_Ops_##_func

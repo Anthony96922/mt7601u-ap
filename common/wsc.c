@@ -333,10 +333,10 @@ VOID    WscStateMachineInit(
 }
 
 void WscM2DTimeOutAction(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3)
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3)
 {
 	/* For each state, we didn't care about the retry issue, we just send control message
 		to notify the UPnP deamon that some error happened in STATE MACHINE.
@@ -412,10 +412,10 @@ done:
 
 
 VOID WscUPnPMsgTimeOutAction(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3)
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3)
 {
 	PWSC_CTRL pWscControl = (PWSC_CTRL)FunctionContext;
 	PRTMP_ADAPTER pAd;
@@ -2597,10 +2597,10 @@ VOID WscTimeOutProcess(
 }
 
 VOID WscEAPOLTimeOutAction(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3)
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3)
 {
     PUCHAR              WscData = NULL;
     PMAC_TABLE_ENTRY    pEntry = NULL;
@@ -2960,10 +2960,10 @@ out:
 }
 
 VOID Wsc2MinsTimeOutAction(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3)
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3)
 {
 	PWSC_CTRL       pWscControl = (PWSC_CTRL)FunctionContext;
 	PRTMP_ADAPTER 	pAd = NULL;
@@ -4818,10 +4818,10 @@ VOID WscSelectedRegistrar(
 
 
 VOID WscProfileRetryTimeout(
-	IN PVOID SystemSpecific1,
-	IN PVOID FunctionContext,
-	IN PVOID SystemSpecific2,
-	IN PVOID SystemSpecific3)
+	IN void * SystemSpecific1,
+	IN void * FunctionContext,
+	IN void * SystemSpecific2,
+	IN void * SystemSpecific3)
 {
 	RTMP_ADAPTER    *pAdapter = NULL;
 	PWSC_CTRL		pWscControl = (PWSC_CTRL)FunctionContext;	
@@ -4910,10 +4910,10 @@ VOID WscProfileRetryTimeout(
 }
 
 VOID WscPBCTimeOutAction(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3)
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3)
 {
 	PWSC_CTRL       pWscControl = (PWSC_CTRL)FunctionContext;
 	RTMP_ADAPTER    *pAd = NULL;
@@ -4960,10 +4960,10 @@ VOID WscPBCTimeOutAction(
 	========================================================================
 */
 VOID WscScanTimeOutAction(
-    IN PVOID SystemSpecific1,
-    IN PVOID FunctionContext,
-    IN PVOID SystemSpecific2,
-    IN PVOID SystemSpecific3)
+    IN void * SystemSpecific1,
+    IN void * FunctionContext,
+    IN void * SystemSpecific2,
+    IN void * SystemSpecific3)
 {
     RTMP_ADAPTER    *pAd = NULL;
 	PWSC_CTRL       pWscControl = (PWSC_CTRL)FunctionContext;
@@ -8592,10 +8592,10 @@ BOOLEAN WscAPHasSecuritySetting(
 /* the WscLEDTimer timer controls the LED behavior according to LED mode. */
 /* */
 VOID WscLEDTimer(
-	IN PVOID	SystemSpecific1, 
-	IN PVOID	FunctionContext, 
-	IN PVOID	SystemSpecific2, 
-	IN PVOID	SystemSpecific3) 
+	IN void *	SystemSpecific1, 
+	IN void *	FunctionContext, 
+	IN void *	SystemSpecific2, 
+	IN void *	SystemSpecific3) 
 {
 	PWSC_CTRL pWscControl = (PWSC_CTRL)FunctionContext;
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pWscControl->pAd;
@@ -8683,10 +8683,10 @@ VOID WscLEDTimer(
 
 
 VOID WscSkipTurnOffLEDTimer(
-	IN PVOID	SystemSpecific1, 
-	IN PVOID	FunctionContext, 
-	IN PVOID	SystemSpecific2, 
-	IN PVOID	SystemSpecific3) 
+	IN void *	SystemSpecific1, 
+	IN void *	FunctionContext, 
+	IN void *	SystemSpecific2, 
+	IN void *	SystemSpecific3) 
 {
 	PWSC_CTRL pWscControl = (PWSC_CTRL)FunctionContext;
 
@@ -8700,10 +8700,10 @@ VOID WscSkipTurnOffLEDTimer(
 
 #ifdef CONFIG_AP_SUPPORT
 VOID WscUpdatePortCfgTimeout(
-	IN PVOID SystemSpecific1,
-	IN PVOID FunctionContext,
-	IN PVOID SystemSpecific2,
-	IN PVOID SystemSpecific3)
+	IN void * SystemSpecific1,
+	IN void * FunctionContext,
+	IN void * SystemSpecific2,
+	IN void * SystemSpecific3)
 {
 	PWSC_CTRL 		pWscControl = (PWSC_CTRL)FunctionContext;
 	PRTMP_ADAPTER 	pAd = NULL;

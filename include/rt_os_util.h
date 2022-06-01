@@ -67,11 +67,11 @@ NDIS_STATUS os_alloc_mem_suspend(
 
 NDIS_STATUS os_free_mem(
 	IN	VOID					*pReserved,
-	IN	PVOID					mem);
+	IN	void *					mem);
 
 NDIS_STATUS AdapterBlockAllocateMemory(
-	IN	PVOID					handle,
-	OUT	PVOID					*ppAd,
+	IN	void *					handle,
+	OUT	void *					*ppAd,
 	IN	UINT32					SizeOfpAd);
 
 VOID *RtmpOsVmalloc(
@@ -340,7 +340,7 @@ INT RtmpOSNetDevAlloc(
 	IN	UINT32					privDataSize);
 
 INT RtmpOSNetDevOpsAlloc(
-	IN	PVOID					*pNetDevOps);
+	IN	void *					*pNetDevOps);
 
 
 PNET_DEV RtmpOSNetDevGetByName(
@@ -496,7 +496,7 @@ VOID RTMP_OS_Init_Timer(
 	IN	VOID 					*pReserved,
 	IN	NDIS_MINIPORT_TIMER		*pTimerOrg, 
 	IN	TIMER_FUNCTION			function,
-	IN	PVOID					data,
+	IN	void *					data,
 	IN	LIST_HEADER				*pTimerList);
 
 VOID RTMP_OS_Add_Timer(
@@ -730,7 +730,7 @@ VOID    SendAssocIEsToWpaSupplicant(
 	IN	UCHAR					*ReqVarIEs,
 	IN	UINT32					ReqVarIELen);
 
-PVOID RtmpInitCompletion(VOID);
+void * RtmpInitCompletion(VOID);
 
 ULONG RtmpWaitForCompletionTimeout(VOID *Completion, ULONG Expire);
 
@@ -764,7 +764,7 @@ void RTMP_FreeFirstTxBuffer(
 	IN	PPCI_DEV				pPciDev,
 	IN	ULONG					Length,
 	IN	BOOLEAN					Cached,
-	IN	PVOID					VirtualAddress,
+	IN	void *					VirtualAddress,
 	IN	NDIS_PHYSICAL_ADDRESS	PhysicalAddress);
 
 PNDIS_PACKET RTMP_AllocateRxPacketBuffer(
@@ -772,7 +772,7 @@ PNDIS_PACKET RTMP_AllocateRxPacketBuffer(
 	IN	VOID					*pPciDev,
 	IN	ULONG					Length,
 	IN	BOOLEAN					Cached,
-	OUT	PVOID					*VirtualAddress,
+	OUT	void *					*VirtualAddress,
 	OUT	PNDIS_PHYSICAL_ADDRESS	PhysicalAddress);
 
 

@@ -833,7 +833,7 @@ VOID ap_cmm_peer_assoc_req_action(
 					SupRateLen, pAd->CommonCfg.SupRate,
 					END_OF_ARGS);
 		MiniportMMRequest(pAd, 0, pOutBuffer, FrameLen);
-		MlmeFreeMemory(pAd, (PVOID) pOutBuffer);
+		MlmeFreeMemory(pAd, (void *) pOutBuffer);
 
 		RTMPSendWirelessEvent(pAd, IW_MAC_FILTER_LIST_EVENT_FLAG, ie_list->Addr2, pEntry->apidx, 0);
 
@@ -1113,7 +1113,7 @@ VOID ap_cmm_peer_assoc_req_action(
 #endif /* WSC_AP_SUPPORT */
   
 	MiniportMMRequest(pAd, 0, pOutBuffer, FrameLen);
-	MlmeFreeMemory(pAd, (PVOID) pOutBuffer);
+	MlmeFreeMemory(pAd, (void *) pOutBuffer);
 
 
 	/* set up BA session */

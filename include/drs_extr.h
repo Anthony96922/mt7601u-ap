@@ -288,10 +288,10 @@ VOID APMlmeDynamicTxRateSwitching(
     IN struct _RTMP_ADAPTER *pAd);
 
 VOID APQuickResponeForRateUpExec(
-    IN PVOID SystemSpecific1, 
-    IN PVOID FunctionContext, 
-    IN PVOID SystemSpecific2, 
-    IN PVOID SystemSpecific3);
+    IN void * SystemSpecific1, 
+    IN void * FunctionContext, 
+    IN void * SystemSpecific2, 
+    IN void * SystemSpecific3);
 
 VOID APMlmeSetTxRate(
 	IN struct _RTMP_ADAPTER *pAd,
