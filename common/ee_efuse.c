@@ -558,7 +558,7 @@ static NTSTATUS eFuseWriteRegisters(
 
 	unsigned short addr,tmpaddr, InBuf[3], tmpOffset;
 	unsigned short buffer[8];
-	BOOLEAN		bWriteSuccess = TRUE;
+	bool		bWriteSuccess = TRUE;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("eFuseWriteRegisters Offset=%x, pData=%x\n", Offset, *pData));
 	/*set start block and end block number, start from tail of mapping table*/
@@ -1093,9 +1093,9 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 	unsigned int	data,tempbuffer;
 	unsigned short addr,tmpaddr, InBuf[3], tmpOffset;
 	unsigned int buffer[4];
-	BOOLEAN		bWriteSuccess = TRUE;
-	BOOLEAN		bNotWrite=TRUE;
-	BOOLEAN		bAllocateNewBlk=TRUE;
+	bool		bWriteSuccess = TRUE;
+	bool		bNotWrite=TRUE;
+	bool		bAllocateNewBlk=TRUE;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("eFuseWriteRegistersFromBin Offset=%x, pData=%04x:%04x:%04x:%04x\n", Offset, *pData,*(pData+1),*(pData+2),*(pData+3)));
 	/*set start block and end block number, start from tail of mapping table*/

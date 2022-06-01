@@ -29,7 +29,7 @@
 #define ETH_MAC_ADDR_STR_LEN 17  /* in format of xx:xx:xx:xx:xx:xx*/
 
 /* We assume the s1 is a sting, s2 is a memory space with 6 bytes. and content of s1 will be changed.*/
-BOOLEAN rtstrmactohex(char *s1, char *s2)
+bool rtstrmactohex(char *s1, char *s2)
 {
 	int i = 0;
 	char *ptokS = s1, *ptokE = s1;
@@ -58,7 +58,7 @@ BOOLEAN rtstrmactohex(char *s1, char *s2)
 
 #define ASC_LOWER(_x)	((((_x) >= 0x41) && ((_x) <= 0x5a)) ? (_x) + 0x20 : (_x))
 /* we assume the s1 and s2 both are strings.*/
-BOOLEAN rtstrcasecmp(char *s1, char *s2)
+bool rtstrcasecmp(char *s1, char *s2)
 {
 	char *p1 = s1, *p2 = s2;
 	char c1, c2;
@@ -641,7 +641,7 @@ static void rtmp_read_key_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf, ch
 			{
 				if (TRUE)
 				{
-					BOOLEAN bKeyxStryIsUsed = FALSE;
+					bool bKeyxStryIsUsed = FALSE;
  
 					//GPRINT(RT_DEBUG_TRACE, ("pAd->ApCfg.BssidNum=%d\n", pAd->ApCfg.BssidNum));
 					for (i = 0; i < pAd->ApCfg.BssidNum; i++)
@@ -1180,7 +1180,7 @@ static void rtmp_read_ap_wmm_parms_from_file(IN  PRTMP_ADAPTER pAd, char *tmpbuf
 	{
 		for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 		{
-			pAd->CommonCfg.APEdcaParm.bACM[i] = (BOOLEAN) simple_strtol(macptr, 0, 10);;
+			pAd->CommonCfg.APEdcaParm.bACM[i] = (bool) simple_strtol(macptr, 0, 10);;
 
 			DBGPRINT(RT_DEBUG_TRACE, ("APACM[%d] = %d\n", i, pAd->CommonCfg.APEdcaParm.bACM[i]));
 		}
@@ -1230,7 +1230,7 @@ static void rtmp_read_ap_wmm_parms_from_file(IN  PRTMP_ADAPTER pAd, char *tmpbuf
 	{
 		for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 		{
-			pAd->ApCfg.BssEdcaParm.bACM[i] = (BOOLEAN) simple_strtol(macptr, 0, 10);;
+			pAd->ApCfg.BssEdcaParm.bACM[i] = (bool) simple_strtol(macptr, 0, 10);;
 
 			DBGPRINT(RT_DEBUG_TRACE, ("BSSACM[%d] = %d\n", i, pAd->ApCfg.BssEdcaParm.bACM[i]));
 		}
@@ -2088,7 +2088,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			{
 				STRING tok_str[16];
 				unsigned char BssidCountSupposed = 0;
-				BOOLEAN bSSIDxIsUsed = FALSE;
+				bool bSSIDxIsUsed = FALSE;
 
 				//PRINT(RT_DEBUG_TRACE, ("pAd->ApCfg.BssidNum=%d\n", pAd->ApCfg.BssidNum));
 				for (i = 0; i < pAd->ApCfg.BssidNum; i++)
@@ -2816,7 +2816,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 		/* WirelessEvent */
 		if(RTMPGetKeyParameter("WirelessEvent", tmpbuf, 10, pBuffer, TRUE))
 		{
-			BOOLEAN FlgIsWEntSup = FALSE;
+			bool FlgIsWEntSup = FALSE;
 
 			if(simple_strtol(tmpbuf, 0, 10) != 0)
 				FlgIsWEntSup = TRUE;
@@ -3024,7 +3024,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			if (TRUE)
 			{
 				STRING tok_str[16];
-				BOOLEAN bWPAPSKxIsUsed = FALSE;
+				bool bWPAPSKxIsUsed = FALSE;
 
 				//DBGPRINT(RT_DEBUG_TRACE, ("pAd->ApCfg.BssidNum=%d\n", pAd->ApCfg.BssidNum));
 				for (i = 0; i < pAd->ApCfg.BssidNum; i++)
@@ -3225,7 +3225,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			/* WCNTest*/
 			if(RTMPGetKeyParameter("WCNTest", tmpbuf, 10, pBuffer, TRUE))
 			{
-				BOOLEAN	bEn = FALSE;
+				bool	bEn = FALSE;
 
 				if (strncmp(tmpbuf, "0", 1) == 0)
 					bEn = FALSE;
@@ -3508,7 +3508,7 @@ Return Value:
 Note:
 ========================================================================
 */
-BOOLEAN RTMP_CardInfoRead(
+bool RTMP_CardInfoRead(
 	IN	PRTMP_ADAPTER pAd)
 {
 #define MC_SELECT_CARDID		0	/* use CARD ID (0 ~ 31) to identify different cards */
@@ -3529,7 +3529,7 @@ BOOLEAN RTMP_CardInfoRead(
 	INT retval;
 	char *buffer, *tmpbuf;
 	STRING card_id_buf[30], RFIC_word[30];
-	BOOLEAN flg_match_ok = FALSE;
+	bool flg_match_ok = FALSE;
 	int card_select_method;
 	int card_free_id, card_nouse_id, card_same_mac_id, card_match_id;
 	EEPROM_ANTENNA_STRUC antenna;
@@ -4182,7 +4182,7 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 					StartCh = pwr;
 					insertTailList(&pAd->SingleSkuPwrList, (PLIST_ENTRY)pwr);
 				} else {
-					BOOLEAN isSame = TRUE;
+					bool isSame = TRUE;
 
 					for (i = 0; i < SINGLE_SKU_TABLE_CCK_LENGTH; i++) {
 						if (StartCh->PwrCCK[i] != pwr->PwrCCK[i]) {

@@ -35,12 +35,12 @@
 VOID RTMPWriteTxWI(
 	IN RTMP_ADAPTER *pAd,
 	IN TXWI_STRUC *pOutTxWI,
-	IN BOOLEAN FRAG,
-	IN BOOLEAN CFACK,
-	IN BOOLEAN InsTimestamp,
-	IN BOOLEAN AMPDU,
-	IN BOOLEAN Ack,
-	IN BOOLEAN NSeq,		/* HW new a sequence.*/
+	IN bool FRAG,
+	IN bool CFACK,
+	IN bool InsTimestamp,
+	IN bool AMPDU,
+	IN bool Ack,
+	IN bool NSeq,		/* HW new a sequence.*/
 	IN unsigned char BASize,
 	IN unsigned char WCID,
 	IN unsigned long Length,
@@ -48,7 +48,7 @@ VOID RTMPWriteTxWI(
 	IN unsigned char TID,
 	IN unsigned char TxRate,
 	IN unsigned char Txopmode,
-	IN BOOLEAN CfAck,
+	IN bool CfAck,
 	IN HTTRANSMIT_SETTING *pTransmit)
 {
 	PMAC_TABLE_ENTRY pMac = NULL;
@@ -183,7 +183,7 @@ VOID RTMPWriteTxWI_Data(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI, TX_BLK *pTxBlk)
 #endif /* DOT11_N_SUPPORT */
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 #ifdef WFA_VHT_PF
-	BOOLEAN amsdu_in_ampdu = FALSE;
+	bool amsdu_in_ampdu = FALSE;
 #endif /* WFA_VHT_PF */
 
 	ASSERT(pTxWI);

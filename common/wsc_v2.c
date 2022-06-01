@@ -24,7 +24,7 @@
 #ifdef WSC_V2_SUPPORT
 #include    "wsc_tlv.h"
 
-BOOLEAN	WscAppendV2SubItem(
+bool	WscAppendV2SubItem(
 	IN	unsigned char			SubID,
 	IN	unsigned char *			pData,
 	IN	unsigned char			DataLen,
@@ -35,7 +35,7 @@ BOOLEAN	WscAppendV2SubItem(
 VOID 	WscOnOff(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  INT				ApIdx,
-	IN  BOOLEAN			bOff)
+	IN  bool			bOff)
 {
 	PWSC_V2_INFO	pWpsV2Info = &pAd->ApCfg.MBSSID[ApIdx & 0x0F].WscControl.WscV2Info;
 	if (bOff)
@@ -70,7 +70,7 @@ VOID	WscAddEntryToAclList(
 {
 	PRT_802_11_ACL	pACL = NULL;
 	INT				i;
-	BOOLEAN			bFound = FALSE;
+	bool			bFound = FALSE;
 	
 	pACL = &pAd->ApCfg.MBSSID[ApIdx].AccessControlList;
 
@@ -148,7 +148,7 @@ VOID	WscCheckPinAttackCount(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL		pWscControl)
 {
-	BOOLEAN	bCancelled;
+	bool	bCancelled;
 
 	if ((pWscControl->EntryIfIdx & MIN_NET_DEVICE_FOR_APCLI)
 		)
@@ -226,9 +226,9 @@ VOID	WscCheckPinAttackCount(
 		Request to Enroll		Bool
 		Settings Delay Time		1B
 */
-BOOLEAN	WscGenV2Msg(
+bool	WscGenV2Msg(
 	IN  PWSC_CTRL		pWpsCtrl,
-	IN  BOOLEAN			bSelRegistrar,
+	IN  bool			bSelRegistrar,
 	IN	unsigned char *			pAuthorizedMACs,
 	IN  INT   			AuthorizedMACsLen,
 	OUT	unsigned char			**pOutBuf,
@@ -289,7 +289,7 @@ BOOLEAN	WscGenV2Msg(
 	return FALSE;
 }
 
-BOOLEAN	WscAppendV2SubItem(
+bool	WscAppendV2SubItem(
 	IN	unsigned char			SubID,
 	IN	unsigned char *			pData,
 	IN	unsigned char			DataLen,
@@ -311,7 +311,7 @@ BOOLEAN	WscAppendV2SubItem(
 	return FALSE;
 }
 
-BOOLEAN	WscParseV2SubItem(
+bool	WscParseV2SubItem(
 	IN	unsigned char			SubID,
 	IN	unsigned char *			pData,
 	IN	unsigned short			DataLen,

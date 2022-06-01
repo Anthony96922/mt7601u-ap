@@ -132,7 +132,7 @@ static VOID ApCliMlmeProbeReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	BOOLEAN Cancelled;
+	bool Cancelled;
 	APCLI_MLME_JOIN_REQ_STRUCT *Info = (APCLI_MLME_JOIN_REQ_STRUCT *)(Elem->Msg);
 	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
@@ -318,7 +318,7 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 					pAd->ApCliMlmeAux.Rssi = RealRssi;
 			} else
 			{
-				BOOLEAN Cancelled;
+				bool Cancelled;
 				RTMPCancelTimer(&pAd->ApCliMlmeAux.ProbeTimer, &Cancelled);
 			}
 

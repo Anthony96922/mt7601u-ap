@@ -26,7 +26,7 @@ typedef enum _TONE_RADAR_VERSION {
 } TONE_RADAR_VERSION;
 
 typedef struct CARRIER_DETECTION_s {
-	BOOLEAN Enable;
+	bool Enable;
 	unsigned char CDSessionTime;
 	unsigned char CDPeriod;
 	CD_STATE CD_State;

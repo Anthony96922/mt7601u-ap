@@ -67,14 +67,14 @@ MAC_TABLE_ENTRY *MacTableInsertEntry(
 	IN  unsigned char *			pAddr,
 	IN	unsigned char			apidx,
 	IN	unsigned char			OpMode,
-	IN BOOLEAN	CleanAll)
+	IN bool	CleanAll)
 {
 	unsigned char HashIdx;
 	int i, FirstWcid;
 	MAC_TABLE_ENTRY *pEntry = NULL, *pCurrEntry;
 /*	unsigned short	offset;*/
 /*	unsigned long	addr;*/
-	BOOLEAN Cancelled;
+	bool Cancelled;
 
 	/* if FULL, return*/
 	if (pAd->MacTab.Size >= MAX_LEN_OF_MAC_TABLE)
@@ -404,14 +404,14 @@ MAC_TABLE_ENTRY *MacTableInsertEntry(
 		Delete a specified client from MAC table
 	==========================================================================
  */
-BOOLEAN MacTableDeleteEntry(
+bool MacTableDeleteEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned short wcid,
 	IN unsigned char * pAddr)
 {
 	unsigned short HashIdx;
 	MAC_TABLE_ENTRY *pEntry, *pPrevEntry, *pProbeEntry;
-	BOOLEAN Cancelled;
+	bool Cancelled;
 	/*unsigned short	offset;	 unused variable*/
 	/*unsigned char	j;			 unused variable*/
 
@@ -628,7 +628,7 @@ VOID MacTableReset(
 	IN  PRTMP_ADAPTER  pAd)
 {
 	int         i;
-	BOOLEAN     Cancelled;    
+	bool     Cancelled;    
 #ifdef CONFIG_AP_SUPPORT
 	unsigned char *      pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
@@ -699,7 +699,7 @@ VOID MacTableReset(
 		for (apidx = MAIN_MBSSID; apidx < pAd->ApCfg.BssidNum; apidx++)
 		{
 #ifdef WSC_AP_SUPPORT
-			BOOLEAN Cancelled;
+			bool Cancelled;
 			
 	    	RTMPCancelTimer(&pAd->ApCfg.MBSSID[apidx].WscControl.EapolTimer, &Cancelled);
 	    	pAd->ApCfg.MBSSID[apidx].WscControl.EapolTimerRunning = FALSE;

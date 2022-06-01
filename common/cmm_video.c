@@ -32,7 +32,7 @@
 
 
 
-BOOLEAN UpdateFromGlobal = FALSE;
+bool UpdateFromGlobal = FALSE;
 
 void VideoTurbineUpdate(
 	IN PRTMP_ADAPTER pAd)

@@ -450,7 +450,7 @@ VOID RTMPIoctlGetWscRegsDynInfo(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-BOOLEAN WscCheckEnrolleeNonceFromUpnp(
+bool WscCheckEnrolleeNonceFromUpnp(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	char *			pData,
 	IN  unsigned short			Length,
@@ -1336,10 +1336,10 @@ INT RTMPAPSetInformation(
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 	unsigned char				ifIndex;
-	BOOLEAN				apcliEn = FALSE;
+	bool				apcliEn = FALSE;
 	PNDIS_APCLI_802_11_PMKID	pPmkId = NULL;
-	BOOLEAN				IEEE8021xState = FALSE;
-	BOOLEAN				IEEE8021x_required_keys = FALSE;
+	bool				IEEE8021xState = FALSE;
+	bool				IEEE8021x_required_keys = FALSE;
 	unsigned char				wpa_supplicant_enable = 0;
 	PNDIS_802_11_REMOVE_KEY		pRemoveKey = NULL;
 	INT				BssIdx, i;
@@ -1367,7 +1367,7 @@ INT RTMPAPSetInformation(
 			ifIndex = pObj->ioctl_if;
 			apcliEn = pAd->ApCfg.ApCliTab[ifIndex].Enable;
 
-			if (wrq->u.data.length != sizeof(BOOLEAN))
+			if (wrq->u.data.length != sizeof(bool))
 				Status  = -EINVAL;
 			else
 			{
@@ -1389,7 +1389,7 @@ INT RTMPAPSetInformation(
 			ifIndex = pObj->ioctl_if;
 			apcliEn = pAd->ApCfg.ApCliTab[ifIndex].Enable;
 
-			if (wrq->u.data.length != sizeof(BOOLEAN))
+			if (wrq->u.data.length != sizeof(bool))
 				Status  = -EINVAL;
 			else
 			{
@@ -1973,7 +1973,7 @@ INT RTMPAPSetInformation(
 								WscSelectedRegistrar(pAd, upnpInfo, len, apidx);
 								if (pAd->ApCfg.MBSSID[apidx].WscControl.Wsc2MinsTimerRunning == TRUE)
 								{
-									BOOLEAN Cancelled;
+									bool Cancelled;
 									RTMPCancelTimer(&pAd->ApCfg.MBSSID[apidx].WscControl.Wsc2MinsTimer, &Cancelled);
 								}
 								/* 2mins time-out timer */
@@ -2021,7 +2021,7 @@ INT RTMPAPSetInformation(
 						char * pWpsMsg;
 						unsigned int WpsMsgLen;
 						PWSC_CTRL pWscControl;
-						BOOLEAN	bGetDeviceInfo = FALSE;
+						bool	bGetDeviceInfo = FALSE;
 
 						NdisZeroMemory(pUPnPMsg, msgLen);
 						retVal = copy_from_user(pUPnPMsg, wrq->u.data.pointer, msgLen);
@@ -2856,11 +2856,11 @@ INT RTMPAPSetInformation(
 			break;
 
 		case OID_HOSTAPD_SUPPORT:/*notify the driver to support hostapd. */
-			if (wrq->u.data.length != sizeof(BOOLEAN))
+			if (wrq->u.data.length != sizeof(bool))
 				Status  = -EINVAL;
 			else
 			{
-				BOOLEAN hostapd_enable;
+				bool hostapd_enable;
 				int v, apidx;
 				apidx = pObj->ioctl_if;
 				Status = copy_from_user(&hostapd_enable, wrq->u.data.pointer, wrq->u.data.length);
@@ -2883,11 +2883,11 @@ INT RTMPAPSetInformation(
 
 		case HOSTAPD_OID_COUNTERMEASURES:/*report txtsc to hostapd. */
 			
-			if (wrq->u.data.length != sizeof(BOOLEAN))
+			if (wrq->u.data.length != sizeof(bool))
 				Status  = -EINVAL;
 			else
 			{
-				BOOLEAN countermeasures_enable;
+				bool countermeasures_enable;
 				Status = copy_from_user(&countermeasures_enable, wrq->u.data.pointer, wrq->u.data.length);
 
 				if (countermeasures_enable)
@@ -3012,7 +3012,7 @@ INT RTMPAPQueryInformation(
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 	unsigned char 				ifIndex;
-	BOOLEAN				apcliEn = FALSE;
+	bool				apcliEn = FALSE;
 	INT 				i, Padding = 0;
 	unsigned long 				BssBufSize;
 	unsigned char *				pBuf = NULL, pPtr=NULL;
@@ -3279,7 +3279,7 @@ INT RTMPAPQueryInformation(
 #ifdef IAPP_SUPPORT
 		case RT_QUERY_SIGNAL_CONTEXT:
 			{
-				BOOLEAN FlgIs11rSup = FALSE;
+				bool FlgIs11rSup = FALSE;
 
 				DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_QUERY_SIGNAL_CONTEXT \n"));
 
@@ -3397,7 +3397,7 @@ INT RTMPAPQueryInformation(
 #ifdef WSC_V2_SUPPORT
 		case RT_OID_WSC_V2_SUPPORT:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_WSC_V2_SUPPORT (=%d)\n", pAd->ApCfg.MBSSID[apidx].WscControl.WscV2Info.bEnableWpsV2));
-			wrq->u.data.length = sizeof(BOOLEAN);
+			wrq->u.data.length = sizeof(bool);
 			if (copy_to_user(wrq->u.data.pointer, &pAd->ApCfg.MBSSID[apidx].WscControl.WscV2Info.bEnableWpsV2, wrq->u.data.length))
 				Status = -EFAULT;
 			break;
@@ -4313,7 +4313,7 @@ INT	Set_AP_WmmCapable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	BOOLEAN	bWmmCapable;
+	bool	bWmmCapable;
 	POS_COOKIE	pObj= (POS_COOKIE)pAd->OS_Cookie;
 
 	bWmmCapable = simple_strtol(arg, 0, 10);
@@ -4445,7 +4445,7 @@ INT	Set_HideSSID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	BOOLEAN bHideSsid;
+	bool bHideSsid;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
 	bHideSsid = simple_strtol(arg, 0, 10);
@@ -4528,7 +4528,7 @@ INT	Set_VLAN_TAG_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	BOOLEAN	bVLAN_Tag;
+	bool	bVLAN_Tag;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
 	bVLAN_Tag = simple_strtol(arg, 0, 10);
@@ -5006,7 +5006,7 @@ INT	Set_ACLAddEntry_Proc(
 	char *					this_char;
 	char *					value;
 	INT						i, j;
-	BOOLEAN					isDuplicate=FALSE;
+	bool					isDuplicate=FALSE;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
 	if (pAd->ApCfg.MBSSID[pObj->ioctl_if].AccessControlList.Num >= (MAX_NUM_OF_ACL_LIST - 1))
@@ -5127,7 +5127,7 @@ INT	Set_ACLDelEntry_Proc(
 	char *					this_char;
 	char *					value;
 	INT						i, j;
-	BOOLEAN					isFound=FALSE;
+	bool					isFound=FALSE;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
 	NdisZeroMemory(&acl, sizeof(RT_802_11_ACL));
@@ -5245,7 +5245,7 @@ INT	Set_ACLShowAll_Proc(
 	IN	char *			arg)
 {
 	RT_802_11_ACL			acl;
-	BOOLEAN				bDumpAll = FALSE;
+	bool				bDumpAll = FALSE;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 #ifdef DBG
 	INT				i, j;
@@ -5313,7 +5313,7 @@ INT	Set_ACLClearAll_Proc(
 {
 /*	RT_802_11_ACL			acl; */
 	RT_802_11_ACL			*pacl = NULL;
-	BOOLEAN					bClearAll=FALSE;
+	bool					bClearAll=FALSE;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
 	bClearAll = simple_strtol(arg, 0, 10);
@@ -6457,7 +6457,7 @@ VOID RTMPAPIoctlBBP32(
 	char *				ptr;
 	INT					bbpId;
 	LONG				bbpValue;
-	BOOLEAN				bIsPrintAllBBP = FALSE, bAllowDump, bCopyMsg;
+	bool				bIsPrintAllBBP = FALSE, bAllowDump, bCopyMsg;
 	INT					argLen;
 
 
@@ -6629,7 +6629,7 @@ VOID RTMPAPIoctlBBP(
 	char *				ptr;
 	INT					bbpId;
 	LONG				bbpValue;
-	BOOLEAN				bIsPrintAllBBP = FALSE, bAllowDump, bCopyMsg;
+	bool				bIsPrintAllBBP = FALSE, bAllowDump, bCopyMsg;
 	INT					argLen;
 
 
@@ -6844,7 +6844,7 @@ VOID RTMPAPIoctlMAC(
 	unsigned char temp[16];
 	STRING temp2[16];
 	unsigned int macValue;
-	BOOLEAN bIsPrintAllMAC = FALSE, bFromUI;
+	bool bIsPrintAllMAC = FALSE, bFromUI;
 
 
 
@@ -7067,7 +7067,7 @@ VOID RTMPAPIoctlRF(
 /*	char *				ptr;*/
 	INT				rfId, maxRFIdx, bank_Id;
 /*	LONG				rfValue;*/
-	BOOLEAN				bIsPrintAllRF = TRUE, bFromUI;
+	bool				bIsPrintAllRF = TRUE, bFromUI;
 	INT				memLen = sizeof(CHAR) * (2048+256+12);
 	INT				argLen;
 	
@@ -7154,7 +7154,7 @@ VOID RTMPAPIoctlE2PROM(
 	unsigned char				temp[16];
 	STRING				temp2[16];
 	unsigned short				eepValue;
-	BOOLEAN				bIsPrintAllE2PROM = FALSE;
+	bool				bIsPrintAllE2PROM = FALSE;
 
 /*	mpool = (char *)kmalloc(sizeof(CHAR)*(4096+256+12), MEM_ALLOC_FLAG); */
 	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(CHAR)*(4096+256+12));
@@ -7709,7 +7709,7 @@ INT Set_ApCli_Ssid_Proc(
 {
 	POS_COOKIE pObj;
 	unsigned char ifIndex;
-	BOOLEAN apcliEn;
+	bool apcliEn;
 	INT success = FALSE;
 	/*unsigned char keyMaterial[40]; */
 	unsigned char PskKey[100];
@@ -7770,7 +7770,7 @@ INT Set_ApCli_Bssid_Proc(
 	INT i;
 	char * value;
 	unsigned char ifIndex;
-	BOOLEAN apcliEn;
+	bool apcliEn;
 	POS_COOKIE pObj;
 	
 	pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -8300,7 +8300,7 @@ INT	 Set_AP_WscConfMode_Proc(
 	/*INT         IsAPConfigured; */
     POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
     unsigned char	    apidx = pObj->ioctl_if, mac_addr[MAC_ADDR_LEN];
-    BOOLEAN     bFromApCli = FALSE;
+    bool     bFromApCli = FALSE;
     PWSC_CTRL   pWscControl;
 
 	ConfModeIdx = simple_strtol(arg, 0, 10);
@@ -8476,7 +8476,7 @@ INT	Set_AP_WscMode_Proc(
     POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
     unsigned char	    apidx = pObj->ioctl_if, mac_addr[MAC_ADDR_LEN];
     PWSC_CTRL   pWscControl;
-    BOOLEAN     bFromApCli = FALSE;
+    bool     bFromApCli = FALSE;
     
 #ifdef HOSTAPD_SUPPORT
 	if (pAd->ApCfg.MBSSID[apidx].Hostapd == TRUE)
@@ -8558,9 +8558,9 @@ INT	Set_AP_WscGetConf_Proc(
 	INT			idx;
 	POS_COOKIE          pObj = (POS_COOKIE) pAd->OS_Cookie;
 	unsigned char	            apidx = pObj->ioctl_if, mac_addr[MAC_ADDR_LEN];
-	BOOLEAN             bFromApCli = FALSE;
+	bool             bFromApCli = FALSE;
 #ifdef APCLI_SUPPORT
-	BOOLEAN			apcliEn = pAd->ApCfg.ApCliTab[apidx].Enable;
+	bool			apcliEn = pAd->ApCfg.ApCliTab[apidx].Enable;
 #endif /* APCLI_SUPPORT */
 #ifdef WSC_V2_SUPPORT
 	PWSC_V2_INFO		pWscV2Info = NULL;
@@ -8720,7 +8720,7 @@ INT	Set_AP_WscPinCode_Proc(
 	IN	char *			arg)
 {
 	unsigned int        PinCode = 0;
-	BOOLEAN     validatePin, bFromApCli = FALSE;
+	bool     validatePin, bFromApCli = FALSE;
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	unsigned char       apidx = pObj->ioctl_if, mac_addr[MAC_ADDR_LEN];
 	PWSC_CTRL   pWscControl;
@@ -8862,7 +8862,7 @@ INT	Set_WscStop_Proc(
     POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
     unsigned char	    apidx = pObj->ioctl_if;
     PWSC_CTRL   pWscControl;
-    BOOLEAN     bFromApCli = FALSE;
+    bool     bFromApCli = FALSE;
     
 #ifdef HOSTAPD_SUPPORT
 	if (pAd->ApCfg.MBSSID[apidx].Hostapd == TRUE)
@@ -9329,7 +9329,7 @@ VOID RTMPIoctlGetWscRegsDynInfo(
 }
 #endif /*AR9_MAPI_SUPPORT*/
 #endif/* INF_AR9 */
-BOOLEAN WscCheckEnrolleeNonceFromUpnp(
+bool WscCheckEnrolleeNonceFromUpnp(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	char *			pData,
 	IN  unsigned short			Length,
@@ -9492,9 +9492,9 @@ INT Set_AP_WscMultiByteCheck_Proc(
 {
 	POS_COOKIE 		pObj = (POS_COOKIE) pAd->OS_Cookie;	
 	unsigned char			apidx = pObj->ioctl_if;	
-	BOOLEAN			bEnable = FALSE;
+	bool			bEnable = FALSE;
 	PWSC_CTRL		pWpsCtrl = NULL;
-	BOOLEAN     	bFromApCli = FALSE;
+	bool     	bFromApCli = FALSE;
 
 #ifdef APCLI_SUPPORT
     if (pObj->ioctl_if_type == INT_APCLI)
@@ -9577,7 +9577,7 @@ INT	Set_WscSetupLock_Proc(
 
 	if (bEnable == 0)
 	{
-		BOOLEAN bCancelled = FALSE;
+		bool bCancelled = FALSE;
 		if (pWscControl->WscSetupLockTimerRunning)
 		{
 			RTMPCancelTimer(&pWscControl->WscSetupLockTimer, &bCancelled);

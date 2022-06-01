@@ -79,7 +79,7 @@ VOID RTMPInsertWapiIe(
 	OUT	unsigned char *			pWIe,
 	OUT	unsigned char			*w_len);
 
-BOOLEAN RTMPCheckWAIframe(
+bool RTMPCheckWAIframe(
     IN unsigned char *           pData,
     IN unsigned long            DataByteCount);
 
@@ -97,7 +97,7 @@ extern INT	RTMPSoftEncryptSMS4(
 		IN	unsigned char *			pIv);
 extern INT	RTMPSoftDecryptSMS4(
 		IN		unsigned char *			pHdr,
-		IN		BOOLEAN			bSanityIV,
+		IN		bool			bSanityIV,
 		IN 		PCIPHER_KEY		pKey,
 		INOUT 	unsigned char *			pData,
 		INOUT 	unsigned short			*DataByteCnt);
@@ -117,7 +117,7 @@ INT SMS4_TEST(void);
  =====================================	
 */
 
-BOOLEAN RTMPIsWapiCipher(
+bool RTMPIsWapiCipher(
     IN PRTMP_ADAPTER    pAd,
     IN unsigned char           	apidx);
 
@@ -162,7 +162,7 @@ VOID RTMPGetWapiTxTscFromAsic(
 VOID WAPIInstallPairwiseKey(
 	PRTMP_ADAPTER		pAd,
 	PMAC_TABLE_ENTRY	pEntry,
-	BOOLEAN				bAE);
+	bool				bAE);
 
 VOID WAPIInstallSharedKey(
 	PRTMP_ADAPTER		pAd,
@@ -172,7 +172,7 @@ VOID WAPIInstallSharedKey(
 	unsigned char				Wcid,
 	unsigned char *				pGtk);
 
-BOOLEAN WAPI_InternalCmdAction(
+bool WAPI_InternalCmdAction(
 		IN  PRTMP_ADAPTER		pAd,
 		IN	unsigned char				AuthMode,
 		IN	unsigned char				apidx,

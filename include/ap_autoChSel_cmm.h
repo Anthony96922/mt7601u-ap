@@ -29,11 +29,11 @@ typedef struct {
 	unsigned long dirtyness[MAX_NUM_OF_CHANNELS+1];
 	unsigned long ApCnt[MAX_NUM_OF_CHANNELS+1];
 	unsigned int FalseCCA[MAX_NUM_OF_CHANNELS+1];
-    BOOLEAN SkipList[MAX_NUM_OF_CHANNELS+1];
+    bool SkipList[MAX_NUM_OF_CHANNELS+1];
 #ifdef AP_QLOAD_SUPPORT
 	unsigned int chanbusytime[MAX_NUM_OF_CHANNELS+1]; /* QLOAD ALARM */
 #endif /* AP_QLOAD_SUPPORT */
-        BOOLEAN IsABand;
+        bool IsABand;
 } CHANNELINFO, *PCHANNELINFO;
 
 typedef struct {

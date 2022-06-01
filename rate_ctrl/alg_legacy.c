@@ -431,7 +431,7 @@ VOID APQuickResponeForRateUpExec(
 	CHAR					Rssi, ratio;
 	unsigned long					TxSuccess, TxRetransmit, TxFailCount;
 #ifdef TXBF_SUPPORT
-	BOOLEAN					CurrPhyETxBf, CurrPhyITxBf;
+	bool					CurrPhyETxBf, CurrPhyITxBf;
 #endif /* TXBF_SUPPORT */
 
 	pAd->ApCfg.ApQuickResponeForRateUpTimerRunning = FALSE;
@@ -731,10 +731,10 @@ VOID MlmeOldRateAdapt(
 	IN unsigned long			TrainDown,
 	IN unsigned long			TxErrorRatio)
 {
-	BOOLEAN	bTrainUp = FALSE;
+	bool	bTrainUp = FALSE;
 #ifdef TXBF_SUPPORT
 	unsigned char *pTable = pEntry->pTable;
-	BOOLEAN invertTxBf = FALSE;
+	bool invertTxBf = FALSE;
 #endif /* TXBF_SUPPORT */
 
 	pEntry->LastSecTxRateChangeAction = RATE_NO_CHANGE;

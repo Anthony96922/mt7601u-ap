@@ -166,7 +166,7 @@ VOID RTMPInsertWapiIe(
          FALSE 			-	otherwise
     ==========================================================================
 */
-BOOLEAN RTMPCheckWAIframe(
+bool RTMPCheckWAIframe(
     IN unsigned char *           pData,
     IN unsigned long            DataByteCount)
 {
@@ -206,7 +206,7 @@ BOOLEAN RTMPCheckWAIframe(
          FALSE 			-	otherwise
     ==========================================================================
 */
-BOOLEAN RTMPIsWapiCipher(
+bool RTMPIsWapiCipher(
     IN PRTMP_ADAPTER    pAd,
     IN unsigned char           	apidx)
 {
@@ -929,7 +929,7 @@ VOID RTMPCancelWapiRekeyTimerAction(
 	{
 		if (pEntry->WapiUskRekeyTimerRunning == TRUE)
 		{
-			BOOLEAN	Cancelled;
+			bool	Cancelled;
 
 			RTMPCancelTimer(&pEntry->WapiUskRekeyTimer, &Cancelled);
 			pEntry->wapi_usk_rekey_cnt = 0;
@@ -940,7 +940,7 @@ VOID RTMPCancelWapiRekeyTimerAction(
 	{
 		if (pAd->CommonCfg.WapiMskRekeyTimerRunning == TRUE)
 		{
-			BOOLEAN	Cancelled;
+			bool	Cancelled;
 
 			RTMPCancelTimer(&pAd->CommonCfg.WapiMskRekeyTimer, &Cancelled);
 			pAd->CommonCfg.wapi_msk_rekey_cnt = 0;
@@ -965,7 +965,7 @@ VOID RTMPCancelWapiRekeyTimerAction(
 		
 	========================================================================
 */
-BOOLEAN WAPI_InternalCmdAction(
+bool WAPI_InternalCmdAction(
 		IN  PRTMP_ADAPTER		pAd,
 		IN	unsigned char				AuthMode,
 		IN	unsigned char				apidx,
@@ -1048,7 +1048,7 @@ VOID RTMPGetWapiTxTscFromAsic(
 VOID WAPIInstallPairwiseKey(
 	PRTMP_ADAPTER		pAd,
 	PMAC_TABLE_ENTRY	pEntry,
-	BOOLEAN				bAE)
+	bool				bAE)
 {	
 	PCIPHER_KEY	pKey;
 

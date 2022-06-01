@@ -290,7 +290,7 @@ INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
 }
 
 
-INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower)
+INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
 {
 	unsigned int bbp_val, org_val;
 

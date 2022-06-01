@@ -132,6 +132,6 @@ INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLeve
 					unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
 					unsigned char TIMByteOffset, unsigned char TIMBytePattern);
 INT AndesCalibrationOP(PRTMP_ADAPTER, unsigned int CalibrationID, unsigned int Param);
-BOOLEAN IsInBandCmdProcessing(PRTMP_ADAPTER pAd);
+bool IsInBandCmdProcessing(PRTMP_ADAPTER pAd);
 unsigned char GetCmdRspNum(PRTMP_ADAPTER pAd);
 #endif

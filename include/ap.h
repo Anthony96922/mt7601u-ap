@@ -55,7 +55,7 @@
 
 /* ap_data.c */
 
-BOOLEAN APBridgeToWirelessSta(
+bool APBridgeToWirelessSta(
     IN  PRTMP_ADAPTER   pAd,
     IN  unsigned char *          pHeader,
     IN  unsigned int            HdrLen,
@@ -99,7 +99,7 @@ NDIS_STATUS APCheckRxError(
 	IN RXINFO_STRUC *pRxInfo,
 	IN unsigned char Wcid);
 
-BOOLEAN APCheckClass2Class3Error(
+bool APCheckClass2Class3Error(
     IN  PRTMP_ADAPTER   pAd,
 	IN unsigned long Wcid, 
 	IN  PHEADER_802_11  pHeader);
@@ -108,7 +108,7 @@ VOID APHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
 	IN	unsigned short			Aid,
-    IN	BOOLEAN			isActive);
+    IN	bool			isActive);
 
 VOID    RTMPDescriptorEndianChange(
     IN  unsigned char *          pData,
@@ -118,7 +118,7 @@ VOID    RTMPFrameEndianChange(
     IN  PRTMP_ADAPTER   pAd,
     IN  unsigned char *          pData,
     IN  unsigned long           Dir,
-    IN  BOOLEAN         FromRxDoneInt);
+    IN  bool         FromRxDoneInt);
 
 /* ap_assoc.c */
 
@@ -173,7 +173,7 @@ VOID APCls2errAction(
 /* ap_connect.c */
 
 #ifdef CONFIG_AP_SUPPORT
-BOOLEAN BeaconTransmitRequired(
+bool BeaconTransmitRequired(
 	IN PRTMP_ADAPTER	pAd,
 	IN INT				apidx,
 	IN MULTISSID_STRUCT *pMbss);
@@ -239,7 +239,7 @@ VOID ApSiteSurvey(
 	IN	PRTMP_ADAPTER  		pAd,
 	IN	PNDIS_802_11_SSID	pSsid,
 	IN	unsigned char				ScanType,
-	IN	BOOLEAN				ChannelSel);
+	IN	bool				ChannelSel);
 
 VOID SupportRate(
 	IN unsigned char * SupRate,
@@ -251,7 +251,7 @@ VOID SupportRate(
 	OUT unsigned char * pMaxSupportRate);
 
 
-BOOLEAN ApScanRunning(
+bool ApScanRunning(
 	IN PRTMP_ADAPTER pAd);
 	
 #ifdef DOT11N_DRAFT3
@@ -274,7 +274,7 @@ VOID WpaStateMachineInit(
 VOID APMlmePeriodicExec(
     IN  PRTMP_ADAPTER   pAd);
 
-BOOLEAN APMsgTypeSubst(
+bool APMsgTypeSubst(
     IN PRTMP_ADAPTER pAd,
     IN PFRAME_802_11 pFrame, 
     OUT INT *Machine, 
@@ -296,7 +296,7 @@ VOID BeaconUpdateExec(
 
 VOID RTMPSetPiggyBack(
 	IN PRTMP_ADAPTER	pAd,
-	IN BOOLEAN			bPiggyBack);
+	IN bool			bPiggyBack);
 
 VOID APAsicEvaluateRxAnt(
 	IN PRTMP_ADAPTER	pAd);
@@ -336,7 +336,7 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
     OUT unsigned char           *PsMode,
     OUT unsigned char           *Rate); 
 
-BOOLEAN APPsIndicate(
+bool APPsIndicate(
     IN  PRTMP_ADAPTER   pAd, 
     IN  unsigned char *          pAddr, 
 	IN unsigned long Wcid, 
@@ -359,7 +359,7 @@ VOID APUpdateOperationMode(
 VOID APUpdateCapabilityAndErpIe(
 	IN PRTMP_ADAPTER pAd);
 
-BOOLEAN ApCheckAccessControlList(
+bool ApCheckAccessControlList(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *        pAddr,
 	IN unsigned char         Apidx);
@@ -374,22 +374,22 @@ VOID ApEnqueueNullFrame(
 	IN unsigned char         TxRate,
 	IN unsigned char         PID,
 	IN unsigned char         apidx,
-    IN BOOLEAN       bQosNull,
-    IN BOOLEAN       bEOSP,
+    IN bool       bQosNull,
+    IN bool       bEOSP,
     IN unsigned char         OldUP);
 
 /* ap_sanity.c */
 
 
-BOOLEAN PeerAssocReqCmmSanity(
+bool PeerAssocReqCmmSanity(
     IN PRTMP_ADAPTER pAd, 
-	IN BOOLEAN isRessoc,
+	IN bool isRessoc,
     IN VOID *Msg, 
     IN INT MsgLen,
     IN IE_LISTS *ie_lists);
 
 
-BOOLEAN PeerDisassocReqSanity(
+bool PeerDisassocReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN unsigned long MsgLen, 
@@ -397,7 +397,7 @@ BOOLEAN PeerDisassocReqSanity(
     OUT	unsigned short	*SeqNum,
     OUT unsigned short *Reason);
 
-BOOLEAN PeerDeauthReqSanity(
+bool PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN unsigned long MsgLen, 
@@ -405,7 +405,7 @@ BOOLEAN PeerDeauthReqSanity(
    	OUT	unsigned short	*SeqNum,    
     OUT unsigned short *Reason);
 
-BOOLEAN APPeerAuthSanity(
+bool APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN unsigned long MsgLen, 
@@ -433,12 +433,12 @@ INT	Set_PreAuthIfName_Proc(
 	IN	char *			arg);
 
 /* Define in ap.c */
-BOOLEAN DOT1X_InternalCmdAction(
+bool DOT1X_InternalCmdAction(
     IN  PRTMP_ADAPTER	pAd,
     IN  MAC_TABLE_ENTRY *pEntry,
     IN	unsigned char			cmd);
 
-BOOLEAN DOT1X_EapTriggerAction(
+bool DOT1X_EapTriggerAction(
     IN  PRTMP_ADAPTER	pAd,
     IN  MAC_TABLE_ENTRY *pEntry);
 #endif /* DOT1X_SUPPORT */

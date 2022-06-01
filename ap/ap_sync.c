@@ -93,7 +93,7 @@ VOID APPeerProbeReqAction(
 	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
 	LARGE_INTEGER FakeTimestamp;
 	unsigned char DsLen = 1, ErpIeLen = 1, apidx = 0, PhyMode, SupRateLen, RSNIe = IE_WPA, RSNIe2 = IE_WPA2;
-	BOOLEAN	bRequestRssi = FALSE;
+	bool	bRequestRssi = FALSE;
 
 #ifdef WSC_AP_SUPPORT
 	unsigned char Addr3[MAC_ADDR_LEN];
@@ -626,7 +626,7 @@ VOID APPeerBeaconAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem) {
 		unsigned char Rates[MAX_LEN_OF_SUPPORTED_RATES], *pRates = NULL, RatesLen;
-		BOOLEAN LegacyBssExist;
+		bool LegacyBssExist;
 		CHAR RealRssi;
 		unsigned char *VarIE = NULL;
 		unsigned short LenVIE;
@@ -739,7 +739,7 @@ VOID APPeerBeaconAction(
 #ifdef WDS_SUPPORT
 		do {
 			PMAC_TABLE_ENTRY pEntry;
-			BOOLEAN bWmmCapable;
+			bool bWmmCapable;
 
 			/* check BEACON does in WDS TABLE. */
 			pEntry = WdsTableLookup(pAd, ie_list->Addr2, FALSE);
@@ -758,7 +758,7 @@ VOID APPeerBeaconAction(
 #ifdef DOT11N_DRAFT3
 		if (pAd->CommonCfg.bOverlapScanning == TRUE) {
 			INT		index,secChIdx;
-			BOOLEAN		found = FALSE;
+			bool		found = FALSE;
 			ADD_HTINFO *pAdd_HtInfo;
 
 			for (index = 0; index < pAd->ChannelListNum; index++) {
@@ -908,7 +908,7 @@ VOID APMlmeScanReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	BOOLEAN Cancelled;
+	bool Cancelled;
 	unsigned char Ssid[MAX_LEN_OF_SSID], SsidLen, ScanType, BssType;
 
 
@@ -1093,7 +1093,7 @@ VOID APScanCnclAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	BOOLEAN Cancelled;
+	bool Cancelled;
 
 	RTMPCancelTimer(&pAd->MlmeAux.APScanTimer, &Cancelled);
 	pAd->MlmeAux.Channel = 0;
@@ -1117,7 +1117,7 @@ VOID ApSiteSurvey(
 	IN	PRTMP_ADAPTER  		pAd,
 	IN	PNDIS_802_11_SSID	pSsid,
 	IN	unsigned char				ScanType,
-	IN	BOOLEAN				ChannelSel)
+	IN	bool				ChannelSel)
 {
 	MLME_SCAN_REQ_STRUCT    ScanReq;
 
@@ -1140,7 +1140,7 @@ VOID ApSiteSurvey(
 	RTMP_MLME_HANDLER(pAd);
 }
 
-BOOLEAN ApScanRunning(
+bool ApScanRunning(
 	IN PRTMP_ADAPTER pAd) {
 	return (pAd->Mlme.ApSyncMachine.CurrState == AP_SCAN_LISTEN) ? TRUE : FALSE;
 }

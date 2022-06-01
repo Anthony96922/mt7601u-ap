@@ -179,7 +179,7 @@ unsigned char * MATEngineTxHandle(
 	INT			i;
 	struct _MATProtoOps 	*pHandle = NULL;
 	unsigned char *  retSkb = NULL;
-	BOOLEAN bVLANPkt = FALSE;
+	bool bVLANPkt = FALSE;
 
 
 	if(pAd->MatCfg.status != MAT_ENGINE_STAT_INITED)
@@ -298,7 +298,7 @@ unsigned char * MATEngineRxHandle(
 }
 
 
-BOOLEAN MATPktRxNeedConvert(
+bool MATPktRxNeedConvert(
 		IN PRTMP_ADAPTER	pAd, 
 		IN PNET_DEV			net_dev)
 {

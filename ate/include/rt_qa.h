@@ -147,8 +147,8 @@ typedef struct __ATE_EX_PARAM
 	unsigned char BSSID[MAC_ADDR_LEN];
 	unsigned char MCS;
 	unsigned char PhyMode;
-	BOOLEAN ShortGI;
-	BOOLEAN BW;
+	bool ShortGI;
+	bool BW;
 	unsigned int Channel;
 	unsigned int TxLength;
 	unsigned int TxCount;

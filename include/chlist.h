@@ -53,7 +53,7 @@ typedef struct _CH_DESP {
 	unsigned char NumOfCh;
 	CHAR MaxTxPwr;			/* dBm */
 	unsigned char Geography;			/* 0:out door, 1:in door, 2:both */
-	BOOLEAN DfsReq;			/* Dfs require, 0: No, 1: yes. */
+	bool DfsReq;			/* Dfs require, 0: No, 1: yes. */
 } CH_DESP, *PCH_DESP;
 
 typedef struct _CH_REGION {
@@ -115,7 +115,7 @@ VOID BuildBeaconChList(
 #ifdef DOT11_N_SUPPORT
 VOID N_ChannelCheck(RTMP_ADAPTER *pAd);
 unsigned char N_SetCenCh(RTMP_ADAPTER *pAd, unsigned char channel);
-BOOLEAN N_ChannelGroupCheck(RTMP_ADAPTER *pAd, unsigned char channel);
+bool N_ChannelGroupCheck(RTMP_ADAPTER *pAd, unsigned char channel);
 
 #endif /* DOT11_N_SUPPORT */
 

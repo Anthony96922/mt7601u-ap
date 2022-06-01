@@ -232,7 +232,7 @@ unsigned char MlmeSelectTxRateAdapt(
 	IN CHAR		Rssi,
 	IN CHAR		RssiOffset);
 
-BOOLEAN MlmeRAHybridRule(
+bool MlmeRAHybridRule(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN RTMP_RA_GRP_TB *pCurrTxRate,

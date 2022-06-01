@@ -110,7 +110,7 @@ VOID AsicGetAutoAgcOffsetForExternalTxAlc(
 	IN char * 					pDeltaPowerByBbpR1)
 {
 	BBP_R49_STRUC	BbpR49;
-	BOOLEAN			bAutoTxAgc = FALSE;
+	bool			bAutoTxAgc = FALSE;
 	unsigned char			TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep, idx;
 	char *			pTxAgcCompensate = NULL;
 	CHAR    			DeltaPwr = 0;
@@ -321,7 +321,7 @@ VOID AsicAdjustTxPower(
 				for (j = 0; j < 8; j++)
 				{
 					CHAR _upbound, _lowbound, t_pwr;
-					BOOLEAN _bValid;
+					bool _bValid;
 
 					_lowbound = 0;
 					_bValid = TRUE;
@@ -703,7 +703,7 @@ VOID RTMPReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 	unsigned short value_1, value_2, value_3, value_4;
 	INT Apwrdelta, Gpwrdelta;
 	unsigned char t1, t2, t3, t4;
-	BOOLEAN bApwrdeltaMinus = TRUE, bGpwrdeltaMinus = TRUE;
+	bool bApwrdeltaMinus = TRUE, bGpwrdeltaMinus = TRUE;
 
 
 

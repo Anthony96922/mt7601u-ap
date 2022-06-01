@@ -258,7 +258,7 @@ VOID APMlmePeriodicExec(
  *  \pre
  *  \post
  */
-BOOLEAN APMsgTypeSubst(
+bool APMsgTypeSubst(
     IN PRTMP_ADAPTER pAd,
     IN PFRAME_802_11 pFrame, 
     OUT INT *Machine, 
@@ -266,7 +266,7 @@ BOOLEAN APMsgTypeSubst(
 {
     unsigned short Seq;
     unsigned char  EAPType;
-    BOOLEAN     Return = FALSE;
+    bool     Return = FALSE;
 #ifdef WSC_AP_SUPPORT
 	unsigned char EAPCode;
     PMAC_TABLE_ENTRY pEntry;

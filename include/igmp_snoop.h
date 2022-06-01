@@ -59,14 +59,14 @@ VOID MulticastFilterTableInit(
 VOID MultiCastFilterTableReset(
 	IN PMULTICAST_FILTER_TABLE *ppMulticastFilterTable);
 
-BOOLEAN MulticastFilterTableInsertEntry(
+bool MulticastFilterTableInsertEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pGrpId,
 	IN unsigned char * pMemberAddr,
 	IN PNET_DEV dev,
 	IN MulticastFilterEntryType type);
 
-BOOLEAN MulticastFilterTableDeleteEntry(
+bool MulticastFilterTableDeleteEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pGrpId,
 	IN unsigned char * pMemberAddr,
@@ -77,7 +77,7 @@ PMULTICAST_FILTER_TABLE_ENTRY MulticastFilterTableLookup(
 	IN unsigned char * pAddr,
 	IN PNET_DEV dev);
 
-BOOLEAN isIgmpPkt(
+bool isIgmpPkt(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader);
 
@@ -88,13 +88,13 @@ VOID IGMPSnooping(
 	IN unsigned char * pIpHeader,
 	IN PNET_DEV pDev);
 
-BOOLEAN isMldPkt(
+bool isMldPkt(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader,
 	OUT unsigned char *pProtoType,
 	OUT unsigned char * *pMldHeader);
 
-BOOLEAN IPv6MulticastFilterExcluded(
+bool IPv6MulticastFilterExcluded(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader);
 

@@ -388,7 +388,7 @@ INT	MT7601_Set_ATE_TX_BW_Proc(
 #ifdef RTMP_INTERNAL_TX_ALC
 
 
-BOOLEAN MT7601ATEGetTssiCompensationParam(
+bool MT7601ATEGetTssiCompensationParam(
 	IN 		PRTMP_ADAPTER 		pAd,
 	OUT 	char * 				TssiLinear0,
 	OUT 	char * 				TssiLinear1,

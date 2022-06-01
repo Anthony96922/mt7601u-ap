@@ -150,7 +150,7 @@ static VOID ApCliMlmeAuthReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	BOOLEAN             Cancelled;
+	bool             Cancelled;
 	NDIS_STATUS         NState;
 	unsigned char               Addr[MAC_ADDR_LEN];
 	unsigned short              Alg, Seq, Status;
@@ -231,7 +231,7 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	BOOLEAN         Cancelled;
+	bool         Cancelled;
 	unsigned char           Addr2[MAC_ADDR_LEN];
 	unsigned short          Seq, Status, Alg;
 	unsigned short          RemoteStatus;
@@ -387,7 +387,7 @@ static VOID ApCliPeerAuthRspAtSeq4Action(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	BOOLEAN     Cancelled;
+	bool     Cancelled;
 	unsigned char       Addr2[MAC_ADDR_LEN];
 	unsigned short      Alg, Seq, Status;
 	CHAR        ChlgText[CIPHER_TEXT_LEN];

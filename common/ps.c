@@ -138,7 +138,7 @@ VOID RtmpHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
 	IN	unsigned short			Aid,
-    IN	BOOLEAN			isActive)
+    IN	bool			isActive)
 { 
 	PQUEUE_ENTRY	  pEntry;
 	PMAC_TABLE_ENTRY  pMacEntry;
@@ -234,7 +234,7 @@ VOID RtmpHandleRxPsPoll(
 					In addtion, in Station Keep Alive mechanism, we need to
 					send a QoS Null frame to detect the station live status.
 				*/
-				BOOLEAN bQosNull = FALSE;
+				bool bQosNull = FALSE;
 
 				if (CLIENT_STATUS_TEST_FLAG(pMacEntry, fCLIENT_STATUS_WMM_CAPABLE))
 					bQosNull = TRUE;
@@ -307,7 +307,7 @@ VOID RtmpHandleRxPsPoll(
 		this client once IdleCount exceeds a threshold.
 	==========================================================================
  */
-BOOLEAN RtmpPsIndicate(
+bool RtmpPsIndicate(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr, 
 	IN unsigned long Wcid, 

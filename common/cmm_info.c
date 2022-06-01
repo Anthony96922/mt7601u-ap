@@ -115,7 +115,7 @@ INT Set_CountryRegionABand_Proc(
 INT	Set_Cmm_WirelessMode_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg,
-	IN	BOOLEAN			FlgIsDiffMbssModeUsed)
+	IN	bool			FlgIsDiffMbssModeUsed)
 {
 	INT	success = TRUE;
 #ifdef CONFIG_AP_SUPPORT
@@ -1302,7 +1302,7 @@ INT	Set_ResetStatCounter_Proc(
 }
 
 
-BOOLEAN RTMPCheckStrPrintAble(
+bool RTMPCheckStrPrintAble(
 	IN  CHAR *pInPutStr,
 	IN  unsigned char strLen)
 {
@@ -1346,16 +1346,16 @@ NDIS_STATUS RTMPWPARemoveKeyProc(
 	PNDIS_802_11_REMOVE_KEY pKey;
 	unsigned long					KeyIdx;
 	NDIS_STATUS 			Status = NDIS_STATUS_FAILURE;
-	BOOLEAN 	bTxKey; 		/* Set the key as transmit key*/
-	BOOLEAN 	bPairwise;		/* Indicate the key is pairwise key*/
-	BOOLEAN 	bKeyRSC;		/* indicate the receive  SC set by KeyRSC value.*/
+	bool 	bTxKey; 		/* Set the key as transmit key*/
+	bool 	bPairwise;		/* Indicate the key is pairwise key*/
+	bool 	bKeyRSC;		/* indicate the receive  SC set by KeyRSC value.*/
 								/* Otherwise, it will set by the NIC.*/
-	BOOLEAN 	bAuthenticator; /* indicate key is set by authenticator.*/
+	bool 	bAuthenticator; /* indicate key is set by authenticator.*/
 	INT 		i;
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 	unsigned char ifIndex;
-	BOOLEAN apcliEn=FALSE;
+	bool apcliEn=FALSE;
 	INT 		idx, BssIdx;
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 #endif/*APCLI_WPA_SUPPLICANT_SUPPORT*/
@@ -1623,7 +1623,7 @@ VOID	RTMPAddWcidAttributeEntry(
 	unsigned char		IVEIV = 0;
 	unsigned short		Wcid = 0;
 #ifdef CONFIG_AP_SUPPORT
-	BOOLEAN		IEEE8021X = FALSE;
+	bool		IEEE8021X = FALSE;
 #endif /* CONFIG_AP_SUPPORT */
 
 	{
@@ -3455,12 +3455,12 @@ static void dbQueueDisplayPHY(unsigned short phyRate)
 /* dbQueueDump - dump contents of debug queue*/
 static void dbQueueDump(
 	IN  PRTMP_ADAPTER   pAd,
-	BOOLEAN decode)
+	bool decode)
 {
 	DBQUEUE_ENTRY *oldTail;
 	int i, origMCS, succMCS;
 	unsigned long lastTimestamp=0;
-	BOOLEAN showTimestamp;
+	bool showTimestamp;
 	unsigned short phyRate;
 
 	if (dbqInit!=DBQ_INIT_SIG || dbqTail>=DBQ_LENGTH)
@@ -4694,7 +4694,7 @@ INT	Show_ModuleTxpower_Proc(
  	INT i=0;
  	POS_COOKIE pObj;
  	unsigned char ifIndex;
-	BOOLEAN bConnect=FALSE;
+	bool bConnect=FALSE;
  	
  	pObj = (POS_COOKIE) pAd->OS_Cookie;
  
@@ -5603,7 +5603,7 @@ INT	Set_ITxBfEn_Proc(
 {
 	unsigned char i;
 	unsigned char enableITxBF;
-	BOOLEAN bCalibrated;
+	bool bCalibrated;
 	unsigned char byteValue;
 
 	enableITxBF = simple_strtol(arg, 0, 10);
@@ -5872,7 +5872,7 @@ INT Set_RateAdaptInterval(
 #ifdef CONFIG_AP_SUPPORT
 			if (pAd->ApCfg.ApQuickResponeForRateUpTimerRunning == TRUE)
 			{
-				BOOLEAN Cancelled;
+				bool Cancelled;
 				
 				RTMPCancelTimer(&pAd->ApCfg.ApQuickResponeForRateUpTimer, &Cancelled);	
 				pAd->ApCfg.ApQuickResponeForRateUpTimerRunning = FALSE;

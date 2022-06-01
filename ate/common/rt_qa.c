@@ -453,7 +453,7 @@ static VOID ATE_BBPWrite(
 }
 
 
-BOOLEAN SyncTxRxConfig(PRTMP_ADAPTER pAd, unsigned short offset, unsigned char value)
+bool SyncTxRxConfig(PRTMP_ADAPTER pAd, unsigned short offset, unsigned char value)
 { 
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned char tmp = 0, bbp_data = 0;
@@ -1829,7 +1829,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_PHASE_CAL(
 {
 	SHORT    value = 0;
 	STRING    str[LEN_OF_ARG];
-	BOOLEAN	result = FALSE;
+	bool	result = FALSE;
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1839,7 +1839,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_PHASE_CAL(
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 
-	result = (BOOLEAN)Set_ATE_TXBF_CAL_Proc(pAd, str);
+	result = (bool)Set_ATE_TXBF_CAL_Proc(pAd, str);
 	pRaCfg->data[0] = result;
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status) + 1, NDIS_STATUS_SUCCESS);
@@ -1880,7 +1880,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	SHORT    value = 0;
 	STRING    str[LEN_OF_ARG];
-	BOOLEAN	result;
+	bool	result;
 
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_VERIFY\n"));
 
@@ -1888,7 +1888,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY(
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 
-	result = (BOOLEAN)Set_ATE_TXBF_VERIFY_Proc(pAd, str);
+	result = (bool)Set_ATE_TXBF_VERIFY_Proc(pAd, str);
 
 	pRaCfg->data[0] = result;
 	pRaCfg->data[1] = pATEInfo->calParams[0];
@@ -1907,7 +1907,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	SHORT    value = 0;
 	STRING    str[LEN_OF_ARG];
-	BOOLEAN	result;
+	bool	result;
 
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP\n"));
 
@@ -1915,7 +1915,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP(
 	value = OS_NTOHS(value);
 	snprintf((char *)str, sizeof(str), "%d", value);
 
-	result = (BOOLEAN)Set_ATE_TXBF_VERIFY_NoComp_Proc(pAd, str);
+	result = (bool)Set_ATE_TXBF_VERIFY_NoComp_Proc(pAd, str);
 
 	pRaCfg->data[0] = result;
 	pRaCfg->data[1] = pATEInfo->calParams[0];

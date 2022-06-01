@@ -418,7 +418,7 @@ VOID	RTMPInitMICEngine(
 	
 	========================================================================
 */
-BOOLEAN	RTMPTkipCompareMICValue(
+bool	RTMPTkipCompareMICValue(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pSrc,
 	IN	unsigned char *			pDA,
@@ -712,7 +712,7 @@ VOID RTMPTkipMixKey(
 	TRUE: Success!
 	FALSE: Decrypt Error!
 */
-BOOLEAN RTMPSoftDecryptTKIP(
+bool RTMPSoftDecryptTKIP(
 	IN 		PRTMP_ADAPTER 	pAd,
 	IN 		unsigned char *			pHdr,
 	IN 		unsigned char    		UserPriority,

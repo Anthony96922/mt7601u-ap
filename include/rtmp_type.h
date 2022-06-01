@@ -52,7 +52,6 @@ typedef signed int INT;
 typedef signed long LONG;
 typedef signed long long LONGLONG;
 
-typedef unsigned char BOOLEAN;
 #ifdef LINUX
 typedef void VOID;
 #endif /* LINUX */

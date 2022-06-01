@@ -36,7 +36,7 @@ INT Set_WfdEnable_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
-	BOOLEAN bEnable;
+	bool bEnable;
 
 	bEnable = simple_strtol(arg, 0, 10);
 
@@ -59,7 +59,7 @@ INT Set_WfdInsertIe_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
-	BOOLEAN bEnable;
+	bool bEnable;
 	CFG80211_CB *pCfg80211_CB = NULL;
 
 	pAd->StaCfg.WfdCfg.bSuppInsertWfdIe = FALSE;
@@ -639,7 +639,7 @@ VOID WfdParseSubElmt(
 	unsigned long		Length = 0;
 	unsigned long		AttriLen;
 	unsigned char		offset;
-	BOOLEAN		bTdlsEntry = FALSE;
+	bool		bTdlsEntry = FALSE;
 
 	DBGPRINT(RT_DEBUG_INFO, ("%s ----->\n", __FUNCTION__));
 

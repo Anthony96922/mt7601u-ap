@@ -109,7 +109,7 @@ INT ApCliIfLookUp(
 	return ifIndex;
 }
 
-BOOLEAN isValidApCliIf(
+bool isValidApCliIf(
 	SHORT ifIndex)
 {
 	if((ifIndex >= 0) && (ifIndex < MAX_APCLI_NUM))
@@ -165,7 +165,7 @@ VOID ApCliMgtMacHeaderInit(
 
 	========================================================================
 */
-BOOLEAN ApCliCheckHt(
+bool ApCliCheckHt(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned short IfIndex,
 	INOUT HT_CAPABILITY_IE *pHtCapability,
@@ -267,11 +267,11 @@ BOOLEAN ApCliCheckHt(
 
 	==========================================================================
 */
-BOOLEAN ApCliLinkUp(
+bool ApCliLinkUp(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char ifIndex)
 {
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	PAPCLI_STRUCT pApCliEntry = NULL;
 	PMAC_TABLE_ENTRY pMacEntry = NULL;
 	APCLI_STRUCT *wdev = &pAd->ApCfg.ApCliTab[ifIndex];
@@ -767,7 +767,7 @@ VOID ApCliIfMonitor(
 	{
 		unsigned char Wcid;
 		PMAC_TABLE_ENTRY pMacEntry;
-		BOOLEAN bForceBrocken = FALSE;
+		bool bForceBrocken = FALSE;
  
 		pApCliEntry = &pAd->ApCfg.ApCliTab[index]; 
 		if (pApCliEntry->Valid == TRUE)
@@ -808,7 +808,7 @@ VOID ApCliIfMonitor(
  *  \pre
  *  \post
  */
-BOOLEAN ApCliMsgTypeSubst(
+bool ApCliMsgTypeSubst(
 	IN PRTMP_ADAPTER pAd,
 	IN PFRAME_802_11 pFrame, 
 	OUT INT *Machine, 
@@ -816,7 +816,7 @@ BOOLEAN ApCliMsgTypeSubst(
 {
 	unsigned short Seq;
 	unsigned char EAPType; 
-	BOOLEAN Return = FALSE;
+	bool Return = FALSE;
 #ifdef WSC_AP_SUPPORT
 	unsigned char EAPCode;
     PMAC_TABLE_ENTRY pEntry;
@@ -904,7 +904,7 @@ BOOLEAN ApCliMsgTypeSubst(
 	return FALSE;
 }
 
-BOOLEAN preCheckMsgTypeSubset(
+bool preCheckMsgTypeSubset(
 	IN PRTMP_ADAPTER  pAd,
 	IN PFRAME_802_11 pFrame, 
 	OUT INT *Machine, 
@@ -945,7 +945,7 @@ BOOLEAN preCheckMsgTypeSubset(
 
     ==========================================================================
  */
-BOOLEAN ApCliPeerAssocRspSanity(
+bool ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *pMsg, 
     IN unsigned long MsgLen, 
@@ -1155,11 +1155,11 @@ MAC_TABLE_ENTRY *ApCliTableLookUpByWcid(
 		Check the WDS Entry is valid or not.
 	==========================================================================
  */
-static inline BOOLEAN ValidApCliEntry(
+static inline bool ValidApCliEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN INT apCliIdx)
 {
-	BOOLEAN result;
+	bool result;
 	PMAC_TABLE_ENTRY pMacEntry;
 	APCLI_STRUCT *pApCliEntry;
 	do
@@ -1198,13 +1198,13 @@ static inline BOOLEAN ValidApCliEntry(
 }
 
 
-BOOLEAN ApCliAllowToSendPacket(
+bool ApCliAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
 	OUT unsigned char		*pWcid)
 {
 	unsigned char apCliIdx;
-	BOOLEAN	allowed;
+	bool	allowed;
 		
 	/*DBGPRINT(RT_DEBUG_TRACE, ("ApCliAllowToSendPacket():Packet to ApCli interface!\n")); */
 	apCliIdx = RTMP_GET_PACKET_NET_DEVICE(pPacket) - MIN_NET_DEVICE_FOR_APCLI;
@@ -1246,7 +1246,7 @@ BOOLEAN ApCliAllowToSendPacket(
 		
 	========================================================================
 */
-BOOLEAN 	ApCliValidateRSNIE(
+bool 	ApCliValidateRSNIE(
 	IN		PRTMP_ADAPTER	pAd, 
 	IN 		PEID_STRUCT    	pEid_ptr,
 	IN		unsigned short			eid_len,
@@ -1735,7 +1735,7 @@ BOOLEAN 	ApCliValidateRSNIE(
 	return TRUE;	
 }
 
-BOOLEAN  ApCliHandleRxBroadcastFrame(
+bool  ApCliHandleRxBroadcastFrame(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN  MAC_TABLE_ENTRY *pEntry,
@@ -1806,7 +1806,7 @@ VOID APCliInstallPairwiseKey(
 }
 
 
-BOOLEAN APCliInstallSharedKey(
+bool APCliInstallSharedKey(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pKey,
 	IN  unsigned char           KeyLen,
@@ -1888,7 +1888,7 @@ VOID ApCliUpdateMlmeRate(
 	unsigned char	MinimumRate;
 	unsigned char	ProperMlmeRate; /*= RATE_54; */
 	unsigned char	i, j, RateIdx = 12; /* 1, 2, 5.5, 11, 6, 9, 12, 18, 24, 36, 48, 54 */
-	BOOLEAN	bMatch = FALSE;
+	bool	bMatch = FALSE;
 
 	switch (pAd->CommonCfg.PhyMode) 
 	{
@@ -2102,7 +2102,7 @@ VOID ApCli_Remove(
 }
 
 
-BOOLEAN ApCli_Open(
+bool ApCli_Open(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	PNET_DEV			dev_p)
 {
@@ -2126,7 +2126,7 @@ BOOLEAN ApCli_Open(
 } /* End of ApCli_Open */
 
 
-BOOLEAN ApCli_Close(
+bool ApCli_Close(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNET_DEV		dev_p)
 {

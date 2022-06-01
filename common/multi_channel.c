@@ -42,12 +42,12 @@ extern INT Set_P2p_OpMode_Proc(
 VOID RtmpPrepareHwNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN BOOLEAN bQosNull,
-	IN BOOLEAN bEOSP,
+	IN bool bQosNull,
+	IN bool bEOSP,
 	IN unsigned char OldUP,
 	IN unsigned char OpMode,
 	IN unsigned char PwrMgmt,
-	IN BOOLEAN bWaitACK,
+	IN bool bWaitACK,
 	IN CHAR Index)
 {
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
@@ -155,7 +155,7 @@ VOID RtmpPrepareHwNullFrame(
 VOID RTMPHwSendNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char TxRate,
-	IN BOOLEAN bQosNull,
+	IN bool bQosNull,
 	IN unsigned short PwrMgmt,
 	IN CHAR Index)
 {
@@ -242,8 +242,8 @@ VOID RtmpEnqueueLastNullFrame(
 	IN unsigned char TxRate,
 	IN unsigned char PID,
 	IN unsigned char apidx,
-    IN BOOLEAN bQosNull,
-    IN BOOLEAN bEOSP,
+    IN bool bQosNull,
+    IN bool bEOSP,
     IN unsigned char OldUP,
     IN unsigned char PwrMgmt,
 	IN unsigned char OpMode)
@@ -353,8 +353,8 @@ VOID ConcurrentP2PConnectTimeout(
 
 static VOID MACBuffer_Change(
     RTMP_ADAPTER *pAd,
-    BOOLEAN	hcca_to_edca,
-    BOOLEAN	edca_to_hcca)
+    bool	hcca_to_edca,
+    bool	edca_to_hcca)
 {
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	PAPCLI_STRUCT pApCliEntry = NULL;
@@ -363,7 +363,7 @@ static VOID MACBuffer_Change(
 	INT ret;
 	unsigned int MTxCycle;
 	unsigned int TimeStamp;
-	BOOLEAN bBlockIn2Out=FALSE;
+	bool bBlockIn2Out=FALSE;
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
 	INT ext_ch;
 
@@ -574,7 +574,7 @@ static VOID ProcessHCCAToEDCA(
 	unsigned int MacValue;
 	unsigned int i = 0;
 	INT ret;
-	BOOLEAN bBlockIn2Out=FALSE;
+	bool bBlockIn2Out=FALSE;
 	unsigned int Data;
 	
 	if (!P2P_INF_ON(pAd) && !P2P_GO_ON(pAd))
@@ -687,7 +687,7 @@ NDIS_STATUS MultiChannelThreadInit(
 	return status;
 }
 
-BOOLEAN MultiChannelThreadExit(
+bool MultiChannelThreadExit(
 	IN  PRTMP_ADAPTER pAd)
 {	
 	INT ret;
@@ -706,7 +706,7 @@ VOID MultiChannelTimerStop(
 	IN  PRTMP_ADAPTER pAd)
 {
 
-	BOOLEAN bCancelled = FALSE;
+	bool bCancelled = FALSE;
 	PAPCLI_STRUCT pApCliEntry = NULL;
 
 
@@ -725,7 +725,7 @@ VOID MultiChannelTimerStart(
 	IN MAC_TABLE_ENTRY  *pEntry)
 {
 
-		BOOLEAN				bCancelled = FALSE;
+		bool				bCancelled = FALSE;
 		
 		if (pAd->P2pCfg.bStartP2pConnect)
 		{
@@ -761,7 +761,7 @@ VOID MultiChannelSwitchToRa(
 	unsigned int MacValue, Data, Data2;
 	INT ret,i;
 	unsigned int MTxCycle;
-	BOOLEAN bBlockIn2Out=FALSE;
+	bool bBlockIn2Out=FALSE;
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
 
 	RTMP_OS_NETDEV_STOP_QUEUE(pApCliEntry->dev);
@@ -875,7 +875,7 @@ VOID MultiChannelSwitchToP2P(
 	unsigned int MacValue, Data, Data2;
 	INT ret;
 	unsigned int MTxCycle;
-	BOOLEAN bBlockIn2Out=FALSE;
+	bool bBlockIn2Out=FALSE;
 
 
 	RTMP_OS_NETDEV_STOP_QUEUE(pAd->net_dev);

@@ -52,7 +52,7 @@ static inline VOID FreeGrpMemberEntry(
 static VOID IGMPTableDisplay(
 	IN PRTMP_ADAPTER pAd);
 
-static BOOLEAN isIgmpMacAddr(
+static bool isIgmpMacAddr(
 	IN unsigned char * pMacAddr);
 
 static VOID InsertIgmpMember(
@@ -184,7 +184,7 @@ static VOID IGMPTableDisplay(
         Add and new entry into MAC table
     ==========================================================================
  */
-BOOLEAN MulticastFilterTableInsertEntry(
+bool MulticastFilterTableInsertEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pGrpId,
 	IN unsigned char * pMemberAddr,
@@ -334,7 +334,7 @@ BOOLEAN MulticastFilterTableInsertEntry(
         Delete a specified client from MAC table
     ==========================================================================
  */
-BOOLEAN MulticastFilterTableDeleteEntry(
+bool MulticastFilterTableDeleteEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pGrpId,
 	IN unsigned char * pMemberAddr,
@@ -585,7 +585,7 @@ VOID IGMPSnooping(
 }
 
 
-static BOOLEAN isIgmpMacAddr(
+static bool isIgmpMacAddr(
 	IN unsigned char * pMacAddr)
 {
 	if((pMacAddr[0] == 0x01)
@@ -595,7 +595,7 @@ static BOOLEAN isIgmpMacAddr(
 	return FALSE;
 }
 
-BOOLEAN isIgmpPkt(
+bool isIgmpPkt(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader)
 {
@@ -767,7 +767,7 @@ INT Set_IgmpSn_Enable_Proc(
 
 	Enable = (unsigned int) simple_strtol(arg, 0, 10);
 
-	pAd->ApCfg.IgmpSnoopEnable = (BOOLEAN)(Enable == 0 ? FALSE : TRUE);
+	pAd->ApCfg.IgmpSnoopEnable = (bool)(Enable == 0 ? FALSE : TRUE);
 	DBGPRINT(RT_DEBUG_TRACE, ("%s:: %s\n", __FUNCTION__, Enable == TRUE ? "Enable IGMP Snooping":"Disable IGMP Snooping"));
 
 	return TRUE;
@@ -778,7 +778,7 @@ INT Set_IgmpSn_AddEntry_Proc(
 	IN char * arg)
 {
 	INT i;
-	BOOLEAN bGroupId = 1;
+	bool bGroupId = 1;
 	char * value;
 	char * thisChar;
 	unsigned char IpAddr[4];
@@ -867,7 +867,7 @@ INT Set_IgmpSn_DelEntry_Proc(
 	IN char * arg)
 {
 	INT i, memberCnt = 0;
-	BOOLEAN bGroupId = 1;
+	bool bGroupId = 1;
 	char * value;
 	char * thisChar;
 	unsigned char IpAddr[4];
@@ -983,7 +983,7 @@ NDIS_STATUS IgmpPktInfoQuery(
 {
 	if(IS_MULTICAST_MAC_ADDR(pSrcBufVA))
 	{
-		BOOLEAN IgmpMldPkt = FALSE;
+		bool IgmpMldPkt = FALSE;
 		unsigned char * pIpHeader = pSrcBufVA + 12;
 
 		if(ntohs(*((unsigned short *)(pIpHeader))) == ETH_P_IPV6)
@@ -1040,7 +1040,7 @@ NDIS_STATUS IgmpPktClone(
 	unsigned char Rate;
 	unsigned long IrqFlags;
 	INT MacEntryIdx;
-	BOOLEAN bContinue;
+	bool bContinue;
 	unsigned char * pMemberAddr = NULL;
 
 	bContinue = FALSE;
@@ -1201,16 +1201,16 @@ NDIS_STATUS IgmpPktClone(
 	return NDIS_STATUS_SUCCESS;
 }
 
-static inline BOOLEAN isMldMacAddr(
+static inline bool isMldMacAddr(
 	IN unsigned char * pMacAddr)
 {
 	return ((pMacAddr[0] == 0x33) && (pMacAddr[1] == 0x33)) ? TRUE : FALSE;
 }
 
-static inline BOOLEAN IsSupportedMldMsg(
+static inline bool IsSupportedMldMsg(
 	IN unsigned char MsgType) 
 {
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	switch(MsgType)
 	{
 		case MLD_V1_LISTENER_REPORT:
@@ -1226,13 +1226,13 @@ static inline BOOLEAN IsSupportedMldMsg(
 	return result;
 }
 
-BOOLEAN isMldPkt(
+bool isMldPkt(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader,
 	OUT unsigned char *pProtoType,
 	OUT unsigned char * *pMldHeader)
 {
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	unsigned short IpProtocol = ntohs(*((unsigned short *)(pIpHeader)));
 
 	if(!isMldMacAddr(pDstMacAddr))
@@ -1272,11 +1272,11 @@ BOOLEAN isMldPkt(
 	return result;
 }
 
-BOOLEAN IPv6MulticastFilterExcluded(
+bool IPv6MulticastFilterExcluded(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader)
 {
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	unsigned short IpProtocol = ntohs(*((unsigned short *)(pIpHeader)));
 	INT idx;
 	unsigned char nextProtocol;

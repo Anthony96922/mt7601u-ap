@@ -225,7 +225,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 	unsigned char UpRateIdx = 0, DownRateIdx = 0, CurrRateIdx = 0;
 	RTMP_RA_AGS_TB *pCurrTxRate = NULL;
 	RTMP_RA_LEGACY_TB *pNextTxRate = NULL;
-	BOOLEAN bTxRateChanged = TRUE, bUpgradeQuality = FALSE;
+	bool bTxRateChanged = TRUE, bUpgradeQuality = FALSE;
 	unsigned char TrainUp = 0, TrainDown = 0, next_grp;
 	CHAR RssiOffset = 0;
 	unsigned long TxTotalCnt, TxErrorRatio = 0;
@@ -730,7 +730,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 
 	do
 	{
-		BOOLEAN	bTrainUpDown = FALSE;
+		bool	bTrainUpDown = FALSE;
 		
 		DBGPRINT_RAW(RT_DEBUG_INFO | DBG_FUNC_RA,
 					("%s: AGS: TxQuality[CurrRateIdx(%d)] = %d, UpPenalty:%d\n",
@@ -910,7 +910,7 @@ VOID ApQuickResponeForRateUpExecAGS(
 	unsigned char UpRateIdx = 0, DownRateIdx = 0, CurrRateIdx = 0;
 	RTMP_RA_AGS_TB *pCurrTxRate = NULL;
 	RTMP_RA_LEGACY_TB *pNextTxRate = NULL;
-	BOOLEAN bTxRateChanged = TRUE;
+	bool bTxRateChanged = TRUE;
 	unsigned char TrainUp = 0, TrainDown = 0;
 	CHAR ratio = 0;
 	unsigned long OneSecTxNoRetryOKRationCount = 0;

@@ -38,7 +38,7 @@ unsigned char PowerConstraintIE[3] = {IE_POWER_CONSTRAINT, 1, 3};
 		0: mean need to send Beacon for the service.
 	==========================================================================
 */
-BOOLEAN BeaconTransmitRequired(
+bool BeaconTransmitRequired(
 	IN RTMP_ADAPTER *pAd,
 	IN INT apidx,
 	IN MULTISSID_STRUCT *pMbss)
@@ -46,7 +46,7 @@ BOOLEAN BeaconTransmitRequired(
 #ifdef WDS_SUPPORT
 	unsigned char idx;
 #endif /* WDS_SUPPORT */
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 
 	do {
 #ifdef WDS_SUPPORT
@@ -284,7 +284,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 	COMMON_CONFIG *pComCfg;
 	unsigned char PhyMode;
 #ifdef WSC_AP_SUPPORT
-	BOOLEAN bHasWpsIE = FALSE;
+	bool bHasWpsIE = FALSE;
 #endif /* ifdef WSC_AP_SUPPORT */
 	unsigned int i;
 	HTTRANSMIT_SETTING BeaconTransmit = {.word = 0}; /* MGMT frame PHY rate setting when operatin at Ht rate. */
@@ -498,7 +498,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 			unsigned long infoPos;
 			unsigned char * pInfo;
 			unsigned char extInfoLen;
-			BOOLEAN	bNeedAppendExtIE = FALSE;
+			bool	bNeedAppendExtIE = FALSE;
 			EXT_CAP_INFO_ELEMENT extCapInfo;
 
 			extInfoLen = sizeof(EXT_CAP_INFO_ELEMENT);
@@ -886,7 +886,7 @@ VOID APUpdateAllBeaconFrame(
 	INT i;
 #ifdef DOT11_N_SUPPORT
 #ifdef DOT11N_DRAFT3
-	BOOLEAN FlgQloadIsAlarmIssued = FALSE;
+	bool FlgQloadIsAlarmIssued = FALSE;
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
 

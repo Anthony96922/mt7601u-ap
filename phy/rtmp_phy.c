@@ -178,7 +178,7 @@ INT rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT ext_ch)
 INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
 {
 	unsigned char val, old_val = 0;
-	BOOLEAN bstop = FALSE;
+	bool bstop = FALSE;
 	unsigned int Data, MTxCycle, macStatus;
 
 
@@ -236,7 +236,7 @@ INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
 }
 
 
-INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower)
+INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
 {
 	unsigned char bbp_val, org_val;
 	

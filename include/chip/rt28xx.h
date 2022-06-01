@@ -31,7 +31,7 @@
 VOID RT28xx_ChipSwitchChannel(
 	IN struct _RTMP_ADAPTER 	*pAd,
 	IN unsigned char					Channel,
-	IN BOOLEAN					bScan);
+	IN bool					bScan);
 
 #endif /* RT28xx */
 

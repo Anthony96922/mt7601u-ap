@@ -53,7 +53,7 @@
 	__pAd, __VLAN_VID, __VLAN_Priority, __FromWhichBSSID)
 #endif /* WDS_VLAN_SUPPORT */
 
-static inline BOOLEAN WDS_IF_UP_CHECK(
+static inline bool WDS_IF_UP_CHECK(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  unsigned long ifidx)
 {
@@ -82,13 +82,13 @@ MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 	IN  unsigned char * pAddr,
 	unsigned int WdsTabIdx);
 
-BOOLEAN MacTableDeleteWDSEntry(
+bool MacTableDeleteWDSEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned short wcid,
 	IN unsigned char * pAddr);
 
 
-BOOLEAN ApWdsAllowToSendPacket(
+bool ApWdsAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
 	OUT	unsigned char		*pWcid);
@@ -97,12 +97,12 @@ MAC_TABLE_ENTRY *WdsTableLookupByWcid(
     IN  PRTMP_ADAPTER   pAd, 
 	IN unsigned char wcid,
 	IN unsigned char * pAddr,
-	IN BOOLEAN bResetIdelCount);
+	IN bool bResetIdelCount);
 
 MAC_TABLE_ENTRY *WdsTableLookup(
     IN  PRTMP_ADAPTER   pAd, 
     IN  unsigned char *          pAddr,
-	IN BOOLEAN bResetIdelCount);
+	IN bool bResetIdelCount);
 
 MAC_TABLE_ENTRY *FindWdsEntry(
 	IN PRTMP_ADAPTER	pAd,
@@ -133,7 +133,7 @@ VOID WdsPeerBeaconProc(
 	IN unsigned short CapabilityInfo,
 	IN unsigned char MaxSupportedRateIn500Kbps,
 	IN unsigned char MaxSupportedRateLen,
-	IN BOOLEAN bWmmCapable,
+	IN bool bWmmCapable,
 	IN unsigned long ClientRalinkIe,
 	IN HT_CAPABILITY_IE *pHtCapability,
 	IN unsigned char HtCapabilityLen);
@@ -161,7 +161,7 @@ VOID WDS_Init(
 VOID WDS_Remove(
 	IN	PRTMP_ADAPTER				pAd);
 
-BOOLEAN WDS_StatsGet(
+bool WDS_StatsGet(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	RT_CMD_STATS				*pStats);
 
@@ -176,11 +176,11 @@ VOID AP_WDS_KeyNameMakeUp(
 		Check the WDS Entry is valid or not.
 	==========================================================================
  */
-static inline BOOLEAN ValidWdsEntry(
+static inline bool ValidWdsEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char WdsIndex)
 {
-	BOOLEAN result;
+	bool result;
 	PMAC_TABLE_ENTRY pMacEntry;
 
 	do

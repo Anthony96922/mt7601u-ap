@@ -61,7 +61,7 @@ typedef struct _STA_CTRL_JOIN_REQ_STRUCT {
 	unsigned short	Status;
 } APCLI_CTRL_MSG_STRUCT, *PSTA_CTRL_MSG_STRUCT;
 
-BOOLEAN isValidApCliIf(
+bool isValidApCliIf(
 	SHORT ifIndex);
 
 /* */
@@ -102,12 +102,12 @@ MAC_TABLE_ENTRY *ApCliTableLookUpByWcid(
 	IN unsigned char * pAddrs);
 
 
-BOOLEAN ApCliAllowToSendPacket(
+bool ApCliAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
 	OUT unsigned char		*pWcid);
 	
-BOOLEAN 	ApCliValidateRSNIE(
+bool 	ApCliValidateRSNIE(
 	IN		PRTMP_ADAPTER	pAd, 
 	IN 		PEID_STRUCT    	pEid_ptr,
 	IN		unsigned short			eid_len,
@@ -147,14 +147,14 @@ VOID ApCliMgtMacHeaderInit(
     IN unsigned short ifIndex);
 
 #ifdef DOT11_N_SUPPORT
-BOOLEAN ApCliCheckHt(
+bool ApCliCheckHt(
 	IN		PRTMP_ADAPTER 		pAd,
 	IN		unsigned short 				IfIndex,
 	IN OUT	HT_CAPABILITY_IE 	*pHtCapability,
 	IN OUT	ADD_HT_INFO_IE 		*pAddHtInfo);
 #endif /* DOT11_N_SUPPORT */
 
-BOOLEAN ApCliLinkUp(
+bool ApCliLinkUp(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char ifIndex);
 
@@ -171,19 +171,19 @@ VOID ApCliIfDown(
 VOID ApCliIfMonitor(
 	IN PRTMP_ADAPTER pAd);
 
-BOOLEAN ApCliMsgTypeSubst(
+bool ApCliMsgTypeSubst(
 	IN PRTMP_ADAPTER  pAd,
 	IN PFRAME_802_11 pFrame, 
 	OUT INT *Machine, 
 	OUT INT *MsgType);
 
-BOOLEAN preCheckMsgTypeSubset(
+bool preCheckMsgTypeSubset(
 	IN PRTMP_ADAPTER  pAd,
 	IN PFRAME_802_11 pFrame, 
 	OUT INT *Machine, 
 	OUT INT *MsgType);
 
-BOOLEAN ApCliPeerAssocRspSanity(
+bool ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *pMsg, 
     IN unsigned long MsgLen, 
@@ -218,14 +218,14 @@ VOID	ApCliPeerGroupMsg1Action(
     IN MAC_TABLE_ENTRY  *pEntry,
     IN MLME_QUEUE_ELEM  *Elem);
 
-BOOLEAN ApCliCheckRSNIE(
+bool ApCliCheckRSNIE(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pData,
 	IN  unsigned char           DataLen,
 	IN  MAC_TABLE_ENTRY *pEntry,
 	OUT	unsigned char			*Offset);
 
-BOOLEAN ApCliParseKeyData(
+bool ApCliParseKeyData(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pKeyData,
 	IN  unsigned char           KeyDataLen,
@@ -233,7 +233,7 @@ BOOLEAN ApCliParseKeyData(
 	IN	unsigned char			IfIdx,
 	IN	unsigned char			bPairewise);
 
-BOOLEAN  ApCliHandleRxBroadcastFrame(
+bool  ApCliHandleRxBroadcastFrame(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN  MAC_TABLE_ENTRY *pEntry,
@@ -243,7 +243,7 @@ VOID APCliInstallPairwiseKey(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  MAC_TABLE_ENTRY *pEntry);
 
-BOOLEAN APCliInstallSharedKey(
+bool APCliInstallSharedKey(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pKey,
 	IN  unsigned char           KeyLen,
@@ -257,15 +257,15 @@ VOID APCli_Init(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	RTMP_OS_NETDEV_OP_HOOK		*pNetDevOps);
 
-BOOLEAN ApCli_Open(
+bool ApCli_Open(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	PNET_DEV			dev_p);
 
-BOOLEAN ApCli_Close(
+bool ApCli_Close(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNET_DEV		dev_p);
 
-BOOLEAN ApCliWaitProbRsp(
+bool ApCliWaitProbRsp(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned short ifIndex);
 

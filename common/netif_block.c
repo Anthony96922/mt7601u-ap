@@ -21,7 +21,7 @@ void initblockQueueTab(
 	return;
 }
 
-BOOLEAN blockNetIf(
+bool blockNetIf(
 	IN PBLOCK_QUEUE_ENTRY pBlockQueueEntry,
 	IN PNET_DEV pNetDev)
 {
@@ -68,7 +68,7 @@ VOID StopNetIfQueue(
 {
 	PNET_DEV NetDev = NULL;
 	unsigned char IfIdx = 0;
-	BOOLEAN valid = FALSE;
+	bool valid = FALSE;
 
 
 #ifdef APCLI_SUPPORT

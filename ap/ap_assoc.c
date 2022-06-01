@@ -30,7 +30,7 @@
 
 static void ap_assoc_info_debugshow(
 	IN RTMP_ADAPTER *pAd,
-	IN BOOLEAN isReassoc,
+	IN bool isReassoc,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN IE_LISTS *ie_list)
 {
@@ -95,7 +95,7 @@ static unsigned short update_associated_mac_entry(
 {
 	MULTISSID_STRUCT *wdev;
 #ifdef TXBF_SUPPORT
-	BOOLEAN	 supportsETxBF = FALSE;
+	bool	 supportsETxBF = FALSE;
 #endif // TXBF_SUPPORT //
 
 
@@ -558,7 +558,7 @@ static unsigned short APBuildAssociation(
  Note:
  ========================================================================
 */
-static BOOLEAN IAPP_L2_Update_Frame_Send(
+static bool IAPP_L2_Update_Frame_Send(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *mac_p,
 	IN INT bssid)
@@ -581,7 +581,7 @@ static BOOLEAN IAPP_L2_Update_Frame_Send(
 VOID ap_cmm_peer_assoc_req_action(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem,
-	IN BOOLEAN isReassoc)
+	IN bool isReassoc)
 {
 	IE_LISTS *ie_list = NULL;
 	HEADER_802_11 AssocRspHdr;
@@ -599,7 +599,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	unsigned char *sAssoc = isReassoc ? (unsigned char *) "ReASSOC" : (unsigned char *) "ASSOC";
 #endif /* DBG */
 	unsigned char SubType;
-	BOOLEAN bACLReject = FALSE;
+	bool bACLReject = FALSE;
 #ifdef DOT1X_SUPPORT
 	unsigned char * pPmkid = NULL;
 	unsigned char pmkid_count = 0;
@@ -701,7 +701,7 @@ VOID ap_cmm_peer_assoc_req_action(
 		{
 			if (MAC_ADDR_EQUAL(pEntry->Addr, wdev->WscControl.EntryAddr))
 			{
-				BOOLEAN Cancelled;
+				bool Cancelled;
 				RTMPZeroMemory(wdev->WscControl.EntryAddr, MAC_ADDR_LEN);
 				RTMPCancelTimer(&wdev->WscControl.EapolTimer, &Cancelled);
 				wdev->WscControl.EapolTimerRunning = FALSE;
@@ -930,7 +930,7 @@ VOID ap_cmm_peer_assoc_req_action(
 			unsigned long TmpLen, infoPos;
 			unsigned char * pInfo;
 			unsigned char extInfoLen;
-			BOOLEAN bNeedAppendExtIE = FALSE;
+			bool bNeedAppendExtIE = FALSE;
 			EXT_CAP_INFO_ELEMENT extCapInfo;
 
 			extInfoLen = sizeof(EXT_CAP_INFO_ELEMENT);

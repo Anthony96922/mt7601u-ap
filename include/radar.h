@@ -42,11 +42,11 @@ typedef struct _DOT11_H {
 	unsigned short RDCount; 	/*Radar detection counter, if RDCount >  ChMovingTime, start to send beacons*/
 	unsigned char RDMode;		/*Radar Detection mode */
 	unsigned short ChMovingTime;
-	BOOLEAN bDFSIndoor;
+	bool bDFSIndoor;
 	unsigned long InServiceMonitorCount;	/* unit: sec */
 } DOT11_H, *PDOT11_H;
 
-BOOLEAN RadarChannelCheck(
+bool RadarChannelCheck(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			Ch);
 

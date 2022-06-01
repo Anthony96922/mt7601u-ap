@@ -30,7 +30,7 @@ typedef struct _RTMP_DRV_ABL_OPS {
 
 NDIS_STATUS	(*RTMPAllocAdapterBlock)(void * handle, VOID **ppAdapter);
 VOID (*RTMPFreeAdapter)(VOID *pAd);
-BOOLEAN (*RtmpRaDevCtrlExit)(VOID *pAd);
+bool (*RtmpRaDevCtrlExit)(VOID *pAd);
 INT (*RtmpRaDevCtrlInit)(VOID *pAd, RTMP_INF_TYPE infType);
 VOID (*RTMPHandleInterrupt)(VOID *pAd);
 INT (*RTMP_COM_IoctlHandle)(
@@ -185,7 +185,7 @@ VOID RtmpNetOpsSet(VOID *pNetOpsOrg);
 
 NDIS_STATUS RTMPAllocAdapterBlock(void * handle, VOID **ppAdapter);
 VOID RTMPFreeAdapter(VOID *pAd);
-BOOLEAN RtmpRaDevCtrlExit(VOID *pAd);
+bool RtmpRaDevCtrlExit(VOID *pAd);
 INT RtmpRaDevCtrlInit(VOID *pAd, RTMP_INF_TYPE infType);
 VOID RTMPHandleInterrupt(VOID *pAd);
 
@@ -290,7 +290,7 @@ PNET_DEV RtmpPhyNetDevInit(
 	IN VOID						*pAd,
 	IN RTMP_OS_NETDEV_OP_HOOK	*pNetHook);
 
-BOOLEAN RtmpPhyNetDevExit(
+bool RtmpPhyNetDevExit(
 	IN VOID						*pAd, 
 	IN PNET_DEV					net_dev);
 

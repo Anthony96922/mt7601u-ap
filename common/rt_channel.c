@@ -1805,7 +1805,7 @@ VOID BuildBeaconChList(
 #endif /* EXT_BUILD_CHANNEL_LIST */
 
 #ifdef DOT11_N_SUPPORT
-static BOOLEAN IsValidChannel(
+static bool IsValidChannel(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char channel)
 
@@ -1838,11 +1838,11 @@ static unsigned char GetExtCh(
 	return ExtCh;
 }
 
-BOOLEAN N_ChannelGroupCheck(
+bool N_ChannelGroupCheck(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char Channel)
 {
-	BOOLEAN	RetVal = FALSE;
+	bool	RetVal = FALSE;
 	
 	if (Channel > 14)
 	{

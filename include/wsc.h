@@ -80,7 +80,7 @@ typedef	struct GNU_PACKED _EAP_FRAME	{
 	unsigned char	Type;						/* 1 = Identity, 0xfe = reserved, used by WSC */
 }	EAP_FRAME, *PEAP_FRAME;
 
-static inline BOOLEAN WscCheckWSCHeader(
+static inline bool WscCheckWSCHeader(
     IN  unsigned char *              pData)
 {
     PWSC_FRAME			pWsc;
@@ -525,9 +525,9 @@ typedef	struct	_WSC_REG_DATA
 
 /* WSC UPnP node info. */
 typedef struct _WSC_UPNP_NODE_INFO{
-	BOOLEAN				bUPnPInProgress;
-	BOOLEAN				bUPnPMsgTimerRunning;
-	BOOLEAN				bUPnPMsgTimerPending;
+	bool				bUPnPInProgress;
+	bool				bUPnPMsgTimerRunning;
+	bool				bUPnPMsgTimerPending;
 	unsigned int				registrarID;
 	RALINK_TIMER_STRUCT   UPnPMsgTimer;
 }WSC_UPNP_NODE_INFO, *PWSC_UPNP_NODE_INFO;
@@ -566,8 +566,8 @@ typedef	struct	_WSC_TLV {
 
 typedef	struct	_WSC_V2_INFO {
 	WSC_TLV			ExtraTlv;
-	BOOLEAN			bWpsEnable;		/* FALSE: disable WSC , TRUE: enable WSC */
-	BOOLEAN			bEnableWpsV2;	/* FALSE: not support WSC 2.0, TRUE: support WSC 2.0 */
+	bool			bWpsEnable;		/* FALSE: disable WSC , TRUE: enable WSC */
+	bool			bEnableWpsV2;	/* FALSE: not support WSC 2.0, TRUE: support WSC 2.0 */
 } WSC_V2_INFO, *PWSC_V2_INFO;
 #endif /* WSC_V2_SUPPORT */
 
@@ -583,7 +583,7 @@ typedef	struct	_WSC_CTRL
 	INT             WscState;    	/* WSC Protocl State: M1 to M8 */
 	unsigned int            WscPinCode;     /* record the UI's PIN code input when we are registrar */
 	unsigned char			WscPinCodeLen;	/* record the UI's PIN code input length when we are registrar */
-	BOOLEAN         WscEnrollee4digitPinCode;  /* flag to use 4 or 8 digit Device own PIN code. */
+	bool         WscEnrollee4digitPinCode;  /* flag to use 4 or 8 digit Device own PIN code. */
 	unsigned int            WscEnrolleePinCode; /* recored Device own PIN code. */
 	unsigned char			WscEnrolleePinCodeLen; /* recored Device own PIN code length */
 	INT             WscSelReg;     /* record the UI's PIN code input when we are registrar */
@@ -593,47 +593,47 @@ typedef	struct	_WSC_CTRL
 	WSC_REG_DATA	RegData;		/* Registrar pair data */
 	unsigned char           lastId;
 	unsigned char           WscUseUPnP;
-	BOOLEAN         EapMsgRunning;  /* already recived Eap-Rsp(Identity) and sent M1 or Eap-Req(Start) */
+	bool         EapMsgRunning;  /* already recived Eap-Rsp(Identity) and sent M1 or Eap-Req(Start) */
 	unsigned char           WscRetryCount;
 	unsigned char           EntryIfIdx;
 	unsigned char           EntryAddr[MAC_ADDR_LEN];
-	BOOLEAN         Wsc2MinsTimerRunning;
+	bool         Wsc2MinsTimerRunning;
 	RALINK_TIMER_STRUCT   Wsc2MinsTimer;
 	WSC_PROFILE			WscProfile;		/* Saved WSC profile after M8 */
 	WSC_UPNP_NODE_INFO	WscUPnPNodeInfo;	/*Use to save UPnP node related info. */
 
-    BOOLEAN             EapolTimerRunning; 
-    BOOLEAN             EapolTimerPending;
+    bool             EapolTimerRunning; 
+    bool             EapolTimerPending;
     RALINK_TIMER_STRUCT   EapolTimer;
 
-	BOOLEAN                 WscPBCTimerRunning;
+	bool                 WscPBCTimerRunning;
     RALINK_TIMER_STRUCT     WscPBCTimer;
-    BOOLEAN                 WscScanTimerRunning;
+    bool                 WscScanTimerRunning;
     RALINK_TIMER_STRUCT     WscScanTimer;
-	BOOLEAN                 WscProfileRetryTimerRunning;
+	bool                 WscProfileRetryTimerRunning;
 	RALINK_TIMER_STRUCT		WscProfileRetryTimer;
 #ifdef WSC_LED_SUPPORT
 	unsigned long					WscLEDMode; /* WPS LED mode: LED_WPS_XXX definitions. */
 	unsigned long					WscLastWarningLEDMode; /* LED_WPS_ERROR or LED_WPS_SESSION_OVERLAP_DETECTED */
-	BOOLEAN 				bSkipWPSTurnOffLED; /* Skip the WPS turn off LED command. */
-	BOOLEAN 				WscLEDTimerRunning;
+	bool 				bSkipWPSTurnOffLED; /* Skip the WPS turn off LED command. */
+	bool 				WscLEDTimerRunning;
 	RALINK_TIMER_STRUCT 	WscLEDTimer;
-	BOOLEAN 				WscSkipTurnOffLEDTimerRunning;
+	bool 				WscSkipTurnOffLEDTimerRunning;
 	RALINK_TIMER_STRUCT 	WscSkipTurnOffLEDTimer;
 	/* This variable is TRUE after the 120 seconds WPS walk time expiration. */
 	/* Note that in the case of LED mode 9, the error LED should be turned on only after WPS walk time expiration */
 	/* if the NIC cannot find any WPS PBC-enabled APs in the last scanning result. */
-	BOOLEAN 				bWPSWalkTimeExpiration;
+	bool 				bWPSWalkTimeExpiration;
 #endif /* WSC_LED_SUPPORT */
     unsigned char               WpaPsk[64];
     INT                 WpaPskLen;
-    BOOLEAN             bWscTrigger;        /* TRUE: AP-Enrollee & AP-Registrar work, FALSE: AP-Enrollee & AP-Registrar stop working */
+    bool             bWscTrigger;        /* TRUE: AP-Enrollee & AP-Registrar work, FALSE: AP-Enrollee & AP-Registrar stop working */
     void *               pAd;
     unsigned int                WscLastPinFromEnrollee;
-    BOOLEAN             WscRejectSamePinFromEnrollee;
+    bool             WscRejectSamePinFromEnrollee;
 #ifdef CONFIG_AP_SUPPORT
 	NDIS_802_11_SSID	    WscDefaultSsid;		/* Default WPS SSID after WPS process complete with Enrollee when AP is un-configured Registrar. */
-	BOOLEAN					bWCNTest;
+	bool					bWCNTest;
 #endif /* CONFIG_AP_SUPPORT */
 	INT					WscKeyASCII; 		/*WscKeyASCII (0:Hex, 1:ASCII(random length), others: ASCII length(8~63, default 8)) */
 	INT					WscActionMode;
@@ -645,36 +645,36 @@ typedef	struct	_WSC_CTRL
 	unsigned char Flags;
 
 	WSC_PEER_DEV_INFO	WscPeerInfo;
-	BOOLEAN				bCheckMultiByte;
+	bool				bCheckMultiByte;
 #ifdef WSC_V2_SUPPORT
 	WSC_V2_INFO				WscV2Info;
 #endif /* WSC_V2_SUPPORT */
 	RALINK_TIMER_STRUCT WscUpdatePortCfgTimer;
-	BOOLEAN 			WscUpdatePortCfgTimerRunning;
+	bool 			WscUpdatePortCfgTimerRunning;
 #ifdef CONFIG_AP_SUPPORT
 	RALINK_TIMER_STRUCT WscSetupLockTimer;
-	BOOLEAN 			WscSetupLockTimerRunning;
+	bool 			WscSetupLockTimerRunning;
 	RALINK_TIMER_STRUCT WscPinAttackCountCheckTimer;
-	BOOLEAN 			WscPinAttackCountCheckTimerRunning;
-	BOOLEAN				bSetupLock;
+	bool 			WscPinAttackCountCheckTimerRunning;
+	bool				bSetupLock;
 	unsigned char				PinAttackCount;
 	unsigned char				MaxPinAttack;
 	unsigned int				SetupLockTime; /* unit: minute */
 #endif /* CONFIG_AP_SUPPORT */
-	BOOLEAN				bWscAutoTigeer;
-	BOOLEAN				bWscFragment;
+	bool				bWscAutoTigeer;
+	bool				bWscFragment;
 	unsigned char *				pWscRxBuf;
 	INT					WscRxBufLen;
 	unsigned short				WscFragSize;
 	INT					WscTxBufLen;
 	unsigned char *				pWscTxBuf;
-	BOOLEAN				bWscLastOne;
-	BOOLEAN				bWscFirstOne;
+	bool				bWscLastOne;
+	bool				bWscFirstOne;
 	unsigned char *				pWscCurBufIdx;
 	NDIS_SPIN_LOCK		WscPeerListSemLock;
 	LIST_HEADER			WscPeerList;
 	RALINK_TIMER_STRUCT M2DTimer;
-	BOOLEAN				bM2DTimerRunning;
+	bool				bM2DTimerRunning;
 	INT					M2DACKBalance;
 }	WSC_CTRL, *PWSC_CTRL;
 

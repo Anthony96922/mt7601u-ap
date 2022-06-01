@@ -7,8 +7,8 @@ typedef struct _CmdQElmt {
 	unsigned int command;
 	void * buffer;
 	unsigned long bufferlength;
-	BOOLEAN CmdFromNdis;
-	BOOLEAN SetOperation;
+	bool CmdFromNdis;
+	bool SetOperation;
 	struct _CmdQElmt *next;
 } CmdQElmt, *PCmdQElmt;
 
@@ -331,8 +331,8 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_KEY {
 typedef struct __CMD_RTPRIV_IOCTL_80211_CONNECT {
 
 	unsigned char WpaVer;
-	BOOLEAN FlgIs8021x;
-	BOOLEAN FlgIsAuthOpen;
+	bool FlgIs8021x;
+	bool FlgIsAuthOpen;
 
 #define RT_CMD_80211_CONN_ENCRYPT_NONE	0x01
 #define RT_CMD_80211_CONN_ENCRYPT_WEP	0x02
@@ -388,7 +388,7 @@ typedef struct __RT_CMD_PARAM_SET {
 
 typedef struct __RT_CMD_SHARED_KEY_ADD {
 	IN unsigned char KeyIdx;
-	IN BOOLEAN FlgHaveGTK;
+	IN bool FlgHaveGTK;
 } RT_CMD_SHARED_KEY_ADD;
 
 typedef struct __RT_CMD_MBSS_KICKOUT {

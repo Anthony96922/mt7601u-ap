@@ -55,7 +55,7 @@ typedef struct _IPv6MacMappingEntry
 
 typedef struct _IPv6MacMappingTable
 {
-	BOOLEAN			valid;
+	bool			valid;
 	IPv6MacMappingEntry *hash[MAT_MAX_HASH_ENTRY_SUPPORT+1]; /*0~63 for specific station, 64 for broadcast MacAddress */
 	unsigned char			curMcastAddr[MAC_ADDR_LEN];	/* The multicast mac addr for currecnt received packet destined to ipv6 multicast addr */
 }IPv6MacMappingTable;
@@ -69,7 +69,7 @@ struct _MATProtoOps MATProtoIPv6Handle =
 	.exit = MATProto_IPv6_Exit,
 };
 
-static inline BOOLEAN needUpdateIPv6MacTB(
+static inline bool needUpdateIPv6MacTB(
 	unsigned char 			*pMac,
 	RT_IPV6_ADDR 	*pIPv6Addr)
 {
@@ -420,7 +420,7 @@ static PNDIS_PACKET ICMPv6_Handle_Tx(
 	unsigned int ICMPOffset = 0, ICMPMsgLen = 0, leftLen;
 	
 	PNDIS_PACKET newSkb = NULL;
-	BOOLEAN needModify = FALSE;
+	bool needModify = FALSE;
 	unsigned char * pSrcMac;
 
 	pIPv6Hdr = (RT_IPV6_HDR *)pLayerHdr;
@@ -606,7 +606,7 @@ static unsigned char * MATProto_IPv6_Tx(
 	IN unsigned char *			pDevMacAdr)
 {
 	unsigned char * pSrcMac, pSrcIP;
-	BOOLEAN needUpdate;
+	bool needUpdate;
 	unsigned char nextProtocol;
 	unsigned int offset;	
 	HEADER_802_3 *pEthHdr;
@@ -767,7 +767,7 @@ static NDIS_STATUS MATProto_IPv6_Init(
 	IN MAT_STRUCT 	*pMatCfg)
 {
 
-	BOOLEAN status = FALSE;
+	bool status = FALSE;
 
 	status = IPv6MacTable_init(pMatCfg);
 	

@@ -480,7 +480,7 @@ typedef union GNU_PACKED _BSS_2040_COEXIST_IE{
 
 
 typedef struct  _TRIGGER_EVENTA{
-	BOOLEAN			bValid;	 
+	bool			bValid;	 
 	unsigned char	BSSID[6];	
 	unsigned char	RegClass;	/* Regulatory Class */
 	unsigned short	Channel;
@@ -575,12 +575,12 @@ typedef struct GNU_PACKED _SEC_CHA_OFFSET_IE{
 
 /* This structure is extracted from struct RT_HT_CAPABILITY and RT_VHT_CAP */
 typedef struct _RT_PHY_INFO{
-	BOOLEAN		bHtEnable;	 /* If we should use ht rate. */
-	BOOLEAN		bPreNHt;	 /* If we should use ht rate. */
+	bool		bHtEnable;	 /* If we should use ht rate. */
+	bool		bPreNHt;	 /* If we should use ht rate. */
 	/*Substract from HT Capability IE */
 	unsigned char		MCSSet[16];
 #ifdef DOT11_VHT_AC
-	BOOLEAN 	bVhtEnable;
+	bool 	bVhtEnable;
 	unsigned char 		vht_bw;
 	VHT_MCS_SET vht_mcs_set;
 #endif /* DOT11_VHT_AC */
@@ -1024,7 +1024,7 @@ typedef struct GNU_PACKED _HT_EXT_CHANNEL_SWITCH_ANNOUNCEMENT_IE{
 /* Contention-free parameter (without ID and Length) */
 /* */
 typedef struct GNU_PACKED _CF_PARM{
-    BOOLEAN     bValid;         /* 1: variable contains valid value */
+    bool     bValid;         /* 1: variable contains valid value */
     unsigned char       CfpCount;
     unsigned char       CfpPeriod;
     unsigned short      CfpMaxDuration;
@@ -1036,30 +1036,30 @@ typedef	struct _CIPHER_SUITE {
 	NDIS_802_11_ENCRYPTION_STATUS	PairCipherAux;	/* Unicast cipher 2 if AP announce two unicast cipher suite */
 	NDIS_802_11_ENCRYPTION_STATUS	GroupCipher;	/* Group cipher */
 	unsigned short							RsnCapability;	/* RSN capability from beacon */
-	BOOLEAN							bMixMode;		/* Indicate Pair & Group cipher might be different */
+	bool							bMixMode;		/* Indicate Pair & Group cipher might be different */
 }	CIPHER_SUITE, *PCIPHER_SUITE;
 	
 
 /* EDCA configuration from AP's BEACON/ProbeRsp */
 typedef struct {
-    BOOLEAN     bValid;         /* 1: variable contains valid value */
-    BOOLEAN     bAdd;         /* 1: variable contains valid value */
-    BOOLEAN     bQAck;
-    BOOLEAN     bQueueRequest;
-    BOOLEAN     bTxopRequest;
-    BOOLEAN     bAPSDCapable;
-/*  BOOLEAN     bMoreDataAck; */
+    bool     bValid;         /* 1: variable contains valid value */
+    bool     bAdd;         /* 1: variable contains valid value */
+    bool     bQAck;
+    bool     bQueueRequest;
+    bool     bTxopRequest;
+    bool     bAPSDCapable;
+/*  bool     bMoreDataAck; */
     unsigned char       EdcaUpdateCount;
     unsigned char       Aifsn[4];       /* 0:AC_BK, 1:AC_BE, 2:AC_VI, 3:AC_VO */
     unsigned char       Cwmin[4];
     unsigned char       Cwmax[4];
     unsigned short      Txop[4];      /* in unit of 32-us */
-    BOOLEAN     bACM[4];      /* 1: Admission Control of AC_BK is mandattory */
+    bool     bACM[4];      /* 1: Admission Control of AC_BK is mandattory */
 } EDCA_PARM, *PEDCA_PARM;
 
 /* QBSS LOAD information from QAP's BEACON/ProbeRsp */
 typedef struct {
-    BOOLEAN     bValid;                     /* 1: variable contains valid value */
+    bool     bValid;                     /* 1: variable contains valid value */
     unsigned short      StaNum;
     unsigned char       ChannelUtilization;
     unsigned short      RemainingAdmissionControl;  /* in unit of 32-us */
@@ -1111,11 +1111,11 @@ typedef struct GNU_PACKED _QBSS_AP_INFO_PARM{
 /* QOS Capability reported in QAP's BEACON/ProbeRsp */
 /* QOS Capability sent out in QSTA's AssociateReq/ReAssociateReq */
 typedef struct {
-    BOOLEAN     bValid;                     /* 1: variable contains valid value */
-    BOOLEAN     bQAck;
-    BOOLEAN     bQueueRequest;
-    BOOLEAN     bTxopRequest;
-/*  BOOLEAN     bMoreDataAck; */
+    bool     bValid;                     /* 1: variable contains valid value */
+    bool     bQAck;
+    bool     bQueueRequest;
+    bool     bTxopRequest;
+/*  bool     bMoreDataAck; */
     unsigned char       EdcaUpdateCount;
 } QOS_CAPABILITY_PARM, *PQOS_CAPABILITY_PARM;
 
@@ -1167,7 +1167,7 @@ typedef struct {
 	unsigned long   LastBeaconRxTimeA; /* OS's timestamp */
     unsigned long   LastBeaconRxTime; /* OS's timestamp */
 
-	BOOLEAN	bSES;
+	bool	bSES;
 
 	/* New for WPA2 */
 	CIPHER_SUITE					WPA;			/* AP announced WPA cipher suite */
@@ -1229,7 +1229,7 @@ typedef struct _MLME_QUEUE_ELEM {
     unsigned char             Signal;
     unsigned char             Channel;
     unsigned char             Wcid;
-    BOOLEAN           Occupied;
+    bool           Occupied;
 	unsigned char			  OpMode;
 	unsigned long             Priv;
 } MLME_QUEUE_ELEM, *PMLME_QUEUE_ELEM;
@@ -1323,7 +1323,7 @@ typedef struct _MLME_AUX {
     unsigned long               BssIdx;
     unsigned long               RoamIdx;
 
-	BOOLEAN				CurrReqIsFromNdis;
+	bool				CurrReqIsFromNdis;
 
     RALINK_TIMER_STRUCT BeaconTimer, ScanTimer, APScanTimer;
     RALINK_TIMER_STRUCT AuthTimer;
@@ -1451,9 +1451,9 @@ typedef struct _IE_lists {
 	unsigned char SupportedRates[MAX_LEN_OF_SUPPORTED_RATES];
 	unsigned char RSN_IE[MAX_LEN_OF_RSNIE];
 	unsigned char RSNIE_Len;
-	BOOLEAN bWmmCapable;
+	bool bWmmCapable;
 #ifdef WSC_AP_SUPPORT
-	BOOLEAN bWscCapable;
+	bool bWscCapable;
 #endif /* WSC_AP_SUPPORT */
 	unsigned long RalinkIe;
 	EXT_CAP_INFO_ELEMENT ExtCapInfo;

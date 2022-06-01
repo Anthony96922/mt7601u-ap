@@ -384,7 +384,7 @@ INT RT28xxATETxPwrHandler(
 	unsigned long R;
 	CHAR TxPower = 0;
 	unsigned char Bbp94 = 0;
-	BOOLEAN bPowerReduce = FALSE;
+	bool bPowerReduce = FALSE;
 
 #ifdef RALINK_QA
 	if ((pATEInfo->bQATxStart == TRUE) || (pATEInfo->bQARxStart == TRUE))

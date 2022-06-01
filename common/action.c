@@ -475,7 +475,7 @@ VOID SendBSS2040CoexistMgmtAction(
 
 
 
-BOOLEAN ChannelSwitchSanityCheck(
+bool ChannelSwitchSanityCheck(
 	IN	PRTMP_ADAPTER	pAd,
 	IN    unsigned char  Wcid,
 	IN    unsigned char  NewChannel,
@@ -619,7 +619,7 @@ VOID PeerPublicAction(
 #ifdef CONFIG_AP_SUPPORT
 				IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 				{
-					BOOLEAN		bNeedFallBack = FALSE;
+					bool		bNeedFallBack = FALSE;
 									
 					/*ApPublicAction(pAd, Elem);*/
 					if ((pBssCoexistIe->field.BSS20WidthReq ==1) || (pBssCoexistIe->field.Intolerant40 == 1))

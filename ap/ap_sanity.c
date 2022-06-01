@@ -48,9 +48,9 @@ extern unsigned char    WPS_OUI[];
     ==========================================================================
  */
 
-BOOLEAN PeerAssocReqCmmSanity(
+bool PeerAssocReqCmmSanity(
 	RTMP_ADAPTER *pAd, 
-	BOOLEAN isReassoc,
+	bool isReassoc,
 	VOID *Msg,
 	INT MsgLen,
 	IE_LISTS *ie_lists)
@@ -365,7 +365,7 @@ BOOLEAN PeerAssocReqCmmSanity(
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
  */
-BOOLEAN PeerDisassocReqSanity(
+bool PeerDisassocReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN unsigned long MsgLen, 
@@ -391,7 +391,7 @@ BOOLEAN PeerDisassocReqSanity(
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
  */
-BOOLEAN PeerDeauthReqSanity(
+bool PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN unsigned long MsgLen, 
@@ -417,7 +417,7 @@ BOOLEAN PeerDeauthReqSanity(
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
  */
-BOOLEAN APPeerAuthSanity(
+bool APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
     IN unsigned long MsgLen, 

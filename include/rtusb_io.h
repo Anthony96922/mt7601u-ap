@@ -140,8 +140,8 @@ typedef struct _RT_ASIC_SHARED_KEY {
 typedef struct _RT_ASIC_PROTECT_INFO {
 	unsigned short OperationMode;
 	unsigned char SetMask;	
-	BOOLEAN bDisableBGProtect;
-	BOOLEAN bNonGFExist;	
+	bool bDisableBGProtect;
+	bool bNonGFExist;	
 } RT_ASIC_PROTECT_INFO, *PRT_ASIC_PROTECT_INFO;
 
 /******************************************************************************

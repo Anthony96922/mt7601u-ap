@@ -64,7 +64,7 @@ VOID RtmpDmaEnable(
 	IN PRTMP_ADAPTER pAd,
 	IN INT Enable)
 {
-	BOOLEAN value;
+	bool value;
 	unsigned long WaitCnt;
 	USB_DMA_CFG_STRUC UsbCfg;
 	
@@ -92,18 +92,18 @@ VOID RtmpDmaEnable(
 static VOID ATEWriteTxWI(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TXWI_STRUC *pTxWI,
-	IN	BOOLEAN			FRAG,	
-	IN	BOOLEAN			InsTimestamp,
-	IN	BOOLEAN 		AMPDU,
-	IN	BOOLEAN 		Ack,
-	IN	BOOLEAN 		NSeq,		/* HW new a sequence. */
+	IN	bool			FRAG,	
+	IN	bool			InsTimestamp,
+	IN	bool 		AMPDU,
+	IN	bool 		Ack,
+	IN	bool 		NSeq,		/* HW new a sequence. */
 	IN	unsigned char			BASize,
 	IN	unsigned char			WCID,
 	IN	unsigned long			Length,
 	IN	unsigned char 			PID,
 	IN	unsigned char			MIMOps,
 	IN	unsigned char			Txopmode,	
-	IN	BOOLEAN			CfAck,	
+	IN	bool			CfAck,	
 	IN	HTTRANSMIT_SETTING	Transmit)
 {
 	OPSTATUS_CLEAR_FLAG(pAd, fOP_STATUS_SHORT_PREAMBLE_INUSED);
@@ -149,7 +149,7 @@ static VOID ATEWriteTxInfo(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TXINFO_STRUC *pTxInfo,
 	IN	unsigned short		USBDMApktLen,
-	IN	BOOLEAN		bWiv,
+	IN	bool		bWiv,
 	IN	unsigned char			QueueSel,
 	IN	unsigned char			NextValid,
 	IN	unsigned char			TxBurst)

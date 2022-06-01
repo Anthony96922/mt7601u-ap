@@ -527,7 +527,7 @@ struct _RTMP_CHIP_CAP_ {
 	unsigned char RfReg17WtMethod;
 
 	/* beacon */
-	BOOLEAN FlgIsSupSpecBcnBuf;	/* SPECIFIC_BCN_BUF_SUPPORT */
+	bool FlgIsSupSpecBcnBuf;	/* SPECIFIC_BCN_BUF_SUPPORT */
 	unsigned char BcnMaxNum;	/* software use */
 	unsigned char BcnMaxHwNum;	/* hardware limitation */
 	unsigned char WcidHwRsvNum;	/* hardware available WCID number */
@@ -536,7 +536,7 @@ struct _RTMP_CHIP_CAP_ {
 	
 	/* function */
 	/* use unsigned char, not bit-or to speed up driver */
-	BOOLEAN FlgIsHwWapiSup;
+	bool FlgIsHwWapiSup;
 
 	/* VCO calibration mode */
 	unsigned char	VcoPeriod; /* default 10s */
@@ -546,16 +546,16 @@ struct _RTMP_CHIP_CAP_ {
 #define VCO_CAL_MODE_3		3	/* toggle RF4[7] */	
 	unsigned char	FlgIsVcoReCalMode;
 
-	BOOLEAN FlgIsHwAntennaDiversitySup;
-	BOOLEAN FlgSwBasedPPAD;
+	bool FlgIsHwAntennaDiversitySup;
+	bool FlgSwBasedPPAD;
 #ifdef STREAM_MODE_SUPPORT
-	BOOLEAN FlgHwStreamMode;
+	bool FlgHwStreamMode;
 #endif /* STREAM_MODE_SUPPORT */
 #ifdef TXBF_SUPPORT
-	BOOLEAN FlgHwTxBfCap;
+	bool FlgHwTxBfCap;
 #endif /* TXBF_SUPPORT */
 #ifdef FIFO_EXT_SUPPORT
-	BOOLEAN FlgHwFifoExtCap;
+	bool FlgHwFifoExtCap;
 #endif /* FIFO_EXT_SUPPORT */
 
 
@@ -563,7 +563,7 @@ struct _RTMP_CHIP_CAP_ {
 	enum PHY_CAP phy_caps;
 	
 #ifdef TXRX_SW_ANTDIV_SUPPORT
-	BOOLEAN bTxRxSwAntDiv;
+	bool bTxRxSwAntDiv;
 #endif /* TXRX_SW_ANTDIV_SUPPORT */
 
 	/* ---------------------------- signal ---------------------------------- */
@@ -574,9 +574,9 @@ struct _RTMP_CHIP_CAP_ {
 
 	unsigned char MaxNss;			/* maximum Nss, 3 for 3883 or 3593 */
 
-	BOOLEAN bTempCompTxALC;
+	bool bTempCompTxALC;
 
-	BOOLEAN bLimitPowerRange; /* TSSI compensation range limit */
+	bool bLimitPowerRange; /* TSSI compensation range limit */
 
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION)
 	unsigned char TxAlcTxPowerUpperBound_2G;
@@ -600,7 +600,7 @@ struct _RTMP_CHIP_CAP_ {
 #ifdef MT7601
 	CHAR	TemperatureRef25C;
 	unsigned char	TemperatureMode;
-	BOOLEAN	bPllLockProtect;
+	bool	bPllLockProtect;
 	CHAR	CurrentTemperBbpR49;
 	int	TemperatureDPD;					// temperature when do DPD calibration
 	int	CurrentTemperature;					// (BBP_R49 - Ref25C) * offset
@@ -656,7 +656,7 @@ struct _RTMP_CHIP_CAP_ {
 	unsigned int WlanMemmapOffset;
 	unsigned int InbandPacketMaxLen;
 	unsigned char CmdRspRxRing;
-	BOOLEAN IsComboChip;
+	bool IsComboChip;
 #endif
 
 #ifdef SINGLE_SKU_V2
@@ -696,9 +696,9 @@ struct _RTMP_CHIP_OP_ {
 	/* MCU related callback functions */
 	int (*loadFirmware)(struct _RTMP_ADAPTER *pAd);
 	int (*eraseFirmware)(struct _RTMP_ADAPTER *pAd);
-	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1, BOOLEAN FlgIsNeedLocked);	/* int (*sendCommandToMcu)(RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1); */
+	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1, bool FlgIsNeedLocked);	/* int (*sendCommandToMcu)(RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1); */
 #ifdef CONFIG_ANDES_SUPPORT
-	int (*sendCommandToAndesMcu)(struct _RTMP_ADAPTER *pAd, unsigned char QueIdx, unsigned char cmd, unsigned char *pData, unsigned short DataLen, BOOLEAN FlgIsNeedLocked);
+	int (*sendCommandToAndesMcu)(struct _RTMP_ADAPTER *pAd, unsigned char QueIdx, unsigned char cmd, unsigned char *pData, unsigned short DataLen, bool FlgIsNeedLocked);
 #endif /* CONFIG_ANDES_SUPPORT */
 
 	void (*AsicRfInit)(struct _RTMP_ADAPTER *pAd);
@@ -707,11 +707,11 @@ struct _RTMP_CHIP_OP_ {
 
 	void (*AsicRfTurnOn)(struct _RTMP_ADAPTER *pAd);
 	void (*AsicRfTurnOff)(struct _RTMP_ADAPTER *pAd);
-	void (*AsicReverseRfFromSleepMode)(struct _RTMP_ADAPTER *pAd, BOOLEAN FlgIsInitState);
+	void (*AsicReverseRfFromSleepMode)(struct _RTMP_ADAPTER *pAd, bool FlgIsInitState);
 	void (*AsicHaltAction)(struct _RTMP_ADAPTER *pAd);
 
 	/* Power save */
-	VOID (*EnableAPMIMOPS)(IN struct _RTMP_ADAPTER *pAd, IN BOOLEAN ReduceCorePower);
+	VOID (*EnableAPMIMOPS)(IN struct _RTMP_ADAPTER *pAd, IN bool ReduceCorePower);
 	VOID (*DisableAPMIMOPS)(IN struct _RTMP_ADAPTER *pAd);
 
 	/* Chip tuning */
@@ -728,7 +728,7 @@ struct _RTMP_CHIP_OP_ {
 	unsigned char (*ChipAGCAdjust)(struct _RTMP_ADAPTER *pAd, CHAR Rssi, unsigned char OrigR66Value);
 	
 	/* Channel */
-	VOID (*ChipSwitchChannel)(struct _RTMP_ADAPTER *pAd, unsigned char ch, BOOLEAN bScan);
+	VOID (*ChipSwitchChannel)(struct _RTMP_ADAPTER *pAd, unsigned char ch, bool bScan);
 
 	/* IQ Calibration */
 	VOID (*ChipIQCalibration)(struct _RTMP_ADAPTER *pAd, unsigned char Channel);
@@ -1073,9 +1073,9 @@ VOID NetDevNickNameInit(IN struct _RTMP_ADAPTER *pAd);
 
 
 #ifdef GREENAP_SUPPORT
-VOID EnableAPMIMOPSv2(struct _RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower);
+VOID EnableAPMIMOPSv2(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
 VOID DisableAPMIMOPSv2(struct _RTMP_ADAPTER *pAd);
-VOID EnableAPMIMOPSv1(struct _RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower);
+VOID EnableAPMIMOPSv1(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
 VOID DisableAPMIMOPSv1(struct _RTMP_ADAPTER *pAd);
 #endif /* GREENAP_SUPPORT */
 
@@ -1088,8 +1088,8 @@ extern FREQUENCY_ITEM *FreqItems3020;
 extern RTMP_RF_REGS RF2850RegTable[];
 extern unsigned char NUM_OF_2850_CHNL;
 
-BOOLEAN AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us);
-INT AsicSetPreTbttInt(struct _RTMP_ADAPTER *pAd, BOOLEAN enable);
+bool AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us);
+INT AsicSetPreTbttInt(struct _RTMP_ADAPTER *pAd, bool enable);
 INT AsicReadAggCnt(struct _RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len);
 
 #endif /* __RTMP_CHIP_H__ */

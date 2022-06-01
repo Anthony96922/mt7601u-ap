@@ -205,7 +205,7 @@ typedef struct _NewDFSMPeriod {
 
 
 typedef struct _NewDFSParam {
-	BOOLEAN valid;
+	bool valid;
 	unsigned char mode;
 	unsigned short avgLen;
 	unsigned short ELow;
@@ -318,30 +318,30 @@ typedef struct _RADAR_DETECT_STRUCT {
 	unsigned long TimeStamp; /*unit: 1us*/
 	unsigned char ChirpCheck; /* anounce on second detection of chirp radar */
 	unsigned char bChannelSwitchInProgress; /* RDMode could cover this*/
-	BOOLEAN bDfsSwDisable; /* disable sotfwre check */
-	BOOLEAN bDfsInit;		/* to indicate if dfs regs has been initialized */
+	bool bDfsSwDisable; /* disable sotfwre check */
+	bool bDfsInit;		/* to indicate if dfs regs has been initialized */
 	unsigned short PollTime;
 	INT DfsRssiHigh;
 	INT DfsRssiLow;
-	BOOLEAN DfsRssiHighFromCfg;
-	BOOLEAN DfsRssiLowFromCfg;
-	BOOLEAN DfsRssiHighCfgValid;
-	BOOLEAN DfsRssiLowCfgValid;	
-	BOOLEAN DFSParamFromConfig;	
-	BOOLEAN use_tasklet;	
+	bool DfsRssiHighFromCfg;
+	bool DfsRssiLowFromCfg;
+	bool DfsRssiHighCfgValid;
+	bool DfsRssiLowCfgValid;	
+	bool DFSParamFromConfig;	
+	bool use_tasklet;	
 	DFS_VERSION dfs_func;
-	BOOLEAN DFSWatchDogIsRunning;
+	bool DFSWatchDogIsRunning;
 	unsigned char radarDeclared;
-	BOOLEAN SymRoundFromCfg;
-	BOOLEAN SymRoundCfgValid;
+	bool SymRoundFromCfg;
+	bool SymRoundCfgValid;
 	unsigned long idle_time;
 	unsigned long busy_time;
 	unsigned char ch_busy;
 	CHAR	ch_busy_countdown;
 	unsigned char	busy_channel;
 	unsigned char ch_busy_idle_ratio;
-	BOOLEAN BusyIdleFromCfg;
-	BOOLEAN BusyIdleCfgValid;
+	bool BusyIdleFromCfg;
+	bool BusyIdleCfgValid;
 	unsigned char print_ch_busy_sta;
 	unsigned long ch_busy_sta[CH_BUSY_SAMPLE];
 	unsigned long ch_idle_sta[CH_BUSY_SAMPLE];
@@ -404,7 +404,7 @@ VOID NewRadarDetectionProgram(
 	IN PRTMP_ADAPTER pAd,
 	IN pNewDFSTable pDFS2Table);
 
-BOOLEAN DfsSwCheckOnHwDetection(
+bool DfsSwCheckOnHwDetection(
 	 IN PRTMP_ADAPTER pAd,
 	 IN pNewDFSTable pDFS2Table,
 	 IN unsigned char DfsChannel,

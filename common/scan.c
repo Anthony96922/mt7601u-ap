@@ -248,7 +248,7 @@ static INT scan_active(RTMP_ADAPTER *pAd, unsigned char OpMode, unsigned char Sc
 #ifdef WSC_STA_SUPPORT
 	if (OpMode == OPMODE_STA)
 	{
-		BOOLEAN bHasWscIe = FALSE;
+		bool bHasWscIe = FALSE;
 		/* 
 			Append WSC information in probe request if WSC state is running
 		*/
@@ -311,7 +311,7 @@ VOID ScanNextChannel(
 {
 	unsigned char ScanType = pAd->MlmeAux.ScanType;
 	unsigned int ScanTimeIn5gChannel = SHORT_CHANNEL_TIME;
-	BOOLEAN ScanPending = FALSE;
+	bool ScanPending = FALSE;
 	RALINK_TIMER_STRUCT *sc_timer;
 	unsigned int stay_time = 0;
 
@@ -395,10 +395,10 @@ VOID ScanNextChannel(
 }
 
 
-BOOLEAN ScanRunning(
+bool ScanRunning(
 		IN PRTMP_ADAPTER pAd)
 {
-	BOOLEAN	rv = FALSE;
+	bool	rv = FALSE;
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef AP_SCAN_SUPPORT

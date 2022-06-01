@@ -283,7 +283,7 @@ static VOID	WscParseEncrSettings(
 		
 	========================================================================
 */
-static BOOLEAN	WscProcessCredential(
+static bool	WscProcessCredential(
 	IN	PRTMP_ADAPTER		pAdapter, 
 	IN	unsigned char *				pPlainData,
 	IN	INT					PlainLength,
@@ -293,7 +293,7 @@ static BOOLEAN	WscProcessCredential(
 	unsigned char *			pData, pTmp;
 	PWSC_PROFILE	pProfile;
 #ifdef WSC_V2_SUPPORT
-	BOOLEAN			bReject = FALSE;
+	bool			bReject = FALSE;
 #endif /* WSC_V2_SUPPORT */
 
 	pData  = pPlainData;

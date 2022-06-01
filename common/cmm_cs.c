@@ -86,7 +86,7 @@ INT Set_CarrierDetect_Proc(
 
 	Enable = (unsigned int) simple_strtol(arg, 0, 10);
 
-	pAd->CommonCfg.CarrierDetect.Enable = (BOOLEAN)(Enable == 0 ? FALSE : TRUE);
+	pAd->CommonCfg.CarrierDetect.Enable = (bool)(Enable == 0 ? FALSE : TRUE);
 	
 	RTMP_CHIP_RADAR_GLRT_COMPENSATE(pAd);
 	RTMP_CHIP_CCK_MRC_STATUS_CTRL(pAd);	

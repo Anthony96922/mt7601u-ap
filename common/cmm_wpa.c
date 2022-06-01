@@ -487,7 +487,7 @@ VOID RTMPToWirelessSta(
     IN  unsigned int            	HdrLen,
     IN  unsigned char *          	pData,
     IN  unsigned int            	DataLen,
-    IN	BOOLEAN				bClearFrame)
+    IN	bool				bClearFrame)
 {
     PNDIS_PACKET    pPacket;
     NDIS_STATUS     Status;
@@ -553,7 +553,7 @@ VOID RTMPToWirelessSta(
         FALSE otherwise
     ==========================================================================
  */
-BOOLEAN PeerWpaMessageSanity(
+bool PeerWpaMessageSanity(
     IN 	PRTMP_ADAPTER 		pAd, 
     IN 	PEAPOL_PACKET 		pMsg, 
     IN 	unsigned long 				MsgLen, 
@@ -562,8 +562,8 @@ BOOLEAN PeerWpaMessageSanity(
 {
 	unsigned char			mic[LEN_KEY_DESC_MIC], digest[80]; /*, KEYDATA[MAX_LEN_OF_RSNIE];*/
 	unsigned char			*KEYDATA = NULL;
-	BOOLEAN			bReplayDiff = FALSE;
-	BOOLEAN			bWPA2 = FALSE;
+	bool			bReplayDiff = FALSE;
+	bool			bWPA2 = FALSE;
 	KEY_INFO		EapolKeyInfo;	
 	unsigned char			GroupKeyIndex = 0;
 
@@ -1054,7 +1054,7 @@ VOID PeerPairMsg2Action(
     IN MLME_QUEUE_ELEM  *Elem) 
 {   
 	unsigned char				PTK[80];
-    BOOLEAN             Cancelled;
+    bool             Cancelled;
     PHEADER_802_11      pHeader;
 	unsigned char   			*mpool;
 	PEAPOL_PACKET		pEapolFrame;
@@ -1396,7 +1396,7 @@ VOID PeerPairMsg4Action(
 	PEAPOL_PACKET   	pMsg4;    
     PHEADER_802_11      pHeader;
     unsigned int            	MsgLen;
-    BOOLEAN             Cancelled;
+    bool             Cancelled;
 	unsigned char		group_cipher = Ndis802_11WEPDisabled;
 
     DBGPRINT(RT_DEBUG_TRACE, ("===> PeerPairMsg4Action\n"));
@@ -1619,7 +1619,7 @@ VOID	PeerGroupMsg1Action(
 	unsigned char				group_cipher = Ndis802_11WEPDisabled;
 	unsigned char *				pCurrentAddr = NULL;
 #ifdef APCLI_SUPPORT
-	BOOLEAN             Cancelled;
+	bool             Cancelled;
 #endif /* APCLI_SUPPORT */
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("===> PeerGroupMsg1Action \n"));
@@ -1770,7 +1770,7 @@ VOID MlmeDeAuthAction(
     IN PRTMP_ADAPTER    pAd, 
     IN MAC_TABLE_ENTRY  *pEntry,
 	IN unsigned short           Reason,
-	IN BOOLEAN          bDataFrameFirst)
+	IN bool          bDataFrameFirst)
 {
     unsigned char *          pOutBuffer = NULL;
     unsigned long           FrameLen = 0;
@@ -1829,7 +1829,7 @@ VOID PeerGroupMsg2Action(
 {
     unsigned int            	Len;
     unsigned char *          	pData;
-    BOOLEAN         	Cancelled;
+    bool         	Cancelled;
 	PEAPOL_PACKET       pMsg2;	
 	unsigned char				group_cipher = Ndis802_11WEPDisabled;	
 
@@ -1920,7 +1920,7 @@ VOID PeerGroupMsg2Action(
 		
 	========================================================================
 */
-BOOLEAN	WpaMsgTypeSubst(
+bool	WpaMsgTypeSubst(
 	IN	unsigned char	EAPType,
 	OUT	INT		*MsgType)	
 {
@@ -2458,7 +2458,7 @@ static VOID RTMPMakeRsnIeCipher(
 	IN	unsigned char			ElementID,	
 	IN	unsigned int			WepStatus,
 	IN	unsigned char			apidx,
-	IN	BOOLEAN			bMixCipher,
+	IN	bool			bMixCipher,
 	IN	unsigned char			FlexibleCipher,
 	OUT	unsigned char *			pRsnIe,
 	OUT	unsigned char			*rsn_len)
@@ -2778,12 +2778,12 @@ VOID RTMPMakeRSNIE(
 	unsigned char 		*rsnielen_cur_p = 0;	/* the length of the primary RSNIE 		*/
 #ifdef CONFIG_AP_SUPPORT
 	unsigned char *		pRsnIe_ex = NULL;		/* secondary RSNIE, it's ONLY used in WPA-mix mode */
-	BOOLEAN               bMixRsnIe = FALSE;      /* indicate WPA-mix mode is on or off*/
+	bool               bMixRsnIe = FALSE;      /* indicate WPA-mix mode is on or off*/
 	unsigned char		s_offset;
 #endif /* CONFIG_AP_SUPPORT */
 	unsigned char		*rsnielen_ex_cur_p = 0;	/* the length of the secondary RSNIE	  	*/
 	unsigned char		PrimaryRsnie;			
-	BOOLEAN		bMixCipher = FALSE;	/* indicate the pairwise and group cipher are different*/
+	bool		bMixCipher = FALSE;	/* indicate the pairwise and group cipher are different*/
 	unsigned char		p_offset;		
 	WPA_MIX_PAIR_CIPHER		FlexibleCipher = MIX_CIPHER_NOTUSE;	/* it provide the more flexible cipher combination in WPA-WPA2 and TKIPAES mode*/
 		
@@ -2987,7 +2987,7 @@ VOID RTMPMakeRSNIE(
          FALSE 			-	otherwise
     ==========================================================================
 */
-BOOLEAN RTMPCheckWPAframe(
+bool RTMPCheckWPAframe(
     IN PRTMP_ADAPTER    pAd,
     IN PMAC_TABLE_ENTRY	pEntry,
     IN unsigned char *           pData,
@@ -2995,7 +2995,7 @@ BOOLEAN RTMPCheckWPAframe(
 	IN unsigned char			FromWhichBSSID)
 {
 	unsigned long	Body_len;
-	BOOLEAN Cancelled;
+	bool Cancelled;
 
 	do
 	{
@@ -3064,7 +3064,7 @@ BOOLEAN RTMPCheckWPAframe(
 
 
 #ifdef HDR_TRANS_SUPPORT
-BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
+bool RTMPCheckWPAframe_Hdr_Trns(
     IN PRTMP_ADAPTER    pAd,
     IN PMAC_TABLE_ENTRY	pEntry,
     IN unsigned char *           pData,
@@ -3072,7 +3072,7 @@ BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
 	IN unsigned char			FromWhichBSSID)
 {
 	unsigned long	Body_len;
-	BOOLEAN Cancelled;
+	bool Cancelled;
 
 	do
 	{
@@ -3188,7 +3188,7 @@ char * GetEapolMsgType(CHAR msg)
 		
     ========================================================================
 */
-BOOLEAN RTMPCheckRSNIE(
+bool RTMPCheckRSNIE(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pData,
 	IN  unsigned char           DataLen,
@@ -3198,7 +3198,7 @@ BOOLEAN RTMPCheckRSNIE(
 	unsigned char *              pVIE;
 	unsigned char               len;
 	PEID_STRUCT         pEid;
-	BOOLEAN				result = FALSE;
+	bool				result = FALSE;
 		
 	pVIE = pData;
 	len	 = DataLen;
@@ -3264,13 +3264,13 @@ BOOLEAN RTMPCheckRSNIE(
         
     ========================================================================
 */
-BOOLEAN RTMPParseEapolKeyData(
+bool RTMPParseEapolKeyData(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char *          pKeyData,
 	IN  unsigned char           KeyDataLen,
 	IN	unsigned char			GroupKeyIndex,
 	IN	unsigned char			MsgType,
-	IN	BOOLEAN			bWPA2,
+	IN	bool			bWPA2,
 	IN  MAC_TABLE_ENTRY *pEntry)
 {
     unsigned char *              pMyKeyData = pKeyData;
@@ -3494,7 +3494,7 @@ VOID	ConstructEapolMsg(
 	IN	unsigned char				RSNIE_Len,
     OUT PEAPOL_PACKET       pMsg)
 {
-	BOOLEAN	bWPA2 = FALSE;
+	bool	bWPA2 = FALSE;
 	unsigned char	KeyDescVer;
 
 	/* Choose WPA2 or not*/
@@ -3664,8 +3664,8 @@ VOID	ConstructEapolKeyData(
 {
 	unsigned char		*mpool, *Key_Data, *eGTK;  	  
 	unsigned long		data_offset;
-	BOOLEAN		bWPA2Capable = FALSE;
-	BOOLEAN		GTK_Included = FALSE;
+	bool		bWPA2Capable = FALSE;
+	bool		GTK_Included = FALSE;
 
 	/* Choose WPA2 or not*/
 	if ((pEntry->AuthMode == Ndis802_11AuthModeWPA2) || 
@@ -4508,7 +4508,7 @@ VOID WPAInstallPairwiseKey(
 	PRTMP_ADAPTER		pAd,
 	unsigned char				BssIdx,
 	PMAC_TABLE_ENTRY	pEntry,
-	BOOLEAN				bAE)
+	bool				bAE)
 {
     NdisZeroMemory(&pEntry->PairwiseKey, sizeof(CIPHER_KEY));   
 
@@ -4573,7 +4573,7 @@ VOID WPAInstallSharedKey(
 	unsigned char				BssIdx,
 	unsigned char				KeyIdx,
 	unsigned char				Wcid,
-	BOOLEAN				bAE,
+	bool				bAE,
 	unsigned char *				pGtk,
 	unsigned char				GtkLen)
 {

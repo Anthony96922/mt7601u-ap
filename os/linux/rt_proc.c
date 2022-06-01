@@ -64,7 +64,7 @@ int wl_proc_exit(void);
 extern struct proc_dir_entry *procRegDir;
 
 #ifdef VIDEO_TURBINE_SUPPORT
-extern BOOLEAN UpdateFromGlobal;
+extern bool UpdateFromGlobal;
 AP_VIDEO_STRUCT GLOBAL_AP_VIDEO_CONFIG;
 /*struct proc_dir_entry *proc_ralink_platform, *proc_ralink_wl, *proc_ralink_wl_video; */
 struct proc_dir_entry *proc_ralink_wl, *proc_ralink_wl_video;

@@ -58,7 +58,7 @@ unsigned short MaxBulkOutsSizeLimit[5][4] =
 VOID SoftwareFlowControl(
 	IN PRTMP_ADAPTER pAd) 
 {
-	BOOLEAN ResetBulkOutSize=FALSE;
+	bool ResetBulkOutSize=FALSE;
 	unsigned char i=0,RunningQueueNo=0,QueIdx=0,HighWorkingAcCount=0;
 	unsigned int PacketsInQueueSize=0;
 	unsigned char Priority[]={1,0,2,3};
@@ -336,9 +336,9 @@ VOID	RTUSBBulkOutDataPacket(
 	unsigned char *pWirelessPkt, *pAppendant;
 
 #ifdef USB_BULK_BUF_ALIGMENT
-	BOOLEAN			bLasAlignmentsectiontRound = FALSE;
+	bool			bLasAlignmentsectiontRound = FALSE;
 #else
-	BOOLEAN			bTxQLastRound = FALSE;
+	bool			bTxQLastRound = FALSE;
 	unsigned char			allzero[4]= {0x0,0x0,0x0,0x0};
 #endif /* USB_BULK_BUF_ALIGMENT */
 
@@ -1616,7 +1616,7 @@ VOID	RTUSBCancelPendingBulkOutIRP(
 	unsigned int				i, Idx;
 /*	unsigned int 		IrqFlags;*/
 /*	NDIS_SPIN_LOCK		*pLock;*/
-/*	BOOLEAN				*pPending;*/
+/*	bool				*pPending;*/
 	
 
 /*	pLock = &pAd->BulkOutLock[MGMTPIPEIDX];*/

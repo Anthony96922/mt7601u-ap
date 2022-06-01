@@ -49,5 +49,5 @@ INT RtmpAsicSendCommandToMcu(
 	unsigned char Token,
 	unsigned char Arg0,
 	unsigned char Arg1,
-	BOOLEAN FlgIsNeedLocked);
+	bool FlgIsNeedLocked);
 #endif

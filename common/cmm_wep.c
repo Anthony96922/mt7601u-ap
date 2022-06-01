@@ -225,7 +225,7 @@ VOID RTMPConstructWEPIVHdr(
 	
 	========================================================================
 */
-BOOLEAN	RTMPSoftEncryptWEP(
+bool	RTMPSoftEncryptWEP(
 	IN 		PRTMP_ADAPTER 	pAd,
 	IN 		unsigned char *			pIvHdr,
 	IN 		PCIPHER_KEY		pKey,
@@ -291,7 +291,7 @@ BOOLEAN	RTMPSoftEncryptWEP(
 	
 	========================================================================
 */
-BOOLEAN	RTMPSoftDecryptWEP(
+bool	RTMPSoftDecryptWEP(
 	IN 		PRTMP_ADAPTER 	pAd,
 	IN 		PCIPHER_KEY		pKey,
 	INOUT 	unsigned char *			pData,

@@ -705,8 +705,8 @@ unsigned int NUM_OF_MT7601_CHNL = (sizeof(MT7601_Frequency_Plan) / sizeof(MT7601
 */
 VOID MT7601_WLAN_ChipOnOff(
 	IN RTMP_ADAPTER *pAd,
-	IN BOOLEAN bOn,
-	IN BOOLEAN bResetWLAN)
+	IN bool bOn,
+	IN bool bResetWLAN)
 {
 	WLAN_FUN_CTRL_STRUC WlanFunCtrl = {.word=0};
 
@@ -1146,7 +1146,7 @@ VOID MT7601_ChipAGCInit(
 static VOID MT7601_ChipSwitchChannel(
 	struct _RTMP_ADAPTER *pAd,
 	unsigned char Channel,
-	BOOLEAN	 bScan)
+	bool	 bScan)
 {
 
 	CHAR TxPwer = 0;
@@ -1355,8 +1355,8 @@ NTSTATUS MT7601DisableTxRx(
 {
 	unsigned int MacReg = 0;
 	unsigned int MTxCycle;
-	BOOLEAN bResetWLAN = FALSE;
-	BOOLEAN bFree = TRUE;
+	bool bResetWLAN = FALSE;
+	bool bFree = TRUE;
 	unsigned char CheckFreeTimes = 0;
 	unsigned int MaxRetry;
 
@@ -1386,7 +1386,7 @@ NTSTATUS MT7601DisableTxRx(
 	*/
 	for (MTxCycle = 0; MTxCycle < MaxRetry; MTxCycle++)
 	{
-		BOOLEAN bFree = TRUE;
+		bool bFree = TRUE;
 		RTMP_IO_READ32(pAd, 0x438, &MacReg);
 		if (MacReg != 0)
 			bFree = FALSE;
@@ -2077,7 +2077,7 @@ VOID MT7601_TemperatureCompensation(
 
 VOID MT7601AsicTemperatureCompensation(
 	IN PRTMP_ADAPTER			pAd,
-	IN BOOLEAN				bPowerOn)
+	IN bool				bPowerOn)
 {
 	int	CurrentTemper;
 	unsigned char	RfReg;
@@ -2425,7 +2425,7 @@ VOID MT7601_InitDesiredTSSITable(
 }
 
 
-BOOLEAN MT7601_GetTssiCompensationParam(
+bool MT7601_GetTssiCompensationParam(
 	IN 		PRTMP_ADAPTER 		pAd, 
 	OUT 	char * 				TssiLinear0,
 	OUT 	char * 				TssiLinear1, 
@@ -3120,7 +3120,7 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 /*
 	int (*loadFirmware)(struct _RTMP_ADAPTER *pAd);
 	int (*eraseFirmware)(struct _RTMP_ADAPTER *pAd);
-	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1, BOOLEAN FlgIsNeedLocked);
+	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1, bool FlgIsNeedLocked);
 */
 
 /*

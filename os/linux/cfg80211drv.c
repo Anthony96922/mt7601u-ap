@@ -106,7 +106,7 @@ INT CFG80211DRV_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_80211_RFKILL:
 		{
 			unsigned int data = 0;
-			BOOLEAN active;
+			bool active;
 
 			/* Read GPIO pin2 as Hardware controlled radio state */
 			RTMP_IO_READ32(pAd, GPIO_CTRL_CFG, &data);
@@ -449,7 +449,7 @@ VOID CFG80211DRV_OpsChangeBssParm(
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	CMD_RTPRIV_IOCTL_80211_BSS_PARM *pBssInfo;
-	BOOLEAN TxPreamble;
+	bool TxPreamble;
 
 	CFG80211DBG(RT_DEBUG_TRACE, ("%s\n", __FUNCTION__));
 
@@ -477,7 +477,7 @@ VOID CFG80211DRV_OpsChangeBssParm(
 	}
 }
 
-BOOLEAN CFG80211DRV_OpsSetChannel(
+bool CFG80211DRV_OpsSetChannel(
 	VOID						*pAdOrg,
 	VOID						*pData)
 {
@@ -489,7 +489,7 @@ BOOLEAN CFG80211DRV_OpsSetChannel(
 	STRING ChStr[5] = { 0 };
 #ifdef DOT11_N_SUPPORT
 	unsigned char BW_Old;
-	BOOLEAN FlgIsChanged;
+	bool FlgIsChanged;
 #endif /* DOT11_N_SUPPORT */
 
 
@@ -566,7 +566,7 @@ BOOLEAN CFG80211DRV_OpsSetChannel(
 }
 
 
-BOOLEAN CFG80211DRV_OpsChgVirtualInf(
+bool CFG80211DRV_OpsChgVirtualInf(
 	VOID						*pAdOrg,
 	VOID						*pFlgFilter,
 	unsigned char						IfType)
@@ -576,7 +576,7 @@ BOOLEAN CFG80211DRV_OpsChgVirtualInf(
 }
 
 
-BOOLEAN CFG80211DRV_OpsScan(
+bool CFG80211DRV_OpsScan(
 	VOID						*pAdOrg)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
@@ -592,10 +592,10 @@ BOOLEAN CFG80211DRV_OpsScan(
 }
 
 /* REF: ap_connect.c ApMakeBssBeacon */
-BOOLEAN CFG80211DRV_OpsBeaconSet(
+bool CFG80211DRV_OpsBeaconSet(
         VOID                                            *pAdOrg,
         VOID                                            *pData,
-	BOOLEAN                                          isAdd)
+	bool                                          isAdd)
 {
 	CFG80211DBG(RT_DEBUG_TRACE, ("80211> CFG80211DRV_OpsBeaconSet ==> %d\n", isAdd));
         PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
@@ -608,8 +608,8 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
         unsigned int longValue;
         unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned int rx_filter_flag;
-	BOOLEAN TxPreamble, SpectrumMgmt = FALSE;
-	BOOLEAN	bWmmCapable = FALSE;
+	bool TxPreamble, SpectrumMgmt = FALSE;
+	bool	bWmmCapable = FALSE;
 	unsigned char	BBPR1 = 0, BBPR3 = 0;
 	INT idx;
 	unsigned long offset;
@@ -951,7 +951,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 
 }
 
-BOOLEAN CFG80211DRV_OpsExtraIesSet(
+bool CFG80211DRV_OpsExtraIesSet(
 	VOID						*pAdOrg)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
@@ -987,7 +987,7 @@ BOOLEAN CFG80211DRV_OpsExtraIesSet(
 }
 
 
-BOOLEAN CFG80211DRV_OpsJoinIbss(
+bool CFG80211DRV_OpsJoinIbss(
 	VOID						*pAdOrg,
 	VOID						*pData)
 {
@@ -995,14 +995,14 @@ BOOLEAN CFG80211DRV_OpsJoinIbss(
 }
 
 
-BOOLEAN CFG80211DRV_OpsLeave(
+bool CFG80211DRV_OpsLeave(
 	VOID						*pAdOrg)
 {
 	return TRUE;
 }
 
 
-BOOLEAN CFG80211DRV_StaGet(
+bool CFG80211DRV_StaGet(
 	VOID						*pAdOrg,
 	VOID						*pData)
 {
@@ -1068,7 +1068,7 @@ BOOLEAN CFG80211DRV_StaGet(
 }
 
 
-BOOLEAN CFG80211DRV_KeyAdd(
+bool CFG80211DRV_KeyAdd(
 	VOID						*pAdOrg,
 	VOID						*pData)
 {
@@ -1077,7 +1077,7 @@ BOOLEAN CFG80211DRV_KeyAdd(
 }
 
 
-BOOLEAN CFG80211DRV_Connect(
+bool CFG80211DRV_Connect(
 	VOID						*pAdOrg,
 	VOID						*pData)
 {
@@ -1288,7 +1288,7 @@ VOID CFG80211_RegRuleApply(
 	VOID *pBand24G, *pBand5G;
 	unsigned int IdBand, IdChan, IdPwr;
 	unsigned int ChanNum, ChanId, Power, RecId, DfsType;
-	BOOLEAN FlgIsRadar;
+	bool FlgIsRadar;
 	unsigned long IrqFlags;
 #ifdef DFS_SUPPORT	
 	RADAR_DETECT_STRUCT	*pRadarDetect;
@@ -1494,7 +1494,7 @@ Note:
 */
 VOID CFG80211_ScanEnd(
 	IN VOID						*pAdCB,
-	IN BOOLEAN					FlgIsAborted)
+	IN bool					FlgIsAborted)
 {
 } /* End of CFG80211_ScanEnd */
 
@@ -1563,7 +1563,7 @@ Note:
 	need to re-init bands in xx_open().
 ========================================================================
 */
-BOOLEAN CFG80211_SupBandReInit(
+bool CFG80211_SupBandReInit(
 	IN VOID						*pAdCB)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;

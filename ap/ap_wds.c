@@ -39,13 +39,13 @@
 /*extern INT rt28xx_ioctl(PNET_DEV net_dev, struct ifreq *rq, int cmd); */
 
 
-BOOLEAN ApWdsAllowToSendPacket(
+bool ApWdsAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
 	OUT unsigned char		*pWcid)
 {
 	unsigned char wdsIndex;
-	BOOLEAN	allowed;
+	bool	allowed;
 		
 	/*DBGPRINT(RT_DEBUG_TRACE, ("ApCliAllowToSendPacket():Packet to ApCli interface!\n")); */
 	wdsIndex = RTMP_GET_PACKET_NET_DEVICE(pPacket) - MIN_NET_DEVICE_FOR_WDS;
@@ -133,7 +133,7 @@ VOID WdsEntryDel(
 		Delete all WDS Entry in pAd->MacTab
 	==========================================================================
  */
-BOOLEAN MacTableDeleteWDSEntry(
+bool MacTableDeleteWDSEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned short wcid,
 	IN unsigned char * pAddr)
@@ -293,7 +293,7 @@ MAC_TABLE_ENTRY *WdsTableLookupByWcid(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char wcid,
 	IN unsigned char * pAddr,
-	IN BOOLEAN bResetIdelCount)
+	IN bool bResetIdelCount)
 {
 	/*unsigned short HashIdx; */
 	unsigned long WdsIndex;
@@ -342,7 +342,7 @@ MAC_TABLE_ENTRY *WdsTableLookupByWcid(
 MAC_TABLE_ENTRY *WdsTableLookup(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr,
-	IN BOOLEAN bResetIdelCount)
+	IN bool bResetIdelCount)
 {
 	unsigned short HashIdx;
 	PMAC_TABLE_ENTRY pEntry = NULL;
@@ -604,7 +604,7 @@ VOID WdsPeerBeaconProc(
 	IN unsigned short CapabilityInfo,
 	IN unsigned char MaxSupportedRateIn500Kbps,
 	IN unsigned char MaxSupportedRateLen,
-	IN BOOLEAN bWmmCapable,
+	IN bool bWmmCapable,
 	IN unsigned long ClientRalinkIe,
 	IN HT_CAPABILITY_IE *pHtCapability,
 	IN unsigned char HtCapabilityLen)
@@ -827,7 +827,7 @@ VOID rtmp_read_wds_from_file(
 	char *		macptr;
 	INT			i=0, j;
 	STRING		tok_str[16];
-	BOOLEAN		bUsePrevFormat = FALSE;
+	bool		bUsePrevFormat = FALSE;
 	unsigned char		macAddress[MAC_ADDR_LEN];
 	unsigned char	    keyMaterial[40];	
 	unsigned char		KeyLen, CipherAlg = CIPHER_NONE, KeyIdx;
@@ -1309,7 +1309,7 @@ VOID WDS_Remove(
 }
 
 
-BOOLEAN WDS_StatsGet(
+bool WDS_StatsGet(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	RT_CMD_STATS		*pStats)
 {

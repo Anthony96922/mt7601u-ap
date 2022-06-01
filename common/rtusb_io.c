@@ -311,7 +311,7 @@ NTSTATUS	RTUSBMultiWrite(
 	IN	unsigned short			Offset,
 	IN	unsigned char *			pData,
 	IN	unsigned short			length,
-	IN	BOOLEAN			bWriteHigh)
+	IN	bool			bWriteHigh)
 {
 	NTSTATUS	Status;
 
@@ -339,7 +339,7 @@ NTSTATUS RTUSBSingleWrite(
 	IN 	RTMP_ADAPTER 	*pAd,
 	IN	unsigned short			Offset,
 	IN	unsigned short			Value,
-	IN	BOOLEAN			WriteHigh)
+	IN	bool			WriteHigh)
 {
 	NTSTATUS	Status;
 
@@ -420,7 +420,7 @@ NTSTATUS	RTUSBWriteMACRegister(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned short Offset,
 	IN unsigned int Value,
-	IN BOOLEAN bWriteHigh)
+	IN bool bWriteHigh)
 {
 	NTSTATUS Status;
 	unsigned int localVal;
@@ -803,7 +803,7 @@ NTSTATUS RTUSBWakeUp(
 NDIS_STATUS	RTUSBEnqueueCmdFromNdis(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	NDIS_OID		Oid,
-	IN	BOOLEAN			SetInformation,
+	IN	bool			SetInformation,
 	IN	void *			pInformationBuffer,
 	IN	unsigned int			InformationBufferLength)
 {
@@ -1786,7 +1786,7 @@ static CMDHdlr CMDHdlrTable[] = {
 };
 
 
-static inline BOOLEAN ValidCMD(IN PCmdQElmt CMDQelmt)
+static inline bool ValidCMD(IN PCmdQElmt CMDQelmt)
 {
 	SHORT CMDIndex = CMDQelmt->command - CMDTHREAD_FIRST_CMD_ID;
 	unsigned short CMDHdlrTableLength= sizeof(CMDHdlrTable) / sizeof(CMDHdlr);
@@ -1857,7 +1857,7 @@ VOID RTUSBWatchDog(IN RTMP_ADAPTER *pAd)
 	int 					idx;
 	unsigned long				irqFlags;
 	PURB		   		pUrb;
-	BOOLEAN				needDumpSeq = FALSE;
+	bool				needDumpSeq = FALSE;
 	unsigned int          	MACValue;
 
 

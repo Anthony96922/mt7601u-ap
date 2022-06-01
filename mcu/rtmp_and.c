@@ -609,11 +609,11 @@ VOID MCUCtrlExit(PRTMP_ADAPTER pAd)
 }
 
 
-BOOLEAN IsInBandCmdProcessing(PRTMP_ADAPTER pAd)
+bool IsInBandCmdProcessing(PRTMP_ADAPTER pAd)
 {
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
 	unsigned long IrqFlags;
-	BOOLEAN Ret;
+	bool Ret;
 
 	RTMP_IRQ_LOCK(&MCtrl->CmdRspEventListLock, IrqFlags);
 	
@@ -956,7 +956,7 @@ INT AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, 
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 
 	OffsetNum = Cnt / ((pChipCap->InbandPacketMaxLen - sizeof(Offset)) / 4);
 
@@ -1286,7 +1286,7 @@ INT AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 	
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 
@@ -1357,7 +1357,7 @@ INT AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned in
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 	
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 
@@ -1443,7 +1443,7 @@ INT AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
@@ -1510,7 +1510,7 @@ INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
 	va_list argptr;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 
 	va_start(argptr, Num);
 
@@ -1579,7 +1579,7 @@ INT AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigne
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
@@ -1661,7 +1661,7 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
 	va_list argptr;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 
 	va_start(argptr, Num);
 
@@ -1746,7 +1746,7 @@ INT AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned 
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
@@ -1822,7 +1822,7 @@ INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
 	va_list argptr;
-	BOOLEAN LastPacket = FALSE;
+	bool LastPacket = FALSE;
 
 	va_start(argptr, Num);
 

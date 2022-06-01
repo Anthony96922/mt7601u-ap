@@ -95,10 +95,10 @@ NDIS_STATUS	RTUSBFreeDescRequest(
 }
 
 
-BOOLEAN	RTUSBNeedQueueBackForAgg(RTMP_ADAPTER *pAd, unsigned char BulkOutPipeId)
+bool	RTUSBNeedQueueBackForAgg(RTMP_ADAPTER *pAd, unsigned char BulkOutPipeId)
 {
 	HT_TX_CONTEXT *pHTTXContext;
-	BOOLEAN needQueBack = FALSE;
+	bool needQueBack = FALSE;
 	unsigned long   IrqFlags;
 
 
@@ -156,7 +156,7 @@ static VOID rlt_usb_write_txinfo(
 	IN RTMP_ADAPTER *pAd,
 	IN TXINFO_STRUC *pTxInfo,
 	IN unsigned short USBDMApktLen,
-	IN BOOLEAN bWiv,
+	IN bool bWiv,
 	IN unsigned char QueueSel,
 	IN unsigned char NextValid,
 	IN unsigned char TxBurst,
@@ -295,7 +295,7 @@ static inline NDIS_STATUS RtmpUSBCanDoWrite(
 unsigned short RtmpUSB_WriteSubTxResource(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
-	IN BOOLEAN bIsLast,
+	IN bool bIsLast,
 	OUT	unsigned short *freeCnt)
 {
 
@@ -321,9 +321,9 @@ unsigned short	RtmpUSB_WriteFragTxResource(
 	unsigned long	IrqFlags;
 	unsigned int			USBDMApktLen = 0, DMAHdrLen, padding;
 #ifdef USB_BULK_BUF_ALIGMENT	
-	BOOLEAN			bLasAlignmentsectiontRound = FALSE;
+	bool			bLasAlignmentsectiontRound = FALSE;
 #else
-	BOOLEAN			TxQLastRound = FALSE;
+	bool			TxQLastRound = FALSE;
 #endif /* USB_BULK_BUF_ALIGMENT */
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	
@@ -510,7 +510,7 @@ unsigned short	RtmpUSB_WriteFragTxResource(
 unsigned short RtmpUSB_WriteSingleTxResource(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
-	IN BOOLEAN bIsLast,
+	IN bool bIsLast,
 	OUT	unsigned short *freeCnt)
 {
 	HT_TX_CONTEXT *pHTTXContext;
@@ -523,7 +523,7 @@ unsigned short RtmpUSB_WriteSingleTxResource(
 	NDIS_STATUS Status;
 	unsigned int hdr_copy_len, hdr_len, dma_len = 0, padding;
 #ifndef USB_BULK_BUF_ALIGMENT
-	BOOLEAN bTxQLastRound = FALSE;
+	bool bTxQLastRound = FALSE;
 #endif /* USB_BULK_BUF_ALIGMENT */		
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
@@ -1173,7 +1173,7 @@ Note:
 PNDIS_PACKET GetPacketFromRxRing(
 	IN RTMP_ADAPTER *pAd,
 	OUT RX_BLK *pRxBlk,
-	OUT BOOLEAN *pbReschedule,
+	OUT bool *pbReschedule,
 	INOUT unsigned int *pRxPending)
 {
 	RX_CONTEXT *pRxContext;

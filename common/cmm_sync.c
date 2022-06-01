@@ -52,7 +52,7 @@ VOID BuildChannelList(
 {
 	unsigned char i, j, index=0, num=0;
 	PCH_DESC pChDesc = NULL;
-	BOOLEAN bRegionFound = FALSE;
+	bool bRegionFound = FALSE;
 	unsigned char * pChannelList;
 	unsigned char * pChannelListFlag;
 

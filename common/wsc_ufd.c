@@ -102,7 +102,7 @@ static struct {
 };
 
 
-BOOLEAN	WscPassXmlDeclare(
+bool	WscPassXmlDeclare(
 	INOUT STRING **pXmlData)
 {
 	STRING	*ptr;
@@ -131,7 +131,7 @@ BOOLEAN	WscPassXmlDeclare(
 }
 
 
-BOOLEAN WscGetXmlSSID(
+bool WscGetXmlSSID(
 	IN	STRING				*pXmlData,
 	OUT	NDIS_802_11_SSID	*pSsid)
 {
@@ -175,7 +175,7 @@ BOOLEAN WscGetXmlSSID(
 }
 
 
-BOOLEAN WscGetXmlAuth(
+bool WscGetXmlAuth(
 	IN	STRING	*pXmlData,
 	OUT unsigned short	*pAuthType)
 {
@@ -219,7 +219,7 @@ BOOLEAN WscGetXmlAuth(
 }
 
 
-BOOLEAN WscGetXmlEncr(
+bool WscGetXmlEncr(
 	IN	STRING	*pXmlData,
 	OUT unsigned short	*pEncrType)
 {
@@ -263,7 +263,7 @@ BOOLEAN WscGetXmlEncr(
 }
 
 
-BOOLEAN WscGetXmlKey(
+bool WscGetXmlKey(
 	IN	STRING	*pXmlData,
 	OUT unsigned char	*pKey,
 	OUT unsigned short	*pKeyLen)
@@ -308,7 +308,7 @@ BOOLEAN WscGetXmlKey(
 }
 
 
-BOOLEAN WscGetXmlKeyIndex(
+bool WscGetXmlKeyIndex(
 	IN	STRING	*pXmlData,
 	OUT unsigned char	*pKeyIndex)
 {
@@ -338,7 +338,7 @@ BOOLEAN WscGetXmlKeyIndex(
 
 
 
-BOOLEAN	WscReadProfileFromUfdFile(
+bool	WscReadProfileFromUfdFile(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char ApIdx,
 	IN char * pUfdFileName)
@@ -348,7 +348,7 @@ BOOLEAN	WscReadProfileFromUfdFile(
 	RTMP_OS_FD			file_r;
 	ssize_t				rv, fileLen = 0;
 	char *				pXmlData = NULL;
-	BOOLEAN				RV = TRUE;
+	bool				RV = TRUE;
 
 	if (pUfdFileName == NULL)
 	{
@@ -470,7 +470,7 @@ ReadErr:
 }
 
 
-BOOLEAN	WscWriteProfileToUfdFile(
+bool	WscWriteProfileToUfdFile(
 	IN	PRTMP_ADAPTER		pAd,
 	IN  unsigned char               ApIdx,
 	IN  char *				pUfdFileName)
@@ -480,7 +480,7 @@ BOOLEAN	WscWriteProfileToUfdFile(
 	RTMP_OS_FS_INFO		osFSInfo;
 	RTMP_OS_FD			file_w;
 	char *				offset, pXmlTemplate = (char *)XML_TEMPLATE;
-	BOOLEAN				bFound = FALSE, bRtn = TRUE;
+	bool				bFound = FALSE, bRtn = TRUE;
 	unsigned char				Guid[UUID_LEN_HEX];
 	unsigned char				Guid_Str[UUID_LEN_STR];
 

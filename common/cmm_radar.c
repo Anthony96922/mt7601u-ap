@@ -63,12 +63,12 @@ VOID RadarDetectPeriodic(
 
 	========================================================================
 */
-BOOLEAN RadarChannelCheck(
+bool RadarChannelCheck(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			Ch)
 {
 	INT 	i;
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 
 	for (i=0; i<pAd->ChannelListNum; i++)
 	{

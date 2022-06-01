@@ -167,8 +167,8 @@ typedef struct _MT7601_TX_ALC_DATA {
 	CHAR	TssiDC0;
 	CHAR	TssiDC0_HVGA;
 	unsigned int	InitTxAlcCfg1;
-	BOOLEAN	TSSI_USE_HVGA;
-	BOOLEAN TssiTriggered;
+	bool	TSSI_USE_HVGA;
+	bool TssiTriggered;
 	CHAR	MT7601_TSSI_OFFSET[3];
 } MT7601_TX_ALC_DATA, *PMT7601_TX_ALC_DATA;
 
@@ -235,7 +235,7 @@ VOID MT7601_ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
 VOID MT7601_INIT_CAL(struct _RTMP_ADAPTER *pAd);
 NTSTATUS MT7601DisableTxRx(struct _RTMP_ADAPTER *pAd, unsigned char Level);
 VOID dump_bw_info(struct _RTMP_ADAPTER *pAd);
-VOID MT7601AsicTemperatureCompensation(IN struct _RTMP_ADAPTER *pAd, IN BOOLEAN bPowerOn);
+VOID MT7601AsicTemperatureCompensation(IN struct _RTMP_ADAPTER *pAd, IN bool bPowerOn);
 #ifdef RTMP_INTERNAL_TX_ALC
 short lin2dBd(unsigned short linearValue);
 VOID MT7601_EnableTSSI(struct _RTMP_ADAPTER *pAd);

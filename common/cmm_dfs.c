@@ -270,14 +270,14 @@ static NewDFSTable NewDFSTable1[] =
 static void dfs_sw_init(
 		IN PRTMP_ADAPTER pAd);
 
-static BOOLEAN StagerRadarCheck(
+static bool StagerRadarCheck(
 		IN PRTMP_ADAPTER pAd,
 		unsigned char dfs_channel);
 
-static BOOLEAN ChirpRadarCheck(
+static bool ChirpRadarCheck(
 		IN PRTMP_ADAPTER pAd);
 
-static BOOLEAN DfsEventDataFetch(
+static bool DfsEventDataFetch(
 		IN PRTMP_ADAPTER pAd,
 		IN unsigned char *		  pData,
 		OUT PDFS_EVENT pDfsEvent);
@@ -285,18 +285,18 @@ static BOOLEAN DfsEventDataFetch(
 static VOID DfsCheckBusyIdle(
 		IN PRTMP_ADAPTER pAd);
 
-static BOOLEAN DfsChannelCheck(
+static bool DfsChannelCheck(
 		IN PRTMP_ADAPTER pAd,
 		IN unsigned char DfsChannel);
 
 static VOID ChannelSelectOnRadarDetection(
 		IN PRTMP_ADAPTER pAd);
 
-static BOOLEAN DfsEventDrop(
+static bool DfsEventDrop(
 		IN PRTMP_ADAPTER pAd,
 		IN PDFS_EVENT pDfsEvent);
 
-static inline BOOLEAN NewRadarDetectionMcuStart(PRTMP_ADAPTER pAd)
+static inline bool NewRadarDetectionMcuStart(PRTMP_ADAPTER pAd)
 {
 	/*
 		8051 firmware don't care parameter Token, Arg0 and Arg1
@@ -304,7 +304,7 @@ static inline BOOLEAN NewRadarDetectionMcuStart(PRTMP_ADAPTER pAd)
 	return AsicSendCommandToMcu(pAd, DFS_ONOFF_MCU_CMD, 0xff, 0x01, 0x01, FALSE);
 }
 
-static inline BOOLEAN NewRadarDetectionMcuStop(PRTMP_ADAPTER pAd)
+static inline bool NewRadarDetectionMcuStop(PRTMP_ADAPTER pAd)
 {
 	/*
 		8051 firmware don't care parameter Token, Arg0 and Arg1
@@ -1909,7 +1909,7 @@ int SWRadarCheck(
     Note:
     ==========================================================================
  */
-static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, unsigned char dfs_channel)
+static bool StagerRadarCheck(IN PRTMP_ADAPTER pAd, unsigned char dfs_channel)
 {
 	unsigned int T1=0, T2=0, T3=0, T_all=0, F1, F2, F3 = 0, Fmax = 0, freq_diff_min, freq_diff_max;
 	unsigned char  dfs_stg2=0, dfs_typ5=0; /*, bbp141=0;*/
@@ -2035,7 +2035,7 @@ static BOOLEAN StagerRadarCheck(IN PRTMP_ADAPTER pAd, unsigned char dfs_channel)
     Note:
     ==========================================================================
  */
-static BOOLEAN ChirpRadarCheck(IN PRTMP_ADAPTER pAd)
+static bool ChirpRadarCheck(IN PRTMP_ADAPTER pAd)
 {
 	unsigned int CurrentTime, delta;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
@@ -2139,14 +2139,14 @@ static VOID DfsCheckBusyIdle(
 
 }
 
-static BOOLEAN DfsChannelCheck(
+static bool DfsChannelCheck(
 			IN PRTMP_ADAPTER pAd,
 			IN unsigned char DfsChannel)
 {
 	pNewDFSTable pDFS2Table;
 	unsigned char i;
 	unsigned int W, T;
-	BOOLEAN radarDeclared = 0;
+	bool radarDeclared = 0;
 	/*unsigned char BBP_1 = 0, BBP_2 = 0, BBP_3 = 0, BBP_4 = 0;*/
 
 
@@ -2209,7 +2209,7 @@ static BOOLEAN DfsChannelCheck(
 	return radarDeclared;
 }
 
-static BOOLEAN DfsEventDataFetch(
+static bool DfsEventDataFetch(
 		IN PRTMP_ADAPTER pAd,
 		IN unsigned char *		  pData,
 		OUT PDFS_EVENT pDfsEvent)
@@ -2395,14 +2395,14 @@ VOID NewRadarDetectionProgram(PRTMP_ADAPTER pAd, pNewDFSTable pDFS2Table)
 
 }
 
-BOOLEAN DfsSwCheckOnHwDetection(
+bool DfsSwCheckOnHwDetection(
 	 IN PRTMP_ADAPTER pAd,
 	 IN pNewDFSTable pDFS2Table,
 	 IN unsigned char DfsChannel,
 	 IN unsigned long RadarPeriod,
 	 IN unsigned long RadarWidth)
 {
-	BOOLEAN bRadarCheck = TRUE;
+	bool bRadarCheck = TRUE;
 	if (!RadarPeriod || !RadarWidth)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("Block eception on zero RadarPeriod or RadarWidth\n"));
@@ -2552,13 +2552,13 @@ static VOID ChannelSelectOnRadarDetection(
 		pRadarDetect->radarDeclared = 0;
 }
 
-static BOOLEAN DfsEventDrop(
+static bool DfsEventDrop(
 		IN PRTMP_ADAPTER pAd,
 		IN PDFS_EVENT pDfsEvent)
 {
 	unsigned int TimeDiff = 0;  /* unit: 50ns */
 	unsigned short PreEnvtWidth = 0;
-	BOOLEAN RetVal = FALSE;
+	bool RetVal = FALSE;
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	PDFS_EVENT pPreDfsEvent = &pDfsSwParam->PreDfsEvent;
 

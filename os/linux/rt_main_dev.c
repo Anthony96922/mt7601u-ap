@@ -681,7 +681,7 @@ struct net_device_stats *RT28xx_get_ether_stats(
 }
 
 
-BOOLEAN RtmpPhyNetDevExit(
+bool RtmpPhyNetDevExit(
 	IN VOID			*pAd, 
 	IN PNET_DEV		net_dev)
 {

@@ -680,7 +680,7 @@ INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw);
 INT rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT ext_ch);
 INT rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, INT rxpath);
 INT rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, INT tx_dac);
-INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower);
+INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
 INT rtmp_bbp_is_ready(struct _RTMP_ADAPTER *pAd);
 INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX idx);
 INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, CHAR *agc, RX_CHAIN_IDX idx);

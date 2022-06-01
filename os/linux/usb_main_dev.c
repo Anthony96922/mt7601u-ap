@@ -52,7 +52,7 @@ static int rt2870_probe(
 /*extern int rt28xx_close(IN struct net_device *net_dev); */
 /*extern int rt28xx_open(struct net_device *net_dev); */
 
-static BOOLEAN USBDevConfigInit(
+static bool USBDevConfigInit(
 	IN struct usb_device 	*dev,
 	IN struct usb_interface *intf, 
 	IN VOID					*pAd);
@@ -86,7 +86,7 @@ struct usb_driver rtusb_driver = {
 	};
 
 
-static BOOLEAN USBDevConfigInit(
+static bool USBDevConfigInit(
 	IN struct usb_device *dev,
 	IN struct usb_interface *intf,
 	IN VOID *pAd)
@@ -197,7 +197,7 @@ static int rtusb_probe (struct usb_interface *intf,
 						const USB_DEVICE_ID *id);
 static void rtusb_disconnect(struct usb_interface *intf);
 
-static BOOLEAN USBDevConfigInit(
+static bool USBDevConfigInit(
 	IN struct usb_device 	*dev,
 	IN struct usb_interface *intf, 
 	IN VOID 				*pAd)

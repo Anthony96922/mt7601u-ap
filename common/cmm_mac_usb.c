@@ -1408,7 +1408,7 @@ VOID RT28xx_UpdateBeaconToAsic(
 	BEACON_SYNC_STRUCT	*pBeaconSync = pAd->CommonCfg.pBeaconSync;
 	unsigned int			longValue;
 /*	unsigned short			shortValue;*/
-	BOOLEAN			bBcnReq = FALSE;
+	bool			bBcnReq = FALSE;
 	unsigned char			bcn_idx = 0;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
@@ -1505,7 +1505,7 @@ VOID RTUSBBssBeaconStop(
 {
 	BEACON_SYNC_STRUCT	*pBeaconSync;
 	int i, offset;
-	BOOLEAN	Cancelled = TRUE;
+	bool	Cancelled = TRUE;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
 	pBeaconSync = pAd->CommonCfg.pBeaconSync;
@@ -1644,7 +1644,7 @@ VOID RTUSBBssBeaconExit(
 	IN RTMP_ADAPTER *pAd)
 {
 	BEACON_SYNC_STRUCT	*pBeaconSync;
-	BOOLEAN	Cancelled = TRUE;
+	bool	Cancelled = TRUE;
 	int i;
 
 	if (pAd->CommonCfg.pBeaconSync)
@@ -1695,7 +1695,7 @@ VOID BeaconUpdateExec(
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)FunctionContext;
 	LARGE_INTEGER	tsfTime_a;/*, tsfTime_b, deltaTime_exp, deltaTime_ab;*/
 	unsigned int			delta, delta2MS, period2US, remain, remain_low, remain_high;
-/*	BOOLEAN			positive;*/
+/*	bool			positive;*/
 
 	if (pAd->CommonCfg.IsUpdateBeacon==TRUE)
 	{
@@ -1929,7 +1929,7 @@ VOID RT28xxUsbAsicRadioOff(RTMP_ADAPTER *pAd)
 VOID RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
 {
 	unsigned int MACValue = 0;
-	BOOLEAN brc;
+	bool brc;
 	unsigned int RetryRound = 0;
 	unsigned int rx_filter_flag;
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
@@ -2042,7 +2042,7 @@ VOID RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
 }
 
 
-BOOLEAN AsicCheckCommandOk(
+bool AsicCheckCommandOk(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char		 Command)
 {

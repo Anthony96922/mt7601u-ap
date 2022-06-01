@@ -1417,9 +1417,9 @@ VOID MlmeRALog(
 	)
 	{
 #if (defined(DBG) || defined(STREAM_MODE_SUPPORT))
-		BOOLEAN csd = FALSE;
+		bool csd = FALSE;
 #endif
-		BOOLEAN stbc;
+		bool stbc;
 		unsigned long tp;
 
 		/*  Get STBC and StreamMode state */
@@ -1743,7 +1743,7 @@ VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 		pEntry->StreamModeMACReg!=0)
 	{
 		unsigned int streamWord;
-		BOOLEAN mcsDisable;
+		bool mcsDisable;
 
 		/* OFDM: depends on StreamModeMCS, CCK: always applies stream-mode */
 		mcsDisable = (pEntry->HTPhyMode.field.MCS < 16) &&

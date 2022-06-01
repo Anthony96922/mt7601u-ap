@@ -127,7 +127,7 @@ typedef struct _UidMacMappingEntry
 
 typedef struct _UidMacMappingTable
 {
-	BOOLEAN valid;
+	bool valid;
 	UidMacMappingEntry *uidHash[MAT_MAX_HASH_ENTRY_SUPPORT];
 }UidMacMappingTable;
 
@@ -145,7 +145,7 @@ typedef struct _SesMacMappingEntry
 
 typedef struct _SesMacMappingTable
 {
-	BOOLEAN valid;
+	bool valid;
 	SesMacMappingEntry *sesHash[MAT_MAX_HASH_ENTRY_SUPPORT];
 }SesMacMappingTable;
 

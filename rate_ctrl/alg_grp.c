@@ -157,8 +157,8 @@ unsigned char MlmeSelectUpRate(
 		if (PTX_RA_GRP_ENTRY(pEntry->pTable, UpRateIdx)->CurrMCS == 32)
 		{
 			/*  If not allowed then skip over it */
-			BOOLEAN mcs32Supported = 0;
-			BOOLEAN mcs0Fallback = 0;
+			bool mcs32Supported = 0;
+			bool mcs0Fallback = 0;
 
 			if ((pEntry->HTCapability.MCSSet[4] & 0x1)
 #ifdef DBG_CTRL_SUPPORT
@@ -241,7 +241,7 @@ unsigned char MlmeSelectDownRate(
 		}
 		else if (pDownRate->CurrMCS == MCS_32)
 		{
-			BOOLEAN valid_mcs32 = FALSE;
+			bool valid_mcs32 = FALSE;
 
 			if ((pEntry->MaxHTPhyMode.field.BW == BW_40 && pAd->CommonCfg.BBPCurrentBW == BW_40)
 #ifdef DOT11_VHT_AC
@@ -683,7 +683,7 @@ static unsigned long MlmeRAEstimateThroughput(
 	returns
 		TRUE if old rate should be used
 */
-BOOLEAN MlmeRAHybridRule(
+bool MlmeRAHybridRule(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
 	IN RTMP_RA_GRP_TB *pCurrTxRate,
@@ -726,9 +726,9 @@ VOID MlmeNewRateAdapt(
 	IN unsigned long			TxErrorRatio)
 {
 	unsigned short		phyRateLimit20 = 0;
-	BOOLEAN		bTrainUp = FALSE;
+	bool		bTrainUp = FALSE;
 #ifdef TXBF_SUPPORT
-	BOOLEAN 	invertTxBf = FALSE;
+	bool 	invertTxBf = FALSE;
 #endif /*  TXBF_SUPPORT */
 	unsigned char *pTable = pEntry->pTable;
 	unsigned char CurrRateIdx = pEntry->CurrTxRateIndex;
@@ -979,9 +979,9 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
 	CHAR					Rssi, ratio;
 	unsigned long					TxSuccess, TxRetransmit, TxFailCount;
 	unsigned long					OneSecTxNoRetryOKRationCount;
-	BOOLEAN					rateChanged;
+	bool					rateChanged;
 #ifdef TXBF_SUPPORT
-	BOOLEAN					CurrPhyETxBf, CurrPhyITxBf;
+	bool					CurrPhyETxBf, CurrPhyITxBf;
 #endif /*  TXBF_SUPPORT */
 
 	pEntry = &pAd->MacTab.Content[idx];
@@ -1142,7 +1142,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
 	/*  Perform DRS - consider TxRate Down first, then rate up. */
 	if (pEntry->LastSecTxRateChangeAction == RATE_UP)
 	{
-		BOOLEAN useOldRate;
+		bool useOldRate;
 
 		// TODO: gaa - Finalize the decision criterion
 		/*

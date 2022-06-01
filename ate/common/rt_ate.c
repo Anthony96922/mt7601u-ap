@@ -202,7 +202,7 @@ VOID DefaultATEAsicAdjustTxPower(
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 	INT			index = 0, inner_index = 0, maxTxPwrCnt;
 	CHAR		DeltaPwr = 0;
-	BOOLEAN		bAutoTxAgc = FALSE;
+	bool		bAutoTxAgc = FALSE;
 	unsigned char		TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep;
 	unsigned char		BbpR49 = 0, idx;
 	char *		pTxAgcCompensate;
@@ -1367,7 +1367,7 @@ VOID ATEDisableAsicProtect(
 VOID ATEAPStop(
 	IN PRTMP_ADAPTER pAd) 
 {
-	BOOLEAN     Cancelled;
+	bool     Cancelled;
 	unsigned int		Value = 0;
 	INT         apidx = 0;
 		
@@ -1483,7 +1483,7 @@ static NDIS_STATUS ATESTART(
 	unsigned char LoopCount=0;
 #endif /* RTMP_MAC_USB */
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
-	BOOLEAN Cancelled;
+	bool Cancelled;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
 
@@ -1805,7 +1805,7 @@ static NDIS_STATUS ATESTOP(
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
-	BOOLEAN Cancelled;
+	bool Cancelled;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
 
@@ -4134,7 +4134,7 @@ INT Set_ATE_Load_E2P_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	BOOLEAN		    	ret = FALSE;
+	bool		    	ret = FALSE;
 	char *			src = EEPROM_BIN_FILE_NAME;
 	RTMP_OS_FD		srcf;
 	int 			retval;
@@ -4221,7 +4221,7 @@ INT Set_ATE_Load_E2P_From_Buf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	BOOLEAN		    	ret = FALSE;
+	bool		    	ret = FALSE;
 	unsigned int 			value = (unsigned int) simple_strtol(arg, 0, 10);
 
 	DBGPRINT(RT_DEBUG_OFF, ("===> %s (value=%d)\n\n", __FUNCTION__, value));
@@ -4546,11 +4546,11 @@ INT	Set_ATE_TXBF_LNACAL_Proc(
         	1, 14, 36, 64, 128, 132, 165
 ==========================================================================
 */
-static BOOLEAN rtmp_ate_txbf_cal_valid_ch(
+static bool rtmp_ate_txbf_cal_valid_ch(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char channel)
 {
-	BOOLEAN bValidCh;
+	bool bValidCh;
 
 	/* TODO: shall we check the capability of the chipset here ?? */
 	switch (channel)
@@ -5331,7 +5331,7 @@ INT RT335x2_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 		{
-	BOOLEAN	bTSSICalbrEnableG = FALSE;
+	bool	bTSSICalbrEnableG = FALSE;
 	
 	if (pAd->TxPowerCtrl.bInternalTxALC == FALSE)                  
 			{

@@ -142,14 +142,14 @@ typedef enum{
 }ICMPV6_OPTIONS_TYPE_DEF;
 
 
-static inline BOOLEAN IPv6ExtHdrHandle(
+static inline bool IPv6ExtHdrHandle(
 	RT_IPV6_EXT_HDR 	*pExtHdr,
 	unsigned char 				*pProto,
 	unsigned int 				*pOffset)
 {
 	unsigned char nextProto = 0xff;
 	unsigned int extLen = 0;
-	BOOLEAN status = TRUE;
+	bool status = TRUE;
 
 	/*printk("%s(): parsing the Extension Header with Protocol(0x%x):\n", __FUNCTION__, *pProto); */
 	switch (*pProto)

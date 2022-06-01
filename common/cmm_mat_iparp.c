@@ -57,7 +57,7 @@ typedef struct _IPMacMappingEntry
 
 typedef struct _IPMacMappingTable
 {
-	BOOLEAN			valid;
+	bool			valid;
 	IPMacMappingEntry *hash[MAT_MAX_HASH_ENTRY_SUPPORT+1]; /*0~63 for specific station, 64 for broadcast MacAddress */
 	unsigned char			curMcastAddr[MAC_ADDR_LEN]; /* The multicast mac addr for currecnt received packet destined to ipv4 multicast addr */
 }IPMacMappingTable;
@@ -420,7 +420,7 @@ static unsigned char * MATProto_ARP_Rx(
 {
 	unsigned char * pArpHdr = NULL, pRealMac = NULL;
 	unsigned char *	tgtMac, tgtIP;
-	BOOLEAN isUcastMac, isGoodIP;
+	bool isUcastMac, isGoodIP;
 
 	
 	pArpHdr = pLayerHdr;
@@ -462,7 +462,7 @@ static unsigned char * MATProto_ARP_Tx(
 	IN unsigned char * 			pMacAddr)
 {
 	unsigned char *	pSMac, pSIP;
-	BOOLEAN isUcastMac, isGoodIP;
+	bool isUcastMac, isGoodIP;
 	NET_PRO_ARP_HDR *arpHdr;
 	unsigned char * pPktHdr;
 	PNDIS_PACKET newSkb = NULL;
@@ -524,7 +524,7 @@ static unsigned char * MATProto_ARP_Tx(
 static NDIS_STATUS MATProto_ARP_Init(
 	IN MAT_STRUCT 	*pMatCfg)
 {
-	BOOLEAN status = FALSE;
+	bool status = FALSE;
 
 	status = IPMacTable_init(pMatCfg);
 	
@@ -568,7 +568,7 @@ static unsigned char * MATProto_IP_Tx(
 {
 	unsigned char * pSrcMac;
 	unsigned char * pSrcIP;
-	BOOLEAN needUpdate;
+	bool needUpdate;
 	unsigned char * pPktHdr;
 
 	pPktHdr = GET_OS_PKT_DATAPTR(pSkb);
@@ -625,7 +625,7 @@ static unsigned char * MATProto_IP_Tx(
 static NDIS_STATUS MATProto_IP_Init(
 	IN MAT_STRUCT *pMatCfg)
 {
-	BOOLEAN status;
+	bool status;
 	
 	status = IPMacTable_init(pMatCfg);
 	

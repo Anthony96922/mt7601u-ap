@@ -173,7 +173,7 @@ static VOID ApCliMlmeAssocReqAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	NDIS_STATUS		 NStatus;
-	BOOLEAN          Cancelled;
+	bool          Cancelled;
 	unsigned char            ApAddr[6];
 	HEADER_802_11    AssocHdr;
 	unsigned char            WmeIe[9] = {IE_VENDOR_SPECIFIC, 0x07, 0x00, 0x50, 0xf2, 0x02, 0x00, 0x01, 0x00};
@@ -400,7 +400,7 @@ static VOID ApCliMlmeAssocReqAction(
 			if (pAd->ApCfg.ApCliTab[ifIndex].AuthMode == Ndis802_11AuthModeWPA2)
 			{
 			INT idx;
-                BOOLEAN FoundPMK = FALSE;
+                bool FoundPMK = FALSE;
 			/* Search chched PMKID, append it if existed */
 				for (idx = 0; idx < PMKID_NO; idx++)
 				{
@@ -590,7 +590,7 @@ static VOID ApCliPeerAssocRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	BOOLEAN				Cancelled;
+	bool				Cancelled;
 	unsigned short				CapabilityInfo, Status, Aid;
 	unsigned char				SupRate[MAX_LEN_OF_SUPPORTED_RATES], SupRateLen;
 	unsigned char				ExtRate[MAX_LEN_OF_SUPPORTED_RATES], ExtRateLen;

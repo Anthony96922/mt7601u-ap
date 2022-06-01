@@ -352,7 +352,7 @@ Return Value:
 Note:
 ========================================================================
 */
-UAPSD_EXTERN BOOLEAN UAPSD_SP_IsClosed(
+UAPSD_EXTERN bool UAPSD_SP_IsClosed(
     IN  PRTMP_ADAPTER       pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry);
 
@@ -411,7 +411,7 @@ UAPSD_EXTERN VOID UAPSD_AssocParse(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
 	IN	unsigned char				*pElm,
-	IN	BOOLEAN				FlgApsdCapable);
+	IN	bool				FlgApsdCapable);
 
 
 /*
@@ -643,10 +643,10 @@ Note:
 VOID UAPSD_QueueStatusGet(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
-	OUT	BOOLEAN				*pFlgIsAnyPktForBK,
-	OUT BOOLEAN				*pFlgIsAnyPktForBE,
-	OUT BOOLEAN				*pFlgIsAnyPktForVI,
-	OUT BOOLEAN				*pFlgIsAnyPktForVO);
+	OUT	bool				*pFlgIsAnyPktForBK,
+	OUT bool				*pFlgIsAnyPktForBE,
+	OUT bool				*pFlgIsAnyPktForVI,
+	OUT bool				*pFlgIsAnyPktForVO);
 
 
 /*

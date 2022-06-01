@@ -374,7 +374,7 @@ void tbtt_tasklet(unsigned long data)
 #endif /* RTMP_MAC_USB */
 		{
 			PQUEUE_ENTRY    pEntry;
-			BOOLEAN			bPS = FALSE;
+			bool			bPS = FALSE;
 			unsigned int 			count = 0;
 			unsigned long 		IrqFlags;
 

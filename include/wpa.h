@@ -217,7 +217,7 @@ void inc_iv_byte(
 	unsigned int len,
 	unsigned int cnt);
 
-BOOLEAN WpaMsgTypeSubst(
+bool WpaMsgTypeSubst(
 	IN unsigned char EAPType,
 	OUT INT *MsgType);
 
@@ -277,7 +277,7 @@ VOID RTMPToWirelessSta(
 	IN unsigned int HdrLen,
 	IN unsigned char * pData,
 	IN unsigned int DataLen,
-	IN BOOLEAN bClearFrame);
+	IN bool bClearFrame);
 
 VOID WpaDerivePTK(
 	IN PRTMP_ADAPTER pAd,
@@ -301,7 +301,7 @@ VOID GenRandom(
 	IN unsigned char *macAddr,
 	OUT unsigned char *random);
 
-BOOLEAN RTMPCheckWPAframe(
+bool RTMPCheckWPAframe(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char * pData,
@@ -309,7 +309,7 @@ BOOLEAN RTMPCheckWPAframe(
 	IN unsigned char FromWhichBSSID);
 
 #ifdef HDR_TRANS_SUPPORT
-BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
+bool RTMPCheckWPAframe_Hdr_Trns(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char * pData,
@@ -317,13 +317,13 @@ BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
 	IN unsigned char FromWhichBSSID);
 #endif /* HDR_TRANS_SUPPORT */
 
-BOOLEAN RTMPParseEapolKeyData(
+bool RTMPParseEapolKeyData(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pKeyData,
 	IN unsigned char KeyDataLen,
 	IN unsigned char GroupKeyIndex,
 	IN unsigned char MsgType,
-	IN BOOLEAN bWPA2,
+	IN bool bWPA2,
 	IN MAC_TABLE_ENTRY *pEntry);
 
 VOID WPA_ConstructKdeHdr(
@@ -384,7 +384,7 @@ VOID WPAInstallPairwiseKey(
 	PRTMP_ADAPTER pAd,
 	unsigned char BssIdx,
 	PMAC_TABLE_ENTRY pEntry,
-	BOOLEAN bAE);
+	bool bAE);
 
 VOID WPAInstallSharedKey(
 	PRTMP_ADAPTER pAd,
@@ -392,7 +392,7 @@ VOID WPAInstallSharedKey(
 	unsigned char BssIdx,
 	unsigned char KeyIdx,
 	unsigned char Wcid,
-	BOOLEAN bAE,
+	bool bAE,
 	unsigned char * pGtk,
 	unsigned char GtkLen);
 
@@ -428,14 +428,14 @@ VOID RTMPConstructWEPIVHdr(
 	IN unsigned char *pn,
 	OUT unsigned char *iv_hdr);
 
-BOOLEAN RTMPSoftEncryptWEP(
+bool RTMPSoftEncryptWEP(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pIvHdr,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
 	IN unsigned long DataByteCnt);
 
-BOOLEAN RTMPSoftDecryptWEP(
+bool RTMPSoftDecryptWEP(
 	IN PRTMP_ADAPTER pAd,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
@@ -446,7 +446,7 @@ BOOLEAN RTMPSoftDecryptWEP(
  	function prototype in cmm_tkip.c
  =====================================	
 */
-BOOLEAN RTMPSoftDecryptTKIP(
+bool RTMPSoftDecryptTKIP(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pHdr,
 	IN unsigned char UserPriority,
@@ -473,7 +473,7 @@ VOID TKIP_GTK_KEY_UNWRAP(
  	function prototype in cmm_aes.c
  =====================================	
 */
-BOOLEAN RTMPSoftDecryptAES(
+bool RTMPSoftDecryptAES(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pData,
 	IN unsigned long DataByteCnt,
@@ -484,7 +484,7 @@ VOID RTMPConstructCCMPHdr(
 	IN unsigned char *pn,
 	OUT unsigned char *ccmp_hdr);
 
-BOOLEAN RTMPSoftEncryptCCMP(
+bool RTMPSoftEncryptCCMP(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pHdr,
 	IN unsigned char * pIV,
@@ -492,7 +492,7 @@ BOOLEAN RTMPSoftEncryptCCMP(
 	INOUT unsigned char * pData,
 	IN unsigned int DataLen);
 
-BOOLEAN RTMPSoftDecryptCCMP(
+bool RTMPSoftDecryptCCMP(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pHdr,
 	IN PCIPHER_KEY pKey,

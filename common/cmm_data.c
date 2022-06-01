@@ -270,7 +270,7 @@ NDIS_STATUS MiniportMMRequest(
 	unsigned long FreeNum;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned char rtmpHwHdr[40];
-	BOOLEAN bUseDataQ = FALSE, FlgDataQForce = FALSE, FlgIsLocked = FALSE;
+	bool bUseDataQ = FALSE, FlgDataQForce = FALSE, FlgIsLocked = FALSE;
 	int retryCnt = 0, hw_len = TXINFO_SIZE + TXWISize + TSO_SIZE;
 
 
@@ -384,8 +384,8 @@ void AP_QueuePsActionPacket(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	MAC_TABLE_ENTRY	*pMacEntry,
 	IN	PNDIS_PACKET	pPacket,
-	IN	BOOLEAN			FlgIsDeltsFrame,
-	IN	BOOLEAN			FlgIsLocked,
+	IN	bool			FlgIsDeltsFrame,
+	IN	bool			FlgIsLocked,
 	IN	unsigned char			MgmtQid)
 {
 
@@ -519,8 +519,8 @@ NDIS_STATUS MlmeHardTransmit(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket,
-	IN BOOLEAN FlgDataQForce,
-	IN BOOLEAN FlgIsLocked)
+	IN bool FlgDataQForce,
+	IN bool FlgIsLocked)
 {
 #ifdef CONFIG_AP_SUPPORT
 	MAC_TABLE_ENTRY *pEntry = NULL;
@@ -642,7 +642,7 @@ NDIS_STATUS MlmeHardTransmitMgmtRing(
 	unsigned char *pSrcBufVA;
 	unsigned int SrcBufLen;
 	HEADER_802_11 *pHeader_802_11;
-	BOOLEAN bAckRequired, bInsertTimestamp;
+	bool bAckRequired, bInsertTimestamp;
 	unsigned char MlmeRate;
 	TXWI_STRUC *pFirstTxWI;
 	MAC_TABLE_ENTRY *pMacEntry = NULL;
@@ -860,7 +860,7 @@ static unsigned char TxPktClassification(
 	unsigned char		Wcid;
 	MAC_TABLE_ENTRY	*pMacEntry = NULL;
 #ifdef DOT11_N_SUPPORT
-	BOOLEAN		bHTRate = FALSE;
+	bool		bHTRate = FALSE;
 #endif /* DOT11_N_SUPPORT */
 
 	Wcid = RTMP_GET_PACKET_WCID(pPacket);
@@ -929,7 +929,7 @@ static unsigned char TxPktClassification(
 }
 
 
-BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
+bool RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	PACKET_INFO PacketInfo;
 	PNDIS_PACKET pPacket;
@@ -1110,7 +1110,7 @@ BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 }
 
 
-BOOLEAN CanDoAggregateTransmit(
+bool CanDoAggregateTransmit(
 	IN RTMP_ADAPTER *pAd,
 	IN NDIS_PACKET *pPacket,
 	IN TX_BLK		*pTxBlk)
@@ -1181,7 +1181,7 @@ BOOLEAN CanDoAggregateTransmit(
 */
 VOID RTMPDeQueuePacket(
 	IN RTMP_ADAPTER *pAd,
-	IN BOOLEAN bIntContext,
+	IN bool bIntContext,
 	IN unsigned char QIdx,
 	IN INT Max_Tx_Packets)
 {
@@ -1193,11 +1193,11 @@ VOID RTMPDeQueuePacket(
 	unsigned long FreeNumber[NUM_OF_TX_RING];
 	unsigned char QueIdx, sQIdx, eQIdx;
 	unsigned long	IrqFlags = 0;
-	BOOLEAN hasTxDesc = FALSE;
+	bool hasTxDesc = FALSE;
 	TX_BLK TxBlk, *pTxBlk;
 
 #ifdef DBG_DIAGNOSE
-	BOOLEAN			firstRound;
+	bool			firstRound;
 	RtmpDiagStruct	*pDiagStruct = &pAd->DiagStruct;
 #endif
 
@@ -1841,7 +1841,7 @@ VOID DisassocParmFill(
 }
 
 
-BOOLEAN RTMPCheckEtherType(
+bool RTMPCheckEtherType(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNDIS_PACKET	pPacket,
 	IN	PMAC_TABLE_ENTRY pMacEntry,
@@ -1857,7 +1857,7 @@ BOOLEAN RTMPCheckEtherType(
 #ifdef CONFIG_AP_SUPPORT
 	MULTISSID_STRUCT *pMbss;
 #endif /* CONFIG_AP_SUPPORT */
-	BOOLEAN bWmmReq;
+	bool bWmmReq;
 
 #ifdef CONFIG_AP_SUPPORT
 /*	if (IS_ENTRY_CLIENT(pMacEntry))*/
@@ -2117,7 +2117,7 @@ VOID Update_Rssi_Sample(
 {
 	CHAR rssi[3];
 	unsigned char snr[3];
-	BOOLEAN bInitial = FALSE;
+	bool bInitial = FALSE;
 	CHAR Phymode = get_pkt_phymode_by_rxwi(pRxWI);
 
  
@@ -2600,7 +2600,7 @@ PNDIS_PACKET RTMPDeFragmentDataFrame(
 	unsigned short DataSize = pRxBlk->DataSize;
 	PNDIS_PACKET pRetPacket = NULL;
 	unsigned char *pFragBuffer = NULL;
-	BOOLEAN bReassDone = FALSE;
+	bool bReassDone = FALSE;
 	unsigned char HeaderRoom = 0;
 
 
@@ -2769,7 +2769,7 @@ VOID ReSyncBeaconTime(
 }
 
 #ifdef SOFT_ENCRYPT
-BOOLEAN RTMPExpandPacketForSwEncrypt(
+bool RTMPExpandPacketForSwEncrypt(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	PTX_BLK			pTxBlk)
 {
@@ -2851,8 +2851,8 @@ VOID RtmpEnqueueNullFrame(
 	IN unsigned char         TxRate,
 	IN unsigned char         PID,
 	IN unsigned char         apidx,
-    IN BOOLEAN       bQosNull,
-    IN BOOLEAN       bEOSP,
+    IN bool       bQosNull,
+    IN bool       bEOSP,
     IN unsigned char         OldUP)
 {
 	NDIS_STATUS    NState;
@@ -2900,7 +2900,7 @@ VOID RtmpEnqueueNullFrame(
 
 
 #ifdef RLT_MAC
-BOOLEAN CmdRspEventCallbackHandle(PRTMP_ADAPTER pAd, unsigned char * pRspBuffer)
+bool CmdRspEventCallbackHandle(PRTMP_ADAPTER pAd, unsigned char * pRspBuffer)
 {
 
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
@@ -2970,7 +2970,7 @@ BOOLEAN CmdRspEventCallbackHandle(PRTMP_ADAPTER pAd, unsigned char * pRspBuffer)
 
 
 #ifdef RTMP_USB_SUPPORT
-BOOLEAN CmdRspEventHandle(RTMP_ADAPTER *pAd)
+bool CmdRspEventHandle(RTMP_ADAPTER *pAd)
 {
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
 
@@ -2987,7 +2987,7 @@ BOOLEAN CmdRspEventHandle(RTMP_ADAPTER *pAd)
 MAC_TABLE_ENTRY *MulTestTableLookup(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr,
-	IN BOOLEAN bResetIdelCount)
+	IN bool bResetIdelCount)
 {
 	unsigned short HashIdx;
 	PMAC_TABLE_ENTRY pEntry = NULL;
@@ -3381,7 +3381,7 @@ NTSTATUS StopDmaRx(
 	PNDIS_PACKET	pRxPacket;
 	RX_BLK			RxBlk, *pRxBlk;
 	unsigned int RxPending = 0, MacReg = 0, MTxCycle = 0;
-	BOOLEAN bReschedule = FALSE;
+	bool bReschedule = FALSE;
 	unsigned int MaxRetry;
 
 	//DBGPRINT(RT_DEBUG_TRACE, ("====> %s\n", __FUNCTION__));

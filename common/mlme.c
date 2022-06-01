@@ -444,7 +444,7 @@ VOID MlmeHandler(RTMP_ADAPTER *pAd)
 VOID MlmeHalt(
 	IN PRTMP_ADAPTER pAd) 
 {
-	BOOLEAN 	  Cancelled;
+	bool 	  Cancelled;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==> MlmeHalt\n"));
 
@@ -792,7 +792,7 @@ VOID MlmePeriodicExec(
 			if (pAd->macwd > 1)
 			{
 				int count = 0;
-				BOOLEAN MAC_ready = FALSE;
+				bool MAC_ready = FALSE;
 				unsigned int	MacCsr12 = 0;
 			
 				/* Disable MAC*/
@@ -862,7 +862,7 @@ VOID MlmePeriodicExec(
 	IRQL = DISPATCH_LEVEL
 	==========================================================================
  */
-BOOLEAN MlmeValidateSSID(
+bool MlmeValidateSSID(
 	IN unsigned char *	pSsid,
 	IN unsigned char	SsidLen)
 {
@@ -1110,7 +1110,7 @@ VOID UpdateBasicRateBitmap(
 */
 VOID MlmeUpdateTxRates(
 	IN RTMP_ADAPTER *pAd,
-	IN BOOLEAN bLinkUp,
+	IN bool bLinkUp,
 	IN unsigned char apidx)
 {
 	int i, num;
@@ -1120,7 +1120,7 @@ VOID MlmeUpdateTxRates(
 	unsigned char CurrBasicRate = RATE_1;
 	unsigned char *pSupRate, SupRateLen, *pExtRate, ExtRateLen;
 	HTTRANSMIT_SETTING *pHtPhy = NULL, *pMaxHtPhy = NULL, *pMinHtPhy = NULL;
-	BOOLEAN *auto_rate_cur_p;
+	bool *auto_rate_cur_p;
 	unsigned char HtMcs = MCS_AUTO;
 
 	/* find max desired rate*/
@@ -1496,7 +1496,7 @@ VOID MlmeUpdateHtTxRates(
 	PHTTRANSMIT_SETTING pHtPhy = NULL;
 	PHTTRANSMIT_SETTING pMaxHtPhy = NULL;
 	PHTTRANSMIT_SETTING pMinHtPhy = NULL;	
-	BOOLEAN *auto_rate_cur_p;
+	bool *auto_rate_cur_p;
 	
 	DBGPRINT(RT_DEBUG_TRACE,("%s()===> \n", __FUNCTION__));
 
@@ -2766,7 +2766,7 @@ NDIS_STATUS MlmeQueueInit(
  IRQL = DISPATCH_LEVEL
   
  */
-BOOLEAN MlmeEnqueue(
+bool MlmeEnqueue(
 	IN	PRTMP_ADAPTER	pAd,
 	IN unsigned long Machine, 
 	IN unsigned long MsgType, 
@@ -2836,7 +2836,7 @@ BOOLEAN MlmeEnqueue(
  IRQL = DISPATCH_LEVEL
  
  */
-BOOLEAN MlmeEnqueueForRecv(
+bool MlmeEnqueueForRecv(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN unsigned long Wcid, 
 	IN unsigned long TimeStampHigh, 
@@ -2983,7 +2983,7 @@ BOOLEAN MlmeEnqueueForRecv(
  *  \post
  *  \note    The message has to be initialized
  */
-BOOLEAN MlmeEnqueueForWsc(
+bool MlmeEnqueueForWsc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN unsigned long eventID,
 	IN LONG senderID,
@@ -3052,7 +3052,7 @@ BOOLEAN MlmeEnqueueForWsc(
  IRQL = DISPATCH_LEVEL
 
  */
-BOOLEAN MlmeDequeue(
+bool MlmeDequeue(
 	IN MLME_QUEUE *Queue, 
 	OUT MLME_QUEUE_ELEM **Elem) 
 {
@@ -3098,10 +3098,10 @@ VOID	MlmeRestartStateMachine(
  IRQL = DISPATCH_LEVEL
  
  */
-BOOLEAN MlmeQueueEmpty(
+bool MlmeQueueEmpty(
 	IN MLME_QUEUE *Queue) 
 {
-	BOOLEAN Ans;
+	bool Ans;
 
 	NdisAcquireSpinLock(&(Queue->Lock));
 	Ans = (Queue->Num == 0);
@@ -3120,11 +3120,11 @@ BOOLEAN MlmeQueueEmpty(
  IRQL = DISPATCH_LEVEL
 
  */
-BOOLEAN MlmeQueueFull(
+bool MlmeQueueFull(
 	IN MLME_QUEUE *Queue,
 	IN unsigned char SendId) 
 {
-	BOOLEAN Ans;
+	bool Ans;
 
 	NdisAcquireSpinLock(&(Queue->Lock));
 	if (SendId == 0)
@@ -3400,7 +3400,7 @@ VOID RTMPUpdateMlmeRate(
 	unsigned char MinimumRate;
 	unsigned char ProperMlmeRate; /*= RATE_54;*/
 	unsigned char i, j, RateIdx = 12; /*1, 2, 5.5, 11, 6, 9, 12, 18, 24, 36, 48, 54*/
-	BOOLEAN	bMatch = FALSE;
+	bool	bMatch = FALSE;
 
 
 	switch (pAd->CommonCfg.PhyMode) 
@@ -3763,7 +3763,7 @@ VOID APSDPeriodicExec(
 */
 VOID RTMPSetPiggyBack(
     IN PRTMP_ADAPTER    pAd,
-    IN BOOLEAN          bPiggyBack)
+    IN bool          bPiggyBack)
 {
 	TX_LINK_CFG_STRUC  TxLinkCfg;
     
@@ -3788,11 +3788,11 @@ VOID RTMPSetPiggyBack(
         
     ========================================================================
 */
-BOOLEAN RTMPCheckEntryEnableAutoRateSwitch(
+bool RTMPCheckEntryEnableAutoRateSwitch(
 	IN PRTMP_ADAPTER    pAd,
 	IN PMAC_TABLE_ENTRY	pEntry)	
 {
-	BOOLEAN		result = TRUE;
+	bool		result = TRUE;
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -3818,7 +3818,7 @@ BOOLEAN RTMPCheckEntryEnableAutoRateSwitch(
 }
 
 
-BOOLEAN RTMPAutoRateSwitchCheck(
+bool RTMPAutoRateSwitchCheck(
 	IN PRTMP_ADAPTER    pAd)	
 {			
 #ifdef CONFIG_AP_SUPPORT		
@@ -3976,7 +3976,7 @@ Return Value:
 Note:
 ========================================================================
 */
-BOOLEAN CHAN_PropertyCheck(
+bool CHAN_PropertyCheck(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned int			ChanNum,
 	IN unsigned char			Property)

@@ -137,7 +137,7 @@ void Announce_Reordering_Packet(IN PRTMP_ADAPTER			pAd,
 /*
  * Insert a reordering mpdu into sorted linked list by sequence no.
  */
-BOOLEAN ba_reordering_mpdu_insertsorted(struct reordering_list *list, struct reordering_mpdu *mpdu)
+bool ba_reordering_mpdu_insertsorted(struct reordering_list *list, struct reordering_mpdu *mpdu)
 {
 
 	struct reordering_mpdu **ppScan = &list->next;
@@ -255,7 +255,7 @@ void ba_reordering_resource_release(PRTMP_ADAPTER pAd)
 /* 
  * Allocate all resource for reordering mechanism 
  */
-BOOLEAN ba_reordering_resource_init(PRTMP_ADAPTER pAd, int num)
+bool ba_reordering_resource_init(PRTMP_ADAPTER pAd, int num)
 {
 	int     i;
 	unsigned char *  mem;
@@ -482,13 +482,13 @@ VOID BAOriSessionSetUp(
 					  IN unsigned char            TID,
 					  IN unsigned short           TimeOut,
 					  IN unsigned long            DelayTime,
-					  IN BOOLEAN          isForced)
+					  IN bool          isForced)
 
 {
 	/*MLME_ADDBA_REQ_STRUCT	AddbaReq;*/
 	BA_ORI_ENTRY            *pBAEntry = NULL;
 	unsigned short                  Idx;
-	BOOLEAN                 Cancelled;
+	bool                 Cancelled;
 
 	ASSERT(TID < NUM_OF_TID);
 	if (TID >= NUM_OF_TID)
@@ -563,7 +563,7 @@ VOID BAOriSessionAdd(
 	IN PFRAME_ADDBA_RSP	pFrame)
 {
 	BA_ORI_ENTRY	*pBAEntry = NULL;
-	BOOLEAN		Cancelled;
+	bool		Cancelled;
 	unsigned char		TID;
 	unsigned short		Idx;
 	unsigned char *		pOutBuffer2 = NULL;
@@ -658,14 +658,14 @@ VOID BAOriSessionAdd(
 	}
 }
 
-BOOLEAN BARecSessionAdd(
+bool BARecSessionAdd(
 					   IN PRTMP_ADAPTER    pAd, 
 					   IN MAC_TABLE_ENTRY  *pEntry,
 					   IN PFRAME_ADDBA_REQ pFrame)
 {
 	BA_REC_ENTRY            *pBAEntry = NULL;
-	BOOLEAN                 Status = TRUE;
-	BOOLEAN                 Cancelled;
+	bool                 Status = TRUE;
+	bool                 Cancelled;
 	unsigned short                  Idx;
 	unsigned char                   TID;
 	unsigned char                   BAWinSize;
@@ -893,12 +893,12 @@ VOID BAOriSessionTearDown(
 						 IN OUT  PRTMP_ADAPTER   pAd, 
 						 IN      unsigned char           Wcid,
 						 IN      unsigned char           TID,
-						 IN      BOOLEAN         bPassive,
-						 IN      BOOLEAN         bForceSend)
+						 IN      bool         bPassive,
+						 IN      bool         bForceSend)
 {
 	unsigned long           Idx = 0;
 	BA_ORI_ENTRY    *pBAEntry;
-	BOOLEAN         Cancelled;
+	bool         Cancelled;
 
 	if (Wcid >= MAX_LEN_OF_MAC_TABLE)
 	{
@@ -985,7 +985,7 @@ VOID BARecSessionTearDown(
 						 IN OUT  PRTMP_ADAPTER   pAd, 
 						 IN      unsigned char           Wcid,
 						 IN      unsigned char           TID,
-						 IN      BOOLEAN         bPassive)
+						 IN      bool         bPassive)
 {
 	unsigned long           Idx = 0;
 	BA_REC_ENTRY    *pBAEntry;
@@ -1011,7 +1011,7 @@ VOID BARecSessionTearDown(
 	if ((TID == pBAEntry->TID) && (pBAEntry->REC_BA_Status == Recipient_Accept))
 	{
 		MLME_DELBA_REQ_STRUCT   DelbaReq;
-		BOOLEAN 				Cancelled;
+		bool 				Cancelled;
 		/*unsigned long   offset; */
 		/*unsigned int  VALUE;*/
 				
@@ -1393,7 +1393,7 @@ VOID PeerDelBAAction(
 }
 
 
-BOOLEAN CntlEnqueueForRecv(
+bool CntlEnqueueForRecv(
 						  IN PRTMP_ADAPTER		pAd, 
 						  IN unsigned long				Wcid, 
 						  IN unsigned long				MsgLen, 
@@ -1403,7 +1403,7 @@ BOOLEAN CntlEnqueueForRecv(
 	/*PRTMP_REORDERBUF	pBuffer;*/
 	/*PRTMP_REORDERBUF	pDmaBuf;*/
 	PBA_REC_ENTRY pBAEntry;
-	/*BOOLEAN 	Result;*/
+	/*bool 	Result;*/
 	unsigned long   Idx;
 	/*unsigned char	NumRxPkt;*/
 	unsigned char	TID;/*, i;*/

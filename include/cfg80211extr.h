@@ -104,34 +104,34 @@ INT CFG80211DRV_IoctlHandle(
 	IN	VOID					*pData,
 	IN	unsigned long					Data);
 
-BOOLEAN CFG80211DRV_OpsSetChannel(
+bool CFG80211DRV_OpsSetChannel(
 	VOID						*pAdOrg,
 	VOID						*pData);
 
-BOOLEAN CFG80211DRV_OpsChgVirtualInf(
+bool CFG80211DRV_OpsChgVirtualInf(
 	VOID						*pAdOrg,
 	VOID						*pFlgFilter,
 	unsigned char						IfType);
 
-BOOLEAN CFG80211DRV_OpsScan(
+bool CFG80211DRV_OpsScan(
 	VOID						*pAdOrg);
 
-BOOLEAN CFG80211DRV_OpsJoinIbss(
+bool CFG80211DRV_OpsJoinIbss(
 	VOID						*pAdOrg,
 	VOID						*pData);
 
-BOOLEAN CFG80211DRV_OpsLeave(
+bool CFG80211DRV_OpsLeave(
 	VOID						*pAdOrg);
 
-BOOLEAN CFG80211DRV_StaGet(
+bool CFG80211DRV_StaGet(
 	VOID						*pAdOrg,
 	VOID						*pData);
 
-BOOLEAN CFG80211DRV_Connect(
+bool CFG80211DRV_Connect(
 	VOID						*pAdOrg,
 	VOID						*pData);
 
-BOOLEAN CFG80211DRV_KeyAdd(
+bool CFG80211DRV_KeyAdd(
 	VOID						*pAdOrg,
 	VOID						*pData);
 
@@ -159,7 +159,7 @@ VOID CFG80211_RegHint11D(
 
 VOID CFG80211_ScanEnd(
 	IN VOID						*pAdCB,
-	IN BOOLEAN					FlgIsAborted);
+	IN bool					FlgIsAborted);
 
 VOID CFG80211_ConnectResultInform(
 	IN VOID						*pAdCB,
@@ -170,7 +170,7 @@ VOID CFG80211_ConnectResultInform(
 	IN unsigned int					RspIeLen,
 	IN unsigned char					FlgIsSuccess);
 
-BOOLEAN CFG80211_SupBandReInit(
+bool CFG80211_SupBandReInit(
 	IN VOID						*pAdCB);
 
 VOID CFG80211_RegRuleApply(
@@ -189,7 +189,7 @@ VOID CFG80211_Scaning(
 #ifdef RFKILL_HW_SUPPORT
 VOID CFG80211_RFKillStatusUpdate(
 	IN void *					pAd,
-	IN BOOLEAN					active);
+	IN bool					active);
 #endif /* RFKILL_HW_SUPPORT */
 
 VOID CFG80211_UnRegister(

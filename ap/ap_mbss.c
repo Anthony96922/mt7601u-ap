@@ -69,7 +69,7 @@ Note:
 */
 
 extern void RtmpOSNetDevProtect(
-	IN BOOLEAN lock_it);
+	IN bool lock_it);
 
 VOID MBSS_Init(
 	IN PRTMP_ADAPTER 		pAd,

@@ -44,7 +44,7 @@ VOID RTMPIdsStart(
 VOID RTMPIdsStop(
 	IN PRTMP_ADAPTER	pAd)
 {
-	BOOLEAN     Cancelled;
+	bool     Cancelled;
 	
 	if (pAd->ApCfg.IDSTimerRunning == TRUE)
 	{
@@ -214,7 +214,7 @@ VOID RTMPIdsPeriodicExec(
 
 	========================================================================
 */
-BOOLEAN RTMPSpoofedMgmtDetection(
+bool RTMPSpoofedMgmtDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN PHEADER_802_11 	pHeader,
 	IN CHAR				Rssi0,
@@ -314,7 +314,7 @@ VOID RTMPConflictSsidDetection(
 	}			
 }
 
-BOOLEAN RTMPReplayAttackDetection(
+bool RTMPReplayAttackDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pAddr2,
 	IN CHAR				Rssi0,

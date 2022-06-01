@@ -72,7 +72,7 @@ VOID RTMP_BASetup(
 }
 #endif /* DOT11_N_SUPPORT */
 
-static inline BOOLEAN ApAllowToSendPacket(
+static inline bool ApAllowToSendPacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET pPacket,
 	OUT unsigned char		*pWcid)
@@ -84,7 +84,7 @@ static inline BOOLEAN ApAllowToSendPacket(
 	SST 			Sst;
 	unsigned short			Aid;
 	unsigned char			PsMode, Rate;
-	BOOLEAN			allowed;
+	bool			allowed;
 	
 	RTMP_QueryPacketInfo(pPacket, &PacketInfo, &pSrcBufVA, &SrcBufLen);
 #ifdef CLIENT_WDS
@@ -144,7 +144,7 @@ VOID APSendPackets(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, unsigned int pkt
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *) dev_hnd;
 	PNDIS_PACKET pPacket;
-	BOOLEAN allowToSend;
+	bool allowToSend;
 	unsigned char wcid = MCAST_WCID;
 	unsigned int Index;
 
@@ -1111,13 +1111,13 @@ static inline unsigned char * AP_Build_ARalink_Frame_Header(
 
 
 #ifdef DOT11_N_SUPPORT
-static inline BOOLEAN BuildHtcField(
+static inline bool BuildHtcField(
 	IN RTMP_ADAPTER *pAd, 
 	IN TX_BLK *pTxBlk, 
 	IN  MAC_TABLE_ENTRY *pMacEntry, 
 	IN unsigned char * pHeaderBufPtr)
 {
-	BOOLEAN bHTCPlus = FALSE;
+	bool bHTCPlus = FALSE;
 	
 
 	return bHTCPlus;
@@ -1172,7 +1172,7 @@ static inline unsigned char * AP_Build_AMSDU_Frame_Header(
 	if (pTxBlk->pMacEntry && pAd->chipCap.FlgHwTxBfCap)
 	{
 		MAC_TABLE_ENTRY *pMacEntry = pTxBlk->pMacEntry;
-		BOOLEAN bHTCPlus = FALSE;
+		bool bHTCPlus = FALSE;
 
 		pTxBlk->TxSndgPkt = SNDG_TYPE_DISABLE;
 
@@ -1280,7 +1280,7 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	unsigned short freeCnt = 1;
 	MAC_TABLE_ENTRY *pMacEntry;
 	PQUEUE_ENTRY pQEntry;
-	BOOLEAN	 bHTCPlus = FALSE;
+	bool	 bHTCPlus = FALSE;
 	unsigned int hdr_offset;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
@@ -2133,7 +2133,7 @@ VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	HEADER_802_11 *wifi_hdr;
 	unsigned char *pHeaderBufPtr;
 	unsigned short freeCnt = 1;
-	BOOLEAN bVLANPkt;
+	bool bVLANPkt;
 	QUEUE_ENTRY *pQEntry;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 
@@ -2247,7 +2247,7 @@ VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 			(pTxBlk->pTransmit->field.MODE >= MODE_HTMIX))
 		{
 			MAC_TABLE_ENTRY *pMacEntry = pTxBlk->pMacEntry;
-			BOOLEAN bHTCPlus = FALSE;
+			bool bHTCPlus = FALSE;
 			
 			pTxBlk->TxSndgPkt = SNDG_TYPE_DISABLE;
 			
@@ -2493,7 +2493,7 @@ VOID AP_Legacy_Frame_Tx_Hdr_Trns(
 {
 /*	unsigned char			QueIdx = pTxBlk->QueIdx; */
 	unsigned short			FreeNumber = 1; /* no use */
-	BOOLEAN			bVLANPkt;
+	bool			bVLANPkt;
 	PQUEUE_ENTRY	pQEntry;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	PWIFI_INFO_STRUC pWI;
@@ -2671,7 +2671,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	unsigned int FreeMpduSize, SrcRemainingBytes;
 	unsigned short AckDuration;
 	unsigned int NextMpduSize;
-	BOOLEAN bVLANPkt;
+	bool bVLANPkt;
 	PQUEUE_ENTRY pQEntry;
 	PACKET_INFO PacketInfo;
 #ifdef SOFT_ENCRYPT
@@ -3087,7 +3087,7 @@ VOID AP_ARalink_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	unsigned short totalMPDUSize=0;
 	unsigned short FirstTx, LastTxIdx;
 	int frameNum = 0;
-	BOOLEAN bVLANPkt;
+	bool bVLANPkt;
 	PQUEUE_ENTRY pQEntry;
 
 
@@ -3413,7 +3413,7 @@ NDIS_STATUS APCheckRxError(
 	error, and perform error action (DEAUTH or DISASSOC) accordingly
   ========================================================================
 */
-BOOLEAN APCheckClass2Class3Error(
+bool APCheckClass2Class3Error(
 	IN	PRTMP_ADAPTER	pAd,
 	IN 	unsigned long Wcid, 
 	IN	PHEADER_802_11	pHeader)
@@ -3470,7 +3470,7 @@ VOID APHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
 	IN	unsigned short			Aid,
-    IN	BOOLEAN			isActive)
+    IN	bool			isActive)
 { 
 	PQUEUE_ENTRY	  pEntry;
 	PMAC_TABLE_ENTRY  pMacEntry;
@@ -3566,7 +3566,7 @@ VOID APHandleRxPsPoll(
 					In addtion, in Station Keep Alive mechanism, we need to
 					send a QoS Null frame to detect the station live status.
 				*/
-				BOOLEAN bQosNull = FALSE;
+				bool bQosNull = FALSE;
 
 				if (CLIENT_STATUS_TEST_FLAG(pMacEntry, fCLIENT_STATUS_WMM_CAPABLE))
 					bQosNull = TRUE;
@@ -3914,13 +3914,13 @@ VOID APRxDErrorHandle(RTMP_ADAPTER *pAd, RX_BLK *pRxBlk)
 }
 
 static int dump_next_valid = 0;
-BOOLEAN APCheckVaildDataFrame(
+bool APCheckVaildDataFrame(
 	IN RTMP_ADAPTER *pAd,
 	IN RX_BLK *pRxBlk)
 {
 	PHEADER_802_11 pHeader = pRxBlk->pHeader;
 	RXWI_STRUC *pRxWI = pRxBlk->pRxWI;
-	BOOLEAN isVaild = FALSE;
+	bool isVaild = FALSE;
 
 	do
 	{
@@ -3980,7 +3980,7 @@ BOOLEAN APCheckVaildDataFrame(
 }
 
 /* For TKIP frame, calculate the MIC value */
-BOOLEAN APCheckTkipMICValue(
+bool APCheckTkipMICValue(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	MAC_TABLE_ENTRY	*pEntry,
 	IN	RX_BLK			*pRxBlk)
@@ -4263,7 +4263,7 @@ VOID APRxEAPOLFrameIndicate(
 	IN	unsigned char			FromWhichBSSID)
 {
 	RXWI_STRUC *pRxWI = pRxBlk->pRxWI;
-	BOOLEAN 		CheckPktSanity = TRUE;
+	bool 		CheckPktSanity = TRUE;
 	unsigned char			*pTmpBuf;
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
@@ -4692,13 +4692,13 @@ VOID APHandleRxDataFrame(
 	RXWI_STRUC *pRxWI = pRxBlk->pRxWI;
 	HEADER_802_11 *pHeader = pRxBlk->pHeader;
 	PNDIS_PACKET pRxPacket = pRxBlk->pRxPacket;
-	BOOLEAN bFragment = FALSE;
+	bool bFragment = FALSE;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	unsigned char FromWhichBSSID = BSS0;
 	unsigned char OldPwrMgmt = PWR_ACTIVE;	/* UAPSD AP SUPPORT */
 	unsigned char UserPriority = 0;
 #if defined(WDS_SUPPORT) || defined(CLIENT_WDS)
-	BOOLEAN bWdsPacket = FALSE;
+	bool bWdsPacket = FALSE;
 #endif /* WDS_SUPPORT || CLIENT_WDS */
 	FRAME_CONTROL *pFmeCtrl = &pHeader->FC;
 	COUNTER_RALINK *pCounter = &pAd->RalinkCounters;
@@ -5195,13 +5195,13 @@ VOID APHandleRxDataFrame_Hdr_Trns(
 	RXWI_STRUC *pRxWI = pRxBlk->pRxWI;
 	HEADER_802_11 *pHeader = pRxBlk->pHeader;
 	PNDIS_PACKET pRxPacket = pRxBlk->pRxPacket;
-	BOOLEAN bFragment = FALSE;
+	bool bFragment = FALSE;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	unsigned char FromWhichBSSID = BSS0;
 	unsigned char OldPwrMgmt = PWR_ACTIVE;	/* UAPSD AP SUPPORT */
 	unsigned char UserPriority = 0;
 #if defined(WDS_SUPPORT) || defined(CLIENT_WDS)
-	BOOLEAN bWdsPacket = FALSE;
+	bool bWdsPacket = FALSE;
 #endif /* WDS_SUPPORT || CLIENT_WDS */
 	FRAME_CONTROL *pFmeCtrl = &pHeader->FC;
 	COUNTER_RALINK *pCounter = &pAd->RalinkCounters;
@@ -5679,10 +5679,10 @@ err:
 #undef	MAX_RX_PROCESS_CNT
 #define MAX_RX_PROCESS_CNT	(32)
 
-BOOLEAN APRxDoneInterruptHandle(RTMP_ADAPTER *pAd) 
+bool APRxDoneInterruptHandle(RTMP_ADAPTER *pAd) 
 {
 	unsigned int RxProcessed, RxPending;
-	BOOLEAN bReschedule = FALSE;
+	bool bReschedule = FALSE;
 	RXD_STRUC *pRxD;
 	RXINFO_STRUC *pRxInfo;
 	unsigned char *pData;
@@ -6001,7 +6001,7 @@ if (0) {
 }
 
 
-BOOLEAN APHandleRxDonePacket(
+bool APHandleRxDonePacket(
 	IN RTMP_ADAPTER *pAd,
 	IN PNDIS_PACKET	pRxPacket,
 	IN RX_BLK *pRxBlk)
@@ -6011,7 +6011,7 @@ BOOLEAN APHandleRxDonePacket(
 	RXWI_STRUC *pRxWI;
 	PHEADER_802_11 pHeader;
 	MULTISSID_STRUCT *pMbss;
-	BOOLEAN	 bReschedule = FALSE;
+	bool	 bReschedule = FALSE;
 #ifdef WDS_SUPPORT
 	MAC_TABLE_ENTRY *pEntry = NULL;
 #endif /* WDS_SUPPORT */
@@ -6174,13 +6174,13 @@ BOOLEAN APHandleRxDonePacket(
 }
 
 
-BOOLEAN APFowardWirelessStaToWirelessSta(
+bool APFowardWirelessStaToWirelessSta(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNDIS_PACKET	pPacket,
 	IN	unsigned long			FromWhichBSSID)
 {
     MAC_TABLE_ENTRY	*pEntry = NULL;
-    BOOLEAN			bAnnounce, bDirectForward;
+    bool			bAnnounce, bDirectForward;
 	unsigned char			*pHeader802_3;
 	PNDIS_PACKET	pForwardPacket;
 
@@ -6380,7 +6380,7 @@ NDIS_STATUS APInsertPsQueue(
 VOID	ApCliRTMPSendNullFrame(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char			TxRate,
-	IN	BOOLEAN 		bQosNull,
+	IN	bool 		bQosNull,
 	IN PMAC_TABLE_ENTRY pMacEntry)
 {
 	unsigned char	NullFrame[48];

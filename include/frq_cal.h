@@ -33,10 +33,10 @@
 /* */
 typedef struct _FREQUENCY_CALIBRATION_CONTROL
 {
-	BOOLEAN bEnableFrequencyCalibration; /* Enable the frequency calibration algorithm */
+	bool bEnableFrequencyCalibration; /* Enable the frequency calibration algorithm */
 
-	BOOLEAN bSkipFirstFrequencyCalibration; /* Avoid calibrating frequency at the time the STA is just link-up */
-	BOOLEAN bApproachFrequency; /* Approach the frequency */
+	bool bSkipFirstFrequencyCalibration; /* Avoid calibrating frequency at the time the STA is just link-up */
+	bool bApproachFrequency; /* Approach the frequency */
 	unsigned char AdaptiveFreqOffset; /* Adaptive frequency offset */
 	CHAR LatestFreqOffsetOverBeacon; /* Latest frequency offset from the beacon */
 	CHAR BeaconPhyMode; /* Latest frequency offset from the beacon */

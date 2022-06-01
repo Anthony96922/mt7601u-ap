@@ -16,7 +16,7 @@ typedef struct _NETIF_ENTRY
 void initblockQueueTab(
 	IN PRTMP_ADAPTER pAd);
 
-BOOLEAN blockNetIf(
+bool blockNetIf(
 	IN PBLOCK_QUEUE_ENTRY pBlockQueueEntry,
 	IN PNET_DEV pNetDev);
 

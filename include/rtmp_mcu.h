@@ -58,8 +58,8 @@ struct CMD_UNIT {
 			unsigned short RspPayloadLen;
 			unsigned char * RspPayload;
 			unsigned long Timeout;
-			BOOLEAN NeedRsp;
-			BOOLEAN NeedWait;
+			bool NeedRsp;
+			bool NeedWait;
 			CMD_RSP_HANDLER CmdRspHdler;
 		} ANDES;
 	} u;
@@ -77,7 +77,7 @@ struct CMD_RSP_EVENT {
 	DL_LIST List;
 	unsigned char CmdSeq;	
 	unsigned int Timeout;
-	BOOLEAN NeedWait;
+	bool NeedWait;
 	void *	AckDone;
 	unsigned char **RspPayload;
 	unsigned short *RspPayloadLen;

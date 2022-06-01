@@ -182,12 +182,12 @@ static inline VOID AutoChannelSkipListSetDirty(
 	}
 }
 
-static inline BOOLEAN AutoChannelSkipListCheck(
+static inline bool AutoChannelSkipListCheck(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			Ch)
 {
 	unsigned char i;
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 
 	for (i = 0; i < pAd->ApCfg.AutoChannelSkipListNum ; i++)
 	{
@@ -200,11 +200,11 @@ static inline BOOLEAN AutoChannelSkipListCheck(
 	return result;
 }
 
-static inline BOOLEAN BW40_ChannelCheck(
+static inline bool BW40_ChannelCheck(
 	IN unsigned char ch)
 {
 	INT i;
-	BOOLEAN result = TRUE;
+	bool result = TRUE;
 	unsigned char NorBW40_CH[] = {140, 165};
 	unsigned char NorBW40ChNum = sizeof(NorBW40_CH) / sizeof(unsigned char);
 
@@ -225,7 +225,7 @@ static inline unsigned char SelectClearChannelRandom(
 	)
 {
 	unsigned char cnt, ch = 0, i, RadomIdx;
-	/*BOOLEAN bFindIt = FALSE;*/
+	/*bool bFindIt = FALSE;*/
 	unsigned char TempChList[MAX_NUM_OF_CHANNELS] = {0};
 	
 	if (pAd->CommonCfg.bIEEE80211H)
@@ -757,7 +757,7 @@ static inline unsigned char SelectClearChannelApCnt(
 	/* RULE 3. if not available, then co-use a channel that has minimum interference (dirtyness=31,32) */
 	for (dirty = 30; dirty <= 32; dirty++)
 	{
-		BOOLEAN candidate[MAX_NUM_OF_CHANNELS+1], candidate_num=0;
+		bool candidate[MAX_NUM_OF_CHANNELS+1], candidate_num=0;
 		unsigned char min_ApCnt = 255;
 		final_channel = 0;	
 		

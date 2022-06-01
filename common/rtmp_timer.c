@@ -259,7 +259,7 @@ RTMP_TIMER_TASK_ENTRY *RtmpTimerQInsert(
 }
 
 
-BOOLEAN RtmpTimerQRemove(
+bool RtmpTimerQRemove(
 	IN RTMP_ADAPTER *pAd, 
 	IN RALINK_TIMER_STRUCT *pTimer)
 {

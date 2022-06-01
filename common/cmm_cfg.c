@@ -50,7 +50,7 @@ void DisplayTxAgg (RTMP_ADAPTER *pAd)
 }
 #endif /* DOT11_N_SUPPORT */
 
-static BOOLEAN RT_isLegalCmdBeforeInfUp(
+static bool RT_isLegalCmdBeforeInfUp(
        IN char * SetCmd);
 
 INT ComputeChecksum(
@@ -74,7 +74,7 @@ INT ComputeChecksum(
 
 unsigned int GenerateWpsPinCode(
 	IN PRTMP_ADAPTER	pAd,
-	IN BOOLEAN		bFromApcli,
+	IN bool		bFromApcli,
 	IN unsigned char		apidx)
 {
 	unsigned char	macAddr[MAC_ADDR_LEN];
@@ -262,7 +262,7 @@ unsigned char wmode_2_cfgmode(unsigned char wmode)
 	return PHY_11ABGN_MIXED;
 }
 
-static BOOLEAN wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
+static bool wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
 {
 	if ((WMODE_CAP_5G(wmode) && (!PHY_CAP_5G(pAd->chipCap.phy_caps))) ||
 		(WMODE_CAP_2G(wmode) && (!PHY_CAP_2G(pAd->chipCap.phy_caps))) ||
@@ -271,9 +271,9 @@ static BOOLEAN wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
 	else
 		return TRUE;
 }
-static BOOLEAN wmode_valid_and_correct(RTMP_ADAPTER *pAd, unsigned char* wmode)
+static bool wmode_valid_and_correct(RTMP_ADAPTER *pAd, unsigned char* wmode)
 {
-	BOOLEAN ret = TRUE;
+	bool ret = TRUE;
 
 	if (WMODE_CAP_5G(*wmode) && (!PHY_CAP_5G(pAd->chipCap.phy_caps)))
 		*wmode = *wmode & ~(WMODE_A | WMODE_AN | WMODE_AC);
@@ -289,9 +289,9 @@ static BOOLEAN wmode_valid_and_correct(RTMP_ADAPTER *pAd, unsigned char* wmode)
 }
 
 
-BOOLEAN wmode_band_equal(unsigned char smode, unsigned char tmode)
+bool wmode_band_equal(unsigned char smode, unsigned char tmode)
 {
-	BOOLEAN eq = FALSE;
+	bool eq = FALSE;
 	unsigned char *str1, *str2;
 
 	if ((WMODE_CAP_5G(smode) == WMODE_CAP_5G(tmode)) &&
@@ -448,10 +448,10 @@ INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 #endif /* CONFIG_AP_SUPPORT */
 
 
-static BOOLEAN RT_isLegalCmdBeforeInfUp(
+static bool RT_isLegalCmdBeforeInfUp(
        IN char * SetCmd)
 {
-		BOOLEAN TestFlag;
+		bool TestFlag;
 		TestFlag =	!strcmp(SetCmd, "Debug") ||
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
 					!strcmp(SetCmd, "OpMode") ||
@@ -507,7 +507,7 @@ INT	RT_CfgSetWepKey(
 	INT			KeyLen;
 	INT			i;
 	/*unsigned char			CipherAlg = CIPHER_NONE;*/
-	BOOLEAN			bKeyIsHex = FALSE;
+	bool			bKeyIsHex = FALSE;
 
 	/* TODO: Shall we do memset for the original key info??*/
 	memset(pSharedKey, 0, sizeof(CIPHER_KEY));
@@ -644,7 +644,7 @@ INT	RT_CfgSetMacAddress(
 	return TRUE;
 }
 
-INT	RT_CfgSetTxMCSProc(char * arg, BOOLEAN *pAutoRate)
+INT	RT_CfgSetTxMCSProc(char * arg, bool *pAutoRate)
 {
 	INT	Value = simple_strtol(arg, 0, 10);
 	INT	TxMcs;

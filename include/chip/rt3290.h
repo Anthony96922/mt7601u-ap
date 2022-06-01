@@ -93,17 +93,17 @@ VOID MlmeAntSelection(
 
 INT RT3290_eeprom_access_grant(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN BOOLEAN bGetCtrl);
+	IN bool bGetCtrl);
 	
 VOID RTMP_MAC_PWRSV_EN(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN BOOLEAN EnterIdle,
-	IN BOOLEAN use40M);
+	IN bool EnterIdle,
+	IN bool use40M);
 
 VOID RTMPEnableWlan(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN BOOLEAN bOn,
-	IN BOOLEAN bResetWLAN);
+	IN bool bOn,
+	IN bool bResetWLAN);
 
 VOID RT3290_Init(
 	IN struct _RTMP_ADAPTER *pAd);

@@ -230,7 +230,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	unsigned int			MacReg;
 	unsigned long			Index;
 	unsigned long			firm;
-	BOOLEAN			flg_default_firm_use = FALSE;
+	bool			flg_default_firm_use = FALSE;
 	RTMP_OS_FS_INFO	osFSInfo;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("===> %s\n", __FUNCTION__));
@@ -398,7 +398,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	unsigned long			FileLength;
 	unsigned int			Version = (pAd->MACVersion >> 16);
 #ifdef RTMP_MAC_USB
-	BOOLEAN			Equal = TRUE;
+	bool			Equal = TRUE;
 	unsigned int			MacReg1 = 0;
 	unsigned char			FVer;
 	unsigned short			FCS;
@@ -637,7 +637,7 @@ INT RtmpAsicSendCommandToMcu(
 	IN unsigned char			Token,
 	IN unsigned char			Arg0,
 	IN unsigned char			Arg1,
-	IN BOOLEAN			FlgIsNeedLocked)
+	IN bool			FlgIsNeedLocked)
 {
 	HOST_CMD_CSR_STRUC	H2MCmd;
 	H2M_MAILBOX_STRUC	H2MMailbox;

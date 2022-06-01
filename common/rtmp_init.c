@@ -1199,7 +1199,7 @@ VOID AsicInitBcnBuf(IN RTMP_ADAPTER *pAd)
 */
 NDIS_STATUS	NICInitializeAdapter(
 	IN	PRTMP_ADAPTER	pAd,
-	IN   BOOLEAN    bHardReset)
+	IN   bool    bHardReset)
 {
 	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
 	unsigned long j=0;
@@ -1260,7 +1260,7 @@ retry:
 */
 NDIS_STATUS	NICInitializeAsic(
 	IN	PRTMP_ADAPTER	pAd,
-	IN  BOOLEAN		bHardReset)
+	IN  bool		bHardReset)
 {
 	unsigned long			Index = 0;
 	unsigned int			MACValue = 0;
@@ -1794,7 +1794,7 @@ VOID NICUpdateFifoStaCounters(
 
 
 #ifdef FIFO_EXT_SUPPORT
-BOOLEAN NicGetMacFifoTxCnt(
+bool NicGetMacFifoTxCnt(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry)
 {
@@ -3080,7 +3080,7 @@ VOID	RTMP_TimerListRelease(
 {
 	LIST_HEADER *pRscList = &pAd->RscTimerCreateList;
 	LIST_RESOURCE_OBJ_ENTRY *pObj, *pObjOld;
-	BOOLEAN Cancel;
+	bool Cancel;
 
 
 	/* try to find old entry */
@@ -3105,7 +3105,7 @@ VOID RTMP_AllTimerListRelease(RTMP_ADAPTER *pAd)
 {
    LIST_HEADER *pRscList = &pAd->RscTimerCreateList;
    LIST_RESOURCE_OBJ_ENTRY *pObj, *pObjOld;
-   BOOLEAN Cancel;
+   bool Cancel;
 
    /* try to find old entry */
    pObj = (LIST_RESOURCE_OBJ_ENTRY *)(pRscList->pHead);
@@ -3149,7 +3149,7 @@ VOID	RTMPInitTimer(
 	IN	PRALINK_TIMER_STRUCT	pTimer,
 	IN	void *					pTimerFunc,
 	IN	void *					pData,
-	IN	BOOLEAN					Repeat)
+	IN	bool					Repeat)
 {
 	RTMP_SEM_LOCK(&TimerSemLock);
 
@@ -3255,7 +3255,7 @@ VOID	RTMPModTimer(
 	IN	PRALINK_TIMER_STRUCT	pTimer,
 	IN	unsigned long					Value)
 {
-	BOOLEAN	Cancel;
+	bool	Cancel;
 
 
 	RTMP_SEM_LOCK(&TimerSemLock);
@@ -3308,7 +3308,7 @@ VOID	RTMPModTimer(
 */
 VOID RTMPCancelTimer(
 	IN PRALINK_TIMER_STRUCT	pTimer,
-	OUT BOOLEAN		*pCancelled)
+	OUT bool		*pCancelled)
 {
 	RTMP_SEM_LOCK(&TimerSemLock);
 
@@ -3341,7 +3341,7 @@ VOID RTMPCancelTimer(
 
 VOID	RTMPReleaseTimer(
 	IN	PRALINK_TIMER_STRUCT	pTimer,
-	OUT	BOOLEAN					*pCancelled)
+	OUT	bool					*pCancelled)
 {
 	RTMP_SEM_LOCK(&TimerSemLock);
 
@@ -3465,7 +3465,7 @@ static INT RtmpChipOpsRegister(
 
 
 #ifdef RTMP_MAC_USB
-BOOLEAN PairEP(RTMP_ADAPTER *pAd, unsigned char EP, unsigned char Index, unsigned char InOut)
+bool PairEP(RTMP_ADAPTER *pAd, unsigned char EP, unsigned char Index, unsigned char InOut)
 {
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
@@ -3558,7 +3558,7 @@ INT RtmpRaDevCtrlInit(VOID *pAdSrc, RTMP_INF_TYPE infType)
 
 #ifdef MULTIPLE_CARD_SUPPORT
 {
-	extern BOOLEAN RTMP_CardInfoRead(PRTMP_ADAPTER pAd);
+	extern bool RTMP_CardInfoRead(PRTMP_ADAPTER pAd);
 
 	/* find its profile path*/
 	pAd->MC_RowID = -1; /* use default profile path*/
@@ -3581,7 +3581,7 @@ INT RtmpRaDevCtrlInit(VOID *pAdSrc, RTMP_INF_TYPE infType)
 }
 
 
-BOOLEAN RtmpRaDevCtrlExit(IN VOID *pAdSrc)
+bool RtmpRaDevCtrlExit(IN VOID *pAdSrc)
 {
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
 	INT index;
@@ -3680,7 +3680,7 @@ VOID RTMP_BBP_IO_READ8(
 	PRTMP_ADAPTER pAd,
 	unsigned char Offset,
 	unsigned char *pValue,
-	BOOLEAN FlgValidMCR)
+	bool FlgValidMCR)
 {
 #ifdef RT8592
 	if (IS_RT8592(pAd))
@@ -3727,7 +3727,7 @@ VOID RTMP_BBP_IO_WRITE8(
 	PRTMP_ADAPTER pAd,
 	unsigned char Offset,
 	unsigned char Value,
-	BOOLEAN FlgValidMCR)
+	bool FlgValidMCR)
 {
 #ifdef RT8592
 	if (IS_RT8592(pAd))

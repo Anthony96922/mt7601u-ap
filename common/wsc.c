@@ -108,10 +108,10 @@ VOID 	WscApCliLinkDown(
 #endif /* APCLI_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 
-BOOLEAN WscCheckNonce(
+bool WscCheckNonce(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem,
-	IN  BOOLEAN         bFlag,
+	IN  bool         bFlag,
 	IN  PWSC_CTRL       pWscControl);
 
 VOID    WscEapActionDisabled(
@@ -183,7 +183,7 @@ INT WscGenerateUUID(
 	unsigned char 			*uuidHexStr, 
 	unsigned char 			*uuidAscStr, 
 	int 			apIdx,
-	BOOLEAN			bUseCurrentTime)
+	bool			bUseCurrentTime)
 {
 	
 	WSC_UUID_T uuid_t;
@@ -348,7 +348,7 @@ void WscM2DTimeOutAction(
 	MAC_TABLE_ENTRY		*pEntry = NULL;
 /*	unsigned char		        apidx = MAIN_MBSSID; */
 #endif /* CONFIG_AP_SUPPORT */    
-	BOOLEAN             Cancelled;
+	bool             Cancelled;
 	unsigned char				CurOpMode = 0xFF;
 	
 #ifdef CONFIG_AP_SUPPORT
@@ -629,7 +629,7 @@ VOID WscEAPAction(
 	IN	MLME_QUEUE_ELEM	*Elem) 
 {		
 	unsigned char		MsgType;
-	BOOLEAN		bUPnPMsg, Cancelled;
+	bool		bUPnPMsg, Cancelled;
 	MAC_TABLE_ENTRY	*pEntry = NULL;
 	unsigned char		MacAddr[MAC_ADDR_LEN] = {0};
 #ifdef CONFIG_AP_SUPPORT
@@ -987,7 +987,7 @@ VOID WscEAPAction(
              MsgType == WSC_MSG_M7 ||
              MsgType == WSC_MSG_WSC_DONE)
 	{
-        BOOLEAN bNonceMatch = WscCheckNonce(pAdapter, Elem, TRUE, pWscControl);
+        bool bNonceMatch = WscCheckNonce(pAdapter, Elem, TRUE, pWscControl);
 		if (((pWscControl->WscConfMode & WSC_REGISTRAR) != 0) &&
 			(pWscControl->bWscTrigger 
 			 ) &&
@@ -1019,8 +1019,8 @@ VOID WscEAPAction(
 			MsgType == WSC_MSG_M6 ||
 			MsgType == WSC_MSG_M8)
 	{
-        BOOLEAN bNonceMatch = WscCheckNonce(pAdapter, Elem, FALSE, pWscControl);
-		BOOLEAN bGoWPS = FALSE;
+        bool bNonceMatch = WscCheckNonce(pAdapter, Elem, FALSE, pWscControl);
+		bool bGoWPS = FALSE;
 
 		if ((CurOpMode == AP_MODE) ||
 			((CurOpMode == STA_MODE) && 
@@ -1044,7 +1044,7 @@ VOID WscEAPAction(
 			pWscControl->WscUseUPnP = bUPnPMsg ? 1 : 0;
 			if (MsgType == WSC_MSG_M2)
 			{
-				BOOLEAN	bReadOwnPIN = TRUE;
+				bool	bReadOwnPIN = TRUE;
 #ifdef CONFIG_AP_SUPPORT
 				/* WPS Enrollee AP only supports PIN without trigger */
 				if (CurOpMode == AP_MODE)
@@ -1141,7 +1141,7 @@ VOID WscEAPAction(
 	}
 	else if (MsgType == WSC_MSG_WSC_NACK)
 	{
-		BOOLEAN bReSetWscIE = FALSE;
+		bool bReSetWscIE = FALSE;
 		if (bUPnPMsg && (pWscControl->WscState == WSC_STATE_WAIT_M8) &&
 			(pWscControl->WscConfStatus == WSC_SCSTATE_CONFIGURED))
 		{
@@ -1302,7 +1302,7 @@ VOID WscEapEnrolleeAction(
     INT     DataLen = 0, rv = 0, DH_Len = 0;
 	unsigned char   OpCode, bssIdx;
     unsigned char *  WscData = NULL;
-    BOOLEAN bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
+    bool bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
 	WSC_UPNP_NODE_INFO *pWscUPnPInfo = &pWscControl->WscUPnPNodeInfo;
 	unsigned int	MaxWscDataLen = WSC_MAX_DATA_LEN;
 	unsigned char	CurOpMode = 0xFF;
@@ -1874,7 +1874,7 @@ VOID WscEapApProxyAction(
 	IN  PWSC_CTRL       pWscControl)
 {
 	unsigned char *  WscData = NULL;
-	BOOLEAN sendToUPnP = FALSE, bUPnPStatus = FALSE, Cancelled;
+	bool sendToUPnP = FALSE, bUPnPStatus = FALSE, Cancelled;
 	int reqID = 0;
     WSC_UPNP_NODE_INFO *pWscUPnPInfo = &pWscControl->WscUPnPNodeInfo;
 	unsigned int	MaxWscDataLen = WSC_MAX_DATA_LEN;
@@ -2065,7 +2065,7 @@ VOID WscEapRegistrarAction(
 	INT     DataLen = 0, rv = 0;
 	unsigned char   OpCode = 0;
 	unsigned char   *WscData = NULL;    
-	BOOLEAN bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
+	bool bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
 	WSC_UPNP_NODE_INFO *pWscUPnPInfo = &pWscControl->WscUPnPNodeInfo;
 	unsigned int	MaxWscDataLen = WSC_MAX_DATA_LEN;
 	unsigned char	CurOpMode = 0xFF;
@@ -2133,7 +2133,7 @@ VOID WscEapRegistrarAction(
 					goto Fail;
 				else
 				{
-					BOOLEAN	bSendM2D = TRUE;
+					bool	bSendM2D = TRUE;
 
 
 					if (pWscControl->bWscTrigger && (!pWscControl->bWscAutoTigeer))
@@ -2650,7 +2650,7 @@ VOID WscEAPOLTimeOutAction(
 				pWscControl->RegData.ReComputePke = 1;
 				if (pWscControl->Wsc2MinsTimerRunning)
 				{
-					BOOLEAN Cancelled;
+					bool Cancelled;
 					pWscControl->Wsc2MinsTimerRunning = FALSE;
 					RTMPCancelTimer(&pWscControl->Wsc2MinsTimer, &Cancelled);
 				}				
@@ -2970,7 +2970,7 @@ VOID Wsc2MinsTimeOutAction(
 #ifdef CONFIG_AP_SUPPORT
 	INT	IsAPConfigured = 0;
 #endif /* CONFIG_AP_SUPPORT */
-	BOOLEAN         Cancelled;
+	bool         Cancelled;
 	unsigned char			CurOpMode = 0xFF;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> Wsc2MinsTimeOutAction\n"));
@@ -3252,7 +3252,7 @@ out:
 		
 	========================================================================
 */
-BOOLEAN	WscMsgTypeSubst(
+bool	WscMsgTypeSubst(
 	IN	unsigned char	EAPType,
 	IN	unsigned char	EAPCode,
 	OUT	INT		*MsgType)	
@@ -4126,7 +4126,7 @@ VOID	WscSendMessage(
 VOID WscBuildBeaconIE(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	unsigned char b_configured,
-	IN	BOOLEAN b_selRegistrar,
+	IN	bool b_selRegistrar,
 	IN	unsigned short devPwdId,
 	IN	unsigned short selRegCfgMethods,
 	IN  unsigned char apidx,
@@ -4286,7 +4286,7 @@ VOID WscBuildProbeRespIE(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	unsigned char respType,
 	IN	unsigned char scState,
-	IN	BOOLEAN b_selRegistrar,
+	IN	bool b_selRegistrar,
 	IN	unsigned short devPwdId,
 	IN	unsigned short selRegCfgMethods,
 	IN  unsigned char apidx,
@@ -4527,7 +4527,7 @@ VOID WscBuildProbeRespIE(
 VOID	WscSendEapFail(
 	IN	PRTMP_ADAPTER		pAd,
 	IN  PWSC_CTRL           pWscControl,
-	IN  BOOLEAN				bSendDeAuth)
+	IN  bool				bSendDeAuth)
 {
 	unsigned char               Header802_3[14];
 	unsigned short				Length;
@@ -4825,7 +4825,7 @@ VOID WscProfileRetryTimeout(
 {
 	RTMP_ADAPTER    *pAdapter = NULL;
 	PWSC_CTRL		pWscControl = (PWSC_CTRL)FunctionContext;	
-	BOOLEAN			bReConnect = TRUE;
+	bool			bReConnect = TRUE;
 	unsigned char			CurOpMode = 0xFF;
 
 	if (pWscControl == NULL)
@@ -4878,7 +4878,7 @@ VOID WscProfileRetryTimeout(
 #ifdef APCLI_SUPPORT
 			if (CurOpMode == AP_MODE)
 			{
-				BOOLEAN apcliEn;
+				bool apcliEn;
 				WscWriteConfToApCliCfg(pAdapter, 
 									   pWscControl, 
 									   &pWscControl->WscProfile.Profile[pWscControl->WscProfile.ApplyProfileIdx],
@@ -4917,7 +4917,7 @@ VOID WscPBCTimeOutAction(
 {
 	PWSC_CTRL       pWscControl = (PWSC_CTRL)FunctionContext;
 	RTMP_ADAPTER    *pAd = NULL;
-    BOOLEAN         Cancelled;
+    bool         Cancelled;
 
     DBGPRINT(RT_DEBUG_OFF, ("-----> WscPBCTimeOutAction\n"));
 
@@ -5000,7 +5000,7 @@ VOID WscScanTimeOutAction(
 	}
 }
 
-BOOLEAN ValidateChecksum(
+bool ValidateChecksum(
 	IN unsigned int PIN)
 {
 	unsigned int accum = 0;
@@ -5056,7 +5056,7 @@ VOID  WscInformFromWPA(
 {
 	/* WPA_STATE_MACHINE informs this Entry is already WPA_802_1X_PORT_SECURED. */
 	RTMP_ADAPTER	*pAd = (PRTMP_ADAPTER)pEntry->pAd;
-	BOOLEAN         Cancelled;
+	bool         Cancelled;
 
 	if (pEntry->apidx >= pAd->ApCfg.BssidNum)
 		return;
@@ -5082,7 +5082,7 @@ VOID WscDelWPARetryTimer(
 {
 	PMAC_TABLE_ENTRY    pEntry;
 	unsigned char				apidx = MAIN_MBSSID;
-	BOOLEAN             Cancelled;
+	bool             Cancelled;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscDelWPARetryTimer\n"));
     
@@ -5101,12 +5101,12 @@ VOID WscDelWPARetryTimer(
 VOID WscStop(
 	IN	PRTMP_ADAPTER	pAd,
 #ifdef CONFIG_AP_SUPPORT
-	IN  BOOLEAN         bFromApCli,
+	IN  bool         bFromApCli,
 #endif /* CONFIG_AP_SUPPORT */
 	IN  PWSC_CTRL       pWscControl)
 {
 	PWSC_UPNP_NODE_INFO pWscUPnPInfo;
-	BOOLEAN Cancelled;
+	bool Cancelled;
 #ifdef WSC_LED_SUPPORT
 	unsigned char WPSLEDStatus;
 #endif /* WSC_LED_SUPPORT */
@@ -5219,7 +5219,7 @@ VOID WscStop(
 
 VOID WscInit(
 	IN	PRTMP_ADAPTER	pAd,
-    IN  BOOLEAN         bFromApCli,
+    IN  bool         bFromApCli,
 	IN  unsigned char       	BssIndex)
 {
 	IN  PWSC_CTRL       pWscControl = NULL;
@@ -5448,7 +5448,7 @@ void    WscWriteConfToPortCfg(
     IN  PRTMP_ADAPTER   pAd,
     IN  PWSC_CTRL       pWscControl,
     IN  PWSC_CREDENTIAL pCredential,    
-    IN  BOOLEAN         bEnrollee)
+    IN  bool         bEnrollee)
 {
 	unsigned char               CurApIdx = MAIN_MBSSID;
 	unsigned char	CurOpMode = AP_MODE;
@@ -5633,7 +5633,7 @@ void    WscWriteConfToPortCfg(
 VOID	WscWriteSsidToDatFile(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  char *		 	pTempStr,
-	IN	BOOLEAN			bNewFormat,
+	IN	bool			bNewFormat,
 	IN  unsigned char			CurOpMode)
 {
 #ifdef CONFIG_AP_SUPPORT
@@ -5692,7 +5692,7 @@ VOID	WscWriteSsidToDatFile(
 VOID	WscWriteWpaPskToDatFile(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  char *		 	pTempStr,
-	IN	BOOLEAN			bNewFormat)
+	IN	bool			bNewFormat)
 {
 #ifdef CONFIG_AP_SUPPORT
 	unsigned char			apidx;
@@ -5749,10 +5749,10 @@ VOID	WscWriteWpaPskToDatFile(
 #endif /* CONFIG_AP_SUPPORT */
 }
 
-BOOLEAN WscCheckNonce(
+bool WscCheckNonce(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*pElem,
-	IN  BOOLEAN         bFlag,
+	IN  bool         bFlag,
 	IN  PWSC_CTRL       pWscControl) 
 {
     unsigned short				Length;
@@ -5864,7 +5864,7 @@ VOID    WscEapActionDisabled(
 {
 	INT     DataLen = 0;
 	unsigned char   *WscData = NULL;
-	/*BOOLEAN Cancelled;*/
+	/*bool Cancelled;*/
 
 	os_alloc_mem(NULL, &WscData, 256);
 
@@ -6049,7 +6049,7 @@ VOID	WscPushPBCAction(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL   	pWscControl)
 {
-	BOOLEAN		Cancelled;
+	bool		Cancelled;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscPushPBCAction\n"));
 
@@ -6172,9 +6172,9 @@ VOID	WscScanExec(
 		
 	========================================================================
 */
-BOOLEAN	WscPBCExec(
+bool	WscPBCExec(
 	IN	PRTMP_ADAPTER	pAd,
-	IN  BOOLEAN			bFromM2,
+	IN  bool			bFromM2,
 	IN  PWSC_CTRL       pWscControl)
 {
 #ifdef WSC_LED_SUPPORT
@@ -6303,7 +6303,7 @@ BOOLEAN	WscPBCExec(
 	return TRUE;
 }
 
-BOOLEAN WscBssWpsIESearchForPBC(
+bool WscBssWpsIESearchForPBC(
 	PRTMP_ADAPTER		pAd,
 	PWSC_CTRL			pWscControl,	
 	PBSS_ENTRY			pInBss,
@@ -6312,7 +6312,7 @@ BOOLEAN WscBssWpsIESearchForPBC(
 	unsigned char *				pVar)
 {
 	INT					j = 0, Len = 0, idx = 0;
-	BOOLEAN				bFound, bSameAP, bSelReg;
+	bool				bFound, bSameAP, bSelReg;
 	unsigned char *				pData = NULL;
 	PBEACON_EID_STRUCT	pEid;
 	unsigned short				DevicePasswordID;
@@ -6560,7 +6560,7 @@ VOID WscPBCBssTableSort(
 	PBSS_ENTRY			pInBss;		
 /*	UUID_BSSID_CH_INFO	ApUuidBssid[8]; */
 	UUID_BSSID_CH_INFO	*ApUuidBssid = NULL;
-	BOOLEAN				rv = FALSE;
+	bool				rv = FALSE;
 	unsigned char				CurOpMode = AP_MODE;
 
 
@@ -6898,7 +6898,7 @@ void    WscWriteConfToApCliCfg(
     IN  PRTMP_ADAPTER   pAd,
     IN  PWSC_CTRL       pWscControl,
     IN  PWSC_CREDENTIAL pCredential,
-    IN  BOOLEAN         bEnrollee)
+    IN  bool         bEnrollee)
 {
 	unsigned char			CurApIdx = BSS0;
 	APCLI_STRUCT	*pApCliTab;
@@ -7016,7 +7016,7 @@ VOID 	WscApCliLinkDown(
 {
 	unsigned char	apidx = (pWscControl->EntryIfIdx & 0x0F);
 	unsigned char	mac_addr[MAC_ADDR_LEN];
-    BOOLEAN apcliEn = pAd->ApCfg.ApCliTab[apidx].Enable;	
+    bool apcliEn = pAd->ApCfg.ApCliTab[apidx].Enable;	
 
 	NdisMoveMemory(pWscControl->RegData.SelfInfo.MacAddr,
                    pAd->ApCfg.ApCliTab[apidx].CurrentAddress, 
@@ -7226,7 +7226,7 @@ VOID   WpsSmProcess(
             }
             else
             {
-                BOOLEAN Cancelled;
+                bool Cancelled;
                 DBGPRINT(RT_DEBUG_TRACE, ("RTMPCancelTimer EapolTimer!!\n"));
 				NdisZeroMemory(pWpsCtrl->EntryAddr, MAC_ADDR_LEN);
                 pWpsCtrl->EapolTimerRunning = FALSE;
@@ -7299,7 +7299,7 @@ VOID   WpsSmProcess(
 INT	WscGetConfWithoutTrigger(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL       pWscControl,
-	IN  BOOLEAN         bFromUPnP)
+	IN  bool         bFromUPnP)
 {
 	INT                 WscMode;
 	INT                 IsAPConfigured;
@@ -7358,7 +7358,7 @@ VOID WscSendNACK(
 {
     INT     DataLen = 0;
     unsigned char *  pWscData = NULL;
-    BOOLEAN Cancelled;
+    bool Cancelled;
 	unsigned char CurOpMode = AP_MODE;
 
 
@@ -7488,7 +7488,7 @@ VOID WscPBC_DPID_FromSTA(
 {
 	INT		Index = 0;
 	unsigned char	tab_idx;
-	BOOLEAN bAddEntry = FALSE;
+	bool bAddEntry = FALSE;
 	unsigned long	now;
 	PWSC_STA_PBC_PROBE_INFO	pWscStaPbcProbeInfo = &pAd->CommonCfg.WscStaPbcProbeInfo;
 
@@ -7631,7 +7631,7 @@ void    WscWriteConfToDatFile(
 		{
 			int i = 0;
 			char * ptr;
-			BOOLEAN	bNewFormat = TRUE;
+			bool	bNewFormat = TRUE;
 
 			NdisZeroMemory(pTempStr, 512);
 			ptr = (char *) offset;
@@ -8249,7 +8249,7 @@ static INT wsc_write_dat_file_thread (
 /*
   * This kernel thread init in the probe fucntion, so we should kill it when do remove module.
   */
-BOOLEAN WscThreadExit(RTMP_ADAPTER *pAd)
+bool WscThreadExit(RTMP_ADAPTER *pAd)
 {	
 	INT ret;
 	
@@ -8282,7 +8282,7 @@ BOOLEAN WscThreadExit(RTMP_ADAPTER *pAd)
 
 		for (ap_idx = 0; ap_idx < MaxBssidNum; ap_idx++)
 		{
-			BOOLEAN Cancelled;
+			bool Cancelled;
 			PWSC_CTRL	pWpsCtrl = &pAd->ApCfg.MBSSID[ap_idx].WscControl;
 			WscStop(pAd, FALSE, pWpsCtrl);
 			//sync by 7610
@@ -8450,7 +8450,7 @@ VOID WSC_HDR_BTN_CheckHandler(
 	IN	PRTMP_ADAPTER	pAd)
 {
  	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
-	BOOLEAN flg_pressed;
+	bool flg_pressed;
 
 #ifdef MT7601
 	if (IS_MT7601(pAd))
@@ -8498,7 +8498,7 @@ VOID WSC_HDR_BTN_CheckHandler(
 /* Support WPS LED mode (mode 7, mode 8 and mode 9). */
 /* Ref: User Feedback (page 80, WPS specification 1.0) */
 /* */
-BOOLEAN WscSupportWPSLEDMode(
+bool WscSupportWPSLEDMode(
 	IN PRTMP_ADAPTER pAd)
 {
 	if ((LED_MODE(pAd) == WPS_LED_MODE_7) || 
@@ -8523,7 +8523,7 @@ BOOLEAN WscSupportWPSLEDMode(
 	}
 }
 
-BOOLEAN WscSupportWPSLEDMode10(
+bool WscSupportWPSLEDMode10(
 	IN PRTMP_ADAPTER pAd)
 {
 	if ((LED_MODE(pAd) == WPS_LED_MODE_10)){
@@ -8543,11 +8543,11 @@ BOOLEAN WscSupportWPSLEDMode10(
 /* Whether the WPS AP has security setting or not. */
 /* Note that this function is valid only after the WPS handshaking. */
 /* */
-BOOLEAN WscAPHasSecuritySetting(
+bool WscAPHasSecuritySetting(
 	IN PRTMP_ADAPTER pAdapter,
 	IN PWSC_CTRL     pWscControl)
 {
-	BOOLEAN bAPHasSecuritySetting = FALSE;
+	bool bAPHasSecuritySetting = FALSE;
 	unsigned char	currentIdx = MAIN_MBSSID;
 	
 #ifdef CONFIG_AP_SUPPORT
@@ -8707,7 +8707,7 @@ VOID WscUpdatePortCfgTimeout(
 {
 	PWSC_CTRL 		pWscControl = (PWSC_CTRL)FunctionContext;
 	PRTMP_ADAPTER 	pAd = NULL;
-	BOOLEAN			/* bRestart = TRUE,*/ bEnrollee = TRUE;
+	bool			/* bRestart = TRUE,*/ bEnrollee = TRUE;
 	PWSC_CREDENTIAL		pCredential = NULL;
 	PMULTISSID_STRUCT	pMbss = NULL;
 
@@ -9013,7 +9013,7 @@ VOID	WscAssignEntryMAC(
 /*
 	Get WSC IE data from WSC Peer by Tag.
 */
-BOOLEAN WscGetDataFromPeerByTag(
+bool WscGetDataFromPeerByTag(
     IN  PRTMP_ADAPTER 	pAd, 
     IN  unsigned char *			pIeData,
     IN  INT				IeDataLen,

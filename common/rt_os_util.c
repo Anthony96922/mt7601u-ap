@@ -84,15 +84,15 @@ char *rtstrchr(const char * s, int c)
 
 VOID RtmpMeshDown(
 	IN VOID *pDrvCtrlBK,
-	IN BOOLEAN WaitFlag,
-	IN BOOLEAN	 (*RtmpMeshLinkCheck)(IN VOID *pAd))
+	IN bool WaitFlag,
+	IN bool	 (*RtmpMeshLinkCheck)(IN VOID *pAd))
 {
 }
 
 
 
 	
-BOOLEAN RtmpOsCmdDisplayLenCheck(
+bool RtmpOsCmdDisplayLenCheck(
 	IN unsigned int LenSrc,
 	IN unsigned int Offset)
 {
@@ -106,7 +106,7 @@ BOOLEAN RtmpOsCmdDisplayLenCheck(
 #if defined(WPA_SUPPLICANT_SUPPORT) || defined(APCLI_WPA_SUPPLICANT_SUPPORT)
 VOID WpaSendMicFailureToWpaSupplicant(
 	IN PNET_DEV pNetDev,
-	IN BOOLEAN bUnicast)
+	IN bool bUnicast)
 {    
 	char custom[IW_CUSTOM_MAX] = {0};
     

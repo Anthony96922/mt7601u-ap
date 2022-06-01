@@ -47,10 +47,10 @@ typedef struct _ATE_CHIP_STRUCT {
 
 	/* variables */
 	INT maxTxPwrCnt;
-	BOOLEAN bBBPStoreTXCARR;
-	BOOLEAN bBBPStoreTXCARRSUPP;
-	BOOLEAN bBBPStoreTXCONT;
-	BOOLEAN bBBPLoadATESTOP;
+	bool bBBPStoreTXCARR;
+	bool bBBPStoreTXCARRSUPP;
+	bool bBBPStoreTXCONT;
+	bool bBBPLoadATESTOP;
 		
 }ATE_CHIP_STRUCT, *PATE_CHIP_STRUCT;
 
@@ -68,7 +68,7 @@ typedef union _CAPTURE_MODE_SHARE_MEMORY {
 typedef struct _ATE_INFO {
 	PATE_CHIP_STRUCT pChipStruct; 
 	unsigned char Mode;
-	BOOLEAN PassiveMode;
+	bool PassiveMode;
 #ifdef RT3350
 	unsigned char   PABias;
 #endif /* RT3350 */
@@ -94,20 +94,20 @@ typedef struct _ATE_INFO {
 	unsigned int TxDoneCount;	/* Tx DMA Done */
 	unsigned int RFFreqOffset;
 	unsigned int IPG;
-	BOOLEAN bRxFER;		/* Show Rx Frame Error Rate */
-	BOOLEAN	bQAEnabled;	/* QA is used. */
-	BOOLEAN bQATxStart;	/* Have compiled QA in and use it to ATE tx. */
-	BOOLEAN bQARxStart;	/* Have compiled QA in and use it to ATE rx. */
-	BOOLEAN bAutoTxAlc;	/* Set Auto Tx Alc */
+	bool bRxFER;		/* Show Rx Frame Error Rate */
+	bool	bQAEnabled;	/* QA is used. */
+	bool bQATxStart;	/* Have compiled QA in and use it to ATE tx. */
+	bool bQARxStart;	/* Have compiled QA in and use it to ATE rx. */
+	bool bAutoTxAlc;	/* Set Auto Tx Alc */
 #ifdef RTMP_INTERNAL_TX_ALC
 #if defined(RT3350) || defined(RT3352)
-	BOOLEAN bTSSICalbrEnableG; /* Enable TSSI calibration */
+	bool bTSSICalbrEnableG; /* Enable TSSI calibration */
 	CHAR	TssiRefPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
 	CHAR	TssiDeltaPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
 #endif /* defined(RT3350) || defined(RT3352) */
 #endif /* RTMP_INTERNAL_TX_ALC */
 #ifdef TXBF_SUPPORT
-	BOOLEAN bTxBF;		/* Enable Tx Bean Forming */
+	bool bTxBF;		/* Enable Tx Bean Forming */
 	SHORT	txSoundingMode;	/* Sounding mode for non-QA ATE. 0=none, 1=Data Sounding, 2=NDP */
 	unsigned char	calParams[2];
 #endif				/* TXBF_SUPPORT */

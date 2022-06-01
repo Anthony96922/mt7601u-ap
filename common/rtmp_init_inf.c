@@ -843,7 +843,7 @@ VOID RTMPDrvClose(
 	IN VOID		*net_dev)
 {
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
-	BOOLEAN		Cancelled;
+	bool		Cancelled;
 	unsigned int		i = 0;
 
 

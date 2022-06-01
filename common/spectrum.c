@@ -1351,11 +1351,11 @@ VOID EnqueueChSwAnn(
 }
 #endif /* WDS_SUPPORT */
 
-static BOOLEAN DfsRequirementCheck(
+static bool DfsRequirementCheck(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char Channel)
 {
-	BOOLEAN Result = FALSE;
+	bool Result = FALSE;
 	INT i;
 
 	do
@@ -1451,7 +1451,7 @@ static VOID StartDFSProcedure(
   +----+-----+-----------+------------+-----------+
     1    1        1           1            1      
 */
-static BOOLEAN PeerChSwAnnSanity(
+static bool PeerChSwAnnSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN unsigned long MsgLen,
@@ -1459,7 +1459,7 @@ static BOOLEAN PeerChSwAnnSanity(
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
 	unsigned char * pFramePtr = Fr->Octet;
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	PEID_STRUCT eid_ptr;
 
 	/* skip 802.11 header.*/
@@ -1507,7 +1507,7 @@ static BOOLEAN PeerChSwAnnSanity(
 	Return	: None.
 	==========================================================================
  */
-static BOOLEAN PeerMeasureReqSanity(
+static bool PeerMeasureReqSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN unsigned long MsgLen,
@@ -1517,7 +1517,7 @@ static BOOLEAN PeerMeasureReqSanity(
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
 	unsigned char * pFramePtr = Fr->Octet;
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	PEID_STRUCT eid_ptr;
 	unsigned char * ptr;
 	unsigned long long MeasureStartTime;
@@ -1599,7 +1599,7 @@ static BOOLEAN PeerMeasureReqSanity(
   +-----+---------------+---------------------+-------+------------+----------+
      0          1                  2              3         4          5-7
 */
-static BOOLEAN PeerMeasureReportSanity(
+static bool PeerMeasureReportSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN unsigned long MsgLen,
@@ -1609,7 +1609,7 @@ static BOOLEAN PeerMeasureReportSanity(
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
 	unsigned char * pFramePtr = Fr->Octet;
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	PEID_STRUCT eid_ptr;
 	unsigned char * ptr;
 
@@ -1690,7 +1690,7 @@ static BOOLEAN PeerMeasureReportSanity(
 	Return	: None.
 	==========================================================================
  */
-static BOOLEAN PeerTpcReqSanity(
+static bool PeerTpcReqSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN unsigned long MsgLen,
@@ -1698,7 +1698,7 @@ static BOOLEAN PeerTpcReqSanity(
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
 	unsigned char * pFramePtr = Fr->Octet;
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	PEID_STRUCT eid_ptr;
 
 	MsgLen -= sizeof(HEADER_802_11);
@@ -1746,7 +1746,7 @@ static BOOLEAN PeerTpcReqSanity(
 	Return	: None.
 	==========================================================================
  */
-static BOOLEAN PeerTpcRepSanity(
+static bool PeerTpcRepSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN unsigned long MsgLen,
@@ -1755,7 +1755,7 @@ static BOOLEAN PeerTpcRepSanity(
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
 	unsigned char * pFramePtr = Fr->Octet;
-	BOOLEAN result = FALSE;
+	bool result = FALSE;
 	PEID_STRUCT eid_ptr;
 
 	MsgLen -= sizeof(HEADER_802_11);

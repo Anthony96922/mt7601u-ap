@@ -30,7 +30,7 @@ VOID RTMPIdsPeriodicExec(
 	IN void * SystemSpecific2, 
 	IN void * SystemSpecific3);
 
-BOOLEAN RTMPSpoofedMgmtDetection(
+bool RTMPSpoofedMgmtDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN PHEADER_802_11 	pHeader,
 	IN CHAR				Rssi0,
@@ -47,7 +47,7 @@ VOID RTMPConflictSsidDetection(
 	IN CHAR				Rssi2,
 	IN unsigned char			AntSel);
 
-BOOLEAN RTMPReplayAttackDetection(
+bool RTMPReplayAttackDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pAddr2,
 	IN CHAR				Rssi0,

@@ -73,7 +73,7 @@ MAC_TABLE_ENTRY *PACInquiry(
          FALSE otherwise
     ==========================================================================
 */
-BOOLEAN RTMPCheckMcast(
+bool RTMPCheckMcast(
     IN PRTMP_ADAPTER    pAd,
     IN PEID_STRUCT      eid_ptr,
     IN MAC_TABLE_ENTRY  *pEntry)
@@ -132,7 +132,7 @@ BOOLEAN RTMPCheckMcast(
          FALSE otherwise
     ==========================================================================
 */
-BOOLEAN RTMPCheckUcast(
+bool RTMPCheckUcast(
     IN PRTMP_ADAPTER    pAd,
     IN PEID_STRUCT      eid_ptr,
     IN MAC_TABLE_ENTRY	*pEntry)
@@ -313,7 +313,7 @@ BOOLEAN RTMPCheckUcast(
          FALSE otherwise
     ==========================================================================
 */
-BOOLEAN RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, INT iswpa2)
+bool RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, INT iswpa2)
 {
 	unsigned char * pTmp;
 	unsigned short Count;
@@ -369,7 +369,7 @@ BOOLEAN RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, INT isw
          FALSE otherwise
     ==========================================================================
 */
-BOOLEAN RTMPCheckAUTH(
+bool RTMPCheckAUTH(
     IN PRTMP_ADAPTER    pAd,
     IN PEID_STRUCT      eid_ptr,
     IN MAC_TABLE_ENTRY	*pEntry)
@@ -561,7 +561,7 @@ VOID HandleCounterMeasure(
     IN MAC_TABLE_ENTRY  *pEntry) 
 {
     INT         i;
-    BOOLEAN     Cancelled;
+    bool     Cancelled;
 
     if (!pEntry)
         return;

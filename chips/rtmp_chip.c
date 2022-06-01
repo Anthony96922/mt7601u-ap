@@ -498,7 +498,7 @@ VOID RtmpChipWriteMemory(
 
 
 #ifdef GREENAP_SUPPORT
-static VOID EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, BOOLEAN ReduceCorePower)
+static VOID EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, bool ReduceCorePower)
 {
 	rtmp_bbp_set_mmps(pAd, ReduceCorePower);
 	rtmp_mac_set_mmps(pAd, ReduceCorePower);
@@ -518,7 +518,7 @@ static VOID DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
 
 static VOID EnableAPMIMOPSv1(
 	IN RTMP_ADAPTER *pAd,
-	IN BOOLEAN ReduceCorePower)
+	IN bool ReduceCorePower)
 {
 	unsigned char	BBPR3 = 0,BBPR1 = 0;
 	unsigned long	TxPinCfg = 0x00050F0A; /*Gary 2007/08/09 0x050A0A*/
@@ -691,7 +691,7 @@ static VOID ChipBBPAdjust(RTMP_ADAPTER *pAd)
 static VOID Default_ChipSwitchChannel(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char Channel,
-	IN BOOLEAN bScan) 
+	IN bool bScan) 
 {
 	DBGPRINT(RT_DEBUG_ERROR, ("%s(): dummy channel switch function!\n", __FUNCTION__));
 }
@@ -747,7 +747,7 @@ VOID NetDevNickNameInit(
 #ifdef HW_ANTENNA_DIVERSITY_SUPPORT
 unsigned int SetHWAntennaDivsersity(
 	IN PRTMP_ADAPTER		pAd,
-	IN BOOLEAN				Enable)
+	IN bool				Enable)
 {
 	if (Enable == TRUE)
 	{

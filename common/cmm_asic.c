@@ -49,8 +49,8 @@ VOID 	AsicUpdateProtect(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned short OperationMode,
 	IN unsigned char SetMask,
-	IN BOOLEAN bDisableBGProtect,
-	IN BOOLEAN bNonGFExist)
+	IN bool bDisableBGProtect,
+	IN bool bNonGFExist)
 {
 	PROT_CFG_STRUC	ProtCfg, ProtCfg4;
 	unsigned int Protect[6];
@@ -414,7 +414,7 @@ VOID AsicBBPAdjust(RTMP_ADAPTER *pAd)
 VOID AsicSwitchChannel(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char Channel,
-	IN BOOLEAN bScan)
+	IN bool bScan)
 {
 
 	RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_SUSPEND);
@@ -703,7 +703,7 @@ VOID AsicGetAutoAgcOffsetForTemperatureSensor(
 	TX_POWER_TUNING_ENTRY_STRUCT *TxPowerTuningTableEntry0 = NULL; /* Ant0 */
 	TX_POWER_TUNING_ENTRY_STRUCT *TxPowerTuningTableEntry1 = NULL; /* Ant1 */
 	BBP_R49_STRUC	BbpR49;
-	BOOLEAN			bAutoTxAgc = FALSE;
+	bool			bAutoTxAgc = FALSE;
 	char *			pTxAgcCompensate = NULL;
 	unsigned char 			RFValue = 0;
 	CHAR			TuningTableUpperBound = 0, TuningTableIndex0 = 0, TuningTableIndex1 = 0;
@@ -1447,7 +1447,7 @@ VOID AsicSetEdcaParm(
  */
 VOID 	AsicSetSlotTime(
 	IN PRTMP_ADAPTER pAd,
-	IN BOOLEAN bUseShortSlotTime) 
+	IN bool bUseShortSlotTime) 
 {
 	unsigned long	SlotTime;
 	unsigned int	RegValue = 0;
@@ -1806,13 +1806,13 @@ VOID AsicRemovePairwiseKeyEntry(
 	DBGPRINT(RT_DEBUG_TRACE, ("%s : Wcid #%d \n", __FUNCTION__, Wcid));
 }
 
-BOOLEAN AsicSendCommandToMcu(
+bool AsicSendCommandToMcu(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char Command,
 	IN unsigned char Token,
 	IN unsigned char Arg0,
 	IN unsigned char Arg1,
-	IN BOOLEAN in_atomic)
+	IN bool in_atomic)
 {
 #ifdef RT65xx
 	// TODO: shiang-6590, fix me, currently firmware is not ready yet, so ignore it!
@@ -1832,13 +1832,13 @@ BOOLEAN AsicSendCommandToMcu(
 }
 
 
-BOOLEAN AsicSendCommandToMcuBBP(
+bool AsicSendCommandToMcuBBP(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char		 Command,
 	IN unsigned char		 Token,
 	IN unsigned char		 Arg0,
 	IN unsigned char		 Arg1,
-	IN BOOLEAN		FlgIsNeedLocked)
+	IN bool		FlgIsNeedLocked)
 {
 #ifdef RT65xx
 	// TODO: shiang-6590, fix me, currently firmware is not ready yet, so ignore it!
@@ -2052,7 +2052,7 @@ VOID AsicVCORecalibration(
 				pEntry = &pAd->MacTab.Content[idx];
 				if ((IS_ENTRY_CLIENT(pEntry)) && (pEntry->eTxBfEnCond))
 				{
-					BOOLEAN Cancelled;
+					bool Cancelled;
 
 					RTMPCancelTimer(&pEntry->eTxBfProbeTimer, &Cancelled);
 
@@ -2111,7 +2111,7 @@ VOID AsicSetStreamMode(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char * pMacAddr,
 	IN INT chainIdx,
-	IN BOOLEAN bEnabled)
+	IN bool bEnabled)
 {
 	unsigned int streamWord;
 	unsigned int regAddr, regVal;
@@ -2223,7 +2223,7 @@ VOID AsicDisableRalinkBurstMode(
 */
 VOID AsicLoadWOWFirmware(
 	IN PRTMP_ADAPTER pAd,
-	IN BOOLEAN WOW)
+	IN bool WOW)
 {
 	if (WOW) 
 		pAd->WOW_Cfg.bWOWFirmware = TRUE;
@@ -2238,7 +2238,7 @@ VOID AsicLoadWOWFirmware(
 VOID AsicWOWSendNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char TxRate,
-	IN BOOLEAN bQosNull)
+	IN bool bQosNull)
 {
 	
 	TXWI_STRUC *TxWI;
@@ -2297,7 +2297,7 @@ VOID AsicWOWSendNullFrame(
 #endif /* WOW_SUPPORT */
 
 
-INT AsicSetPreTbttInt(RTMP_ADAPTER *pAd, BOOLEAN enable)
+INT AsicSetPreTbttInt(RTMP_ADAPTER *pAd, bool enable)
 {
 	unsigned int val;
 	
@@ -2314,7 +2314,7 @@ INT AsicSetPreTbttInt(RTMP_ADAPTER *pAd, BOOLEAN enable)
 }
 
 
-BOOLEAN AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us)
+bool AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us)
 {
 	INT i = 0;
 	WPDMA_GLO_CFG_STRUC GloCfg;
@@ -2389,7 +2389,7 @@ INT AsicReadAggCnt(RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len)
 #endif /* DOT11_N_SUPPORT */
 
 
-INT AsicSetChannel(RTMP_ADAPTER *pAd, unsigned char ch, unsigned char bw, unsigned char ext_ch, BOOLEAN bScan)
+INT AsicSetChannel(RTMP_ADAPTER *pAd, unsigned char ch, unsigned char bw, unsigned char ext_ch, bool bScan)
 {
 	rtmp_bbp_set_bw(pAd, bw);
 
