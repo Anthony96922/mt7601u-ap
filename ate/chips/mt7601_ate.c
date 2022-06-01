@@ -650,7 +650,7 @@ VOID MT7601ATEAsicTxAlcGetAutoAgcOffset(
 	int TargetPower, CurrentPower, PowerDiff;
 	unsigned char TssiLinear0, TssiLinear1;
 	CHAR tssi_offset;
-	INT16 tssi_db, tssi_m_dc;
+	short tssi_db, tssi_m_dc;
 	unsigned int value;
 	unsigned char ch = 0;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;

@@ -503,7 +503,7 @@ typedef struct __RT_CMD_IOCTL_RATE {
 
 typedef struct __RT_CMD_STA_IOCTL_FREQ {
 	IN int m;		/* Mantissa */
-	IN INT16 e;		/* Exponent */
+	IN short e;		/* Exponent */
 } RT_CMD_STA_IOCTL_FREQ;
 
 typedef struct __RT_CMD_STA_IOCTL_BSS {

@@ -40,7 +40,6 @@
 #ifdef LINUX
 /* Put platform dependent declaration here */
 /* For example, linux type definition */
-typedef short INT16;
 #endif /* LINUX */
 
 /* modified for fixing compile warning on Sigma 8634 platform */

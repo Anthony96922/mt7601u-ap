@@ -2190,7 +2190,7 @@ VOID MT7601AsicTemperatureCompensation(
 
 
 #ifdef RTMP_INTERNAL_TX_ALC
-INT16 lin2dBd(unsigned short linearValue)
+short lin2dBd(unsigned short linearValue)
 {
 	short exp;
 	unsigned int mantisa;
@@ -2255,8 +2255,8 @@ VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 	unsigned char Rf_B5_R03, Rf_B4_R39, bbp_r47;
 	INT i, count;
 	unsigned char RValue;
-	INT16 tssi_linear;
-	INT16 tssi0_db = 0, tssi0_db_hvga = 0;
+	short tssi_linear;
+	short tssi0_db = 0, tssi0_db_hvga = 0;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 	/* Mac Bypass */
@@ -2679,7 +2679,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 	int TargetPower, CurrentPower, PowerDiff;
 	unsigned char TssiLinear0, TssiLinear1;
 	CHAR tssi_offset;
-	INT16 tssi_db, tssi_m_dc;
+	short tssi_db, tssi_m_dc;
 	unsigned int value;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 

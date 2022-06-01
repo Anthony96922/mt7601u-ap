@@ -592,9 +592,9 @@ struct _RTMP_CHIP_CAP_ {
 #endif /* defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) */
 
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(SINGLE_SKU_V2)
-	INT16	PAModeCCK[4];
-	INT16	PAModeOFDM[8];
-	INT16	PAModeHT[16];
+	short	PAModeCCK[4];
+	short	PAModeOFDM[8];
+	short	PAModeHT[16];
 #endif /* defined(RTMP_INTERNAL_TX_ALC) || defined(SINGLE_SKU_V2) */
 
 #ifdef MT7601
