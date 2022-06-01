@@ -54,8 +54,6 @@ typedef unsigned int UINT;
 typedef unsigned long ULONG;
 #endif /* LINUX */
 
-typedef unsigned char *unsigned char *;
-typedef unsigned long long *PUINT64;
 typedef int *PINT32;
 typedef long long *PINT64;
 
