@@ -33,7 +33,7 @@
 #define SLIDING_WINDOW 16
 typedef struct _BIG_INTEGER_STRUC
 {
-	STRING Name[10];
+	char Name[10];
 	unsigned int *pIntegerArray;
 	unsigned int AllocSize;
 	unsigned int ArrayLength;

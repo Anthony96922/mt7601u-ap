@@ -1827,7 +1827,7 @@ VOID	RTMPCommSiteSurveyData(
 	unsigned int        Rssi_Quality = 0;
 	NDIS_802_11_NETWORK_TYPE    wireless_mode;
 	CHAR		Ssid[MAX_LEN_OF_SSID +1];
-	STRING		SecurityStr[32] = {0};
+	char		SecurityStr[32] = {0};
 	NDIS_802_11_ENCRYPTION_STATUS	ap_cipher = Ndis802_11EncryptionDisabled;
 	NDIS_802_11_AUTHENTICATION_MODE	ap_auth_mode = Ndis802_11AuthModeOpen;
 
@@ -2368,7 +2368,7 @@ INT	Set_BASetup_Proc(
 {
     unsigned char mac[6], tid;
 	char * token;
-	STRING sepValue[] = ":", DASH = '-';
+	char sepValue[] = ":", DASH = '-';
 	INT i;
     MAC_TABLE_ENTRY *pEntry;
 
@@ -2449,7 +2449,7 @@ INT	Set_BAOriTearDown_Proc(
 {
     unsigned char mac[6], tid;
 	char * token;
-	STRING sepValue[] = ":", DASH = '-';
+	char sepValue[] = ":", DASH = '-';
 	INT i;
     MAC_TABLE_ENTRY *pEntry;
 
@@ -2503,7 +2503,7 @@ INT	Set_BARecTearDown_Proc(
 {
     unsigned char mac[6], tid;
 	char * token;
-	STRING sepValue[] = ":", DASH = '-';
+	char sepValue[] = ":", DASH = '-';
 	INT i;
     MAC_TABLE_ENTRY *pEntry;
 
@@ -2938,7 +2938,7 @@ INT	Set_SendPSMPAction_Proc(
 {
     unsigned char mac[6], mode;
 	char * token;
-	STRING sepValue[] = ":", DASH = '-';
+	char sepValue[] = ":", DASH = '-';
 	INT i;
     MAC_TABLE_ENTRY *pEntry;
 

@@ -486,7 +486,7 @@ bool CFG80211DRV_OpsSetChannel(
 	unsigned char ChanId;
 	unsigned char IfType;
 	unsigned char ChannelType;
-	STRING ChStr[5] = { 0 };
+	char ChStr[5] = { 0 };
 #ifdef DOT11_N_SUPPORT
 	unsigned char BW_Old;
 	bool FlgIsChanged;

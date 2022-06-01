@@ -2969,7 +2969,7 @@ VOID UserCfgInit(RTMP_ADAPTER *pAd)
 }
 
 /* IRQL = PASSIVE_LEVEL*/
-unsigned char BtoH(STRING ch)
+unsigned char BtoH(char ch)
 {
 	if (ch >= '0' && ch <= '9') return (ch - '0');        /* Handle numerals*/
 	if (ch >= 'A' && ch <= 'F') return (ch - 'A' + 0xA);  /* Handle capitol hex digits*/

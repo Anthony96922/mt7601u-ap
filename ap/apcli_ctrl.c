@@ -212,7 +212,7 @@ static VOID ApCliCtrlJoinReqAction(
 					 (pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_40) && 
 					 (ApHtInfo.ExtChanOffset != RootApHtInfo.ExtChanOffset)))
 				{
-					STRING	ChStr[5] = {0};
+					char	ChStr[5] = {0};
 					if (pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_40)
 					{
 						if (RootApHtInfo.ExtChanOffset == EXTCHA_ABOVE)

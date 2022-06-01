@@ -354,7 +354,7 @@ void rtmp_read_wapi_parms_from_file(
 #ifdef CONFIG_AP_SUPPORT	
 	INT						apidx = 0;
 #endif /* CONFIG_AP_SUPPORT */
-	STRING		tok_str[32];
+	char		tok_str[32];
 	INT idx;
 
 	PCOMMON_WAPI_INFO pInfo = &pAd->CommonCfg.comm_wapi_info;
@@ -498,7 +498,7 @@ void rtmp_read_wapi_parms_from_file(
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{						
-		STRING tok_str[16];
+		char tok_str[16];
 
 		/* WapiPskX */
 		for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
@@ -626,7 +626,7 @@ static VOID RTMPQueryWapiConfPerBss(
 		}
 		else
 		{
-			STRING    slot_name[IFNAMSIZ];
+			char    slot_name[IFNAMSIZ];
 
 			snprintf(slot_name, sizeof(slot_name), "ra%d", apidx);
 			NdisMoveMemory(pConf->ifname, slot_name, strlen(slot_name));

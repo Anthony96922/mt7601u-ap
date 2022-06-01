@@ -1209,7 +1209,7 @@ static  INT DO_RACFG_CMD_ATE_SET_BW(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1233,7 +1233,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER0(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 
@@ -1256,7 +1256,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER1(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1280,7 +1280,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER2(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1304,7 +1304,7 @@ static  INT DO_RACFG_CMD_ATE_SET_FREQ_OFFSET(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 
@@ -1375,7 +1375,7 @@ static  INT DO_RACFG_CMD_ATE_RESET_COUNTER(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	SHORT    value = 1;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 
@@ -1398,7 +1398,7 @@ static  INT DO_RACFG_CMD_ATE_SEL_TX_ANTENNA(
 	IN  struct ate_racfghdr *pRaCfg)	
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1421,7 +1421,7 @@ static  INT DO_RACFG_CMD_ATE_SEL_RX_ANTENNA(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1444,7 +1444,7 @@ static  INT DO_RACFG_CMD_ATE_SET_PREAMBLE(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1467,7 +1467,7 @@ static  INT DO_RACFG_CMD_ATE_SET_CHANNEL(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1538,7 +1538,7 @@ static  INT DO_RACFG_CMD_ATE_SET_RATE(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1561,7 +1561,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_LEN(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1584,7 +1584,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_COUNT(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	unsigned short    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1828,7 +1828,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_PHASE_CAL(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 	bool	result = FALSE;
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1854,7 +1854,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_GOLDEN_INIT(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
 	
@@ -1879,7 +1879,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 	bool	result;
 
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_VERIFY\n"));
@@ -1906,7 +1906,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	SHORT    value = 0;
-	STRING    str[LEN_OF_ARG];
+	char    str[LEN_OF_ARG];
 	bool	result;
 
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP\n"));

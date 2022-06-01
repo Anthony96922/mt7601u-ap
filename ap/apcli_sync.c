@@ -415,7 +415,7 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 					(RootApHtInfo.RecomWidth) &&
 					(RootApHtInfo.ExtChanOffset != ApHtInfo.ExtChanOffset))
 				{
-					/*STRING	ChStr[5] = {0}; */
+					/*char	ChStr[5] = {0}; */
 					
 					if (RootApHtInfo.ExtChanOffset == EXTCHA_ABOVE)
 						Set_HtExtcha_Proc(pAd, "1");

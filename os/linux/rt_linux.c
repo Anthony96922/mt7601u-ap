@@ -1296,8 +1296,8 @@ static int RtmpOSNetDevRequestName(
 	IN INT devIdx)
 {
 	PNET_DEV existNetDev;
-	STRING suffixName[IFNAMSIZ];
-	STRING desiredName[IFNAMSIZ];
+	char suffixName[IFNAMSIZ];
+	char desiredName[IFNAMSIZ];
 	int ifNameIdx,
 	 prefixLen,
 	 slotNameLen;
@@ -1786,7 +1786,7 @@ VOID RtmpDrvAllMacPrint(
 	struct file *file_w;
 	char * fileName = "MacDump.txt";
 	mm_segment_t orig_fs;
-	STRING *msg;
+	char *msg;
 	unsigned int macAddr = 0, macValue = 0;
 
 	os_alloc_mem(NULL, (unsigned char **)&msg, 1024);
@@ -1834,7 +1834,7 @@ VOID RtmpDrvAllE2PPrint(
 	struct file *file_w;
 	char * fileName = "EEPROMDump.txt";
 	mm_segment_t orig_fs;
-	STRING *msg;
+	char *msg;
 	unsigned short eepAddr = 0;
 	unsigned short eepValue;
 

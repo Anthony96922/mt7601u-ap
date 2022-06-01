@@ -166,7 +166,7 @@ bool WDS_StatsGet(
 	IN	RT_CMD_STATS				*pStats);
 
 VOID AP_WDS_KeyNameMakeUp(
-	IN	STRING						*pKey,
+	IN	char						*pKey,
 	IN	unsigned int						KeyMaxSize,
 	IN	INT							KeyId);
 

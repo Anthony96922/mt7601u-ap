@@ -832,7 +832,7 @@ INT	Set_EventExpire_Proc(
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
 	unsigned char dfs_channel, bbp_val;
 	unsigned int EventExpiration = 0;
-       STRING StrBuf[64];
+       char StrBuf[64];
 	char * SubStr = NULL;
 
 	strncpy(StrBuf, arg, 64);

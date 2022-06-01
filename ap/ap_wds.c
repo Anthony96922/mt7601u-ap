@@ -826,7 +826,7 @@ VOID rtmp_read_wds_from_file(
 {
 	char *		macptr;
 	INT			i=0, j;
-	STRING		tok_str[16];
+	char		tok_str[16];
 	bool		bUsePrevFormat = FALSE;
 	unsigned char		macAddress[MAC_ADDR_LEN];
 	unsigned char	    keyMaterial[40];	

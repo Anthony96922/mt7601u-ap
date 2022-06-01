@@ -220,7 +220,7 @@ int rtinet_aton(char *cp, unsigned int *addr)
 {
 	unsigned int val;
 	int base, n;
-	STRING c;
+	char c;
 	unsigned int parts[4];
 	unsigned int *pp = parts;
 
@@ -328,7 +328,7 @@ int rtinet_aton(char *cp, unsigned int *addr)
 char *RTMPFindSection(
     IN  char *buffer)
 {
-	STRING temp_buf[32];
+	char temp_buf[32];
 	char *ptr;
 
 	strcpy(temp_buf, "Default");
@@ -587,7 +587,7 @@ static int rtmp_parse_key_buffer_from_file(IN PRTMP_ADAPTER pAd,IN char *buffer,
 
 static void rtmp_read_key_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf, char *buffer)
 {
-	STRING		tok_str[16];
+	char		tok_str[16];
 	char *		macptr;						
 	int		i = 0, idx;
 	unsigned long		KeyType[HW_BEACON_MAX_NUM];
@@ -692,7 +692,7 @@ static void rtmp_read_ap_client_from_file(
 	/*unsigned char		keyMaterial[40];*/
 	PAPCLI_STRUCT pApCliEntry = NULL;
 	unsigned long KeyIdx;
-	STRING tok_str[16];
+	char tok_str[16];
 	unsigned long KeyType[MAX_APCLI_NUM];
 	unsigned long KeyLen;
 	/*unsigned char		CipherAlg = CIPHER_WEP64;*/
@@ -1001,7 +1001,7 @@ static void rtmp_read_ap_client_from_file(
 
 static void rtmp_read_acl_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf, char *buffer)
 {
-	STRING		tok_str[32];
+	char		tok_str[32];
 	char *		macptr;
 	int		i = 0, j = 0, idx;
 	unsigned char		macAddress[MAC_ADDR_LEN];
@@ -1318,7 +1318,7 @@ static void rtmp_read_ap_wmm_parms_from_file(IN  PRTMP_ADAPTER pAd, char *tmpbuf
 */
 static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf, char *buffer)
 {
-	STRING					tok_str[16];
+	char					tok_str[16];
 	char *					macptr;		
 	unsigned int					ip_addr;
 	int					i = 0;
@@ -2086,7 +2086,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			/* SSID*/
 			if (TRUE)
 			{
-				STRING tok_str[16];
+				char tok_str[16];
 				unsigned char BssidCountSupposed = 0;
 				bool bSSIDxIsUsed = FALSE;
 
@@ -2275,7 +2275,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			/* DFSParam */
 			for(k = 0; k < 4 * pAd->chipCap.DfsEngineNum; k++) 
 			{
-				STRING tok_str[32];
+				char tok_str[32];
 				int index;
 				unsigned char DfsEngineNum = pAd->chipCap.DfsEngineNum;
 				index = (k%DfsEngineNum);
@@ -2707,7 +2707,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			/* StreamModeMac */
 			for (i = 0; i < STREAM_MODE_STA_NUM; i++)
 			{
-				STRING		tok_str[32];
+				char		tok_str[32];
 									
 				sprintf(tok_str, "StreamModeMac%d", i);
 									
@@ -3023,7 +3023,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			/* WPAPSK_KEY */
 			if (TRUE)
 			{
-				STRING tok_str[16];
+				char tok_str[16];
 				bool bWPAPSKxIsUsed = FALSE;
 
 				//DBGPRINT(RT_DEBUG_TRACE, ("pAd->ApCfg.BssidNum=%d\n", pAd->ApCfg.BssidNum));
@@ -3123,7 +3123,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		{
 #ifdef WSC_AP_SUPPORT
-			STRING	tok_str[16] = {0};
+			char	tok_str[16] = {0};
 			for (i = 0; i < pAd->ApCfg.BssidNum; i++)
 			{
 				snprintf(tok_str, sizeof(tok_str), "WscDefaultSSID%d", i + 1);
@@ -3528,7 +3528,7 @@ bool RTMP_CardInfoRead(
 	RTMP_OS_FD srcf;
 	INT retval;
 	char *buffer, *tmpbuf;
-	STRING card_id_buf[30], RFIC_word[30];
+	char card_id_buf[30], RFIC_word[30];
 	bool flg_match_ok = FALSE;
 	int card_select_method;
 	int card_free_id, card_nouse_id, card_same_mac_id, card_match_id;
@@ -3791,8 +3791,8 @@ free_resource:
 #ifdef WSC_INCLUDED
 void rtmp_read_wsc_user_parms(
 	PWSC_CTRL pWscControl,
-	STRING *tmpbuf,
-	STRING *buffer) {
+	char *tmpbuf,
+	char *buffer) {
 	if (RTMPGetKeyParameter("WscManufacturer", tmpbuf, WSC_MANUFACTURE_LEN, buffer,TRUE)) {
 		NdisZeroMemory(pWscControl->RegData.SelfInfo.Manufacturer, WSC_MANUFACTURE_LEN);
 		NdisMoveMemory(pWscControl->RegData.SelfInfo.Manufacturer, tmpbuf, strlen(tmpbuf));
@@ -3864,7 +3864,7 @@ VOID rtmp_read_multest_from_file(
 {
 	char *	macptr;
 	int	i = 0, j;
-	STRING	tok_str[16];
+	char	tok_str[16];
 	bool	bUsePrevFormat = FALSE;
 	unsigned char	macAddress[MAC_ADDR_LEN];
 	unsigned char	keyMaterial[40];

@@ -3160,14 +3160,14 @@ unsigned char	WscRxMsgType(
 	unsigned short				Length;
 	unsigned char *				pData;
 	unsigned short				WscType, WscLen;
-    STRING	            id_data[] = {"hello"};
-    STRING	            fail_data[] = {"EAP_FAIL"};
-    STRING	            wsc_start[] = {"WSC_START"};
+    char	            id_data[] = {"hello"};
+    char	            fail_data[] = {"EAP_FAIL"};
+    char	            wsc_start[] = {"WSC_START"};
 #ifdef WSC_V2_SUPPORT
-	STRING		wsc_frag_ack[] = "WSC_FRAG_ACK";
+	char		wsc_frag_ack[] = "WSC_FRAG_ACK";
 #endif /* WSC_V2_SUPPORT */
-    STRING               regIdentity[] = {"WFA-SimpleConfig-Registrar"};
-    STRING               enrIdentity[] = {"WFA-SimpleConfig-Enrollee"};
+    char               regIdentity[] = {"WFA-SimpleConfig-Registrar"};
+    char               enrIdentity[] = {"WFA-SimpleConfig-Enrollee"};
 
     if (pElem->Msg[0] == 'W' && pElem->Msg[1] == 'F' && pElem->Msg[2] == 'A')
     {
@@ -5512,7 +5512,7 @@ void    WscWriteConfToPortCfg(
 				{
 					unsigned char  *pPMKBuf = NULL, *pSSIDStr = NULL;
 					INT		ssidLen = 0;
-					STRING	PassphraseStr[65] = {0};
+					char	PassphraseStr[65] = {0};
 					
 					pWscControl->WpaPskLen = pCredential->KeyLength;
 					RTMPZeroMemory(pWscControl->WpaPsk, 64);
@@ -5669,7 +5669,7 @@ VOID	WscWriteSsidToDatFile(
 #ifdef CONFIG_AP_SUPPORT
 	else
 	{
-		STRING	item_str[10] = {0};
+		char	item_str[10] = {0};
 		for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
 		{
 			snprintf(item_str, sizeof(item_str), "SSID%d", (apidx + 1));
@@ -5729,7 +5729,7 @@ VOID	WscWriteWpaPskToDatFile(
 #ifdef CONFIG_AP_SUPPORT
 	else
 	{
-		STRING	item_str[10] = {0};
+		char	item_str[10] = {0};
 		for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
 		{
 			snprintf(item_str, sizeof(item_str), "WPAPSK%d", (apidx + 1));
@@ -6279,7 +6279,7 @@ bool	WscPBCExec(
 #ifdef APCLI_SUPPORT
 	if (CurOpMode == AP_MODE)
 	{
-		STRING	ChStr[5] = {0};
+		char	ChStr[5] = {0};
 
 		NdisMoveMemory(pWscControl->RegData.SelfInfo.MacAddr,
 	                   pAd->ApCfg.ApCliTab[BSS0].CurrentAddress, 
@@ -7113,7 +7113,7 @@ VOID   WpsSmProcess(
 							__FUNCTION__, pEapFrame->Code, pEapFrame->Type));
 		if (pEapFrame->Code == EAP_CODE_FAIL)
         { /* EAP-Fail */
-            STRING	fail_data[] = "EAP_FAIL";
+            char	fail_data[] = "EAP_FAIL";
 			NdisMoveMemory(Elem->Msg, pHeader->Addr2, MAC_ADDR_LEN);
             NdisMoveMemory(Elem->Msg+MAC_ADDR_LEN, fail_data, strlen(fail_data));
             Elem->MsgLen = strlen(fail_data);
@@ -7122,7 +7122,7 @@ VOID   WpsSmProcess(
         }
         else if ((pEapFrame->Code == EAP_CODE_REQ) && (pEapFrame->Type == EAP_TYPE_ID))
         { /* EAP-Req (Identity) */
-            STRING	id_data[] = "hello";
+            char	id_data[] = "hello";
 
 			pWpsCtrl->lastId = pEapFrame->Id;
 			NdisMoveMemory(Elem->Msg, pHeader->Addr2, MAC_ADDR_LEN);
@@ -7151,7 +7151,7 @@ VOID   WpsSmProcess(
 					/*
 						Send rest WSC frag data
 					*/
-					STRING	wsc_frag_ack[] = "WSC_FRAG_ACK";
+					char	wsc_frag_ack[] = "WSC_FRAG_ACK";
 
                     NdisMoveMemory(Elem->Msg+MAC_ADDR_LEN, wsc_frag_ack, strlen(wsc_frag_ack));
                     Elem->MsgLen = strlen(wsc_frag_ack);
@@ -7159,7 +7159,7 @@ VOID   WpsSmProcess(
 				}
                 else if (pWsc->OpCode == WSC_OPCODE_START)
                 {
-                    STRING	wsc_start[] = "WSC_START";
+                    char	wsc_start[] = "WSC_START";
 
                     NdisMoveMemory(Elem->Msg+MAC_ADDR_LEN, wsc_start, strlen(wsc_start));
                     Elem->MsgLen = strlen(wsc_start);
@@ -7245,7 +7245,7 @@ VOID   WpsSmProcess(
 					/*
 						Send rest frag data
 					*/
-					STRING	wsc_frag_ack[] = "WSC_FRAG_ACK";
+					char	wsc_frag_ack[] = "WSC_FRAG_ACK";
                     NdisMoveMemory(Elem->Msg+MAC_ADDR_LEN, wsc_frag_ack, strlen(wsc_frag_ack));
                     Elem->MsgLen = strlen(wsc_frag_ack);
 					StateMachinePerformAction(pAd, &pAd->Mlme.WscMachine, Elem, pAd->Mlme.WscMachine.CurrState);
@@ -7553,8 +7553,8 @@ void    WscWriteConfToDatFile(
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL		pWscControl = NULL;
 	PWSC_CREDENTIAL	pCredentail = NULL;
-	STRING			WepKeyName[MAX_WEPKEYNAME_LEN] = {0};
-	STRING			WepKeyFormatName[MAX_WEPKEYNAME_LEN] = {0};
+	char			WepKeyName[MAX_WEPKEYNAME_LEN] = {0};
+	char			WepKeyFormatName[MAX_WEPKEYNAME_LEN] = {0};
 	INT				tempStrLen = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscWriteConfToDatFile(CurOpMode = %d)\n", CurOpMode));
@@ -7863,10 +7863,10 @@ void    WscWriteConfToAR9File(
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL		pWscControl = NULL;
 	PWSC_CREDENTIAL	pCredentail = NULL;
-	STRING			WepKeyName[MAX_WEPKEYNAME_LEN] = {0};
-	STRING			WepKeyFormatName[MAX_WEPKEYTYPE_LEN] = {0};
+	char			WepKeyName[MAX_WEPKEYNAME_LEN] = {0};
+	char			WepKeyFormatName[MAX_WEPKEYTYPE_LEN] = {0};
 	INT				tempStrLen = 0;
-	STRING	item_str[10] = {0};
+	char	item_str[10] = {0};
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscWriteConfToAR9File\n"));
 

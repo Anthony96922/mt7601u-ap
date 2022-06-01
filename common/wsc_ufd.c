@@ -28,27 +28,27 @@
 
 #ifdef WSC_INCLUDED
 
-static const STRING *XML_DECLARE_START = "<?xml";
-static const STRING *XML_DECLARE_END = "?>";
-static const STRING *XML_SSID_START = "<ssid";
-static const STRING *XML_SSID_END = "</ssid>";
-static const STRING *XML_AUTH_START = "<authentication>";
-static const STRING *XML_AUTH_END = "</authentication>";
-static const STRING *XML_ENCR_START = "<encryption>";
-static const STRING *XML_ENCR_END = "</encryption>";
-static const STRING *XML_KEY_START = "<networkKey";
-static const STRING *XML_KEY_END = "</networkKey>";
-static const STRING *XML_KEY_INDEX_START = "<keyIndex>";
-static const STRING *XML_KEY_INDEX_END = "</keyIndex>";
+static const char *XML_DECLARE_START = "<?xml";
+static const char *XML_DECLARE_END = "?>";
+static const char *XML_SSID_START = "<ssid";
+static const char *XML_SSID_END = "</ssid>";
+static const char *XML_AUTH_START = "<authentication>";
+static const char *XML_AUTH_END = "</authentication>";
+static const char *XML_ENCR_START = "<encryption>";
+static const char *XML_ENCR_END = "</encryption>";
+static const char *XML_KEY_START = "<networkKey";
+static const char *XML_KEY_END = "</networkKey>";
+static const char *XML_KEY_INDEX_START = "<keyIndex>";
+static const char *XML_KEY_INDEX_END = "</keyIndex>";
 
-static const STRING *XML_GUID_MARK = "CFG_GUID";
-static const STRING *XML_AP_GUID_MARK = "CFG_AP_GUID";
-static const STRING *XML_SSID_MARK = "CFG_SSID";
-static const STRING *XML_AUTH_MARK = "CFG_AUTH";
-static const STRING *XML_ENCR_MARK = "CFG_ENCR";
-static const STRING *XML_KEY_MARK = "CFG_KEY";
+static const char *XML_GUID_MARK = "CFG_GUID";
+static const char *XML_AP_GUID_MARK = "CFG_AP_GUID";
+static const char *XML_SSID_MARK = "CFG_SSID";
+static const char *XML_AUTH_MARK = "CFG_AUTH";
+static const char *XML_ENCR_MARK = "CFG_ENCR";
+static const char *XML_KEY_MARK = "CFG_KEY";
 
-static const STRING *XML_TEMPLATE =
+static const char *XML_TEMPLATE =
 "<?xml version=\"1.0\"?>\n"
 "<wirelessProfile>\n"
 "	<config>\n"
@@ -103,9 +103,9 @@ static struct {
 
 
 bool	WscPassXmlDeclare(
-	INOUT STRING **pXmlData)
+	INOUT char **pXmlData)
 {
-	STRING	*ptr;
+	char	*ptr;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("======> WscPassXmlDeclare\n"));
 	
@@ -132,10 +132,10 @@ bool	WscPassXmlDeclare(
 
 
 bool WscGetXmlSSID(
-	IN	STRING				*pXmlData,
+	IN	char				*pXmlData,
 	OUT	NDIS_802_11_SSID	*pSsid)
 {
-	STRING	*ptr, *pBuffer = pXmlData;
+	char	*ptr, *pBuffer = pXmlData;
 
 	ptr = rtstrstr(pBuffer, (char *)XML_SSID_START);
 	if (ptr == NULL)
@@ -176,11 +176,11 @@ bool WscGetXmlSSID(
 
 
 bool WscGetXmlAuth(
-	IN	STRING	*pXmlData,
+	IN	char	*pXmlData,
 	OUT unsigned short	*pAuthType)
 {
-	STRING	*ptr, *pBuffer = pXmlData;
-	STRING	AuthStr[10] = {0};
+	char	*ptr, *pBuffer = pXmlData;
+	char	AuthStr[10] = {0};
 	unsigned int	AuthStrLen = 0;
 
 	*pAuthType = 0;
@@ -220,11 +220,11 @@ bool WscGetXmlAuth(
 
 
 bool WscGetXmlEncr(
-	IN	STRING	*pXmlData,
+	IN	char	*pXmlData,
 	OUT unsigned short	*pEncrType)
 {
-	STRING	*ptr, *pBuffer = pXmlData;
-	STRING	EncrStr[10] = {0};
+	char	*ptr, *pBuffer = pXmlData;
+	char	EncrStr[10] = {0};
 	unsigned int	EncrStrLen = 0;
 
 	*pEncrType = 0;
@@ -264,11 +264,11 @@ bool WscGetXmlEncr(
 
 
 bool WscGetXmlKey(
-	IN	STRING	*pXmlData,
+	IN	char	*pXmlData,
 	OUT unsigned char	*pKey,
 	OUT unsigned short	*pKeyLen)
 {
-	STRING	*ptr, *pBuffer = pXmlData;
+	char	*ptr, *pBuffer = pXmlData;
 	unsigned int	KeyLen = 0;
 
 	ptr = rtstrstr(pBuffer, (char *)XML_KEY_START);
@@ -309,10 +309,10 @@ bool WscGetXmlKey(
 
 
 bool WscGetXmlKeyIndex(
-	IN	STRING	*pXmlData,
+	IN	char	*pXmlData,
 	OUT unsigned char	*pKeyIndex)
 {
-	STRING	*ptr, *pBuffer = pXmlData;
+	char	*ptr, *pBuffer = pXmlData;
 
 	*pKeyIndex = 1;
 	ptr = rtstrstr(pBuffer, (char *)XML_KEY_INDEX_START);

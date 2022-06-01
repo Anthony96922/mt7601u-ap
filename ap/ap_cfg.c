@@ -2092,7 +2092,7 @@ INT RTMPAPSetInformation(
 		case RT_OID_WSC_READ_UFD_FILE:
 			if (wrq->u.data.length > 0)
 			{
-				STRING		*pWscUfdFileName = NULL;
+				char		*pWscUfdFileName = NULL;
 				unsigned char 		apIdx = pObj->ioctl_if;
 				PWSC_CTRL	pWscCtrl = &pAd->ApCfg.MBSSID[apIdx].WscControl;
 /*				pWscUfdFileName = (char *)kmalloc(wrq->u.data.length+1, MEM_ALLOC_FLAG); */
@@ -2133,7 +2133,7 @@ INT RTMPAPSetInformation(
 		case RT_OID_WSC_WRITE_UFD_FILE:
 			if (wrq->u.data.length > 0)
 			{
-				STRING		*pWscUfdFileName = NULL;
+				char		*pWscUfdFileName = NULL;
 				unsigned char 		apIdx = pObj->ioctl_if;
 				PWSC_CTRL	pWscCtrl = &pAd->ApCfg.MBSSID[apIdx].WscControl;
 /*				pWscUfdFileName = (char *)kmalloc(wrq->u.data.length+1, MEM_ALLOC_FLAG); */
@@ -2279,7 +2279,7 @@ INT RTMPAPSetInformation(
 				Status = -EINVAL;
 			else
 			{
-				STRING	ChStr[5] = {0};
+				char	ChStr[5] = {0};
 				Status = copy_from_user(&ctmp, wrq->u.data.pointer, wrq->u.data.length);
 				snprintf(ChStr, sizeof(ChStr), "%d", ctmp);
 				Set_Channel_Proc(pAd, ChStr);
@@ -2980,7 +2980,7 @@ INT RTMPAPQueryInformation(
 	RTMP_IOCTL_INPUT_STRUCT	*wrq = (RTMP_IOCTL_INPUT_STRUCT *) rq;
 	INT	Status = NDIS_STATUS_SUCCESS;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
-	STRING	driverVersion[8];
+	char	driverVersion[8];
 
 #if defined(DBG) || defined(WSC_AP_SUPPORT)
 	unsigned char	apidx = pObj->ioctl_if;
@@ -3971,7 +3971,7 @@ INT Set_CountryString_Proc(
 {
 	INT   index = 0;
 	INT   success = TRUE;
-	STRING  name_buffer[40] = {0};
+	char  name_buffer[40] = {0};
 
 #ifdef EXT_BUILD_CHANNEL_LIST
 	return -EOPNOTSUPP;
@@ -5660,7 +5660,7 @@ INT	Show_BaTable_Proc(
 	INT i, j;
 	BA_ORI_ENTRY *pOriBAEntry;
 	BA_REC_ENTRY *pRecBAEntry;
-	STRING		 tmpBuf[6];
+	char		 tmpBuf[6];
 
 	for (i=0; i<MAX_LEN_OF_MAC_TABLE; i++)
 	{
@@ -6842,7 +6842,7 @@ VOID RTMPAPIoctlMAC(
 	char * arg, ptr;
 	unsigned int macAddr = 0;
 	unsigned char temp[16];
-	STRING temp2[16];
+	char temp2[16];
 	unsigned int macValue;
 	bool bIsPrintAllMAC = FALSE, bFromUI;
 
@@ -7152,7 +7152,7 @@ VOID RTMPAPIoctlE2PROM(
 	char *ptr;
 	unsigned short				eepAddr = 0;
 	unsigned char				temp[16];
-	STRING				temp2[16];
+	char				temp2[16];
 	unsigned short				eepValue;
 	bool				bIsPrintAllE2PROM = FALSE;
 
@@ -11839,7 +11839,7 @@ INT	Set_TestMultiMacAddrProc(
 {
 	unsigned char tempMAC[6], tid;
 	char * token;
-	STRING sepValue[] = ":", DASH = '-';
+	char sepValue[] = ":", DASH = '-';
 	INT i;
 	
 	if(strlen(arg) < 19)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 plus the "-" and tid value in decimal format.*/

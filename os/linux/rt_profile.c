@@ -848,7 +848,7 @@ VOID IAPP_L2_UpdatePostCtrl(
 
 //#ifdef WDS_SUPPORT
 VOID AP_WDS_KeyNameMakeUp(
-	IN	STRING						*pKey,
+	IN	char						*pKey,
 	IN	unsigned int						KeyMaxSize,
 	IN	INT							KeyId)
 {

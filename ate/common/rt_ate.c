@@ -2363,7 +2363,7 @@ static NDIS_STATUS TXFRAME(
 #endif /* RTMP_MAC_USB */
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
-	STRING			IPGStr[8] = {0};
+	char			IPGStr[8] = {0};
 #ifdef RTMP_INTERNAL_TX_ALC
 #if defined(RT3350) || defined(RT3352)
 	unsigned char		RFValue, BBP49Value;

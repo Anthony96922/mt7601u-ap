@@ -786,7 +786,7 @@ VOID    ApcliSendAssocIEsToWpaSupplicant(
     IN  PRTMP_ADAPTER pAd,
     IN unsigned int ifIndex)
 {
-	STRING custom[IW_CUSTOM_MAX] = {0};
+	char custom[IW_CUSTOM_MAX] = {0};
 
 	if ((pAd->ApCfg.ApCliTab[ifIndex].ReqVarIELen + 17) <= IW_CUSTOM_MAX)
 	{

@@ -3575,7 +3575,7 @@ struct _RTMP_ADAPTER {
 
 #ifdef MULTIPLE_CARD_SUPPORT
 	int MC_RowID;
-	STRING MC_FileName[256];
+	char MC_FileName[256];
 #endif /* MULTIPLE_CARD_SUPPORT */
 
 	unsigned long TbttTickCount;	/* beacon timestamp work-around */
@@ -4462,7 +4462,7 @@ VOID UpdateSkuRatePwr(
 #endif /* SINGLE_SKU_V2 */
 
 VOID AP_WDS_KeyNameMakeUp(
-	IN	STRING	*pKey,
+	IN	char	*pKey,
 	IN	unsigned int	KeyMaxSize,
 	IN	INT	KeyId);
 
@@ -5814,7 +5814,7 @@ VOID AssocParmFill(
 VOID ScanParmFill(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  OUT MLME_SCAN_REQ_STRUCT *ScanReq, 
-	IN  STRING Ssid[], 
+	IN  char Ssid[], 
 	IN  unsigned char SsidLen, 
 	IN  unsigned char BssType, 
 	IN  unsigned char ScanType); 
