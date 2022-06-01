@@ -2429,7 +2429,7 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 	IN 		PRTMP_ADAPTER 		pAd, 
 	OUT 	PCHAR 				TssiLinear0,
 	OUT 	PCHAR 				TssiLinear1, 
-	OUT 	PINT32 				TargetPower)
+	OUT 	int * 				TargetPower)
 {
 	UCHAR BBPReg;
 	UCHAR PacketType;

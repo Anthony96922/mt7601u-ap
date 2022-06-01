@@ -54,9 +54,6 @@ typedef unsigned int UINT;
 typedef unsigned long ULONG;
 #endif /* LINUX */
 
-typedef int *PINT32;
-typedef long long *PINT64;
-
 /* modified for fixing compile warning on Sigma 8634 platform */
 typedef char STRING;
 
