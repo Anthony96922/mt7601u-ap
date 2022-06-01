@@ -158,203 +158,203 @@ COUNTRY_CODE_TO_COUNTRY_REGION allCountry[] = {
 
 INT Set_CountryString_Proc(
 	IN PRTMP_ADAPTER	pAd, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_CountryCode_Proc(
 	IN PRTMP_ADAPTER	pAdapter, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 #ifdef EXT_BUILD_CHANNEL_LIST
 INT Set_ChGeography_Proc(
 	IN PRTMP_ADAPTER	pAd, 
-	IN PSTRING		arg);
+	IN char *		arg);
 #endif /* EXT_BUILD_CHANNEL_LIST */
 
 INT Set_AP_SSID_Proc(
 	IN PRTMP_ADAPTER	pAdapter, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_TxRate_Proc(
 	IN PRTMP_ADAPTER	pAdapter, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_OLBCDetection_Proc(
 	IN PRTMP_ADAPTER	pAd, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_AP_MaxStaNum_Proc(
 	IN PRTMP_ADAPTER	pAd, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_AP_IdleTimeout_Proc(
 	IN PRTMP_ADAPTER	pAd, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 #ifdef IAPP_SUPPORT
 INT Set_IappPID_Proc(
 	IN PRTMP_ADAPTER	pAd, 
-	IN PSTRING		arg);
+	IN char *		arg);
 #endif /* IAPP_SUPPORT */
 
 INT Set_AP_AuthMode_Proc(
 	IN PRTMP_ADAPTER	pAdapter, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_AP_EncrypType_Proc(
 	IN PRTMP_ADAPTER	pAdapter, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_AP_WpaMixPairCipher_Proc(
 	IN PRTMP_ADAPTER	pAdapter, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_AP_RekeyInterval_Proc(
 	IN PRTMP_ADAPTER	pAdapter, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_AP_RekeyMethod_Proc(
 	IN PRTMP_ADAPTER	pAdapter, 
-	IN PSTRING		arg);
+	IN char *		arg);
 
 INT Set_AP_PMKCachePeriod_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
-    IN  PSTRING          arg);
+    IN  char *          arg);
 
 INT Set_AP_DefaultKeyID_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
-    IN  PSTRING          arg);
+    IN  char *          arg);
 
 INT Set_AP_Key1_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
-    IN  PSTRING          arg);
+    IN  char *          arg);
 
 INT Set_AP_Key2_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
-    IN  PSTRING          arg);
+    IN  char *          arg);
 
 INT Set_AP_Key3_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
-    IN  PSTRING          arg);
+    IN  char *          arg);
 
 INT Set_AP_Key4_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
-    IN  PSTRING          arg);
+    IN  char *          arg);
 
 INT Set_AP_WPAPSK_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
-    IN  PSTRING          arg);
+    IN  char *          arg);
 
 INT Set_BasicRate_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_BeaconPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_DtimPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_NoForwarding_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_NoForwardingBTNSSID_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_AP_WmmCapable_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_HideSSID_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_VLANID_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_VLANPriority_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_VLAN_TAG_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_AccessPolicy_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 
 INT	Set_ACLAddEntry_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_ACLDelEntry_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_ACLShowAll_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_ACLClearAll_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RadioOn_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT Set_SiteSurvey_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT Set_AutoChannelSel_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_BADecline_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Show_StaCount_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Show_StaSecurityInfo_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 	
 INT	Show_DriverInfo_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 #ifdef DOT11_N_SUPPORT
 INT	Show_BaTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 #endif /* DOT11_N_SUPPORT */
 
 INT	Show_Sat_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Show_RAInfo_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 
 INT	Show_Sat_Reset_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Show_MATTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 #ifdef DOT1X_SUPPORT
 VOID RTMPIoctlQueryRadiusConf(
@@ -363,72 +363,72 @@ VOID RTMPIoctlQueryRadiusConf(
 
 INT	Set_IEEE8021X_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_PreAuth_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RADIUS_Server_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RADIUS_Port_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RADIUS_Key_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 #endif /* DOT1X_SUPPORT */
 
 INT	Set_DisConnectSta_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_DisConnectAllSta_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 
 #ifdef APCLI_SUPPORT
-INT Set_ApCli_Enable_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_Ssid_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_Bssid_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_DefaultKeyID_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_WPAPSK_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_Key1_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_Key2_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_Key3_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_Key4_Proc(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_ApCli_TxMode_Proc(IN PRTMP_ADAPTER pAd, IN  PSTRING arg);
-INT Set_ApCli_TxMcs_Proc(IN PRTMP_ADAPTER pAd, IN  PSTRING arg);
+INT Set_ApCli_Enable_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_Ssid_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_Bssid_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_DefaultKeyID_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_WPAPSK_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_Key1_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_Key2_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_Key3_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_Key4_Proc(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_ApCli_TxMode_Proc(IN PRTMP_ADAPTER pAd, IN  char * arg);
+INT Set_ApCli_TxMcs_Proc(IN PRTMP_ADAPTER pAd, IN  char * arg);
 
 
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
-INT Set_ApCli_Wpa_Support(IN PRTMP_ADAPTER pAd, IN	PSTRING	arg);
-INT	Set_ApCli_IEEE8021X_Proc(IN PRTMP_ADAPTER	pAd, IN PSTRING arg);
+INT Set_ApCli_Wpa_Support(IN PRTMP_ADAPTER pAd, IN	char *	arg);
+INT	Set_ApCli_IEEE8021X_Proc(IN PRTMP_ADAPTER	pAd, IN char * arg);
 #endif/*APCLI_WPA_SUPPLICANT_SUPPORT*/
 
 
 #ifdef WSC_AP_SUPPORT
-INT Set_AP_WscSsid_Proc(IN PRTMP_ADAPTER	pAd, IN	PSTRING arg);
+INT Set_AP_WscSsid_Proc(IN PRTMP_ADAPTER	pAd, IN	char * arg);
 #endif /* WSC_AP_SUPPORT */
 #endif /* APCLI_SUPPORT */
 #ifdef UAPSD_SUPPORT
 INT Set_UAPSD_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 #endif /* UAPSD_SUPPORT */
 
 #ifdef WSC_AP_SUPPORT
 INT	Set_WscStatus_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 VOID RTMPIoctlWscProfile(
 	IN PRTMP_ADAPTER pAdapter, 
@@ -452,13 +452,13 @@ VOID RTMPIoctlGetWscRegsDynInfo(
 
 BOOLEAN WscCheckEnrolleeNonceFromUpnp(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			pData,
+	IN	char *			pData,
 	IN  USHORT			Length,
 	IN  PWSC_CTRL       pWscControl);
 
 UCHAR	WscRxMsgTypeFromUpnp(
 	IN	PRTMP_ADAPTER		pAdapter,
-	IN  PSTRING				pData,
+	IN  char *				pData,
 	IN	USHORT				Length);
 
 INT	    WscGetConfForUpnp(
@@ -467,77 +467,77 @@ INT	    WscGetConfForUpnp(
 
 INT	Set_AP_WscConfMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_AP_WscConfStatus_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_AP_WscMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_AP_WscGetConf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_AP_WscPinCode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT Set_AP_WscSecurityMode_Proc(    
 	IN  PRTMP_ADAPTER   pAdapter,     
-	IN  PSTRING         arg);
+	IN  char *         arg);
 
 INT Set_AP_WscMultiByteCheck_Proc(    
 	IN  PRTMP_ADAPTER   pAd,
-	IN  PSTRING         arg);
+	IN  char *         arg);
 
 
 INT	Set_WscVersion_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 #ifdef WSC_V2_SUPPORT
 INT	Set_WscV2Support_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscVersion2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscExtraTlvTag_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscExtraTlvType_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscExtraTlvData_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscSetupLock_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscFragment_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscFragmentSize_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscMaxPinAttack_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_WscSetupLockTime_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 #endif /* WSC_V2_SUPPORT */
 
 #endif /* WSC_AP_SUPPORT */
@@ -545,97 +545,97 @@ INT	Set_WscSetupLockTime_Proc(
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef MCAST_RATE_SPECIFIC
-INT Set_McastPhyMode(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Set_McastMcs(IN PRTMP_ADAPTER pAd, IN PSTRING arg);
-INT Show_McastRate(IN PRTMP_ADAPTER	pAd, IN PSTRING arg);
+INT Set_McastPhyMode(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Set_McastMcs(IN PRTMP_ADAPTER pAd, IN char * arg);
+INT Show_McastRate(IN PRTMP_ADAPTER	pAd, IN char * arg);
 #endif /* MCAST_RATE_SPECIFIC */
 
 #ifdef DOT11N_DRAFT3
-INT Set_OBSSScanParam_Proc(RTMP_ADAPTER *pAd, PSTRING arg);
-INT Set_AP2040ReScan_Proc(RTMP_ADAPTER *pAd, PSTRING arg);
+INT Set_OBSSScanParam_Proc(RTMP_ADAPTER *pAd, char * arg);
+INT Set_AP2040ReScan_Proc(RTMP_ADAPTER *pAd, char * arg);
 #endif /* DOT11N_DRAFT3 */
 
 INT Set_EntryLifeCheck_Proc(
 	IN PRTMP_ADAPTER 	pAd,
-	IN PSTRING			arg);
+	IN char *			arg);
 
 
 #ifdef AP_QLOAD_SUPPORT
 INT	Set_QloadClr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 /* QLOAD ALARM */
 INT	Set_QloadAlarmTimeThreshold_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			Arg);
+	IN	char *			Arg);
 
 INT	Set_QloadAlarmNumThreshold_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			Arg);
+	IN	char *			Arg);
 #endif /* AP_QLOAD_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 
 
 INT	Set_MemDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 #ifdef CONFIG_AP_SUPPORT
 INT	Set_PowerSaveLifeTime_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 #endif /* CONFIG_AP_SUPPORT */
 
 
 INT	Set_LoopBackFlag_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING	arg);
+	IN	char *	arg);
 
 INT	Set_TestTxFrameProc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING	arg);
+	IN	char *	arg);
 
 INT	Set_TestTxFrame1Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING	arg);
+	IN	char *	arg);
 
 INT	Set_TestTxFrame2Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING	arg);
+	IN	char *	arg);
 
 INT	Set_TestTxFrame3Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING	arg);
+	IN	char *	arg);
 
 INT	Set_TestTxFrame4Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING	arg);
+	IN	char *	arg);
 
 
 INT Set_DumpBeaconBuffer_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING	arg);
+	IN	char *	arg);
 
 INT	Set_InsertWAPIKeyProc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING	arg);
+	IN	char *	arg);
 
 INT	Set_TestWAPIFrameProc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING arg);
+	IN	char * arg);
 
 INT	Set_TestMultiMacAddrProc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING arg);
+	IN	char * arg);
 
 INT Set_HwTxLookupRate_Proc(
 	IN PRTMP_ADAPTER	pAd,
-	IN PSTRING arg);
+	IN char * arg);
 
 static struct {
-	PSTRING name;
-	INT (*set_proc)(PRTMP_ADAPTER pAdapter, PSTRING arg);
+	char * name;
+	INT (*set_proc)(PRTMP_ADAPTER pAdapter, char * arg);
 } *PRTMP_PRIVATE_SET_PROC, RTMP_PRIVATE_SUPPORT_PROC[] = {
 	{"RateAlg",				Set_RateAlg_Proc},
 #ifdef NEW_RATE_ADAPT_SUPPORT
@@ -1126,8 +1126,8 @@ static struct {
 
 
 static struct {
-	PSTRING name;
-	INT (*set_proc)(PRTMP_ADAPTER pAdapter, PSTRING arg);
+	char * name;
+	INT (*set_proc)(PRTMP_ADAPTER pAdapter, char * arg);
 } *PRTMP_PRIVATE_SHOW_PROC, RTMP_PRIVATE_SHOW_SUPPORT_PROC[] = {
 	{"stainfo",			Show_MacTable_Proc},
 	{"stacountinfo",			Show_StaCount_Proc},
@@ -1181,8 +1181,8 @@ INT RTMPAPPrivIoctlSet(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *pIoctlCmdStr)
 {
-	PSTRING this_char;
-	PSTRING value;
+	char * this_char;
+	char * value;
 	INT Status = NDIS_STATUS_SUCCESS;
 
 	while ((this_char = strsep((char **)&pIoctlCmdStr->u.data.pointer, ",")) != NULL) 
@@ -1231,8 +1231,8 @@ INT RTMPAPPrivIoctlShow(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *pIoctlCmdStr)
 {
-	PSTRING this_char;
-	PSTRING value = NULL;
+	char * this_char;
+	char * value = NULL;
 	INT Status = NDIS_STATUS_SUCCESS;
 	
 	while ((this_char = strsep((char **)&pIoctlCmdStr->u.data.pointer, ",")) != NULL) 
@@ -2018,7 +2018,7 @@ INT RTMPAPSetInformation(
 					else
 					{
 						int HeaderLen;
-						PSTRING pWpsMsg;
+						char * pWpsMsg;
 						UINT WpsMsgLen;
 						PWSC_CTRL pWscControl;
 						BOOLEAN	bGetDeviceInfo = FALSE;
@@ -2035,7 +2035,7 @@ INT RTMPAPSetInformation(
 						DBGPRINT(RT_DEBUG_TRACE, ("RT_OID_WSC_EAPMSG++++++++\n\n"));					
 
 						HeaderLen = LENGTH_802_11 + LENGTH_802_1_H + sizeof(IEEE8021X_FRAME) + sizeof(EAP_FRAME);
-						pWpsMsg = (PSTRING) &pUPnPMsg[HeaderLen];
+						pWpsMsg = (char *) &pUPnPMsg[HeaderLen];
 						WpsMsgLen = msgLen - HeaderLen;
 
 						/*assign the STATE_MACHINE type */
@@ -2095,7 +2095,7 @@ INT RTMPAPSetInformation(
 				STRING		*pWscUfdFileName = NULL;
 				UCHAR 		apIdx = pObj->ioctl_if;
 				PWSC_CTRL	pWscCtrl = &pAd->ApCfg.MBSSID[apIdx].WscControl;
-/*				pWscUfdFileName = (PSTRING)kmalloc(wrq->u.data.length+1, MEM_ALLOC_FLAG); */
+/*				pWscUfdFileName = (char *)kmalloc(wrq->u.data.length+1, MEM_ALLOC_FLAG); */
 				os_alloc_mem(pAd, (UCHAR **)&pWscUfdFileName, wrq->u.data.length+1);
 				if (pWscUfdFileName)
 				{
@@ -2136,7 +2136,7 @@ INT RTMPAPSetInformation(
 				STRING		*pWscUfdFileName = NULL;
 				UCHAR 		apIdx = pObj->ioctl_if;
 				PWSC_CTRL	pWscCtrl = &pAd->ApCfg.MBSSID[apIdx].WscControl;
-/*				pWscUfdFileName = (PSTRING)kmalloc(wrq->u.data.length+1, MEM_ALLOC_FLAG); */
+/*				pWscUfdFileName = (char *)kmalloc(wrq->u.data.length+1, MEM_ALLOC_FLAG); */
 				os_alloc_mem(pAd, (UCHAR **)&pWscUfdFileName, wrq->u.data.length+1);
 				if (pWscUfdFileName)
 				{
@@ -2523,7 +2523,7 @@ INT RTMPAPSetInformation(
 				Status = -EINVAL;
 			else
 			{
-				PSTRING pSsidString = NULL;
+				char * pSsidString = NULL;
 				Status = copy_from_user(&Ssid, wrq->u.data.pointer, wrq->u.data.length);
 
 				if (Ssid.SsidLength > MAX_LEN_OF_SSID)
@@ -3555,11 +3555,11 @@ INT RTMPAPQueryInformation(
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_802_11_PRODUCTID\n"));
 		
 #ifdef RTMP_MAC_USB
-			snprintf((PSTRING)snmp_tmp, sizeof(snmp_tmp), "%04x %04x\n", 
+			snprintf((char *)snmp_tmp, sizeof(snmp_tmp), "%04x %04x\n", 
 						RtmpOsGetUsbDevVendorID(((POS_COOKIE)pAd->OS_Cookie)->pUsb_Dev),
 						RtmpOsGetUsbDevProductID(((POS_COOKIE)pAd->OS_Cookie)->pUsb_Dev));
 #endif /* RTMP_MAC_USB */
-			wrq->u.data.length = strlen((PSTRING) snmp_tmp);
+			wrq->u.data.length = strlen((char *) snmp_tmp);
 			Status = copy_to_user(wrq->u.data.pointer, snmp_tmp, wrq->u.data.length);
 			break;
 
@@ -3904,7 +3904,7 @@ INT RTMPAPQueryInformation(
 */
 INT Set_CountryCode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING		arg)
+	IN	char *		arg)
 {
 
 #ifdef EXT_BUILD_CHANNEL_LIST
@@ -3932,7 +3932,7 @@ INT Set_CountryCode_Proc(
 #ifdef EXT_BUILD_CHANNEL_LIST
 INT Set_ChGeography_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING		arg)
+	IN	char *		arg)
 {
 	ULONG Geography;
 		
@@ -3967,7 +3967,7 @@ INT Set_ChGeography_Proc(
 */
 INT Set_CountryString_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING		arg)
+	IN	char *		arg)
 {
 	INT   index = 0;
 	INT   success = TRUE;
@@ -3994,9 +3994,9 @@ INT Set_CountryString_Proc(
 		for (index = 0; index < NUM_OF_COUNTRIES; index++)
 		{
 			NdisZeroMemory(name_buffer, 40);
-			snprintf(name_buffer, sizeof(name_buffer), "\"%s\"", (PSTRING) allCountry[index].pCountryName);
+			snprintf(name_buffer, sizeof(name_buffer), "\"%s\"", (char *) allCountry[index].pCountryName);
 
-			if (strncmp((PSTRING) allCountry[index].pCountryName, arg, strlen(arg)) == 0)
+			if (strncmp((char *) allCountry[index].pCountryName, arg, strlen(arg)) == 0)
 				break;
 			else if (strncmp(name_buffer, arg, strlen(arg)) == 0)
 				break;
@@ -4103,7 +4103,7 @@ INT Set_CountryString_Proc(
 */
 INT	Set_AP_SSID_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	INT   success = FALSE;
 	POS_COOKIE pObj = (POS_COOKIE) pAdapter->OS_Cookie;
@@ -4163,7 +4163,7 @@ INT	Set_AP_SSID_Proc(
 */
 INT Set_TxRate_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	
@@ -4186,7 +4186,7 @@ INT Set_TxRate_Proc(
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-INT Set_BasicRate_Proc(RTMP_ADAPTER *pAd, PSTRING arg)
+INT Set_BasicRate_Proc(RTMP_ADAPTER *pAd, char * arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	ULONG BasicRateBitmap;
@@ -4217,7 +4217,7 @@ INT Set_BasicRate_Proc(RTMP_ADAPTER *pAd, PSTRING arg)
 */
 INT	Set_BeaconPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	USHORT BeaconPeriod;
 	INT   success = FALSE;
@@ -4251,7 +4251,7 @@ INT	Set_BeaconPeriod_Proc(
 */
 INT	Set_DtimPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	USHORT DtimPeriod;
 	INT   success = FALSE;
@@ -4282,7 +4282,7 @@ INT	Set_DtimPeriod_Proc(
 */
 INT	Set_OLBCDetection_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	switch (simple_strtol(arg, 0, 10))
 	{
@@ -4311,7 +4311,7 @@ INT	Set_OLBCDetection_Proc(
 */
 INT	Set_AP_WmmCapable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	BOOLEAN	bWmmCapable;
 	POS_COOKIE	pObj= (POS_COOKIE)pAd->OS_Cookie;
@@ -4350,7 +4350,7 @@ INT	Set_AP_WmmCapable_Proc(
 
 INT	Set_AP_MaxStaNum_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	INT			apidx = pObj->ioctl_if;
@@ -4368,7 +4368,7 @@ INT	Set_AP_MaxStaNum_Proc(
 */
 INT	Set_AP_IdleTimeout_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	return ApCfg_Set_IdleTimeout_Proc(pAd, arg);
 }
@@ -4382,7 +4382,7 @@ INT	Set_AP_IdleTimeout_Proc(
 */
 INT	Set_NoForwarding_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	ULONG NoForwarding;
 
@@ -4414,7 +4414,7 @@ INT	Set_NoForwarding_Proc(
 */
 INT	Set_NoForwardingBTNSSID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	ULONG NoForwarding;
 
@@ -4443,7 +4443,7 @@ INT	Set_NoForwardingBTNSSID_Proc(
 */
 INT	Set_HideSSID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	BOOLEAN bHideSsid;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -4482,7 +4482,7 @@ INT	Set_HideSSID_Proc(
 */
 INT	Set_VLANID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	
@@ -4504,7 +4504,7 @@ INT	Set_VLANID_Proc(
 */
 INT	Set_VLANPriority_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
@@ -4526,7 +4526,7 @@ INT	Set_VLANPriority_Proc(
 */
 INT	Set_VLAN_TAG_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	BOOLEAN	bVLAN_Tag;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -4561,7 +4561,7 @@ INT	Set_VLAN_TAG_Proc(
 */
 INT	Set_AP_AuthMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	ULONG       i;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -4603,7 +4603,7 @@ INT	Set_AP_AuthMode_Proc(
 */
 INT	Set_AP_EncrypType_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		apidx = pObj->ioctl_if;
@@ -4652,7 +4652,7 @@ INT	Set_AP_EncrypType_Proc(
 */
 INT	Set_AP_WpaMixPairCipher_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		apidx = pObj->ioctl_if;
@@ -4699,7 +4699,7 @@ INT	Set_AP_WpaMixPairCipher_Proc(
 */
 INT	Set_AP_RekeyInterval_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		apidx = pObj->ioctl_if;
@@ -4728,7 +4728,7 @@ INT	Set_AP_RekeyInterval_Proc(
 */
 INT	Set_AP_RekeyMethod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		apidx = pObj->ioctl_if;
@@ -4759,7 +4759,7 @@ INT	Set_AP_RekeyMethod_Proc(
 */
 INT	Set_AP_PMKCachePeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		apidx = pObj->ioctl_if;
@@ -4783,7 +4783,7 @@ INT	Set_AP_PMKCachePeriod_Proc(
 */
 INT	Set_AP_DefaultKeyID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	ULONG KeyIdx;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -4812,7 +4812,7 @@ INT	Set_AP_DefaultKeyID_Proc(
 */
 INT	Set_AP_Key1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj;
 	UCHAR	apidx;
@@ -4849,7 +4849,7 @@ INT	Set_AP_Key1_Proc(
 */
 INT	Set_AP_Key2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj;
 	UCHAR	apidx;
@@ -4884,7 +4884,7 @@ INT	Set_AP_Key2_Proc(
 */
 INT	Set_AP_Key3_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj;
 	UCHAR	apidx;
@@ -4919,7 +4919,7 @@ INT	Set_AP_Key3_Proc(
 */
 INT	Set_AP_Key4_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 
 	POS_COOKIE pObj;
@@ -4957,7 +4957,7 @@ INT	Set_AP_Key4_Proc(
 */
 INT	Set_AccessPolicy_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
@@ -4998,13 +4998,13 @@ INT	Set_AccessPolicy_Proc(
 */
 INT	Set_ACLAddEntry_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR					macAddr[MAC_ADDR_LEN];
 /*	RT_802_11_ACL			acl; */
 	RT_802_11_ACL			*pacl = NULL;
-	PSTRING					this_char;
-	PSTRING					value;
+	char *					this_char;
+	char *					value;
 	INT						i, j;
 	BOOLEAN					isDuplicate=FALSE;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -5119,13 +5119,13 @@ INT	Set_ACLAddEntry_Proc(
 */
 INT	Set_ACLDelEntry_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR					macAddr[MAC_ADDR_LEN];
 	UCHAR					nullAddr[MAC_ADDR_LEN];
 	RT_802_11_ACL			acl;
-	PSTRING					this_char;
-	PSTRING					value;
+	char *					this_char;
+	char *					value;
 	INT						i, j;
 	BOOLEAN					isFound=FALSE;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -5242,7 +5242,7 @@ char const *pACL_PolicyMessage[ACL_POLICY_TYPE_NUM] = {
 */
 INT	Set_ACLShowAll_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	RT_802_11_ACL			acl;
 	BOOLEAN				bDumpAll = FALSE;
@@ -5309,7 +5309,7 @@ INT	Set_ACLShowAll_Proc(
 */
 INT	Set_ACLClearAll_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 /*	RT_802_11_ACL			acl; */
 	RT_802_11_ACL			*pacl = NULL;
@@ -5418,7 +5418,7 @@ void rtmp_hexdump(int level, const char *title, const UINT8 *buf, size_t len)
 */
 INT	Set_AP_WPAPSK_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	apidx = pObj->ioctl_if;
@@ -5458,7 +5458,7 @@ INT	Set_AP_WPAPSK_Proc(
 
 INT	Set_RadioOn_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR radio;
 
@@ -5517,7 +5517,7 @@ INT	Set_RadioOn_Proc(
 */
 INT Set_AutoChannelSel_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING		arg)
+	IN	char *		arg)
 {
 	NDIS_802_11_SSID Ssid;
 
@@ -5559,7 +5559,7 @@ INT Set_AutoChannelSel_Proc(
 
 INT Show_DriverInfo_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef DBG
 	printk("Driver version: %s (%s %s)\n", AP_DRIVER_VERSION, __DATE__, __TIME__);
@@ -5570,7 +5570,7 @@ INT Show_DriverInfo_Proc(
 
 INT	Show_StaCount_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef DBG
 	INT i;/*, QueIdx=0; */
@@ -5611,7 +5611,7 @@ INT	Show_StaCount_Proc(
 
 INT	Show_StaSecurityInfo_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef DBG
 	INT i;
@@ -5654,7 +5654,7 @@ INT	Show_StaSecurityInfo_Proc(
 #ifdef DOT11_N_SUPPORT
 INT	Show_BaTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef DBG
 	INT i, j;
@@ -5714,7 +5714,7 @@ INT	Show_BaTable_Proc(
 
 INT Show_RAInfo_Proc(
 	IN RTMP_ADAPTER *pAd,
-	IN PSTRING arg)
+	IN char * arg)
 {
 #ifdef PRE_ANT_SWITCH
 	DBGPRINT(RT_DEBUG_OFF, ("PreAntSwitch: %d\n", pAd->CommonCfg.PreAntSwitch));
@@ -5757,7 +5757,7 @@ INT Show_RAInfo_Proc(
 
 INT	Show_Sat_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef DBG
 	/* Sanity check for calculation of sucessful count */
@@ -5878,7 +5878,7 @@ INT	Show_Sat_Proc(
 
 INT	Show_Sat_Reset_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef DBG
 	/* Sanity check for calculation of sucessful count */
@@ -5989,7 +5989,7 @@ INT	Show_Sat_Reset_Proc(
 #ifdef MAT_SUPPORT
 INT	Show_MATTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	extern VOID dumpIPMacTb(MAT_STRUCT *pMatCfg, int index);
 	extern NDIS_STATUS dumpSesMacTb(MAT_STRUCT *pMatCfg, int hashIdx);
@@ -6449,12 +6449,12 @@ VOID RTMPAPIoctlBBP32(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
-	PSTRING				this_char;
-	PSTRING				value;
+	char *				this_char;
+	char *				value;
 	UINT32				regBBP = 0;
-	PSTRING				mpool, msg; /*msg[2048]; */
-	PSTRING				arg; /*arg[255]; */
-	PSTRING				ptr;
+	char *				mpool, msg; /*msg[2048]; */
+	char *				arg; /*arg[255]; */
+	char *				ptr;
 	INT					bbpId;
 	LONG				bbpValue;
 	BOOLEAN				bIsPrintAllBBP = FALSE, bAllowDump, bCopyMsg;
@@ -6468,8 +6468,8 @@ VOID RTMPAPIoctlBBP32(
 	}
 
 	NdisZeroMemory(mpool, MAX_BBP_MSG_SIZE * 2 +256+12);
-	msg = (PSTRING)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (PSTRING)((ULONG)(msg+MAX_BBP_MSG_SIZE * 2+3) & (ULONG)~0x03);
+	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
+	arg = (char *)((ULONG)(msg+MAX_BBP_MSG_SIZE * 2+3) & (ULONG)~0x03);
 
 	bAllowDump = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_NODUMPMSG) == RTPRIV_IOCTL_FLAG_NODUMPMSG) ? FALSE : TRUE;
 	bCopyMsg = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_NOSPACE) == RTPRIV_IOCTL_FLAG_NOSPACE) ? FALSE : TRUE;
@@ -6621,12 +6621,12 @@ VOID RTMPAPIoctlBBP(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
-	PSTRING				this_char;
-	PSTRING				value;
+	char *				this_char;
+	char *				value;
 	UCHAR				regBBP = 0;
-	PSTRING				mpool, msg; /*msg[2048]; */
-	PSTRING				arg; /*arg[255]; */
-	PSTRING				ptr;
+	char *				mpool, msg; /*msg[2048]; */
+	char *				arg; /*arg[255]; */
+	char *				ptr;
 	INT					bbpId;
 	LONG				bbpValue;
 	BOOLEAN				bIsPrintAllBBP = FALSE, bAllowDump, bCopyMsg;
@@ -6647,8 +6647,8 @@ VOID RTMPAPIoctlBBP(
 	}
 
 	NdisZeroMemory(mpool, MAX_BBP_MSG_SIZE+256+12);
-	msg = (PSTRING)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (PSTRING)((ULONG)(msg+MAX_BBP_MSG_SIZE+3) & (ULONG)~0x03);
+	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
+	arg = (char *)((ULONG)(msg+MAX_BBP_MSG_SIZE+3) & (ULONG)~0x03);
 
 	bAllowDump = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_NODUMPMSG) == RTPRIV_IOCTL_FLAG_NODUMPMSG) ? FALSE : TRUE;
 	bCopyMsg = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_NOSPACE) == RTPRIV_IOCTL_FLAG_NOSPACE) ? FALSE : TRUE;
@@ -6836,10 +6836,10 @@ VOID RTMPAPIoctlMAC(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
-	PSTRING this_char, value;
+	char * this_char, value;
 	INT j = 0, k = 0;
-	PSTRING mpool, msg;
-	PSTRING arg, ptr;
+	char * mpool, msg;
+	char * arg, ptr;
 	UINT32 macAddr = 0;
 	UCHAR temp[16];
 	STRING temp2[16];
@@ -6854,8 +6854,8 @@ VOID RTMPAPIoctlMAC(
 
 	bFromUI = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_UI) == RTPRIV_IOCTL_FLAG_UI) ? TRUE : FALSE;
 	
-	msg = (PSTRING)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (PSTRING)((ULONG)(msg+4096+3) & (ULONG)~0x03);
+	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
+	arg = (char *)((ULONG)(msg+4096+3) & (ULONG)~0x03);
 
 	memset(msg, 0x00, 4096);
 	memset(arg, 0x00, 256);
@@ -7059,12 +7059,12 @@ VOID RTMPAPIoctlRF(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
-/*	PSTRING				this_char;
-	PSTRING				value;*/
+/*	char *				this_char;
+	char *				value;*/
 	UCHAR				regRF = 0;/*, rf_bank = 0;*/
-	PSTRING				mpool, msg;
-	PSTRING				arg;
-/*	PSTRING				ptr;*/
+	char *				mpool, msg;
+	char *				arg;
+/*	char *				ptr;*/
 	INT				rfId, maxRFIdx, bank_Id;
 /*	LONG				rfValue;*/
 	BOOLEAN				bIsPrintAllRF = TRUE, bFromUI;
@@ -7084,8 +7084,8 @@ VOID RTMPAPIoctlRF(
 	bFromUI = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_UI) == RTPRIV_IOCTL_FLAG_UI) ? TRUE : FALSE;
 	
 	NdisZeroMemory(mpool, memLen);
-	msg = (PSTRING)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (PSTRING)((ULONG)(msg+2048+3) & (ULONG)~0x03);
+	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
+	arg = (char *)((ULONG)(msg+2048+3) & (ULONG)~0x03);
 	argLen = strlen((char *)(wrq->u.data.pointer));
 	if (bIsPrintAllRF)
 	{
@@ -7144,27 +7144,27 @@ VOID RTMPAPIoctlE2PROM(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
-	PSTRING				this_char;
-	PSTRING				value;
+	char *this_char;
+	char *value;
 	INT					j = 0, k = 0;
-	PSTRING				mpool, msg;/*msg[1024]; */
-	PSTRING				arg; /*arg[255]; */
-	PSTRING				ptr;
+	char *mpool, *msg;/*msg[1024]; */
+	char *arg; /*arg[255]; */
+	char *ptr;
 	USHORT				eepAddr = 0;
 	UCHAR				temp[16];
 	STRING				temp2[16];
 	USHORT				eepValue;
 	BOOLEAN				bIsPrintAllE2PROM = FALSE;
 
-/*	mpool = (PSTRING)kmalloc(sizeof(CHAR)*(4096+256+12), MEM_ALLOC_FLAG); */
+/*	mpool = (char *)kmalloc(sizeof(CHAR)*(4096+256+12), MEM_ALLOC_FLAG); */
 	os_alloc_mem(NULL, (UCHAR **)&mpool, sizeof(CHAR)*(4096+256+12));
 
 	if (mpool == NULL) {
 		return;
 	}
 
-	msg = (PSTRING)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (PSTRING)((ULONG)(msg+4096+3) & (ULONG)~0x03);
+	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
+	arg = (char *)((ULONG)(msg+4096+3) & (ULONG)~0x03);
 
 
 	memset(msg, 0x00, 4096);
@@ -7342,7 +7342,7 @@ VOID RTMPIoctlStatistics(
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
 	INT Status;
-	PSTRING msg;
+	char * msg;
 #ifdef WSC_AP_SUPPORT
     UCHAR idx = 0;
 #endif /* WSC_AP_SUPPORT */
@@ -7355,7 +7355,7 @@ VOID RTMPIoctlStatistics(
 	UINT efusefreenum=0;
 #endif /* RTMP_EFUSE_SUPPORT */
 
-/*	msg = (PSTRING)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
+/*	msg = (char *)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
 	os_alloc_mem(pAd, (UCHAR **)&msg, sizeof(CHAR)*(2048));
 	if (msg == NULL) {
 		return;
@@ -7680,7 +7680,7 @@ VOID RTMPIoctlQueryBaTable(
 #ifdef APCLI_SUPPORT
 INT Set_ApCli_Enable_Proc(
 	IN  PRTMP_ADAPTER pAd, 
-	IN  PSTRING arg)
+	IN  char * arg)
 {
 	UINT Enable;
 	POS_COOKIE pObj;
@@ -7705,7 +7705,7 @@ INT Set_ApCli_Enable_Proc(
 
 INT Set_ApCli_Ssid_Proc(
 	IN  PRTMP_ADAPTER pAd, 
-	IN  PSTRING arg)
+	IN  char * arg)
 {
 	POS_COOKIE pObj;
 	UCHAR ifIndex;
@@ -7744,7 +7744,7 @@ INT Set_ApCli_Ssid_Proc(
 			NdisZeroMemory(PskKey, 100);
 			NdisMoveMemory(PskKey, pAd->ApCfg.ApCliTab[ifIndex].PSK, pAd->ApCfg.ApCliTab[ifIndex].PSKLen);
 
-			RT_CfgSetWPAPSKKey(pAd, (PSTRING)PskKey, 
+			RT_CfgSetWPAPSKKey(pAd, (char *)PskKey, 
 									pAd->ApCfg.ApCliTab[ifIndex].PSKLen,
 									(unsigned char *)pAd->ApCfg.ApCliTab[ifIndex].CfgSsid, 
 									pAd->ApCfg.ApCliTab[ifIndex].CfgSsidLen, 
@@ -7765,10 +7765,10 @@ INT Set_ApCli_Ssid_Proc(
 
 INT Set_ApCli_Bssid_Proc(
 	IN  PRTMP_ADAPTER pAd, 
-	IN  PSTRING arg)
+	IN  char * arg)
 {
 	INT i;
-	PSTRING value;
+	char * value;
 	UCHAR ifIndex;
 	BOOLEAN apcliEn;
 	POS_COOKIE pObj;
@@ -7828,7 +7828,7 @@ INT Set_ApCli_Bssid_Proc(
 */
 INT	Set_ApCli_AuthMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	ULONG       i;
 	POS_COOKIE 	pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -7888,7 +7888,7 @@ INT	Set_ApCli_AuthMode_Proc(
 */
 INT	Set_ApCli_EncrypType_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR 		ifIndex;
@@ -7945,7 +7945,7 @@ INT	Set_ApCli_EncrypType_Proc(
 */
 INT	Set_ApCli_DefaultKeyID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	ULONG 			KeyIdx;
 	POS_COOKIE 		pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -7985,7 +7985,7 @@ INT	Set_ApCli_DefaultKeyID_Proc(
 */
 INT	Set_ApCli_WPAPSK_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR ifIndex;
 	POS_COOKIE pObj;
@@ -8022,7 +8022,7 @@ INT	Set_ApCli_WPAPSK_Proc(
 */
 INT	Set_ApCli_Key1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 		pObj = (POS_COOKIE) pAd->OS_Cookie;
 	PAPCLI_STRUCT	pApCliEntry = NULL;
@@ -8054,7 +8054,7 @@ INT	Set_ApCli_Key1_Proc(
 */
 INT	Set_ApCli_Key2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 		pObj;
 	PAPCLI_STRUCT	pApCliEntry = NULL;
@@ -8086,7 +8086,7 @@ INT	Set_ApCli_Key2_Proc(
 */
 INT	Set_ApCli_Key3_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 		pObj;
 	PAPCLI_STRUCT	pApCliEntry = NULL;
@@ -8118,7 +8118,7 @@ INT	Set_ApCli_Key3_Proc(
 */
 INT	Set_ApCli_Key4_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 		pObj;
 	PAPCLI_STRUCT	pApCliEntry = NULL;
@@ -8141,7 +8141,7 @@ INT	Set_ApCli_Key4_Proc(
 
 INT Set_ApCli_TxMode_Proc(
 	IN  PRTMP_ADAPTER pAd, 
-	IN  PSTRING arg)
+	IN  char * arg)
 {
 	POS_COOKIE 		pObj;	
 	UCHAR 			ifIndex;
@@ -8163,7 +8163,7 @@ INT Set_ApCli_TxMode_Proc(
 
 INT Set_ApCli_TxMcs_Proc(
 	IN  PRTMP_ADAPTER pAd, 
-	IN  PSTRING arg)
+	IN  char * arg)
 {
 	POS_COOKIE 		pObj;
 	UCHAR 			ifIndex;
@@ -8196,7 +8196,7 @@ INT Set_ApCli_TxMcs_Proc(
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 INT Set_ApCli_Wpa_Support(
     IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE 		pObj;
 	UCHAR 			ifIndex;
@@ -8225,7 +8225,7 @@ INT Set_ApCli_Wpa_Support(
 
 INT	Set_ApCli_IEEE8021X_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
     	ULONG ieee8021x;
 	POS_COOKIE 		pObj;
@@ -8258,7 +8258,7 @@ INT	Set_ApCli_IEEE8021X_Proc(
 #ifdef WSC_AP_SUPPORT
 INT Set_AP_WscSsid_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
     POS_COOKIE 		pObj = (POS_COOKIE) pAd->OS_Cookie;
     UCHAR			ifIndex = pObj->ioctl_if;
@@ -8294,7 +8294,7 @@ INT Set_AP_WscSsid_Proc(
 #ifdef WSC_AP_SUPPORT
 INT	 Set_AP_WscConfMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	INT         ConfModeIdx;
 	/*INT         IsAPConfigured; */
@@ -8396,7 +8396,7 @@ INT	 Set_AP_WscConfMode_Proc(
 
 INT	Set_AP_WscConfStatus_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR       IsAPConfigured = 0;
 	INT         IsSelectedRegistrar;
@@ -8470,7 +8470,7 @@ INT	Set_AP_WscConfStatus_Proc(
 
 INT	Set_AP_WscMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	INT         WscMode;
     POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -8536,7 +8536,7 @@ INT	Set_AP_WscMode_Proc(
 
 INT	Set_WscStatus_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING		arg)
+	IN	char *		arg)
 {
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	    apidx = pObj->ioctl_if;
@@ -8549,7 +8549,7 @@ INT	Set_WscStatus_Proc(
 #define WSC_GET_CONF_MODE_UPNP	2
 INT	Set_AP_WscGetConf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING		arg)
+	IN	char *		arg)
 {
 	INT                 WscMode, wscGetConfMode = 0;
 	INT                 IsAPConfigured;
@@ -8717,7 +8717,7 @@ INT	Set_AP_WscGetConf_Proc(
 
 INT	Set_AP_WscPinCode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UINT        PinCode = 0;
 	BOOLEAN     validatePin, bFromApCli = FALSE;
@@ -8814,7 +8814,7 @@ INT	Set_AP_WscPinCode_Proc(
 
 INT	Set_WscOOB_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
     char        *pTempSsid = NULL;
     POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -8857,7 +8857,7 @@ INT	Set_WscOOB_Proc(
 
 INT	Set_WscStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
     POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
     UCHAR	    apidx = pObj->ioctl_if;
@@ -8931,7 +8931,7 @@ VOID RTMPIoctlWscProfile(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
 	WSC_CONFIGURED_VALUE Profile;
-	PSTRING msg;
+	char * msg;
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	    apidx = pObj->ioctl_if;
 
@@ -8967,7 +8967,7 @@ VOID RTMPIoctlWscProfile(
 			int i;
 			for (i=0; i<pAd->SharedKey[apidx][pAd->ApCfg.MBSSID[apidx].DefaultKeyId].KeyLen; i++)
 			{
-				snprintf((PSTRING) Profile.WscWPAKey, sizeof(Profile.WscWPAKey),
+				snprintf((char *) Profile.WscWPAKey, sizeof(Profile.WscWPAKey),
 						"%s%02x", Profile.WscWPAKey,
 									pAd->SharedKey[apidx][pAd->ApCfg.MBSSID[apidx].DefaultKeyId].Key[i]);
 			}
@@ -8993,7 +8993,7 @@ VOID RTMPIoctlWscProfile(
 		DBGPRINT(RT_DEBUG_TRACE, ("%s: copy_to_user() fail\n", __FUNCTION__));
 	}
 
-/*	msg = (PSTRING)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
+/*	msg = (char *)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
 	os_alloc_mem(pAd, (UCHAR **)&msg, sizeof(CHAR)*(2048));
 	if (msg == NULL) {
 		return;
@@ -9077,7 +9077,7 @@ VOID RTMPAR9IoctlWscProfile(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
 	WSC_CONFIGURED_VALUE Profile;
-	PSTRING msg;
+	char * msg;
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	    apidx = pObj->ioctl_if;
 
@@ -9104,7 +9104,7 @@ VOID RTMPAR9IoctlWscProfile(
 			int i;
 			for (i=0; i<pAd->SharedKey[apidx][pAd->ApCfg.MBSSID[apidx].DefaultKeyId].KeyLen; i++)
 			{
-				snprintf((PSTRING) Profile.WscWPAKey, sizeof(Profile.WscWPAKey),
+				snprintf((char *) Profile.WscWPAKey, sizeof(Profile.WscWPAKey),
 						"%s%02x", Profile.WscWPAKey,
 									pAd->SharedKey[apidx][pAd->ApCfg.MBSSID[apidx].DefaultKeyId].Key[i]);
 			}
@@ -9124,7 +9124,7 @@ VOID RTMPAR9IoctlWscProfile(
 	}
 
 
-/*	msg = (PSTRING)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
+/*	msg = (char *)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
 	os_alloc_mem(pAd, (UCHAR **)&msg, sizeof(CHAR)*(2048));
 	if (msg == NULL) {
 		return;
@@ -9187,12 +9187,12 @@ VOID RTMPIoctlWscPINCode(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
-	PSTRING msg;
+	char * msg;
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	    apidx = pObj->ioctl_if;
 	UCHAR        tempPIN[9]={0};
 
-/*	msg = (PSTRING)kmalloc(sizeof(CHAR)*(128), MEM_ALLOC_FLAG); */
+/*	msg = (char *)kmalloc(sizeof(CHAR)*(128), MEM_ALLOC_FLAG); */
 	os_alloc_mem(NULL, (UCHAR **)&msg, sizeof(CHAR)*(128));
 	if (msg == NULL) {
 		return;
@@ -9204,9 +9204,9 @@ VOID RTMPIoctlWscPINCode(
 	if(pAd->ApCfg.MBSSID[apidx].WscControl.WscEnrolleePinCode)
 	{
 		if (pAd->ApCfg.MBSSID[apidx].WscControl.WscEnrolleePinCodeLen == 8)
-			sprintf((PSTRING) tempPIN, "%08u", pAd->ApCfg.MBSSID[apidx].WscControl.WscEnrolleePinCode);
+			sprintf((char *) tempPIN, "%08u", pAd->ApCfg.MBSSID[apidx].WscControl.WscEnrolleePinCode);
 		else
-			sprintf((PSTRING) tempPIN, "%04u", pAd->ApCfg.MBSSID[apidx].WscControl.WscEnrolleePinCode);
+			sprintf((char *) tempPIN, "%04u", pAd->ApCfg.MBSSID[apidx].WscControl.WscEnrolleePinCode);
 		sprintf(msg,"%s%s\n",msg,tempPIN);
 	}
 	wrq->u.data.length = strlen(msg);
@@ -9222,11 +9222,11 @@ VOID RTMPIoctlWscStatus(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
-	PSTRING msg;
+	char * msg;
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	    apidx = pObj->ioctl_if;
 
-/*	msg = (PSTRING)kmalloc(sizeof(CHAR)*(128), MEM_ALLOC_FLAG); */
+/*	msg = (char *)kmalloc(sizeof(CHAR)*(128), MEM_ALLOC_FLAG); */
 	os_alloc_mem(NULL, (UCHAR **)&msg, sizeof(CHAR)*(128));
 	if (msg == NULL) {
 		return;
@@ -9331,7 +9331,7 @@ VOID RTMPIoctlGetWscRegsDynInfo(
 #endif/* INF_AR9 */
 BOOLEAN WscCheckEnrolleeNonceFromUpnp(
 	IN	PRTMP_ADAPTER	pAdapter, 
-	IN	PSTRING			pData,
+	IN	char *			pData,
 	IN  USHORT			Length,
 	IN  PWSC_CTRL       pWscControl) 
 {
@@ -9382,7 +9382,7 @@ BOOLEAN WscCheckEnrolleeNonceFromUpnp(
 
 UCHAR	WscRxMsgTypeFromUpnp(
 	IN	PRTMP_ADAPTER		pAdapter,
-	IN  PSTRING				pData,
+	IN  char *				pData,
 	IN	USHORT				Length) 
 {
 	
@@ -9465,7 +9465,7 @@ VOID RTMPIoctlSetWSCOOB(
 */
 INT	Set_AP_WscSecurityMode_Proc(	
 	IN	PRTMP_ADAPTER	pAd, 	
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;	
 	UCHAR		apidx = pObj->ioctl_if;	
@@ -9488,7 +9488,7 @@ INT	Set_AP_WscSecurityMode_Proc(
 
 INT Set_AP_WscMultiByteCheck_Proc(    
 	IN  PRTMP_ADAPTER   pAd,
-	IN  PSTRING         arg)
+	IN  char *         arg)
 {
 	POS_COOKIE 		pObj = (POS_COOKIE) pAd->OS_Cookie;	
 	UCHAR			apidx = pObj->ioctl_if;	
@@ -9531,7 +9531,7 @@ INT Set_AP_WscMultiByteCheck_Proc(
 
 INT	Set_WscVersion_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	version = (UCHAR)simple_strtol(arg, 0, 16);	
@@ -9544,7 +9544,7 @@ INT	Set_WscVersion_Proc(
 #ifdef WSC_V2_SUPPORT
 INT	Set_WscFragment_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	bool_flag = (UCHAR)simple_strtol(arg, 0, 16);	
@@ -9556,7 +9556,7 @@ INT	Set_WscFragment_Proc(
 
 INT	Set_WscFragmentSize_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	USHORT		WscFragSize = (USHORT)simple_strtol(arg, 0, 10);	
@@ -9569,7 +9569,7 @@ INT	Set_WscFragmentSize_Proc(
 
 INT	Set_WscSetupLock_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		bEnable = (UCHAR)simple_strtol(arg, 0, 10);
@@ -9616,7 +9616,7 @@ INT	Set_WscSetupLock_Proc(
 
 INT	Set_WscV2Support_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		bEnable = (UCHAR)simple_strtol(arg, 0, 10);
@@ -9654,7 +9654,7 @@ INT	Set_WscV2Support_Proc(
 
 INT	Set_WscVersion2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	version = (UCHAR)simple_strtol(arg, 0, 16);	
@@ -9669,7 +9669,7 @@ INT	Set_WscVersion2_Proc(
 
 INT	Set_WscExtraTlvTag_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	USHORT		new_tag = (USHORT)simple_strtol(arg, 0, 16);
@@ -9682,7 +9682,7 @@ INT	Set_WscExtraTlvTag_Proc(
 
 INT	Set_WscExtraTlvType_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		type = (UCHAR)simple_strtol(arg, 0, 10);
@@ -9695,7 +9695,7 @@ INT	Set_WscExtraTlvType_Proc(
 
 INT	Set_WscExtraTlvData_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE		pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UINT			DataLen = (UINT)strlen(arg);
@@ -9746,7 +9746,7 @@ INT	Set_WscExtraTlvData_Proc(
 
 INT	Set_WscMaxPinAttack_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		MaxPinAttack = (UCHAR)simple_strtol(arg, 0, 10);
@@ -9759,7 +9759,7 @@ INT	Set_WscMaxPinAttack_Proc(
 
 INT	Set_WscSetupLockTime_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UINT		SetupLockTime = (UINT)simple_strtol(arg, 0, 10);	
@@ -9777,7 +9777,7 @@ INT	Set_WscSetupLockTime_Proc(
 #ifdef IAPP_SUPPORT
 INT	Set_IappPID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	unsigned long IappPid;
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -9794,10 +9794,10 @@ INT	Set_IappPID_Proc(
 
 INT	Set_DisConnectSta_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR					macAddr[MAC_ADDR_LEN];
-	PSTRING					value;
+	char *					value;
 	INT						i;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 
@@ -9824,7 +9824,7 @@ INT	Set_DisConnectSta_Proc(
 
 INT Set_DisConnectAllSta_Proc(
         IN PRTMP_ADAPTER pAd, 
-	IN PSTRING arg)
+	IN char * arg)
 {
 	{
 		MacTableReset(pAd);
@@ -9846,7 +9846,7 @@ INT Set_DisConnectAllSta_Proc(
 */
 INT	Set_IEEE8021X_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
     ULONG ieee8021x;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -9875,7 +9875,7 @@ INT	Set_IEEE8021X_Proc(
 */
 INT	Set_PreAuth_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
     ULONG PreAuth;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -9896,7 +9896,7 @@ INT	Set_PreAuth_Proc(
 
 INT	Set_OwnIPAddr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UINT32		ip_addr;
 
@@ -9910,10 +9910,10 @@ INT	Set_OwnIPAddr_Proc(
 
 INT	Set_EAPIfName_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	INT			i;
-	PSTRING		macptr;	
+	char *		macptr;	
 
 	for (i=0, macptr = rstrtok(arg,";"); (macptr && i < MAX_MBSSID_NUM(pAd)); macptr = rstrtok(NULL,";"), i++) 
 	{
@@ -9931,10 +9931,10 @@ INT	Set_EAPIfName_Proc(
 
 INT	Set_PreAuthIfName_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	INT			i;
-	PSTRING		macptr;	
+	char *		macptr;	
 
 	for (i=0, macptr = rstrtok(arg,";"); (macptr && i < MAX_MBSSID_NUM(pAd)); macptr = rstrtok(NULL,";"), i++) 
 	{
@@ -9953,11 +9953,11 @@ INT	Set_PreAuthIfName_Proc(
 
 INT	Set_RADIUS_Server_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	    apidx = pObj->ioctl_if;
-	PSTRING		macptr;	
+	char *		macptr;	
 	INT			count;
 	UINT32		ip_addr;
 	INT			srv_cnt = 0;
@@ -9984,11 +9984,11 @@ INT	Set_RADIUS_Server_Proc(
 
 INT	Set_RADIUS_Port_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	    apidx = pObj->ioctl_if;
-	PSTRING		macptr;	
+	char *		macptr;	
 	INT			count;
 	INT			srv_cnt = 0;
 
@@ -10010,11 +10010,11 @@ INT	Set_RADIUS_Port_Proc(
 
 INT	Set_RADIUS_Key_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	    apidx = pObj->ioctl_if;
-	PSTRING		macptr;	
+	char *		macptr;	
 	INT			count;
 	INT			srv_cnt = 0;
 
@@ -10040,7 +10040,7 @@ INT	Set_RADIUS_Key_Proc(
 #ifdef UAPSD_SUPPORT
 INT Set_UAPSD_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR IdMbss = pObj->ioctl_if;
@@ -10060,7 +10060,7 @@ INT Set_UAPSD_Proc(
 #ifdef MCAST_RATE_SPECIFIC
 INT Set_McastPhyMode(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg)
+	IN char * arg)
 {
 	UCHAR PhyMode = simple_strtol(arg, 0, 10);
 
@@ -10095,7 +10095,7 @@ INT Set_McastPhyMode(
 
 INT Set_McastMcs(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg)
+	IN char * arg)
 {
 	UCHAR Mcs = simple_strtol(arg, 0, 10);
 
@@ -10128,7 +10128,7 @@ INT Set_McastMcs(
 
 INT Show_McastRate(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg)
+	IN char * arg)
 {
 	printk("Mcast PhyMode =%d\n", pAd->CommonCfg.MCastPhyMode.field.MODE);
 	printk("Mcast Mcs =%d\n", pAd->CommonCfg.MCastPhyMode.field.MCS);
@@ -10140,11 +10140,11 @@ INT Show_McastRate(
 #ifdef DOT11N_DRAFT3
 INT Set_OBSSScanParam_Proc(
 	IN PRTMP_ADAPTER 	pAd,
-	IN PSTRING			arg)
+	IN char *			arg)
 {
 	INT ObssScanValue;
 	UINT Idx;
-	PSTRING thisChar;
+	char * thisChar;
 	
 	Idx = 0;
 	while ((thisChar = strsep((char **)&arg, "-")) != NULL)
@@ -10233,7 +10233,7 @@ INT Set_OBSSScanParam_Proc(
 
 INT	Set_AP2040ReScan_Proc(
 	IN	PRTMP_ADAPTER pAd,
-	IN	PSTRING arg)
+	IN	char * arg)
 {
 	APOverlappingBSSScan(pAd);
 
@@ -10252,7 +10252,7 @@ INT	Set_AP2040ReScan_Proc(
 
 INT Set_EntryLifeCheck_Proc(
 	IN PRTMP_ADAPTER 	pAd,
-	IN PSTRING			arg)
+	IN char *			arg)
 {
 	ULONG LifeCheckCnt = (ULONG) simple_strtol(arg, 0, 10);
 
@@ -10276,7 +10276,7 @@ INT Set_EntryLifeCheck_Proc(
 INT	ApCfg_Set_AuthMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	INT				apidx,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	if ((strcmp(arg, "WEPAUTO") == 0) || (strcmp(arg, "wepauto") == 0))
 		pAd->ApCfg.MBSSID[apidx].AuthMode = Ndis802_11AuthModeAutoSwitch;
@@ -10315,7 +10315,7 @@ INT	ApCfg_Set_AuthMode_Proc(
 INT	ApCfg_Set_MaxStaNum_Proc(
 	IN PRTMP_ADAPTER 	pAd,
 	IN INT				apidx,
-	IN PSTRING 			arg)
+	IN char * 			arg)
 {
 	pAd->ApCfg.MBSSID[apidx].MaxStaNum = (UCHAR)simple_strtol(arg, 0, 10);
 
@@ -10326,7 +10326,7 @@ INT	ApCfg_Set_MaxStaNum_Proc(
 
 INT	ApCfg_Set_IdleTimeout_Proc(
 	IN PRTMP_ADAPTER 	pAd, 
-	IN PSTRING 			arg)
+	IN char * 			arg)
 {
 	LONG idle_time;
 
@@ -10349,7 +10349,7 @@ INT	ApCfg_Set_IdleTimeout_Proc(
 
 INT	Set_MemDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef VENDOR_FEATURE2_SUPPORT
 	printk("Number of Packet Allocated = %lu\n", OS_NumOfPktAlloc);
@@ -10588,7 +10588,7 @@ Note:
 */
 INT	Set_PowerSaveLifeTime_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	pAd->MacTab.MsduLifeTime = simple_strtol(arg, 0, 10);
 	DBGPRINT(RT_DEBUG_TRACE, ("Set new life time = %d\n", pAd->MacTab.MsduLifeTime));
@@ -10615,7 +10615,7 @@ Note:
 */
 INT	Show_MbssInfo_Display_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UINT32 IdBss;
 	UCHAR PhyMode;
@@ -10882,7 +10882,7 @@ INT RTMP_AP_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_AP_SIOCGIFHWADDR:
             if (pObj->ioctl_if < MAX_MBSSID_NUM(pAd))
-    			NdisCopyMemory((PSTRING) wrq->u.name, (PSTRING) pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid, 6);
+    			NdisCopyMemory((char *) wrq->u.name, (char *) pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid, 6);
 			break;
 
 		case CMD_RTPRIV_IOCTL_AP_SIOCGIWESSID:
@@ -11098,7 +11098,7 @@ INT RTMP_AP_IoctlHandle(
 
 INT Set_LoopBackFlag_Proc(
 	IN RTMP_ADAPTER		*pAd,
-	IN PSTRING			arg)
+	IN char *			arg)
 {
 	pAd->bloopBackTest = simple_strtol(arg, 0, 10);
 
@@ -11109,7 +11109,7 @@ INT Set_LoopBackFlag_Proc(
 
 INT	Set_TestTxFrameProc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	LONG	WirelessMode;
 	PMAC_TABLE_ENTRY	pMacEntry = NULL;
@@ -11314,11 +11314,11 @@ INT	Set_TestTxFrameProc(
 
 INT	Set_TestTxFrame1Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PMAC_TABLE_ENTRY	pMacEntry = NULL;
 	UCHAR	tempMAC[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0xb8};
-	PSTRING	value;
+	char *	value;
 	INT	i;
 	UINT32 	Value1 = 0;
 
@@ -11528,11 +11528,11 @@ INT	Set_TestTxFrame1Proc(
 
 INT	Set_TestTxFrame2Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PMAC_TABLE_ENTRY	pMacEntry = NULL;
 	UCHAR	tempMAC[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0xb8};
-	PSTRING	value;
+	char *	value;
 	INT	i;
 	
 	if(strlen(arg) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
@@ -11597,12 +11597,12 @@ INT	Set_TestTxFrame2Proc(
 
 INT	Set_TestTxFrame3Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PMAC_TABLE_ENTRY	pMacEntry = NULL;
 	UCHAR tempMAC[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0xb8};
 	UCHAR CurrentAddress[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0x41};
-	PSTRING	value;
+	char *	value;
 	INT	i;
 	
 	if(strlen(arg) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
@@ -11667,12 +11667,12 @@ INT	Set_TestTxFrame3Proc(
 
 INT	Set_TestTxFrame4Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PMAC_TABLE_ENTRY	pMacEntry = NULL;
 	UCHAR tempMAC[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0xb8};
 	UCHAR CurrentAddress[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x77,0x88,0x99};
-	PSTRING	value;
+	char *	value;
 	INT	i;
 	
 	if(strlen(arg) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
@@ -11738,7 +11738,7 @@ INT	Set_TestTxFrame4Proc(
 
 INT Set_DumpBeaconBuffer_Proc(
 	IN RTMP_ADAPTER		*pAd,
-	IN PSTRING			arg)
+	IN char *			arg)
 {
 	LONG count;
 	UINT32 IdMac;
@@ -11762,18 +11762,18 @@ INT Set_DumpBeaconBuffer_Proc(
 
 INT	Set_InsertWAPIKeyProc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	return TRUE;
 }
 
 INT	Set_TestWAPIFrameProc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PMAC_TABLE_ENTRY	pMacEntry = NULL;
 	UCHAR	tempMAC[MAC_ADDR_LEN] = {0x00,0x0C,0x43,0x33,0x52,0xb8};
-	PSTRING	value;
+	char *	value;
 	INT	i;
 	
 	if(strlen(arg) != 17)  /*Mac address acceptable format 01:02:03:04:05:06 length 17 */
@@ -11835,10 +11835,10 @@ INT	Set_TestWAPIFrameProc(
 
 INT	Set_TestMultiMacAddrProc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR tempMAC[6], tid;
-	PSTRING token;
+	char * token;
 	STRING sepValue[] = ":", DASH = '-';
 	INT i;
 	
@@ -11888,7 +11888,7 @@ INT	Set_TestMultiMacAddrProc(
 
 INT Set_HwTxLookupRate_Proc(
 	IN RTMP_ADAPTER		*pAd,
-	IN PSTRING			arg)
+	IN char *			arg)
 {
 	pAd->bHwTxLookupRate = simple_strtol(arg, 0, 10);
 

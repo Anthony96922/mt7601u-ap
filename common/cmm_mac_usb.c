@@ -25,7 +25,7 @@ static NDIS_STATUS RTMPAllocUsbBulkBufStruct(
 	IN void * *ppXBuffer,
 	IN INT	bufLen,
 	IN ra_dma_addr_t *pDmaAddr,
-	IN PSTRING pBufName)
+	IN char * pBufName)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 

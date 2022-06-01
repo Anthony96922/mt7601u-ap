@@ -610,22 +610,22 @@ int BuildMessageM1(
 	Len   += templen;
 
 	/*12. Manufacture */
-	templen = AppendWSCTLV(WSC_ID_MANUFACTURER, pData, pReg->SelfInfo.Manufacturer, strlen((PSTRING) pReg->SelfInfo.Manufacturer));
+	templen = AppendWSCTLV(WSC_ID_MANUFACTURER, pData, pReg->SelfInfo.Manufacturer, strlen((char *) pReg->SelfInfo.Manufacturer));
 	pData += templen;
 	Len   += templen;
 
 	/*13. Model Name */
-	templen = AppendWSCTLV(WSC_ID_MODEL_NAME, pData, pReg->SelfInfo.ModelName, strlen((PSTRING) pReg->SelfInfo.ModelName));
+	templen = AppendWSCTLV(WSC_ID_MODEL_NAME, pData, pReg->SelfInfo.ModelName, strlen((char *) pReg->SelfInfo.ModelName));
 	pData += templen;
 	Len   += templen;
 	
 	/*14. Model Number */
-	templen = AppendWSCTLV(WSC_ID_MODEL_NUMBER, pData, pReg->SelfInfo.ModelNumber, strlen((PSTRING) pReg->SelfInfo.ModelNumber));
+	templen = AppendWSCTLV(WSC_ID_MODEL_NUMBER, pData, pReg->SelfInfo.ModelNumber, strlen((char *) pReg->SelfInfo.ModelNumber));
 	pData += templen;
 	Len   += templen;
 	
 	/*15. Serial Number */
-	templen = AppendWSCTLV(WSC_ID_SERIAL_NUM, pData, pReg->SelfInfo.SerialNumber, strlen((PSTRING) pReg->SelfInfo.SerialNumber));
+	templen = AppendWSCTLV(WSC_ID_SERIAL_NUM, pData, pReg->SelfInfo.SerialNumber, strlen((char *) pReg->SelfInfo.SerialNumber));
 	pData += templen;
 	Len   += templen;
 	
@@ -635,7 +635,7 @@ int BuildMessageM1(
 	Len   += templen;
 	
 	/*17. Device Name */
-	templen = AppendWSCTLV(WSC_ID_DEVICE_NAME, pData, pReg->SelfInfo.DeviceName, strlen((PSTRING) pReg->SelfInfo.DeviceName));
+	templen = AppendWSCTLV(WSC_ID_DEVICE_NAME, pData, pReg->SelfInfo.DeviceName, strlen((char *) pReg->SelfInfo.DeviceName));
 	pData += templen;
 	Len   += templen;
 	
@@ -848,22 +848,22 @@ int BuildMessageM2(
 	Len   += templen;
 
 	/* Manufacture Name */
-	templen = AppendWSCTLV(WSC_ID_MANUFACTURER, pData, pReg->SelfInfo.Manufacturer, strlen((PSTRING) pReg->SelfInfo.Manufacturer));
+	templen = AppendWSCTLV(WSC_ID_MANUFACTURER, pData, pReg->SelfInfo.Manufacturer, strlen((char *) pReg->SelfInfo.Manufacturer));
 	pData += templen;
 	Len   += templen;
 
 	/* Model Name */
-	templen = AppendWSCTLV(WSC_ID_MODEL_NAME, pData, pReg->SelfInfo.ModelName, strlen((PSTRING) pReg->SelfInfo.ModelName));
+	templen = AppendWSCTLV(WSC_ID_MODEL_NAME, pData, pReg->SelfInfo.ModelName, strlen((char *) pReg->SelfInfo.ModelName));
 	pData += templen;
 	Len   += templen;
 
 	/* Model Number */
-	templen = AppendWSCTLV(WSC_ID_MODEL_NUMBER, pData, pReg->SelfInfo.ModelNumber, strlen((PSTRING) pReg->SelfInfo.ModelNumber));
+	templen = AppendWSCTLV(WSC_ID_MODEL_NUMBER, pData, pReg->SelfInfo.ModelNumber, strlen((char *) pReg->SelfInfo.ModelNumber));
 	pData += templen;
 	Len   += templen;
 
 	/* Serial Number */
-	templen = AppendWSCTLV(WSC_ID_SERIAL_NUM, pData, pReg->SelfInfo.SerialNumber, strlen((PSTRING) pReg->SelfInfo.SerialNumber));
+	templen = AppendWSCTLV(WSC_ID_SERIAL_NUM, pData, pReg->SelfInfo.SerialNumber, strlen((char *) pReg->SelfInfo.SerialNumber));
 	pData += templen;
 	Len   += templen;
 
@@ -873,7 +873,7 @@ int BuildMessageM2(
 	Len   += templen;
 
 	/* Device Name */
-	templen = AppendWSCTLV(WSC_ID_DEVICE_NAME, pData, pReg->SelfInfo.DeviceName, strlen((PSTRING) pReg->SelfInfo.DeviceName));
+	templen = AppendWSCTLV(WSC_ID_DEVICE_NAME, pData, pReg->SelfInfo.DeviceName, strlen((char *) pReg->SelfInfo.DeviceName));
 	pData += templen;
 	Len   += templen;
 
@@ -1052,22 +1052,22 @@ int BuildMessageM2D(
 	Len   += templen;
 
 	/* Manufacturer Name */
-	templen = AppendWSCTLV(WSC_ID_MANUFACTURER, pData, pReg->SelfInfo.Manufacturer, strlen((PSTRING) pReg->SelfInfo.Manufacturer));
+	templen = AppendWSCTLV(WSC_ID_MANUFACTURER, pData, pReg->SelfInfo.Manufacturer, strlen((char *) pReg->SelfInfo.Manufacturer));
 	pData += templen;
 	Len   += templen;
 
 	/* Model Name */
-	templen = AppendWSCTLV(WSC_ID_MODEL_NAME, pData, pReg->SelfInfo.ModelName, strlen((PSTRING) pReg->SelfInfo.ModelName));
+	templen = AppendWSCTLV(WSC_ID_MODEL_NAME, pData, pReg->SelfInfo.ModelName, strlen((char *) pReg->SelfInfo.ModelName));
 	pData += templen;
 	Len   += templen;
 
 	/* Model Number */
-	templen = AppendWSCTLV(WSC_ID_MODEL_NUMBER, pData, pReg->SelfInfo.ModelNumber, strlen((PSTRING) pReg->SelfInfo.ModelNumber));
+	templen = AppendWSCTLV(WSC_ID_MODEL_NUMBER, pData, pReg->SelfInfo.ModelNumber, strlen((char *) pReg->SelfInfo.ModelNumber));
 	pData += templen;
 	Len   += templen;
 
 	/* Serial Number */
-	templen = AppendWSCTLV(WSC_ID_SERIAL_NUM, pData, pReg->SelfInfo.SerialNumber, strlen((PSTRING) pReg->SelfInfo.SerialNumber));
+	templen = AppendWSCTLV(WSC_ID_SERIAL_NUM, pData, pReg->SelfInfo.SerialNumber, strlen((char *) pReg->SelfInfo.SerialNumber));
 	pData += templen;
 	Len   += templen;
 
@@ -1077,7 +1077,7 @@ int BuildMessageM2D(
 	Len   += templen;
 
 	/* Device Name */
-	templen = AppendWSCTLV(WSC_ID_DEVICE_NAME, pData, pReg->SelfInfo.DeviceName, strlen((PSTRING) pReg->SelfInfo.DeviceName));
+	templen = AppendWSCTLV(WSC_ID_DEVICE_NAME, pData, pReg->SelfInfo.DeviceName, strlen((char *) pReg->SelfInfo.DeviceName));
 	pData += templen;
 	Len   += templen;
 

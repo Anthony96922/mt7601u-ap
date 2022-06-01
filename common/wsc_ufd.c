@@ -77,7 +77,7 @@ static const STRING *XML_TEMPLATE =
 
 
 static struct {
-	PSTRING auth_str;
+	char * auth_str;
 	USHORT	auth_type;
 } *PWSC_UFD_AUTH_TYPE, WSC_UFD_AUTH_TYPE[] = {
 	{"open", 	WSC_AUTHTYPE_OPEN},
@@ -91,7 +91,7 @@ static struct {
 
 
 static struct {
-	PSTRING encr_str;
+	char * encr_str;
 	USHORT	encr_type;
 } *PWSC_UFD_ENCR_TYPE, WSC_UFD_ENCR_TYPE[] = {
 	{"none", 	WSC_ENCRTYPE_NONE},
@@ -109,14 +109,14 @@ BOOLEAN	WscPassXmlDeclare(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("======> WscPassXmlDeclare\n"));
 	
-	ptr = rtstrstr(*pXmlData, (PSTRING)XML_DECLARE_START);
+	ptr = rtstrstr(*pXmlData, (char *)XML_DECLARE_START);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscPassXmlDeclare: missing XML Declare <?xml\n"));
 		return FALSE;
 	}
 
-	ptr = rtstrstr(*pXmlData, (PSTRING)XML_DECLARE_END);
+	ptr = rtstrstr(*pXmlData, (char *)XML_DECLARE_END);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("XML syntax error: missing XML Declare ?>\n"));
@@ -137,7 +137,7 @@ BOOLEAN WscGetXmlSSID(
 {
 	STRING	*ptr, *pBuffer = pXmlData;
 
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_SSID_START);
+	ptr = rtstrstr(pBuffer, (char *)XML_SSID_START);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlSSID: missing <ssid\n"));
@@ -152,7 +152,7 @@ BOOLEAN WscGetXmlSSID(
 		pBuffer = ptr + 1;
 	}
 
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_SSID_END);
+	ptr = rtstrstr(pBuffer, (char *)XML_SSID_END);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlSSID: missing </ssid>\n"));
@@ -184,7 +184,7 @@ BOOLEAN WscGetXmlAuth(
 	UINT	AuthStrLen = 0;
 
 	*pAuthType = 0;
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_AUTH_START);
+	ptr = rtstrstr(pBuffer, (char *)XML_AUTH_START);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlAuth: missing %s\n", XML_AUTH_START));
@@ -193,7 +193,7 @@ BOOLEAN WscGetXmlAuth(
 
 	pBuffer = ptr + strlen(XML_AUTH_START);
 
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_AUTH_END);
+	ptr = rtstrstr(pBuffer, (char *)XML_AUTH_END);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlAuth: missing %s\n", XML_AUTH_END));
@@ -228,7 +228,7 @@ BOOLEAN WscGetXmlEncr(
 	UINT	EncrStrLen = 0;
 
 	*pEncrType = 0;
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_ENCR_START);
+	ptr = rtstrstr(pBuffer, (char *)XML_ENCR_START);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlEncr: missing %s\n", XML_ENCR_START));
@@ -237,7 +237,7 @@ BOOLEAN WscGetXmlEncr(
 
 	pBuffer = ptr + strlen(XML_ENCR_START);
 
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_ENCR_END);
+	ptr = rtstrstr(pBuffer, (char *)XML_ENCR_END);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlEncr: missing %s\n", XML_ENCR_END));
@@ -271,7 +271,7 @@ BOOLEAN WscGetXmlKey(
 	STRING	*ptr, *pBuffer = pXmlData;
 	UINT	KeyLen = 0;
 
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_KEY_START);
+	ptr = rtstrstr(pBuffer, (char *)XML_KEY_START);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlKey: missing %s\n", XML_KEY_START));
@@ -286,7 +286,7 @@ BOOLEAN WscGetXmlKey(
 		pBuffer = ptr + 1;
 	}
 
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_KEY_END);
+	ptr = rtstrstr(pBuffer, (char *)XML_KEY_END);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlKey: missing %s\n", XML_KEY_END));
@@ -315,7 +315,7 @@ BOOLEAN WscGetXmlKeyIndex(
 	STRING	*ptr, *pBuffer = pXmlData;
 
 	*pKeyIndex = 1;
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_KEY_INDEX_START);
+	ptr = rtstrstr(pBuffer, (char *)XML_KEY_INDEX_START);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlKeyIndex: missing %s\n", XML_KEY_INDEX_START));
@@ -324,7 +324,7 @@ BOOLEAN WscGetXmlKeyIndex(
 
 	pBuffer = ptr + strlen(XML_KEY_INDEX_START);
 
-	ptr = rtstrstr(pBuffer, (PSTRING)XML_KEY_INDEX_END);
+	ptr = rtstrstr(pBuffer, (char *)XML_KEY_INDEX_END);
 	if (ptr == NULL)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("WscGetXmlKeyIndex: missing %s\n", XML_KEY_INDEX_END));
@@ -341,13 +341,13 @@ BOOLEAN WscGetXmlKeyIndex(
 BOOLEAN	WscReadProfileFromUfdFile(
 	IN RTMP_ADAPTER *pAd,
 	IN UCHAR ApIdx,
-	IN PSTRING pUfdFileName)
+	IN char * pUfdFileName)
 {
 	PWSC_CREDENTIAL     pCredential = &pAd->ApCfg.MBSSID[ApIdx].WscControl.WscProfile.Profile[0];
 	RTMP_OS_FS_INFO		osFSInfo;
 	RTMP_OS_FD			file_r;
 	ssize_t				rv, fileLen = 0;
-	PSTRING				pXmlData = NULL;
+	char *				pXmlData = NULL;
 	BOOLEAN				RV = TRUE;
 
 	if (pUfdFileName == NULL)
@@ -381,7 +381,7 @@ BOOLEAN	WscReadProfileFromUfdFile(
 		}
 		RTMPZeroMemory(pXmlData, fileLen+1);
 		RtmpOSFileSeek(file_r, 0);
-		rv = RtmpOSFileRead(file_r, (PSTRING)pXmlData, fileLen);
+		rv = RtmpOSFileRead(file_r, (char *)pXmlData, fileLen);
 		RtmpOSFileClose(file_r);
 		if (rv != fileLen)
 		{
@@ -473,13 +473,13 @@ ReadErr:
 BOOLEAN	WscWriteProfileToUfdFile(
 	IN	PRTMP_ADAPTER		pAd,
 	IN  UCHAR               ApIdx,
-	IN  PSTRING				pUfdFileName)
+	IN  char *				pUfdFileName)
 {
 	PWSC_CTRL           pWscControl = &pAd->ApCfg.MBSSID[ApIdx].WscControl;
 	PWSC_CREDENTIAL     pCredential = &pWscControl->WscProfile.Profile[0];
 	RTMP_OS_FS_INFO		osFSInfo;
 	RTMP_OS_FD			file_w;
-	PSTRING				offset, pXmlTemplate = (PSTRING)XML_TEMPLATE;
+	char *				offset, pXmlTemplate = (char *)XML_TEMPLATE;
 	BOOLEAN				bFound = FALSE, bRtn = TRUE;
 	UCHAR				Guid[UUID_LEN_HEX];
 	UCHAR				Guid_Str[UUID_LEN_STR];
@@ -504,34 +504,34 @@ BOOLEAN	WscWriteProfileToUfdFile(
 
 		WscGenerateUUID(pAd, &Guid[0], &Guid_Str[0], ApIdx, TRUE);
 
-		if ((offset = rtstrstr(pXmlTemplate, (PSTRING)XML_GUID_MARK)) != NULL)
+		if ((offset = rtstrstr(pXmlTemplate, (char *)XML_GUID_MARK)) != NULL)
 		{
-			RtmpOSFileWrite(file_w, (PSTRING)pXmlTemplate, (int)(offset - pXmlTemplate));			
-			RtmpOSFileWrite(file_w, (PSTRING)&Guid_Str[0], (int)UUID_LEN_STR);
+			RtmpOSFileWrite(file_w, (char *)pXmlTemplate, (int)(offset - pXmlTemplate));			
+			RtmpOSFileWrite(file_w, (char *)&Guid_Str[0], (int)UUID_LEN_STR);
 			pXmlTemplate = offset + strlen(XML_GUID_MARK);
 		}
 		
-		if ((offset = rtstrstr(pXmlTemplate, (PSTRING)XML_AP_GUID_MARK)) != NULL)
+		if ((offset = rtstrstr(pXmlTemplate, (char *)XML_AP_GUID_MARK)) != NULL)
 		{
-			RtmpOSFileWrite(file_w, (PSTRING)pXmlTemplate, (int)(offset - pXmlTemplate));			
-			RtmpOSFileWrite(file_w, (PSTRING)&pWscControl->Wsc_Uuid_Str[0], (int)UUID_LEN_STR);
+			RtmpOSFileWrite(file_w, (char *)pXmlTemplate, (int)(offset - pXmlTemplate));			
+			RtmpOSFileWrite(file_w, (char *)&pWscControl->Wsc_Uuid_Str[0], (int)UUID_LEN_STR);
 			pXmlTemplate = offset + strlen(XML_AP_GUID_MARK);
 		}
-		if ((offset = rtstrstr(pXmlTemplate, (PSTRING)XML_SSID_MARK)) != NULL)
+		if ((offset = rtstrstr(pXmlTemplate, (char *)XML_SSID_MARK)) != NULL)
 		{
-			RtmpOSFileWrite(file_w, (PSTRING)pXmlTemplate, (int)(offset - pXmlTemplate));			
-			RtmpOSFileWrite(file_w, (PSTRING)&pCredential->SSID.Ssid[0], (int)pCredential->SSID.SsidLength);
+			RtmpOSFileWrite(file_w, (char *)pXmlTemplate, (int)(offset - pXmlTemplate));			
+			RtmpOSFileWrite(file_w, (char *)&pCredential->SSID.Ssid[0], (int)pCredential->SSID.SsidLength);
 			pXmlTemplate = offset + strlen(XML_SSID_MARK);
 		}
-		if ((offset = rtstrstr(pXmlTemplate, (PSTRING)XML_AUTH_MARK)) != NULL)
+		if ((offset = rtstrstr(pXmlTemplate, (char *)XML_AUTH_MARK)) != NULL)
 		{
-			RtmpOSFileWrite(file_w, (PSTRING)pXmlTemplate, (int)(offset - pXmlTemplate));			
+			RtmpOSFileWrite(file_w, (char *)pXmlTemplate, (int)(offset - pXmlTemplate));			
 			for (PWSC_UFD_AUTH_TYPE = WSC_UFD_AUTH_TYPE; PWSC_UFD_AUTH_TYPE->auth_str; PWSC_UFD_AUTH_TYPE++)
 			{
 				if (PWSC_UFD_AUTH_TYPE->auth_type == pCredential->AuthType)
 				{
 					RtmpOSFileWrite(file_w, 
-									(PSTRING)PWSC_UFD_AUTH_TYPE->auth_str, 
+									(char *)PWSC_UFD_AUTH_TYPE->auth_str, 
 									(int)strlen(PWSC_UFD_AUTH_TYPE->auth_str));
 					bFound = TRUE;
 					break;
@@ -545,16 +545,16 @@ BOOLEAN	WscWriteProfileToUfdFile(
 				goto out;
 			}
 		}
-		if ((offset = rtstrstr(pXmlTemplate, (PSTRING)XML_ENCR_MARK)) != NULL)
+		if ((offset = rtstrstr(pXmlTemplate, (char *)XML_ENCR_MARK)) != NULL)
 		{
 			bFound = FALSE;
-			RtmpOSFileWrite(file_w, (PSTRING)pXmlTemplate, (int)(offset - pXmlTemplate));			
+			RtmpOSFileWrite(file_w, (char *)pXmlTemplate, (int)(offset - pXmlTemplate));			
 			for (PWSC_UFD_ENCR_TYPE = WSC_UFD_ENCR_TYPE; PWSC_UFD_ENCR_TYPE->encr_str; PWSC_UFD_ENCR_TYPE++)
 			{
 				if (PWSC_UFD_ENCR_TYPE->encr_type == pCredential->EncrType)
 				{
 					RtmpOSFileWrite(file_w, 
-									(PSTRING)PWSC_UFD_ENCR_TYPE->encr_str, 
+									(char *)PWSC_UFD_ENCR_TYPE->encr_str, 
 									(int)strlen(PWSC_UFD_ENCR_TYPE->encr_str));
 					bFound = TRUE;
 				}
@@ -567,24 +567,24 @@ BOOLEAN	WscWriteProfileToUfdFile(
 				goto out;
 			}
 		}
-		if ((offset = rtstrstr(pXmlTemplate, (PSTRING)XML_KEY_MARK)) != NULL)
+		if ((offset = rtstrstr(pXmlTemplate, (char *)XML_KEY_MARK)) != NULL)
 		{
 			if (pCredential->EncrType != WSC_ENCRTYPE_NONE)
 			{
-				RtmpOSFileWrite(file_w, (PSTRING)pXmlTemplate, (int)(offset - pXmlTemplate));
+				RtmpOSFileWrite(file_w, (char *)pXmlTemplate, (int)(offset - pXmlTemplate));
 				RtmpOSFileWrite(file_w,
-								(PSTRING)pCredential->Key,
+								(char *)pCredential->Key,
 								(int)pCredential->KeyLength);
 				pXmlTemplate = offset + strlen(XML_KEY_MARK);
 			}
 			else
 			{
-				RtmpOSFileWrite(file_w, (PSTRING)XML_ENCR_END, (int)strlen(XML_ENCR_END));
-				RtmpOSFileWrite(file_w, (PSTRING)"\n", (int)1);
+				RtmpOSFileWrite(file_w, (char *)XML_ENCR_END, (int)strlen(XML_ENCR_END));
+				RtmpOSFileWrite(file_w, (char *)"\n", (int)1);
 				pXmlTemplate = offset + strlen(XML_KEY_MARK) + strlen(XML_KEY_END) + 1; /* 1: '\n' */
 			}			
 		}
-		RtmpOSFileWrite(file_w, (PSTRING)pXmlTemplate, (int)strlen(pXmlTemplate));
+		RtmpOSFileWrite(file_w, (char *)pXmlTemplate, (int)strlen(pXmlTemplate));
 	}
 
 out:

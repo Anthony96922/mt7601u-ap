@@ -33,11 +33,11 @@ UINT32 TempTimeLo, TempTimeHi;
 
 extern INT Set_P2pCli_Enable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 extern INT Set_P2p_OpMode_Proc(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg);
+	IN char * arg);
 
 VOID RtmpPrepareHwNullFrame(
 	IN PRTMP_ADAPTER pAd,

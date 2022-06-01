@@ -761,7 +761,7 @@ VOID IgmpGroupDelMembers(
 
 INT Set_IgmpSn_Enable_Proc(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg)
+	IN char * arg)
 {
 	UINT Enable;
 
@@ -775,12 +775,12 @@ INT Set_IgmpSn_Enable_Proc(
 
 INT Set_IgmpSn_AddEntry_Proc(
 	IN PRTMP_ADAPTER pAd, 
-	IN PSTRING arg)
+	IN char * arg)
 {
 	INT i;
 	BOOLEAN bGroupId = 1;
-	PSTRING value;
-	PSTRING thisChar;
+	char * value;
+	char * thisChar;
 	UCHAR IpAddr[4];
 	UCHAR Addr[ETH_LENGTH_OF_ADDRESS];
 	UCHAR GroupId[ETH_LENGTH_OF_ADDRESS];
@@ -864,12 +864,12 @@ INT Set_IgmpSn_AddEntry_Proc(
 
 INT Set_IgmpSn_DelEntry_Proc(
 	IN PRTMP_ADAPTER pAd, 
-	IN PSTRING arg)
+	IN char * arg)
 {
 	INT i, memberCnt = 0;
 	BOOLEAN bGroupId = 1;
-	PSTRING value;
-	PSTRING thisChar;
+	char * value;
+	char * thisChar;
 	UCHAR IpAddr[4];
 	UCHAR Addr[ETH_LENGTH_OF_ADDRESS];
 	UCHAR GroupId[ETH_LENGTH_OF_ADDRESS];
@@ -948,7 +948,7 @@ INT Set_IgmpSn_DelEntry_Proc(
 
 INT Set_IgmpSn_TabDisplay_Proc(
 	IN PRTMP_ADAPTER pAd, 
-	IN PSTRING arg)
+	IN char * arg)
 {
 	IGMPTableDisplay(pAd);
 	return TRUE;
@@ -956,8 +956,8 @@ INT Set_IgmpSn_TabDisplay_Proc(
 
 void rtmp_read_igmp_snoop_from_file(
 	IN  PRTMP_ADAPTER pAd,
-	PSTRING tmpbuf,
-	PSTRING buffer)
+	char * tmpbuf,
+	char * buffer)
 {
 	/*IgmpSnEnable */
 	if(RTMPGetKeyParameter("IgmpSnEnable", tmpbuf, 128, buffer, TRUE))

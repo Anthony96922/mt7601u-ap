@@ -727,10 +727,10 @@ typedef struct GNU_PACKED _RTMP_WSC_MSG_HDR{
 #define WSC_MSG_TYPE_CTRL	 0x4
 #define WSC_MSG_TYPE_MGMT	 0x5
 
-PSTRING   WscGetAuthTypeStr(
+char *   WscGetAuthTypeStr(
     IN  USHORT authFlag);
 
-PSTRING   WscGetEncryTypeStr(
+char *   WscGetEncryTypeStr(
     IN  USHORT encryFlag);
 
 #define IWEVCUSTOM_MSG_MAX_LEN  255 /*refer to kernel definition. <linux/wireless.h> */

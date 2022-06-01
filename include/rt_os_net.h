@@ -96,7 +96,7 @@ VOID (*RTMPDrvClose)(VOID *pAd, VOID *net_dev);
 
 VOID (*RTMPInfClose)(VOID *pAd);
 
-int (*rt28xx_init)(VOID *pAd,  PSTRING pDefaultMac, PSTRING pHostName);
+int (*rt28xx_init)(VOID *pAd,  char * pDefaultMac, char * pHostName);
 } RTMP_DRV_ABL_OPS;
 
 extern RTMP_DRV_ABL_OPS *pRtmpDrvOps;
@@ -246,8 +246,8 @@ VOID RTMPInfClose(VOID *pAd);
 
 int rt28xx_init(
 	IN VOID						*pAd, 
-	IN PSTRING					pDefaultMac, 
-	IN PSTRING					pHostName);
+	IN char *					pDefaultMac, 
+	IN char *					pHostName);
 
 PNET_DEV RtmpPhyNetDevMainCreate(VOID *pAd);
 #endif /* RTMP_MODULE_OS */
@@ -351,7 +351,7 @@ VOID RT28xx_ApCli_Remove(
 VOID RTMP_Mesh_Init(
 	IN VOID					*pAd,
 	IN PNET_DEV				main_dev_p,
-	IN PSTRING				pHostName);
+	IN char *				pHostName);
 VOID RTMP_Mesh_Remove(
 	IN VOID 				*pAd);
 INT Mesh_VirtualIF_Open(

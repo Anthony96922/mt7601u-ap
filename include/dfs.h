@@ -413,140 +413,140 @@ BOOLEAN DfsSwCheckOnHwDetection(
 
 INT Set_RfReg_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
-    IN  PSTRING          arg);
+    IN  char *          arg);
 
 INT	Show_BlockCh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RadarDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_ResetRadarHwDetect_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT Set_DfsSwDisable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT Set_DfsEnvtDropAdjTime_Proc(
 	IN PRTMP_ADAPTER   pAd, 
-	IN PSTRING  arg);
+	IN char *  arg);
 
 INT	Set_RadarStart_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RadarStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RadarSetTbl1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RadarSetTbl2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_Fcc5Thrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_ChBusyThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RssiThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_PollTime_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_PrintBusyIdle_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_RadarSim_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_BusyIdleRatio_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_DfsRssiHigh_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_DfsRssiLow_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_EventExpire_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN      PSTRING                 arg);
+	IN      char *                 arg);
 
 INT	Set_CEPrint_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_Ch0LErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_MaxPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_PeriodErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_Ch0HErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_Ch1Shift_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_Ch2Shift_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_DeclareThres_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_CheckLoop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 #ifdef DFS_DEBUG
 INT	Set_DfsLowerLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_DfsUpperLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_FixDfsLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_AvgRssiReq_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_CEPrintDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 #endif /* DFS_DEBUG */
 
 void dfs_tasklet(unsigned long data);

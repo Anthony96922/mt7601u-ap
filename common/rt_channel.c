@@ -1570,9 +1570,9 @@ static PCH_REGION GetChRegion(
 	INT loop = 0;
 	PCH_REGION pChRegion = NULL;
 
-	while (strcmp((PSTRING) ChRegion[loop].CountReg, "") != 0)
+	while (strcmp((char *) ChRegion[loop].CountReg, "") != 0)
 	{
-		if (strncmp((PSTRING) ChRegion[loop].CountReg, (PSTRING) CntryCode, 2) == 0)
+		if (strncmp((char *) ChRegion[loop].CountReg, (char *) CntryCode, 2) == 0)
 		{
 			pChRegion = &ChRegion[loop];
 			break;
@@ -1615,7 +1615,7 @@ static UCHAR FillChList(
 	for (i = 0; i < pChDesp->NumOfCh; i++)
 	{
 		channel = pChDesp->FirstChannel + i * increment;
-		if (!strncmp((PSTRING) pAd->CommonCfg.CountryCode, "JP", 2))
+		if (!strncmp((char *) pAd->CommonCfg.CountryCode, "JP", 2))
         {
             /* for JP, ch14 can only be used when PhyMode is "B only" */
             if ( (channel==14) && 

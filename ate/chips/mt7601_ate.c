@@ -233,7 +233,7 @@ INT MT7601ATETxPwrHandler(
 */
 INT	MT7601_Set_ATE_TX_BW_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	INT powerIndex;
 	UCHAR value = 0;
@@ -825,7 +825,7 @@ VOID MT7601ATEAsicAdjustTxPower(
 */
 INT	MT7601_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR RFFreqOffset = 0;
 	UCHAR RFValue = 0;

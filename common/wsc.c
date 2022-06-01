@@ -127,13 +127,13 @@ INT	    WscSetAuthMode(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  UCHAR			CurOpMode,
 	IN  UCHAR			apidx,
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	    WscSetEncrypType(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  UCHAR			CurOpMode,
 	IN  UCHAR			apidx,
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 VOID WscSendNACK(
 	IN	PRTMP_ADAPTER	pAdapter,
@@ -233,7 +233,7 @@ INT WscGenerateUUID(
 			uuid_t.node[0], uuid_t.node[1], uuid_t.node[2], uuid_t.node[3], uuid_t.node[4], uuid_t.node[5]);
 	if (strlen(uuidTmpStr) > UUID_LEN_STR)
 		DBGPRINT(RT_DEBUG_ERROR, ("ERROR:UUID String size too large!\n"));
-	strncpy((PSTRING)uuidAscStr, uuidTmpStr, UUID_LEN_STR);
+	strncpy((char *)uuidAscStr, uuidTmpStr, UUID_LEN_STR);
 
 	/* Create the UUID Hex format number */
 	uuid_t.timeLow = cpu2be32(uuid_t.timeLow);
@@ -3772,7 +3772,7 @@ int WscSendUPnPConfReqMsg(
 	UCHAR pData[39] = {0};
 	
 
-	strncpy((PSTRING) pData, (PSTRING)ssidStr, strlen((PSTRING) ssidStr));
+	strncpy((char *) pData, (char *)ssidStr, strlen((char *) ssidStr));
 	NdisMoveMemory(&pData[32], macAddr, MAC_ADDR_LEN);
 	pData[38] = Status;
 	WscSendUPnPMessage(pAd, apIdx, WSC_OPCODE_UPNP_MGMT, WSC_UPNP_MGMT_SUB_CONFIG_REQ, 
@@ -4385,25 +4385,25 @@ VOID WscBuildProbeRespIE(
 
 	/* 8. Manufacturer */
 	NdisZeroMemory(pData, 64 + 4);
-    templen = AppendWSCTLV(WSC_ID_MANUFACTURER, pData,  pReg->SelfInfo.Manufacturer, strlen((PSTRING) pReg->SelfInfo.Manufacturer));
+    templen = AppendWSCTLV(WSC_ID_MANUFACTURER, pData,  pReg->SelfInfo.Manufacturer, strlen((char *) pReg->SelfInfo.Manufacturer));
 	pData += templen;
 	Len   += templen;
 
 	/* 9. Model Name */
 	NdisZeroMemory(pData, 32 + 4);
-    templen = AppendWSCTLV(WSC_ID_MODEL_NAME, pData, pReg->SelfInfo.ModelName, strlen((PSTRING) pReg->SelfInfo.ModelName));
+    templen = AppendWSCTLV(WSC_ID_MODEL_NAME, pData, pReg->SelfInfo.ModelName, strlen((char *) pReg->SelfInfo.ModelName));
 	pData += templen;
 	Len   += templen;
 
 	/* 10. Model Number */
 	NdisZeroMemory(pData, 32 + 4);
-    templen = AppendWSCTLV(WSC_ID_MODEL_NUMBER, pData, pReg->SelfInfo.ModelNumber, strlen((PSTRING) pReg->SelfInfo.ModelNumber));
+    templen = AppendWSCTLV(WSC_ID_MODEL_NUMBER, pData, pReg->SelfInfo.ModelNumber, strlen((char *) pReg->SelfInfo.ModelNumber));
 	pData += templen;
 	Len   += templen;
 
 	/* 11. Serial Number */
 	NdisZeroMemory(pData, 32 + 4);
-    templen = AppendWSCTLV(WSC_ID_SERIAL_NUM, pData, pReg->SelfInfo.SerialNumber, strlen((PSTRING) pReg->SelfInfo.SerialNumber));
+    templen = AppendWSCTLV(WSC_ID_SERIAL_NUM, pData, pReg->SelfInfo.SerialNumber, strlen((char *) pReg->SelfInfo.SerialNumber));
 	pData += templen;
 	Len   += templen;
 
@@ -4414,7 +4414,7 @@ VOID WscBuildProbeRespIE(
 
 	/* 13. Device Name */
 	NdisZeroMemory(pData, 32 + 4);
-    templen = AppendWSCTLV(WSC_ID_DEVICE_NAME, pData, pReg->SelfInfo.DeviceName, strlen((PSTRING) pReg->SelfInfo.DeviceName));
+    templen = AppendWSCTLV(WSC_ID_DEVICE_NAME, pData, pReg->SelfInfo.DeviceName, strlen((char *) pReg->SelfInfo.DeviceName));
 	pData += templen;
 	Len   += templen;
 
@@ -5354,7 +5354,7 @@ USHORT WscGetEncryType(
 	}
 }
 
-PSTRING   WscGetAuthTypeStr(
+char *   WscGetAuthTypeStr(
     IN  USHORT authFlag)
 {
 	switch(authFlag)
@@ -5381,7 +5381,7 @@ PSTRING   WscGetAuthTypeStr(
 	}
 }
 
-PSTRING   WscGetEncryTypeStr(
+char *   WscGetEncryTypeStr(
     IN  USHORT encryFlag)
 {
 	switch(encryFlag)
@@ -5567,7 +5567,7 @@ void    WscWriteConfToPortCfg(
 						else
 						{
 							pAd->SharedKey[CurApIdx][WepKeyId].KeyLen = (UCHAR)(WepKeyLen/2);
-							AtoH((PSTRING) pCredential->Key, pAd->SharedKey[CurApIdx][WepKeyId].Key, WepKeyLen/2);
+							AtoH((char *) pCredential->Key, pAd->SharedKey[CurApIdx][WepKeyId].Key, WepKeyLen/2);
 							if (WepKeyLen == 10)
 								pAd->SharedKey[CurApIdx][WepKeyId].CipherAlg = CIPHER_WEP64;
 							else
@@ -5609,13 +5609,13 @@ void    WscWriteConfToPortCfg(
 			*/
 			if(pWscControl->WscKeyASCII == 0)
 			{
-				AtoH((PSTRING) pWscControl->WpaPsk, pAd->ApCfg.MBSSID[CurApIdx].PMK, 32);
+				AtoH((char *) pWscControl->WpaPsk, pAd->ApCfg.MBSSID[CurApIdx].PMK, 32);
 			}
 			else
 			{
 				UCHAR       keyMaterial[40] = {0};
 				
-				RtmpPasswordHash((PSTRING)pWscControl->WpaPsk,
+				RtmpPasswordHash((char *)pWscControl->WpaPsk,
 							 (unsigned char *) pAd->ApCfg.MBSSID[CurApIdx].Ssid, 
 							 pAd->ApCfg.MBSSID[CurApIdx].SsidLen, 
 							 keyMaterial);
@@ -5632,7 +5632,7 @@ void    WscWriteConfToPortCfg(
 
 VOID	WscWriteSsidToDatFile(
 	IN  PRTMP_ADAPTER	pAd,
-	IN  PSTRING		 	pTempStr,
+	IN  char *		 	pTempStr,
 	IN	BOOLEAN			bNewFormat,
 	IN  UCHAR			CurOpMode)
 {
@@ -5691,7 +5691,7 @@ VOID	WscWriteSsidToDatFile(
 
 VOID	WscWriteWpaPskToDatFile(
 	IN  PRTMP_ADAPTER	pAd,
-	IN  PSTRING		 	pTempStr,
+	IN  char *		 	pTempStr,
 	IN	BOOLEAN			bNewFormat)
 {
 #ifdef CONFIG_AP_SUPPORT
@@ -5835,7 +5835,7 @@ VOID    WscGetRegDataPIN(
 
 	if (pWscControl->WscPinCode == 0)
 	{
-		snprintf((PSTRING) tempPIN, sizeof(tempPIN), "00000000");
+		snprintf((char *) tempPIN, sizeof(tempPIN), "00000000");
 		memcpy(pWscControl->RegData.PIN, tempPIN, 8);
 		pWscControl->RegData.PinCodeLen = 8;
 	}
@@ -5844,13 +5844,13 @@ VOID    WscGetRegDataPIN(
 		if ( pWscControl->WscPinCodeLen == 4)
 		{
 			UCHAR	temp4PIN[5] = {0};
-			snprintf((PSTRING) temp4PIN, sizeof(temp4PIN), "%04u", pWscControl->WscPinCode);
+			snprintf((char *) temp4PIN, sizeof(temp4PIN), "%04u", pWscControl->WscPinCode);
 			memcpy(pWscControl->RegData.PIN, temp4PIN, 4);
 			pWscControl->RegData.PinCodeLen = 4;
 		}
 		else
 		{
-			snprintf((PSTRING) tempPIN, sizeof(tempPIN), "%08u", pWscControl->WscPinCode);
+			snprintf((char *) tempPIN, sizeof(tempPIN), "%08u", pWscControl->WscPinCode);
 			memcpy(pWscControl->RegData.PIN, tempPIN, 8);
 			pWscControl->RegData.PinCodeLen = 8;
 		}
@@ -5931,7 +5931,7 @@ INT	WscSetAuthMode(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  UCHAR			CurOpMode,
 	IN  UCHAR			apidx,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef CONFIG_AP_SUPPORT
 	if (CurOpMode == AP_MODE)
@@ -5989,7 +5989,7 @@ INT	WscSetEncrypType(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  UCHAR			CurOpMode,
 	IN  UCHAR			apidx,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 #ifdef CONFIG_AP_SUPPORT
 	if (CurOpMode == AP_MODE)
@@ -6660,7 +6660,7 @@ VOID	WscGenRandomKey(
 		{
 			NdisZeroMemory(&tmpStrB[0], sizeof(tmpStrB));
 			tempRandomByte = RandomByte(pAd);
-			snprintf((PSTRING) &tmpStrB[0], 3, "%02x", tempRandomByte);
+			snprintf((char *) &tmpStrB[0], 3, "%02x", tempRandomByte);
 			NdisMoveMemory(pKey+(idx*2), &tmpStrB[0], 2);
 		}
 		*pKeyLen = 64;
@@ -6820,7 +6820,7 @@ VOID	WscCreateProfileFromCfg(
 					INT i;
 					for (i=0; i<pAd->SharedKey[apidx][WepKeyId].KeyLen; i++)
 					{
-						snprintf((PSTRING) pCredential->Key, 64, "%s%02x", pCredential->Key, pAd->SharedKey[apidx][WepKeyId].Key[i]);
+						snprintf((char *) pCredential->Key, 64, "%s%02x", pCredential->Key, pAd->SharedKey[apidx][WepKeyId].Key[i]);
 					}
 					pCredential->KeyLength = pAd->SharedKey[apidx][WepKeyId].KeyLen*2;
 				}
@@ -6832,7 +6832,7 @@ VOID	WscCreateProfileFromCfg(
 					INT i;
 					for (i=0; i<pAd->ApCfg.ApCliTab[apidx].SharedKey[WepKeyId].KeyLen; i++)
 					{
-						snprintf((PSTRING) pCredential->Key, 64, "%s%02x", pCredential->Key, pAd->ApCfg.ApCliTab[apidx].SharedKey[WepKeyId].Key[i]);
+						snprintf((char *) pCredential->Key, 64, "%s%02x", pCredential->Key, pAd->ApCfg.ApCliTab[apidx].SharedKey[WepKeyId].Key[i]);
 					}
 					pCredential->KeyLength = pAd->SharedKey[apidx][WepKeyId].KeyLen*2;
 				}
@@ -6943,7 +6943,7 @@ void    WscWriteConfToApCliCfg(
 	                    pWscControl->WpaPskLen = (INT) pCredential->KeyLength;
 							NdisZeroMemory(pWscControl->WpaPsk, 64);
 							NdisMoveMemory(pWscControl->WpaPsk, pCredential->Key, pWscControl->WpaPskLen);
-							RT_CfgSetWPAPSKKey(pAd, (PSTRING) pCredential->Key, pWscControl->WpaPskLen, 
+							RT_CfgSetWPAPSKKey(pAd, (char *) pCredential->Key, pWscControl->WpaPskLen, 
 										(unsigned char *)pApCliTab->Ssid, pApCliTab->SsidLen, 
 										pApCliTab->PMK);
 	                    DBGPRINT(RT_DEBUG_TRACE, ("WpaPskLen = %d\n", pWscControl->WpaPskLen));
@@ -6981,7 +6981,7 @@ void    WscWriteConfToApCliCfg(
 							else
 							{
 								pApCliTab->SharedKey[WepKeyId].KeyLen = (UCHAR) WepKeyLen/2;
-								AtoH((PSTRING) pCredential->Key, pApCliTab->SharedKey[WepKeyId].Key, WepKeyLen/2);
+								AtoH((char *) pCredential->Key, pApCliTab->SharedKey[WepKeyId].Key, WepKeyLen/2);
 								if (WepKeyLen == 10)
 									pApCliTab->SharedKey[WepKeyId].CipherAlg = CIPHER_WEP64;
 								else
@@ -7102,10 +7102,10 @@ VOID   WpsSmProcess(
 		StateMachinePerformAction(pAd, &pAd->Mlme.WscMachine, Elem, pAd->Mlme.WscMachine.CurrState);
 	else if (pEntry && (Elem->MsgType == WSC_EAPOL_PACKET_MSG))
     {   /* WSC_STATE_MACHINE can service only one station at one time */
-        PSTRING		pData;
+        char *		pData;
         PEAP_FRAME  pEapFrame;
         /* Skip the EAP LLC header */
-    	pData = (PSTRING) &Elem->Msg[LENGTH_802_11 + LENGTH_802_1_H];
+    	pData = (char *) &Elem->Msg[LENGTH_802_11 + LENGTH_802_1_H];
         pEapFrame = (PEAP_FRAME)(pData + sizeof(IEEE8021X_FRAME));
     	pData += sizeof(IEEE8021X_FRAME) + sizeof(EAP_FRAME);
 
@@ -7541,12 +7541,12 @@ void    WscWriteConfToDatFile(
     IN  UCHAR			CurOpMode)
 {
 	char	*cfgData = 0;
-	PSTRING			fileName = NULL;
+	char *			fileName = NULL;
 	RTMP_OS_FD		file_r, file_w;
 	RTMP_OS_FS_INFO		osFSInfo;
 	LONG			rv, fileLen = 0;
 	char			*offset = 0;
-	PSTRING			pTempStr = 0;
+	char *			pTempStr = 0;
 #ifdef CONFIG_AP_SUPPORT
 	INT				index = 0;
 	UCHAR			apidx = (pAd->WriteWscCfgToDatFile & 0x0F);
@@ -7570,8 +7570,8 @@ void    WscWriteConfToDatFile(
 		pWscControl = &pAd->ApCfg.MBSSID[apidx].WscControl;
 			fileName = AP_PROFILE_PATH;
 
-		snprintf((PSTRING) WepKeyName, sizeof(WepKeyName), "Key%dStr%d=", pAd->ApCfg.MBSSID[apidx].DefaultKeyId+1, apidx+1);
-		snprintf((PSTRING) WepKeyFormatName, sizeof(WepKeyFormatName), "Key%dType=", pAd->ApCfg.MBSSID[apidx].DefaultKeyId+1);
+		snprintf((char *) WepKeyName, sizeof(WepKeyName), "Key%dStr%d=", pAd->ApCfg.MBSSID[apidx].DefaultKeyId+1, apidx+1);
+		snprintf((char *) WepKeyFormatName, sizeof(WepKeyFormatName), "Key%dType=", pAd->ApCfg.MBSSID[apidx].DefaultKeyId+1);
 	}
 #endif /* CONFIG_AP_SUPPORT */
 
@@ -7600,7 +7600,7 @@ void    WscWriteConfToDatFile(
 		}
 		NdisZeroMemory(cfgData, fileLen);
 		RtmpOSFileSeek(file_r, 0);
-		rv = RtmpOSFileRead(file_r, (PSTRING)cfgData, fileLen);
+		rv = RtmpOSFileRead(file_r, (char *)cfgData, fileLen);
 		RtmpOSFileClose(file_r);
 		if (rv != fileLen)
 		{
@@ -7616,9 +7616,9 @@ void    WscWriteConfToDatFile(
 	}
 	else 
 	{
-		offset = (PCHAR) rtstrstr((PSTRING) cfgData, "Default\n");
+		offset = (PCHAR) rtstrstr((char *) cfgData, "Default\n");
 		offset += strlen("Default\n");
-		RtmpOSFileWrite(file_w, (PSTRING)cfgData, (int)(offset-cfgData));
+		RtmpOSFileWrite(file_w, (char *)cfgData, (int)(offset-cfgData));
 		os_alloc_mem(NULL, (UCHAR **)&pTempStr, 512);
 		if (!pTempStr)
 		{
@@ -7630,11 +7630,11 @@ void    WscWriteConfToDatFile(
 		for (;;)
 		{
 			int i = 0;
-			PSTRING ptr;
+			char * ptr;
 			BOOLEAN	bNewFormat = TRUE;
 
 			NdisZeroMemory(pTempStr, 512);
-			ptr = (PSTRING) offset;
+			ptr = (char *) offset;
 			while(*ptr && *ptr != '\n')
 			{
 				pTempStr[i++] = *ptr++;
@@ -7756,7 +7756,7 @@ void    WscWriteConfToDatFile(
 					if (pAd->ApCfg.MBSSID[apidx].WepStatus == Ndis802_11WEPEnabled)
 					{
 						UCHAR idx = 0, KeyType[4] = {0};
-                        PSTRING ptr2, temp_ptr;
+                        char * ptr2, temp_ptr;
 						
 						ptr2 = rtstrstr(pTempStr, "=");
 						temp_ptr = pTempStr;
@@ -7850,13 +7850,13 @@ void    WscWriteConfToAR9File(
     IN  PRTMP_ADAPTER 	pAd,
     IN  UCHAR			CurOpMode)
 {
-	PSTRING			fileName = NULL;
+	char *			fileName = NULL;
 	RTMP_OS_FD		file_w;
 	RTMP_OS_FS_INFO		osFSInfo;
 	INT			offset = 0;
 	INT			datoffset = 0;
-	PSTRING			pTempStr = 0;
-	PSTRING			pDatStr = 0;
+	char *			pTempStr = 0;
+	char *			pDatStr = 0;
 #ifdef CONFIG_AP_SUPPORT
 	INT				index = 0;
 	UCHAR			apidx = MAIN_MBSSID;
@@ -7876,8 +7876,8 @@ void    WscWriteConfToAR9File(
 		pWscControl = &pAd->ApCfg.MBSSID[apidx].WscControl;
 			fileName = "/var/wps_profile.dat";
 
-		snprintf((PSTRING) WepKeyName, sizeof(WepKeyName), "Key%dStr1=", pAd->ApCfg.MBSSID[MAIN_MBSSID].DefaultKeyId+1);
-		snprintf((PSTRING) WepKeyFormatName, sizeof(WepKeyFormatName), "Key%dType=", pAd->ApCfg.MBSSID[MAIN_MBSSID].DefaultKeyId+1);
+		snprintf((char *) WepKeyName, sizeof(WepKeyName), "Key%dStr1=", pAd->ApCfg.MBSSID[MAIN_MBSSID].DefaultKeyId+1);
+		snprintf((char *) WepKeyFormatName, sizeof(WepKeyFormatName), "Key%dType=", pAd->ApCfg.MBSSID[MAIN_MBSSID].DefaultKeyId+1);
 	}
 #endif /* CONFIG_AP_SUPPORT */
 
@@ -8899,7 +8899,7 @@ VOID	WscInsertPeerEntryByMAC(
 #ifdef CONFIG_AP_SUPPORT
 INT WscApShowPeerList(
 	IN  PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR				ApIdx = 0;
 	PWSC_CTRL 			pWscControl = NULL;

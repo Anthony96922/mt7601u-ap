@@ -352,7 +352,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 		
 	========================================================================
 */
-VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, PSTRING mac_addr)
+VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 {
 	USHORT i, value, value2;
 	EEPROM_TX_PWR_STRUC Power;
@@ -412,13 +412,13 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, PSTRING mac_addr)
 		DBGPRINT(RT_DEBUG_TRACE, ("Use the MAC address what is assigned from Configuration file(.dat). \n"));
 	}
 	else if (mac_addr && 
-			 strlen((PSTRING)mac_addr) == 17 &&
+			 strlen((char *)mac_addr) == 17 &&
 			 (strcmp(mac_addr, "00:00:00:00:00:00") != 0))
 	{
 		INT j;
-		PSTRING	macptr;
+		char *	macptr;
 
-		macptr = (PSTRING) mac_addr;
+		macptr = (char *) mac_addr;
 		for (j=0; j<MAC_ADDR_LEN; j++)
 		{
 			AtoH(macptr, &pAd->CurrentAddress[j], 1);
@@ -2994,9 +2994,9 @@ UCHAR BtoH(STRING ch)
 
 /* IRQL = PASSIVE_LEVEL*/
 
-void AtoH(PSTRING src, unsigned char * dest, int destlen)
+void AtoH(char * src, unsigned char * dest, int destlen)
 {
-	PSTRING srcptr;
+	char * srcptr;
 	unsigned char * destTemp;
 
 	srcptr = src;	

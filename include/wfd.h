@@ -81,46 +81,46 @@
 
 INT Set_WfdEnable_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 #ifdef RT_CFG80211_SUPPORT
 INT Set_WfdInsertIe_Proc
 (
 	IN	PRTMP_ADAPTER		pAd, 
-	IN	PSTRING 		arg);
+	IN	char * 		arg);
 #endif /* RT_CFG80211_SUPPORT */
 
 INT Set_WfdDeviceType_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 INT Set_WfdCouple_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 INT Set_WfdSessionAvailable_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 INT Set_WfdCP_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 INT	Set_WfdRtspPort_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 INT	Set_WfdMaxThroughput_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 INT Set_WfdLocalIp_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 INT Set_PeerRtspPort_Proc(
     IN  PRTMP_ADAPTER		pAd, 
-    IN  PSTRING			arg);
+    IN  char *			arg);
 
 VOID WfdMakeWfdIE(
 	IN	PRTMP_ADAPTER	pAd,

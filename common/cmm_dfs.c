@@ -365,7 +365,7 @@ VOID ApRadarDetectPeriodic(
 	1 = Don't Switch Channel when Radar Hit */
 INT	Set_RadarDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 
@@ -391,7 +391,7 @@ INT	Set_RadarDebug_Proc(
 
 INT	Set_ResetRadarHwDetect_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR channel = 0;
 #ifdef RT65xx
@@ -411,7 +411,7 @@ INT	Set_ResetRadarHwDetect_Proc(
 
 INT	Set_DfsLowerLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 
@@ -421,7 +421,7 @@ INT	Set_DfsLowerLimit_Proc(
 
 INT	Set_DfsUpperLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 
@@ -432,7 +432,7 @@ INT	Set_DfsUpperLimit_Proc(
 
 INT Set_DfsSwDisable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	
@@ -443,7 +443,7 @@ INT Set_DfsSwDisable_Proc(
 
 INT Set_DfsEnvtDropAdjTime_Proc(
 	IN PRTMP_ADAPTER   pAd, 
-	IN PSTRING  arg)
+	IN char *  arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->EvtDropAdjTime = simple_strtol(arg, 0, 10);
@@ -453,7 +453,7 @@ INT Set_DfsEnvtDropAdjTime_Proc(
 
 INT	Set_RadarStart_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
 	
@@ -473,7 +473,7 @@ INT	Set_RadarStart_Proc(
 
 INT	Set_RadarStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	NewRadarDetectionStop(pAd);
 	return TRUE;
@@ -482,7 +482,7 @@ INT	Set_RadarStop_Proc(
 
 INT	Set_RadarSetTbl1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	unsigned char * p2 = arg;
 	ULONG idx, value;
@@ -514,7 +514,7 @@ INT	Set_RadarSetTbl1_Proc(
 
 INT	Set_RadarSetTbl2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	unsigned char * p2 = arg;
 	ULONG idx, value;
@@ -539,7 +539,7 @@ INT	Set_RadarSetTbl2_Proc(
 
 INT	Set_Fcc5Thrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->fcc_5_threshold = simple_strtol(arg, 0, 10);
@@ -548,7 +548,7 @@ INT	Set_Fcc5Thrd_Proc(
 
 INT	Set_ChBusyThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	int i;
 	unsigned char * p1 = arg, p2;
@@ -596,7 +596,7 @@ INT	Set_ChBusyThrd_Proc(
 
 INT	Set_RssiThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	int i;
 	unsigned char * p1 = arg, p2;
@@ -646,7 +646,7 @@ INT	Set_RssiThrd_Proc(
 
 INT	Set_PollTime_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	pRadarDetect->PollTime = simple_strtol(arg, 0, 10);
@@ -655,7 +655,7 @@ INT	Set_PollTime_Proc(
 
 INT	Set_Ch0LErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->dfs_width_ch0_err_L = simple_strtol(arg, 0, 10);
@@ -664,7 +664,7 @@ INT	Set_Ch0LErr_Proc(
 
 INT	Set_DeclareThres_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->dfs_declare_thres = simple_strtol(arg, 0, 10);
@@ -673,7 +673,7 @@ INT	Set_DeclareThres_Proc(
 
 INT	Set_CheckLoop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->dfs_check_loop = simple_strtol(arg, 0, 10);
@@ -682,7 +682,7 @@ INT	Set_CheckLoop_Proc(
 
 INT	Set_MaxPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->dfs_max_period = simple_strtol(arg, 0, 10);
@@ -691,7 +691,7 @@ INT	Set_MaxPeriod_Proc(
 
 INT	Set_PeriodErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->dfs_period_err = simple_strtol(arg, 0, 10);
@@ -700,7 +700,7 @@ INT	Set_PeriodErr_Proc(
 
 INT	Set_Ch0HErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->dfs_width_ch0_err_H = simple_strtol(arg, 0, 10);
@@ -709,7 +709,7 @@ INT	Set_Ch0HErr_Proc(
 
 INT	Set_Ch1Shift_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->dfs_width_diff_ch1_Shift = simple_strtol(arg, 0, 10);
@@ -718,7 +718,7 @@ INT	Set_Ch1Shift_Proc(
 
 INT	Set_Ch2Shift_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	pDfsSwParam->dfs_width_diff_ch2_Shift = simple_strtol(arg, 0, 10);
@@ -729,7 +729,7 @@ INT	Set_Ch2Shift_Proc(
 #ifdef DFS_DEBUG
 INT	Set_CEPrintDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	int i;
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
@@ -759,7 +759,7 @@ INT	Set_CEPrintDebug_Proc(
 
 INT	Set_RadarSim_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 int i=0, id=0;
@@ -792,7 +792,7 @@ int dfs_data[] = {		208, 142172,
 
 INT	Set_PrintBusyIdle_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	pRadarDetect->print_ch_busy_sta = simple_strtol(arg, 0, 10);
@@ -801,7 +801,7 @@ INT	Set_PrintBusyIdle_Proc(
 
 INT	Set_BusyIdleRatio_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	pRadarDetect->ch_busy_idle_ratio = simple_strtol(arg, 0, 10);
@@ -810,7 +810,7 @@ INT	Set_BusyIdleRatio_Proc(
 
 INT	Set_DfsRssiHigh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	pRadarDetect->DfsRssiHigh = simple_strtol(arg, 0, 10);
@@ -819,7 +819,7 @@ INT	Set_DfsRssiHigh_Proc(
 
 INT	Set_DfsRssiLow_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	pRadarDetect->DfsRssiLow = simple_strtol(arg, 0, 10);
@@ -827,13 +827,13 @@ INT	Set_DfsRssiLow_Proc(
 }
 INT	Set_EventExpire_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN      PSTRING                 arg) 
+	IN      char *                 arg) 
 {
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
 	UINT8 dfs_channel, bbp_val;
 	UINT32 EventExpiration = 0;
        STRING StrBuf[64];
-	PSTRING SubStr = NULL;
+	char * SubStr = NULL;
 
 	strncpy(StrBuf, arg, 64);
 	if ((SubStr = strchr(StrBuf, '_')) != NULL)
@@ -866,7 +866,7 @@ INT	Set_EventExpire_Proc(
 }
 INT	Set_CEPrint_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	int i, j, id = simple_strtol(arg, 0, 10);
@@ -950,7 +950,7 @@ INT	Set_CEPrint_Proc(
 
 INT Set_RfReg_Proc(
     IN  PRTMP_ADAPTER   pAd, 
-    IN  PSTRING          arg)
+    IN  char *          arg)
 {
 
 	printk("1 %x\n", pAd->LatchRfRegs.R1);
@@ -962,7 +962,7 @@ INT Set_RfReg_Proc(
 
 INT	Show_BlockCh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	int i; 
 

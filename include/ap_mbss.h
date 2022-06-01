@@ -65,7 +65,7 @@
 /* Public function list */
 INT	Show_MbssInfo_Display_Proc(
 	IN	PRTMP_ADAPTER				pAd,
-	IN	PSTRING						arg);
+	IN	char *						arg);
 
 VOID MBSS_Init(
 	IN PRTMP_ADAPTER				pAd,

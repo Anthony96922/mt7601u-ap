@@ -382,8 +382,8 @@ typedef struct __RT_CMD_RATE_SET {
 } RT_CMD_RATE_SET;
 
 typedef struct __RT_CMD_PARAM_SET {
-	IN PSTRING pThisChar;
-	IN PSTRING pValue;
+	IN char * pThisChar;
+	IN char * pValue;
 } RT_CMD_PARAM_SET;
 
 typedef struct __RT_CMD_SHARED_KEY_ADD {

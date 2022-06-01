@@ -115,24 +115,24 @@ VOID IgmpGroupDelMembers(
 
 INT Set_IgmpSn_Enable_Proc(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg);
+	IN char * arg);
 
 INT Set_IgmpSn_AddEntry_Proc(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg);
+	IN char * arg);
 
 INT Set_IgmpSn_DelEntry_Proc(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg);
+	IN char * arg);
 
 INT Set_IgmpSn_TabDisplay_Proc(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING arg);
+	IN char * arg);
 
 void rtmp_read_igmp_snoop_from_file(
 	IN  PRTMP_ADAPTER pAd,
-	PSTRING tmpbuf,
-	PSTRING buffer);
+	char * tmpbuf,
+	char * buffer);
 
 NDIS_STATUS IgmpPktInfoQuery(
 	IN PRTMP_ADAPTER pAd,

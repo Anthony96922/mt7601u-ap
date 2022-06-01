@@ -1530,7 +1530,7 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, ULONG i)
 	Set_RateTable_Proc - Display or replace byte for item in RateSwitchTableAdapt11N3S
 		usage: iwpriv ra0 set RateTable=<item>[:<offset>:<value>]
 */
-INT Set_RateTable_Proc(RTMP_ADAPTER *pAd, PSTRING arg)
+INT Set_RateTable_Proc(RTMP_ADAPTER *pAd, char * arg)
 {
 	UCHAR *pTable, TableSize, InitTxRateIdx;
 	int i;
@@ -1598,7 +1598,7 @@ INT Set_RateTable_Proc(RTMP_ADAPTER *pAd, PSTRING arg)
 
 INT	Set_PerThrdAdj_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR i;
 	for (i=0; i<MAX_LEN_OF_MAC_TABLE; i++){
@@ -1610,7 +1610,7 @@ INT	Set_PerThrdAdj_Proc(
 /* Set_LowTrafficThrd_Proc - set threshold for reverting to default MCS based on RSSI */
 INT	Set_LowTrafficThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	pAd->CommonCfg.lowTrafficThrd = simple_strtol(arg, 0, 10);
 
@@ -1620,7 +1620,7 @@ INT	Set_LowTrafficThrd_Proc(
 /* Set_TrainUpRule_Proc - set rule for Quick DRS train up */
 INT	Set_TrainUpRule_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	pAd->CommonCfg.TrainUpRule = simple_strtol(arg, 0, 10);
 
@@ -1630,7 +1630,7 @@ INT	Set_TrainUpRule_Proc(
 /* Set_TrainUpRuleRSSI_Proc - set RSSI threshold for Quick DRS Hybrid train up */
 INT	Set_TrainUpRuleRSSI_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	pAd->CommonCfg.TrainUpRuleRSSI = simple_strtol(arg, 0, 10);
 
@@ -1640,7 +1640,7 @@ INT	Set_TrainUpRuleRSSI_Proc(
 /* Set_TrainUpLowThrd_Proc - set low threshold for Quick DRS Hybrid train up */
 INT	Set_TrainUpLowThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	pAd->CommonCfg.TrainUpLowThrd = simple_strtol(arg, 0, 10);
 
@@ -1650,7 +1650,7 @@ INT	Set_TrainUpLowThrd_Proc(
 /* Set_TrainUpHighThrd_Proc - set high threshold for Quick DRS Hybrid train up */
 INT	Set_TrainUpHighThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	pAd->CommonCfg.TrainUpHighThrd = simple_strtol(arg, 0, 10);
 

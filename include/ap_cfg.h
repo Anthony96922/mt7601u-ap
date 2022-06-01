@@ -143,16 +143,16 @@ VOID RTMPIoctlSetIdleTimeout(
 INT	ApCfg_Set_AuthMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	INT				apidx,
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	ApCfg_Set_MaxStaNum_Proc(
 	IN PRTMP_ADAPTER 	pAd,
 	IN INT				apidx,
-	IN PSTRING 			arg);
+	IN char * 			arg);
 
 INT	ApCfg_Set_IdleTimeout_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 
 #ifdef APCLI_SUPPORT

@@ -71,7 +71,6 @@ typedef unsigned char BOOLEAN;
 typedef void VOID;
 #endif /* LINUX */
 
-typedef char *PSTRING;
 typedef CHAR *PCHAR;
 typedef LONG *PLONG;
 

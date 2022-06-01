@@ -776,7 +776,7 @@ VOID APWdsInitialize(
 
 INT	Show_WdsTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	INT 	i;
 
@@ -821,10 +821,10 @@ INT	Show_WdsTable_Proc(
 
 VOID rtmp_read_wds_from_file(
 			IN  PRTMP_ADAPTER pAd,
-			PSTRING tmpbuf,
-			PSTRING buffer)
+			char * tmpbuf,
+			char * buffer)
 {
-	PSTRING		macptr;
+	char *		macptr;
 	INT			i=0, j;
 	STRING		tok_str[16];
 	BOOLEAN		bUsePrevFormat = FALSE;

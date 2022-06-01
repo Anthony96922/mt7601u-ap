@@ -2219,7 +2219,7 @@ static INT32 RACfgCMDHandler(
 INT RtmpDoAte(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT		*wrq,
-	IN	PSTRING			wrq_name)
+	IN	char *			wrq_name)
 {
 	INT32 Status = NDIS_STATUS_SUCCESS;
 	struct ate_racfghdr *pRaCfg;
@@ -2307,7 +2307,7 @@ VOID ATE_QA_Statistics(
 
 INT Set_TxStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	DBGPRINT(RT_DEBUG_TRACE,("Set_TxStop_Proc\n"));
 
@@ -2324,7 +2324,7 @@ INT Set_TxStop_Proc(
 
 INT Set_RxStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	DBGPRINT(RT_DEBUG_TRACE,("Set_RxStop_Proc\n"));
 
@@ -2342,7 +2342,7 @@ INT Set_RxStop_Proc(
 #ifdef DBG
 INT Set_EERead_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	USHORT buffer[EEPROM_SIZE >> 1];
 	USHORT *p;
@@ -2365,10 +2365,10 @@ INT Set_EERead_Proc(
 
 INT Set_EEWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	USHORT offset = 0, value;
-	PSTRING p2 = arg;
+	char * p2 = arg;
 	
 	while ((*p2 != ':') && (*p2 != '\0'))
 	{
@@ -2399,7 +2399,7 @@ INT Set_EEWrite_Proc(
 
 INT Set_BBPRead_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UCHAR value = 0, offset;
 
@@ -2415,10 +2415,10 @@ INT Set_BBPRead_Proc(
 
 INT Set_BBPWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	USHORT offset = 0;
-	PSTRING p2 = arg;
+	char * p2 = arg;
 	UCHAR value;
 	
 	while ((*p2 != ':') && (*p2 != '\0'))
@@ -2444,9 +2444,9 @@ INT Set_BBPWrite_Proc(
 
 INT Set_RFWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
-	PSTRING p2, p3, p4;
+	char * p2, p3, p4;
 	UINT32 R1, R2, R3, R4;
 	
 	p2 = arg;

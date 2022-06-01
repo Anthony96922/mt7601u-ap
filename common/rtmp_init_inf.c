@@ -108,7 +108,7 @@ RTMP_BUILD_DRV_OPS_FUNCTION_BODY
 #endif /* LINUX */
 
 
-int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
+int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
 	UINT index;
@@ -354,7 +354,7 @@ int rt28xx_init(VOID *pAdSrc, PSTRING pDefaultMac, PSTRING pHostName)
 	DBGPRINT(RT_DEBUG_OFF, ("2. Phy Mode = %d\n", pAd->CommonCfg.PhyMode));
 
 	/* We should read EEPROM for all cases.  rt2860b*/
-	NICReadEEPROMParameters(pAd, (PSTRING)pDefaultMac);
+	NICReadEEPROMParameters(pAd, (char *)pDefaultMac);
 
 	DBGPRINT(RT_DEBUG_OFF, ("3. Phy Mode = %d\n", pAd->CommonCfg.PhyMode));
 

@@ -51,7 +51,7 @@ void DisplayTxAgg (RTMP_ADAPTER *pAd)
 #endif /* DOT11_N_SUPPORT */
 
 static BOOLEAN RT_isLegalCmdBeforeInfUp(
-       IN PSTRING SetCmd);
+       IN char * SetCmd);
 
 INT ComputeChecksum(
 	IN UINT PIN)
@@ -139,7 +139,7 @@ char* get_bw_str(int bandwidth)
 */
 INT RT_CfgSetCountryRegion(
 	IN PRTMP_ADAPTER	pAd, 
-	IN PSTRING			arg,
+	IN char *			arg,
 	IN INT				band)
 {
 	LONG region;
@@ -202,9 +202,9 @@ static UCHAR CFG_WMODE_MAP[]={
 };
 
 #ifdef DBG
-static PSTRING BAND_STR[] = {"Invalid", "2.4G", "5G", "2.4G/5G"};
+static char * BAND_STR[] = {"Invalid", "2.4G", "5G", "2.4G/5G"};
 #endif /* DBG */
-static PSTRING WMODE_STR[]= {"", "a", "b", "g", "n", "n", "ac"};
+static char * WMODE_STR[]= {"", "a", "b", "g", "n", "n", "ac"};
 
 UCHAR *wmode_2_str(UCHAR wmode)
 {
@@ -324,7 +324,7 @@ BOOLEAN wmode_band_equal(UCHAR smode, UCHAR tmode)
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
+INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
 	LONG cfg_mode;
 	UCHAR wmode, *mode_str;
@@ -398,7 +398,7 @@ static UCHAR RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
+INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
 	LONG cfg_mode;
 	UCHAR wmode;
@@ -449,7 +449,7 @@ INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, PSTRING arg)
 
 
 static BOOLEAN RT_isLegalCmdBeforeInfUp(
-       IN PSTRING SetCmd)
+       IN char * SetCmd)
 {
 		BOOLEAN TestFlag;
 		TestFlag =	!strcmp(SetCmd, "Debug") ||
@@ -473,7 +473,7 @@ static BOOLEAN RT_isLegalCmdBeforeInfUp(
 
 INT RT_CfgSetShortSlot(
 	IN PRTMP_ADAPTER	pAd,
-	IN PSTRING		arg)
+	IN char *		arg)
 {
 	LONG ShortSlot;
 
@@ -500,7 +500,7 @@ INT RT_CfgSetShortSlot(
 */
 INT	RT_CfgSetWepKey(
 	IN PRTMP_ADAPTER	pAd,
-	IN PSTRING		keyString,
+	IN char *		keyString,
 	IN CIPHER_KEY		*pSharedKey,
 	IN INT			keyIdx)
 {
@@ -562,7 +562,7 @@ INT	RT_CfgSetWepKey(
 */
 INT RT_CfgSetWPAPSKKey(
 	IN RTMP_ADAPTER	*pAd,
-	IN PSTRING	keyString,
+	IN char *	keyString,
 	IN INT		keyStringLen,
 	IN UCHAR	*pHashStr,
 	IN INT		hashStrLen,
@@ -587,7 +587,7 @@ INT RT_CfgSetWPAPSKKey(
 	return TRUE;
 }
 
-INT	RT_CfgSetFixedTxPhyMode(PSTRING arg)
+INT	RT_CfgSetFixedTxPhyMode(char * arg)
 {
 	INT fix_tx_mode = FIXED_TXMODE_HT;
 	ULONG value;
@@ -619,7 +619,7 @@ INT	RT_CfgSetFixedTxPhyMode(PSTRING arg)
 
 INT	RT_CfgSetMacAddress(
 	IN PRTMP_ADAPTER	pAd,
-	IN PSTRING		arg)
+	IN char *		arg)
 {
 	INT	i, mac_len;
 
@@ -644,7 +644,7 @@ INT	RT_CfgSetMacAddress(
 	return TRUE;
 }
 
-INT	RT_CfgSetTxMCSProc(PSTRING arg, BOOLEAN *pAutoRate)
+INT	RT_CfgSetTxMCSProc(char * arg, BOOLEAN *pAutoRate)
 {
 	INT	Value = simple_strtol(arg, 0, 10);
 	INT	TxMcs;
@@ -663,7 +663,7 @@ INT	RT_CfgSetTxMCSProc(PSTRING arg, BOOLEAN *pAutoRate)
 
 INT	RT_CfgSetAutoFallBack(
 	IN PRTMP_ADAPTER pAd,
-	IN PSTRING	arg)
+	IN char *	arg)
 {
 	TX_RTY_CFG_STRUC tx_rty_cfg;
 	UCHAR AutoFallBack = (UCHAR)simple_strtol(arg, 0, 10);
@@ -678,7 +678,7 @@ INT	RT_CfgSetAutoFallBack(
 #ifdef WSC_INCLUDED
 INT	RT_CfgSetWscPinCode(
 	IN RTMP_ADAPTER *pAd,
-	IN PSTRING	pPinCodeStr,
+	IN char *	pPinCodeStr,
 	OUT PWSC_CTRL   pWscControl)
 {
 	UINT pinCode;
@@ -891,7 +891,7 @@ INT RTMP_COM_IoctlHandle(
 #endif /* IFUP_IN_PROBE */
 			)
 			{
-				if(pData == NULL ||	RT_isLegalCmdBeforeInfUp((PSTRING) pData) == FALSE)
+				if(pData == NULL ||	RT_isLegalCmdBeforeInfUp((char *) pData) == FALSE)
 				return NDIS_STATUS_FAILURE;
 			}
 			break;
@@ -1367,7 +1367,7 @@ INT RTMP_COM_IoctlHandle(
 */
 INT Set_SiteSurvey_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	NDIS_802_11_SSID Ssid;
 	POS_COOKIE pObj;
@@ -1412,7 +1412,7 @@ INT Set_SiteSurvey_Proc(
 
 INT	Set_Antenna_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	ANT_DIVERSITY_TYPE UsedAnt;
 	int i;
@@ -1452,7 +1452,7 @@ INT	Set_Antenna_Proc(
 #ifdef MICROWAVE_OVEN_SUPPORT
 INT Set_MO_FalseCCATh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING		arg)
+	IN	char *		arg)
 {
 	ULONG th;
 

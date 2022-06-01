@@ -924,7 +924,7 @@ NTSTATUS eFuseWrite(
 */
 INT set_eFuseGetFreeBlockCount_Proc(  
    	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UINT efusefreenum = 0;
 	if (pAd->bUseEfuse == FALSE && pAd->bFroceEEPROMBuffer == FALSE)
@@ -939,7 +939,7 @@ INT set_eFuseGetFreeBlockCount_Proc(
 
 INT set_eFusedump_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	USHORT InBuf[3];
 	INT i=0;
@@ -966,13 +966,13 @@ INT set_eFusedump_Proc(
 
 INT	set_eFuseLoadFromBin_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *arg)
 {
-	PSTRING					src;
+	char *src;
 	RTMP_OS_FD				srcf;
 	RTMP_OS_FS_INFO			osfsInfo;
 	INT 						retval, memSize;
-	PSTRING					buffer, memPtr;
+	char *buffer, *memPtr;
 	INT						TotalByte= 0,ReadedByte=0,CompareBuf=1;
 	USHORT					*PDATA;
 	USHORT					DATA;
@@ -1483,7 +1483,7 @@ int RtmpEfuseSupportCheck(
 #ifdef RALINK_ATE
 INT set_eFuseBufferModeWriteBack_Proc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	PSTRING			arg)
+	IN	char *			arg)
 {
 	UINT Enable;
 	
@@ -1526,7 +1526,7 @@ INT set_eFuseBufferModeWriteBack_Proc(
 INT eFuseLoadEEPROM(
 	IN PRTMP_ADAPTER pAd)
 {
-	PSTRING					src = NULL;
+	char *					src = NULL;
 	INT 						retval;			
 	RTMP_OS_FD				srcf;
 	RTMP_OS_FS_INFO			osFSInfo;
@@ -1552,7 +1552,7 @@ INT eFuseLoadEEPROM(
 				memset(pAd->EEPROMImage, 0x00, MAX_EEPROM_BIN_FILE_SIZE);
 				
 
-			retval =RtmpOSFileRead(srcf, (PSTRING)pAd->EEPROMImage, MAX_EEPROM_BIN_FILE_SIZE);
+			retval =RtmpOSFileRead(srcf, (char *)pAd->EEPROMImage, MAX_EEPROM_BIN_FILE_SIZE);
 			if (retval > 0)
 							{
 				
@@ -1589,7 +1589,7 @@ INT eFuseWriteEeeppromBuf(
 	IN PRTMP_ADAPTER pAd)
 {
 
-	PSTRING					src = NULL;
+	char *					src = NULL;
 	INT 						retval;			
 	RTMP_OS_FD				srcf;
 	RTMP_OS_FS_INFO			osFSInfo;
@@ -1614,7 +1614,7 @@ INT eFuseWriteEeeppromBuf(
 		else 
 		{
 
-			RtmpOSFileWrite(srcf, (PSTRING)pAd->EEPROMImage,MAX_EEPROM_BIN_FILE_SIZE);
+			RtmpOSFileWrite(srcf, (char *)pAd->EEPROMImage,MAX_EEPROM_BIN_FILE_SIZE);
 
       		}
 
@@ -1867,7 +1867,7 @@ INT efuse_probe(RTMP_ADAPTER *pAd)
 #ifdef RALINK_ATE
 INT Set_LoadEepromBufferFromEfuse_Proc(
 	IN PRTMP_ADAPTER	pAd,
-	IN PSTRING			arg)
+	IN char *			arg)
 {
 	UINT bEnable = simple_strtol(arg, 0, 10);
 	UINT free_blk = 0;

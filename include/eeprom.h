@@ -308,7 +308,7 @@ INT efuse_probe(struct _RTMP_ADAPTER *pAd);
 #ifdef RALINK_ATE
 INT Set_LoadEepromBufferFromEfuse_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN PSTRING			arg);
+	IN char *			arg);
 #endif /* RALINK_ATE */
 #endif /* RTMP_EFUSE_SUPPORT */
 

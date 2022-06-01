@@ -385,8 +385,8 @@ VOID RTMPUpdateStaMgmtCounter(
 
 VOID rtmp_read_ids_from_file(
 			IN  PRTMP_ADAPTER pAd,
-			PSTRING tmpbuf,
-			PSTRING buffer)
+			char * tmpbuf,
+			char * buffer)
 {	
 	/*IdsEnable */
 	if(RTMPGetKeyParameter("IdsEnable", tmpbuf, 10, buffer, TRUE))

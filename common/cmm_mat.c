@@ -124,9 +124,9 @@ unsigned char * MATDBEntryAlloc(IN MAT_STRUCT *pMatStruct, IN UINT32 size)
 VOID dumpPkt(unsigned char * pHeader, int len)
 {
 	int i;
-	PSTRING tmp;
+	char * tmp;
 
-	tmp = (PSTRING)pHeader;
+	tmp = (char *)pHeader;
 
 	DBGPRINT(RT_DEBUG_OFF, ("--StartDump\n"));
 	for(i=0;i<len; i++)

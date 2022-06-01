@@ -187,7 +187,7 @@ UCHAR Ags2x2VhtRateTable[] = {
 
 INT Show_AGS_Proc(
     IN  PRTMP_ADAPTER	pAd, 
-    IN  PSTRING arg)
+    IN  char * arg)
 {
 	MAC_TABLE_ENTRY *pEntry = &pAd->MacTab.Content[1];
 	UINT32 IdQuality;

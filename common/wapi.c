@@ -347,8 +347,8 @@ VOID RT_SMS4_TEST(
 */
 void rtmp_read_wapi_parms_from_file(
 		IN  PRTMP_ADAPTER pAd, 
-		PSTRING tmpbuf, 
-		PSTRING buffer)
+		char * tmpbuf, 
+		char * buffer)
 {	
 	UINT32					ip_addr;
 #ifdef CONFIG_AP_SUPPORT	
@@ -539,7 +539,7 @@ void rtmp_read_wapi_parms_from_file(
 #ifdef CONFIG_AP_SUPPORT
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		{
-			PSTRING macptr;
+			char * macptr;
 			
 			for (apidx = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), apidx++)
 		    {
@@ -647,7 +647,7 @@ static VOID RTMPQueryWapiConfPerBss(
 			if (pMbss->WapiPskType == HEX_MODE)
 			{
 				pConf->psk_len = pMbss->WAPIPassPhraseLen / 2;
-				AtoH((PSTRING) pMbss->WAPIPassPhrase, (unsigned char *) pConf->psk, pConf->psk_len);
+				AtoH((char *) pMbss->WAPIPassPhrase, (unsigned char *) pConf->psk, pConf->psk_len);
 			}
 			else
 			{

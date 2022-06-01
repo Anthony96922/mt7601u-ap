@@ -2107,7 +2107,7 @@ static void F(char *password, unsigned char *ssid, int ssidlength, int iteration
 * ssidlength - length of ssid in octets 
 * output must be 40 octets in length and outputs 256 bits of key 
 */ 
-int RtmpPasswordHash(PSTRING password, unsigned char * ssid, INT ssidlength, unsigned char * output) 
+int RtmpPasswordHash(char * password, unsigned char * ssid, INT ssidlength, unsigned char * output) 
 { 
     if ((strlen(password) > 63) || (ssidlength > 32))
         return 0; 
@@ -3156,7 +3156,7 @@ BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
 
     ==========================================================================
 */
-PSTRING GetEapolMsgType(CHAR msg)
+char * GetEapolMsgType(CHAR msg)
 {
     if(msg == EAPOL_PAIR_MSG_1)
         return "Pairwise Message 1";

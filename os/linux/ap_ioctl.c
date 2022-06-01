@@ -165,7 +165,7 @@ INT rt28xx_ap_ioctl(
 			DBGPRINT(RT_DEBUG_TRACE, ("IOCTLIOCTLIOCTL::SIOCGIFHWADDR\n"));
 			RTMP_AP_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_AP_SIOCGIFHWADDR, 0, NULL, 0);
 /*			if (pObj->ioctl_if < MAX_MBSSID_NUM(pAd)) */
-/*    				strcpy((PSTRING) wrq->u.name, (PSTRING) pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid); */
+/*    				strcpy((char *) wrq->u.name, (char *) pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid); */
 			break;
 		case SIOCSIWESSID:  /*Set ESSID */
 			break;

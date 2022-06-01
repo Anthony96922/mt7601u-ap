@@ -250,31 +250,31 @@ VOID MlmeNewRateAdapt(
 
 INT	Set_PerThrdAdj_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN PSTRING arg);
+	IN char * arg);
 
 INT	Set_LowTrafficThrd_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN PSTRING			arg);
+	IN char *			arg);
 
 INT	Set_TrainUpRule_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN PSTRING			arg);
+	IN char *			arg);
 
 INT	Set_TrainUpRuleRSSI_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN PSTRING			arg);
+	IN char *			arg);
 
 INT	Set_TrainUpLowThrd_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN PSTRING			arg);
+	IN char *			arg);
 
 INT	Set_TrainUpHighThrd_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN PSTRING			arg);
+	IN char *			arg);
 
 INT Set_RateTable_Proc(
 	IN  struct _RTMP_ADAPTER *pAd,
-	IN  PSTRING arg);
+	IN  char * arg);
 
 #ifdef CONFIG_AP_SUPPORT
 VOID APMlmeDynamicTxRateSwitchingAdapt(struct _RTMP_ADAPTER *pAd, ULONG idx);

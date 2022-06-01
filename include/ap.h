@@ -422,15 +422,15 @@ BOOLEAN APPeerAuthSanity(
 /* ap_cfg.h */
 INT	Set_OwnIPAddr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_EAPIfName_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 INT	Set_PreAuthIfName_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 /* Define in ap.c */
 BOOLEAN DOT1X_InternalCmdAction(
@@ -446,7 +446,7 @@ BOOLEAN DOT1X_EapTriggerAction(
 
 VOID AP_E2PROM_IOCTL_PostCtrl(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	PSTRING					msg);
+	IN	char *					msg);
 
 VOID IAPP_L2_UpdatePostCtrl(
 	IN PRTMP_ADAPTER	pAd,

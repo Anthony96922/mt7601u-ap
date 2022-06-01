@@ -143,12 +143,12 @@ VOID APWdsInitialize(
 
 INT	Show_WdsTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	PSTRING			arg);
+	IN	char *			arg);
 
 VOID rtmp_read_wds_from_file(
 			IN  PRTMP_ADAPTER pAd,
-			PSTRING tmpbuf,
-			PSTRING buffer);
+			char * tmpbuf,
+			char * buffer);
 
 VOID WdsPrepareWepKeyFromMainBss(
 	IN  PRTMP_ADAPTER pAd);

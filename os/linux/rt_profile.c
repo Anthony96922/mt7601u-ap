@@ -131,11 +131,11 @@ char const *pWirelessWscEventText[IW_WSC_EVENT_TYPE_NUM] = {
 NDIS_STATUS	RTMPReadParametersHook(
 	IN	PRTMP_ADAPTER pAd)
 {
-	PSTRING			src = NULL;
+	char *			src = NULL;
 	RTMP_OS_FD		srcf;
 	RTMP_OS_FS_INFO		osFSInfo;
 	INT			retval = NDIS_STATUS_FAILURE;
-	PSTRING			buffer;
+	char *			buffer;
 
 #ifdef HOSTAPD_SUPPORT
 	int i;
@@ -156,7 +156,7 @@ NDIS_STATUS	RTMPReadParametersHook(
 #endif /* CONFIG_AP_SUPPORT */
 
 #ifdef MULTIPLE_CARD_SUPPORT
-		src = (PSTRING)pAd->MC_FileName;
+		src = (char *)pAd->MC_FileName;
 #endif /* MULTIPLE_CARD_SUPPORT */
 	}
 
@@ -235,12 +235,12 @@ NDIS_STATUS	RTMPReadParametersHook(
 VOID RtmpDrvSendWirelessEvent(
 	IN	VOID					*pAdSrc,
 	IN	USHORT					Event_flag,
-	IN	unsigned char * 					pAddr,
+	IN	unsigned char *pAddr,
 	IN  UCHAR					BssIdx,
 	IN	CHAR					Rssi)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
-	PSTRING	pBuf = NULL, pBufPtr = NULL;
+	char *pBuf = NULL, *pBufPtr = NULL;
 	USHORT	event, type, BufLen;	
 	UCHAR	event_table_len = 0;
 
@@ -827,7 +827,7 @@ INT RTMP_AP_IoctlPrepare(
 
 VOID AP_E2PROM_IOCTL_PostCtrl(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	PSTRING					msg)
+	IN	char *					msg)
 {
 	wrq->u.data.length = strlen(msg);
 	if (copy_to_user(wrq->u.data.pointer, msg, wrq->u.data.length))
