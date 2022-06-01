@@ -314,7 +314,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_STA {
 	unsigned int TxRateFlags;
 	
 	unsigned int TxRateMCS;
-	INT32 Signal;
+	int Signal;
 	unsigned int TxPacketCnt;
 	unsigned int InactiveTime;
 } CMD_RTPRIV_IOCTL_80211_STA;
@@ -476,11 +476,11 @@ typedef struct __RT_CMD_AP_IOCTL_CONFIG {
 	IN VOID *net_dev;
 	IN unsigned long priv_flags;
 	IN char *pCmdData;
-	IN INT32 CmdId_RTPRIV_IOCTL_SET;
+	IN int CmdId_RTPRIV_IOCTL_SET;
 	IN char *name;
 	IN INT apidx;
 
-	OUT INT32 Status;
+	OUT int Status;
 } RT_CMD_AP_IOCTL_CONFIG;
 
 typedef struct __RT_CMD_AP_IOCTL_SSID {
@@ -488,7 +488,7 @@ typedef struct __RT_CMD_AP_IOCTL_SSID {
 	IN INT apidx;
 
 	OUT char *pSsidStr;
-	OUT INT32 length;
+	OUT int length;
 } RT_CMD_AP_IOCTL_SSID;
 
 typedef struct __RT_CMD_IOCTL_RATE {
@@ -502,7 +502,7 @@ typedef struct __RT_CMD_IOCTL_RATE {
 #define RTMP_CMD_STA_MODE_MONITOR		0x03
 
 typedef struct __RT_CMD_STA_IOCTL_FREQ {
-	IN INT32 m;		/* Mantissa */
+	IN int m;		/* Mantissa */
 	IN INT16 e;		/* Exponent */
 } RT_CMD_STA_IOCTL_FREQ;
 
@@ -523,7 +523,7 @@ typedef struct __RT_CMD_STA_IOCTL_SCAN {
 	IN unsigned char FlgScanThisSsid;
 	IN unsigned int SsidLen;
 	IN CHAR *pSsid;
-	OUT INT32 Status;
+	OUT int Status;
 } RT_CMD_STA_IOCTL_SCAN;
 
 typedef struct __RT_CMD_STA_IOCTL_BSS_TABLE {
@@ -568,7 +568,7 @@ typedef struct __RT_CMD_STA_IOCTL_SSID {
 	IN unsigned char FlgAnySsid;
 	INOUT unsigned int SsidLen;
 	INOUT CHAR *pSsid;
-	OUT INT32 Status;
+	OUT int Status;
 } RT_CMD_STA_IOCTL_SSID;
 
 typedef struct __RT_CMD_STA_IOCTL_NICK_NAME {
@@ -579,8 +579,8 @@ typedef struct __RT_CMD_STA_IOCTL_NICK_NAME {
 typedef struct __RT_CMD_STA_IOCTL_SECURITY {
 	INOUT CHAR *pData;
 	INOUT unsigned short length;
-	IN INT32 KeyIdx;
-	IN INT32 MaxKeyLen;
+	IN int KeyIdx;
+	IN int MaxKeyLen;
 
 #define RT_CMD_STA_IOCTL_SECURITY_ALG_NONE		0x01
 #define RT_CMD_STA_IOCTL_SECURITY_ALG_WEP		0x02
@@ -600,12 +600,12 @@ typedef struct __RT_CMD_STA_IOCTL_SECURITY {
 #define RT_CMD_STA_IOCTL_SECURITY_MODE			0x20
 	INOUT unsigned short flags;
 
-	OUT INT32 Status;
+	OUT int Status;
 } RT_CMD_STA_IOCTL_SECURITY;
 
 typedef struct __RT_CMD_STA_IOCTL_WSC_U32_ITEM {
 	IN unsigned int *pUWrq;
-	OUT INT32 Status;
+	OUT int Status;
 } RT_CMD_STA_IOCTL_WSC_U32_ITEM;
 
 typedef struct __RT_CMD_STA_IOCTL_WSC_STR_ITEM {
@@ -613,7 +613,7 @@ typedef struct __RT_CMD_STA_IOCTL_WSC_STR_ITEM {
 	IN CHAR *pData;
 	IN unsigned int length;
 
-	OUT INT32 Status;
+	OUT int Status;
 } RT_CMD_STA_IOCTL_WSC_STR_ITEM;
 
 typedef struct __RT_CMD_STA_IOCTL_SHOW {

@@ -1994,7 +1994,7 @@ VOID MT7601_AsicExtraPowerOverMAC(
 VOID MT7601_InitPAModeTable(
 	IN PRTMP_ADAPTER			pAd)
 {
-	INT32 PAMode;
+	int PAMode;
 	unsigned int Value = 0;
 	unsigned short index, offset;
 
@@ -2079,10 +2079,10 @@ VOID MT7601AsicTemperatureCompensation(
 	IN PRTMP_ADAPTER			pAd,
 	IN BOOLEAN				bPowerOn)
 {
-	INT32	CurrentTemper;
+	int	CurrentTemper;
 	unsigned char	RfReg;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 high_temp_cr_threshold, low_temp_cr_threshold;
+	int high_temp_cr_threshold, low_temp_cr_threshold;
 
 	CurrentTemper = (pChipCap->CurrentTemperBbpR49 - pChipCap->TemperatureRef25C) * MT7601_E2_TEMPERATURE_SLOPE;		// 3.9 * 10
 	pChipCap->CurrentTemperature = CurrentTemper;
@@ -2370,7 +2370,7 @@ VOID MT7601_InitDesiredTSSITable(
 #ifdef DBG
 	unsigned short offset;
 #endif /* DBG */
-	INT32 init_offset;
+	int init_offset;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 
@@ -2436,7 +2436,7 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 	unsigned char BbpR47;
 	unsigned char BBPR4, BBPR178;
 	unsigned char TxRate;
-	INT32 Power;
+	int Power;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 	if (pTxALCData->TssiTriggered == 0) {
@@ -2676,7 +2676,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 	IN char *					pAgcCompensate,
 	IN char *	 				pDeltaPowerByBbpR1)
 {
-	INT32 TargetPower, CurrentPower, PowerDiff;
+	int TargetPower, CurrentPower, PowerDiff;
 	unsigned char TssiLinear0, TssiLinear1;
 	CHAR tssi_offset;
 	INT16 tssi_db, tssi_m_dc;

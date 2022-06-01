@@ -77,7 +77,7 @@ VOID MBSS_Init(
 {
 #define MBSS_MAX_DEV_NUM	32
 	PNET_DEV pDevNew;
-	INT32 IdBss, MaxNumBss;
+	int IdBss, MaxNumBss;
 	INT status;
 	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
 
@@ -199,12 +199,12 @@ Return Value:
 Note:
 ========================================================================
 */
-INT32 RT28xx_MBSS_IdxGet(
+int RT28xx_MBSS_IdxGet(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNET_DEV			pDev)
 {
-	INT32 BssId = -1;
-	INT32 IdBss;
+	int BssId = -1;
+	int IdBss;
 
 	for (IdBss = 0; IdBss<pAd->ApCfg.BssidNum; IdBss++)
 	{

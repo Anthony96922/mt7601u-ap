@@ -163,7 +163,7 @@ typedef struct _ATE_INFO {
 #ifdef DOT11N_SS3_SUPPORT
 	unsigned int SNR2;
 #endif /* DOT11N_SS3_SUPPORT */
-	INT32 BF_SNR[3];	/* Last RXWI BF SNR. Units=0.25 dB */
+	int BF_SNR[3];	/* Last RXWI BF SNR. Units=0.25 dB */
 	/* TxStatus : 0 --> task is idle, 1 --> task is running */
 	unsigned char TxStatus;
 #endif /* RALINK_QA */

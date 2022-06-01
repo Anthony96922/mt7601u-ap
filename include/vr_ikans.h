@@ -48,7 +48,7 @@
 
 IKANOS_EXTERN void VR_IKANOS_FP_Init(unsigned char BssNum, unsigned char *pApMac);
 
-IKANOS_EXTERN INT32 IKANOS_DataFramesTx(struct sk_buff *pSkb,
+IKANOS_EXTERN int IKANOS_DataFramesTx(struct sk_buff *pSkb,
 										struct net_device *pNetDev);
 
 IKANOS_EXTERN void IKANOS_DataFrameRx(PRTMP_ADAPTER pAd,

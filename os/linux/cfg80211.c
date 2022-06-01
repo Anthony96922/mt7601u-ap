@@ -174,11 +174,11 @@ static const unsigned int CipherSuites[] = {
 	The driver's regulatory notification callback.
 */
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,30))
-static INT32 CFG80211_RegNotifier(
+static int CFG80211_RegNotifier(
 	IN struct wiphy					*pWiphy,
 	IN struct regulatory_request	*pRequest);
 #else
-static INT32 CFG80211_RegNotifier(
+static int CFG80211_RegNotifier(
 	IN struct wiphy					*pWiphy,
 	IN enum reg_set_by				Request);
 #endif /* LINUX_VERSION_CODE */
@@ -1352,7 +1352,7 @@ Note:
 ========================================================================
 */
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,30))
-static INT32 CFG80211_RegNotifier(
+static int CFG80211_RegNotifier(
 	IN struct wiphy					*pWiphy,
 	IN struct regulatory_request	*pRequest)
 {
@@ -1462,7 +1462,7 @@ static INT32 CFG80211_RegNotifier(
 
 #else
 
-static INT32 CFG80211_RegNotifier(
+static int CFG80211_RegNotifier(
 	IN struct wiphy					*pWiphy,
 	IN enum reg_set_by				Request)
 {

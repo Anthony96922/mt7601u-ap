@@ -558,7 +558,7 @@ typedef struct _RTMP_RX_RING {
 	RTMP_DMACB Cell[RX_RING_SIZE];
 	unsigned int RxCpuIdx;
 	unsigned int RxDmaIdx;
-	INT32 RxSwReadIdx;	/* software next read index */
+	int RxSwReadIdx;	/* software next read index */
 } RTMP_RX_RING, *PRTMP_RX_RING;
 
 typedef struct _RTMP_MGMT_RING {
@@ -3574,7 +3574,7 @@ struct _RTMP_ADAPTER {
 
 
 #ifdef MULTIPLE_CARD_SUPPORT
-	INT32 MC_RowID;
+	int MC_RowID;
 	STRING MC_FileName[256];
 #endif /* MULTIPLE_CARD_SUPPORT */
 

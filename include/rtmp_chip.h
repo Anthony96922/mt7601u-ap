@@ -602,8 +602,8 @@ struct _RTMP_CHIP_CAP_ {
 	unsigned char	TemperatureMode;
 	BOOLEAN	bPllLockProtect;
 	CHAR	CurrentTemperBbpR49;
-	INT32	TemperatureDPD;					// temperature when do DPD calibration
-	INT32	CurrentTemperature;					// (BBP_R49 - Ref25C) * offset
+	int	TemperatureDPD;					// temperature when do DPD calibration
+	int	CurrentTemperature;					// (BBP_R49 - Ref25C) * offset
 #endif /* MT7601 */
 	/* ---------------------------- packet ---------------------------------- */
 	unsigned char TXWISize;
@@ -734,7 +734,7 @@ struct _RTMP_CHIP_OP_ {
 	VOID (*ChipIQCalibration)(struct _RTMP_ADAPTER *pAd, unsigned char Channel);
 
 	/* TX ALC */
-	unsigned int (*TSSIRatio)(INT32 delta_power);
+	unsigned int (*TSSIRatio)(int delta_power);
 	VOID (*InitDesiredTSSITable)(IN struct _RTMP_ADAPTER *pAd);
 	int (*ATETssiCalibration)(struct _RTMP_ADAPTER *pAd, char * arg);
 	int (*ATETssiCalibrationExtend)(struct _RTMP_ADAPTER *pAd, char * arg);

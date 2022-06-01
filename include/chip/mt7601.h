@@ -159,8 +159,8 @@ enum TEMPERATURE_MODE {
 VOID MT7601_TssiDcGainCalibration(struct _RTMP_ADAPTER *pAd);
 
 typedef struct _MT7601_TX_ALC_DATA {
-	INT32	PowerDiffPre;
-	INT32	MT7601_TSSI_T0_Delta_Offset;
+	int	PowerDiffPre;
+	int	MT7601_TSSI_T0_Delta_Offset;
 	INT16	TSSI_DBOFFSET_HVGA;
 	INT16	TSSI0_DB;
 	unsigned char	TssiSlope;

@@ -41,7 +41,6 @@
 /* Put platform dependent declaration here */
 /* For example, linux type definition */
 typedef short INT16;
-typedef int INT32;
 #endif /* LINUX */
 
 /* modified for fixing compile warning on Sigma 8634 platform */
@@ -64,11 +63,11 @@ typedef unsigned int NDIS_MEDIA_STATE;
 typedef union _LARGE_INTEGER {
 	struct {
 #ifdef RT_BIG_ENDIAN
-		INT32 HighPart;
+		int HighPart;
 		unsigned int LowPart;
 #else
 		unsigned int LowPart;
-		INT32 HighPart;
+		int HighPart;
 #endif
 	} u;
 	long long QuadPart;

@@ -3530,8 +3530,8 @@ BOOLEAN RTMP_CardInfoRead(
 	char *buffer, *tmpbuf;
 	STRING card_id_buf[30], RFIC_word[30];
 	BOOLEAN flg_match_ok = FALSE;
-	INT32 card_select_method;
-	INT32 card_free_id, card_nouse_id, card_same_mac_id, card_match_id;
+	int card_select_method;
+	int card_free_id, card_nouse_id, card_same_mac_id, card_match_id;
 	EEPROM_ANTENNA_STRUC antenna;
 	unsigned short addr01, addr23, addr45;
 	unsigned char mac[6];
@@ -4387,11 +4387,11 @@ VOID InitSkuRateDiffTable(
 	}
 }
 
-INT32 GetSkuPAModePwr(
+int GetSkuPAModePwr(
 	IN PRTMP_ADAPTER 	pAd,
 	IN unsigned char			PAMode)
 {
-	INT32 pa_mode_pwr = 0;
+	int pa_mode_pwr = 0;
 	
 	switch (PAMode)
 	{
@@ -4460,7 +4460,7 @@ unsigned char GetSkuRatePwr(
 	unsigned char start_ch;
 	unsigned char rate_pwr = pAd->DefaultTargetPwr;
 	unsigned char max_pwr;
-	INT32 pwr_diff;
+	int pwr_diff;
 
 	ch = pAd->SingleSkuPwrList.pHead;
 	while (ch)
@@ -4573,9 +4573,9 @@ VOID UpdateSkuRatePwr(
 	IN unsigned char			bw,
 	IN CHAR				base_pwr)
 {
-	INT32	sku_rate_pwr;
-	INT32	rate_pwr;
-	INT32	mcs_digital_pwr, pa_mode_pwr, diff_pwr;
+	int	sku_rate_pwr;
+	int	rate_pwr;
+	int	mcs_digital_pwr, pa_mode_pwr, diff_pwr;
 	unsigned int	data, Adata, Gdata;
 	unsigned char 	BBPR4, BBPR178;
 	unsigned char	i;

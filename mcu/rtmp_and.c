@@ -92,7 +92,7 @@ NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
 	ra_dma_addr_t DataDMA;
 	unsigned char * DataBuffer;
 	TXINFO_NMAC_CMD *TxInfoCmd;	
-	INT32 SentLen;
+	int SentLen;
 	unsigned int CurLen;
 	unsigned int MACValue, Loop = 0;
 	unsigned short Value;
@@ -780,7 +780,7 @@ INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
 	unsigned int VarLen;
 	unsigned char *Pos, *Buf;
 	TXINFO_NMAC_CMD *TxInfoCmd;
-	INT32 Ret = NDIS_STATUS_SUCCESS;
+	int Ret = NDIS_STATUS_SUCCESS;
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
 	struct CMD_RSP_EVENT *CmdRspEvent;
 	unsigned long Expire;
@@ -955,7 +955,7 @@ INT AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, 
 	unsigned int VarLen, OffsetNum, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	BOOLEAN LastPacket = FALSE;
 
 	OffsetNum = Cnt / ((pChipCap->InbandPacketMaxLen - sizeof(Offset)) / 4);
@@ -1026,7 +1026,7 @@ INT AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, uns
 	CHAR *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
 	unsigned int i, Value, Status = NDIS_STATUS_SUCCESS, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 
 	OffsetNum = Cnt / ((pChipCap->InbandPacketMaxLen - sizeof(Offset)) / 4);
 
@@ -1119,7 +1119,7 @@ INT AndesRandomRead(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 	CHAR *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
 	unsigned int i, Value, Status = NDIS_STATUS_SUCCESS, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 
 	os_alloc_mem(pAd, (unsigned char **)&CmdBuf, VarLen);
 	os_alloc_mem(pAd, (unsigned char **)&RspBuf, VarLen);
@@ -1197,7 +1197,7 @@ INT AndesRFRandomRead(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int
 	CHAR *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
 	unsigned int i, Value, Status = NDIS_STATUS_SUCCESS, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 
 	os_alloc_mem(pAd, (unsigned char **)&CmdBuf, VarLen);
 	os_alloc_mem(pAd, (unsigned char **)&RspBuf, VarLen);
@@ -1285,7 +1285,7 @@ INT AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num
 	unsigned int VarLen = Num * 12, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	BOOLEAN LastPacket = FALSE;
 	
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
@@ -1356,7 +1356,7 @@ INT AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned in
 	unsigned int VarLen = Num * 12, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	BOOLEAN LastPacket = FALSE;
 	
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
@@ -1442,7 +1442,7 @@ INT AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	BOOLEAN LastPacket = FALSE;
 
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
@@ -1508,7 +1508,7 @@ INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	va_list argptr;
 	BOOLEAN LastPacket = FALSE;
 
@@ -1578,7 +1578,7 @@ INT AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigne
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	BOOLEAN LastPacket = FALSE;
 
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
@@ -1659,7 +1659,7 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	va_list argptr;
 	BOOLEAN LastPacket = FALSE;
 
@@ -1745,7 +1745,7 @@ INT AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned 
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	BOOLEAN LastPacket = FALSE;
 
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
@@ -1820,7 +1820,7 @@ INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	va_list argptr;
 	BOOLEAN LastPacket = FALSE;
 
@@ -1902,7 +1902,7 @@ INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLeve
 	CHAR *Pos, *Buf;
 	unsigned int VarLen;
 	unsigned int Value;
-	INT32 Ret;
+	int Ret;
 
 	/* Power operation and Power Level */
 	VarLen = 8;
@@ -1976,7 +1976,7 @@ INT AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param)
 	CHAR *Pos, *Buf;
 	unsigned int VarLen;
 	unsigned int Value;
-	INT32 Ret;
+	int Ret;
 
 	/* Function ID and Parameter */
 	VarLen = 8;
@@ -2023,7 +2023,7 @@ INT AndesCalibrationOP(PRTMP_ADAPTER pAd, unsigned int CalibrationID, unsigned i
 	CHAR *Pos, *Buf;
 	unsigned int VarLen;
 	unsigned int Value;
-	INT32 Ret;
+	int Ret;
 
 	/* Calibration ID and Parameter */
 	VarLen = 8;

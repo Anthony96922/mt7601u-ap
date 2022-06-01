@@ -2420,7 +2420,7 @@ VOID RT28xxAndesWOWEnable(
 	NEW_WOW_PARAM_STRUCT wow_param;
 	struct CMD_UNIT CmdUnit;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	INT32 Ret;
+	int Ret;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 
 
@@ -2552,7 +2552,7 @@ VOID RT28xxAndesWOWEnable(
 	}
 	else
 	{
-		INT32 Value;
+		int Value;
 		
 		wow_param.Value = WOW_WAKEUP_BY_GPIO;
 
@@ -2607,7 +2607,7 @@ VOID RT28xxAndesWOWDisable(
     NEW_WOW_PARAM_STRUCT param;
     struct CMD_UNIT CmdUnit;
     RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-    INT32 Ret;
+    int Ret;
     unsigned int Value;
     MAC_TABLE_ENTRY *pEntry = NULL;
 
@@ -2679,7 +2679,7 @@ VOID RT28xxAndesWOWDisable(
 
 	if (pAd->WOW_Cfg.bInBand == FALSE)
 	{
-		INT32 Value;
+		int Value;
 		
 		RTMP_IO_READ32(pAd, WLAN_FUN_CTRL, &Value);
 		printk("\x1b[31m%s: 0x80 = %x\x1b[m\n", __FUNCTION__, Value);

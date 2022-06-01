@@ -2027,7 +2027,7 @@ INT RTMPAPSetInformation(
 						retVal = copy_from_user(pUPnPMsg, wrq->u.data.pointer, msgLen);
 
 						msgHdr = (RTMP_WSC_U2KMSG_HDR *)pUPnPMsg;
-						senderID = get_unaligned((INT32 *)(&msgHdr->Addr2[0]));
+						senderID = get_unaligned((int *)(&msgHdr->Addr2[0]));
 						/*senderID = *((int *)&msgHdr->Addr2); */
 
 						DBGPRINT(RT_DEBUG_TRACE, ("RT_OID_WSC_EAPMSG++++++++\n\n"));
@@ -4703,7 +4703,7 @@ INT	Set_AP_RekeyInterval_Proc(
 {
 	POS_COOKIE 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	unsigned char		apidx = pObj->ioctl_if;
-	INT32	val;
+	int	val;
 
 	val = simple_strtol(arg, 0, 10);
 

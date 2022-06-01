@@ -4137,7 +4137,7 @@ INT Set_ATE_Load_E2P_Proc(
 	BOOLEAN		    	ret = FALSE;
 	char *			src = EEPROM_BIN_FILE_NAME;
 	RTMP_OS_FD		srcf;
-	INT32 			retval;
+	int 			retval;
 	unsigned short 			WriteEEPROM[(EEPROM_SIZE >> 1)];
 	INT				FileLength = 0;
 	unsigned int 			value = (unsigned int) simple_strtol(arg, 0, 10);

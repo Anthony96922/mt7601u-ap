@@ -80,7 +80,7 @@ INT MBSS_Open(
 INT MBSS_Close(
 	IN	PNET_DEV					pDev);
 
-INT32 RT28xx_MBSS_IdxGet(
+int RT28xx_MBSS_IdxGet(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNET_DEV			pDev);
 

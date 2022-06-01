@@ -125,9 +125,9 @@ VOID WpaSendMicFailureToWpaSupplicant(
 
 
 
-INT32  RtPrivIoctlSetVal(VOID)
+int  RtPrivIoctlSetVal(VOID)
 {
-    return (INT32)RTPRIV_IOCTL_SET;
+    return (int)RTPRIV_IOCTL_SET;
 }
 
 

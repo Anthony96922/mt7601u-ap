@@ -910,7 +910,7 @@ void RTMP_GetCurrentSystemTime(LARGE_INTEGER *time);
 extern VOID dump_urb(VOID *purb);
 
 typedef VOID		USBHST_STATUS;
-typedef INT32		URBCompleteStatus;
+typedef int		URBCompleteStatus;
 #define RTMP_OS_WAIT_QUEUE_HEAD		VOID
 typedef VOID (*usb_complete_t)(VOID *);
 
@@ -966,9 +966,9 @@ USBHST_STATUS RTUSBBulkOutHCCANullFrameComplete(URBCompleteStatus Status, purbb_
 #undef in_interrupt
 #define in_interrupt		RtmpOsIsInInterrupt
 
-extern VOID *rausb_alloc_urb(INT32 iso_packets);
+extern VOID *rausb_alloc_urb(int iso_packets);
 extern VOID rausb_free_urb(VOID *urb);
-extern INT32 rausb_submit_urb(VOID *urb);
+extern int rausb_submit_urb(VOID *urb);
 extern VOID *rausb_buffer_alloc(VOID *dev,
 								size_t size,
 								ra_dma_addr_t *dma);

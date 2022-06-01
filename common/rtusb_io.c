@@ -1042,7 +1042,7 @@ NTSTATUS CheckGPIOHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 static NTSTATUS ResetBulkOutHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
 
-	INT32 MACValue = 0;
+	int MACValue = 0;
 	unsigned char Index = 0;
 	int ret=0;
 	PHT_TX_CONTEXT	pHTTXContext;

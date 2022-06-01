@@ -1572,7 +1572,7 @@ VOID NICUpdateFifoStaCounters(
 	MAC_TABLE_ENTRY		*pEntry = NULL;
 	unsigned int				i = 0;
 	unsigned char				pid = 0, wcid = 0;
-	INT32				reTry;
+	int				reTry;
 	unsigned char				succMCS;
 
 #ifdef RALINK_ATE		

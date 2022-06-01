@@ -20,9 +20,9 @@
 #define DEBUGPRINT(fmt, args...) printf(fmt, ## args)
 #endif /* __KERNEL__ */
 
-#define UINT32_HBITS(value)	(((value) >> 0x10) & 0xffff)
-#define UINT32_LBITS(value)	((value) & 0xffff)
-#define UINT32_GETBYTE(value, index)	(((value) >> ((index)*8)) & 0xff)
+#define Uint_HBITS(value)	(((value) >> 0x10) & 0xffff)
+#define Uint_LBITS(value)	((value) & 0xffff)
+#define Uint_GETBYTE(value, index)	(((value) >> ((index)*8)) & 0xff)
 #define UINT64_HBITS(value)	(((value) >> 0x20) & 0xffffffff)
 #define UINT64_LBITS(value)	((value) & 0xffffffff)
 

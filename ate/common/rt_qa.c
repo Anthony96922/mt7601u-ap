@@ -262,9 +262,9 @@ static VOID RTMP_IO_READ_BULK(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned in
 }
 
 
-VOID BubbleSort(INT32 size, INT32 array[])
+VOID BubbleSort(int size, int array[])
 { 
-	INT32 outer, inner, temp;
+	int outer, inner, temp;
 
 	for (outer = size-1;  outer>0;  outer--)
 	{
@@ -282,15 +282,15 @@ VOID BubbleSort(INT32 size, INT32 array[])
 } 
 
 
-VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, INT32 RSSI[3][10])
+VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, int RSSI[3][10])
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	INT32		RSSI0, RSSI1, RSSI2;
+	int		RSSI0, RSSI1, RSSI2;
  	CHAR		Rssi0Offset, Rssi1Offset, Rssi2Offset;
 	unsigned char		BbpR50Rssi0 = 0, BbpR51Rssi1 = 0, BbpR52Rssi2 = 0;
 	unsigned char		Org_BBP66value = 0, Org_BBP69value = 0, Org_BBP70value = 0, data = 0;
 	unsigned short		LNA_Gain = 0;
-	INT32		column = 0;
+	int		column = 0;
 	unsigned char		Org_Channel = pATEInfo->Channel;
 	unsigned short	    GainValue = 0, OffsetValue = 0;
 
@@ -361,7 +361,7 @@ VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, INT32 RSSI[3][10])
 			}
 			else
 			{
-				RSSI0 = (INT32)(-12 - BbpR50Rssi0 - LNA_Gain - Rssi0Offset);
+				RSSI0 = (int)(-12 - BbpR50Rssi0 - LNA_Gain - Rssi0Offset);
 			}
 			RSSI[0][column] = RSSI0;
 
@@ -374,7 +374,7 @@ VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, INT32 RSSI[3][10])
 				}
 				else
 				{
-					RSSI1 = (INT32)(-12 - BbpR51Rssi1 - LNA_Gain - Rssi1Offset);
+					RSSI1 = (int)(-12 - BbpR51Rssi1 - LNA_Gain - Rssi1Offset);
 				}
 				RSSI[1][column] = RSSI1;
 			}
@@ -385,7 +385,7 @@ VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, INT32 RSSI[3][10])
 				if (BbpR52Rssi2 == 0)
 					RSSI2 = -100;
 				else
-					RSSI2 = (INT32)(-12 - BbpR52Rssi2 - LNA_Gain - Rssi2Offset);
+					RSSI2 = (int)(-12 - BbpR52Rssi2 - LNA_Gain - Rssi2Offset);
 
 				RSSI[2][column] = RSSI2;
 			}
@@ -600,7 +600,7 @@ static  INT DO_RACFG_CMD_ATE_STOP(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	INT32 ret;
+	int ret;
 
 	DBGPRINT(RT_DEBUG_TRACE,("RACFG_CMD_ATE_STOP\n"));
 
@@ -913,13 +913,13 @@ static  INT DO_RACFG_CMD_GET_NOISE_LEVEL(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	unsigned char	channel;
-	INT32   buffer[3][10];/* 3 : RxPath ; 10 : no. of per rssi samples */
+	int   buffer[3][10];/* 3 : RxPath ; 10 : no. of per rssi samples */
 
 	channel = (OS_NTOHS(pRaCfg->status) & 0x00FF);
 	CalNoiseLevel(pAd, channel, buffer);
-	memcpy_exl(pAd, (unsigned char *)pRaCfg->data, (unsigned char *)&(buffer[0][0]), (sizeof(INT32)*3*10));
+	memcpy_exl(pAd, (unsigned char *)pRaCfg->data, (unsigned char *)&(buffer[0][0]), (sizeof(int)*3*10));
 
-	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+(sizeof(INT32)*3*10), NDIS_STATUS_SUCCESS);
+	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+(sizeof(int)*3*10), NDIS_STATUS_SUCCESS);
 
 	return NDIS_STATUS_SUCCESS;
 }
@@ -1343,13 +1343,13 @@ static  INT DO_RACFG_CMD_ATE_GET_STATISTICS(
 	
 	if (pATEInfo->RxAntennaSel == 0)
 	{
-		INT32 RSSI0 = 0;
-		INT32 RSSI1 = 0;
-		INT32 RSSI2 = 0;
+		int RSSI0 = 0;
+		int RSSI1 = 0;
+		int RSSI2 = 0;
 
-		RSSI0 = (INT32)(pATEInfo->LastRssi0 - pAd->BbpRssiToDbmDelta);
-		RSSI1 = (INT32)(pATEInfo->LastRssi1 - pAd->BbpRssiToDbmDelta);
-		RSSI2 = (INT32)(pATEInfo->LastRssi2 - pAd->BbpRssiToDbmDelta);
+		RSSI0 = (int)(pATEInfo->LastRssi0 - pAd->BbpRssiToDbmDelta);
+		RSSI1 = (int)(pATEInfo->LastRssi1 - pAd->BbpRssiToDbmDelta);
+		RSSI2 = (int)(pATEInfo->LastRssi2 - pAd->BbpRssiToDbmDelta);
 		memcpy_exl(pAd, &pRaCfg->data[40], (unsigned char *)&RSSI0, 4);
 		memcpy_exl(pAd, &pRaCfg->data[44], (unsigned char *)&RSSI1, 4);
 		memcpy_exl(pAd, &pRaCfg->data[48], (unsigned char *)&RSSI2, 4);
@@ -1357,9 +1357,9 @@ static  INT DO_RACFG_CMD_ATE_GET_STATISTICS(
 	}
 	else
 	{
-		INT32 RSSI0 = 0;
+		int RSSI0 = 0;
 	
-		RSSI0 = (INT32)(pATEInfo->LastRssi0 - pAd->BbpRssiToDbmDelta);
+		RSSI0 = (int)(pATEInfo->LastRssi0 - pAd->BbpRssiToDbmDelta);
 		memcpy_exl(pAd, &pRaCfg->data[40], (unsigned char *)&RSSI0, 4);
 		ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+44, NDIS_STATUS_SUCCESS);
 	}
@@ -1927,13 +1927,13 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP(
 #endif /* TXBF_SUPPORT */
 
 
-static INT32 DO_RACFG_CMD_ATE_SHOW_PARAM(
+static int DO_RACFG_CMD_ATE_SHOW_PARAM(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	INT32 Status = NDIS_STATUS_SUCCESS;
+	int Status = NDIS_STATUS_SUCCESS;
 	unsigned int Len;
 	ATE_EX_PARAM ATEExParam;
 	
@@ -2144,13 +2144,13 @@ RACFG_CMD_TABLE RACFG_CMD_TABLES[]={
 };
 
 
-static INT32 RACfgCMDHandler(
+static int RACfgCMDHandler(
 	IN PRTMP_ADAPTER pAd,
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq,
 	IN pRACFGHDR pRaCfg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	INT32 Status = NDIS_STATUS_SUCCESS;
+	int Status = NDIS_STATUS_SUCCESS;
 	unsigned short Command_Id;
 	unsigned int TableIndex = 0;
 
@@ -2221,7 +2221,7 @@ INT RtmpDoAte(
 	IN	RTMP_IOCTL_INPUT_STRUCT		*wrq,
 	IN	char *			wrq_name)
 {
-	INT32 Status = NDIS_STATUS_SUCCESS;
+	int Status = NDIS_STATUS_SUCCESS;
 	struct ate_racfghdr *pRaCfg;
 	unsigned int ATEMagicNum;
 

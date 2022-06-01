@@ -315,7 +315,7 @@ void RtmpOSFileSeek(RTMP_OS_FD osfd, int offset);
 int RtmpOSFileRead(RTMP_OS_FD osfd, char *pDataPtr, int readLen);
 int RtmpOSFileWrite(RTMP_OS_FD osfd, char *pDataPtr, int writeLen);
 
-INT32 RtmpOsFileIsErr(
+int RtmpOsFileIsErr(
 	IN	VOID					*pFile);
 
 void RtmpOSFSInfoChange(
@@ -366,7 +366,7 @@ void RtmpOSNetDevProtect(
 	IN BOOLEAN lock_it);
 
 PNET_DEV RtmpOSNetDevCreate(
-	IN	INT32					MC_RowID,
+	IN	int					MC_RowID,
 	IN	unsigned int					*pIoctlIF,
 	IN	INT 					devType,
 	IN	INT						devNum,
@@ -443,7 +443,7 @@ VOID RtmpOsTaskletDataAssign(
 
 VOID RtmpOsTaskWakeUp(RTMP_OS_TASK *pTaskOrg);
 
-INT32 RtmpOsTaskIsKilled(RTMP_OS_TASK *pTaskOrg);
+int RtmpOsTaskIsKilled(RTMP_OS_TASK *pTaskOrg);
 
 BOOLEAN RtmpOsCheckTaskLegality(RTMP_OS_TASK *pTaskOrg);
 
@@ -478,11 +478,11 @@ NDIS_STATUS RtmpOSTaskInit(
 BOOLEAN RtmpOSTaskWait(
 	IN	VOID					*pReserved,
 	IN	RTMP_OS_TASK			*pTaskOrg,
-	IN	INT32					*pStatus);
+	IN	int					*pStatus);
 
 VOID *RtmpOsTaskDataGet(RTMP_OS_TASK *pTaskOrg);
 
-INT32 RtmpThreadPidKill(RTMP_OS_PID	 PID);
+int RtmpThreadPidKill(RTMP_OS_PID	 PID);
 
 /* OS Cache */
 VOID RtmpOsDCacheFlush(unsigned long AddrStart, unsigned long Size);
@@ -582,7 +582,7 @@ VOID RtmpOsPciMsiDisable(VOID *pDev);
 unsigned long RtmpOsMaxScanDataGet(VOID);
 
 /* OS Interrutp */
-INT32 RtmpOsIsInInterrupt(VOID);
+int RtmpOsIsInInterrupt(VOID);
 
 /* OS USB */
 VOID *RtmpOsUsbUrbDataGet(VOID *pUrb);
@@ -959,7 +959,7 @@ VOID CFG80211OS_Scaning(
 	IN unsigned int					ChanId,
 	IN unsigned char					*pFrame,
 	IN unsigned int					FrameLen,
-	IN INT32					RSSI,
+	IN int					RSSI,
 	IN BOOLEAN					FlgIsNMode,
 	IN unsigned char					BW);
 
@@ -995,13 +995,13 @@ extern unsigned long RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 
 extern unsigned long OS_NumOfMemAlloc, OS_NumOfMemFree;
 
-extern INT32 ralinkrate[];
+extern int ralinkrate[];
 extern unsigned int RT_RateSize;
 
 #ifdef PLATFORM_UBM_IPX8
 #include "vrut_ubm.h"
 #endif /* PLATFORM_UBM_IPX8 */
 
-INT32  RtPrivIoctlSetVal(VOID);
+int  RtPrivIoctlSetVal(VOID);
 
 #endif /* __RT_OS_UTIL_H__ */

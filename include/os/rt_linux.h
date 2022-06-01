@@ -1324,7 +1324,7 @@ typedef struct usb_device_id USB_DEVICE_ID;
 #define InterlockedExchange			atomic_set
 
 typedef void USBHST_STATUS;
-typedef INT32 URBCompleteStatus;
+typedef int URBCompleteStatus;
 typedef struct pt_regs pregs;
 
 USBHST_STATUS RTUSBBulkOutDataPacketComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
@@ -1487,7 +1487,7 @@ extern int rausb_submit_urb(VOID *urb);
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
 #ifndef gfp_t
-#define gfp_t		INT32
+#define gfp_t		int
 #endif /* gfp_t */
 
 extern void *rausb_buffer_alloc(VOID *dev,

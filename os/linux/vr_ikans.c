@@ -38,16 +38,16 @@ extern INT rt28xx_send_packets(
 	IN struct sk_buff		*skb_p,
 	IN struct net_device	*net_dev);
 
-static INT32 IKANOS_WlanDataFramesTx(
+static int IKANOS_WlanDataFramesTx(
 	IN void					*_pAdBuf,
 	IN struct net_device	*pNetDev);
 
 static void IKANOS_WlanPktFromAp(
 	IN apPreHeader_t 		*pFrame);
 
-static INT32 GetSpecInfoIdxFromBssid(
+static int GetSpecInfoIdxFromBssid(
 	IN PRTMP_ADAPTER pAd,
-	IN INT32 FromWhichBSSID);
+	IN int FromWhichBSSID);
 
 
 
@@ -103,7 +103,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT32 IKANOS_DataFramesTx(
+int IKANOS_DataFramesTx(
 	IN struct sk_buff		*pSkb,
 	IN struct net_device	*pNetDev)
 {
@@ -190,7 +190,7 @@ Return Value:
 Note:
 ========================================================================
 */
-static INT32 IKANOS_WlanDataFramesTx(
+static int IKANOS_WlanDataFramesTx(
 	IN void					*_pAdBuf,
 	IN struct net_device	*pNetDev)
 {
@@ -214,11 +214,11 @@ static INT32 IKANOS_WlanDataFramesTx(
 } /* End of IKANOS_WlanDataFramesTx */
 
 
-static INT32 GetSpecInfoIdxFromBssid(
+static int GetSpecInfoIdxFromBssid(
 	IN PRTMP_ADAPTER pAd,
-	IN INT32 FromWhichBSSID)
+	IN int FromWhichBSSID)
 {
-	INT32 IfIdx = MAIN_MBSSID;
+	int IfIdx = MAIN_MBSSID;
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -263,11 +263,11 @@ Return Value:
 Note:
 ========================================================================
 */
-static INT32 GetSpecInfoIdxFromBssid(
+static int GetSpecInfoIdxFromBssid(
 	IN PRTMP_ADAPTER	pAd,
-	IN INT32			FromWhichBSSID)
+	IN int			FromWhichBSSID)
 {
-	INT32 IfIdx = MAIN_MBSSID;
+	int IfIdx = MAIN_MBSSID;
 
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -319,7 +319,7 @@ static void IKANOS_WlanPktFromAp(
 	PRTMP_ADAPTER pAd;
     struct net_device *dev = NULL;
     struct sk_buff *skb;
-    INT32 index;
+    int index;
     apPreHeader_t *apBuf = K0_TO_K1(pFrame);
 
 

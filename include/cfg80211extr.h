@@ -184,7 +184,7 @@ VOID CFG80211_Scaning(
 	IN unsigned int					ChanId,
 	IN unsigned char					*pFrame,
 	IN unsigned int					FrameLen,
-	IN INT32					RSSI);
+	IN int					RSSI);
 
 #ifdef RFKILL_HW_SUPPORT
 VOID CFG80211_RFKillStatusUpdate(

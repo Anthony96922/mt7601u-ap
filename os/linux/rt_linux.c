@@ -1115,7 +1115,7 @@ static inline NDIS_STATUS __RtmpOSTaskInit(
 BOOLEAN __RtmpOSTaskWait(
 	IN VOID *pReserved,
 	IN OS_TASK *pTask,
-	IN INT32 *pStatus)
+	IN int *pStatus)
 {
 #ifdef KTHREAD_SUPPORT
 	RTMP_WAIT_EVENT_INTERRUPTIBLE((*pStatus), pTask);
@@ -1289,7 +1289,7 @@ int RtmpOSNetDevAddrSet(
   *	Assign the network dev name for created Ralink WiFi interface.
   */
 static int RtmpOSNetDevRequestName(
-	IN INT32 MC_RowID,
+	IN int MC_RowID,
 	IN unsigned int *pIoctlIF,
 	IN PNET_DEV dev,
 	IN char * pPrefixStr,
@@ -1614,7 +1614,7 @@ int RtmpOSNetDevAttach(
 }
 
 PNET_DEV RtmpOSNetDevCreate(
-	IN INT32 MC_RowID,
+	IN int MC_RowID,
 	IN unsigned int *pIoctlIF,
 	IN INT devType,
 	IN INT devNum,
@@ -2009,7 +2009,7 @@ Note:
 	rt_linux.h, not rt_drv.h
 ========================================================================
 */
-INT32 RtmpOsFileIsErr(IN VOID *pFile)
+int RtmpOsFileIsErr(IN VOID *pFile)
 {
 	return IS_FILE_OPEN_ERR(pFile);
 }
@@ -2992,7 +2992,7 @@ VOID CFG80211OS_Scaning(
 	IN unsigned int					ChanId,
 	IN unsigned char					*pFrame,
 	IN unsigned int					FrameLen,
-	IN INT32					RSSI,
+	IN int					RSSI,
 	IN BOOLEAN					FlgIsNMode,
 	IN unsigned char					BW)
 {
@@ -3376,7 +3376,7 @@ VOID RtmpOsTaskletDataAssign(RTMP_NET_TASK_STRUCT *pTasklet, unsigned long Data)
 }
 
 
-INT32 RtmpOsTaskIsKilled(RTMP_OS_TASK *pTaskOrg)
+int RtmpOsTaskIsKilled(RTMP_OS_TASK *pTaskOrg)
 {
 	OS_TASK *pTask;
 
@@ -3915,7 +3915,7 @@ Return Value:
 Note:
 ========================================================================
 */
-BOOLEAN RtmpOSTaskWait(VOID *pReserved, RTMP_OS_TASK *pTaskOrg, INT32 *pStatus)
+BOOLEAN RtmpOSTaskWait(VOID *pReserved, RTMP_OS_TASK *pTaskOrg, int *pStatus)
 {
 	OS_TASK *pTask;
 
@@ -4675,7 +4675,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT32 RtmpOsSemaWaitInterruptible(RTMP_OS_SEM *pSemOrg)
+int RtmpOsSemaWaitInterruptible(RTMP_OS_SEM *pSemOrg)
 {
 	OS_SEM *pSem;
 	INT Status = -1;
@@ -4726,7 +4726,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT32 RtmpOsIsInInterrupt(VOID)
+int RtmpOsIsInInterrupt(VOID)
 {
 	return (in_interrupt());
 }
@@ -4981,7 +4981,7 @@ VOID RtmpOsPktInfPpaSend(PNDIS_PACKET pNetPkt)
 }
 
 
-INT32 RtmpThreadPidKill(RTMP_OS_PID PID)
+int RtmpThreadPidKill(RTMP_OS_PID PID)
 {
 	return KILL_THREAD_PID(PID, SIGTERM, 1);
 }
@@ -5246,7 +5246,7 @@ NDIS_STATUS RtmpOSTaskInit(
 }
 
 
-BOOLEAN RtmpOSTaskWait(VOID *pReserved, RTMP_OS_TASK * pTask, INT32 *pStatus)
+BOOLEAN RtmpOSTaskWait(VOID *pReserved, RTMP_OS_TASK * pTask, int *pStatus)
 {
 	return __RtmpOSTaskWait(pReserved, pTask, pStatus);
 }

@@ -1069,7 +1069,7 @@ PNET_DEV RtmpPhyNetDevMainCreate(
 	IoctlIF = pAd->IoctlIF;
 #endif /* HOSTAPD_SUPPORT */
 
-	pDevNew = RtmpOSNetDevCreate((INT32)MC_RowID, (unsigned int *)&IoctlIF,
+	pDevNew = RtmpOSNetDevCreate((int)MC_RowID, (unsigned int *)&IoctlIF,
 					INT_MAIN, 0, sizeof(PRTMP_ADAPTER), INF_MAIN_DEV_NAME);
 
 #ifdef HOSTAPD_SUPPORT

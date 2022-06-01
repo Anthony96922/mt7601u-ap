@@ -1472,7 +1472,7 @@ VOID CFG80211_Scaning(
 	IN unsigned int						ChanId,
 	IN unsigned char						*pFrame,
 	IN unsigned int						FrameLen,
-	IN INT32						RSSI)
+	IN int						RSSI)
 {
 } /* End of CFG80211_Scaning */
 

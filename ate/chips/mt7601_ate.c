@@ -399,7 +399,7 @@ BOOLEAN MT7601ATEGetTssiCompensationParam(
 	unsigned char PacketType;
 	unsigned char BbpR47;
 	unsigned char TxRate;
-	INT32 Power;
+	int Power;
 	unsigned char ch = 0;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
@@ -647,7 +647,7 @@ BOOLEAN MT7601ATEGetTssiCompensationParam(
 VOID MT7601ATEAsicTxAlcGetAutoAgcOffset(
 	IN PRTMP_ADAPTER 			pAd)
 {
-	INT32 TargetPower, CurrentPower, PowerDiff;
+	int TargetPower, CurrentPower, PowerDiff;
 	unsigned char TssiLinear0, TssiLinear1;
 	CHAR tssi_offset;
 	INT16 tssi_db, tssi_m_dc;
