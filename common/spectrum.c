@@ -1018,7 +1018,7 @@ static VOID InsertMeasureReportIE(
 	OUT unsigned long * pFrameLen,
 	IN PMEASURE_REPORT_INFO pMeasureReportIE,
 	IN UINT8 ReportLnfoLen,
-	IN PUINT8 pReportInfo)
+	IN unsigned char * pReportInfo)
 {
 	ULONG TempLen;
 	UINT8 Len;
@@ -1117,7 +1117,7 @@ VOID EnqueueMeasurementRep(
 	IN UINT8 MeasureReqMode,
 	IN UINT8 MeasureReqType,
 	IN UINT8 ReportInfoLen,
-	IN PUINT8 pReportInfo)
+	IN unsigned char * pReportInfo)
 {
 	PUCHAR pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
@@ -1511,7 +1511,7 @@ static BOOLEAN PeerMeasureReqSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN ULONG MsgLen,
-	OUT PUINT8 pDialogToken,
+	OUT unsigned char * pDialogToken,
 	OUT PMEASURE_REQ_INFO pMeasureReqInfo,
 	OUT PMEASURE_REQ pMeasureReq)
 {
@@ -1603,9 +1603,9 @@ static BOOLEAN PeerMeasureReportSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN ULONG MsgLen,
-	OUT PUINT8 pDialogToken,
+	OUT unsigned char * pDialogToken,
 	OUT PMEASURE_REPORT_INFO pMeasureReportInfo,
-	OUT PUINT8 pReportBuf)
+	OUT unsigned char * pReportBuf)
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
 	PUCHAR pFramePtr = Fr->Octet;
@@ -1694,7 +1694,7 @@ static BOOLEAN PeerTpcReqSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN ULONG MsgLen,
-	OUT PUINT8 pDialogToken)
+	OUT unsigned char * pDialogToken)
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
 	PUCHAR pFramePtr = Fr->Octet;
@@ -1750,7 +1750,7 @@ static BOOLEAN PeerTpcRepSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *pMsg,
 	IN ULONG MsgLen,
-	OUT PUINT8 pDialogToken,
+	OUT unsigned char * pDialogToken,
 	OUT PTPC_REPORT_INFO pTpcRepInfo)
 {
 	PFRAME_802_11 Fr = (PFRAME_802_11)pMsg;
@@ -1880,7 +1880,7 @@ static VOID PeerMeasureReportAction(
 	MEASURE_REPORT_INFO MeasureReportInfo;
 	PFRAME_802_11 pFr = (PFRAME_802_11)Elem->Msg;
 	UINT8 DialogToken;
-	PUINT8 pMeasureReportInfo;
+	unsigned char * pMeasureReportInfo;
 
 /*	if (pAd->CommonCfg.bIEEE80211H != TRUE)*/
 /*		return;*/

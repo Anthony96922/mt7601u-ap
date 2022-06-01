@@ -238,31 +238,31 @@ int RtmpPasswordHash(
 	unsigned char *output);
 
 	VOID KDF(
-	IN PUINT8 key,
+	IN unsigned char * key,
 	IN INT key_len,
-	IN PUINT8 label,
+	IN unsigned char * label,
 	IN INT label_len,
-	IN PUINT8 data,
+	IN unsigned char * data,
 	IN INT data_len,
-	OUT PUINT8 output,
+	OUT unsigned char * output,
 	IN USHORT len);
 
-PUINT8 WPA_ExtractSuiteFromRSNIE(
-	IN PUINT8 rsnie,
+unsigned char * WPA_ExtractSuiteFromRSNIE(
+	IN unsigned char * rsnie,
 	IN UINT rsnie_len,
 	IN UINT8 type,
 	OUT UINT8 *count);
 
 VOID WpaShowAllsuite(
-	IN PUINT8 rsnie,
+	IN unsigned char * rsnie,
 	IN UINT rsnie_len);
 
 VOID RTMPInsertRSNIE(
 	IN PUCHAR pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN PUINT8 rsnie_ptr,
+	IN unsigned char * rsnie_ptr,
 	IN UINT8 rsnie_len,
-	IN PUINT8 pmkid_ptr,
+	IN unsigned char * pmkid_ptr,
 	IN UINT8 pmkid_len);
 
 /* 
@@ -393,7 +393,7 @@ VOID WPAInstallSharedKey(
 	UINT8 KeyIdx,
 	UINT8 Wcid,
 	BOOLEAN bAE,
-	PUINT8 pGtk,
+	unsigned char * pGtk,
 	UINT8 GtkLen);
 
 VOID RTMPSetWcidSecurityInfo(

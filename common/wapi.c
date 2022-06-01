@@ -1115,7 +1115,7 @@ VOID WAPIInstallSharedKey(
 	UINT8				BssIdx,
 	UINT8				KeyIdx,
 	UINT8				Wcid,
-	PUINT8				pGtk)
+	unsigned char *				pGtk)
 {
 	UINT32			CONST_WAPI_PN = 0x5C365C36;
 	PCIPHER_KEY 	pSharedKey;

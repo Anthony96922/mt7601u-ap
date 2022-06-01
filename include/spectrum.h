@@ -58,7 +58,7 @@ VOID EnqueueMeasurementRep(
 	IN UINT8 MeasureReqMode,
 	IN UINT8 MeasureReqType,
 	IN UINT8 ReportInfoLen,
-	IN PUINT8 pReportInfo);
+	IN unsigned char * pReportInfo);
 
 /*
 	==========================================================================

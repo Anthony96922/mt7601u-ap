@@ -770,7 +770,7 @@ VOID WPAStart4WayHS(
     UCHAR           Header802_3[14];
 	UCHAR   		*mpool;
     PEAPOL_PACKET	pEapolFrame;
-	PUINT8			pBssid = NULL;
+	unsigned char *			pBssid = NULL;
 	UCHAR			group_cipher = Ndis802_11WEPDisabled;
 #ifdef CONFIG_AP_SUPPORT
 	UCHAR			apidx = 0;
@@ -930,10 +930,10 @@ VOID PeerPairMsg1Action(
 	UINT            	MsgLen;	
 	UCHAR   			*mpool;
     PEAPOL_PACKET		pEapolFrame;
-	PUINT8				pCurrentAddr = NULL;
-	PUINT8				pmk_ptr = NULL;
+	unsigned char *				pCurrentAddr = NULL;
+	unsigned char *				pmk_ptr = NULL;
 	UCHAR				group_cipher = Ndis802_11WEPDisabled;
-	PUINT8				rsnie_ptr = NULL;
+	unsigned char *				rsnie_ptr = NULL;
 	UCHAR				rsnie_len = 0;
 	   
 	DBGPRINT(RT_DEBUG_TRACE, ("===> PeerPairMsg1Action \n"));
@@ -1062,12 +1062,12 @@ VOID PeerPairMsg2Action(
 	UINT            	MsgLen;
     UCHAR               Header802_3[LENGTH_802_3];
 	UCHAR 				TxTsc[6];	
-	PUINT8				pBssid = NULL;
-	PUINT8				pmk_ptr = NULL;
-	PUINT8				gtk_ptr = NULL;
+	unsigned char *				pBssid = NULL;
+	unsigned char *				pmk_ptr = NULL;
+	unsigned char *				gtk_ptr = NULL;
 	UCHAR				default_key = 0;
 	UCHAR				group_cipher = Ndis802_11WEPDisabled;
-	PUINT8				rsnie_ptr = NULL;
+	unsigned char *				rsnie_ptr = NULL;
 	UCHAR				rsnie_len = 0;
 #ifdef CONFIG_AP_SUPPORT
 	UCHAR				apidx = 0;
@@ -1242,7 +1242,7 @@ VOID PeerPairMsg3Action(
 	PEAPOL_PACKET		pEapolFrame;
 	PEAPOL_PACKET		pMsg3;
 	UINT            	MsgLen;				
-	PUINT8				pCurrentAddr = NULL;
+	unsigned char *				pCurrentAddr = NULL;
 	UCHAR				group_cipher = Ndis802_11WEPDisabled;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("===> PeerPairMsg3Action \n"));
@@ -1512,9 +1512,9 @@ VOID WPAStart2WayGroupHS(
 	PEAPOL_PACKET		pEapolFrame;
 	UCHAR				group_cipher = Ndis802_11WEPDisabled;	
 	UCHAR				default_key = 0;
-	PUINT8				gnonce_ptr = NULL;
-	PUINT8				gtk_ptr = NULL;
-	PUINT8				pBssid = NULL;
+	unsigned char *				gnonce_ptr = NULL;
+	unsigned char *				gtk_ptr = NULL;
+	unsigned char *				pBssid = NULL;
     
 	DBGPRINT(RT_DEBUG_TRACE, ("===> WPAStart2WayGroupHS\n"));
 
@@ -1617,7 +1617,7 @@ VOID	PeerGroupMsg1Action(
 	UINT            	MsgLen;
 	UCHAR				default_key = 0;
 	UCHAR				group_cipher = Ndis802_11WEPDisabled;
-	PUINT8				pCurrentAddr = NULL;
+	unsigned char *				pCurrentAddr = NULL;
 #ifdef APCLI_SUPPORT
 	BOOLEAN             Cancelled;
 #endif /* APCLI_SUPPORT */
@@ -2147,13 +2147,13 @@ int RtmpPasswordHash(PSTRING password, PUCHAR ssid, INT ssidlength, PUCHAR outpu
 	========================================================================
 */
 VOID	KDF(
-	IN	PUINT8	key,
+	IN	unsigned char *	key,
 	IN	INT		key_len,
-	IN	PUINT8	label,
+	IN	unsigned char *	label,
 	IN	INT		label_len,
-	IN	PUINT8	data,
+	IN	unsigned char *	data,
 	IN	INT		data_len,
-	OUT	PUINT8	output,
+	OUT	unsigned char *	output,
 	IN	USHORT	len)
 {
 	USHORT	i;
@@ -2218,11 +2218,11 @@ VOID	KDF(
 	========================================================================
 */
 VOID RTMPDerivePMKID(
-	IN	PUINT8			pAaddr,
-	IN	PUINT8			pSpaddr,
-	IN	PUINT8			pKey,
-	IN	PUINT8			pAkm_oui,
-	OUT	PUINT8			pPMKID)
+	IN	unsigned char *			pAaddr,
+	IN	unsigned char *			pSpaddr,
+	IN	unsigned char *			pKey,
+	IN	unsigned char *			pAkm_oui,
+	OUT	unsigned char *			pPMKID)
 {
 	UCHAR	digest[80], text_buf[20];
 	UINT8	text_len;
@@ -3695,7 +3695,7 @@ VOID	ConstructEapolKeyData(
 	/* Encapsulate RSNIE in pairwise_msg2 & pairwise_msg3		*/
 	if (RSNIE_LEN && ((MsgType == EAPOL_PAIR_MSG_2) || (MsgType == EAPOL_PAIR_MSG_3)))
 	{
-		PUINT8	pmkid_ptr = NULL;
+		unsigned char *	pmkid_ptr = NULL;
 		UINT8 	pmkid_len = 0;
 
 
@@ -4146,20 +4146,20 @@ VOID RTMPSoftEncryptionAction(
 
 }
 
-PUINT8	WPA_ExtractSuiteFromRSNIE(
-		IN 	PUINT8	rsnie,
+unsigned char *	WPA_ExtractSuiteFromRSNIE(
+		IN 	unsigned char *	rsnie,
 		IN 	UINT	rsnie_len,
 		IN	UINT8	type,
 		OUT	UINT8	*count)
 {
 	PEID_STRUCT pEid;
 	INT			len;
-	PUINT8		pBuf;
+	unsigned char *		pBuf;
 	INT			offset = 0;
 
 	pEid = (PEID_STRUCT)rsnie;
 	len = rsnie_len - 2;	/* exclude IE and length*/
-	pBuf = (PUINT8)&pEid->Octet[0];
+	pBuf = (unsigned char *)&pEid->Octet[0];
 	
 	/* set default value*/
 	*count = 0;
@@ -4343,7 +4343,7 @@ PUINT8	WPA_ExtractSuiteFromRSNIE(
 	else
 	{
 		UINT16 	p_count;
-		PUINT8	pPmkidList = NULL;
+		unsigned char *	pPmkidList = NULL;
 		
 		NdisMoveMemory(&p_count, pBuf, sizeof(UINT16));
 		p_count = cpu2le16(p_count);
@@ -4398,10 +4398,10 @@ out:
 }	
 
 VOID WpaShowAllsuite(
-	IN 	PUINT8	rsnie,
+	IN 	unsigned char *	rsnie,
 	IN 	UINT	rsnie_len)
 {
-	PUINT8 pSuite = NULL;
+	unsigned char * pSuite = NULL;
 	UINT8 count;
 
 	hex_dump("RSNIE", rsnie, rsnie_len);
@@ -4435,9 +4435,9 @@ VOID WpaShowAllsuite(
 VOID RTMPInsertRSNIE(
 	IN PUCHAR pFrameBuf,
 	OUT unsigned long * pFrameLen,
-	IN PUINT8 rsnie_ptr,
+	IN unsigned char * rsnie_ptr,
 	IN UINT8  rsnie_len,
-	IN PUINT8 pmkid_ptr,
+	IN unsigned char * pmkid_ptr,
 	IN UINT8  pmkid_len)
 {
 	PUCHAR	pTmpBuf;
@@ -4574,7 +4574,7 @@ VOID WPAInstallSharedKey(
 	UINT8				KeyIdx,
 	UINT8				Wcid,
 	BOOLEAN				bAE,
-	PUINT8				pGtk,
+	unsigned char *				pGtk,
 	UINT8				GtkLen)
 {
 	PCIPHER_KEY 	pSharedKey;

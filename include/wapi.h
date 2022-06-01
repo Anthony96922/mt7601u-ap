@@ -170,7 +170,7 @@ VOID WAPIInstallSharedKey(
 	UINT8				BssIdx,
 	UINT8				KeyIdx,
 	UINT8				Wcid,
-	PUINT8				pGtk);
+	unsigned char *				pGtk);
 
 BOOLEAN WAPI_InternalCmdAction(
 		IN  PRTMP_ADAPTER		pAd,
