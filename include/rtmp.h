@@ -651,8 +651,8 @@ typedef struct _COUNTER_RALINK {
 	unsigned int OneSecEnd;	/* for one sec count clear use */
 
 #ifdef MICROWAVE_OVEN_SUPPORT
-	UINT16 FalseCCACnt_100MS[MLME_TASK_EXEC_MULTIPLE]; /* one handred millisecond false CCA Count */
-	UINT16 PLCPErrCnt_100MS[MLME_TASK_EXEC_MULTIPLE]; /* one handred millisecond PLCP Error Count */
+	unsigned short FalseCCACnt_100MS[MLME_TASK_EXEC_MULTIPLE]; /* one handred millisecond false CCA Count */
+	unsigned short PLCPErrCnt_100MS[MLME_TASK_EXEC_MULTIPLE]; /* one handred millisecond PLCP Error Count */
 #endif /* MICROWAVE_OVEN_SUPPORT */
 
 	ULONG TransmittedByteCount;	/* both successful and failure, used to calculate TX throughput */
@@ -748,8 +748,8 @@ typedef struct _STREAM_MODE_ENTRY_{
 typedef struct _MO_CFG_STRUCT {
 	BOOLEAN		bEnable;
 	UINT8  		nPeriod_Cnt; 	/* measurement period 100ms, mitigate the interference period 900 ms */
-	UINT16 		nFalseCCACnt;	
-	UINT16		nFalseCCATh;	/* default is 100 */
+	unsigned short 		nFalseCCACnt;	
+	unsigned short		nFalseCCATh;	/* default is 100 */
 #ifdef MT7601
 	unsigned int		Stored_BBP_R65;
 	UCHAR		Stored_RF_B5_R6;
@@ -1443,7 +1443,7 @@ typedef struct _MULTISSID_STRUCT {
 	CHAR BeaconBuf[MAX_BEACON_SIZE];	/* NOTE: BeaconBuf should be 4-byte aligned */
 
 	BOOLEAN bHideSsid;
-	UINT16 StationKeepAliveTime;	/* unit: second */
+	unsigned short StationKeepAliveTime;	/* unit: second */
 
 	/* VLAN related */
 	BOOLEAN bVLAN_Tag;
@@ -1786,11 +1786,11 @@ typedef struct _COMMON_CONFIG {
 #endif /* MCAST_RATE_SPECIFIC */
 
 #ifdef SINGLE_SKU
-	UINT16 DefineMaxTxPwr;
+	unsigned short DefineMaxTxPwr;
 	BOOLEAN bSKUMode;
-	UINT16 AntGain;
-	UINT16 BandedgeDelta;
-	UINT16 ModuleTxpower;
+	unsigned short AntGain;
+	unsigned short BandedgeDelta;
+	unsigned short ModuleTxpower;
 #endif /* SINGLE_SKU */
 
 #ifdef WAPI_SUPPORT
@@ -1839,7 +1839,7 @@ typedef struct _COMMON_CONFIG {
 
 	UCHAR	StreamMode; /* 0=disabled, 1=enable for 1SS, 2=enable for 2SS, 3=enable for 1,2SS */
 	UCHAR	StreamModeMac[STREAM_MODE_STA_NUM][MAC_ADDR_LEN];
-	UINT16	StreamModeMCS;	/* Bit map for enabling Stream Mode based on MCS */
+	unsigned short	StreamModeMCS;	/* Bit map for enabling Stream Mode based on MCS */
 #endif /* STREAM_MODE_SUPPORT */
 
 #ifdef DOT11_N_SUPPORT
@@ -1996,7 +1996,7 @@ typedef struct _MAC_TABLE_ENTRY {
 	USHORT CapabilityInfo;
 	UCHAR LastRssi;
 	ULONG NoDataIdleCount;
-	UINT16 StationKeepAliveCount;	/* unit: second */
+	unsigned short StationKeepAliveCount;	/* unit: second */
 	ULONG PsQIdleCount;
 	QUEUE_HEADER PsQueue;
 
@@ -2250,7 +2250,7 @@ typedef struct _MAC_TABLE_ENTRY {
 
 	UCHAR HdrPadLen;	/* recording Header Padding Length; */
 	UCHAR MpduHeaderLen;
-	UINT16 Protocol;
+	unsigned short Protocol;
 #endif /* VENDOR_FEATURE1_SUPPORT */
 
 #ifdef AGS_SUPPORT
@@ -4357,7 +4357,7 @@ static inline VOID	RTMPFrameEndianChange(
 static inline VOID ConvertMulticastIP2MAC(
 	IN unsigned char * pIpAddr,
 	IN unsigned char * *ppMacAddr, 
-	IN UINT16 ProtoType)
+	IN unsigned short ProtoType)
 {
 	if (pIpAddr == NULL)
 		return;
@@ -8557,9 +8557,9 @@ unsigned int QBSS_LoadElementAppend(
 unsigned int QBSS_LoadElementParse(
  	IN		RTMP_ADAPTER	*pAd,
 	IN		UINT8			*pElement,
-	OUT		UINT16			*pStationCount,
+	OUT		unsigned short			*pStationCount,
 	OUT		UINT8			*pChanUtil,
-	OUT		UINT16			*pAvalAdmCap);
+	OUT		unsigned short			*pAvalAdmCap);
 
 VOID QBSS_LoadUpdate(
  	IN		RTMP_ADAPTER	*pAd,

@@ -74,7 +74,7 @@ typedef struct _CARRIER_DETECT_PARAM {
 typedef struct _CARRIER_DETECT_DEBUG {
 	 	UINT8	delta_div;
 		UINT8	internalRadarToneCount;
-		UINT16	Criteria;
+		unsigned short	Criteria;
 		unsigned int	Threshold;
 		UINT8	Count;
 		UINT8	CheckCount;

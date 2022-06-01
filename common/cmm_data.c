@@ -1853,7 +1853,7 @@ BOOLEAN RTMPCheckEtherType(
 	UCHAR	Byte0, Byte1;
 	unsigned char *	pSrcBuf;
 	unsigned int	pktLen;
-	UINT16 	srcPort, dstPort;
+	unsigned short 	srcPort, dstPort;
 #ifdef CONFIG_AP_SUPPORT
 	MULTISSID_STRUCT *pMbss;
 #endif /* CONFIG_AP_SUPPORT */
@@ -2488,8 +2488,8 @@ VOID CmmRxRalinkFrameIndicate(
 	IN	UCHAR			FromWhichBSSID)
 {
 	UCHAR			Header802_3[LENGTH_802_3];
-	UINT16			Msdu2Size;
-	UINT16 			Payload1Size, Payload2Size;
+	unsigned short			Msdu2Size;
+	unsigned short 			Payload1Size, Payload2Size;
 	unsigned char * 			pData2;
 	PNDIS_PACKET	pPacket2 = NULL;
 	USHORT			VLAN_VID = 0, VLAN_Priority = 0;

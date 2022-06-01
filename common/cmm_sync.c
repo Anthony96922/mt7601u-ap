@@ -31,9 +31,9 @@ UCHAR BaSizeArray[4] = {8,16,32,64};
 
 
 extern COUNTRY_REGION_CH_DESC Country_Region_ChDesc_2GHZ[];
-extern UINT16 const Country_Region_GroupNum_2GHZ;
+extern unsigned short const Country_Region_GroupNum_2GHZ;
 extern COUNTRY_REGION_CH_DESC Country_Region_ChDesc_5GHZ[];
-extern UINT16 const Country_Region_GroupNum_5GHZ;
+extern unsigned short const Country_Region_GroupNum_5GHZ;
 
 /* 
 	==========================================================================

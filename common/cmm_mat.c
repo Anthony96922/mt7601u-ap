@@ -175,7 +175,7 @@ unsigned char * MATEngineTxHandle(
 	IN UCHAR    OpMode)
 {
 	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL,  pMacAddr = NULL;
-	UINT16		protoType, protoType_ori;
+	unsigned short		protoType, protoType_ori;
 	INT			i;
 	struct _MATProtoOps 	*pHandle = NULL;
 	unsigned char *  retSkb = NULL;
@@ -257,7 +257,7 @@ unsigned char * MATEngineRxHandle(
 {
 	unsigned char *				pMacAddr = NULL;
 	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL;
-	UINT16		protoType;
+	unsigned short		protoType;
 	INT			i =0;
 	struct _MATProtoOps 	*pHandle = NULL;
 

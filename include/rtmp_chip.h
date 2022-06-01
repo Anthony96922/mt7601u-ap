@@ -531,8 +531,8 @@ struct _RTMP_CHIP_CAP_ {
 	UINT8 BcnMaxNum;	/* software use */
 	UINT8 BcnMaxHwNum;	/* hardware limitation */
 	UINT8 WcidHwRsvNum;	/* hardware available WCID number */
-	UINT16 BcnMaxHwSize;	/* hardware maximum beacon size */
-	UINT16 BcnBase[HW_BEACON_MAX_NUM];	/* hardware beacon base address */
+	unsigned short BcnMaxHwSize;	/* hardware maximum beacon size */
+	unsigned short BcnBase[HW_BEACON_MAX_NUM];	/* hardware beacon base address */
 	
 	/* function */
 	/* use UINT8, not bit-or to speed up driver */
@@ -611,11 +611,11 @@ struct _RTMP_CHIP_CAP_ {
 
 	/* ---------------------------- others ---------------------------------- */
 #ifdef RTMP_EFUSE_SUPPORT
-	UINT16 EFUSE_USAGE_MAP_START;
-	UINT16 EFUSE_USAGE_MAP_END;
+	unsigned short EFUSE_USAGE_MAP_START;
+	unsigned short EFUSE_USAGE_MAP_END;
 	UINT8 EFUSE_USAGE_MAP_SIZE;
 	UCHAR *EFUSE_DEFAULT_BIN;
-	UINT16 EFUSE_DEFAULT_BIN_SIZE;
+	unsigned short EFUSE_DEFAULT_BIN_SIZE;
 #endif /* RTMP_EFUSE_SUPPORT */
 
 #ifdef RTMP_FLASH_SUPPORT

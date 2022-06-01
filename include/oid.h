@@ -265,7 +265,7 @@
 struct ieee80211req_mlme {
 	UINT8 im_op;		/* operation to perform */
 	UINT8 im_ssid_len;	/* length of optional ssid */
-	UINT16 im_reason;	/* 802.11 reason code */
+	unsigned short im_reason;	/* 802.11 reason code */
 	UINT8 im_macaddr[IEEE80211_ADDR_LEN];
 	UINT8 im_ssid[IEEE80211_NWID_LEN];
 };
@@ -273,7 +273,7 @@ struct ieee80211req_mlme {
 struct ieee80211req_key {
 	UINT8 ik_type;		/* key/cipher type */
 	UINT8 ik_pad;
-	UINT16 ik_keyix;	/* key index */
+	unsigned short ik_keyix;	/* key index */
 	UINT8 ik_keylen;	/* key length in bytes */
 	UINT8 ik_flags;
 	UINT8 ik_macaddr[IEEE80211_ADDR_LEN];
@@ -289,7 +289,7 @@ struct ieee80211req_del_key {
 };
 
 struct default_group_key {
-	UINT16 ik_keyix;	/* key index */
+	unsigned short ik_keyix;	/* key index */
 	UINT8 ik_keylen;	/* key length in bytes */
 	UINT8 ik_keydata[IEEE80211_KEYBUF_SIZE + IEEE80211_MICBUF_SIZE];
 };

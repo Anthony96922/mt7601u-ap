@@ -1912,7 +1912,7 @@ VOID UAPSD_UnTagFrame(
 	MAC_TABLE_ENTRY *pEntry;
 	unsigned int IdEntry;
 	unsigned int TxPktTagOffset;
-	UINT16 QueId;
+	unsigned short QueId;
 	int		FirstWcid = 1;
 
 

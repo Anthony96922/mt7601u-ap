@@ -1169,7 +1169,7 @@ Note:
 VOID CFG80211_BeaconCountryRegionParse(
 	IN VOID						*pAdCB,
 	IN NDIS_802_11_VARIABLE_IEs	*pVIE,
-	IN UINT16					LenVIE)
+	IN unsigned short					LenVIE)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 	UCHAR *pElement = (UCHAR *)pVIE;

@@ -160,7 +160,7 @@ typedef struct __TX_PWR_CFG
 {
 	UINT8 Mode;
 	UINT8 MCS;
-	UINT16 req;
+	unsigned short req;
 	UINT8 shift;
 	unsigned int BitMask;
 } TX_PWR_CFG;
@@ -1067,7 +1067,7 @@ VOID MakeMeasurementReqFrame(
 	IN UINT8 MeasureToken, 
 	IN UINT8 MeasureReqMode,
 	IN UINT8 MeasureReqType,
-	IN UINT16 NumOfRepetitions)
+	IN unsigned short NumOfRepetitions)
 {
 	ULONG TempLen;
 	MEASURE_REQ_INFO MeasureReqIE;
@@ -1521,7 +1521,7 @@ static BOOLEAN PeerMeasureReqSanity(
 	PEID_STRUCT eid_ptr;
 	unsigned char * ptr;
 	unsigned long long MeasureStartTime;
-	UINT16 MeasureDuration;
+	unsigned short MeasureDuration;
 
 	/* skip 802.11 header.*/
 	MsgLen -= sizeof(HEADER_802_11);

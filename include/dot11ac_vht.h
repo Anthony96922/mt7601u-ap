@@ -224,23 +224,23 @@ typedef struct GNU_PACKED _VHT_CAP_INFO{
 
 typedef struct GNU_PACKED _VHT_MCS_MAP{
 #ifdef RT_BIG_ENDIAN
-	UINT16 mcs_ss8:2;
-	UINT16 mcs_ss7:2;
-	UINT16 mcs_ss6:2;
-	UINT16 mcs_ss5:2;
-	UINT16 mcs_ss4:2;
-	UINT16 mcs_ss3:2;
-	UINT16 mcs_ss2:2;
-	UINT16 mcs_ss1:2;
+	unsigned short mcs_ss8:2;
+	unsigned short mcs_ss7:2;
+	unsigned short mcs_ss6:2;
+	unsigned short mcs_ss5:2;
+	unsigned short mcs_ss4:2;
+	unsigned short mcs_ss3:2;
+	unsigned short mcs_ss2:2;
+	unsigned short mcs_ss1:2;
 #else
-	UINT16 mcs_ss1:2;
-	UINT16 mcs_ss2:2;
-	UINT16 mcs_ss3:2;
-	UINT16 mcs_ss4:2;
-	UINT16 mcs_ss5:2;
-	UINT16 mcs_ss6:2;
-	UINT16 mcs_ss7:2;
-	UINT16 mcs_ss8:2;
+	unsigned short mcs_ss1:2;
+	unsigned short mcs_ss2:2;
+	unsigned short mcs_ss3:2;
+	unsigned short mcs_ss4:2;
+	unsigned short mcs_ss5:2;
+	unsigned short mcs_ss6:2;
+	unsigned short mcs_ss7:2;
+	unsigned short mcs_ss8:2;
 #endif /* RT_BIG_ENDIAN */
 }VHT_MCS_MAP;
 
@@ -271,19 +271,19 @@ typedef struct GNU_PACKED _VHT_MCS_MAP{
 // TODO: shiang-6590, check the layout of this data structure!!!!
 typedef struct GNU_PACKED _VHT_MCS_SET{
 #ifdef RT_BIG_ENDIAN
-	UINT16 rsv2:3;
-	UINT16 tx_high_rate:13;
+	unsigned short rsv2:3;
+	unsigned short tx_high_rate:13;
 	struct _VHT_MCS_MAP tx_mcs_map;
-	UINT16 rsv:3;
-	UINT16 rx_high_rate:13;
+	unsigned short rsv:3;
+	unsigned short rx_high_rate:13;
 	struct _VHT_MCS_MAP rx_mcs_map;	
 #else
 	struct _VHT_MCS_MAP rx_mcs_map;	
-	UINT16 rx_high_rate:13;
-	UINT16 rsv:3;
+	unsigned short rx_high_rate:13;
+	unsigned short rsv:3;
 	struct _VHT_MCS_MAP tx_mcs_map;
-	UINT16 tx_high_rate:13;
-	UINT16 rsv2:3;
+	unsigned short tx_high_rate:13;
+	unsigned short rsv2:3;
 #endif /* RT_BIG_ENDIAN */
 }VHT_MCS_SET;
 

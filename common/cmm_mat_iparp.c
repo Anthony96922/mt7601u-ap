@@ -585,7 +585,7 @@ static unsigned char * MATProto_IP_Tx(
 	if (*(pLayerHdr + 9) == 0x11)
 	{
 		unsigned char * udpHdr;
-		UINT16 srcPort, dstPort;
+		unsigned short srcPort, dstPort;
 		
 		udpHdr = pLayerHdr + 20;
 		srcPort = OS_NTOHS(get_unaligned((unsigned short *)(udpHdr)));
@@ -594,7 +594,7 @@ static unsigned char * MATProto_IP_Tx(
 		if (srcPort==68 && dstPort==67) /*It's a DHCP packet */
 		{
 			unsigned char * bootpHdr;
-			UINT16 bootpFlag;	
+			unsigned short bootpFlag;	
 			
 			bootpHdr = udpHdr + 8;
 			bootpFlag = OS_NTOHS(get_unaligned((unsigned short *)(bootpHdr+10)));

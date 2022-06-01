@@ -4,13 +4,13 @@
 #include "ipv6.h"
 #include "igmp_snoop.h"
 
-UINT16 IPv6MulticastFilterExclued[] =
+unsigned short IPv6MulticastFilterExclued[] =
 {
 	IPV6_NEXT_HEADER_ICMPV6,	/* ICMPv6. */
 	IPV6_NEXT_HEADER_PIM,		/* PIM. */
 };
 #define IPV6_MULTICAST_FILTER_EXCLUED_SIZE  \
-	(sizeof(IPv6MulticastFilterExclued) / sizeof(UINT16))
+	(sizeof(IPv6MulticastFilterExclued) / sizeof(unsigned short))
 
 static inline void initFreeEntryList(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
@@ -497,12 +497,12 @@ VOID IGMPSnooping(
 	INT i;
 	INT IpHeaderLen;
 	UCHAR GroupType;
-	UINT16 numOfGroup;
+	unsigned short numOfGroup;
 	UCHAR IgmpVerType;
 	unsigned char * pIgmpHeader;
 	unsigned char * pGroup;
 	UCHAR AuxDataLen;
-	UINT16 numOfSources;
+	unsigned short numOfSources;
 	unsigned char * pGroupIpAddr;
 	UCHAR GroupMacAddr[6];
 	unsigned char * pGroupMacAddr = (unsigned char *)&GroupMacAddr;
@@ -535,13 +535,13 @@ VOID IGMPSnooping(
 			break;
 
 		case IGMP_V3_MEMBERSHIP_REPORT: /* IGMP version 3 membership report. */
-			numOfGroup = ntohs(*((UINT16 *)(pIgmpHeader + 6)));
+			numOfGroup = ntohs(*((unsigned short *)(pIgmpHeader + 6)));
 			pGroup = (unsigned char *)(pIgmpHeader + 8);
 			for (i=0; i < numOfGroup; i++)
 			{
 				GroupType = (UCHAR)(*pGroup);
 				AuxDataLen = (UCHAR)(*(pGroup + 1));
-				numOfSources = ntohs(*((UINT16 *)(pGroup + 2)));
+				numOfSources = ntohs(*((unsigned short *)(pGroup + 2)));
 				pGroupIpAddr = (unsigned char *)(pGroup + 4);
 				DBGPRINT(RT_DEBUG_TRACE, ("IGMPv3 Type=%d, ADL=%d, numOfSource=%d\n", 
 								GroupType, AuxDataLen, numOfSources));
@@ -599,7 +599,7 @@ BOOLEAN isIgmpPkt(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader)
 {
-	UINT16 IpProtocol = ntohs(*((UINT16 *)(pIpHeader)));
+	unsigned short IpProtocol = ntohs(*((unsigned short *)(pIpHeader)));
 	UCHAR IgmpProtocol;
 
 	if(!isIgmpMacAddr(pDstMacAddr))
@@ -986,7 +986,7 @@ NDIS_STATUS IgmpPktInfoQuery(
 		BOOLEAN IgmpMldPkt = FALSE;
 		unsigned char * pIpHeader = pSrcBufVA + 12;
 
-		if(ntohs(*((UINT16 *)(pIpHeader))) == ETH_P_IPV6)
+		if(ntohs(*((unsigned short *)(pIpHeader))) == ETH_P_IPV6)
 			IgmpMldPkt = IPv6MulticastFilterExcluded(pSrcBufVA, pIpHeader);
 		else
 			IgmpMldPkt = isIgmpPkt(pSrcBufVA, pIpHeader);
@@ -1233,7 +1233,7 @@ BOOLEAN isMldPkt(
 	OUT unsigned char * *pMldHeader)
 {
 	BOOLEAN result = FALSE;
-	UINT16 IpProtocol = ntohs(*((UINT16 *)(pIpHeader)));
+	unsigned short IpProtocol = ntohs(*((unsigned short *)(pIpHeader)));
 
 	if(!isMldMacAddr(pDstMacAddr))
 		return FALSE;
@@ -1277,7 +1277,7 @@ BOOLEAN IPv6MulticastFilterExcluded(
 	IN unsigned char * pIpHeader)
 {
 	BOOLEAN result = FALSE;
-	UINT16 IpProtocol = ntohs(*((UINT16 *)(pIpHeader)));
+	unsigned short IpProtocol = ntohs(*((unsigned short *)(pIpHeader)));
 	INT idx;
 	UINT8 nextProtocol;
 
@@ -1421,10 +1421,10 @@ VOID MLDSnooping(
 {
 	INT i;
 	UCHAR GroupType;
-	UINT16 numOfGroup;
+	unsigned short numOfGroup;
 	unsigned char * pGroup;
 	UCHAR AuxDataLen;
-	UINT16 numOfSources;
+	unsigned short numOfSources;
 	unsigned char * pGroupIpAddr;
 	UCHAR GroupMacAddr[6];
 	unsigned char * pGroupMacAddr = (unsigned char *)&GroupMacAddr;
@@ -1457,13 +1457,13 @@ VOID MLDSnooping(
 				break;
 
 			case MLD_V2_LISTERNER_REPORT: /* IGMP version 3 membership report. */
-				numOfGroup = ntohs(*((UINT16 *)(pMldHeader + 6)));
+				numOfGroup = ntohs(*((unsigned short *)(pMldHeader + 6)));
 				pGroup = (unsigned char *)(pMldHeader + 8);
 				for (i=0; i < numOfGroup; i++)
 				{
 					GroupType = (UCHAR)(*pGroup);
 					AuxDataLen = (UCHAR)(*(pGroup + 1));
-					numOfSources = ntohs(*((UINT16 *)(pGroup + 2)));
+					numOfSources = ntohs(*((unsigned short *)(pGroup + 2)));
 					pGroupIpAddr = (unsigned char *)(pGroup + 4);
 					DBGPRINT(RT_DEBUG_TRACE, ("MLDv2 Type=%d, ADL=%d, numOfSource=%d\n", 
 									GroupType, AuxDataLen, numOfSources));

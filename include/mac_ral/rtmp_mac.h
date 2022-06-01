@@ -278,16 +278,16 @@ typedef	union _CWMAX_CSR_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _AC_TXOP_CSR0_STRUC {
 	struct {
-	    UINT16  Ac1Txop; /* for AC_BE, in unit of 32us */
-	    UINT16  Ac0Txop; /* for AC_BK, in unit of 32us */
+	    unsigned short  Ac1Txop; /* for AC_BE, in unit of 32us */
+	    unsigned short  Ac0Txop; /* for AC_BK, in unit of 32us */
 	} field;
 	unsigned int word;
 } AC_TXOP_CSR0_STRUC;
 #else
 typedef	union _AC_TXOP_CSR0_STRUC {
 	struct {
-	    UINT16  Ac0Txop;
-	    UINT16  Ac1Txop;
+	    unsigned short  Ac0Txop;
+	    unsigned short  Ac1Txop;
 	} field;
 	unsigned int word;
 } AC_TXOP_CSR0_STRUC;
@@ -299,16 +299,16 @@ typedef	union _AC_TXOP_CSR0_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _AC_TXOP_CSR1_STRUC {
 	struct {
-	    UINT16  Ac3Txop; /* for AC_VO, in unit of 32us */
-	    UINT16  Ac2Txop; /* for AC_VI, in unit of 32us */
+	    unsigned short  Ac3Txop; /* for AC_VO, in unit of 32us */
+	    unsigned short  Ac2Txop; /* for AC_VI, in unit of 32us */
 	} field;
 	unsigned int word;
 } AC_TXOP_CSR1_STRUC;
 #else
 typedef	union _AC_TXOP_CSR1_STRUC {
 	struct {
-	    UINT16 Ac2Txop;
-	    UINT16 Ac3Txop;
+	    unsigned short Ac2Txop;
+	    unsigned short Ac3Txop;
 	} field;
 	unsigned int word;
 } AC_TXOP_CSR1_STRUC;
@@ -330,16 +330,16 @@ typedef	union _AC_TXOP_CSR1_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _ASIC_VER_ID_STRUC {
 	struct {
-	    UINT16  ASICVer;        /* version */
-	    UINT16  ASICRev;        /* reversion */
+	    unsigned short  ASICVer;        /* version */
+	    unsigned short  ASICRev;        /* reversion */
 	} field;
 	unsigned int word;
 } ASIC_VER_ID_STRUC;
 #else
 typedef	union _ASIC_VER_ID_STRUC {
 	struct {
-	    UINT16  ASICRev;
-	    UINT16  ASICVer;
+	    unsigned short  ASICRev;
+	    unsigned short  ASICVer;
 	} field;
 	unsigned int word;
 } ASIC_VER_ID_STRUC;
@@ -610,8 +610,8 @@ typedef union _TX_CHAIN_ADDR0_L_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _TX_CHAIN_ADDR0_H_STRUC {
 	struct {
-		UINT16	Reserved:12; /* Reserved */
-		UINT16	TxChainSel0:4; /* Selection value of Tx chain0 */
+		unsigned short	Reserved:12; /* Reserved */
+		unsigned short	TxChainSel0:4; /* Selection value of Tx chain0 */
 		UINT8	TxChainAddr0H_Byte5; /* Destination MAC address of Tx chain0 (byte 5) */
 		UINT8	TxChainAddr0H_Byte4; /* Destination MAC address of Tx chain0 (byte 4) */
 	} field;
@@ -622,8 +622,8 @@ typedef union _TX_CHAIN_ADDR0_H_STRUC {
 	struct {
 		UINT8	TxChainAddr0H_Byte4; /* Destination MAC address of Tx chain0 (byte 4) */
 		UINT8	TxChainAddr0H_Byte5; /* Destination MAC address of Tx chain0 (byte 5) */
-		UINT16	TxChainSel0:4; /* Selection value of Tx chain0 */
-		UINT16	Reserved:12; /* Reserved */
+		unsigned short	TxChainSel0:4; /* Selection value of Tx chain0 */
+		unsigned short	Reserved:12; /* Reserved */
 	} field;
 	unsigned int word;
 } TX_CHAIN_ADDR0_H_STRUC;
@@ -656,8 +656,8 @@ typedef union _TX_CHAIN_ADDR1_L_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _TX_CHAIN_ADDR1_H_STRUC {
 	struct {
-		UINT16	Reserved:12; /* Reserved */
-		UINT16	TxChainSel0:4; /* Selection value of Tx chain0 */
+		unsigned short	Reserved:12; /* Reserved */
+		unsigned short	TxChainSel0:4; /* Selection value of Tx chain0 */
 		UINT8	TxChainAddr1H_Byte5; /* Destination MAC address of Tx chain1 (byte 5) */
 		UINT8	TxChainAddr1H_Byte4; /* Destination MAC address of Tx chain1 (byte 4) */
 	} field;
@@ -668,8 +668,8 @@ typedef union _TX_CHAIN_ADDR1_H_STRUC {
 	struct {
 		UINT8	TxChainAddr1H_Byte4; 
 		UINT8	TxChainAddr1H_Byte5; 
-		UINT16	TxChainSel0:4; 
-		UINT16	Reserved:12; 
+		unsigned short	TxChainSel0:4; 
+		unsigned short	Reserved:12; 
 	} field;
 	unsigned int word;
 } TX_CHAIN_ADDR1_H_STRUC ;
@@ -702,8 +702,8 @@ typedef union _TX_CHAIN_ADDR2_L_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _TX_CHAIN_ADDR2_H_STRUC {
 	struct {
-		UINT16	Reserved:12; /* Reserved */
-		UINT16	TxChainSel0:4; /* Selection value of Tx chain0 */
+		unsigned short	Reserved:12; /* Reserved */
+		unsigned short	TxChainSel0:4; /* Selection value of Tx chain0 */
 		UINT8	TxChainAddr2H_Byte5; /* Destination MAC address of Tx chain2 (byte 5) */
 		UINT8	TxChainAddr2H_Byte4; /* Destination MAC address of Tx chain2 (byte 4) */
 	} field;
@@ -714,8 +714,8 @@ typedef union _TX_CHAIN_ADDR2_H_STRUC {
 	struct {
 		UINT8	TxChainAddr2H_Byte4;
 		UINT8	TxChainAddr2H_Byte5;
-		UINT16	TxChainSel0:4;
-		UINT16	Reserved:12;
+		unsigned short	TxChainSel0:4;
+		unsigned short	Reserved:12;
 	} field;
 	unsigned int word;
 } TX_CHAIN_ADDR2_H_STRUC;
@@ -748,8 +748,8 @@ typedef union _TX_CHAIN_ADDR3_L_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _TX_CHAIN_ADDR3_H_STRUC {
 	struct {
-		UINT16	Reserved:12; /* Reserved */
-		UINT16	TxChainSel0:4; /* Selection value of Tx chain0 */
+		unsigned short	Reserved:12; /* Reserved */
+		unsigned short	TxChainSel0:4; /* Selection value of Tx chain0 */
 		UINT8	TxChainAddr3H_Byte5; /* Destination MAC address of Tx chain3 (byte 5) */
 		UINT8	TxChainAddr3H_Byte4; /* Destination MAC address of Tx chain3 (byte 4) */
 	} field;
@@ -760,8 +760,8 @@ typedef union _TX_CHAIN_ADDR3_H_STRUC {
 	struct {
 		UINT8	TxChainAddr3H_Byte4;
 		UINT8	TxChainAddr3H_Byte5;
-		UINT16	TxChainSel0:4;
-		UINT16	Reserved:12;
+		unsigned short	TxChainSel0:4;
+		unsigned short	Reserved:12;
 	} field;
 	unsigned int word;
 } TX_CHAIN_ADDR3_H_STRUC;
@@ -1501,16 +1501,16 @@ typedef union _AUTO_RSP_CFG_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _RX_STA_CNT0_STRUC {
 	struct {
-	    UINT16  PhyErr;
-	    UINT16  CrcErr;
+	    unsigned short  PhyErr;
+	    unsigned short  CrcErr;
 	} field;
 	unsigned int word;
 } RX_STA_CNT0_STRUC;
 #else
 typedef	union _RX_STA_CNT0_STRUC {
 	struct {
-	    UINT16  CrcErr;
-	    UINT16  PhyErr;
+	    unsigned short  CrcErr;
+	    unsigned short  PhyErr;
 	} field;
 	unsigned int word;
 } RX_STA_CNT0_STRUC;
@@ -1522,16 +1522,16 @@ typedef	union _RX_STA_CNT0_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _RX_STA_CNT1_STRUC {
 	struct {
-	    UINT16  PlcpErr;
-	    UINT16  FalseCca;
+	    unsigned short  PlcpErr;
+	    unsigned short  FalseCca;
 	} field;
 	unsigned int word;
 } RX_STA_CNT1_STRUC;
 #else
 typedef	union _RX_STA_CNT1_STRUC {
 	struct {
-	    UINT16  FalseCca;
-	    UINT16  PlcpErr;
+	    unsigned short  FalseCca;
+	    unsigned short  PlcpErr;
 	} field;
 	unsigned int word;
 } RX_STA_CNT1_STRUC;
@@ -1543,16 +1543,16 @@ typedef	union _RX_STA_CNT1_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _RX_STA_CNT2_STRUC {
 	struct {
-	    UINT16  RxFifoOverflowCount;
-	    UINT16  RxDupliCount;
+	    unsigned short  RxFifoOverflowCount;
+	    unsigned short  RxDupliCount;
 	} field;
 	unsigned int word;
 } RX_STA_CNT2_STRUC;
 #else
 typedef	union _RX_STA_CNT2_STRUC {
 	struct {
-	    UINT16  RxDupliCount;
-	    UINT16  RxFifoOverflowCount;
+	    unsigned short  RxDupliCount;
+	    unsigned short  RxFifoOverflowCount;
 	} field;
 	unsigned int word;
 } RX_STA_CNT2_STRUC;
@@ -1564,16 +1564,16 @@ typedef	union _RX_STA_CNT2_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_STA_CNT0_STRUC {
 	struct {
-	    UINT16  TxBeaconCount;
-	    UINT16  TxFailCount;
+	    unsigned short  TxBeaconCount;
+	    unsigned short  TxFailCount;
 	} field;
 	unsigned int word;
 } TX_STA_CNT0_STRUC;
 #else
 typedef	union _TX_STA_CNT0_STRUC {
 	struct {
-	    UINT16  TxFailCount;
-	    UINT16  TxBeaconCount;
+	    unsigned short  TxFailCount;
+	    unsigned short  TxBeaconCount;
 	} field;
 	unsigned int word;
 } TX_STA_CNT0_STRUC;
@@ -1586,16 +1586,16 @@ typedef	union _TX_STA_CNT0_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_STA_CNT1_STRUC {
 	struct {
-	    UINT16  TxRetransmit;
-	    UINT16  TxSuccess;
+	    unsigned short  TxRetransmit;
+	    unsigned short  TxSuccess;
 	} field;
 	unsigned int word;
 } TX_STA_CNT1_STRUC;
 #else
 typedef	union _TX_STA_CNT1_STRUC {
 	struct {
-	    UINT16  TxSuccess;
-	    UINT16  TxRetransmit;
+	    unsigned short  TxSuccess;
+	    unsigned short  TxRetransmit;
 	} field;
 	unsigned int word;
 } TX_STA_CNT1_STRUC;
@@ -1607,16 +1607,16 @@ typedef	union _TX_STA_CNT1_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_STA_CNT2_STRUC {
 	struct {
-	    UINT16  TxUnderFlowCount;
-	    UINT16  TxZeroLenCount;
+	    unsigned short  TxUnderFlowCount;
+	    unsigned short  TxZeroLenCount;
 	} field;
 	unsigned int word;
 } TX_STA_CNT2_STRUC;
 #else
 typedef	union _TX_STA_CNT2_STRUC {
 	struct {
-	    UINT16  TxZeroLenCount;
-	    UINT16  TxUnderFlowCount;
+	    unsigned short  TxZeroLenCount;
+	    unsigned short  TxUnderFlowCount;
 	} field;
 	unsigned int word;
 } TX_STA_CNT2_STRUC;
@@ -1669,16 +1669,16 @@ typedef	union _TX_STA_FIFO_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_NAG_AGG_CNT_STRUC {
 	struct {
-	    UINT16  AggTxCount;
-	    UINT16  NonAggTxCount;
+	    unsigned short  AggTxCount;
+	    unsigned short  NonAggTxCount;
 	} field;
 	unsigned int word;
 } TX_NAG_AGG_CNT_STRUC;
 #else
 typedef	union _TX_NAG_AGG_CNT_STRUC {
 	struct {
-	    UINT16  NonAggTxCount;
-	    UINT16  AggTxCount;
+	    unsigned short  NonAggTxCount;
+	    unsigned short  AggTxCount;
 	} field;
 	unsigned int word;
 } TX_NAG_AGG_CNT_STRUC;
@@ -1689,16 +1689,16 @@ typedef	union _TX_NAG_AGG_CNT_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT0_STRUC {
 	struct {
-	    UINT16  AggSize2Count;
-	    UINT16  AggSize1Count;
+	    unsigned short  AggSize2Count;
+	    unsigned short  AggSize1Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT0_STRUC;
 #else
 typedef	union _TX_AGG_CNT0_STRUC {
 	struct {
-	    UINT16  AggSize1Count;
-	    UINT16  AggSize2Count;
+	    unsigned short  AggSize1Count;
+	    unsigned short  AggSize2Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT0_STRUC;
@@ -1709,16 +1709,16 @@ typedef	union _TX_AGG_CNT0_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT1_STRUC {
 	struct {
-	    UINT16  AggSize4Count;
-	    UINT16  AggSize3Count;
+	    unsigned short  AggSize4Count;
+	    unsigned short  AggSize3Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT1_STRUC;
 #else
 typedef	union _TX_AGG_CNT1_STRUC {
 	struct {
-	    UINT16  AggSize3Count;
-	    UINT16  AggSize4Count;
+	    unsigned short  AggSize3Count;
+	    unsigned short  AggSize4Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT1_STRUC;
@@ -1729,16 +1729,16 @@ typedef	union _TX_AGG_CNT1_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT2_STRUC {
 	struct {
-	    UINT16  AggSize6Count;
-	    UINT16  AggSize5Count;
+	    unsigned short  AggSize6Count;
+	    unsigned short  AggSize5Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT2_STRUC;
 #else
 typedef	union _TX_AGG_CNT2_STRUC {
 	struct {
-	    UINT16  AggSize5Count;
-	    UINT16  AggSize6Count;
+	    unsigned short  AggSize5Count;
+	    unsigned short  AggSize6Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT2_STRUC;
@@ -1749,16 +1749,16 @@ typedef	union _TX_AGG_CNT2_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT3_STRUC {
 	struct {
-	    UINT16  AggSize8Count;
-	    UINT16  AggSize7Count;
+	    unsigned short  AggSize8Count;
+	    unsigned short  AggSize7Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT3_STRUC;
 #else
 typedef	union _TX_AGG_CNT3_STRUC {
 	struct {
-	    UINT16  AggSize7Count;
-	    UINT16  AggSize8Count;
+	    unsigned short  AggSize7Count;
+	    unsigned short  AggSize8Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT3_STRUC;
@@ -1769,16 +1769,16 @@ typedef	union _TX_AGG_CNT3_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT4_STRUC {
 	struct {
-	    UINT16  AggSize10Count;
-	    UINT16  AggSize9Count;
+	    unsigned short  AggSize10Count;
+	    unsigned short  AggSize9Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT4_STRUC;
 #else
 typedef	union _TX_AGG_CNT4_STRUC {
 	struct {
-	    UINT16  AggSize9Count;
-	    UINT16  AggSize10Count;
+	    unsigned short  AggSize9Count;
+	    unsigned short  AggSize10Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT4_STRUC;
@@ -1789,16 +1789,16 @@ typedef	union _TX_AGG_CNT4_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT5_STRUC {
 	struct {
-	    UINT16  AggSize12Count;
-	    UINT16  AggSize11Count;
+	    unsigned short  AggSize12Count;
+	    unsigned short  AggSize11Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT5_STRUC;
 #else
 typedef	union _TX_AGG_CNT5_STRUC {
 	struct {
-	    UINT16  AggSize11Count;
-	    UINT16  AggSize12Count;
+	    unsigned short  AggSize11Count;
+	    unsigned short  AggSize12Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT5_STRUC;
@@ -1809,16 +1809,16 @@ typedef	union _TX_AGG_CNT5_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT6_STRUC {
 	struct {
-	    UINT16  AggSize14Count;
-	    UINT16  AggSize13Count;
+	    unsigned short  AggSize14Count;
+	    unsigned short  AggSize13Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT6_STRUC;
 #else
 typedef	union _TX_AGG_CNT6_STRUC {
 	struct {
-	    UINT16  AggSize13Count;
-	    UINT16  AggSize14Count;
+	    unsigned short  AggSize13Count;
+	    unsigned short  AggSize14Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT6_STRUC;
@@ -1829,16 +1829,16 @@ typedef	union _TX_AGG_CNT6_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT7_STRUC {
 	struct {
-	    UINT16  AggSize16Count;
-	    UINT16  AggSize15Count;
+	    unsigned short  AggSize16Count;
+	    unsigned short  AggSize15Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT7_STRUC;
 #else
 typedef	union _TX_AGG_CNT7_STRUC {
 	struct {
-	    UINT16  AggSize15Count;
-	    UINT16  AggSize16Count;
+	    unsigned short  AggSize15Count;
+	    unsigned short  AggSize16Count;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT7_STRUC;
@@ -1856,16 +1856,16 @@ typedef	union _TX_AGG_CNT7_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _TX_AGG_CNT_STRUC {
 	struct {
-	    UINT16  AggCnt_y;	/* the count of aggregation size = x + 1 */
-	    UINT16  AggCnt_x;	/* the count of aggregation size = x */
+	    unsigned short  AggCnt_y;	/* the count of aggregation size = x + 1 */
+	    unsigned short  AggCnt_x;	/* the count of aggregation size = x */
 	} field;
 	unsigned int word;
 } TX_AGG_CNT_STRUC;
 #else
 typedef	union _TX_AGG_CNT_STRUC {
 	struct {
-	    UINT16  AggCnt_x;
-	    UINT16  AggCnt_y;
+	    unsigned short  AggCnt_x;
+	    unsigned short  AggCnt_y;
 	} field;
 	unsigned int word;
 } TX_AGG_CNT_STRUC;
@@ -1874,11 +1874,11 @@ typedef	union _TX_AGG_CNT_STRUC {
 typedef	union _TX_AGG_CNTN_STRUC {
 	struct {
 #ifdef RT_BIG_ENDIAN
-	    UINT16  AggSizeHighCount;
-	    UINT16  AggSizeLowCount;
+	    unsigned short  AggSizeHighCount;
+	    unsigned short  AggSizeLowCount;
 #else
-	    UINT16  AggSizeLowCount;
-	    UINT16  AggSizeHighCount;
+	    unsigned short  AggSizeLowCount;
+	    unsigned short  AggSizeHighCount;
 #endif
 	} field;
 	unsigned int word;
@@ -1889,16 +1889,16 @@ typedef	union _TX_AGG_CNTN_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef	union _MPDU_DEN_CNT_STRUC {
 	struct {
-	    UINT16  RXZeroDelCount;	/*RX zero length delimiter count */
-	    UINT16  TXZeroDelCount;	/*TX zero length delimiter count */
+	    unsigned short  RXZeroDelCount;	/*RX zero length delimiter count */
+	    unsigned short  TXZeroDelCount;	/*TX zero length delimiter count */
 	} field;
 	unsigned int word;
 } MPDU_DEN_CNT_STRUC;
 #else
 typedef	union _MPDU_DEN_CNT_STRUC {
 	struct {
-	    UINT16  TXZeroDelCount;
-	    UINT16  RXZeroDelCount;
+	    unsigned short  TXZeroDelCount;
+	    unsigned short  RXZeroDelCount;
 	} field;
 	unsigned int word;
 } MPDU_DEN_CNT_STRUC;

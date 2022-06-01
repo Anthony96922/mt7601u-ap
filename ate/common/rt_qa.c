@@ -689,7 +689,7 @@ static  INT DO_RACFG_CMD_E2PROM_READ16(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	UINT16	offset=0, value=0;
+	unsigned short	offset=0, value=0;
 	USHORT  tmp=0;				
 
 	offset = OS_NTOHS(pRaCfg->status);

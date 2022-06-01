@@ -159,7 +159,7 @@
 */
 #define UAPSD_MR_ENTRY_INIT(__pEntry)										\
 	{																		\
-		UINT16	__IdAc;														\
+		unsigned short	__IdAc;														\
 		for(__IdAc=0; __IdAc<WMM_NUM_OF_AC; __IdAc++)						\
 			InitializeQueueHeader(&(__pEntry)->UAPSDQueue[__IdAc]);			\
 		(__pEntry)->UAPSDTxNum = 0;											\

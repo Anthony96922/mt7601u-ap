@@ -35,7 +35,7 @@ typedef struct GNU_PACKED _ELM_QBSS_LOAD{
 	UINT8 Length;
 
 	/* the total number of STAs currently associated with this QBSS */
-	UINT16 StationCount;
+	unsigned short StationCount;
 
 	/*	defined as the percentage of time, nomalized to 255, the QAP sensed the
 		medium busy, as indicated by either the physical or virtual carrier
@@ -50,7 +50,7 @@ typedef struct GNU_PACKED _ELM_QBSS_LOAD{
 		The field is helpful for roaming non-AP QSTAs to select a QAP that is
 		likely to accept future admission control requests, but it does not
 		represent a guarantee that the HC will admit these requests. */
-	UINT16 AvalAdmCap;
+	unsigned short AvalAdmCap;
 
 } ELM_QBSS_LOAD;
 

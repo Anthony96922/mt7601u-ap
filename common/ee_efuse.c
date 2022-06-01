@@ -1780,8 +1780,8 @@ INT eFuse_init(RTMP_ADAPTER *pAd)
 #ifdef MT7601
 		if ( IS_MT7601(pAd) )
 		{
-			UINT16	NicConfig, FrequencyOffset;
-			UINT16	EfuseValue;
+			unsigned short	NicConfig, FrequencyOffset;
+			unsigned short	EfuseValue;
 
 			eFuseReadRegisters(pAd, EEPROM_FREQ_OFFSET, 2, &FrequencyOffset);
 			eFuseReadRegisters(pAd, EEPROM_NIC1_OFFSET, 2, &NicConfig);
@@ -1794,9 +1794,9 @@ INT eFuse_init(RTMP_ADAPTER *pAd)
 				pAd->EEPROMImage[EEPROM_FREQ_OFFSET] = (UCHAR)(FrequencyOffset & 0xFF);
 
 				eFuseReadRegisters(pAd, EEPROM_TX0_TSSI_SLOPE, 2, &EfuseValue);
-				*(UINT16 *)(&pAd->EEPROMImage[EEPROM_TX0_TSSI_SLOPE]) = EfuseValue;
+				*(unsigned short *)(&pAd->EEPROMImage[EEPROM_TX0_TSSI_SLOPE]) = EfuseValue;
 				eFuseReadRegisters(pAd, EEPROM_TX0_TSSI_OFFSET_GROUP1, 2, &EfuseValue);
-				*(UINT16 *)(&pAd->EEPROMImage[EEPROM_TX0_TSSI_OFFSET_GROUP1]) = EfuseValue;
+				*(unsigned short *)(&pAd->EEPROMImage[EEPROM_TX0_TSSI_OFFSET_GROUP1]) = EfuseValue;
 				eFuseReadRegisters(pAd, EEPROM_TX0_TSSI_OFFSET, 2, &EfuseValue);
 				pAd->EEPROMImage[EEPROM_TX0_TSSI_OFFSET] = (UCHAR)(EfuseValue & 0xFF);;
 

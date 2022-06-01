@@ -158,7 +158,7 @@ static VOID APPeerDeauthReqAction(
 {
     UCHAR			Addr2[MAC_ADDR_LEN];
     USHORT			Reason;
-	UINT16			SeqNum;
+	unsigned short			SeqNum;
     MAC_TABLE_ENTRY	*pEntry;
 
 

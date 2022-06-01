@@ -80,13 +80,13 @@ typedef struct _NET_PRO_IP_HDR{
 			ihl:4;
 #endif
 	UCHAR	tos;
-	UINT16	tot_len;
-	UINT16	id;
-	UINT16	frag_off;
+	unsigned short	tot_len;
+	unsigned short	id;
+	unsigned short	frag_off;
 	UCHAR	ttl;
 	UCHAR	protocol;
-	UINT16	check;
-	UINT16	saddr;
+	unsigned short	check;
+	unsigned short	saddr;
 	unsigned int	daddr;
 } NET_PRO_IP_HDR; 
 /*#endif  //endif of __LINUX__ */

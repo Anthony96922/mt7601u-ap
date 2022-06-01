@@ -100,7 +100,7 @@ extern INT	RTMPSoftDecryptSMS4(
 		IN		BOOLEAN			bSanityIV,
 		IN 		PCIPHER_KEY		pKey,
 		INOUT 	unsigned char *			pData,
-		INOUT 	UINT16			*DataByteCnt);
+		INOUT 	unsigned short			*DataByteCnt);
 
 VOID RTMPDeriveWapiGTK(
 	IN	unsigned char *			nmk,

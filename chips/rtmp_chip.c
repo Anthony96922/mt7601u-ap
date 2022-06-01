@@ -446,7 +446,7 @@ VOID RtmpChipWriteHighMemory(
 			break;
 		case 2:
 		{
-			UINT16 ShortVal = (UINT16)Value;
+			unsigned short ShortVal = (unsigned short)Value;
 			RTUSBMultiWrite(pAd, Offset, (UCHAR *) &ShortVal, 2, TRUE);
 			break;
 		}

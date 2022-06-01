@@ -44,7 +44,7 @@ UCHAR	EpToQueue[6]={FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_EDCA, FIFO_
 
 
 #ifdef INF_AMAZON_SE	
-UINT16 MaxBulkOutsSizeLimit[5][4] =
+unsigned short MaxBulkOutsSizeLimit[5][4] =
 {
 	/* Priority high -> low*/
 	{ 24576, 2048, 2048, 2048 },	/* 0 AC	*/

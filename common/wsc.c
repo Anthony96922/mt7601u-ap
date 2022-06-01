@@ -189,7 +189,7 @@ INT WscGenerateUUID(
 	WSC_UUID_T uuid_t;
 	unsigned long long uuid_time;
 	int i;
-	UINT16 clkSeq;
+	unsigned short clkSeq;
 	char uuidTmpStr[UUID_LEN_STR+2];	
 	
 	
@@ -206,12 +206,12 @@ INT WscGenerateUUID(
 
 	
 	uuid_t.timeLow = (unsigned int)uuid_time & 0xFFFFFFFF;
-	uuid_t.timeMid = (UINT16)((uuid_time >>32) & 0xFFFF);
-	uuid_t.timeHi_Version = (UINT16)((uuid_time >> 48) & 0x0FFF);
+	uuid_t.timeMid = (unsigned short)((uuid_time >>32) & 0xFFFF);
+	uuid_t.timeHi_Version = (unsigned short)((uuid_time >> 48) & 0x0FFF);
 	uuid_t.timeHi_Version |= (1 << 12);
 
 	/* Get the clock sequence. */
-	clkSeq = (UINT16)(0x0601/*jiffies*/ & 0xFFFF);		/* Again, we fix this to make JumpStart happy! */
+	clkSeq = (unsigned short)(0x0601/*jiffies*/ & 0xFFFF);		/* Again, we fix this to make JumpStart happy! */
 
 	uuid_t.clockSeqLow = clkSeq & 0xFF;
 	uuid_t.clockSeqHi_Var = (clkSeq & 0x3F00) >> 8;

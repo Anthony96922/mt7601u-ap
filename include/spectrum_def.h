@@ -147,7 +147,7 @@ typedef struct GNU_PACKED _MEASURE_REQ
 {
 	UINT8 ChNum;
 	unsigned long long MeasureStartTime;
-	UINT16 MeasureDuration;
+	unsigned short MeasureDuration;
 } MEASURE_REQ, *PMEASURE_REQ;
 
 typedef struct GNU_PACKED _MEASURE_REQ_INFO
@@ -190,7 +190,7 @@ typedef struct GNU_PACKED _MEASURE_BASIC_REPORT
 {
 	UINT8 ChNum;
 	unsigned long long MeasureStartTime;
-	UINT16 MeasureDuration;
+	unsigned short MeasureDuration;
 	MEASURE_BASIC_REPORT_MAP Map;
 } MEASURE_BASIC_REPORT, *PMEASURE_BASIC_REPORT;
 
@@ -198,7 +198,7 @@ typedef struct GNU_PACKED _MEASURE_CCA_REPORT
 {
 	UINT8 ChNum;
 	unsigned long long MeasureStartTime;
-	UINT16 MeasureDuration;
+	unsigned short MeasureDuration;
 	UINT8 CCA_Busy_Fraction;
 } MEASURE_CCA_REPORT, *PMEASURE_CCA_REPORT;
 
@@ -206,7 +206,7 @@ typedef struct GNU_PACKED _MEASURE_RPI_REPORT
 {
 	UINT8 ChNum;
 	unsigned long long MeasureStartTime;
-	UINT16 MeasureDuration;
+	unsigned short MeasureDuration;
 	UINT8 RPI_Density[8];
 } MEASURE_RPI_REPORT, *PMEASURE_RPI_REPORT;
 
@@ -241,8 +241,8 @@ typedef struct GNU_PACKED _QUIET_INFO
 {
 	UINT8 QuietCnt;
 	UINT8 QuietPeriod;
-	UINT16 QuietDuration;
-	UINT16 QuietOffset;
+	unsigned short QuietDuration;
+	unsigned short QuietOffset;
 } QUIET_INFO, *PQUIET_INFO;
 
 #endif /* __SPECTRUM_DEF_H__ */

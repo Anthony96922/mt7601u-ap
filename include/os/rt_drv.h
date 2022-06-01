@@ -833,8 +833,8 @@ extern ULONG RtmpOsGetUnalignedlong(
 }
 
 #define RTMP_GET_PACKET_PROTOCOL(_p) \
-	((((UINT16)PACKET_CB(_p, 23)) << 8) \
-	| ((UINT16)PACKET_CB(_p, 24)))
+	((((unsigned short)PACKET_CB(_p, 23)) << 8) \
+	| ((unsigned short)PACKET_CB(_p, 24)))
 
 #ifdef INF_AMAZON_SE
 /* [CB_OFF+28], 1B, Iverson patch for WMM A5-T07 ,WirelessStaToWirelessSta do not bulk out aggregate */

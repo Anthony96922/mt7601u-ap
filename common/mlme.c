@@ -587,7 +587,7 @@ VOID MlmePeriodicExec(
 		}
 		else if (stage == MO_IDLE_PERIOD)
 		{
-			UINT16 Idx;
+			unsigned short Idx;
 
 			for (Idx = MO_MEAS_PERIOD + 1; Idx < MO_IDLE_PERIOD + 1; Idx++)
 				pAd->CommonCfg.MO_Cfg.nFalseCCACnt += pAd->RalinkCounters.FalseCCACnt_100MS[Idx];

@@ -3014,7 +3014,7 @@ BOOLEAN RTMPCheckWPAframe(
     }
 	/* Skip 2-bytes EAPoL type */
     if (NdisEqualMemory(EAPOL, pData, 2)) 
-/*	if (*(UINT16 *)EAPOL == *(UINT16 *)pData)*/
+/*	if (*(unsigned short *)EAPOL == *(unsigned short *)pData)*/
     {
         pData += 2;         
     }
@@ -3088,7 +3088,7 @@ BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
 
 	/* Skip 2-bytes EAPoL type */
     if (NdisEqualMemory(EAPOL, pData, 2)) 
-/*	if (*(UINT16 *)EAPOL == *(UINT16 *)pData)*/
+/*	if (*(unsigned short *)EAPOL == *(unsigned short *)pData)*/
     {
         pData += 2;         
     }
@@ -3983,7 +3983,7 @@ NDIS_STATUS	RTMPSoftDecryptionAction(
 	IN 		UCHAR    		UserPriority,
 	IN 		PCIPHER_KEY		pKey,
 	INOUT 	unsigned char *			pData,
-	INOUT 	UINT16			*DataByteCnt)
+	INOUT 	unsigned short			*DataByteCnt)
 {		
 	switch (pKey->CipherAlg)
     {    	        	        
@@ -4183,7 +4183,7 @@ unsigned char *	WPA_ExtractSuiteFromRSNIE(
 		else
 		{
 			PRSNIE	pRsnie;
-			UINT16 	u_cnt;
+			unsigned short 	u_cnt;
 
 			pRsnie = (PRSNIE)pBuf;
 			u_cnt = cpu2le16(pRsnie->ucount);
@@ -4224,7 +4224,7 @@ unsigned char *	WPA_ExtractSuiteFromRSNIE(
 		else
 		{
 			PRSNIE2	pRsnie2;
-			UINT16 	u_cnt;
+			unsigned short 	u_cnt;
 
 			pRsnie2 = (PRSNIE2)pBuf;
 			u_cnt = cpu2le16(pRsnie2->ucount);
@@ -4274,7 +4274,7 @@ unsigned char *	WPA_ExtractSuiteFromRSNIE(
 	else
 	{
 		PRSNIE_AUTH	pAkm;
-		UINT16 		a_cnt;
+		unsigned short 		a_cnt;
 
 		/* pointer to AKM count */
 	pAkm = (PRSNIE_AUTH)pBuf;
@@ -4335,17 +4335,17 @@ unsigned char *	WPA_ExtractSuiteFromRSNIE(
 	}
 
 	/* Extract PMKID-list field */
-	if (len < sizeof(UINT16))
+	if (len < sizeof(unsigned short))
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s : The peer RSNIE doesn't include PMKID list Count\n", __FUNCTION__));
 		goto out;
 	}
 	else
 	{
-		UINT16 	p_count;
+		unsigned short 	p_count;
 		unsigned char *	pPmkidList = NULL;
 		
-		NdisMoveMemory(&p_count, pBuf, sizeof(UINT16));
+		NdisMoveMemory(&p_count, pBuf, sizeof(unsigned short));
 		p_count = cpu2le16(p_count);
 
 		/* Get count of the PMKID list */
@@ -4372,7 +4372,7 @@ unsigned char *	WPA_ExtractSuiteFromRSNIE(
 		else
 		{
 			/* The PMKID field shall be without PMKID-List */
-			offset = sizeof(UINT16);
+			offset = sizeof(unsigned short);
 			pPmkidList = NULL;
 		}
 
@@ -4443,7 +4443,7 @@ VOID RTMPInsertRSNIE(
 	unsigned char *	pTmpBuf;
 	ULONG 	TempLen = 0;
 	UINT8 	extra_len = 0;
-	UINT16 	pmk_count = 0;
+	unsigned short 	pmk_count = 0;
 	UCHAR	ie_num;
 	UINT8 	total_len = 0;	
     UCHAR	WPA2_OUI[3]={0x00,0x0F,0xAC};
@@ -4453,7 +4453,7 @@ VOID RTMPInsertRSNIE(
 	/* PMKID-List Must larger than 0 and the multiple of 16. */
 	if (pmkid_len > 0 && ((pmkid_len & 0x0f) == 0))
 	{		
-		extra_len = sizeof(UINT16) + pmkid_len;
+		extra_len = sizeof(unsigned short) + pmkid_len;
 
 		pmk_count = (pmkid_len >> 4);
 		pmk_count = cpu2le16(pmk_count);

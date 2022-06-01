@@ -920,7 +920,7 @@ BOOLEAN RTMPSoftDecryptCCMP(
 	IN unsigned char * pHdr,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
-	INOUT UINT16 *DataLen)
+	INOUT unsigned short *DataLen)
 {
 	UINT8 frame_type, frame_subtype;
 	UINT8 from_ds, to_ds;

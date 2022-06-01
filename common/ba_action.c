@@ -1710,7 +1710,7 @@ static VOID ba_enqueue_reordering_packet(
 	IN	UCHAR			FromWhichBSSID)
 {
 	struct reordering_mpdu *mpdu_blk;
-	UINT16	Sequence = (UINT16) pRxBlk->pHeader->Sequence;
+	unsigned short	Sequence = (unsigned short) pRxBlk->pHeader->Sequence;
 
 	mpdu_blk = ba_mpdu_blk_alloc(pAd);
 	if ((mpdu_blk != NULL) &&
@@ -1772,7 +1772,7 @@ static VOID ba_enqueue_reordering_packet_hdr_trns(
 	IN	UCHAR			FromWhichBSSID)
 {
 	struct reordering_mpdu *mpdu_blk;
-	UINT16	Sequence = (UINT16) pRxBlk->pHeader->Sequence;
+	unsigned short	Sequence = (unsigned short) pRxBlk->pHeader->Sequence;
 
 	mpdu_blk = ba_mpdu_blk_alloc(pAd);
 	if ((mpdu_blk != NULL) &&
@@ -1861,7 +1861,7 @@ VOID Indicate_AMPDU_Packet(
 {
 	USHORT Idx;
 	PBA_REC_ENTRY pBAEntry = NULL;
-	UINT16 Sequence = pRxBlk->pHeader->Sequence;
+	unsigned short Sequence = pRxBlk->pHeader->Sequence;
 	ULONG Now32;
 	UCHAR Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
 	UCHAR TID = pRxBlk->pRxWI->RxWITID;
@@ -2007,7 +2007,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 {
 	USHORT Idx;
 	PBA_REC_ENTRY pBAEntry = NULL;
-	UINT16 Sequence = pRxBlk->pHeader->Sequence;
+	unsigned short Sequence = pRxBlk->pHeader->Sequence;
 	ULONG Now32;
 	UCHAR Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
 	UCHAR TID = pRxBlk->pRxWI->RxWITID;

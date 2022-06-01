@@ -2557,7 +2557,7 @@ static BOOLEAN DfsEventDrop(
 		IN PDFS_EVENT pDfsEvent)
 {
 	unsigned int TimeDiff = 0;  /* unit: 50ns */
-	UINT16 PreEnvtWidth = 0;
+	unsigned short PreEnvtWidth = 0;
 	BOOLEAN RetVal = FALSE;
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pAd->CommonCfg.RadarDetect.DfsSwParam;
 	PDFS_EVENT pPreDfsEvent = &pDfsSwParam->PreDfsEvent;

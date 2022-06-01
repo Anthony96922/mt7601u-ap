@@ -295,14 +295,14 @@ BOOLEAN	RTMPSoftDecryptWEP(
 	IN 		PRTMP_ADAPTER 	pAd,
 	IN 		PCIPHER_KEY		pKey,
 	INOUT 	unsigned char *			pData,
-	INOUT 	UINT16			*DataByteCnt)
+	INOUT 	unsigned short			*DataByteCnt)
 {
 	/*ARC4_CTX_STRUC 	ARC4_CTX;*/
 	ARC4_CTX_STRUC 	*ARC4_CTX = NULL;
 	unsigned char *			plaintext_ptr;
-	UINT16			plaintext_len;
+	unsigned short			plaintext_len;
 	unsigned char *			ciphertext_ptr;
-	UINT16			ciphertext_len;
+	unsigned short			ciphertext_len;
 	UINT			trailfcs;
 	UINT    		crc32;
 	

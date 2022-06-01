@@ -237,7 +237,7 @@ NTSTATUS MT7601DisableTxRx(struct _RTMP_ADAPTER *pAd, UCHAR Level);
 VOID dump_bw_info(struct _RTMP_ADAPTER *pAd);
 VOID MT7601AsicTemperatureCompensation(IN struct _RTMP_ADAPTER *pAd, IN BOOLEAN bPowerOn);
 #ifdef RTMP_INTERNAL_TX_ALC
-INT16 lin2dBd(UINT16 linearValue);
+INT16 lin2dBd(unsigned short linearValue);
 VOID MT7601_EnableTSSI(struct _RTMP_ADAPTER *pAd);
 #endif /* RTMP_INTERNAL_TX_ALC */
 

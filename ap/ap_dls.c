@@ -85,11 +85,11 @@ VOID APPeerDlsReqAction(
 {
 	PMAC_TABLE_ENTRY	pDAEntry, pSAEntry;
 	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
-	UINT16				CapabilityInfo;
-	UINT16				DLSTimeout;
+	unsigned short				CapabilityInfo;
+	unsigned short				DLSTimeout;
 	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
-	UINT16				Status;
+	unsigned short				Status;
 	unsigned int				FrameLen = 0;
 	HEADER_802_11		DlsRspHdr;
 	UCHAR				Category = CATEGORY_DLS;
@@ -207,8 +207,8 @@ VOID APPeerDlsRspAction(
 {
 	PMAC_TABLE_ENTRY	pDAEntry, pSAEntry;
 	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
-	UINT16				CapabilityInfo;
-	UINT16				StatusCode;
+	unsigned short				CapabilityInfo;
+	unsigned short				StatusCode;
 	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
 	unsigned int				FrameLen = 0;
@@ -289,7 +289,7 @@ VOID APPeerDlsTearDownAction(
 {
 	PMAC_TABLE_ENTRY	pDAEntry, pSAEntry;
 	UCHAR				DA[MAC_ADDR_LEN], SA[MAC_ADDR_LEN];
-	UINT16				ReasonCode;
+	unsigned short				ReasonCode;
 	unsigned char *				pOutBuffer = NULL;
 	PFRAME_802_11		Fr;
 	unsigned int				FrameLen = 0;

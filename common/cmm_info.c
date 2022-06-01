@@ -5904,7 +5904,7 @@ INT Set_ModuleTxpower_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	UINT16 Value;
+	unsigned short Value;
 
 	if(RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE))
 	{
@@ -5912,7 +5912,7 @@ INT Set_ModuleTxpower_Proc(
 		return FALSE;
 	}
 
-	Value = (UINT16)simple_strtol(arg, 0, 10);
+	Value = (unsigned short)simple_strtol(arg, 0, 10);
 	pAd->CommonCfg.ModuleTxpower = Value;
 	DBGPRINT(RT_DEBUG_TRACE, ("IF Set_ModuleTxpower_Proc::(ModuleTxpower=%d)\n", pAd->CommonCfg.ModuleTxpower));
 	return TRUE;

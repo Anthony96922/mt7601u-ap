@@ -3621,7 +3621,7 @@ BOOLEAN RTMP_CardInfoRead(
 		/* search current card information records*/
 		for(card_index = 0; card_index < MAX_NUM_OF_MULTIPLE_CARD; card_index++) {
 			if ((*(unsigned int *)&MC_CardMac[card_index][0] == 0) &&
-				(*(UINT16 *)&MC_CardMac[card_index][4] == 0)) {
+				(*(unsigned short *)&MC_CardMac[card_index][4] == 0)) {
 				/* MAC is all-0 so the entry is available*/
 				MC_CardUsed[card_index] = 0;
 
@@ -3703,7 +3703,7 @@ BOOLEAN RTMP_CardInfoRead(
 							if (MC_CardUsed[card_index] == 0) {
 								/* current the card profile is not used */
 								if ((*(unsigned int *)&MC_CardMac[card_index][0] == 0) &&
-									(*(UINT16 *)&MC_CardMac[card_index][4] == 0)) {
+									(*(unsigned short *)&MC_CardMac[card_index][4] == 0)) {
 									/* find it and no previous card use it*/
 									card_match_id = card_index;
 									break;

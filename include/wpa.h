@@ -36,13 +36,13 @@
 
 #define	SET_UINT16_TO_ARRARY(_V, _LEN)		\
 {											\
-	_V[0] = ((UINT16)_LEN) >> 8;			\
-	_V[1] = ((UINT16)_LEN & 0xFF);					\
+	_V[0] = ((unsigned short)_LEN) >> 8;			\
+	_V[1] = ((unsigned short)_LEN & 0xFF);					\
 }
 
 #define	INC_UINT16_TO_ARRARY(_V, _LEN)			\
 {												\
-	UINT16	var_len;							\
+	unsigned short	var_len;							\
 												\
 	var_len = (_V[0]<<8) | (_V[1]);				\
 	var_len += _LEN;							\
@@ -355,7 +355,7 @@ NDIS_STATUS RTMPSoftDecryptionAction(
 	IN UCHAR UserPriority,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
-	INOUT UINT16 *DataByteCnt);
+	INOUT unsigned short *DataByteCnt);
 
 VOID RTMPSoftConstructIVHdr(
 	IN UCHAR CipherAlg,
@@ -439,7 +439,7 @@ BOOLEAN RTMPSoftDecryptWEP(
 	IN PRTMP_ADAPTER pAd,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
-	INOUT UINT16 *DataByteCnt);
+	INOUT unsigned short *DataByteCnt);
 
 /* 
  =====================================	
@@ -452,7 +452,7 @@ BOOLEAN RTMPSoftDecryptTKIP(
 	IN UCHAR UserPriority,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
-	IN UINT16 *DataByteCnt);
+	IN unsigned short *DataByteCnt);
 
 VOID TKIP_GTK_KEY_WRAP(
 	IN UCHAR *key,
@@ -497,7 +497,7 @@ BOOLEAN RTMPSoftDecryptCCMP(
 	IN unsigned char * pHdr,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
-	INOUT UINT16 *DataLen);
+	INOUT unsigned short *DataLen);
 
 VOID CCMP_test_vector(
 	IN PRTMP_ADAPTER pAd,

@@ -4102,7 +4102,7 @@ VOID APHandleRxMgmtFrame(
 			(pHeader->FC.Wep == 1) && (pRxInfo->Decrypted == 0))
 		{
 			unsigned char *	pMgmt = (unsigned char *)pHeader;
-			UINT16	mgmt_len = pRxWI->RxWIMPDUByteCnt;
+			unsigned short	mgmt_len = pRxWI->RxWIMPDUByteCnt;
 			PMAC_TABLE_ENTRY pEntry = NULL;
 
 			/* Skip 802.11 headre */
@@ -4491,7 +4491,7 @@ VOID APRxDataFrameAnnounce(
 			unsigned char * pDA = pRxBlk->pHeader->Addr3;
 			unsigned char * pSA = pRxBlk->pHeader->Addr2;
 			unsigned char * pData = NdisEqualMemory(SNAP_802_1H, pRxBlk->pData, 6) ? (pRxBlk->pData + 6) : pRxBlk->pData;
-			UINT16 protoType = OS_NTOHS(*((UINT16 *)(pData)));
+			unsigned short protoType = OS_NTOHS(*((unsigned short *)(pData)));
 
 			if (protoType == ETH_P_IP)
 				IGMPSnooping(pAd, pDA, pSA, pData, get_netdev_from_bssid(pAd, FromWhichBSSID));
@@ -4609,7 +4609,7 @@ VOID APRxDataFrameAnnounce_Hdr_Trns(
 			unsigned char * pDA = pRxBlk->pHeader->Addr3;
 			unsigned char * pSA = pRxBlk->pHeader->Addr2;
 			unsigned char * pData = NdisEqualMemory(SNAP_802_1H, pRxBlk->pData, 6) ? (pRxBlk->pData + 6) : pRxBlk->pData;
-			UINT16 protoType = OS_NTOHS(*((UINT16 *)(pData)));
+			unsigned short protoType = OS_NTOHS(*((unsigned short *)(pData)));
 
 			if (protoType == ETH_P_IP)
 				IGMPSnooping(pAd, pDA, pSA, pData, get_netdev_from_bssid(pAd, FromWhichBSSID));

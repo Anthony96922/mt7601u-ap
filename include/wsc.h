@@ -388,8 +388,8 @@ static inline BOOLEAN WscCheckWSCHeader(
 
 typedef struct _WSC_UUID_T{
 	unsigned int timeLow;
-	UINT16 timeMid;
-	UINT16 timeHi_Version;
+	unsigned short timeMid;
+	unsigned short timeHi_Version;
 	UCHAR  clockSeqHi_Var;
 	UCHAR  clockSeqLow;
 	UCHAR  node[6];

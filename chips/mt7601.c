@@ -1722,7 +1722,7 @@ INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 	EEPROM_TX_PWR_STRUC Power;
 	CHAR tx_pwr1, tx_pwr2;
 	CHAR max_tx1_pwr;
-	UINT16 TargetPwr = 0;
+	unsigned short TargetPwr = 0;
 #ifdef RTMP_INTERNAL_TX_ALC
 	EEPROM_NIC_CONFIG2_STRUC NicConfig2;
 #endif /* RTMP_INTERNAL_TX_ALC */
@@ -1996,7 +1996,7 @@ VOID MT7601_InitPAModeTable(
 {
 	INT32 PAMode;
 	unsigned int Value = 0;
-	UINT16 index, offset;
+	unsigned short index, offset;
 
 	RTMP_IO_READ32(pAd, RF_PA_MODE_CFG0, &Value);
 	for (index = 0, offset = 0; index < 4 ; index++, offset += 2) {
@@ -2190,7 +2190,7 @@ VOID MT7601AsicTemperatureCompensation(
 
 
 #ifdef RTMP_INTERNAL_TX_ALC
-INT16 lin2dBd(UINT16 linearValue)
+INT16 lin2dBd(unsigned short linearValue)
 {
 	short exp;
 	unsigned int mantisa;
@@ -2368,7 +2368,7 @@ VOID MT7601_InitDesiredTSSITable(
 {
 	unsigned int Value = 0;
 #ifdef DBG
-	UINT16 offset;
+	unsigned short offset;
 #endif /* DBG */
 	INT32 init_offset;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;

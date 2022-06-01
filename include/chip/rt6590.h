@@ -67,7 +67,7 @@ typedef struct _TSO_INFO_{
  */
 typedef struct _RT8592_FREQ_ITEM {
 	UINT8 Channel;
-	UINT16 N;
+	unsigned short N;
 	UINT8 K;
 	UINT8 mod;
 	UINT8 R;
@@ -92,7 +92,7 @@ typedef struct _RT8592_FREQ_ITEM {
 typedef struct _RT6590_FREQ_ITEM {
 	UINT8 Channel;
 	UINT8 Band;
-	UINT16 PLL_N;
+	unsigned short PLL_N;
 	UINT8 PLL_K;
 	UINT8 Rdiv;
 	UINT8 NonSigma;

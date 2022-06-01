@@ -370,7 +370,7 @@ BOOLEAN PeerDisassocReqSanity(
     IN VOID *Msg, 
     IN ULONG MsgLen, 
     OUT unsigned char * pAddr2, 
-    OUT	UINT16	*SeqNum,
+    OUT	unsigned short	*SeqNum,
     OUT USHORT *Reason) 
 {
     PFRAME_802_11 Fr = (PFRAME_802_11)Msg;
@@ -396,7 +396,7 @@ BOOLEAN PeerDeauthReqSanity(
     IN VOID *Msg, 
     IN ULONG MsgLen, 
     OUT unsigned char * pAddr2, 
-    OUT	UINT16	*SeqNum, 
+    OUT	unsigned short	*SeqNum, 
     OUT USHORT *Reason) 
 {
     PFRAME_802_11 Fr = (PFRAME_802_11)Msg;

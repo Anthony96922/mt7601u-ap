@@ -394,7 +394,7 @@ BOOLEAN PeerDisassocReqSanity(
     IN VOID *Msg, 
     IN ULONG MsgLen, 
     OUT unsigned char * pAddr2, 
-    OUT	UINT16	*SeqNum,
+    OUT	unsigned short	*SeqNum,
     OUT USHORT *Reason);
 
 BOOLEAN PeerDeauthReqSanity(
@@ -402,7 +402,7 @@ BOOLEAN PeerDeauthReqSanity(
     IN VOID *Msg, 
     IN ULONG MsgLen, 
     OUT unsigned char * pAddr2, 
-   	OUT	UINT16	*SeqNum,    
+   	OUT	unsigned short	*SeqNum,    
     OUT USHORT *Reason);
 
 BOOLEAN APPeerAuthSanity(

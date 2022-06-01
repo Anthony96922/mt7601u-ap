@@ -254,7 +254,7 @@ typedef struct _NewDFSDebugResult
 typedef struct _DFS_EVENT{
 	UINT8  EngineId;
 	unsigned int TimeStamp;
-	UINT16 Width;
+	unsigned short Width;
 }DFS_EVENT, *PDFS_EVENT;
 
 typedef struct _DFS_SW_DETECT_PARAM{

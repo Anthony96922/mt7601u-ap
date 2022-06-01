@@ -36,7 +36,7 @@ VOID MakeMeasurementReqFrame(
 	IN UINT8 MeasureToken, 
 	IN UINT8 MeasureReqMode,
 	IN UINT8 MeasureReqType,
-	IN UINT16 NumOfRepetitions);
+	IN unsigned short NumOfRepetitions);
 
 /*
 	==========================================================================

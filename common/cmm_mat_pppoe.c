@@ -136,7 +136,7 @@ typedef struct _UidMacMappingTable
 /* Data struct used for PPPoE session stage */
 typedef struct _SesMacMappingEntry
 {
-	UINT16	sessionID;	/* In network order */
+	unsigned short	sessionID;	/* In network order */
 	UCHAR	outMacAddr[MAC_ADDR_LEN];
 	UCHAR	inMacAddr[MAC_ADDR_LEN];
 	ULONG 	lastTime;
@@ -331,8 +331,8 @@ static PUidMacMappingEntry UidMacTableUpdate(
 	IN unsigned char *			pInMac,
 	IN unsigned char *			pOutMac,
 	IN unsigned char *			pTagInfo,
-	IN UINT16			tagLen,
-	IN UINT16			isServer)
+	IN unsigned short			tagLen,
+	IN unsigned short			isServer)
 {
 	UINT 				hashIdx, i=0, uIDAddByUs = 0;
 	UidMacMappingTable 	*pUidMacTable;
@@ -454,10 +454,10 @@ static PUidMacMappingEntry UidMacTableUpdate(
 static PUidMacMappingEntry UidMacTableLookUp(
 	IN MAT_STRUCT 		*pMatCfg,
 	IN unsigned char *			pTagInfo,
-	IN UINT16			tagLen)
+	IN unsigned short			tagLen)
 {
     UINT 				hashIdx;
-	UINT16				len;
+	unsigned short				len;
 	UCHAR				hashValue = 0;
     UidMacMappingEntry	*pEntry = NULL;
 	UidMacMappingTable *pUidMacTable;
@@ -500,9 +500,9 @@ static PUidMacMappingEntry UidMacTableLookUp(
 static unsigned char * getInMacByOutMacFromSesMacTb(
 	IN MAT_STRUCT *pMatCfg,
 	IN unsigned char * outMac,
-	IN UINT16 sesID)
+	IN unsigned short sesID)
 {
-	UINT16 				hashIdx;
+	unsigned short 				hashIdx;
 	SesMacMappingEntry *pEntry = NULL;
 	SesMacMappingTable *pSesMacTable;
 	
@@ -545,10 +545,10 @@ static unsigned char * getInMacByOutMacFromSesMacTb(
 static NDIS_STATUS SesMacTableUpdate(
 	IN MAT_STRUCT 	*pMatCfg,
 	IN unsigned char * 		inMacAddr,
-	IN UINT16 		sesID,
+	IN unsigned short 		sesID,
 	IN unsigned char * 		outMacAddr)
 {
-	UINT16 hashIdx;
+	unsigned short hashIdx;
 	SesMacMappingEntry *pEntry, *pPrev, *pNewEntry;
 	SesMacMappingTable *pSesMacTable;
 	ULONG	now;
@@ -650,10 +650,10 @@ static unsigned char * MATProto_PPPoEDis_Rx(
 	IN unsigned char *			pDevMacAdr)
 {
 	unsigned char * pData, pSrvMac = NULL, pCliMac= NULL, pOutMac=NULL, pInMac = NULL, pTagContent = NULL, pPayloadLen;
-	UINT16 payloadLen, leftLen;
-	UINT16 tagID, tagLen =0;
-	UINT16 needUpdateSesTb= 0, sesID=0, isPADT = 0;
-	UINT16 findTag=0;
+	unsigned short payloadLen, leftLen;
+	unsigned short tagID, tagLen =0;
+	unsigned short needUpdateSesTb= 0, sesID=0, isPADT = 0;
+	unsigned short findTag=0;
 	PUidMacMappingEntry pEntry = NULL; 
 
 	pData = pLayerHdr;
@@ -756,7 +756,7 @@ static unsigned char * MATProto_PPPoEDis_Rx(
 /*				GET_OS_PKT_LEN(pSkb) -= removedTagLen; */
 				OS_PKT_TAIL_ADJUST(pSkb, removedTagLen);
 
-				*((UINT16 *)pPayloadLen) = OS_HTONS(payloadLen - removedTagLen);
+				*((unsigned short *)pPayloadLen) = OS_HTONS(payloadLen - removedTagLen);
 			}
 
 			if (needUpdateSesTb) {
@@ -794,10 +794,10 @@ static unsigned char * MATProto_PPPoEDis_Tx(
 {
 	unsigned char * pData, pTagContent = NULL, pPayloadLen, pPPPPoETail;
 	unsigned char * pSrcMac, pDstMac;
-	UINT16 payloadLen, leftLen, offset;
-	UINT16 tagID, tagLen =0;
-	UINT16 isServer = 0, needUpdateSesTb= 0, sesID = 0;
-	UINT16 findTag=0;
+	unsigned short payloadLen, leftLen, offset;
+	unsigned short tagID, tagLen =0;
+	unsigned short isServer = 0, needUpdateSesTb= 0, sesID = 0;
+	unsigned short findTag=0;
 	PUidMacMappingEntry pEntry = NULL; 
 	unsigned char * pPktHdr;
 	PNDIS_PACKET pModSkb = NULL;
@@ -927,7 +927,7 @@ static unsigned char * MATProto_PPPoEDis_Tx(
 				tailHead += 4;
 				NdisMoveMemory(tailHead, pEntry->uIDStr, PPPOE_DIS_UID_LEN);
 			}
-			*(UINT16 *)pPayloadLen = OS_HTONS(payloadLen + 4 + PPPOE_DIS_UID_LEN);
+			*(unsigned short *)pPayloadLen = OS_HTONS(payloadLen + 4 + PPPOE_DIS_UID_LEN);
 		}
 	}
 
@@ -1011,7 +1011,7 @@ static unsigned char * MATProto_PPPoESes_Rx(
 	IN unsigned char *			pDevMacAdr)
 {
 	unsigned char * srcMac, dstMac = NULL, pData;	
-	UINT16 sesID;
+	unsigned short sesID;
 	
 	srcMac = (GET_OS_PKT_DATAPTR(pSkb) + 6);
 	pData = pLayerHdr;

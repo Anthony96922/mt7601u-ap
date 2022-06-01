@@ -156,7 +156,7 @@ COUNTRY_REGION_CH_DESC Country_Region_ChDesc_2GHZ[] =
 	{}
 };
 
-UINT16 const Country_Region_GroupNum_2GHZ = sizeof(Country_Region_ChDesc_2GHZ) / sizeof(COUNTRY_REGION_CH_DESC);
+unsigned short const Country_Region_GroupNum_2GHZ = sizeof(Country_Region_ChDesc_2GHZ) / sizeof(COUNTRY_REGION_CH_DESC);
 
 CH_DESC Country_Region0_ChDesc_5GHZ[] =
 {
@@ -344,11 +344,11 @@ COUNTRY_REGION_CH_DESC Country_Region_ChDesc_5GHZ[] =
 	{}
 };
 
-UINT16 const Country_Region_GroupNum_5GHZ = sizeof(Country_Region_ChDesc_5GHZ) / sizeof(COUNTRY_REGION_CH_DESC);
+unsigned short const Country_Region_GroupNum_5GHZ = sizeof(Country_Region_ChDesc_5GHZ) / sizeof(COUNTRY_REGION_CH_DESC);
 
-UINT16 TotalChNum(PCH_DESC pChDesc)
+unsigned short TotalChNum(PCH_DESC pChDesc)
 {
-	UINT16 TotalChNum = 0;
+	unsigned short TotalChNum = 0;
 	
 	while(pChDesc->FirstChannel)
 	{

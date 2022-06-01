@@ -401,7 +401,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	BOOLEAN			Equal = TRUE;
 	unsigned int			MacReg1 = 0;
 	UCHAR			FVer;
-	UINT16			FCS;
+	unsigned short			FCS;
 #endif
 
 
@@ -422,7 +422,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 		if (pAd->WOW_Cfg.bWOWFirmware == TRUE)
 		{
 			UCHAR ver = FirmwareImage[FIRMWAREIMAGEV3_LENGTH + 0xFFD];
-			UINT16 sum;
+			unsigned short sum;
 
 			NdisCopyMemory(&sum, &FirmwareImage[FIRMWAREIMAGEV3_LENGTH+0xFFE], 2);
 #ifdef DBG
@@ -435,7 +435,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 #endif /* WOW_SUPPORT */
 		{
 			UCHAR ver = FirmwareImage[FIRMWAREIMAGEV2_LENGTH + 0xFFD];
-			UINT16 sum;
+			unsigned short sum;
 
 			NdisCopyMemory(&sum, &FirmwareImage[FIRMWAREIMAGEV2_LENGTH+0xFFE], 2);
 #ifdef DBG
