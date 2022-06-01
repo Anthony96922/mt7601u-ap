@@ -6641,7 +6641,7 @@ VOID	WscGenRandomKey(
 	IN  	PRTMP_ADAPTER	pAd,
 	IN  	PWSC_CTRL       pWscControl,
 	INOUT	unsigned char *			pKey,
-	INOUT	PUSHORT			pKeyLen)
+	INOUT	unsigned short *			pKeyLen)
 {
 	UCHAR   tempRandomByte = 0;
 	UCHAR   idx = 0;
@@ -7397,7 +7397,7 @@ VOID WscSendNACK(
 VOID WscCheckWpsIeFromWpsAP(
     IN  PRTMP_ADAPTER 	pAd, 
     IN  PEID_STRUCT		pEid,
-    OUT PUSHORT			pDPIDFromAP)
+    OUT unsigned short *			pDPIDFromAP)
 {
 	unsigned char *				pData;
 	SHORT				Len = 0;
@@ -9019,7 +9019,7 @@ BOOLEAN WscGetDataFromPeerByTag(
     IN  INT				IeDataLen,
     IN  USHORT			WscTag,
     OUT unsigned char *			pWscBuf,
-    OUT PUSHORT			pWscBufLen)
+    OUT unsigned short *			pWscBufLen)
 {
 	unsigned char *				pData = pIeData;
 	INT					Len = 0;

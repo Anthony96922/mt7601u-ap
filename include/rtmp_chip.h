@@ -465,7 +465,7 @@ typedef union _EEPROM_ANTENNA_STRUC {
   *   EEPROM operation related marcos
   */
 #define RT28xx_EEPROM_READ16(_pAd, _offset, _value)			\
-	(_pAd)->chipOps.eeread((RTMP_ADAPTER *)(_pAd), (USHORT)(_offset), (PUSHORT)&(_value))
+	(_pAd)->chipOps.eeread((RTMP_ADAPTER *)(_pAd), (USHORT)(_offset), (unsigned short *)&(_value))
 
 #define RT28xx_EEPROM_WRITE16(_pAd, _offset, _value)		\
 	(_pAd)->chipOps.eewrite((RTMP_ADAPTER *)(_pAd), (USHORT)(_offset), (USHORT)(_value))
@@ -690,7 +690,7 @@ typedef enum _CHIP_SPEC_ID
 struct _RTMP_CHIP_OP_ {
 	/*  Calibration access related callback functions */
 	int (*eeinit)(struct _RTMP_ADAPTER *pAd);
-	int (*eeread)(struct _RTMP_ADAPTER *pAd, USHORT offset, PUSHORT pValue);
+	int (*eeread)(struct _RTMP_ADAPTER *pAd, USHORT offset, unsigned short * pValue);
 	int (*eewrite)(struct _RTMP_ADAPTER *pAd, USHORT offset, USHORT value);
 
 	/* MCU related callback functions */

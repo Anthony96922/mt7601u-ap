@@ -3113,7 +3113,7 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 	/*  Calibration access related callback functions */
 /*
 	int (*eeinit)(struct _RTMP_ADAPTER *pAd);
-	int (*eeread)(struct _RTMP_ADAPTER *pAd, USHORT offset, PUSHORT pValue);
+	int (*eeread)(struct _RTMP_ADAPTER *pAd, USHORT offset, unsigned short * pValue);
 	int (*eewrite)(struct _RTMP_ADAPTER *pAd, USHORT offset, USHORT value);
 */
 	/* MCU related callback functions */

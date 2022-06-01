@@ -699,7 +699,7 @@ NTSTATUS RTUSBWriteEEPROM(
 NTSTATUS RTUSBReadEEPROM16(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			offset,
-	OUT	PUSHORT			pData)
+	OUT	unsigned short *			pData)
 {
 	NTSTATUS status;
 	USHORT  localData;

@@ -7199,7 +7199,7 @@ VOID	WscGenRandomKey(
 	IN  	PRTMP_ADAPTER	pAd,
 	IN  	PWSC_CTRL       pWscControl,
 	INOUT	unsigned char *			pKey,
-	INOUT	PUSHORT			pKeyLen);
+	INOUT	unsigned short *			pKeyLen);
 
 VOID	WscCreateProfileFromCfg(
 	IN	PRTMP_ADAPTER		pAd,
@@ -7252,7 +7252,7 @@ BOOLEAN	WscWriteProfileToUfdFile(
 VOID WscCheckWpsIeFromWpsAP(
     IN  PRTMP_ADAPTER 	pAd, 
     IN  PEID_STRUCT		pEid,
-    OUT PUSHORT			pDPIDFromAP);
+    OUT unsigned short *			pDPIDFromAP);
 
 
 /* WSC hardware push button function 0811 */
@@ -7389,7 +7389,7 @@ BOOLEAN WscGetDataFromPeerByTag(
     IN  INT				IeDataLen,
     IN  USHORT			WscTag,
     OUT unsigned char *			pWscBuf,
-    OUT PUSHORT			pWscBufLen);
+    OUT unsigned short *			pWscBufLen);
 
 #endif /* WSC_INCLUDED */
 

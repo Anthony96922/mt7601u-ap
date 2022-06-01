@@ -425,7 +425,7 @@ static VOID ApCliMlmeAssocReqAction(
 				if (FoundPMK)
 				{
 					// Set PMK number
-					*(PUSHORT) &pAd->ApCfg.ApCliTab[ifIndex].RSN_IE[pAd->ApCfg.ApCliTab[ifIndex].RSNIE_Len] = 1;
+					*(unsigned short *) &pAd->ApCfg.ApCliTab[ifIndex].RSN_IE[pAd->ApCfg.ApCliTab[ifIndex].RSNIE_Len] = 1;
 					NdisMoveMemory(&pAd->ApCfg.ApCliTab[ifIndex].RSN_IE[pAd->ApCfg.ApCliTab[ifIndex].RSNIE_Len + 2], &pAd->ApCfg.ApCliTab[ifIndex].SavedPMK[idx].PMKID, 16);
                     			pAd->ApCfg.ApCliTab[ifIndex].RSNIE_Len += 18;
 				}

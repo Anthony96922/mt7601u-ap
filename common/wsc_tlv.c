@@ -343,13 +343,13 @@ static BOOLEAN	WscProcessCredential(
 				break;
 								
 			case WSC_ID_AUTH_TYPE:
-				tmpVal = get_unaligned((PUSHORT) pData);
-				pProfile->Profile[CurrentIdx].AuthType = cpu2be16(tmpVal); /*cpu2be16(*((PUSHORT) pData));//(UINT8 *)&pReg->RegistrarInfo.AuthTypeFlags */
+				tmpVal = get_unaligned((unsigned short *) pData);
+				pProfile->Profile[CurrentIdx].AuthType = cpu2be16(tmpVal); /*cpu2be16(*((unsigned short *) pData));//(UINT8 *)&pReg->RegistrarInfo.AuthTypeFlags */
 				break;
 								
 			case WSC_ID_ENCR_TYPE:
-				tmpVal = get_unaligned((PUSHORT) pData);
-				pProfile->Profile[CurrentIdx].EncrType = cpu2be16(tmpVal);/*cpu2be16(*((PUSHORT) pData));//(UINT8 *)&pReg->RegistrarInfo.EncrTypeFlags */
+				tmpVal = get_unaligned((unsigned short *) pData);
+				pProfile->Profile[CurrentIdx].EncrType = cpu2be16(tmpVal);/*cpu2be16(*((unsigned short *) pData));//(UINT8 *)&pReg->RegistrarInfo.EncrTypeFlags */
 				break;
 
 			case WSC_ID_NW_KEY_INDEX:
@@ -2455,12 +2455,12 @@ int ProcessMessageM1(
 				break;
 				
 			case WSC_ID_AUTH_TYPE_FLAGS:
-				pReg->PeerInfo.AuthTypeFlags = *((PUSHORT) pData);
+				pReg->PeerInfo.AuthTypeFlags = *((unsigned short *) pData);
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_AUTH_TYPE_FLAGS))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_AUTH_TYPE_FLAGS));
 				break;
 				
 			case WSC_ID_ENCR_TYPE_FLAGS:
-				pReg->PeerInfo.EncrTypeFlags = *((PUSHORT) pData);
+				pReg->PeerInfo.EncrTypeFlags = *((unsigned short *) pData);
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_ENCR_TYPE_FLAGS))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_ENCR_TYPE_FLAGS));
 				break;
 				
@@ -2470,12 +2470,12 @@ int ProcessMessageM1(
 				break;
 				
 			case WSC_ID_CONFIG_METHODS:
-				pReg->PeerInfo.ConfigMethods = get_unaligned((PUSHORT) pData);/**((PUSHORT) pData); */
+				pReg->PeerInfo.ConfigMethods = get_unaligned((unsigned short *) pData);/**((unsigned short *) pData); */
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_CONFIG_METHODS))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_CONFIG_METHODS));
 				break;
 				
 			case WSC_ID_SC_STATE:
-				pReg->PeerInfo.ScState = get_unaligned((PUSHORT) pData);/**((PUSHORT) pData); */
+				pReg->PeerInfo.ScState = get_unaligned((unsigned short *) pData);/**((unsigned short *) pData); */
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_SC_STATE))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_SC_STATE));
 				break;
 				
@@ -2522,23 +2522,23 @@ int ProcessMessageM1(
 				break;
 				
 			case WSC_ID_ASSOC_STATE:
-				pReg->PeerInfo.AssocState = get_unaligned((PUSHORT) pData);/**((PUSHORT) pData); */
+				pReg->PeerInfo.AssocState = get_unaligned((unsigned short *) pData);/**((unsigned short *) pData); */
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_ASSOC_STATE))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_ASSOC_STATE));
 				break;
 				
 			case WSC_ID_CONFIG_ERROR:
-				pReg->PeerInfo.ConfigError = get_unaligned((PUSHORT) pData);/**((PUSHORT) pData); */
+				pReg->PeerInfo.ConfigError = get_unaligned((unsigned short *) pData);/**((unsigned short *) pData); */
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_CONFIG_ERROR))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_CONFIG_ERROR));
 				break;
 				
 			case WSC_ID_DEVICE_PWD_ID:
 				DBGPRINT(RT_DEBUG_TRACE, ("   WPS Registrar DPID %04x\n",pReg->SelfInfo.DevPwdId));
-				if(WSC_DEVICEPWDID_DEFAULT == get_unaligned((PUSHORT) pData))/**(PUSHORT) pData) */
+				if(WSC_DEVICEPWDID_DEFAULT == get_unaligned((unsigned short *) pData))/**(unsigned short *) pData) */
 				{
 					DBGPRINT(RT_DEBUG_TRACE, ("Rx WPS           DPID PIN\n"));
 					pWscControl->RegData.SelfInfo.DevPwdId = cpu2be16(DEV_PASS_ID_PIN);
 				}
-				else if(WSC_DEVICEPWDID_PUSH_BTN == get_unaligned((PUSHORT) pData))/**(PUSHORT) pData) */
+				else if(WSC_DEVICEPWDID_PUSH_BTN == get_unaligned((unsigned short *) pData))/**(unsigned short *) pData) */
 				{
 					DBGPRINT(RT_DEBUG_TRACE, ("Rx WPS           DPID PBC\n"));
 					pWscControl->RegData.SelfInfo.DevPwdId = cpu2be16(DEV_PASS_ID_PBC);
@@ -2714,12 +2714,12 @@ int ProcessMessageM2(
 				break;
 				
 			case WSC_ID_AUTH_TYPE_FLAGS:
-				pReg->PeerInfo.AuthTypeFlags = get_unaligned((PUSHORT) pData);
+				pReg->PeerInfo.AuthTypeFlags = get_unaligned((unsigned short *) pData);
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_AUTH_TYPE_FLAGS))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_AUTH_TYPE_FLAGS));
 				break;
 				
 			case WSC_ID_ENCR_TYPE_FLAGS:
-				pReg->PeerInfo.EncrTypeFlags = get_unaligned((PUSHORT) pData);
+				pReg->PeerInfo.EncrTypeFlags = get_unaligned((unsigned short *) pData);
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_ENCR_TYPE_FLAGS))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_ENCR_TYPE_FLAGS));
 				break;
 				
@@ -2729,7 +2729,7 @@ int ProcessMessageM2(
 				break;
 				
 			case WSC_ID_CONFIG_METHODS:
-				pReg->PeerInfo.ConfigMethods = get_unaligned((PUSHORT) pData);
+				pReg->PeerInfo.ConfigMethods = get_unaligned((unsigned short *) pData);
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_CONFIG_METHODS))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_CONFIG_METHODS));
 				break;
 				
@@ -2774,12 +2774,12 @@ int ProcessMessageM2(
 				break;
 				
 			case WSC_ID_ASSOC_STATE:
-				pReg->PeerInfo.AssocState = get_unaligned((PUSHORT) pData);
+				pReg->PeerInfo.AssocState = get_unaligned((unsigned short *) pData);
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_ASSOC_STATE))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_ASSOC_STATE));
 				break;
 				
 			case WSC_ID_CONFIG_ERROR:
-				pReg->PeerInfo.ConfigError = get_unaligned((PUSHORT) pData);
+				pReg->PeerInfo.ConfigError = get_unaligned((unsigned short *) pData);
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_CONFIG_ERROR))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_CONFIG_ERROR));
 				break;
 				
@@ -2960,11 +2960,11 @@ int ProcessMessageM2D(
 				break;
 				
 			case WSC_ID_AUTH_TYPE_FLAGS:
-				pReg->PeerInfo.AuthTypeFlags = get_unaligned((PUSHORT) pData);/**((PUSHORT) pData); */
+				pReg->PeerInfo.AuthTypeFlags = get_unaligned((unsigned short *) pData);/**((unsigned short *) pData); */
 				break;
 				
 			case WSC_ID_ENCR_TYPE_FLAGS:
-				pReg->PeerInfo.EncrTypeFlags = get_unaligned((PUSHORT) pData);/**((PUSHORT) pData); */
+				pReg->PeerInfo.EncrTypeFlags = get_unaligned((unsigned short *) pData);/**((unsigned short *) pData); */
 				break;
 				
 			case WSC_ID_CONN_TYPE_FLAGS:
@@ -2972,7 +2972,7 @@ int ProcessMessageM2D(
 				break;
 				
 			case WSC_ID_CONFIG_METHODS:
-				pReg->PeerInfo.ConfigMethods = be2cpu16(get_unaligned((PUSHORT) pData));/*be2cpu16(*((PUSHORT) pData)); */
+				pReg->PeerInfo.ConfigMethods = be2cpu16(get_unaligned((unsigned short *) pData));/*be2cpu16(*((unsigned short *) pData)); */
 				break;
 				
 			case WSC_ID_MANUFACTURER:
@@ -3004,11 +3004,11 @@ int ProcessMessageM2D(
 				break;
 				
 			case WSC_ID_ASSOC_STATE:
-				pReg->PeerInfo.AssocState = get_unaligned((PUSHORT) pData);/**((PUSHORT) pData); */
+				pReg->PeerInfo.AssocState = get_unaligned((unsigned short *) pData);/**((unsigned short *) pData); */
 				break;
 				
 			case WSC_ID_CONFIG_ERROR:
-				pReg->PeerInfo.ConfigError = get_unaligned((PUSHORT) pData);/**((PUSHORT) pData); */
+				pReg->PeerInfo.ConfigError = get_unaligned((unsigned short *) pData);/**((unsigned short *) pData); */
 				break;
 				
 			case WSC_ID_DEVICE_PWD_ID:

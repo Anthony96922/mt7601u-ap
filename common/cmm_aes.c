@@ -470,7 +470,7 @@ BOOLEAN RTMPSoftDecryptAES(
 	fc0 = *pData;
 	fc1 = *(pData + 1);
 
-	fc = *((PUSHORT)pData);	
+	fc = *((unsigned short *)pData);	
 
 	frame_type = ((fc0 >> 2) & 0x03);
 	frame_subtype = ((fc0 >> 4) & 0x0f);	

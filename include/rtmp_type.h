@@ -73,7 +73,6 @@ typedef void VOID;
 
 typedef char *PSTRING;
 typedef CHAR *PCHAR;
-typedef USHORT *PUSHORT;
 typedef LONG *PLONG;
 
 typedef unsigned int NDIS_MEDIA_STATE;

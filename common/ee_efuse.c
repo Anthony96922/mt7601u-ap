@@ -111,9 +111,9 @@ static UCHAR eFuseReadRegisters(
 
 VOID eFuseReadPhysical( 
 	IN	PRTMP_ADAPTER	pAd, 
-  	IN	PUSHORT lpInBuffer,
+  	IN	unsigned short * lpInBuffer,
   	IN	ULONG nInBufferSize,
-  	OUT	PUSHORT lpOutBuffer,
+  	OUT	unsigned short * lpOutBuffer,
   	IN	ULONG nOutBufferSize);
 
 static VOID eFusePhysicalWriteRegisters(
@@ -130,7 +130,7 @@ static NTSTATUS eFuseWriteRegisters(
 
 static VOID eFuseWritePhysical( 
 	IN	PRTMP_ADAPTER	pAd,	
-  	PUSHORT lpInBuffer,
+  	unsigned short * lpInBuffer,
 	ULONG nInBufferSize,
   	unsigned char * lpOutBuffer,
   	ULONG nOutBufferSize);
@@ -346,9 +346,9 @@ VOID eFusePhysicalReadRegisters(
 */
 VOID eFuseReadPhysical( 
 	IN	PRTMP_ADAPTER	pAd, 
-  	IN	PUSHORT lpInBuffer,
+  	IN	unsigned short * lpInBuffer,
   	IN	ULONG nInBufferSize,
-  	OUT	PUSHORT lpOutBuffer,
+  	OUT	unsigned short * lpOutBuffer,
   	IN	ULONG nOutBufferSize  
 )
 {
@@ -381,7 +381,7 @@ VOID eFuseReadPhysical(
 NTSTATUS eFuseRead(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	OUT	PUSHORT			pData,
+	OUT	unsigned short *			pData,
 	IN	USHORT			Length)
 {
 	NTSTATUS Status = STATUS_SUCCESS;
@@ -819,7 +819,7 @@ static NTSTATUS eFuseWriteRegisters(
 */
 static VOID eFuseWritePhysical( 
 	IN	PRTMP_ADAPTER	pAd,	
-  	PUSHORT lpInBuffer,
+  	unsigned short * lpInBuffer,
 	ULONG nInBufferSize,
   	unsigned char * lpOutBuffer,
   	ULONG nOutBufferSize  
@@ -866,13 +866,13 @@ static VOID eFuseWritePhysical(
 NTSTATUS eFuseWrite(  
    	IN	PRTMP_ADAPTER	pAd,
 	IN	USHORT			Offset,
-	IN	PUSHORT			pData,
+	IN	unsigned short *			pData,
 	IN	USHORT			length)
 {
 	int i;
-	USHORT* pValueX = (PUSHORT) pData;				/*value ...		*/
-	PUSHORT OddWriteByteBuf;
-/*	OddWriteByteBuf=(PUSHORT)kmalloc(sizeof(USHORT)*2, MEM_ALLOC_FLAG);*/
+	USHORT* pValueX = (unsigned short *) pData;				/*value ...		*/
+	unsigned short * OddWriteByteBuf;
+/*	OddWriteByteBuf=(unsigned short *)kmalloc(sizeof(USHORT)*2, MEM_ALLOC_FLAG);*/
 	os_alloc_mem(NULL, (UCHAR **)&OddWriteByteBuf, sizeof(USHORT)*2);
 	/* The input value=3070 will be stored as following*/
 	/* Little-endian		S	|	S	Big-endian*/
@@ -1046,7 +1046,7 @@ INT	set_eFuseLoadFromBin_Proc(
 					eFuseWriteRegistersFromBin(pAd,(USHORT)ReadedByte-15, 16, PDATA);
 				else
 				{
-					if(eFuseReadRegisters(pAd,ReadedByte, 2,(PUSHORT)&DATA)!=0x3f)
+					if(eFuseReadRegisters(pAd,ReadedByte, 2,(unsigned short *)&DATA)!=0x3f)
 						eFuseWriteRegistersFromBin(pAd,(USHORT)ReadedByte-15, 16, PDATA);
 				}
 				/*
@@ -1884,7 +1884,7 @@ INT Set_LoadEepromBufferFromEfuse_Proc(
 			return FALSE;
 		
 		NdisZeroMemory(pAd->EEPROMImage, MAX_EEPROM_BIN_FILE_SIZE);
-		eFuseRead(pAd, 0, (PUSHORT)&pAd->EEPROMImage[0], MAX_EEPROM_BIN_FILE_SIZE);		
+		eFuseRead(pAd, 0, (unsigned short *)&pAd->EEPROMImage[0], MAX_EEPROM_BIN_FILE_SIZE);		
 
 		/* Change to BIN eeprom buffer mode */
 		pAd->bFroceEEPROMBuffer = TRUE;
