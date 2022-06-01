@@ -47,7 +47,7 @@ Return Value:
         MT2_PEER_DLS_TEAR_DOWN		PeerDlsTearDownAction
 ========================================================================
  */
-VOID APDLSStateMachineInit(
+void APDLSStateMachineInit(
     IN	PRTMP_ADAPTER		pAd, 
     IN  STATE_MACHINE		*S, 
     OUT STATE_MACHINE_FUNC	Trans[]) 
@@ -79,7 +79,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID APPeerDlsReqAction(
+void APPeerDlsReqAction(
     IN PRTMP_ADAPTER	pAd,
     IN MLME_QUEUE_ELEM	*pElem)
 {
@@ -201,7 +201,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID APPeerDlsRspAction(
+void APPeerDlsRspAction(
     IN PRTMP_ADAPTER	pAd,
     IN MLME_QUEUE_ELEM	*pElem)
 {
@@ -283,7 +283,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID APPeerDlsTearDownAction(
+void APPeerDlsTearDownAction(
     IN PRTMP_ADAPTER	pAd,
     IN MLME_QUEUE_ELEM	*pElem)
 {

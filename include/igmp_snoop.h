@@ -52,11 +52,11 @@
 #define IGMP_IN_GROUP	2
 
 
-VOID MulticastFilterTableInit(
+void MulticastFilterTableInit(
 	IN PRTMP_ADAPTER pAd,
 	IN PMULTICAST_FILTER_TABLE *ppMulticastFilterTable);
 
-VOID MultiCastFilterTableReset(
+void MultiCastFilterTableReset(
 	IN PMULTICAST_FILTER_TABLE *ppMulticastFilterTable);
 
 bool MulticastFilterTableInsertEntry(
@@ -81,7 +81,7 @@ bool isIgmpPkt(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader);
 
-VOID IGMPSnooping(
+void IGMPSnooping(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pSrcMacAddr,
@@ -98,7 +98,7 @@ bool IPv6MulticastFilterExcluded(
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pIpHeader);
 
-VOID MLDSnooping(
+void MLDSnooping(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pSrcMacAddr,
@@ -108,7 +108,7 @@ VOID MLDSnooping(
 unsigned char IgmpMemberCnt(
 	IN PLIST_HEADER pList);
 
-VOID IgmpGroupDelMembers(
+void IgmpGroupDelMembers(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pMemberAddr,
 	IN PNET_DEV pDev);

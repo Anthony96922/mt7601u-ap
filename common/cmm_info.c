@@ -1440,7 +1440,7 @@ NDIS_STATUS RTMPWPARemoveKeyProc(
 	
 	========================================================================
 */
-VOID RTMPSetPhyMode(
+void RTMPSetPhyMode(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned long phymode)
 {
@@ -1611,7 +1611,7 @@ VOID RTMPSetPhyMode(
     Return:
 	========================================================================
 */
-VOID	RTMPAddWcidAttributeEntry(
+void	RTMPAddWcidAttributeEntry(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char			BssIdx,
 	IN 	unsigned char		 	KeyIdx,
@@ -1818,7 +1818,7 @@ char * GetAuthMode(char auth)
 */
 #define	LINE_LEN	(4+33+20+23+9+7+7+3)	/* Channel+SSID+Bssid+Security+Signal+WiressMode+ExtCh+NetworkType*/
 
-VOID	RTMPCommSiteSurveyData(
+void	RTMPCommSiteSurveyData(
 	IN  char *		msg,
 	IN  PBSS_ENTRY	pBss,
 	IN  unsigned int		MsgLen)
@@ -2005,7 +2005,7 @@ VOID	RTMPCommSiteSurveyData(
 }
 
 #if defined (AP_SCAN_SUPPORT) || defined (CONFIG_STA_SUPPORT)
-VOID RTMPIoctlGetSiteSurvey(
+void RTMPIoctlGetSiteSurvey(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -2091,7 +2091,7 @@ VOID RTMPIoctlGetSiteSurvey(
 
 
 #define	MAC_LINE_LEN	(1+14+4+4+4+4+10+10+10+6+6)	/* "\n"+Addr+aid+psm+datatime+rxbyte+txbyte+current tx rate+last tx rate+"\n" */
-VOID RTMPIoctlGetMacTable(
+void RTMPIoctlGetMacTable(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
@@ -2199,7 +2199,7 @@ LabelOK:
 #ifdef INF_AR9
 #ifdef AR9_MAPI_SUPPORT
 #ifdef CONFIG_AP_SUPPORT
-VOID RTMPAR9IoctlGetMacTable(
+void RTMPAR9IoctlGetMacTable(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
@@ -2251,7 +2251,7 @@ VOID RTMPAR9IoctlGetMacTable(
 	os_free_mem(NULL, msg);
 }
 
-VOID RTMPIoctlGetSTAT2(
+void RTMPIoctlGetSTAT2(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
@@ -2303,7 +2303,7 @@ VOID RTMPIoctlGetSTAT2(
 }
 
 
-VOID RTMPIoctlGetRadioDynInfo(
+void RTMPIoctlGetRadioDynInfo(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
@@ -5780,7 +5780,7 @@ INT	Set_BurstMode_Proc(
 
 
 #ifdef DOT11_VHT_AC
-VOID assoc_vht_info_debugshow(
+void assoc_vht_info_debugshow(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN VHT_CAP_IE *vht_cap,

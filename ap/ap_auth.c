@@ -27,23 +27,23 @@
 
 #include "rt_config.h"
 
-static VOID APMlmeDeauthReqAction(
+static void APMlmeDeauthReqAction(
     IN PRTMP_ADAPTER pAd, 
     IN MLME_QUEUE_ELEM *Elem);
 
-static VOID APPeerDeauthReqAction(
+static void APPeerDeauthReqAction(
     IN PRTMP_ADAPTER	pAd, 
     IN MLME_QUEUE_ELEM *Elem);
 
-static VOID APPeerAuthReqAtIdleAction(
+static void APPeerAuthReqAtIdleAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-static VOID APPeerAuthConfirmAction(
+static void APPeerAuthConfirmAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-static VOID APPeerAuthSimpleRspGenAndSend(
+static void APPeerAuthSimpleRspGenAndSend(
     IN  PRTMP_ADAPTER   pAd, 
     IN  PHEADER_802_11 pHdr80211, 
     IN  unsigned short Alg, 
@@ -90,7 +90,7 @@ void APAuthStateMachineInit(
         Upper Layer request to kick out a STA
     ==========================================================================
  */
-static VOID APMlmeDeauthReqAction(
+static void APMlmeDeauthReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -152,7 +152,7 @@ static VOID APMlmeDeauthReqAction(
 }
 
 
-static VOID APPeerDeauthReqAction(
+static void APPeerDeauthReqAction(
     IN PRTMP_ADAPTER pAd, 
     IN PMLME_QUEUE_ELEM Elem) 
 {
@@ -212,7 +212,7 @@ static VOID APPeerDeauthReqAction(
 }
 
 
-static VOID APPeerAuthReqAtIdleAction(
+static void APPeerAuthReqAtIdleAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -399,7 +399,7 @@ static VOID APPeerAuthReqAtIdleAction(
 }
 
 
-static VOID APPeerAuthConfirmAction(
+static void APPeerAuthConfirmAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -525,7 +525,7 @@ static VOID APPeerAuthConfirmAction(
         separate it from AUTH state machine, and make it as a standalone service
     ==========================================================================
  */
-VOID APCls2errAction(
+void APCls2errAction(
     IN PRTMP_ADAPTER pAd, 
 	IN 	unsigned long Wcid, 
     IN	PHEADER_802_11	pHeader) 
@@ -584,7 +584,7 @@ VOID APCls2errAction(
         Send out a Authentication (response) frame
     ==========================================================================
 */
-VOID APPeerAuthSimpleRspGenAndSend(
+void APPeerAuthSimpleRspGenAndSend(
     IN PRTMP_ADAPTER pAd, 
     IN PHEADER_802_11 pHdr, 
     IN unsigned short Alg, 

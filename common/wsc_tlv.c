@@ -192,7 +192,7 @@ int AppendWSCTLV(unsigned short index, OUT unsigned char * obuf, IN unsigned cha
 		
 	========================================================================
 */
-static VOID	WscParseEncrSettings(
+static void	WscParseEncrSettings(
 	IN	PRTMP_ADAPTER		pAdapter, 
 	IN	unsigned char *				pPlainData,
 	IN	INT					PlainLength,
@@ -499,7 +499,7 @@ int WscDeriveKey (
 int BuildMessageM1(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
@@ -744,7 +744,7 @@ int BuildMessageM1(
 int BuildMessageM2(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
@@ -993,7 +993,7 @@ int BuildMessageM2(
 int BuildMessageM2D(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
@@ -1153,7 +1153,7 @@ int BuildMessageM2D(
 int BuildMessageM3(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
@@ -1315,7 +1315,7 @@ int BuildMessageM3(
 int BuildMessageM4(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
@@ -1508,7 +1508,7 @@ LabelErr:
 int BuildMessageM5(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
@@ -1643,7 +1643,7 @@ int BuildMessageM5(
 int BuildMessageM6(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
@@ -1783,7 +1783,7 @@ int BuildMessageM6(
 int BuildMessageM7(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
 	INT					Len = 0, templen = 0;
@@ -1953,7 +1953,7 @@ int BuildMessageM7(
 int BuildMessageM8(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 /*	unsigned char				TB[256]; */
 	unsigned char				*TB = NULL;
@@ -2139,7 +2139,7 @@ LabelErr:
 int BuildMessageDONE(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
@@ -2199,7 +2199,7 @@ int BuildMessageDONE(
 int BuildMessageACK(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
 	INT					Len = 0, templen = 0;
@@ -2259,7 +2259,7 @@ int BuildMessageACK(
 int BuildMessageNACK(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	OUT	VOID *pbuf)
+	OUT	void *pbuf)
 {
 	unsigned char				TB[2];
 	INT					Len = 0, templen = 0;
@@ -2349,7 +2349,7 @@ int BuildMessageNACK(
 int ProcessMessageM1(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	IN	VOID *precv,
+	IN	void *precv,
 	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg)
 {
@@ -2607,7 +2607,7 @@ int ProcessMessageM1(
 int ProcessMessageM2(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN  PWSC_CTRL		pWscControl,
-	IN	VOID 			*precv,
+	IN	void 			*precv,
 	IN	INT 			Length,
 	IN  unsigned char			apidx,
 	OUT	PWSC_REG_DATA 	pReg)
@@ -2901,7 +2901,7 @@ int ProcessMessageM2(
 */
 int ProcessMessageM2D(
 	IN	PRTMP_ADAPTER		pAdapter,
-	IN	VOID *precv,
+	IN	void *precv,
 	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg)
 {
@@ -3062,7 +3062,7 @@ int ProcessMessageM2D(
 */
 int ProcessMessageM3(
 	IN	PRTMP_ADAPTER		pAdapter,
-	IN	VOID *precv,
+	IN	void *precv,
 	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg)
 {
@@ -3195,7 +3195,7 @@ int ProcessMessageM3(
 int ProcessMessageM4(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	IN	VOID *precv,
+	IN	void *precv,
 	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg)
 {
@@ -3381,7 +3381,7 @@ out :
 int ProcessMessageM5(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	IN	VOID *precv,
+	IN	void *precv,
 	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg)
 {
@@ -3556,7 +3556,7 @@ out :
 int ProcessMessageM6(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	IN	VOID *precv,
+	IN	void *precv,
 	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg)
 {
@@ -3730,7 +3730,7 @@ out:
 int ProcessMessageM7(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
-	IN	VOID *precv,
+	IN	void *precv,
 	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg)
 {
@@ -3873,7 +3873,7 @@ int ProcessMessageM7(
 */
 int ProcessMessageM8(
 	IN	PRTMP_ADAPTER		pAdapter,
-	IN	VOID *precv,
+	IN	void *precv,
 	IN	INT Length,
 	IN  PWSC_CTRL       pWscControl)
 {

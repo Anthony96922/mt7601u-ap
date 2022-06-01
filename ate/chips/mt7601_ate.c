@@ -46,7 +46,7 @@ extern unsigned char MT7601_BBP_LowTempBW20RegTb_Size;
 extern RTMP_REG_PAIR MT7601_BBP_LowTempBW40RegTb[];
 extern unsigned char MT7601_BBP_LowTempBW40RegTb_Size;
 
-VOID MT7601ATEAsicSwitchChannel(
+void MT7601ATEAsicSwitchChannel(
     IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -644,7 +644,7 @@ bool MT7601ATEGetTssiCompensationParam(
 }
 
 
-VOID MT7601ATEAsicTxAlcGetAutoAgcOffset(
+void MT7601ATEAsicTxAlcGetAutoAgcOffset(
 	IN PRTMP_ADAPTER 			pAd)
 {
 	int TargetPower, CurrentPower, PowerDiff;
@@ -766,7 +766,7 @@ VOID MT7601ATEAsicTxAlcGetAutoAgcOffset(
 #endif /* RTMP_INTERNAL_TX_ALC */
 
 
-VOID MT7601ATEAsicTemperatureCompensation(
+void MT7601ATEAsicTemperatureCompensation(
 	IN PRTMP_ADAPTER			pAd)
 {
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -801,7 +801,7 @@ VOID MT7601ATEAsicTemperatureCompensation(
 	==========================================================================
  */
 
-VOID MT7601ATEAsicAdjustTxPower(
+void MT7601ATEAsicAdjustTxPower(
 	IN PRTMP_ADAPTER pAd) 
 {
 
@@ -855,7 +855,7 @@ INT	MT7601_Set_ATE_TX_FREQ_OFFSET_Proc(
 }
 
 
-VOID MT7601ATERxVGAInit(
+void MT7601ATERxVGAInit(
 	IN PRTMP_ADAPTER		pAd)
 {
 	unsigned char R66 = 0x14;
@@ -869,7 +869,7 @@ VOID MT7601ATERxVGAInit(
 }
 
 
-VOID MT7601ATEAsicSetTxRxPath(
+void MT7601ATEAsicSetTxRxPath(
     IN PRTMP_ADAPTER pAd)
 {
 

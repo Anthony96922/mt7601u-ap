@@ -5,7 +5,7 @@
 #include <rt_config.h>
 
 
-VOID set_entry_phy_cfg(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
+void set_entry_phy_cfg(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 {
 
 	if (pEntry->MaxSupportedRate < RATE_FIRST_OFDM_RATE)
@@ -624,7 +624,7 @@ bool MacTableDeleteEntry(
 		the power-saving queues are freed here.
 	==========================================================================
  */
-VOID MacTableReset(
+void MacTableReset(
 	IN  PRTMP_ADAPTER  pAd)
 {
 	int         i;

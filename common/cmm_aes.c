@@ -70,7 +70,7 @@ unsigned char SboxTable[256] =
 	0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16
 };
 
-VOID xor_32(
+void xor_32(
 	IN  unsigned char *  a,
 	IN  unsigned char *  b,
 	OUT unsigned char *  out)
@@ -83,7 +83,7 @@ VOID xor_32(
 	}
 }
 
-VOID xor_128(
+void xor_128(
 	IN  unsigned char *  a,
 	IN  unsigned char *  b,
 	OUT unsigned char *  out)
@@ -102,7 +102,7 @@ unsigned char RTMPCkipSbox(
 	return SboxTable[(int)a];
 }
 
-VOID next_key(
+void next_key(
 	IN  unsigned char *  key,
 	IN  INT     round)
 {
@@ -129,7 +129,7 @@ VOID next_key(
 	xor_32(&key[12], &key[8], &key[12]);
 }
 
-VOID byte_sub(
+void byte_sub(
 	IN  unsigned char *  in,
 	OUT unsigned char *  out)
 {
@@ -155,7 +155,7 @@ void bitwise_xor(unsigned char *ina, unsigned char *inb, unsigned char *out)
 	}
 }
 
-VOID shift_row(
+void shift_row(
 	IN  unsigned char *  in,
 	OUT unsigned char *  out)
 {
@@ -177,7 +177,7 @@ VOID shift_row(
 	out[15] = in[11];
 }
 
-VOID mix_column(
+void mix_column(
 	IN  unsigned char *  in,
 	OUT unsigned char *  out)
 {
@@ -660,7 +660,7 @@ bool RTMPSoftDecryptAES(
 		
 	========================================================================
 */
-VOID RTMPConstructCCMPAAD(
+void RTMPConstructCCMPAAD(
 	IN unsigned char * pHdr,
 	IN bool isDataFrame,
 	IN unsigned char a4_exists,
@@ -739,7 +739,7 @@ VOID RTMPConstructCCMPAAD(
 				
 	========================================================================
 */
-VOID RTMPConstructCCMPNonce(
+void RTMPConstructCCMPNonce(
 	IN unsigned char * pHdr,
 	IN unsigned char a4_exists,
 	IN unsigned char qc_exists,
@@ -794,7 +794,7 @@ VOID RTMPConstructCCMPNonce(
 				
 	========================================================================
 */
-VOID RTMPConstructCCMPHdr(
+void RTMPConstructCCMPHdr(
         IN unsigned char key_idx,
 	IN unsigned char *pn,		
 	OUT unsigned char *ccmp_hdr)
@@ -1030,7 +1030,7 @@ bool RTMPSoftDecryptCCMP(
 					
 	========================================================================
 */
-VOID CCMP_test_vector(
+void CCMP_test_vector(
 	IN PRTMP_ADAPTER pAd,
 	IN INT input)
 {

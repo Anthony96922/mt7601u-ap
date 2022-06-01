@@ -55,7 +55,7 @@ unsigned short MaxBulkOutsSizeLimit[5][4] =
 };
 
 
-VOID SoftwareFlowControl(
+void SoftwareFlowControl(
 	IN PRTMP_ADAPTER pAd) 
 {
 	bool ResetBulkOutSize=FALSE;
@@ -137,7 +137,7 @@ pAd->RunningQueueNoCount=0;
 #endif /* INF_AMAZON_SE */
 
 
-VOID	RTUSBInitTxDesc(
+void	RTUSBInitTxDesc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PTX_CONTEXT		pTxContext,
 	IN	unsigned char			BulkOutPipeId,
@@ -199,7 +199,7 @@ VOID	RTUSBInitTxDesc(
 	}
 }
 
-VOID	RTUSBInitHTTxDesc(
+void	RTUSBInitHTTxDesc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PHT_TX_CONTEXT	pTxContext,
 	IN	unsigned char			BulkOutPipeId,
@@ -245,7 +245,7 @@ VOID	RTUSBInitHTTxDesc(
 	}
 }
 
-VOID	RTUSBInitRxDesc(
+void	RTUSBInitRxDesc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PRX_CONTEXT		pRxContext)
 {
@@ -275,7 +275,7 @@ VOID	RTUSBInitRxDesc(
 }
 
 
-VOID RTUSBInitCmdRspEventDesc(
+void RTUSBInitCmdRspEventDesc(
 	PRTMP_ADAPTER pAd,
 	PCMD_RSP_CONTEXT pCmdRspEventContext)
 {
@@ -320,7 +320,7 @@ VOID RTUSBInitCmdRspEventDesc(
 			RTMP_IRQ_UNLOCK((pLock), IrqFlags);
 
 
-VOID	RTUSBBulkOutDataPacket(
+void	RTUSBBulkOutDataPacket(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char			BulkOutPipeId,
 	IN	unsigned char			Index)
@@ -816,7 +816,7 @@ USBHST_STATUS RTUSBBulkOutDataPacketComplete(URBCompleteStatus Status, purbb_t p
 	
 	========================================================================
 */
-VOID	RTUSBBulkOutNullFrame(
+void	RTUSBBulkOutNullFrame(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PTX_CONTEXT		pNullContext = &(pAd->NullContext[0]);
@@ -920,7 +920,7 @@ USBHST_STATUS RTUSBBulkOutHCCANullFrameComplete(URBCompleteStatus Status, purbb_
 	
 	========================================================================
 */
-VOID	RTUSBBulkOutMLMEPacket(
+void	RTUSBBulkOutMLMEPacket(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char			Index)
 {
@@ -1021,7 +1021,7 @@ USBHST_STATUS RTUSBBulkOutMLMEPacketComplete(URBCompleteStatus Status, purbb_t p
 	
 	========================================================================
 */
-VOID	RTUSBBulkOutPsPoll(
+void	RTUSBBulkOutPsPoll(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PTX_CONTEXT		pPsPollContext = &(pAd->PsPollContext);
@@ -1091,7 +1091,7 @@ USBHST_STATUS RTUSBBulkOutPsPollComplete(URBCompleteStatus Status, purbb_t pURB,
 }
 
 
-VOID DoBulkIn(IN RTMP_ADAPTER *pAd)
+void DoBulkIn(IN RTMP_ADAPTER *pAd)
 {	
 	PRX_CONTEXT		pRxContext;
 	PURB			pUrb;
@@ -1134,7 +1134,7 @@ VOID DoBulkIn(IN RTMP_ADAPTER *pAd)
 }
 
 
-VOID BulkInCmdRspEvent(RTMP_ADAPTER *pAd)
+void BulkInCmdRspEvent(RTMP_ADAPTER *pAd)
 {
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
 	PURB pURB;
@@ -1200,7 +1200,7 @@ VOID BulkInCmdRspEvent(RTMP_ADAPTER *pAd)
 		 fRTMP_ADAPTER_RADIO_OFF | fRTMP_ADAPTER_RESET_IN_PROGRESS | \
 		 fRTMP_ADAPTER_REMOVE_IN_PROGRESS)
 		 
-VOID	RTUSBBulkReceive(
+void	RTUSBBulkReceive(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PRX_CONTEXT		pRxContext;
@@ -1256,7 +1256,7 @@ VOID	RTUSBBulkReceive(
 }
 
 #ifdef RLT_MAC
-VOID RTUSBBulkCmdRspEventReceive(PRTMP_ADAPTER pAd)
+void RTUSBBulkCmdRspEventReceive(PRTMP_ADAPTER pAd)
 {
 	unsigned long	IrqFlags;
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
@@ -1352,7 +1352,7 @@ USBHST_STATUS RTUSBBulkCmdRspEventComplete(URBCompleteStatus Status, purbb_t pUR
 	
 	========================================================================
 */
-VOID	RTUSBKickBulkOut(
+void	RTUSBKickBulkOut(
 	IN	PRTMP_ADAPTER pAd)
 {
 	/* BulkIn Reset will reset whole USB PHY. So we need to make sure fRTMP_ADAPTER_BULKIN_RESET not flaged.*/
@@ -1482,7 +1482,7 @@ VOID	RTUSBKickBulkOut(
 	
 	========================================================================
 */
-VOID	RTUSBCleanUpDataBulkOutQueue(
+void	RTUSBCleanUpDataBulkOutQueue(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned char			Idx;			
@@ -1517,7 +1517,7 @@ VOID	RTUSBCleanUpDataBulkOutQueue(
 	
 	========================================================================
 */
-VOID	RTUSBCleanUpMLMEBulkOutQueue(
+void	RTUSBCleanUpMLMEBulkOutQueue(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	DBGPRINT(RT_DEBUG_TRACE, ("--->CleanUpMLMEBulkOutQueue\n"));
@@ -1541,7 +1541,7 @@ VOID	RTUSBCleanUpMLMEBulkOutQueue(
 	
 	========================================================================
 */
-VOID	RTUSBCancelPendingIRPs(
+void	RTUSBCancelPendingIRPs(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	RTUSBCancelPendingBulkInIRP(pAd);
@@ -1561,7 +1561,7 @@ VOID	RTUSBCancelPendingIRPs(
 	
 	========================================================================
 */
-VOID	RTUSBCancelPendingBulkInIRP(
+void	RTUSBCancelPendingBulkInIRP(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PRX_CONTEXT		pRxContext;
@@ -1606,7 +1606,7 @@ VOID	RTUSBCancelPendingBulkInIRP(
 	
 	========================================================================
 */
-VOID	RTUSBCancelPendingBulkOutIRP(
+void	RTUSBCancelPendingBulkOutIRP(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PHT_TX_CONTEXT		pHTTXContext;

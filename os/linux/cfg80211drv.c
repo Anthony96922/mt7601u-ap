@@ -39,11 +39,11 @@
 
 
 INT CFG80211DRV_IoctlHandle(
-	IN	VOID					*pAdSrc,
+	IN	void					*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
 	IN	unsigned short					subcmd,
-	IN	VOID					*pData,
+	IN	void					*pData,
 	IN	unsigned long					Data)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
@@ -57,7 +57,7 @@ INT CFG80211DRV_IoctlHandle(
 			break;
 
 		case CMD_RTPRIV_IOCTL_80211_CB_GET:
-			*(VOID **)pData = (VOID *)(pAd->pCfg80211_CB);
+			*(void **)pData = (void *)(pAd->pCfg80211_CB);
 			break;
 
 		case CMD_RTPRIV_IOCTL_80211_CB_SET:
@@ -405,8 +405,8 @@ INT CFG80211DRV_IoctlHandle(
 	return NDIS_STATUS_SUCCESS;
 }
 
-static VOID CFG80211DRV_DisableApInterface(
-        VOID                                            *pAdOrg)
+static void CFG80211DRV_DisableApInterface(
+        void                                            *pAdOrg)
 {
 	unsigned int Value;
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
@@ -443,9 +443,9 @@ static VOID CFG80211DRV_DisableApInterface(
 	
 }
 
-VOID CFG80211DRV_OpsChangeBssParm(
-        VOID                                            *pAdOrg,
-        VOID                                            *pData)
+void CFG80211DRV_OpsChangeBssParm(
+        void                                            *pAdOrg,
+        void                                            *pData)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	CMD_RTPRIV_IOCTL_80211_BSS_PARM *pBssInfo;
@@ -478,8 +478,8 @@ VOID CFG80211DRV_OpsChangeBssParm(
 }
 
 bool CFG80211DRV_OpsSetChannel(
-	VOID						*pAdOrg,
-	VOID						*pData)
+	void						*pAdOrg,
+	void						*pData)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	CMD_RTPRIV_IOCTL_80211_CHAN *pChan;
@@ -567,8 +567,8 @@ bool CFG80211DRV_OpsSetChannel(
 
 
 bool CFG80211DRV_OpsChgVirtualInf(
-	VOID						*pAdOrg,
-	VOID						*pFlgFilter,
+	void						*pAdOrg,
+	void						*pFlgFilter,
 	unsigned char						IfType)
 {
 
@@ -577,7 +577,7 @@ bool CFG80211DRV_OpsChgVirtualInf(
 
 
 bool CFG80211DRV_OpsScan(
-	VOID						*pAdOrg)
+	void						*pAdOrg)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 
@@ -593,8 +593,8 @@ bool CFG80211DRV_OpsScan(
 
 /* REF: ap_connect.c ApMakeBssBeacon */
 bool CFG80211DRV_OpsBeaconSet(
-        VOID                                            *pAdOrg,
-        VOID                                            *pData,
+        void                                            *pAdOrg,
+        void                                            *pData,
 	bool                                          isAdd)
 {
 	CFG80211DBG(RT_DEBUG_TRACE, ("80211> CFG80211DRV_OpsBeaconSet ==> %d\n", isAdd));
@@ -952,7 +952,7 @@ bool CFG80211DRV_OpsBeaconSet(
 }
 
 bool CFG80211DRV_OpsExtraIesSet(
-	VOID						*pAdOrg)
+	void						*pAdOrg)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	
@@ -988,23 +988,23 @@ bool CFG80211DRV_OpsExtraIesSet(
 
 
 bool CFG80211DRV_OpsJoinIbss(
-	VOID						*pAdOrg,
-	VOID						*pData)
+	void						*pAdOrg,
+	void						*pData)
 {
 	return TRUE;
 }
 
 
 bool CFG80211DRV_OpsLeave(
-	VOID						*pAdOrg)
+	void						*pAdOrg)
 {
 	return TRUE;
 }
 
 
 bool CFG80211DRV_StaGet(
-	VOID						*pAdOrg,
-	VOID						*pData)
+	void						*pAdOrg,
+	void						*pData)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	CMD_RTPRIV_IOCTL_80211_STA *pIbssInfo;
@@ -1069,8 +1069,8 @@ bool CFG80211DRV_StaGet(
 
 
 bool CFG80211DRV_KeyAdd(
-	VOID						*pAdOrg,
-	VOID						*pData)
+	void						*pAdOrg,
+	void						*pData)
 {
 
 	return TRUE;
@@ -1078,17 +1078,17 @@ bool CFG80211DRV_KeyAdd(
 
 
 bool CFG80211DRV_Connect(
-	VOID						*pAdOrg,
-	VOID						*pData)
+	void						*pAdOrg,
+	void						*pData)
 {
 
 	return TRUE;
 }
 
 
-VOID CFG80211DRV_RegNotify(
-	VOID						*pAdOrg,
-	VOID						*pData)
+void CFG80211DRV_RegNotify(
+	void						*pAdOrg,
+	void						*pData)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	CMD_RTPRIV_IOCTL_80211_REG_NOTIFY *pRegInfo;
@@ -1113,9 +1113,9 @@ VOID CFG80211DRV_RegNotify(
 }
 
 
-VOID CFG80211DRV_SurveyGet(
-	VOID						*pAdOrg,
-	VOID						*pData)
+void CFG80211DRV_SurveyGet(
+	void						*pAdOrg,
+	void						*pData)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 	CMD_RTPRIV_IOCTL_80211_SURVEY *pSurveyInfo;
@@ -1132,9 +1132,9 @@ VOID CFG80211DRV_SurveyGet(
 }
 
 
-VOID CFG80211_UnRegister(
-	IN VOID						*pAdOrg,
-	IN VOID						*pNetDev)
+void CFG80211_UnRegister(
+	IN void						*pAdOrg,
+	IN void						*pNetDev)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdOrg;
 
@@ -1166,8 +1166,8 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID CFG80211_BeaconCountryRegionParse(
-	IN VOID						*pAdCB,
+void CFG80211_BeaconCountryRegionParse(
+	IN void						*pAdCB,
 	IN NDIS_802_11_VARIABLE_IEs	*pVIE,
 	IN unsigned short					LenVIE)
 {
@@ -1217,8 +1217,8 @@ Note:
 	Must call the function in kernel thread.
 ========================================================================
 */
-VOID CFG80211_RegHint(
-	IN VOID						*pAdCB,
+void CFG80211_RegHint(
+	IN void						*pAdCB,
 	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen)
 {
@@ -1246,8 +1246,8 @@ Note:
 	Must call the function in kernel thread.
 ========================================================================
 */
-VOID CFG80211_RegHint11D(
-	IN VOID						*pAdCB,
+void CFG80211_RegHint11D(
+	IN void						*pAdCB,
 	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen)
 {
@@ -1279,13 +1279,13 @@ Note:
 	In rt2x00/, the settings is done in rt2x00lib_config().
 ========================================================================
 */
-VOID CFG80211_RegRuleApply(
-	IN VOID						*pAdCB,
-	IN VOID						*pWiphy,
+void CFG80211_RegRuleApply(
+	IN void						*pAdCB,
+	IN void						*pWiphy,
 	IN unsigned char					*pAlpha2)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
-	VOID *pBand24G, *pBand5G;
+	void *pBand24G, *pBand5G;
 	unsigned int IdBand, IdChan, IdPwr;
 	unsigned int ChanNum, ChanId, Power, RecId, DfsType;
 	bool FlgIsRadar;
@@ -1466,8 +1466,8 @@ Note:
 	Call RT_CFG80211_SCANNING_INFORM, not CFG80211_Scaning
 ========================================================================
 */
-VOID CFG80211_Scaning(
-	IN VOID							*pAdCB,
+void CFG80211_Scaning(
+	IN void							*pAdCB,
 	IN unsigned int						BssIdx,
 	IN unsigned int						ChanId,
 	IN unsigned char						*pFrame,
@@ -1492,8 +1492,8 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID CFG80211_ScanEnd(
-	IN VOID						*pAdCB,
+void CFG80211_ScanEnd(
+	IN void						*pAdCB,
 	IN bool					FlgIsAborted)
 {
 } /* End of CFG80211_ScanEnd */
@@ -1519,8 +1519,8 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID CFG80211_ConnectResultInform(
-	IN VOID						*pAdCB,
+void CFG80211_ConnectResultInform(
+	IN void						*pAdCB,
 	IN unsigned char					*pBSSID,
 	IN unsigned char					*pReqIe,
 	IN unsigned int					ReqIeLen,
@@ -1564,7 +1564,7 @@ Note:
 ========================================================================
 */
 bool CFG80211_SupBandReInit(
-	IN VOID						*pAdCB)
+	IN void						*pAdCB)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 	CFG80211_BAND BandInfo;
@@ -1581,7 +1581,7 @@ bool CFG80211_SupBandReInit(
 
 
 INT CFG80211_StaPortSecured(
-	IN VOID                                         *pAdCB,
+	IN void                                         *pAdCB,
 	IN unsigned char 					*pMac,
 	IN unsigned int						flag)
 {
@@ -1614,7 +1614,7 @@ INT CFG80211_StaPortSecured(
 }
 
 INT CFG80211_ApStaDel(
-	IN VOID                                         *pAdCB,
+	IN void                                         *pAdCB,
 	IN unsigned char                                        *pMac)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
@@ -1638,7 +1638,7 @@ INT CFG80211_ApStaDel(
 
 //CMD_RTPRIV_IOCTL_80211_KEY_DEFAULT_SET:
 INT CFG80211_setDefaultKey(
-	IN VOID                                         *pAdCB,
+	IN void                                         *pAdCB,
 	IN unsigned int 					Data
 )
 {
@@ -1658,7 +1658,7 @@ INT CFG80211_setDefaultKey(
 
 #ifdef RT_P2P_SPECIFIC_WIRELESS_EVENT
 INT CFG80211_SendWirelessEvent(
-	IN VOID                                         *pAdCB,
+	IN void                                         *pAdCB,
 	IN unsigned char 					*pMacAddr)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;

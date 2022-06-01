@@ -84,7 +84,7 @@ struct _RTMP_ADAPTER;
 }
 
 
-VOID MlmeAntSelection(
+void MlmeAntSelection(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN unsigned long	 AccuTxTotalCnt,
 	IN unsigned long	 TxErrorRatio,
@@ -95,17 +95,17 @@ INT RT3290_eeprom_access_grant(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN bool bGetCtrl);
 	
-VOID RTMP_MAC_PWRSV_EN(
+void RTMP_MAC_PWRSV_EN(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN bool EnterIdle,
 	IN bool use40M);
 
-VOID RTMPEnableWlan(
+void RTMPEnableWlan(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN bool bOn,
 	IN bool bResetWLAN);
 
-VOID RT3290_Init(
+void RT3290_Init(
 	IN struct _RTMP_ADAPTER *pAd);
 
 #endif /* RT3290 */

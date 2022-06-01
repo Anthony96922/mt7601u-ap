@@ -82,7 +82,7 @@ Note:
     None
 ========================================================================
 */
-VOID RT_MD5_Init (
+void RT_MD5_Init (
     IN  MD5_CTX_STRUC *pMD5_CTX)
 {
     NdisMoveMemory(pMD5_CTX->HashValue, MD5_DefaultHashValue, 
@@ -108,7 +108,7 @@ Note:
     T[i] := floor(abs(sin(i + 1)) * (2 pow 32)), i is number of round
 ========================================================================
 */
-VOID RT_MD5_Hash (
+void RT_MD5_Hash (
     IN  MD5_CTX_STRUC *pMD5_CTX)
 {
     unsigned int X_i;
@@ -245,7 +245,7 @@ Note:
     None
 ========================================================================
 */
-VOID RT_MD5_Append (
+void RT_MD5_Append (
     IN  MD5_CTX_STRUC *pMD5_CTX, 
     IN  const unsigned char Message[], 
     IN  unsigned int MessageLen)
@@ -291,7 +291,7 @@ Note:
     None
 ========================================================================
 */
-VOID RT_MD5_End (
+void RT_MD5_End (
     IN  MD5_CTX_STRUC *pMD5_CTX, 
     OUT unsigned char DigestMessage[])
 {
@@ -336,7 +336,7 @@ Note:
     None
 ========================================================================
 */
-VOID RT_MD5 (
+void RT_MD5 (
     IN  const unsigned char Message[], 
     IN  unsigned int MessageLen, 
     OUT unsigned char DigestMessage[])

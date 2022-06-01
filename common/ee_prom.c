@@ -32,7 +32,7 @@
 
 
 /* IRQL = PASSIVE_LEVEL*/
-static inline VOID RaiseClock(
+static inline void RaiseClock(
     IN	PRTMP_ADAPTER	pAd,
     IN  unsigned int *x)
 {
@@ -42,7 +42,7 @@ static inline VOID RaiseClock(
 }
 
 /* IRQL = PASSIVE_LEVEL*/
-static inline VOID LowerClock(
+static inline void LowerClock(
     IN	PRTMP_ADAPTER	pAd,
     IN  unsigned int *x)
 {
@@ -80,7 +80,7 @@ static inline unsigned short ShiftInBits(
 
 
 /* IRQL = PASSIVE_LEVEL*/
-static inline VOID ShiftOutBits(
+static inline void ShiftOutBits(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned short			data,
 	IN unsigned short			count)
@@ -111,7 +111,7 @@ static inline VOID ShiftOutBits(
 
 
 /* IRQL = PASSIVE_LEVEL*/
-static inline VOID EEpromCleanup(
+static inline void EEpromCleanup(
 	IN PRTMP_ADAPTER	pAd)
 {
 	unsigned int x;
@@ -126,7 +126,7 @@ static inline VOID EEpromCleanup(
 }
 
 
-static inline VOID EWEN(
+static inline void EWEN(
 	IN PRTMP_ADAPTER	pAd)
 {
 	unsigned int	x;
@@ -149,7 +149,7 @@ static inline VOID EWEN(
 }
 
 
-static inline VOID EWDS(
+static inline void EWDS(
 	IN PRTMP_ADAPTER	pAd)
 {
 	unsigned int	x;

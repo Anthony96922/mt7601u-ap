@@ -193,7 +193,7 @@ static int CFG80211_RegNotifier(
 	{																\
 		unsigned long *__pPriv;												\
 		__pPriv = (unsigned long *)(wiphy_priv(__pWiphy));					\
-		__pAd = (VOID *)(*__pPriv);									\
+		__pAd = (void *)(*__pPriv);									\
 		if (__pAd == NULL)											\
 		{															\
 			DBGPRINT(RT_DEBUG_ERROR,								\
@@ -241,7 +241,7 @@ static int CFG80211_OpsChannelSet(
 	IN enum nl80211_channel_type	ChannelType)
 #endif /* LINUX_VERSION_CODE */
 {
-	VOID *pAd;
+	void *pAd;
 	CFG80211_CB *p80211CB;
 	CMD_RTPRIV_IOCTL_80211_CHAN ChanInfo;
 	unsigned int ChanId;
@@ -329,7 +329,7 @@ static int CFG80211_OpsVirtualInfChg(
 	struct vif_params				*pParams)
 #endif /* LINUX_VERSION_CODE */
 {
-	VOID *pAd;
+	void *pAd;
 	CFG80211_CB *pCfg80211_CB;
 	struct net_device *pNetDev;
 	unsigned int Filter;
@@ -563,7 +563,7 @@ static int CFG80211_OpsStaGet(
 	IN unsigned char							*pMac,
 	IN struct station_info				*pSinfo)
 {
-	VOID *pAd;
+	void *pAd;
 	CMD_RTPRIV_IOCTL_80211_STA StaInfo;
 
 
@@ -643,7 +643,7 @@ static int CFG80211_OpsStaDump(
 	IN unsigned char							*pMac,
 	IN struct station_info				*pSinfo)
 {
-	VOID *pAd;
+	void *pAd;
 
 
 	if (Idx != 0)
@@ -722,7 +722,7 @@ static int CFG80211_OpsKeyAdd(
 	IN struct key_params				*pParams)
 #endif /* LINUX_VERSION_CODE */
 {
-	VOID *pAd;
+	void *pAd;
 	CMD_RTPRIV_IOCTL_80211_KEY KeyInfo;
 
 
@@ -874,7 +874,7 @@ static int CFG80211_OpsKeyDefaultSet(
 	IN unsigned char							KeyIdx)
 #endif /* LINUX_VERSION_CODE */
 {
-	VOID *pAd;
+	void *pAd;
 
 
 	CFG80211DBG(RT_DEBUG_ERROR, ("80211> %s ==>\n", __FUNCTION__));
@@ -894,7 +894,7 @@ static int CFG80211_OpsKeyDefaultSet(
 static int CFG80211_OpsRFKill(
 	IN struct wiphy						*pWiphy)
 {
-	VOID		*pAd;
+	void		*pAd;
 	bool		active;
 
 
@@ -906,7 +906,7 @@ static int CFG80211_OpsRFKill(
 }
 
 
-VOID CFG80211_RFKillStatusUpdate(
+void CFG80211_RFKillStatusUpdate(
 	IN void *							pAd,
 	IN bool							active)
 {
@@ -949,7 +949,7 @@ static int CFG80211_OpsSurveyGet(
 	IN struct survey_info				*pSurvey)
 {
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37))
-	VOID *pAd;
+	void *pAd;
 	CMD_RTPRIV_IOCTL_80211_SURVEY SurveyInfo;
 
 
@@ -1180,7 +1180,7 @@ Note:
 static struct wireless_dev *CFG80211_WdevAlloc(
 	IN CFG80211_CB					*pCfg80211_CB,
 	IN CFG80211_BAND				*pBandInfo,
-	IN VOID 						*pAd,
+	IN void 						*pAd,
 	IN struct device				*pDev)
 {
 	struct wireless_dev *pWdev;
@@ -1282,7 +1282,7 @@ Note:
 ========================================================================
 */
 bool CFG80211_Register(
-	IN VOID						*pAd,
+	IN void						*pAd,
 	IN struct device			*pDev,
 	IN struct net_device		*pNetDev)
 {
@@ -1356,13 +1356,13 @@ static int CFG80211_RegNotifier(
 	IN struct wiphy					*pWiphy,
 	IN struct regulatory_request	*pRequest)
 {
-	VOID *pAd;
+	void *pAd;
 	unsigned long *pPriv;
 
 
 	/* sanity check */
 	pPriv = (unsigned long *)(wiphy_priv(pWiphy));
-	pAd = (VOID *)(*pPriv);
+	pAd = (void *)(*pPriv);
 
 	if (pAd == NULL)
 	{
@@ -1468,7 +1468,7 @@ static int CFG80211_RegNotifier(
 {
 	struct device *pDev = pWiphy->dev.parent;
 	struct net_device *pNetDev = dev_get_drvdata(pDev);
-	VOID *pAd = (VOID *)RTMP_OS_NETDEV_GET_PRIV(pNetDev);
+	void *pAd = (void *)RTMP_OS_NETDEV_GET_PRIV(pNetDev);
 	unsigned int ReqType = Request;
 
 

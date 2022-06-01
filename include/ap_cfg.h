@@ -18,15 +18,15 @@ INT RTMPAPPrivIoctlAR9Show(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *pIoctlCmdStr);
 
-VOID RTMPAR9IoctlGetMacTable(
+void RTMPAR9IoctlGetMacTable(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlGetSTAT2(
+void RTMPIoctlGetSTAT2(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlGetRadioDynInfo(
+void RTMPIoctlGetRadioDynInfo(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 #endif /*AR9_MAPI_SUPPORT*/
@@ -42,34 +42,34 @@ INT RTMPAPQueryInformation(
 	IN	OUT	RTMP_IOCTL_INPUT_STRUCT    *rq,
 	IN	INT                 cmd);
 	
-VOID RTMPIoctlStatistics(
+void RTMPIoctlStatistics(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
 
-VOID RTMPIoctlGetMacTable(
+void RTMPIoctlGetMacTable(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
 
-VOID RTMPAPIoctlE2PROM(
+void RTMPAPIoctlE2PROM(
     IN  PRTMP_ADAPTER   pAdapter,
     IN  RTMP_IOCTL_INPUT_STRUCT    *wrq);
 
 #ifdef DBG
-VOID RTMPAPIoctlBBP(
+void RTMPAPIoctlBBP(
     IN  PRTMP_ADAPTER   pAdapter,
     IN  RTMP_IOCTL_INPUT_STRUCT    *wrq);
 
-VOID RTMPAPIoctlMAC(
+void RTMPAPIoctlMAC(
     IN  PRTMP_ADAPTER   pAdapter,
     IN  RTMP_IOCTL_INPUT_STRUCT    *wrq);
 
 
 #endif /* DBG */
 
-VOID RtmpDrvMaxRateGet(
-	IN	VOID					*pReserved,
+void RtmpDrvMaxRateGet(
+	IN	void					*pReserved,
 /*	IN	PHTTRANSMIT_SETTING		pHtPhyMode, */
 	IN	unsigned char					MODE,
 	IN	unsigned char					ShortGI,
@@ -78,34 +78,34 @@ VOID RtmpDrvMaxRateGet(
 	OUT	unsigned int					*pRate);
 
 #ifdef WSC_AP_SUPPORT
-VOID RTMPIoctlWscProfile(
+void RTMPIoctlWscProfile(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlWscProfile(
+void RTMPIoctlWscProfile(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 /*add by woody */
 #ifdef INF_AR9
 #ifdef AR9_MAPI_SUPPORT
-VOID RTMPAR9IoctlWscProfile(
+void RTMPAR9IoctlWscProfile(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlWscPINCode(
+void RTMPIoctlWscPINCode(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
 
-VOID RTMPIoctlWscStatus(
+void RTMPIoctlWscStatus(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlGetWscDynInfo(
+void RTMPIoctlGetWscDynInfo(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlGetWscRegsDynInfo(
+void RTMPIoctlGetWscRegsDynInfo(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 #endif/*AR9_MAPI_SUPPORT*/
@@ -113,29 +113,29 @@ VOID RTMPIoctlGetWscRegsDynInfo(
 #endif /* WSC_AP_SUPPORT */
 
 #ifdef DOT11_N_SUPPORT
-VOID RTMPIoctlQueryBaTable(
+void RTMPIoctlQueryBaTable(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq);
 #endif /* DOT11_N_SUPPORT */
 
 #ifdef DOT1X_SUPPORT
-VOID RTMPIoctlStaticWepCopy(
+void RTMPIoctlStaticWepCopy(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq);
 
-VOID RTMPIoctlRadiusData(
+void RTMPIoctlRadiusData(
 	IN PRTMP_ADAPTER	pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT		*wrq);
 
-VOID RTMPIoctlAddWPAKey(
+void RTMPIoctlAddWPAKey(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq);
 
-VOID RTMPIoctlAddPMKIDCache(
+void RTMPIoctlAddPMKIDCache(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq);
 
-VOID RTMPIoctlSetIdleTimeout(
+void RTMPIoctlSetIdleTimeout(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq);
 #endif /* DOT1X_SUPPORT */
@@ -157,7 +157,7 @@ INT	ApCfg_Set_IdleTimeout_Proc(
 
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
-VOID RTMPApCliAddKey(
+void RTMPApCliAddKey(
 	IN	PRTMP_ADAPTER	    pAd, 
 	IN 	INT				apidx,
 	IN	PNDIS_APCLI_802_11_KEY    pApcliKey);

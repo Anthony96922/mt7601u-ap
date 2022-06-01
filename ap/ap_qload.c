@@ -73,14 +73,14 @@ typedef struct GNU_PACKED _ELM_QBSS_LOAD{
 #define QBSS_LOAD_ALARM_DURATION				100 /* unit: TBTT */
 
 
-static VOID QBSS_LoadAlarmSuspend(
+static void QBSS_LoadAlarmSuspend(
  	IN		RTMP_ADAPTER	*pAd);
 
 #ifdef QLOAD_FUNC_BUSY_TIME_ALARM
 /* handle a alarm */
-static VOID QBSS_LoadAlarm(
+static void QBSS_LoadAlarm(
  	IN		RTMP_ADAPTER	*pAd);
-static VOID QBSS_LoadAlarmBusyTimeThresholdReset(
+static void QBSS_LoadAlarmBusyTimeThresholdReset(
  	IN		RTMP_ADAPTER	*pAd,
 	IN		unsigned int			TimePeriod);
 #endif /* QLOAD_FUNC_BUSY_TIME_ALARM */
@@ -110,7 +110,7 @@ Note:
 	2. Change channel to the clear channel.
 ========================================================================
 */
-static VOID QBSS_LoadAlarm(
+static void QBSS_LoadAlarm(
  	IN		RTMP_ADAPTER	*pAd)
 {
 	/* suspend alarm until channel switch */
@@ -232,7 +232,7 @@ Note:
 	EX: TBTT=100ms, 90%, pAd->QloadBusyTimeThreshold = 90ms
 ========================================================================
 */
-static VOID QBSS_LoadAlarmBusyTimeThresholdReset(
+static void QBSS_LoadAlarmBusyTimeThresholdReset(
  	IN		RTMP_ADAPTER	*pAd,
 	IN		unsigned int			TimePeriod)
 {
@@ -263,7 +263,7 @@ Note:
 	Init Condition: WMM must be enabled.
 ========================================================================
 */
-VOID QBSS_LoadInit(
+void QBSS_LoadInit(
  	IN		RTMP_ADAPTER	*pAd)
 {
 	unsigned int IdBss;
@@ -330,7 +330,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID QBSS_LoadAlarmReset(
+void QBSS_LoadAlarmReset(
  	IN		RTMP_ADAPTER	*pAd)
 {
 #ifdef QLOAD_FUNC_BUSY_TIME_ALARM
@@ -359,7 +359,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID QBSS_LoadAlarmResume(
+void QBSS_LoadAlarmResume(
  	IN		RTMP_ADAPTER	*pAd)
 {
 #ifdef QLOAD_FUNC_BUSY_TIME_ALARM
@@ -382,7 +382,7 @@ Return Value:
 Note:
 ========================================================================
 */
-static VOID QBSS_LoadAlarmSuspend(
+static void QBSS_LoadAlarmSuspend(
  	IN		RTMP_ADAPTER	*pAd)
 {
 #ifdef QLOAD_FUNC_BUSY_TIME_ALARM
@@ -551,7 +551,7 @@ Note:
 	recalculate the time period.
 ========================================================================
 */
-VOID QBSS_LoadUpdate(
+void QBSS_LoadUpdate(
  	IN		RTMP_ADAPTER	*pAd,
 	IN		unsigned long			UpTime)
 {
@@ -758,7 +758,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID QBSS_LoadStatusClear(
+void QBSS_LoadStatusClear(
  	IN		RTMP_ADAPTER	*pAd)
 {
 #ifdef QLOAD_FUNC_BUSY_TIME_STATS

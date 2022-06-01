@@ -38,7 +38,7 @@ static inline PMEMBER_ENTRY AllocaGrpMemberEntry(
 	return (PMEMBER_ENTRY)pMemberEntry;
 }
 
-static inline VOID FreeGrpMemberEntry(
+static inline void FreeGrpMemberEntry(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
 	IN PMEMBER_ENTRY pEntry)
 {
@@ -49,23 +49,23 @@ static inline VOID FreeGrpMemberEntry(
 	RTMP_SEM_UNLOCK(&pMulticastFilterTable->FreeMemberPoolTabLock);
 }
 
-static VOID IGMPTableDisplay(
+static void IGMPTableDisplay(
 	IN PRTMP_ADAPTER pAd);
 
 static bool isIgmpMacAddr(
 	IN unsigned char * pMacAddr);
 
-static VOID InsertIgmpMember(
+static void InsertIgmpMember(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
 	IN PLIST_HEADER pList,
 	IN unsigned char * pMemberAddr);
 
-static VOID DeleteIgmpMember(
+static void DeleteIgmpMember(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
 	IN PLIST_HEADER pList,
 	IN unsigned char * pMemberAddr);
 
-static VOID DeleteIgmpMemberList(
+static void DeleteIgmpMemberList(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
 	IN PLIST_HEADER pList);
 
@@ -76,7 +76,7 @@ static VOID DeleteIgmpMemberList(
         This routine init the entire IGMP table.
     ==========================================================================
  */
-VOID MulticastFilterTableInit(
+void MulticastFilterTableInit(
 	IN PRTMP_ADAPTER pAd,
 	IN PMULTICAST_FILTER_TABLE *ppMulticastFilterTable)
 {
@@ -105,7 +105,7 @@ VOID MulticastFilterTableInit(
         This routine reset the entire IGMP table.
     ==========================================================================
  */
-VOID MultiCastFilterTableReset(
+void MultiCastFilterTableReset(
 	IN PMULTICAST_FILTER_TABLE *ppMulticastFilterTable)
 {
 	if(*ppMulticastFilterTable == NULL)
@@ -127,7 +127,7 @@ VOID MultiCastFilterTableReset(
         Display all entrys in IGMP table
     ==========================================================================
  */
-static VOID IGMPTableDisplay(
+static void IGMPTableDisplay(
 	IN PRTMP_ADAPTER pAd)
 {
 	int i;
@@ -487,7 +487,7 @@ PMULTICAST_FILTER_TABLE_ENTRY MulticastFilterTableLookup(
 	return pEntry;
 }
 
-VOID IGMPSnooping(
+void IGMPSnooping(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pSrcMacAddr,
@@ -615,7 +615,7 @@ bool isIgmpPkt(
 	return FALSE;
 }
 
-static VOID InsertIgmpMember(
+static void InsertIgmpMember(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
 	IN PLIST_HEADER pList,
 	IN unsigned char * pMemberAddr)
@@ -647,7 +647,7 @@ static VOID InsertIgmpMember(
 	return;
 }
 
-static VOID DeleteIgmpMember(
+static void DeleteIgmpMember(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
 	IN PLIST_HEADER pList,
 	IN unsigned char * pMemberAddr)
@@ -687,7 +687,7 @@ static VOID DeleteIgmpMember(
 	return;
 }
 
-static VOID DeleteIgmpMemberList(
+static void DeleteIgmpMemberList(
 	IN PMULTICAST_FILTER_TABLE pMulticastFilterTable,
 	IN PLIST_HEADER pList)
 {
@@ -730,7 +730,7 @@ unsigned char IgmpMemberCnt(
 	return getListSize(pList);
 }
 
-VOID IgmpGroupDelMembers(
+void IgmpGroupDelMembers(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pMemberAddr,
 	IN PNET_DEV pDev)
@@ -1412,7 +1412,7 @@ bool IPv6MulticastFilterExcluded(
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
 
-VOID MLDSnooping(
+void MLDSnooping(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDstMacAddr,
 	IN unsigned char * pSrcMacAddr,

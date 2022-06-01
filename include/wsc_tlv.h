@@ -206,7 +206,7 @@
 #define WSC_DEVICETYPE_IP_TV               "IP_TV"
 #define WSC_DEVICETYPE_DIG_STILL_CAM       "Digital_Still_Camera"
 #define WSC_DEVICETYPE_PHONE               "Phone"
-#define WSC_DEVICETYPE_VOID_PHONE          "VoIP_Phone"
+#define WSC_DEVICETYPE_void_PHONE          "VoIP_Phone"
 #define WSC_DEVICETYPE_GAME_CONSOLE        "Game_console"
 #define WSC_DEVICETYPE_OTHER               "Other"
 

@@ -1587,7 +1587,7 @@ static PCH_REGION GetChRegion(
 	return pChRegion;
 }
 
-static VOID ChBandCheck(
+static void ChBandCheck(
 	IN unsigned char PhyMode,
 	OUT unsigned char * pChType)
 {
@@ -1685,7 +1685,7 @@ static unsigned char FillChList(
 }
 
 
-static inline VOID CreateChList(
+static inline void CreateChList(
 	IN PRTMP_ADAPTER pAd,
 	IN PCH_REGION pChRegion,
 	IN unsigned char Geography)
@@ -1741,7 +1741,7 @@ static inline VOID CreateChList(
 }
 
 
-VOID BuildChannelListEx(
+void BuildChannelListEx(
 	IN PRTMP_ADAPTER pAd)
 {
 	PCH_REGION pChReg;
@@ -1750,7 +1750,7 @@ VOID BuildChannelListEx(
 	CreateChList(pAd, pChReg, pAd->CommonCfg.Geography);
 }
 
-VOID BuildBeaconChList(
+void BuildBeaconChList(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pBuf,
 	OUT	unsigned long * pBufLen)
@@ -1885,7 +1885,7 @@ bool N_ChannelGroupCheck(
 }
 
 
-VOID N_ChannelCheck(RTMP_ADAPTER *pAd)
+void N_ChannelCheck(RTMP_ADAPTER *pAd)
 {
 	INT idx;
 	unsigned char Channel = pAd->CommonCfg.Channel;
@@ -2020,7 +2020,7 @@ unsigned char GetCountryMaxTxPwr(
 
 
 /* for OS_ABL */
-VOID RTMP_MapChannelID2KHZ(
+void RTMP_MapChannelID2KHZ(
 	IN unsigned char Ch,
 	OUT unsigned int *pFreq)
 {
@@ -2038,7 +2038,7 @@ VOID RTMP_MapChannelID2KHZ(
 }
 
 /* for OS_ABL */
-VOID RTMP_MapKHZ2ChannelID(
+void RTMP_MapKHZ2ChannelID(
 	IN unsigned long Freq,
 	OUT INT *pCh)
 {

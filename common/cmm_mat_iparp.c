@@ -80,7 +80,7 @@ struct _MATProtoOps MATProtoARPHandle =
 };
 
 
-VOID dumpIPMacTb(
+void dumpIPMacTb(
 	IN MAT_STRUCT	*pMatCfg,
 	IN int 			index)
 {
@@ -648,7 +648,7 @@ static inline void IPintToIPstr(int ipint, char Ipstr[20], unsigned long BufLen)
 }
 
 
-VOID getIPMacTbInfo(
+void getIPMacTbInfo(
 	IN MAT_STRUCT *pMatCfg, 
 	IN char *pOutBuf,
 	IN unsigned long BufLen)

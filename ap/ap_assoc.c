@@ -578,7 +578,7 @@ static bool IAPP_L2_Update_Frame_Send(
 } /* End of IAPP_L2_Update_Frame_Send */
 #endif /* IAPP_SUPPORT */
 
-VOID ap_cmm_peer_assoc_req_action(
+void ap_cmm_peer_assoc_req_action(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem,
 	IN bool isReassoc)
@@ -1323,7 +1323,7 @@ LabelOK:
         -# An association response frame is generated and sent to the air
     ==========================================================================
  */
-VOID APPeerAssocReqAction(
+void APPeerAssocReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -1344,7 +1344,7 @@ VOID APPeerAssocReqAction(
         -# Tx power (Adapter->ApCfg.tx_power)
     ==========================================================================
  */
-VOID APPeerReassocReqAction(
+void APPeerReassocReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -1359,7 +1359,7 @@ VOID APPeerReassocReqAction(
         Elem - MLME message containing the received frame
     ==========================================================================
  */
-VOID APPeerDisassocReqAction(
+void APPeerDisassocReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -1417,7 +1417,7 @@ VOID APPeerDisassocReqAction(
         Elem -
     ==========================================================================
  */
-VOID MbssKickOutStas(
+void MbssKickOutStas(
 	IN PRTMP_ADAPTER pAd,
 	IN INT apidx,
 	IN unsigned short Reason)
@@ -1443,7 +1443,7 @@ VOID MbssKickOutStas(
         Elem -
     ==========================================================================
  */
-VOID APMlmeKickOutSta(
+void APMlmeKickOutSta(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pStaAddr,
 	IN unsigned char Wcid,
@@ -1509,7 +1509,7 @@ VOID APMlmeKickOutSta(
         Elem -
     ==========================================================================
  */
-VOID APMlmeDisassocReqAction(
+void APMlmeDisassocReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -1528,7 +1528,7 @@ VOID APMlmeDisassocReqAction(
         this routine as a service outside of ASSOC state transition table.
     ==========================================================================
  */
-VOID APCls3errAction(
+void APCls3errAction(
 	IN PRTMP_ADAPTER pAd,
 	IN 	unsigned long Wcid,
 	IN	PHEADER_802_11	pHeader)
@@ -1583,7 +1583,7 @@ VOID APCls3errAction(
         APMT2_CLS3ERR              cls3err_action
     ==========================================================================
  */
-VOID APAssocStateMachineInit(
+void APAssocStateMachineInit(
     IN  PRTMP_ADAPTER   pAd,
     IN  STATE_MACHINE *S,
     OUT STATE_MACHINE_FUNC Trans[])

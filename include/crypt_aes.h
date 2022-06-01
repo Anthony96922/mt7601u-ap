@@ -56,12 +56,12 @@ typedef struct {
 
 
 /* AES operations */
-VOID RT_AES_KeyExpansion (
+void RT_AES_KeyExpansion (
     IN unsigned char Key[],
     IN unsigned int KeyLength,
     INOUT AES_CTX_STRUC *paes_ctx);
 
-VOID RT_AES_Encrypt (
+void RT_AES_Encrypt (
     IN unsigned char PlainBlock[],
     IN unsigned int PlainBlockSize,
     IN unsigned char Key[],
@@ -69,7 +69,7 @@ VOID RT_AES_Encrypt (
     OUT unsigned char CipherBlock[],
     INOUT unsigned int *CipherBlockSize);
 
-VOID RT_AES_Decrypt (
+void RT_AES_Decrypt (
     IN unsigned char CipherBlock[],
     IN unsigned int CipherBlockSize,
     IN unsigned char Key[],
@@ -78,7 +78,7 @@ VOID RT_AES_Decrypt (
     INOUT unsigned int *PlainBlockSize);
 
 /* AES Counter with CBC-MAC operations */
-VOID AES_CCM_MAC (
+void AES_CCM_MAC (
     IN unsigned char Payload[],
     IN unsigned int  PayloadLength,
     IN unsigned char Key[],
@@ -117,13 +117,13 @@ INT AES_CCM_Decrypt (
     INOUT unsigned int *PlainTextLength);
 
 /* AES-CMAC operations */
-VOID AES_CMAC_GenerateSubKey (
+void AES_CMAC_GenerateSubKey (
     IN unsigned char Key[],
     IN unsigned int KeyLength,
     OUT unsigned char SubKey1[],
     OUT unsigned char SubKey2[]);
 
-VOID AES_CMAC (
+void AES_CMAC (
     IN unsigned char PlainText[],
     IN unsigned int PlainTextLength,
     IN unsigned char Key[],
@@ -134,7 +134,7 @@ VOID AES_CMAC (
 
 
 /* AES-CBC operations */
-VOID AES_CBC_Encrypt (
+void AES_CBC_Encrypt (
     IN unsigned char PlainText[],
     IN unsigned int PlainTextLength,
     IN unsigned char Key[],
@@ -144,7 +144,7 @@ VOID AES_CBC_Encrypt (
     OUT unsigned char CipherText[],
     INOUT unsigned int *CipherTextLength);
 
-VOID AES_CBC_Decrypt (
+void AES_CBC_Decrypt (
     IN unsigned char CipherText[],
     IN unsigned int CipherTextLength,
     IN unsigned char Key[],

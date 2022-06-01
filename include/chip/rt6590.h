@@ -121,17 +121,17 @@ typedef struct _RT6590_DCOC_Table {
 	RTMP_REG_PAIR RegDate;
 } RT6590_DOCO_Table, *PRT6590_DOCO_Table;
 
-VOID RT6590_Init(struct _RTMP_ADAPTER *pAd);
+void RT6590_Init(struct _RTMP_ADAPTER *pAd);
 INT RT6590_ReadChannelPwr(struct _RTMP_ADAPTER *pAd);
 
 #ifdef RT8592
-VOID RT85592_Init(struct _RTMP_ADAPTER *pAd);
+void RT85592_Init(struct _RTMP_ADAPTER *pAd);
 INT RT85592_ReadChannelPwr(struct _RTMP_ADAPTER *pAd);
-VOID RT85592ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
+void RT85592ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
 #endif /* RT8592 */
-VOID RT6590ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
+void RT6590ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
 
-VOID dump_bw_info(struct _RTMP_ADAPTER *pAd);
+void dump_bw_info(struct _RTMP_ADAPTER *pAd);
 
 #endif /* __RT6590_H__ */
 

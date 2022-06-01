@@ -37,8 +37,8 @@ unsigned int RalinkRate[256] =
 	40,41,42,43,44,45,46,47}; /* 3*3
 */
 
-VOID RtmpDrvMaxRateGet(
-	IN	VOID					*pReserved,
+void RtmpDrvMaxRateGet(
+	IN	void					*pReserved,
 /*	IN	PHTTRANSMIT_SETTING		pHtPhyMode,
 */
 	IN	unsigned char					MODE,
@@ -82,10 +82,10 @@ char *rtstrchr(const char * s, int c)
 }
 
 
-VOID RtmpMeshDown(
-	IN VOID *pDrvCtrlBK,
+void RtmpMeshDown(
+	IN void *pDrvCtrlBK,
 	IN bool WaitFlag,
-	IN bool	 (*RtmpMeshLinkCheck)(IN VOID *pAd))
+	IN bool	 (*RtmpMeshLinkCheck)(IN void *pAd))
 {
 }
 
@@ -104,7 +104,7 @@ bool RtmpOsCmdDisplayLenCheck(
 
 
 #if defined(WPA_SUPPLICANT_SUPPORT) || defined(APCLI_WPA_SUPPLICANT_SUPPORT)
-VOID WpaSendMicFailureToWpaSupplicant(
+void WpaSendMicFailureToWpaSupplicant(
 	IN PNET_DEV pNetDev,
 	IN bool bUnicast)
 {    
@@ -125,14 +125,14 @@ VOID WpaSendMicFailureToWpaSupplicant(
 
 
 
-int  RtPrivIoctlSetVal(VOID)
+int  RtPrivIoctlSetVal(void)
 {
     return (int)RTPRIV_IOCTL_SET;
 }
 
 
 #ifdef RTMP_USB_SUPPORT
-void * RtmpInitCompletion(VOID)
+void * RtmpInitCompletion(void)
 {
 	struct completion *comp = NULL;
 	os_alloc_mem(NULL, (unsigned char **)&comp, sizeof(struct completion));
@@ -141,13 +141,13 @@ void * RtmpInitCompletion(VOID)
 }
 
 
-unsigned long RtmpWaitForCompletionTimeout(VOID *Completion, unsigned long Expire)
+unsigned long RtmpWaitForCompletionTimeout(void *Completion, unsigned long Expire)
 {
 	return wait_for_completion_timeout((struct completion *)Completion, Expire);
 }
 
 
-VOID RtmpComplete(VOID *Completion)
+void RtmpComplete(void *Completion)
 {
 	complete((struct completion *)Completion);
 }

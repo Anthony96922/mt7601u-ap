@@ -52,9 +52,9 @@
 #endif
 
 /*#ifdef RTMP_USB_SUPPORT */
-typedef VOID	*PUSB_DEV;
-typedef VOID	*purbb_t;
-typedef VOID	pregs;
+typedef void	*PUSB_DEV;
+typedef void	*purbb_t;
+typedef void	pregs;
 /*typedef struct usb_ctrlrequest devctrlrequest; */
 /*#endif */
 
@@ -159,7 +159,7 @@ typedef char			* PNDIS_BUFFER;
 /***********************************************************************************
  *	OS file operation related data structure definitions
  ***********************************************************************************/
-typedef VOID * 			RTMP_OS_FD;
+typedef void * 			RTMP_OS_FD;
 
 #define IS_FILE_OPEN_ERR(_fd)	RtmpOsFileIsErr((_fd))
 
@@ -218,8 +218,8 @@ typedef INT (*RTMP_OS_TASK_CALLBACK)(unsigned long);
 /***********************************************************************************
  * IOCTL related definitions and data structures.
  **********************************************************************************/
-#define NET_IOCTL				VOID
-#define PNET_IOCTL				VOID *
+#define NET_IOCTL				void
+#define PNET_IOCTL				void *
 
 /* undef them to avoid compile errors in rt_symb.c */
 #undef EINVAL
@@ -266,7 +266,7 @@ typedef void (*TIMER_FUNCTION)(unsigned long);
 struct os_cookie {
 
 #ifdef RTMP_MAC_USB
-	VOID					*pUsb_Dev;
+	void					*pUsb_Dev;
 
 #endif /* RTMP_MAC_USB */
 
@@ -452,7 +452,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 #define RTMP_GetPhysicalAddressHigh(phy_addr)		(0)
 
 /*
- * VOID
+ * void
  * RTMP_SetPhysicalAddressLow(
  *   IN NDIS_PHYSICAL_ADDRESS  PhysicalAddress,
  *   IN unsigned long  Value);
@@ -461,7 +461,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 			phy_addr = Value;
 
 /*
- * VOID
+ * void
  * RTMP_SetPhysicalAddressHigh(
  *   IN NDIS_PHYSICAL_ADDRESS  PhysicalAddress,
  *   IN unsigned long  Value);
@@ -907,12 +907,12 @@ void RTMP_GetCurrentSystemTime(LARGE_INTEGER *time);
 		}while(0)
 
 
-extern VOID dump_urb(VOID *purb);
+extern void dump_urb(void *purb);
 
-typedef VOID		USBHST_STATUS;
+typedef void		USBHST_STATUS;
 typedef int		URBCompleteStatus;
-#define RTMP_OS_WAIT_QUEUE_HEAD		VOID
-typedef VOID (*usb_complete_t)(VOID *);
+#define RTMP_OS_WAIT_QUEUE_HEAD		void
+typedef void (*usb_complete_t)(void *);
 
 #define RtmpUsbBulkOutDataPacketComplete		pRtmpDrvNetOps->RtmpNetUsbBulkOutDataPacketComplete
 #define RtmpUsbBulkOutMLMEPacketComplete		pRtmpDrvNetOps->RtmpNetUsbBulkOutMLMEPacketComplete
@@ -966,19 +966,19 @@ USBHST_STATUS RTUSBBulkOutHCCANullFrameComplete(URBCompleteStatus Status, purbb_
 #undef in_interrupt
 #define in_interrupt		RtmpOsIsInInterrupt
 
-extern VOID *rausb_alloc_urb(int iso_packets);
-extern VOID rausb_free_urb(VOID *urb);
-extern int rausb_submit_urb(VOID *urb);
-extern VOID *rausb_buffer_alloc(VOID *dev,
+extern void *rausb_alloc_urb(int iso_packets);
+extern void rausb_free_urb(void *urb);
+extern int rausb_submit_urb(void *urb);
+extern void *rausb_buffer_alloc(void *dev,
 								size_t size,
 								ra_dma_addr_t *dma);
-extern VOID rausb_buffer_free(VOID *dev,
+extern void rausb_buffer_free(void *dev,
 								size_t size,
-								VOID *addr,
+								void *addr,
 								ra_dma_addr_t dma);
-extern VOID rausb_kill_urb(VOID *urb);
+extern void rausb_kill_urb(void *urb);
 
-extern int rausb_control_msg(VOID *dev,
+extern int rausb_control_msg(void *dev,
 						unsigned int pipe,
 						__u8 request,
 						__u8 requesttype,

@@ -67,11 +67,11 @@ INT	Show_MbssInfo_Display_Proc(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	char *						arg);
 
-VOID MBSS_Init(
+void MBSS_Init(
 	IN PRTMP_ADAPTER				pAd,
 	IN RTMP_OS_NETDEV_OP_HOOK		*pNetDevOps);
 
-VOID MBSS_Remove(
+void MBSS_Remove(
 	IN PRTMP_ADAPTER				pAd);
 
 INT MBSS_Open(

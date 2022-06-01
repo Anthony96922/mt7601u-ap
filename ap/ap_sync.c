@@ -49,7 +49,7 @@ void build_ext_channel_switch_ie(
 	APMT2_PEER_PROBE_REQ	peer_probe_req_action
 	==========================================================================
  */
-VOID APSyncStateMachineInit(
+void APSyncStateMachineInit(
 	IN PRTMP_ADAPTER pAd,
 	IN STATE_MACHINE *Sm,
 	OUT STATE_MACHINE_FUNC Trans[])
@@ -80,7 +80,7 @@ VOID APSyncStateMachineInit(
 		Elem - msg containing the ProbeReq frame
 	==========================================================================
  */
-VOID APPeerProbeReqAction(
+void APPeerProbeReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -622,7 +622,7 @@ typedef struct {
 
 
 
-VOID APPeerBeaconAction(
+void APPeerBeaconAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem) {
 		unsigned char Rates[MAX_LEN_OF_SUPPORTED_RATES], *pRates = NULL, RatesLen;
@@ -835,7 +835,7 @@ LabelErr:
     Description:
     ==========================================================================
  */
-VOID APInvalidStateWhenScan(
+void APInvalidStateWhenScan(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem) {
 	DBGPRINT(RT_DEBUG_TRACE, ("AYNC - InvalidStateWhenScan(state=%ld). Reset SYNC machine\n", pAd->Mlme.ApSyncMachine.CurrState));
@@ -847,7 +847,7 @@ VOID APInvalidStateWhenScan(
         Scan timeout handler, executed in timer thread
     ==========================================================================
  */
-VOID APScanTimeout(
+void APScanTimeout(
 	IN void * SystemSpecific1,
 	IN void * FunctionContext,
 	IN void * SystemSpecific2,
@@ -866,7 +866,7 @@ VOID APScanTimeout(
         Scan timeout procedure. basically add channel index by 1 and rescan
     ==========================================================================
  */
-VOID APScanTimeoutAction(
+void APScanTimeoutAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -904,7 +904,7 @@ VOID APScanTimeoutAction(
         MLME SCAN req state machine procedure
     ==========================================================================
  */
-VOID APMlmeScanReqAction(
+void APMlmeScanReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -972,7 +972,7 @@ VOID APMlmeScanReqAction(
         peer sends beacon back when scanning
     ==========================================================================
  */
-VOID APPeerBeaconAtScanAction(
+void APPeerBeaconAtScanAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -1089,7 +1089,7 @@ LabelErr:
         MLME Cancel the SCAN req state machine procedure
     ==========================================================================
  */
-VOID APScanCnclAction(
+void APScanCnclAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -1113,7 +1113,7 @@ VOID APScanCnclAction(
     NOTE:
     ==========================================================================
 */
-VOID ApSiteSurvey(
+void ApSiteSurvey(
 	IN	PRTMP_ADAPTER  		pAd,
 	IN	PNDIS_802_11_SSID	pSsid,
 	IN	unsigned char				ScanType,
@@ -1146,7 +1146,7 @@ bool ApScanRunning(
 }
 #endif /* AP_SCAN_SUPPORT */
 
-VOID SupportRate(
+void SupportRate(
 	IN unsigned char * SupRate,
 	IN unsigned char SupRateLen,
 	IN unsigned char * ExtRate,

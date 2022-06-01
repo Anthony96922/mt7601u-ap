@@ -121,7 +121,7 @@ unsigned char * MATDBEntryAlloc(IN MAT_STRUCT *pMatStruct, IN unsigned int size)
 }
 
 
-VOID dumpPkt(unsigned char * pHeader, int len)
+void dumpPkt(unsigned char * pHeader, int len)
 {
 	int i;
 	char * tmp;
@@ -409,7 +409,7 @@ NDIS_STATUS MATEngineInit(
 	}
 
 	NdisAllocateSpinLock(pAd, &pAd->MatCfg.MATDBLock);
-	pAd->MatCfg.pPriv = (VOID *)pAd;
+	pAd->MatCfg.pPriv = (void *)pAd;
 	pAd->MatCfg.status = MAT_ENGINE_STAT_INITED;
 
 	return TRUE;

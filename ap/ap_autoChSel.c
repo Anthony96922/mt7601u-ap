@@ -68,7 +68,7 @@ unsigned long AutoChBssSearchWithSSID(
 	return (unsigned long)BSS_NOT_FOUND;
 }
 
-static inline VOID AutoChBssEntrySet(
+static inline void AutoChBssEntrySet(
 	OUT BSSENTRY *pBss, 
 	IN unsigned char * pBssid, 
 	IN char Ssid[], 
@@ -100,7 +100,7 @@ static inline VOID AutoChBssEntrySet(
 	return;
 }
 
-static inline VOID AutoChBssTableReset(
+static inline void AutoChBssTableReset(
 	IN PRTMP_ADAPTER pAd)
 {
 	if (pAd->pBssInfoTab)
@@ -111,7 +111,7 @@ static inline VOID AutoChBssTableReset(
 	return;
 }
 
-static VOID ChannelInfoReset(
+static void ChannelInfoReset(
 	IN PRTMP_ADAPTER pAd)
 {
 	if (pAd->pChannelInfo)
@@ -122,7 +122,7 @@ static VOID ChannelInfoReset(
 	return;
 }
 
-VOID UpdateChannelInfo(
+void UpdateChannelInfo(
 	IN PRTMP_ADAPTER pAd,
 	IN int ch_index,
 	IN ChannelSel_Alg Alg)
@@ -170,7 +170,7 @@ static inline INT GetChIdx(
 	return Idx;
 }
 
-static inline VOID AutoChannelSkipListSetDirty(
+static inline void AutoChannelSkipListSetDirty(
 	IN PRTMP_ADAPTER	pAd)
 {
 	unsigned char i;
@@ -981,7 +981,7 @@ unsigned char SelectBestChannel(
 
 }
 
-VOID APAutoChannelInit(IN PRTMP_ADAPTER pAd)
+void APAutoChannelInit(IN PRTMP_ADAPTER pAd)
 {
 	unsigned int BusyTime;
 

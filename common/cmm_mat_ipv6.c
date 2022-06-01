@@ -776,7 +776,7 @@ static NDIS_STATUS MATProto_IPv6_Init(
 
 
 
-VOID getIPv6MacTbInfo(
+void getIPv6MacTbInfo(
 	IN MAT_STRUCT *pMatCfg, 
 	IN char *pOutBuf,
 	IN unsigned long BufLen)

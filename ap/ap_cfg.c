@@ -357,7 +357,7 @@ INT	Show_MATTable_Proc(
 	IN	char *			arg);
 
 #ifdef DOT1X_SUPPORT
-VOID RTMPIoctlQueryRadiusConf(
+void RTMPIoctlQueryRadiusConf(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
@@ -430,23 +430,23 @@ INT	Set_WscStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-VOID RTMPIoctlWscProfile(
+void RTMPIoctlWscProfile(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlWscPINCode(
+void RTMPIoctlWscPINCode(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlWscStatus(
+void RTMPIoctlWscStatus(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlGetWscDynInfo(
+void RTMPIoctlGetWscDynInfo(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
-VOID RTMPIoctlGetWscRegsDynInfo(
+void RTMPIoctlGetWscRegsDynInfo(
 	IN PRTMP_ADAPTER pAdapter, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
@@ -5991,7 +5991,7 @@ INT	Show_MATTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	extern VOID dumpIPMacTb(MAT_STRUCT *pMatCfg, int index);
+	extern void dumpIPMacTb(MAT_STRUCT *pMatCfg, int index);
 	extern NDIS_STATUS dumpSesMacTb(MAT_STRUCT *pMatCfg, int hashIdx);
 	extern NDIS_STATUS dumpUidMacTb(MAT_STRUCT *pMatCfg, int hashIdx);
 	extern NDIS_STATUS dumpIPv6MacTb(MAT_STRUCT *pMatCfg, int hashIdx);
@@ -6018,7 +6018,7 @@ INT	Show_MATTable_Proc(
 	    wrq		Pointer to the ioctl argument
     ==========================================================================
 */
-VOID RTMPIoctlQueryRadiusConf(
+void RTMPIoctlQueryRadiusConf(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
@@ -6138,7 +6138,7 @@ VOID RTMPIoctlQueryRadiusConf(
 	    wrq		Pointer to the ioctl argument
     ==========================================================================
 */
-VOID RTMPIoctlRadiusData(
+void RTMPIoctlRadiusData(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -6160,7 +6160,7 @@ VOID RTMPIoctlRadiusData(
 	    wrq		Pointer to the ioctl argument
     ==========================================================================
 */
-VOID RTMPIoctlAddWPAKey(
+void RTMPIoctlAddWPAKey(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -6286,7 +6286,7 @@ VOID RTMPIoctlAddWPAKey(
 	    wrq		Pointer to the ioctl argument
     ==========================================================================
 */
-VOID RTMPIoctlAddPMKIDCache(
+void RTMPIoctlAddPMKIDCache(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -6335,7 +6335,7 @@ VOID RTMPIoctlAddPMKIDCache(
 	    wrq		Pointer to the ioctl argument
     ==========================================================================
 */
-VOID RTMPIoctlStaticWepCopy(
+void RTMPIoctlStaticWepCopy(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -6410,7 +6410,7 @@ VOID RTMPIoctlStaticWepCopy(
 	    wrq		Pointer to the ioctl argument
     ==========================================================================
 */
-VOID RTMPIoctlSetIdleTimeout(
+void RTMPIoctlSetIdleTimeout(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -6445,7 +6445,7 @@ VOID RTMPIoctlSetIdleTimeout(
 #ifdef DBG
 
 #ifdef RT65xx
-VOID RTMPAPIoctlBBP32(
+void RTMPAPIoctlBBP32(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -6617,7 +6617,7 @@ Arguments:
                3.) iwpriv ra0 bbp 1=10		    ==> write BBP R1=0x10
     ==========================================================================
 */
-VOID RTMPAPIoctlBBP(
+void RTMPAPIoctlBBP(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -6832,7 +6832,7 @@ Arguments:
                2.) iwpriv ra0 mac 0=12	==> write MAC where Addr=0x0, value=12
     ==========================================================================
 */
-VOID RTMPAPIoctlMAC(
+void RTMPAPIoctlMAC(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
@@ -7055,7 +7055,7 @@ done:
 }
 
 #ifdef RLT_RF
-VOID RTMPAPIoctlRF(
+void RTMPAPIoctlRF(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -7140,7 +7140,7 @@ Arguments:
                2.) iwpriv ra0 e2p 0=1234    ==> write E2PROM where Addr=0x0, value=1234
     ==========================================================================
 */
-VOID RTMPAPIoctlE2PROM(
+void RTMPAPIoctlE2PROM(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -7337,7 +7337,7 @@ Arguments:
                1.) iwpriv ra0 stat 0     	==> Read statistics counter
     ==========================================================================
 */
-VOID RTMPIoctlStatistics(
+void RTMPIoctlStatistics(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
@@ -7605,7 +7605,7 @@ VOID RTMPIoctlStatistics(
         		3.) UI needs to prepare at least 4096bytes to get the results
     ==========================================================================
 */
-VOID RTMPIoctlQueryBaTable(
+void RTMPIoctlQueryBaTable(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -8926,7 +8926,7 @@ INT	Set_WscStop_Proc(
         		3.) UI needs to prepare at least 4096bytes to get the results
     ==========================================================================
 */
-VOID RTMPIoctlWscProfile(
+void RTMPIoctlWscProfile(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -9072,7 +9072,7 @@ VOID RTMPIoctlWscProfile(
         		3.) UI needs to prepare at least 4096bytes to get the results
     ==========================================================================
 */
-VOID RTMPAR9IoctlWscProfile(
+void RTMPAR9IoctlWscProfile(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -9183,7 +9183,7 @@ VOID RTMPAR9IoctlWscProfile(
 	os_free_mem(NULL, msg);
 }
 
-VOID RTMPIoctlWscPINCode(
+void RTMPIoctlWscPINCode(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -9218,7 +9218,7 @@ VOID RTMPIoctlWscPINCode(
 	os_free_mem(NULL, msg);
 }
 
-VOID RTMPIoctlWscStatus(
+void RTMPIoctlWscStatus(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -9245,7 +9245,7 @@ VOID RTMPIoctlWscStatus(
 	os_free_mem(NULL, msg);
 }
 
-VOID RTMPIoctlGetWscDynInfo(
+void RTMPIoctlGetWscDynInfo(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -9292,7 +9292,7 @@ VOID RTMPIoctlGetWscDynInfo(
 	os_free_mem(NULL, msg);
 }
 
-VOID RTMPIoctlGetWscRegsDynInfo(
+void RTMPIoctlGetWscRegsDynInfo(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
@@ -9417,7 +9417,7 @@ out:
 	return  WSC_MSG_UNKNOWN;
 }
 
-VOID RTMPIoctlSetWSCOOB(
+void RTMPIoctlSetWSCOOB(
 	IN PRTMP_ADAPTER pAd)
 {
     char        *pTempSsid = NULL;
@@ -10362,7 +10362,7 @@ INT	Set_MemDebug_Proc(
 
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
-VOID RTMPApCliAddKey(
+void RTMPApCliAddKey(
 	IN	PRTMP_ADAPTER	    pAd, 
 	IN 	INT				apidx,
 	IN	PNDIS_APCLI_802_11_KEY    pKey)
@@ -10698,7 +10698,7 @@ INT	Show_MbssInfo_Display_Proc(
 
 
 #ifdef HOSTAPD_SUPPORT
-VOID RtmpHostapdSecuritySet(
+void RtmpHostapdSecuritySet(
 	IN	RTMP_ADAPTER			*pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrqin)
 {
@@ -10770,11 +10770,11 @@ Note:
 ========================================================================
 */
 INT RTMP_AP_IoctlHandle(
-	IN	VOID					*pAdSrc,
+	IN	void					*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
 	IN	unsigned short					subcmd,
-	IN	VOID					*pData,
+	IN	void					*pData,
 	IN	unsigned long					Data)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;

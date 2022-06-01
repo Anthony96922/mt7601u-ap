@@ -32,10 +32,10 @@ unsigned long AutoChBssSearchWithSSID(
 	IN unsigned char SsidLen,
 	IN unsigned char Channel);
 
-VOID APAutoChannelInit(
+void APAutoChannelInit(
 	IN PRTMP_ADAPTER pAd);
 
-VOID UpdateChannelInfo(
+void UpdateChannelInfo(
 	IN PRTMP_ADAPTER pAd,
 	IN int ch,
 	IN ChannelSel_Alg Alg);
@@ -49,19 +49,19 @@ unsigned long AutoChBssInsertEntry(
 	IN unsigned char ExtChOffset,
 	IN char Rssi);
 
-VOID AutoChBssTableInit(
+void AutoChBssTableInit(
 	IN PRTMP_ADAPTER pAd);
 
-VOID ChannelInfoInit(
+void ChannelInfoInit(
 	IN PRTMP_ADAPTER pAd);
 
-VOID AutoChBssTableDestroy(
+void AutoChBssTableDestroy(
 	IN PRTMP_ADAPTER pAd);
 
-VOID ChannelInfoDestroy(
+void ChannelInfoDestroy(
 	IN PRTMP_ADAPTER pAd);
 
-VOID CheckPhyModeIsABand(
+void CheckPhyModeIsABand(
 	IN PRTMP_ADAPTER pAd);
 
 unsigned char SelectBestChannel(

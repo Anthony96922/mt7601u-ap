@@ -750,7 +750,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 #define RTMP_GetPhysicalAddressHigh(PhysicalAddress)		(0)
 
 /*
- * VOID
+ * void
  * RTMP_SetPhysicalAddressLow(
  *   IN NDIS_PHYSICAL_ADDRESS  PhysicalAddress,
  *   IN unsigned long  Value);
@@ -759,7 +759,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 			PhysicalAddress = Value;
 
 /*
- * VOID
+ * void
  * RTMP_SetPhysicalAddressHigh(
  *   IN NDIS_PHYSICAL_ADDRESS  PhysicalAddress,
  *   IN unsigned long  Value);
@@ -1163,7 +1163,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
  *	Other function prototypes definitions
  ***********************************************************************************/
 void RTMP_GetCurrentSystemTime(LARGE_INTEGER *time);
-int rt28xx_packet_xmit(VOID *skb);
+int rt28xx_packet_xmit(void *skb);
 
 
 #if LINUX_VERSION_CODE <= 0x20402	/* Red Hat 7.1 */
@@ -1476,34 +1476,34 @@ USBHST_STATUS USBKickOutCmdComplete(URBCompleteStatus Status, purbb_t pURB, preg
 /*extern void rausb_deregister(struct usb_driver * driver); */
 
 extern struct urb *rausb_alloc_urb(int iso_packets);
-extern void rausb_free_urb(VOID *urb);
+extern void rausb_free_urb(void *urb);
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
-extern void rausb_put_dev(VOID *dev);
-extern struct usb_device *rausb_get_dev(VOID *dev);
+extern void rausb_put_dev(void *dev);
+extern struct usb_device *rausb_get_dev(void *dev);
 #endif /* LINUX_VERSION_CODE */
 
-extern int rausb_submit_urb(VOID *urb);
+extern int rausb_submit_urb(void *urb);
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
 #ifndef gfp_t
 #define gfp_t		int
 #endif /* gfp_t */
 
-extern void *rausb_buffer_alloc(VOID *dev,
+extern void *rausb_buffer_alloc(void *dev,
 								size_t size,
 								ra_dma_addr_t *dma);
-extern void rausb_buffer_free(VOID *dev,
+extern void rausb_buffer_free(void *dev,
 								size_t size,
 								void *addr,
 								ra_dma_addr_t dma);
 #endif /* LINUX_VERSION_CODE */
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,7)
-extern void rausb_kill_urb(VOID *urb);
+extern void rausb_kill_urb(void *urb);
 #endif /* LINUX_VERSION_CODE */
 
-extern int rausb_control_msg(VOID *dev,
+extern int rausb_control_msg(void *dev,
 							unsigned int pipe,
 							__u8 request,
 							__u8 requesttype,

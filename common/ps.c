@@ -102,7 +102,7 @@ NDIS_STATUS RtmpInsertPsQueue(
 		used whenever a wireless client is deleted.
 	==========================================================================
  */
-VOID RtmpCleanupPsQueue(
+void RtmpCleanupPsQueue(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  PQUEUE_HEADER   pQueue)
 {
@@ -134,7 +134,7 @@ VOID RtmpCleanupPsQueue(
 	is received from a WSTA which has MAC address FF:FF:FF:FF:FF:FF
   ========================================================================
 */
-VOID RtmpHandleRxPsPoll(
+void RtmpHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
 	IN	unsigned short			Aid,

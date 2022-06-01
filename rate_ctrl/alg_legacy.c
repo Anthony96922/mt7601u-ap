@@ -37,7 +37,7 @@
         call this routine every second
     ==========================================================================
  */
-VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
+void APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 {
 	INT i;
 	unsigned char * pTable;
@@ -412,7 +412,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
         
     ========================================================================
 */
-VOID APQuickResponeForRateUpExec(
+void APQuickResponeForRateUpExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -721,7 +721,7 @@ VOID APQuickResponeForRateUpExec(
 			pEntry->CurrTxRateIndex = new rate index
 			pEntry->TxQuality is updated
 */
-VOID MlmeOldRateAdapt(
+void MlmeOldRateAdapt(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
 	IN unsigned char			CurrRateIdx,

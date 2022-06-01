@@ -36,12 +36,12 @@
 #define IS_BROADCAST_MAC_ADDR(Addr)			((((Addr[0]) & 0xff) == 0xff))
 
 
-static VOID APFindCipherAlgorithm(
+static void APFindCipherAlgorithm(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TX_BLK			*pTxBlk);
 
 #ifdef DOT11_N_SUPPORT
-VOID RTMP_BASetup(
+void RTMP_BASetup(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pMacEntry,
 	IN unsigned char UserPriority)
@@ -140,7 +140,7 @@ Note:
 	You only can put OS-depened & AP related code in here.
 ========================================================================
 */
-VOID APSendPackets(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, unsigned int pkt_cnt)
+void APSendPackets(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, unsigned int pkt_cnt)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *) dev_hnd;
 	PNDIS_PACKET pPacket;
@@ -614,7 +614,7 @@ NDIS_STATUS APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 		WepStatus is Ndis802_11Encryption1Enabled but the key will use PairwiseKey
 		Instead of the SharedKey, SharedKey Length may be Zero.
 */
-static inline VOID APFindCipherAlgorithm(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
+static inline void APFindCipherAlgorithm(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	CIPHER_KEY *pKey = NULL;
 	unsigned char KeyIdx = 0, CipherAlg = CIPHER_NONE;
@@ -805,7 +805,7 @@ static inline VOID APFindCipherAlgorithm(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 }
 
 #ifdef DOT11_N_SUPPORT
-static inline VOID APBuildCache802_11Header(
+static inline void APBuildCache802_11Header(
 	IN RTMP_ADAPTER		*pAd,
 	IN TX_BLK			*pTxBlk,
 	IN unsigned char			*pHeader)
@@ -863,7 +863,7 @@ static inline VOID APBuildCache802_11Header(
 
 
 #ifdef HDR_TRANS_SUPPORT
-static inline VOID APBuildCacheWifiInfo(
+static inline void APBuildCacheWifiInfo(
 	IN RTMP_ADAPTER		*pAd,
 	IN TX_BLK			*pTxBlk,
 	IN unsigned char			*pWiInfo)
@@ -891,7 +891,7 @@ static inline VOID APBuildCacheWifiInfo(
 
 
 #ifdef HDR_TRANS_SUPPORT
-static inline VOID APBuildWifiInfo(
+static inline void APBuildWifiInfo(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  TX_BLK          *pTxBlk)
 {
@@ -937,7 +937,7 @@ static inline VOID APBuildWifiInfo(
 #endif /* HDR_TRANS_SUPPORT */
 
 
-static inline VOID APBuildCommon802_11Header(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
+static inline void APBuildCommon802_11Header(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	HEADER_802_11 *wifi_hdr;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
@@ -1273,7 +1273,7 @@ static inline unsigned char * AP_Build_AMSDU_Frame_Header(
 }
 
 
-VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
+void AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	HEADER_802_11 *pHeader_802_11;
 	unsigned char *pHeaderBufPtr;
@@ -1730,7 +1730,7 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 
 
 #ifdef HDR_TRANS_SUPPORT
-VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
+void AP_AMPDU_Frame_Tx_Hdr_Trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TX_BLK			*pTxBlk)
 {
@@ -1934,7 +1934,7 @@ VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
 #endif /* HDR_TRANS_SUPPORT */
 
 
-VOID AP_AMSDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
+void AP_AMSDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	unsigned char *			pHeaderBufPtr;
 	unsigned short			freeCnt = 1; /* no use */
@@ -2128,7 +2128,7 @@ VOID AP_AMSDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 #endif /* DOT11_N_SUPPORT */
 
 
-VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
+void AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	HEADER_802_11 *wifi_hdr;
 	unsigned char *pHeaderBufPtr;
@@ -2487,7 +2487,7 @@ VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 
 
 #ifdef HDR_TRANS_SUPPORT
-VOID AP_Legacy_Frame_Tx_Hdr_Trns(
+void AP_Legacy_Frame_Tx_Hdr_Trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TX_BLK			*pTxBlk)
 {
@@ -2661,7 +2661,7 @@ VOID AP_Legacy_Frame_Tx_Hdr_Trns(
 #endif /* HDR_TRANS_SUPPORT */
 
 
-VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
+void AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	HEADER_802_11 *pHeader_802_11;
 	unsigned char *pHeaderBufPtr;
@@ -3080,7 +3080,7 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 }
 
 
-VOID AP_ARalink_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
+void AP_ARalink_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	unsigned char *pHeaderBufPtr;
 	unsigned short freeCnt = 1; /* no use */
@@ -3466,7 +3466,7 @@ bool APCheckClass2Class3Error(
 	is received from a WSTA which has MAC address FF:FF:FF:FF:FF:FF
   ========================================================================
 */
-VOID APHandleRxPsPoll(
+void APHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
 	IN	unsigned short			Aid,
@@ -3630,7 +3630,7 @@ VOID APHandleRxPsPoll(
 	to turn AC0(BE) TX_OP (MAC reg 0x1300)
 */
 /*static unsigned char is_on; */
-VOID detect_wmm_traffic(
+void detect_wmm_traffic(
 	IN RTMP_ADAPTER *pAd, 
 	IN unsigned char UserPriority,
 	IN unsigned char FlgIsOutput)
@@ -3728,7 +3728,7 @@ VOID detect_wmm_traffic(
 	It is necessary to turn AC0 TX_OP dynamically.
 */
 
-VOID dynamic_tune_be_tx_op(RTMP_ADAPTER *pAd, unsigned long nonBEpackets)
+void dynamic_tune_be_tx_op(RTMP_ADAPTER *pAd, unsigned long nonBEpackets)
 {
 	unsigned int RegValue;
 	AC_TXOP_CSR0_STRUC csr0;
@@ -3826,7 +3826,7 @@ VOID dynamic_tune_be_tx_op(RTMP_ADAPTER *pAd, unsigned long nonBEpackets)
 }
 
 
-VOID APRxDErrorHandle(RTMP_ADAPTER *pAd, RX_BLK *pRxBlk)
+void APRxDErrorHandle(RTMP_ADAPTER *pAd, RX_BLK *pRxBlk)
 {
 	MAC_TABLE_ENTRY *pEntry;
 	RXWI_STRUC *pRxWI = pRxBlk->pRxWI;
@@ -4043,7 +4043,7 @@ bool APCheckTkipMICValue(
 }
 
 
-VOID APHandleRxMgmtFrame(
+void APHandleRxMgmtFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN RX_BLK *pRxBlk)
 {
@@ -4217,7 +4217,7 @@ VOID APHandleRxMgmtFrame(
 	return;
 }
 
-VOID APHandleRxControlFrame(
+void APHandleRxControlFrame(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk)
 {
@@ -4256,7 +4256,7 @@ VOID APHandleRxControlFrame(
 	return;
 }
 
-VOID APRxEAPOLFrameIndicate(
+void APRxEAPOLFrameIndicate(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	MAC_TABLE_ENTRY	*pEntry,
 	IN	RX_BLK			*pRxBlk,
@@ -4422,7 +4422,7 @@ done:
 
 }
 
-VOID Announce_or_Forward_802_3_Packet(
+void Announce_or_Forward_802_3_Packet(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNDIS_PACKET	pPacket,
 	IN	unsigned char			FromWhichBSSID)
@@ -4439,7 +4439,7 @@ VOID Announce_or_Forward_802_3_Packet(
 }
 
 
-VOID APRxDataFrameAnnounce(
+void APRxDataFrameAnnounce(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN RX_BLK *pRxBlk,
@@ -4557,7 +4557,7 @@ VOID APRxDataFrameAnnounce(
 
 
 #ifdef HDR_TRANS_SUPPORT
-VOID APRxDataFrameAnnounce_Hdr_Trns(
+void APRxDataFrameAnnounce_Hdr_Trns(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN RX_BLK *pRxBlk,
@@ -4684,7 +4684,7 @@ VOID APRxDataFrameAnnounce_Hdr_Trns(
 		3. set payload size including LLC to DataSize
 		4. set some flags with RX_BLK_SET_FLAG()
 */
-VOID APHandleRxDataFrame(
+void APHandleRxDataFrame(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk)
 {
@@ -5187,7 +5187,7 @@ err:
 
 
 #ifdef HDR_TRANS_SUPPORT
-VOID APHandleRxDataFrame_Hdr_Trns(
+void APHandleRxDataFrame_Hdr_Trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk)
 {
@@ -6377,7 +6377,7 @@ NDIS_STATUS APInsertPsQueue(
 
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
-VOID	ApCliRTMPSendNullFrame(
+void	ApCliRTMPSendNullFrame(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char			TxRate,
 	IN	bool 		bQosNull,

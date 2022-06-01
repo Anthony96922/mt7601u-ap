@@ -67,7 +67,7 @@ bool isValidApCliIf(
 /* */
 /* Private routines in apcli_ctrl.c */
 /* */
-VOID ApCliCtrlStateMachineInit(
+void ApCliCtrlStateMachineInit(
 	IN PRTMP_ADAPTER pAd,
 	IN STATE_MACHINE *Sm,
 	OUT STATE_MACHINE_FUNC Trans[]);
@@ -75,7 +75,7 @@ VOID ApCliCtrlStateMachineInit(
 /* */
 /* Private routines in apcli_sync.c */
 /* */
-VOID ApCliSyncStateMachineInit(
+void ApCliSyncStateMachineInit(
     IN PRTMP_ADAPTER pAd, 
     IN STATE_MACHINE *Sm, 
     OUT STATE_MACHINE_FUNC Trans[]);
@@ -83,7 +83,7 @@ VOID ApCliSyncStateMachineInit(
 /* */
 /* Private routines in apcli_auth.c */
 /* */
-VOID ApCliAuthStateMachineInit(
+void ApCliAuthStateMachineInit(
     IN PRTMP_ADAPTER pAd, 
     IN STATE_MACHINE *Sm, 
     OUT STATE_MACHINE_FUNC Trans[]);
@@ -91,7 +91,7 @@ VOID ApCliAuthStateMachineInit(
 /* */
 /* Private routines in apcli_assoc.c */
 /* */
-VOID ApCliAssocStateMachineInit(
+void ApCliAssocStateMachineInit(
     IN PRTMP_ADAPTER pAd, 
     IN STATE_MACHINE *Sm, 
     OUT STATE_MACHINE_FUNC Trans[]);
@@ -114,10 +114,10 @@ bool 	ApCliValidateRSNIE(
 	IN		unsigned short			idx);
 
 
-VOID ApCli_Remove(
+void ApCli_Remove(
 	IN PRTMP_ADAPTER 	pAd);
 
-VOID RT28xx_ApCli_Close(
+void RT28xx_ApCli_Close(
 	IN PRTMP_ADAPTER 	pAd);
 
 
@@ -133,11 +133,11 @@ INT ApCli_VirtualIF_PacketSend(
 
 INT ApCli_VirtualIF_Ioctl(
 	IN PNET_DEV				dev_p,
-	IN OUT VOID 			*rq_p,
+	IN OUT void 			*rq_p,
 	IN INT cmd);
 
 	
-VOID ApCliMgtMacHeaderInit(
+void ApCliMgtMacHeaderInit(
     IN	PRTMP_ADAPTER	pAd, 
     IN OUT PHEADER_802_11 pHdr80211, 
     IN unsigned char SubType, 
@@ -158,17 +158,17 @@ bool ApCliLinkUp(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char ifIndex);
 
-VOID ApCliLinkDown(
+void ApCliLinkDown(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char ifIndex);
 
-VOID ApCliIfUp(
+void ApCliIfUp(
 	IN PRTMP_ADAPTER pAd);
 
-VOID ApCliIfDown(
+void ApCliIfDown(
 	IN PRTMP_ADAPTER pAd);
 
-VOID ApCliIfMonitor(
+void ApCliIfMonitor(
 	IN PRTMP_ADAPTER pAd);
 
 bool ApCliMsgTypeSubst(
@@ -185,7 +185,7 @@ bool preCheckMsgTypeSubset(
 
 bool ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN VOID *pMsg, 
+    IN void *pMsg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT unsigned short *pCapabilityInfo, 
@@ -203,17 +203,17 @@ bool ApCliPeerAssocRspSanity(
     OUT PEDCA_PARM pEdcaParm,
     OUT unsigned char *pCkipFlag);
 
-VOID	ApCliPeerPairMsg1Action(
+void	ApCliPeerPairMsg1Action(
 	IN PRTMP_ADAPTER    pAd, 
     IN MAC_TABLE_ENTRY  *pEntry,
     IN MLME_QUEUE_ELEM  *Elem);
 
-VOID	ApCliPeerPairMsg3Action(
+void	ApCliPeerPairMsg3Action(
 	IN PRTMP_ADAPTER    pAd, 
     IN MAC_TABLE_ENTRY  *pEntry,
     IN MLME_QUEUE_ELEM  *Elem);
 
-VOID	ApCliPeerGroupMsg1Action(
+void	ApCliPeerGroupMsg1Action(
 	IN PRTMP_ADAPTER    pAd, 
     IN MAC_TABLE_ENTRY  *pEntry,
     IN MLME_QUEUE_ELEM  *Elem);
@@ -239,7 +239,7 @@ bool  ApCliHandleRxBroadcastFrame(
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN	unsigned char			FromWhichBSSID);
 
-VOID APCliInstallPairwiseKey(
+void APCliInstallPairwiseKey(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  MAC_TABLE_ENTRY *pEntry);
 
@@ -250,10 +250,10 @@ bool APCliInstallSharedKey(
 	IN	unsigned char			DefaultKeyIdx,
 	IN  MAC_TABLE_ENTRY *pEntry);
 
-VOID ApCliUpdateMlmeRate(
+void ApCliUpdateMlmeRate(
 	IN PRTMP_ADAPTER	pAd);
 
-VOID APCli_Init(
+void APCli_Init(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	RTMP_OS_NETDEV_OP_HOOK		*pNetDevOps);
 

@@ -38,12 +38,12 @@ typedef struct _OS_RSTRUC  {
 #ifdef OS_ABL_FUNC_SUPPORT
 
 #define RTMP_DECLARE_DRV_OPS_FUNCTION(_func)					\
-	void Rtmp_Drv_Ops_##_func(VOID *__pDrvOps, VOID *__pNetOps, \
-						VOID *__pPciConfig, VOID *__pUsbConfig)
+	void Rtmp_Drv_Ops_##_func(void *__pDrvOps, void *__pNetOps, \
+						void *__pPciConfig, void *__pUsbConfig)
 
 #define RTMP_BUILD_DRV_OPS_FUNCTION(_func)						\
-void Rtmp_Drv_Ops_##_func(VOID *__pDrvOps, VOID *__pNetOps, 	\
-					VOID *__pPciConfig, VOID *__pUsbConfig)		\
+void Rtmp_Drv_Ops_##_func(void *__pDrvOps, void *__pNetOps, 	\
+					void *__pPciConfig, void *__pUsbConfig)		\
 {																\
 	RtmpDrvOpsInit(__pDrvOps, __pNetOps, __pPciConfig, __pUsbConfig);\
 }

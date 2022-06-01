@@ -40,7 +40,7 @@ unsigned char MapUserPriorityToAccessCategory[8] = {QID_AC_BE, QID_AC_BK, QID_AC
 
 
 
-VOID dump_rxinfo(RTMP_ADAPTER *pAd, RXINFO_STRUC *pRxInfo)
+void dump_rxinfo(RTMP_ADAPTER *pAd, RXINFO_STRUC *pRxInfo)
 {
 	hex_dump("RxInfo Raw Data", (unsigned char *)pRxInfo, sizeof(RXINFO_STRUC));
 
@@ -76,7 +76,7 @@ VOID dump_rxinfo(RTMP_ADAPTER *pAd, RXINFO_STRUC *pRxInfo)
 }
 
 #ifdef RLT_MAC
-VOID dumpRxFCEInfo(RTMP_ADAPTER *pAd, RXFCE_INFO *pRxFceInfo)
+void dumpRxFCEInfo(RTMP_ADAPTER *pAd, RXFCE_INFO *pRxFceInfo)
 {
 	hex_dump("RxFCEInfo Raw Data", (unsigned char *)pRxFceInfo, sizeof(RXFCE_INFO));
 
@@ -101,7 +101,7 @@ static unsigned char *txwi_txop_str[]={"HT_TXOP", "PIFS", "SIFS", "BACKOFF", "In
 #define TXWI_TXOP_STR(_x)	((_x) <= 3 ? txwi_txop_str[(_x)]: txwi_txop_str[4])
 #endif
 
-VOID dumpTxWI(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI)
+void dumpTxWI(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI)
 {
 	hex_dump("TxWI Raw Data: ", (unsigned char *)pTxWI, sizeof(TXWI_STRUC));
 
@@ -129,7 +129,7 @@ VOID dumpTxWI(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI)
 }
 
 
-VOID dump_rxwi(RTMP_ADAPTER *pAd, RXWI_STRUC *pRxWI)
+void dump_rxwi(RTMP_ADAPTER *pAd, RXWI_STRUC *pRxWI)
 {
 	hex_dump("RxWI Raw Data", (unsigned char *)pRxWI, sizeof(RXWI_STRUC));
 
@@ -162,7 +162,7 @@ static unsigned char *txinfo_que_str[]={"MGMT", "HCCA", "EDCA_1", "EDCA_2", "Inv
 #define TXINFO_DPORT_STR(_x)	((_x) <= 6 ? txinfo_d_port_str[_x]: txinfo_d_port_str[7])
 #define TXINFO_QUE_STR(_x)		((_x) <= 3 ? txinfo_que_str[_x]: txinfo_que_str[4])
 
-VOID dump_txinfo(RTMP_ADAPTER *pAd, TXINFO_STRUC *pTxInfo)
+void dump_txinfo(RTMP_ADAPTER *pAd, TXINFO_STRUC *pTxInfo)
 {
 	hex_dump("TxInfo Raw Data: ", (unsigned char *)pTxInfo, sizeof(TXINFO_STRUC));
 	
@@ -192,7 +192,7 @@ VOID dump_txinfo(RTMP_ADAPTER *pAd, TXINFO_STRUC *pTxInfo)
 
 
 #ifdef DBG_DIAGNOSE
-static VOID dumpTxBlk(TX_BLK *pTxBlk)
+static void dumpTxBlk(TX_BLK *pTxBlk)
 {
 	NDIS_PACKET *pPacket;
 	int i, frameNum;
@@ -1179,7 +1179,7 @@ bool CanDoAggregateTransmit(
 	
 	========================================================================
 */
-VOID RTMPDeQueuePacket(
+void RTMPDeQueuePacket(
 	IN RTMP_ADAPTER *pAd,
 	IN bool bIntContext,
 	IN unsigned char QIdx,
@@ -1544,7 +1544,7 @@ unsigned short	RTMPCalcDuration(
 	
 	========================================================================
 */
-VOID RTMPSuspendMsduTransmission(
+void RTMPSuspendMsduTransmission(
 	IN PRTMP_ADAPTER pAd)
 {
 	DBGPRINT(RT_DEBUG_TRACE,("SCANNING, suspend MSDU transmission ...\n"));
@@ -1593,7 +1593,7 @@ VOID RTMPSuspendMsduTransmission(
 	
 	========================================================================
 */
-VOID RTMPResumeMsduTransmission(
+void RTMPResumeMsduTransmission(
 	IN PRTMP_ADAPTER pAd)
 {  
 	DBGPRINT(RT_DEBUG_TRACE,("SCAN done, resume MSDU transmission ...\n"));
@@ -1784,7 +1784,7 @@ unsigned int BA_Reorder_AMSDU_Annnounce(
 	return nMSDU;
 }
 
-VOID Indicate_AMSDU_Packet(
+void Indicate_AMSDU_Packet(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID)
@@ -1806,7 +1806,7 @@ VOID Indicate_AMSDU_Packet(
 	
 	==========================================================================
 */
-VOID AssocParmFill(
+void AssocParmFill(
 	IN PRTMP_ADAPTER pAd,
 	IN OUT MLME_ASSOC_REQ_STRUCT *AssocReq,
 	IN unsigned char *                     pAddr,
@@ -1830,7 +1830,7 @@ VOID AssocParmFill(
 	
 	==========================================================================
 */
-VOID DisassocParmFill(
+void DisassocParmFill(
 	IN PRTMP_ADAPTER pAd,
 	IN OUT MLME_DISASSOC_REQ_STRUCT *DisassocReq,
 	IN unsigned char * pAddr,
@@ -2110,7 +2110,7 @@ bool RTMPCheckEtherType(
 }
 
 
-VOID Update_Rssi_Sample(
+void Update_Rssi_Sample(
 	IN RTMP_ADAPTER *pAd,
 	IN RSSI_SAMPLE *pRssi,
 	IN RXWI_STRUC *pRxWI)
@@ -2203,7 +2203,7 @@ VOID Update_Rssi_Sample(
 
 
 /* Normal legacy Rx packet indication*/
-VOID Indicate_Legacy_Packet(
+void Indicate_Legacy_Packet(
 	IN RTMP_ADAPTER *pAd,
 	IN RX_BLK *pRxBlk,
 	IN unsigned char FromWhichBSSID)
@@ -2312,7 +2312,7 @@ if (0) {
 
 #ifdef HDR_TRANS_SUPPORT
 /* Normal legacy Rx packet indication*/
-VOID Indicate_Legacy_Packet_Hdr_Trns(
+void Indicate_Legacy_Packet_Hdr_Trns(
 	IN RTMP_ADAPTER *pAd,
 	IN RX_BLK *pRxBlk,
 	IN unsigned char FromWhichBSSID)
@@ -2423,7 +2423,7 @@ if (0) {
 
 
 /* Normal, AMPDU or AMSDU*/
-VOID CmmRxnonRalinkFrameIndicate(
+void CmmRxnonRalinkFrameIndicate(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID)
@@ -2452,7 +2452,7 @@ VOID CmmRxnonRalinkFrameIndicate(
 
 
 #ifdef HDR_TRANS_SUPPORT
-VOID CmmRxnonRalinkFrameIndicate_Hdr_Trns(
+void CmmRxnonRalinkFrameIndicate_Hdr_Trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID)
@@ -2481,7 +2481,7 @@ VOID CmmRxnonRalinkFrameIndicate_Hdr_Trns(
 #endif /* HDR_TRANS_SUPPORT */
 
 
-VOID CmmRxRalinkFrameIndicate(
+void CmmRxRalinkFrameIndicate(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	MAC_TABLE_ENTRY	*pEntry,
 	IN	RX_BLK			*pRxBlk,
@@ -2700,7 +2700,7 @@ done:
 }
 
 
-VOID Indicate_EAPOL_Packet(
+void Indicate_EAPOL_Packet(
 	IN RTMP_ADAPTER *pAd,
 	IN RX_BLK *pRxBlk,
 	IN unsigned char FromWhichBSSID)
@@ -2735,7 +2735,7 @@ VOID Indicate_EAPOL_Packet(
 
 
 #define BCN_TBTT_OFFSET		64	/*defer 64 us*/
-VOID ReSyncBeaconTime(
+void ReSyncBeaconTime(
 	IN RTMP_ADAPTER *pAd)
 {
 	unsigned int  Offset;
@@ -2798,7 +2798,7 @@ bool RTMPExpandPacketForSwEncrypt(
 	return TRUE;
 }
 
-VOID RTMPUpdateSwCacheCipherInfo(	
+void RTMPUpdateSwCacheCipherInfo(	
 	IN  PRTMP_ADAPTER   pAd,
 	IN	PTX_BLK			pTxBlk,
 	IN	unsigned char *			pHdr)
@@ -2845,7 +2845,7 @@ VOID RTMPUpdateSwCacheCipherInfo(
 		rate.
 	==========================================================================
  */
-VOID RtmpEnqueueNullFrame(
+void RtmpEnqueueNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *        pAddr,
 	IN unsigned char         TxRate,
@@ -3250,7 +3250,7 @@ MAC_TABLE_ENTRY *MacTableInsertMulTestEntry(
 }
 
 
-VOID AsicUpdateMulTestRxWCIDTable(
+void AsicUpdateMulTestRxWCIDTable(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int index;
@@ -3266,7 +3266,7 @@ VOID AsicUpdateMulTestRxWCIDTable(
 	return;
 }
 
-VOID AsicUpdateMulTestEncryption(
+void AsicUpdateMulTestEncryption(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char wcid)
 {

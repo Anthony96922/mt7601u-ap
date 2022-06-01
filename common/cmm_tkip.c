@@ -192,7 +192,7 @@ unsigned long	RTMPTkipGetUInt32(
 		
 	========================================================================
 */
-VOID	RTMPTkipPutUInt32(
+void	RTMPTkipPutUInt32(
 	IN OUT	unsigned char *		pDst,
 	IN		unsigned long		val)					  
 { 	
@@ -224,7 +224,7 @@ VOID	RTMPTkipPutUInt32(
 		
 	========================================================================
 */
-VOID RTMPTkipSetMICKey(  
+void RTMPTkipSetMICKey(  
 	IN	PTKIP_KEY_INFO	pTkip,	
 	IN	unsigned char *			pMICKey)
 { 
@@ -257,7 +257,7 @@ VOID RTMPTkipSetMICKey(
 		
 	========================================================================
 */
-VOID	RTMPTkipAppendByte( 
+void	RTMPTkipAppendByte( 
 	IN	PTKIP_KEY_INFO	pTkip,	
 	IN	unsigned char 			uChar)
 { 
@@ -302,7 +302,7 @@ VOID	RTMPTkipAppendByte(
 		
 	========================================================================
 */
-VOID	RTMPTkipAppend( 
+void	RTMPTkipAppend( 
 	IN	PTKIP_KEY_INFO	pTkip,	
 	IN	unsigned char *			pSrc,
 	IN	unsigned int			nBytes)						  
@@ -333,7 +333,7 @@ VOID	RTMPTkipAppend(
 		the MIC Value is store in pAd->PrivateInfo.MIC
 	========================================================================
 */
-VOID	RTMPTkipGetMIC( 
+void	RTMPTkipGetMIC( 
 	IN	PTKIP_KEY_INFO	pTkip)
 { 
 	/* Append the minimum padding*/
@@ -374,7 +374,7 @@ VOID	RTMPTkipGetMIC(
 	
 	========================================================================
 */
-VOID	RTMPInitMICEngine(
+void	RTMPInitMICEngine(
 	IN	PRTMP_ADAPTER	pAd,	
 	IN	unsigned char *			pKey,
 	IN	unsigned char *			pDA,
@@ -482,7 +482,7 @@ bool	RTMPTkipCompareMICValue(
 	
 	========================================================================
 */
-VOID	RTMPCalculateMICValue(
+void	RTMPCalculateMICValue(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNDIS_PACKET	pPacket,
 	IN	unsigned char *			pEncap,
@@ -607,7 +607,7 @@ unsigned int rotr1(unsigned int a)
 	return b; 
 } 
 
-VOID RTMPTkipMixKey(
+void RTMPTkipMixKey(
 	unsigned char *key, 
 	unsigned char *ta, 
 	unsigned long pnl, /* Least significant 16 bits of PN */
@@ -873,7 +873,7 @@ bool RTMPSoftDecryptTKIP(
 		
 	========================================================================
 */
-VOID TKIP_GTK_KEY_WRAP( 
+void TKIP_GTK_KEY_WRAP( 
     IN unsigned char    *key,
     IN unsigned char	*iv,
     IN unsigned char    *input_text,
@@ -911,7 +911,7 @@ VOID TKIP_GTK_KEY_WRAP(
 		os_free_mem(NULL, pARC4_CTX);
 }
 
-VOID TKIP_GTK_KEY_UNWRAP( 
+void TKIP_GTK_KEY_UNWRAP( 
     IN unsigned char    *key,
     IN unsigned char	*iv,
     IN unsigned char    *input_text,

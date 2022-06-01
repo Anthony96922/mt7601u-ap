@@ -28,7 +28,7 @@
 
 #ifdef RT28xx
 
-VOID RT28xx_ChipSwitchChannel(
+void RT28xx_ChipSwitchChannel(
 	IN struct _RTMP_ADAPTER 	*pAd,
 	IN unsigned char					Channel,
 	IN bool					bScan);

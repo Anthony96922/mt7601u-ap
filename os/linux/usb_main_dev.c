@@ -36,13 +36,13 @@ extern INT const rtusb_usb_id_len;
 
 static void rt2870_disconnect(
 	IN struct usb_device *dev,
-	IN VOID *pAd);
+	IN void *pAd);
 
 static int rt2870_probe(
 	IN struct usb_interface *intf,
 	IN struct usb_device *usb_dev,
 	IN const USB_DEVICE_ID *dev_id,
-	IN VOID **ppAd);
+	IN void **ppAd);
 
 #ifndef PF_NOFREEZE
 #define PF_NOFREEZE  0
@@ -55,11 +55,11 @@ static int rt2870_probe(
 static bool USBDevConfigInit(
 	IN struct usb_device 	*dev,
 	IN struct usb_interface *intf, 
-	IN VOID					*pAd);
+	IN void					*pAd);
 
-VOID RT28XXVendorSpecificCheck(
+void RT28XXVendorSpecificCheck(
 	IN struct usb_device 	*dev,
-	IN VOID 				*pAd)
+	IN void 				*pAd)
 {
 
 	RT_CMD_USB_MORE_FLAG_CONFIG Config = { dev->descriptor.idVendor,
@@ -89,7 +89,7 @@ struct usb_driver rtusb_driver = {
 static bool USBDevConfigInit(
 	IN struct usb_device *dev,
 	IN struct usb_interface *intf,
-	IN VOID *pAd)
+	IN void *pAd)
 {
 	struct usb_interface_descriptor *iface_desc;
 	struct usb_endpoint_descriptor *endpoint;
@@ -152,7 +152,7 @@ static void *rtusb_probe(struct usb_device *dev, unsigned int interface,
 						const USB_DEVICE_ID *id)
 {
 	struct usb_interface *intf;
-	VOID *pAd;
+	void *pAd;
 	int rv;
 
 
@@ -200,7 +200,7 @@ static void rtusb_disconnect(struct usb_interface *intf);
 static bool USBDevConfigInit(
 	IN struct usb_device 	*dev,
 	IN struct usb_interface *intf, 
-	IN VOID 				*pAd)
+	IN void 				*pAd)
 {
 	struct usb_host_interface *iface_desc;
 	unsigned long BulkOutIdx;
@@ -287,7 +287,7 @@ static bool USBDevConfigInit(
 static int rtusb_probe (struct usb_interface *intf,
 						const USB_DEVICE_ID *id)
 {	
-	VOID *pAd;
+	void *pAd;
 	struct usb_device *dev;
 	int rv;
 
@@ -318,7 +318,7 @@ static int rtusb_probe (struct usb_interface *intf,
 static void rtusb_disconnect(struct usb_interface *intf)
 {
 	struct usb_device *dev = interface_to_usbdev(intf);
-	VOID *pAd;
+	void *pAd;
 
 	pAd = usb_get_intfdata(intf);
 #ifdef IFUP_IN_PROBE	
@@ -368,8 +368,8 @@ struct usb_driver rtusb_driver = {
 
 #ifdef CONFIG_PM
 
-VOID RT2870RejectPendingPackets(
-	IN	VOID	*pAd)
+void RT2870RejectPendingPackets(
+	IN	void	*pAd)
 {
 	/* clear PS packets */
 	/* clear TxSw packets */
@@ -380,7 +380,7 @@ static int rt2870_suspend(
 	pm_message_t state)
 {
 	//struct net_device *net_dev;
-	VOID *pAd = usb_get_intfdata(intf);
+	void *pAd = usb_get_intfdata(intf);
 #if (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)
 	unsigned char Flag;
 
@@ -431,7 +431,7 @@ static int rt2870_resume(
 	struct usb_interface *intf)
 {
 	//struct net_device *net_dev;
-	VOID *pAd = usb_get_intfdata(intf);
+	void *pAd = usb_get_intfdata(intf);
 #if (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)
 	unsigned char Flag;
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
@@ -500,7 +500,7 @@ INT __init rtusb_init(void)
 }
 
 /* Deinit driver module */
-VOID __exit rtusb_exit(void)
+void __exit rtusb_exit(void)
 {
 	usb_deregister(&rtusb_driver);
 	printk(RTMP_DRV_NAME ": exit\n");
@@ -530,7 +530,7 @@ Return Value:
 Note:
 ========================================================================
 */
-static void rt2870_disconnect(struct usb_device *dev, VOID *pAd)
+static void rt2870_disconnect(struct usb_device *dev, void *pAd)
 {
 	struct net_device *net_dev;
 
@@ -598,10 +598,10 @@ static int rt2870_probe(
 	IN struct usb_interface *intf,
 	IN struct usb_device *usb_dev,
 	IN const USB_DEVICE_ID *dev_id,
-	IN VOID **ppAd)
+	IN void **ppAd)
 {
 	struct  net_device		*net_dev = NULL;
-	VOID       				*pAd = (VOID *) NULL;
+	void       				*pAd = (void *) NULL;
 	INT                 	status, rv;
 	void *					handle;
 	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
@@ -763,49 +763,49 @@ RTMP_DRV_USB_COMPLETE_HANDLER RtmpDrvUsbBulkCmdRspEventComplete = NULL;
 
 USBHST_STATUS RTUSBBulkOutDataPacketComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	RtmpDrvUsbBulkOutDataPacketComplete((VOID *)pURB);
+	RtmpDrvUsbBulkOutDataPacketComplete((void *)pURB);
 }
 
 USBHST_STATUS RTUSBBulkOutMLMEPacketComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	RtmpDrvUsbBulkOutMLMEPacketComplete((VOID *)pURB);
+	RtmpDrvUsbBulkOutMLMEPacketComplete((void *)pURB);
 }
 
 USBHST_STATUS RTUSBBulkOutNullFrameComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	RtmpDrvUsbBulkOutNullFrameComplete((VOID *)pURB);
+	RtmpDrvUsbBulkOutNullFrameComplete((void *)pURB);
 }
 
 #ifdef CONFIG_MULTI_CHANNEL
 USBHST_STATUS RTUSBBulkOutHCCANullFrameComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	RtmpDrvUsbBulkOutHCCANullFrameComplete((VOID *)pURB);
+	RtmpDrvUsbBulkOutHCCANullFrameComplete((void *)pURB);
 }
 #endif /* CONFIG_MULTI_CHANNEL */
 
 
 USBHST_STATUS RTUSBBulkOutRTSFrameComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	RtmpDrvUsbBulkOutRTSFrameComplete((VOID *)pURB);
+	RtmpDrvUsbBulkOutRTSFrameComplete((void *)pURB);
 }
 
 USBHST_STATUS RTUSBBulkOutPsPollComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	RtmpDrvUsbBulkOutPsPollComplete((VOID *)pURB);
+	RtmpDrvUsbBulkOutPsPollComplete((void *)pURB);
 }
 
 USBHST_STATUS RTUSBBulkRxComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	RtmpDrvUsbBulkRxComplete((VOID *)pURB);
+	RtmpDrvUsbBulkRxComplete((void *)pURB);
 }
 
 USBHST_STATUS RTUSBBulkCmdRspEventComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	RtmpDrvUsbBulkCmdRspEventComplete((VOID *)pURB);
+	RtmpDrvUsbBulkCmdRspEventComplete((void *)pURB);
 }
 
-VOID RtmpNetOpsInit(
-	IN VOID			*pDrvNetOpsSrc)
+void RtmpNetOpsInit(
+	IN void			*pDrvNetOpsSrc)
 {
 	RTMP_NET_ABL_OPS *pDrvNetOps = (RTMP_NET_ABL_OPS *)pDrvNetOpsSrc;
 
@@ -823,8 +823,8 @@ VOID RtmpNetOpsInit(
 }
 
 
-VOID RtmpNetOpsSet(
-	IN VOID *pDrvNetOpsSrc)
+void RtmpNetOpsSet(
+	IN void *pDrvNetOpsSrc)
 {
 	RTMP_NET_ABL_OPS *pDrvNetOps = (RTMP_NET_ABL_OPS *)pDrvNetOpsSrc;
 

@@ -7,7 +7,7 @@
 
 #ifdef DOT11_VHT_AC
 
-VOID rtmp_set_vht(RTMP_ADAPTER *pAd, RT_PHY_INFO *phy_info)
+void rtmp_set_vht(RTMP_ADAPTER *pAd, RT_PHY_INFO *phy_info)
 {
 	if (!phy_info)
 		return;

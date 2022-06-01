@@ -734,13 +734,13 @@ typedef union _RF_MISC_STRUC{
 }RF_MISC_STRUC, *PRF_MISC_STRUC;
 #endif
 
-VOID ral_wlan_chip_onoff(
+void ral_wlan_chip_onoff(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN bool bOn,
 	IN bool bResetWLAN);
 
 #ifdef MT7601
-VOID MT7601_WLAN_ChipOnOff(
+void MT7601_WLAN_ChipOnOff(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN bool bOn,
 	IN bool bResetWLAN);

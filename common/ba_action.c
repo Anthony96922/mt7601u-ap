@@ -27,13 +27,13 @@ BA_REC_ENTRY *BATableAllocRecEntry(
 								  IN  PRTMP_ADAPTER   pAd,
 								  OUT unsigned short          *Idx);
 
-VOID BAOriSessionSetupTimeout(
+void BAOriSessionSetupTimeout(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3);
 
-VOID BARecSessionIdleTimeout(
+void BARecSessionIdleTimeout(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -46,7 +46,7 @@ BUILD_TIMER_FUNCTION(BARecSessionIdleTimeout);
 #define ANNOUNCE_REORDERING_PACKET(_pAd, _mpdu_blk)	\
 			Announce_Reordering_Packet(_pAd, _mpdu_blk);
 
-VOID BA_MaxWinSizeReasign(
+void BA_MaxWinSizeReasign(
 	IN PRTMP_ADAPTER	pAd,
 	IN MAC_TABLE_ENTRY  *pEntryPeer,
 	OUT unsigned char			*pWinSize)
@@ -476,7 +476,7 @@ void ba_flush_reordering_timeout_mpdus(
  * generate ADDBA request to 
  * set up BA agreement
  */
-VOID BAOriSessionSetUp(
+void BAOriSessionSetUp(
 					  IN PRTMP_ADAPTER    pAd, 
 					  IN MAC_TABLE_ENTRY  *pEntry,
 					  IN unsigned char            TID,
@@ -557,7 +557,7 @@ VOID BAOriSessionSetUp(
 	RTMPSetTimer(&pBAEntry->ORIBATimer, DelayTime);
 }
 
-VOID BAOriSessionAdd(
+void BAOriSessionAdd(
 	IN PRTMP_ADAPTER	pAd, 
 	IN MAC_TABLE_ENTRY	*pEntry,
 	IN PFRAME_ADDBA_RSP	pFrame)
@@ -819,7 +819,7 @@ done:
 }
 
 
-VOID BATableFreeOriEntry(
+void BATableFreeOriEntry(
 						IN  PRTMP_ADAPTER   pAd,
 						IN  unsigned long           Idx)
 {
@@ -859,7 +859,7 @@ VOID BATableFreeOriEntry(
 }
 
 
-VOID BATableFreeRecEntry(
+void BATableFreeRecEntry(
 						IN  PRTMP_ADAPTER   pAd,
 						IN  unsigned long           Idx)
 {
@@ -889,7 +889,7 @@ VOID BATableFreeRecEntry(
 }
 
 
-VOID BAOriSessionTearDown(
+void BAOriSessionTearDown(
 						 IN OUT  PRTMP_ADAPTER   pAd, 
 						 IN      unsigned char           Wcid,
 						 IN      unsigned char           TID,
@@ -981,7 +981,7 @@ VOID BAOriSessionTearDown(
 	}
 }
 
-VOID BARecSessionTearDown(
+void BARecSessionTearDown(
 						 IN OUT  PRTMP_ADAPTER   pAd, 
 						 IN      unsigned char           Wcid,
 						 IN      unsigned char           TID,
@@ -1069,7 +1069,7 @@ VOID BARecSessionTearDown(
 	BATableFreeRecEntry(pAd, Idx);
 }
 
-VOID BASessionTearDownALL(
+void BASessionTearDownALL(
 						 IN OUT  PRTMP_ADAPTER pAd, 
 						 IN      unsigned char Wcid)
 {
@@ -1097,7 +1097,7 @@ VOID BASessionTearDownALL(
 				FALSE , then continue indicaterx at this moment.
 	==========================================================================
  */
-VOID BAOriSessionSetupTimeout(
+void BAOriSessionSetupTimeout(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -1160,7 +1160,7 @@ VOID BAOriSessionSetupTimeout(
 				FALSE , then continue indicaterx at this moment.
 	==========================================================================
  */
-VOID BARecSessionIdleTimeout(
+void BARecSessionIdleTimeout(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -1189,7 +1189,7 @@ VOID BARecSessionIdleTimeout(
 }
 
 
-VOID PeerAddBAReqAction(
+void PeerAddBAReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 
@@ -1321,7 +1321,7 @@ VOID PeerAddBAReqAction(
 }
 
 
-VOID PeerAddBARspAction(
+void PeerAddBARspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 
@@ -1364,7 +1364,7 @@ VOID PeerAddBARspAction(
 	}
 }
 
-VOID PeerDelBAAction(
+void PeerDelBAAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 
@@ -1455,7 +1455,7 @@ bool CntlEnqueueForRecv(
 /*
 Description : Send PSMP Action frame If PSMP mode switches.
 */
-VOID SendPSMPAction(
+void SendPSMPAction(
 				   IN PRTMP_ADAPTER		pAd,
 				   IN unsigned char				Wcid,
 				   IN unsigned char				Psmp) 
@@ -1548,7 +1548,7 @@ typedef struct GNU_PACKED _MEASUREMENT_REQ
 } MEASUREMENT_REQ;
 
 #ifdef CONFIG_AP_SUPPORT
-VOID SendBeaconRequest(
+void SendBeaconRequest(
 				   IN PRTMP_ADAPTER		pAd,
 				   IN unsigned char				Wcid)
 {
@@ -1703,7 +1703,7 @@ void convert_reordering_packet_to_preAMSDU_or_802_3_packet(
     	}																\
 	} while (0);
 
-static VOID ba_enqueue_reordering_packet(
+static void ba_enqueue_reordering_packet(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PBA_REC_ENTRY	pBAEntry,
 	IN	RX_BLK			*pRxBlk,
@@ -1765,7 +1765,7 @@ static VOID ba_enqueue_reordering_packet(
 
 
 #ifdef HDR_TRANS_SUPPORT
-static VOID ba_enqueue_reordering_packet_hdr_trns(
+static void ba_enqueue_reordering_packet_hdr_trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PBA_REC_ENTRY	pBAEntry,
 	IN	RX_BLK			*pRxBlk,
@@ -1854,7 +1854,7 @@ static VOID ba_enqueue_reordering_packet_hdr_trns(
 	==========================================================================
  */
 
-VOID Indicate_AMPDU_Packet(
+void Indicate_AMPDU_Packet(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID)
@@ -2000,7 +2000,7 @@ VOID Indicate_AMPDU_Packet(
 
 
 #ifdef HDR_TRANS_SUPPORT
-VOID Indicate_AMPDU_Packet_Hdr_Trns(
+void Indicate_AMPDU_Packet_Hdr_Trns(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID)
@@ -2141,7 +2141,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 #endif /* HDR_TRANS_SUPPORT */
 
 
-VOID BaReOrderingBufferMaintain(
+void BaReOrderingBufferMaintain(
     IN PRTMP_ADAPTER pAd)
 {
     unsigned long Now32;

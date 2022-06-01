@@ -63,12 +63,12 @@ bool APBridgeToWirelessSta(
     IN  unsigned int            DataLen,
     IN  unsigned long           fromwdsidx);
 
-VOID RTMP_BASetup(
+void RTMP_BASetup(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pMacEntry,
 	IN unsigned char UserPriority);
 
-VOID	APSendPackets(
+void	APSendPackets(
 	IN	NDIS_HANDLE		MiniportAdapterContext,
 	IN	PPNDIS_PACKET	ppPacketArray,
 	IN	unsigned int			NumberOfPackets);
@@ -88,7 +88,7 @@ NDIS_STATUS APHardTransmit(
 	IN	TX_BLK			*pTxBlk,
 	IN	unsigned char			QueIdx);
 
-VOID APRxEAPOLFrameIndicate(
+void APRxEAPOLFrameIndicate(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	MAC_TABLE_ENTRY	*pEntry,
 	IN	RX_BLK			*pRxBlk,
@@ -104,17 +104,17 @@ bool APCheckClass2Class3Error(
 	IN unsigned long Wcid, 
 	IN  PHEADER_802_11  pHeader);
 
-VOID APHandleRxPsPoll(
+void APHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
 	IN	unsigned short			Aid,
     IN	bool			isActive);
 
-VOID    RTMPDescriptorEndianChange(
+void    RTMPDescriptorEndianChange(
     IN  unsigned char *          pData,
     IN  unsigned long           DescriptorType);
     
-VOID    RTMPFrameEndianChange(
+void    RTMPFrameEndianChange(
     IN  PRTMP_ADAPTER   pAd,
     IN  unsigned char *          pData,
     IN  unsigned long           Dir,
@@ -122,18 +122,18 @@ VOID    RTMPFrameEndianChange(
 
 /* ap_assoc.c */
 
-VOID APAssocStateMachineInit(
+void APAssocStateMachineInit(
     IN  PRTMP_ADAPTER   pAd, 
     IN  STATE_MACHINE *S, 
     OUT STATE_MACHINE_FUNC Trans[]);
 
 
-VOID MbssKickOutStas(
+void MbssKickOutStas(
 	IN PRTMP_ADAPTER pAd,
 	IN INT apidx,
 	IN unsigned short Reason);
 
-VOID APMlmeKickOutSta(
+void APMlmeKickOutSta(
     IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pStaAddr, 
 	IN unsigned char Wcid,
@@ -141,13 +141,13 @@ VOID APMlmeKickOutSta(
 
 
 
-VOID  APCls3errAction(
+void  APCls3errAction(
     IN  PRTMP_ADAPTER   pAd, 
 	IN 	unsigned long Wcid,
     IN	PHEADER_802_11	pHeader);
 
 /*
-VOID	RTMPAddClientSec(
+void	RTMPAddClientSec(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char	BssIdx,
 	IN unsigned char		 KeyIdx,
@@ -165,7 +165,7 @@ void APAuthStateMachineInit(
     IN STATE_MACHINE *Sm, 
     OUT STATE_MACHINE_FUNC Trans[]);
 
-VOID APCls2errAction(
+void APCls2errAction(
     IN PRTMP_ADAPTER pAd, 
 	IN 	unsigned long Wcid,
     IN	PHEADER_802_11	pHeader);
@@ -179,69 +179,69 @@ bool BeaconTransmitRequired(
 	IN MULTISSID_STRUCT *pMbss);
 #endif /* CONFIG_AP_SUPPORT */
 
-VOID APMakeBssBeacon(
+void APMakeBssBeacon(
     IN  PRTMP_ADAPTER   pAd,
 	IN	INT				apidx);
 
-VOID  APUpdateBeaconFrame(
+void  APUpdateBeaconFrame(
     IN  PRTMP_ADAPTER   pAd,
 	IN	INT				apidx);
 
-VOID APMakeAllBssBeacon(
+void APMakeAllBssBeacon(
     IN  PRTMP_ADAPTER   pAd);
 
-VOID  APUpdateAllBeaconFrame(
+void  APUpdateAllBeaconFrame(
     IN  PRTMP_ADAPTER   pAd);
 
 
 /* ap_sync.c */
 
-VOID APSyncStateMachineInit(
+void APSyncStateMachineInit(
     IN PRTMP_ADAPTER pAd,
     IN STATE_MACHINE *Sm,
     OUT STATE_MACHINE_FUNC Trans[]);
 
-VOID APScanTimeout(
+void APScanTimeout(
 	IN void * SystemSpecific1,
 	IN void * FunctionContext,
 	IN void * SystemSpecific2,
 	IN void * SystemSpecific3);
 
-VOID APInvalidStateWhenScan(
+void APInvalidStateWhenScan(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-VOID APScanTimeoutAction(
+void APScanTimeoutAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-VOID APPeerProbeReqAction(
+void APPeerProbeReqAction(
     IN  PRTMP_ADAPTER pAd, 
     IN  MLME_QUEUE_ELEM *Elem);
 
-VOID APPeerBeaconAction(
+void APPeerBeaconAction(
     IN PRTMP_ADAPTER pAd, 
     IN MLME_QUEUE_ELEM *Elem);
 
-VOID APMlmeScanReqAction(
+void APMlmeScanReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-VOID APPeerBeaconAtScanAction(
+void APPeerBeaconAtScanAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-VOID APScanCnclAction(
+void APScanCnclAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-VOID ApSiteSurvey(
+void ApSiteSurvey(
 	IN	PRTMP_ADAPTER  		pAd,
 	IN	PNDIS_802_11_SSID	pSsid,
 	IN	unsigned char				ScanType,
 	IN	bool				ChannelSel);
 
-VOID SupportRate(
+void SupportRate(
 	IN unsigned char * SupRate,
 	IN unsigned char SupRateLen,
 	IN unsigned char * ExtRate,
@@ -255,7 +255,7 @@ bool ApScanRunning(
 	IN PRTMP_ADAPTER pAd);
 	
 #ifdef DOT11N_DRAFT3
-VOID APOverlappingBSSScan(
+void APOverlappingBSSScan(
 	IN RTMP_ADAPTER *pAd);
 
 INT GetBssCoexEffectedChRange(
@@ -265,13 +265,13 @@ INT GetBssCoexEffectedChRange(
 #endif /* DOT11N_DRAFT3 */
 
 /* ap_wpa.c */
-VOID WpaStateMachineInit(
+void WpaStateMachineInit(
     IN  PRTMP_ADAPTER   pAd, 
     IN  STATE_MACHINE *Sm, 
     OUT STATE_MACHINE_FUNC Trans[]);
 
 /* ap_mlme.c */
-VOID APMlmePeriodicExec(
+void APMlmePeriodicExec(
     IN  PRTMP_ADAPTER   pAd);
 
 bool APMsgTypeSubst(
@@ -280,49 +280,49 @@ bool APMsgTypeSubst(
     OUT INT *Machine, 
     OUT INT *MsgType);
 
-VOID APQuickResponeForRateUpExec(
+void APQuickResponeForRateUpExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3);
 
 #ifdef RTMP_MAC_USB
-VOID BeaconUpdateExec(
+void BeaconUpdateExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3);
 #endif /* RTMP_MAC_USB */
 
-VOID RTMPSetPiggyBack(
+void RTMPSetPiggyBack(
 	IN PRTMP_ADAPTER	pAd,
 	IN bool			bPiggyBack);
 
-VOID APAsicEvaluateRxAnt(
+void APAsicEvaluateRxAnt(
 	IN PRTMP_ADAPTER	pAd);
 
-VOID APAsicRxAntEvalTimeout(
+void APAsicRxAntEvalTimeout(
 	IN PRTMP_ADAPTER	pAd);
 
 /* ap.c */
 NDIS_STATUS APInitialize(
     IN  PRTMP_ADAPTER   pAd);
 
-VOID APShutdown(
+void APShutdown(
     IN PRTMP_ADAPTER    pAd);
 
-VOID APStartUp(
+void APStartUp(
     IN  PRTMP_ADAPTER   pAd);
 
-VOID APStop(
+void APStop(
     IN  PRTMP_ADAPTER   pAd);
 
-VOID APCleanupPsQueue(
+void APCleanupPsQueue(
     IN  PRTMP_ADAPTER   pAd,
     IN  PQUEUE_HEADER   pQueue);
 
 
-VOID MacTableMaintenance(
+void MacTableMaintenance(
     IN PRTMP_ADAPTER pAd);
 
 unsigned int MacTableAssocStaNumGet(
@@ -343,7 +343,7 @@ bool APPsIndicate(
     IN  unsigned char           Psm);
 
 #ifdef SYSTEM_LOG_SUPPORT
-VOID ApLogEvent(
+void ApLogEvent(
     IN PRTMP_ADAPTER    pAd,
     IN unsigned char *           pAddr,
     IN unsigned short           Event);
@@ -352,11 +352,11 @@ VOID ApLogEvent(
 #endif /* SYSTEM_LOG_SUPPORT */
 
 #ifdef DOT11_N_SUPPORT
-VOID APUpdateOperationMode(
+void APUpdateOperationMode(
     IN PRTMP_ADAPTER pAd);
 #endif /* DOT11_N_SUPPORT */
 
-VOID APUpdateCapabilityAndErpIe(
+void APUpdateCapabilityAndErpIe(
 	IN PRTMP_ADAPTER pAd);
 
 bool ApCheckAccessControlList(
@@ -364,11 +364,11 @@ bool ApCheckAccessControlList(
 	IN unsigned char *        pAddr,
 	IN unsigned char         Apidx);
 
-VOID ApUpdateAccessControlList(
+void ApUpdateAccessControlList(
     IN PRTMP_ADAPTER pAd,
     IN unsigned char         Apidx);
 
-VOID ApEnqueueNullFrame(
+void ApEnqueueNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *        pAddr,
 	IN unsigned char         TxRate,
@@ -384,14 +384,14 @@ VOID ApEnqueueNullFrame(
 bool PeerAssocReqCmmSanity(
     IN PRTMP_ADAPTER pAd, 
 	IN bool isRessoc,
-    IN VOID *Msg, 
+    IN void *Msg, 
     IN INT MsgLen,
     IN IE_LISTS *ie_lists);
 
 
 bool PeerDisassocReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN VOID *Msg, 
+    IN void *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT	unsigned short	*SeqNum,
@@ -399,7 +399,7 @@ bool PeerDisassocReqSanity(
 
 bool PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN VOID *Msg, 
+    IN void *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
    	OUT	unsigned short	*SeqNum,    
@@ -407,7 +407,7 @@ bool PeerDeauthReqSanity(
 
 bool APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN VOID *Msg, 
+    IN void *Msg, 
     IN unsigned long MsgLen, 
 	OUT unsigned char * pAddr1, 
     OUT unsigned char * pAddr2, 
@@ -444,11 +444,11 @@ bool DOT1X_EapTriggerAction(
 #endif /* DOT1X_SUPPORT */
 #endif  /* __AP_H__ */
 
-VOID AP_E2PROM_IOCTL_PostCtrl(
+void AP_E2PROM_IOCTL_PostCtrl(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	char *					msg);
 
-VOID IAPP_L2_UpdatePostCtrl(
+void IAPP_L2_UpdatePostCtrl(
 	IN PRTMP_ADAPTER	pAd,
     IN unsigned char *mac_p,
     IN INT  bssid);

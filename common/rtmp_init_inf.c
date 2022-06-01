@@ -37,9 +37,9 @@ RTMP_NET_ABL_OPS RtmpDrvNetOps, *pRtmpDrvNetOps = &RtmpDrvNetOps;
 RTMP_PCI_CONFIG RtmpPciConfig, *pRtmpPciConfig = &RtmpPciConfig;
 RTMP_USB_CONFIG RtmpUsbConfig, *pRtmpUsbConfig = &RtmpUsbConfig;
 
-VOID RtmpDrvOpsInit(
-	OUT VOID *pDrvOpsOrg,
-	INOUT VOID *pDrvNetOpsOrg,
+void RtmpDrvOpsInit(
+	OUT void *pDrvOpsOrg,
+	INOUT void *pDrvNetOpsOrg,
 	IN RTMP_PCI_CONFIG *pPciConfig,
 	IN RTMP_USB_CONFIG *pUsbConfig)
 {
@@ -108,7 +108,7 @@ RTMP_BUILD_DRV_OPS_FUNCTION_BODY
 #endif /* LINUX */
 
 
-int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
+int rt28xx_init(void *pAdSrc, char * pDefaultMac, char * pHostName)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
 	unsigned int index;
@@ -724,8 +724,8 @@ err0:
 }
 
 
-VOID RTMPDrvOpen(
-	IN VOID	*pAdSrc)
+void RTMPDrvOpen(
+	IN void	*pAdSrc)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 
@@ -819,7 +819,7 @@ VOID RTMPDrvOpen(
 			pWpsCtrl->pAd = pAd;
 			NdisZeroMemory(pWpsCtrl->EntryAddr, MAC_ADDR_LEN);
 			pWpsCtrl->WscConfigMethods= 0x018C;
-			RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_WSC_INIT, 0, (VOID *)&pAd->ApCfg.ApCliTab[index], index);
+			RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_WSC_INIT, 0, (void *)&pAd->ApCfg.ApCliTab[index], index);
 		}
 #endif /* APCLI_SUPPORT */
 	}
@@ -838,9 +838,9 @@ VOID RTMPDrvOpen(
 }
 
 
-VOID RTMPDrvClose(
-	IN VOID		*pAdSrc,
-	IN VOID		*net_dev)
+void RTMPDrvClose(
+	IN void		*pAdSrc,
+	IN void		*net_dev)
 {
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
 	bool		Cancelled;
@@ -1030,8 +1030,8 @@ VOID RTMPDrvClose(
 }
 
 
-VOID RTMPInfClose(
-	IN VOID		*pAdSrc)
+void RTMPInfClose(
+	IN void		*pAdSrc)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 
@@ -1054,7 +1054,7 @@ VOID RTMPInfClose(
 }
 
 PNET_DEV RtmpPhyNetDevMainCreate(
-	IN VOID		*pAdSrc)
+	IN void		*pAdSrc)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	PNET_DEV pDevNew;

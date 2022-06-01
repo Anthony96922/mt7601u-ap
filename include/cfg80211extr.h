@@ -26,31 +26,31 @@
 	CFG80211_Register(__pDev, __pNetDev);
 
 #define RT_CFG80211_BEACON_CR_PARSE(__pAd, __pVIE, __LenVIE)				\
-	CFG80211_BeaconCountryRegionParse((VOID *)__pAd, __pVIE, __LenVIE);
+	CFG80211_BeaconCountryRegionParse((void *)__pAd, __pVIE, __LenVIE);
 
 #define RT_CFG80211_CRDA_REG_HINT(__pAd, __pCountryIe, __CountryIeLen)		\
-	CFG80211_RegHint((VOID *)__pAd, __pCountryIe, __CountryIeLen);
+	CFG80211_RegHint((void *)__pAd, __pCountryIe, __CountryIeLen);
 
 #define RT_CFG80211_CRDA_REG_HINT11D(__pAd, __pCountryIe, __CountryIeLen)	\
-	CFG80211_RegHint11D((VOID *)__pAd, __pCountryIe, __CountryIeLen);
+	CFG80211_RegHint11D((void *)__pAd, __pCountryIe, __CountryIeLen);
 
 #define RT_CFG80211_CRDA_REG_RULE_APPLY(__pAd)								\
-	CFG80211_RegRuleApply((VOID *)__pAd, NULL, __pAd->Cfg80211_Alpha2);
+	CFG80211_RegRuleApply((void *)__pAd, NULL, __pAd->Cfg80211_Alpha2);
 
 #define RT_CFG80211_SCANNING_INFORM(__pAd, __BssIdx, __ChanId, __pFrame,	\
 			__FrameLen, __RSSI)									\
-	CFG80211_Scaning((VOID *)__pAd, __BssIdx, __ChanId, __pFrame,			\
+	CFG80211_Scaning((void *)__pAd, __BssIdx, __ChanId, __pFrame,			\
 						__FrameLen, __RSSI);
 
 #define RT_CFG80211_SCAN_END(__pAd, __FlgIsAborted)							\
-	CFG80211_ScanEnd((VOID *)__pAd, __FlgIsAborted);
+	CFG80211_ScanEnd((void *)__pAd, __FlgIsAborted);
 
 #define RT_CFG80211_REINIT(__pAd)											\
-	CFG80211_SupBandReInit((VOID *)__pAd);									\
+	CFG80211_SupBandReInit((void *)__pAd);									\
 
 #define RT_CFG80211_CONN_RESULT_INFORM(__pAd, __pBSSID, __pReqIe, __ReqIeLen,\
 			__pRspIe, __RspIeLen, __FlgIsSuccess)							\
-	CFG80211_ConnectResultInform((VOID *)__pAd, __pBSSID,					\
+	CFG80211_ConnectResultInform((void *)__pAd, __pBSSID,					\
 			__pReqIe, __ReqIeLen, __pRspIe, __RspIeLen, __FlgIsSuccess);
 
 #define RT_CFG80211_RFKILL_STATUS_UPDATE(_pAd, _active) \
@@ -97,72 +97,72 @@
 
 /* utilities used in DRV module */
 INT CFG80211DRV_IoctlHandle(
-	IN	VOID					*pAdSrc,
+	IN	void					*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
 	IN	unsigned short					subcmd,
-	IN	VOID					*pData,
+	IN	void					*pData,
 	IN	unsigned long					Data);
 
 bool CFG80211DRV_OpsSetChannel(
-	VOID						*pAdOrg,
-	VOID						*pData);
+	void						*pAdOrg,
+	void						*pData);
 
 bool CFG80211DRV_OpsChgVirtualInf(
-	VOID						*pAdOrg,
-	VOID						*pFlgFilter,
+	void						*pAdOrg,
+	void						*pFlgFilter,
 	unsigned char						IfType);
 
 bool CFG80211DRV_OpsScan(
-	VOID						*pAdOrg);
+	void						*pAdOrg);
 
 bool CFG80211DRV_OpsJoinIbss(
-	VOID						*pAdOrg,
-	VOID						*pData);
+	void						*pAdOrg,
+	void						*pData);
 
 bool CFG80211DRV_OpsLeave(
-	VOID						*pAdOrg);
+	void						*pAdOrg);
 
 bool CFG80211DRV_StaGet(
-	VOID						*pAdOrg,
-	VOID						*pData);
+	void						*pAdOrg,
+	void						*pData);
 
 bool CFG80211DRV_Connect(
-	VOID						*pAdOrg,
-	VOID						*pData);
+	void						*pAdOrg,
+	void						*pData);
 
 bool CFG80211DRV_KeyAdd(
-	VOID						*pAdOrg,
-	VOID						*pData);
+	void						*pAdOrg,
+	void						*pData);
 
-VOID CFG80211DRV_RegNotify(
-	VOID						*pAdOrg,
-	VOID						*pData);
+void CFG80211DRV_RegNotify(
+	void						*pAdOrg,
+	void						*pData);
 
-VOID CFG80211DRV_SurveyGet(
-	VOID						*pAdOrg,
-	VOID						*pData);
+void CFG80211DRV_SurveyGet(
+	void						*pAdOrg,
+	void						*pData);
 
-VOID CFG80211DRV_PmkidConfig(
-	VOID						*pAdOrg,
-	VOID						*pData);
+void CFG80211DRV_PmkidConfig(
+	void						*pAdOrg,
+	void						*pData);
 
-VOID CFG80211_RegHint(
-	IN VOID						*pAdCB,
+void CFG80211_RegHint(
+	IN void						*pAdCB,
 	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen);
 
-VOID CFG80211_RegHint11D(
-	IN VOID						*pAdCB,
+void CFG80211_RegHint11D(
+	IN void						*pAdCB,
 	IN unsigned char					*pCountryIe,
 	IN unsigned long					CountryIeLen);
 
-VOID CFG80211_ScanEnd(
-	IN VOID						*pAdCB,
+void CFG80211_ScanEnd(
+	IN void						*pAdCB,
 	IN bool					FlgIsAborted);
 
-VOID CFG80211_ConnectResultInform(
-	IN VOID						*pAdCB,
+void CFG80211_ConnectResultInform(
+	IN void						*pAdCB,
 	IN unsigned char					*pBSSID,
 	IN unsigned char					*pReqIe,
 	IN unsigned int					ReqIeLen,
@@ -171,15 +171,15 @@ VOID CFG80211_ConnectResultInform(
 	IN unsigned char					FlgIsSuccess);
 
 bool CFG80211_SupBandReInit(
-	IN VOID						*pAdCB);
+	IN void						*pAdCB);
 
-VOID CFG80211_RegRuleApply(
-	IN VOID						*pAdCB,
-	IN VOID						*pWiphy,
+void CFG80211_RegRuleApply(
+	IN void						*pAdCB,
+	IN void						*pWiphy,
 	IN unsigned char					*pAlpha2);
 
-VOID CFG80211_Scaning(
-	IN VOID						*pAdCB,
+void CFG80211_Scaning(
+	IN void						*pAdCB,
 	IN unsigned int					BssIdx,
 	IN unsigned int					ChanId,
 	IN unsigned char					*pFrame,
@@ -187,14 +187,14 @@ VOID CFG80211_Scaning(
 	IN int					RSSI);
 
 #ifdef RFKILL_HW_SUPPORT
-VOID CFG80211_RFKillStatusUpdate(
+void CFG80211_RFKillStatusUpdate(
 	IN void *					pAd,
 	IN bool					active);
 #endif /* RFKILL_HW_SUPPORT */
 
-VOID CFG80211_UnRegister(
-	IN VOID						*pAdOrg,
-	IN VOID						*pNetDev);
+void CFG80211_UnRegister(
+	IN void						*pAdOrg,
+	IN void						*pNetDev);
 
 #endif /* RT_CFG80211_SUPPORT */
 

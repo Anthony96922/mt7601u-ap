@@ -31,7 +31,7 @@
 extern unsigned char  ZeroSsid[32];
 
 
-static VOID ReservedAction(
+static void ReservedAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
@@ -53,7 +53,7 @@ static VOID ReservedAction(
         MT2_CLS3ERR              cls3err_action           
     ==========================================================================
  */
-VOID ActionStateMachineInit(
+void ActionStateMachineInit(
     IN	PRTMP_ADAPTER	pAd, 
     IN  STATE_MACHINE *S, 
     OUT STATE_MACHINE_FUNC Trans[]) 
@@ -92,7 +92,7 @@ VOID ActionStateMachineInit(
 }
 
 #ifdef DOT11_N_SUPPORT
-VOID MlmeADDBAAction(
+void MlmeADDBAAction(
     IN PRTMP_ADAPTER pAd, 
     IN MLME_QUEUE_ELEM *Elem) 
 
@@ -201,7 +201,7 @@ VOID MlmeADDBAAction(
 
     ==========================================================================
  */
-VOID MlmeDELBAAction(
+void MlmeDELBAAction(
     IN PRTMP_ADAPTER pAd, 
     IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -313,19 +313,19 @@ VOID MlmeDELBAAction(
 }
 #endif /* DOT11_N_SUPPORT */
 
-VOID MlmeQOSAction(
+void MlmeQOSAction(
     IN PRTMP_ADAPTER pAd, 
     IN MLME_QUEUE_ELEM *Elem) 
 {
 }
 
-VOID MlmeDLSAction(
+void MlmeDLSAction(
     IN PRTMP_ADAPTER pAd, 
     IN MLME_QUEUE_ELEM *Elem) 
 {
 }
 
-VOID MlmeInvalidAction(
+void MlmeInvalidAction(
     IN PRTMP_ADAPTER pAd, 
     IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -333,14 +333,14 @@ VOID MlmeInvalidAction(
 	/*Return the receiving frame except the MSB of category filed set to 1.  7.3.1.11*/
 }
 
-VOID PeerQOSAction(
+void PeerQOSAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 }
 
 #ifdef QOS_DLS_SUPPORT
-VOID PeerDLSAction(
+void PeerDLSAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -375,7 +375,7 @@ VOID PeerDLSAction(
 
 
 #ifdef DOT11_N_SUPPORT
-VOID PeerBAAction(
+void PeerBAAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -400,7 +400,7 @@ VOID PeerBAAction(
 #ifdef CONFIG_AP_SUPPORT
 extern unsigned char get_regulatory_class(IN PRTMP_ADAPTER pAd);
 
-VOID ApPublicAction(
+void ApPublicAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -415,7 +415,7 @@ VOID ApPublicAction(
 }
 
 
-VOID SendBSS2040CoexistMgmtAction(
+void SendBSS2040CoexistMgmtAction(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char	Wcid,
 	IN	unsigned char	apidx,
@@ -508,7 +508,7 @@ bool ChannelSwitchSanityCheck(
 }
 
 
-VOID ChannelSwitchAction(
+void ChannelSwitchAction(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char Wcid,
 	IN unsigned char NewChannel,
@@ -569,7 +569,7 @@ VOID ChannelSwitchAction(
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
 
-VOID PeerPublicAction(
+void PeerPublicAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -726,7 +726,7 @@ VOID PeerPublicAction(
 }	
 
 
-static VOID ReservedAction(
+static void ReservedAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -742,7 +742,7 @@ static VOID ReservedAction(
 	hex_dump("Reserved Action Frame", &Elem->Msg[0], Elem->MsgLen);
 }
 
-VOID PeerRMAction(
+void PeerRMAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 
@@ -753,7 +753,7 @@ VOID PeerRMAction(
 }
 
 #ifdef DOT11_N_SUPPORT
-static VOID respond_ht_information_exchange_action(
+static void respond_ht_information_exchange_action(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -817,7 +817,7 @@ static VOID respond_ht_information_exchange_action(
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef DOT11N_DRAFT3
-VOID SendNotifyBWActionFrame(
+void SendNotifyBWActionFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char  Wcid,
 	IN unsigned char apidx)
@@ -863,7 +863,7 @@ VOID SendNotifyBWActionFrame(
 #endif /* CONFIG_AP_SUPPORT */
 
 
-VOID PeerHTAction(
+void PeerHTAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -950,7 +950,7 @@ VOID PeerHTAction(
 				FALSE , then continue indicaterx at this moment.
 	==========================================================================
  */
-VOID ORIBATimerTimeout(
+void ORIBATimerTimeout(
 	IN	PRTMP_ADAPTER	pAd) 
 {
 	MAC_TABLE_ENTRY	*pEntry;
@@ -983,7 +983,7 @@ VOID ORIBATimerTimeout(
 }
 
 
-VOID SendRefreshBAR(
+void SendRefreshBAR(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	MAC_TABLE_ENTRY	*pEntry) 
 {
@@ -1053,7 +1053,7 @@ VOID SendRefreshBAR(
 }
 #endif /* DOT11_N_SUPPORT */
 
-VOID ActHeaderInit(
+void ActHeaderInit(
     IN	PRTMP_ADAPTER	pAd, 
     IN OUT PHEADER_802_11 pHdr80211, 
     IN unsigned char * Addr1, 
@@ -1069,7 +1069,7 @@ VOID ActHeaderInit(
     COPY_MAC_ADDR(pHdr80211->Addr3, Addr3);
 }
 
-VOID BarHeaderInit(
+void BarHeaderInit(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN OUT PFRAME_BAR pCntlBar, 
 	IN unsigned char * pDA,
@@ -1106,7 +1106,7 @@ VOID BarHeaderInit(
 	Return	: None.
 	==========================================================================
  */
-VOID InsertActField(
+void InsertActField(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,

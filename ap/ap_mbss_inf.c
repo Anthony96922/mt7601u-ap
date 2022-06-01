@@ -75,8 +75,8 @@ Note:
 		it will not work! You must rmmod rt2860ap.ko and lsmod rt2860ap.ko again.
 ========================================================================
 */
-VOID RT28xx_MBSS_Init(
-	IN VOID *pAd,
+void RT28xx_MBSS_Init(
+	IN void *pAd,
 	IN PNET_DEV pDevMain)
 {
 	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
@@ -109,8 +109,8 @@ Note:
     Main BSS is not removed here.
 ========================================================================
 */
-VOID RT28xx_MBSS_Remove(
-	IN VOID 			*pAd)
+void RT28xx_MBSS_Remove(
+	IN void 			*pAd)
 {
 	RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_MBSS_REMOVE, 0, NULL, 0);
 }
@@ -136,7 +136,7 @@ Note:
 INT MBSS_VirtualIF_Open(
 	IN	PNET_DEV	pDev)
 {
-	VOID *pAd;
+	void *pAd;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s: ===> MBSSVirtualIF_open\n", RTMP_OS_NETDEV_GET_DEVNAME(pDev)));
@@ -175,7 +175,7 @@ Note:
 INT MBSS_VirtualIF_Close(
 	IN	PNET_DEV	pDev)
 {
-	VOID *pAd;
+	void *pAd;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s: ===> MBSSVirtualIF_close\n", RTMP_OS_NETDEV_GET_DEVNAME(pDev)));
@@ -248,10 +248,10 @@ Note:
 */
 INT MBSS_VirtualIF_Ioctl(
 	IN PNET_DEV				pDev, 
-	IN OUT VOID 			*pIoCtrl, 
+	IN OUT void 			*pIoCtrl, 
 	IN INT 					Command)
 {
-	VOID *pAd;
+	void *pAd;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(pDev);
 	ASSERT(pAd);

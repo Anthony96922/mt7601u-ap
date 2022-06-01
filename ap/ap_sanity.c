@@ -51,7 +51,7 @@ extern unsigned char    WPS_OUI[];
 bool PeerAssocReqCmmSanity(
 	RTMP_ADAPTER *pAd, 
 	bool isReassoc,
-	VOID *Msg,
+	void *Msg,
 	INT MsgLen,
 	IE_LISTS *ie_lists)
 {
@@ -367,7 +367,7 @@ bool PeerAssocReqCmmSanity(
  */
 bool PeerDisassocReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN VOID *Msg, 
+    IN void *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT	unsigned short	*SeqNum,
@@ -393,7 +393,7 @@ bool PeerDisassocReqSanity(
  */
 bool PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN VOID *Msg, 
+    IN void *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT	unsigned short	*SeqNum, 
@@ -419,7 +419,7 @@ bool PeerDeauthReqSanity(
  */
 bool APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN VOID *Msg, 
+    IN void *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr1, 
     OUT unsigned char * pAddr2, 

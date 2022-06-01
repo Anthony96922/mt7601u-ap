@@ -31,37 +31,37 @@
 
 #include "rt_config.h"
 
-static VOID ApCliAuthTimeout(
+static void ApCliAuthTimeout(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
 	IN void * SystemSpecific3);
 
-static VOID ApCliMlmeAuthReqAction(
+static void ApCliMlmeAuthReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static VOID ApCliPeerAuthRspAtSeq2Action(
+static void ApCliPeerAuthRspAtSeq2Action(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static VOID ApCliPeerAuthRspAtSeq4Action(
+static void ApCliPeerAuthRspAtSeq4Action(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-static VOID ApCliPeerDeauthAction(
+static void ApCliPeerDeauthAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-static VOID ApCliAuthTimeoutAction(
+static void ApCliAuthTimeoutAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-static VOID ApCliInvalidStateWhenAuth(
+static void ApCliInvalidStateWhenAuth(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static VOID ApCliMlmeDeauthReqAction(
+static void ApCliMlmeDeauthReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
@@ -79,7 +79,7 @@ BUILD_TIMER_FUNCTION(ApCliAuthTimeout);
 	==========================================================================
  */
 
-VOID ApCliAuthStateMachineInit(
+void ApCliAuthStateMachineInit(
 	IN PRTMP_ADAPTER pAd,
 	IN STATE_MACHINE *Sm,
 	OUT STATE_MACHINE_FUNC Trans[])
@@ -125,7 +125,7 @@ VOID ApCliAuthStateMachineInit(
 		function to be executed at timer thread when auth timer expires
 	==========================================================================
  */
-static VOID ApCliAuthTimeout(
+static void ApCliAuthTimeout(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
@@ -146,7 +146,7 @@ static VOID ApCliAuthTimeout(
 	Description:
 	==========================================================================
  */
-static VOID ApCliMlmeAuthReqAction(
+static void ApCliMlmeAuthReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -227,7 +227,7 @@ static VOID ApCliMlmeAuthReqAction(
 	Description:
 	==========================================================================
  */
-static VOID ApCliPeerAuthRspAtSeq2Action(
+static void ApCliPeerAuthRspAtSeq2Action(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -383,7 +383,7 @@ LabelOK:
 	Description:
 	==========================================================================
  */
-static VOID ApCliPeerAuthRspAtSeq4Action(
+static void ApCliPeerAuthRspAtSeq4Action(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -429,7 +429,7 @@ static VOID ApCliPeerAuthRspAtSeq4Action(
     Description:
     ==========================================================================
 */
-static VOID ApCliPeerDeauthAction(
+static void ApCliPeerDeauthAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -483,7 +483,7 @@ static VOID ApCliPeerDeauthAction(
 	Description:
 	==========================================================================
  */
-static VOID ApCliAuthTimeoutAction(
+static void ApCliAuthTimeoutAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -504,7 +504,7 @@ static VOID ApCliAuthTimeoutAction(
 	Description:
 	==========================================================================
  */
-static VOID ApCliInvalidStateWhenAuth(
+static void ApCliInvalidStateWhenAuth(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -529,7 +529,7 @@ static VOID ApCliInvalidStateWhenAuth(
 	Description:
 	==========================================================================
  */
-static VOID ApCliMlmeDeauthReqAction(
+static void ApCliMlmeDeauthReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {

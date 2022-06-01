@@ -54,7 +54,7 @@ typedef struct GNU_PACKED _TXINFO_NMAC_CMD_PKT {
 
 USBHST_STATUS USBUploadFWComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs)
 {
-	VOID	*SentToMCUDone = RTMP_OS_USB_CONTEXT_GET(pURB);
+	void	*SentToMCUDone = RTMP_OS_USB_CONTEXT_GET(pURB);
 
 	RtmpComplete(SentToMCUDone);
 }
@@ -99,7 +99,7 @@ NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
 	INT Ret;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	//struct completion SentToMCUDone;
-	VOID *SentToMCUDone;
+	void *SentToMCUDone;
 	unsigned int ILMLen, DLMLen;
 	unsigned short FWVersion, BuildVersion;
 
@@ -572,7 +572,7 @@ error0:
 #endif /* RTMP_USB_SUPPORT */
 
 
-VOID MCUCtrlInit(PRTMP_ADAPTER pAd)
+void MCUCtrlInit(PRTMP_ADAPTER pAd)
 {
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
 
@@ -585,7 +585,7 @@ VOID MCUCtrlInit(PRTMP_ADAPTER pAd)
 }
 
 
-VOID MCUCtrlExit(PRTMP_ADAPTER pAd)
+void MCUCtrlExit(PRTMP_ADAPTER pAd)
 {
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
 	struct CMD_RSP_EVENT *CmdRspEvent, *CmdRspEventTmp;
@@ -681,7 +681,7 @@ USBHST_STATUS USBKickOutCmdComplete(URBCompleteStatus Status, purbb_t pURB, preg
 
 	//complete(SentToMCUDone);
 
-	VOID	*SentToMCUDone = RTMP_OS_USB_CONTEXT_GET(pURB);
+	void	*SentToMCUDone = RTMP_OS_USB_CONTEXT_GET(pURB);
 
 	RtmpComplete(SentToMCUDone);
 }
@@ -697,7 +697,7 @@ INT USBKickOutCmd(PRTMP_ADAPTER pAd, unsigned char *Buf, unsigned int Len)
 	INT Ret;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	//struct completion SentToMCUDone;
-	VOID	*SentToMCUDone;
+	void	*SentToMCUDone;
 
 	//if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST | fRTMP_ADAPTER_RADIO_OFF | fRTMP_ADAPTER_HALT_IN_PROGRESS))
 		//return NDIS_STATUS_FAILURE;
@@ -885,42 +885,42 @@ error:
 	return Ret;
 }
 
-static VOID CmdDoneHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
+static void CmdDoneHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID CmdErrorHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
+static void CmdErrorHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID CmdRetryHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
+static void CmdRetryHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID PwrRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
+static void PwrRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID WowRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
+static void WowRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
 }
 
 
-static VOID CarrierDetectRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
+static void CarrierDetectRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 
@@ -928,7 +928,7 @@ static VOID CarrierDetectRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 }
 
 
-static VOID DFSDetectRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
+static void DFSDetectRspEventHandler(PRTMP_ADAPTER pAd, unsigned char *Data)
 {
 
 

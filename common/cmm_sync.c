@@ -47,7 +47,7 @@ extern unsigned short const Country_Region_GroupNum_5GHZ;
 	
 	==========================================================================
  */
-VOID BuildChannelList(
+void BuildChannelList(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned char i, j, index=0, num=0;
@@ -357,7 +357,7 @@ unsigned char NextChannel(
 		the minimum value or next lower value.
 	==========================================================================
  */
-VOID ChangeToCellPowerLimit(
+void ChangeToCellPowerLimit(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char         AironetCellPowerLimit)
 {
@@ -472,7 +472,7 @@ char ConvertToSnr(RTMP_ADAPTER *pAd, unsigned char Snr)
 #ifdef DOT11_N_SUPPORT
 extern int DetectOverlappingPeriodicRound;
 
-VOID Handle_BSS_Width_Trigger_Events(
+void Handle_BSS_Width_Trigger_Events(
 	IN PRTMP_ADAPTER pAd) 
 {
 	unsigned long Now32;

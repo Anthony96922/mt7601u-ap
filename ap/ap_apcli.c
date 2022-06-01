@@ -68,7 +68,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RT28xx_ApCli_Close(
+void RT28xx_ApCli_Close(
 	IN PRTMP_ADAPTER ad_p)
 {
 	unsigned int index;
@@ -129,7 +129,7 @@ bool isValidApCliIf(
  *  \post
  *  \note this function initializes the following field
  */
-VOID ApCliMgtMacHeaderInit(
+void ApCliMgtMacHeaderInit(
     IN	PRTMP_ADAPTER	pAd, 
     IN OUT PHEADER_802_11 pHdr80211, 
     IN unsigned char SubType, 
@@ -643,7 +643,7 @@ bool ApCliLinkUp(
 
 	==========================================================================
 */
-VOID ApCliLinkDown(
+void ApCliLinkDown(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char ifIndex)
 {
@@ -685,7 +685,7 @@ VOID ApCliLinkDown(
         APCLI Interface Up.
     ==========================================================================
  */
-VOID ApCliIfUp(
+void ApCliIfUp(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned char ifIndex;
@@ -723,7 +723,7 @@ VOID ApCliIfUp(
         APCLI Interface Down.
     ==========================================================================
  */
-VOID ApCliIfDown(
+void ApCliIfDown(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned char ifIndex;
@@ -747,7 +747,7 @@ VOID ApCliIfDown(
         APCLI Interface Monitor.
     ==========================================================================
  */
-VOID ApCliIfMonitor(
+void ApCliIfMonitor(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned char index;
@@ -947,7 +947,7 @@ bool preCheckMsgTypeSubset(
  */
 bool ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN VOID *pMsg, 
+    IN void *pMsg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT unsigned short *pCapabilityInfo, 
@@ -1789,7 +1789,7 @@ bool  ApCliHandleRxBroadcastFrame(
 }
 
 
-VOID APCliInstallPairwiseKey(
+void APCliInstallPairwiseKey(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  MAC_TABLE_ENTRY *pEntry)
 {
@@ -1882,7 +1882,7 @@ bool APCliInstallSharedKey(
 	========================================================================
 */
 // TODO: shiang-6590, modify this due to it's really a duplication of "RTMPUpdateMlmeRate()" in common/mlme.c
-VOID ApCliUpdateMlmeRate(
+void ApCliUpdateMlmeRate(
 	IN PRTMP_ADAPTER	pAd)
 {
 	unsigned char	MinimumRate;
@@ -2004,7 +2004,7 @@ VOID ApCliUpdateMlmeRate(
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPUpdateMlmeRate ==>   MlmeTransmit = 0x%x  \n" , pAd->CommonCfg.MlmeTransmit.word));
 }
 
-VOID APCli_Init(
+void APCli_Init(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	RTMP_OS_NETDEV_OP_HOOK		*pNetDevOps)
 {
@@ -2081,7 +2081,7 @@ VOID APCli_Init(
 }
 
 
-VOID ApCli_Remove(
+void ApCli_Remove(
 	IN PRTMP_ADAPTER 	pAd)
 {
 	unsigned int index;

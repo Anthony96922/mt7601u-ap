@@ -107,7 +107,7 @@ INT rt28xx_ap_ioctl(
 	IN	OUT	struct ifreq	*rq,
 	IN	INT			cmd)
 {
-	VOID			*pAd = NULL;
+	void			*pAd = NULL;
 	struct iwreq		*wrqin = (struct iwreq *) rq;
 	RTMP_IOCTL_INPUT_STRUCT rt_wrq, *wrq = &rt_wrq;
 	INT			Status = NDIS_STATUS_SUCCESS;

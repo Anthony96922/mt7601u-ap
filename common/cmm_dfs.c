@@ -282,14 +282,14 @@ static bool DfsEventDataFetch(
 		IN unsigned char *		  pData,
 		OUT PDFS_EVENT pDfsEvent);
 
-static VOID DfsCheckBusyIdle(
+static void DfsCheckBusyIdle(
 		IN PRTMP_ADAPTER pAd);
 
 static bool DfsChannelCheck(
 		IN PRTMP_ADAPTER pAd,
 		IN unsigned char DfsChannel);
 
-static VOID ChannelSelectOnRadarDetection(
+static void ChannelSelectOnRadarDetection(
 		IN PRTMP_ADAPTER pAd);
 
 static bool DfsEventDrop(
@@ -314,7 +314,7 @@ static inline bool NewRadarDetectionMcuStop(PRTMP_ADAPTER pAd)
 
 
 #ifdef RTMP_MAC_USB
-static VOID SwCheckDfsEventWithFw(
+static void SwCheckDfsEventWithFw(
 		IN PRTMP_ADAPTER pAd);
 #endif /*RTMP_MAC_USB  */
 
@@ -331,7 +331,7 @@ static VOID SwCheckDfsEventWithFw(
         
     ========================================================================
 */
-VOID ApRadarDetectPeriodic(
+void ApRadarDetectPeriodic(
 	IN PRTMP_ADAPTER pAd)
 {
 	INT	i;
@@ -978,7 +978,7 @@ INT	Show_BlockCh_Proc(
 }
 
 
-VOID DFSInit(PRTMP_ADAPTER pAd)
+void DFSInit(PRTMP_ADAPTER pAd)
 {
 	INT i;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
@@ -1095,7 +1095,7 @@ void NewRadarDetectionStart(PRTMP_ADAPTER pAd)
 	DBGPRINT(RT_DEBUG_TRACE,("Poll Time=%d\n", pRadarDetect->PollTime));
 }
 
-VOID NewRadarDetectionStop(
+void NewRadarDetectionStop(
 	IN PRTMP_ADAPTER pAd)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
@@ -2068,7 +2068,7 @@ static bool ChirpRadarCheck(IN PRTMP_ADAPTER pAd)
 	return FALSE;
 }
 
-static VOID DfsCheckBusyIdle(
+static void DfsCheckBusyIdle(
 			IN PRTMP_ADAPTER pAd)
 {
 	int busy_delta, idle_delta;	
@@ -2232,7 +2232,7 @@ static bool DfsEventDataFetch(
 	return TRUE;
 }
 
-VOID NewRadarDetectionProgram(PRTMP_ADAPTER pAd, pNewDFSTable pDFS2Table)
+void NewRadarDetectionProgram(PRTMP_ADAPTER pAd, pNewDFSTable pDFS2Table)
 {
 	unsigned char idx, TalbeIdx, DFSR3;
 	unsigned char DfsEngineNum = pAd->chipCap.DfsEngineNum;
@@ -2459,7 +2459,7 @@ bool DfsSwCheckOnHwDetection(
 	return bRadarCheck;
 }
 
-static VOID ChannelSelectOnRadarDetection(
+static void ChannelSelectOnRadarDetection(
 		IN PRTMP_ADAPTER pAd)
 {
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;	
@@ -2906,7 +2906,7 @@ void modify_table2(PRTMP_ADAPTER pAd, unsigned long idx, unsigned long value)
 
 
 #ifdef RTMP_MAC_USB
-VOID NewUsbTimerCB_Radar(
+void NewUsbTimerCB_Radar(
  	IN PRTMP_ADAPTER pAd)
 
 {
@@ -2978,7 +2978,7 @@ VOID NewUsbTimerCB_Radar(
 	}
 }
 
-static VOID SwCheckDfsEventWithFw(
+static void SwCheckDfsEventWithFw(
 		IN PRTMP_ADAPTER pAd)
 {
 	int k, NumEvent = 64; /* event number per event buffer */

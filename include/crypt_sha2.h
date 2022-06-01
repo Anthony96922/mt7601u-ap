@@ -44,18 +44,18 @@ typedef struct _SHA1_CTX_STRUC {
 	unsigned int BlockLen;
 } SHA1_CTX_STRUC, *PSHA1_CTX_STRUC;
 
-VOID RT_SHA1_Init(
+void RT_SHA1_Init(
 	IN SHA1_CTX_STRUC * pSHA_CTX);
-VOID RT_SHA1_Hash(
+void RT_SHA1_Hash(
 	IN SHA1_CTX_STRUC * pSHA_CTX);
-VOID RT_SHA1_Append(
+void RT_SHA1_Append(
 	IN SHA1_CTX_STRUC * pSHA_CTX,
 	IN const unsigned char Message[],
 	IN unsigned int MessageLen);
-VOID RT_SHA1_End(
+void RT_SHA1_End(
 	IN SHA1_CTX_STRUC * pSHA_CTX,
 	OUT unsigned char DigestMessage[]);
-VOID RT_SHA1(
+void RT_SHA1(
 	IN const unsigned char Message[],
 	IN unsigned int MessageLen,
 	OUT unsigned char DigestMessage[]);
@@ -71,18 +71,18 @@ typedef struct _SHA256_CTX_STRUC {
 	unsigned int BlockLen;
 } SHA256_CTX_STRUC, *PSHA256_CTX_STRUC;
 
-VOID RT_SHA256_Init(
+void RT_SHA256_Init(
 	IN SHA256_CTX_STRUC * pSHA_CTX);
-VOID RT_SHA256_Hash(
+void RT_SHA256_Hash(
 	IN SHA256_CTX_STRUC * pSHA_CTX);
-VOID RT_SHA256_Append(
+void RT_SHA256_Append(
 	IN SHA256_CTX_STRUC * pSHA_CTX,
 	IN const unsigned char Message[],
 	IN unsigned int MessageLen);
-VOID RT_SHA256_End(
+void RT_SHA256_End(
 	IN SHA256_CTX_STRUC * pSHA_CTX,
 	OUT unsigned char DigestMessage[]);
-VOID RT_SHA256(
+void RT_SHA256(
 	IN const unsigned char Message[],
 	IN unsigned int MessageLen,
 	OUT unsigned char DigestMessage[]);

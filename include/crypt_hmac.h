@@ -33,7 +33,7 @@
 
 #ifdef SHA1_SUPPORT
 #define HMAC_SHA1_SUPPORT
-VOID RT_HMAC_SHA1(
+void RT_HMAC_SHA1(
 	IN const unsigned char Key[],
 	IN unsigned int KeyLen,
 	IN const unsigned char Message[],
@@ -44,7 +44,7 @@ VOID RT_HMAC_SHA1(
 
 #ifdef SHA256_SUPPORT
 #define HMAC_SHA256_SUPPORT
-VOID RT_HMAC_SHA256(
+void RT_HMAC_SHA256(
 	IN const unsigned char Key[],
 	IN unsigned int KeyLen,
 	IN const unsigned char Message[],
@@ -55,7 +55,7 @@ VOID RT_HMAC_SHA256(
 
 #ifdef MD5_SUPPORT
 #define HMAC_MD5_SUPPORT
-VOID RT_HMAC_MD5(
+void RT_HMAC_MD5(
 	IN const unsigned char Key[],
 	IN unsigned int KeyLen,
 	IN const unsigned char Message[],

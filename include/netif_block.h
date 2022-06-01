@@ -20,10 +20,10 @@ bool blockNetIf(
 	IN PBLOCK_QUEUE_ENTRY pBlockQueueEntry,
 	IN PNET_DEV pNetDev);
 
-VOID releaseNetIf(
+void releaseNetIf(
 	IN PBLOCK_QUEUE_ENTRY pBlockQueueEntry);
 
-VOID StopNetIfQueue(
+void StopNetIfQueue(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket);

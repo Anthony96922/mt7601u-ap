@@ -43,36 +43,36 @@ typedef struct _BIG_INTEGER_STRUC
 
 
 /* BigInteger operations */
-VOID BigInteger_Print (
+void BigInteger_Print (
     IN PBIG_INTEGER pBI);
     
-VOID BigInteger_Init (
+void BigInteger_Init (
     INOUT PBIG_INTEGER *pBI);
 
-VOID BigInteger_Free_AllocSize (
+void BigInteger_Free_AllocSize (
     IN PBIG_INTEGER *pBI);
 
-VOID BigInteger_Free (
+void BigInteger_Free (
     IN PBIG_INTEGER *pBI);
 
-VOID BigInteger_AllocSize (
+void BigInteger_AllocSize (
     IN PBIG_INTEGER *pBI,
     IN INT Length);
 
-VOID BigInteger_ClearHighBits (
+void BigInteger_ClearHighBits (
     IN PBIG_INTEGER pBI);
 
-VOID BigInteger_BI2Bin (
+void BigInteger_BI2Bin (
     IN PBIG_INTEGER pBI, 
     OUT unsigned char *pValue,
     OUT unsigned int *Length);
 
-VOID BigInteger_Bin2BI (
+void BigInteger_Bin2BI (
     IN unsigned char *pValue,
     IN unsigned int Length,
     OUT PBIG_INTEGER *pBI);
 
-VOID BigInteger_BitsOfBI (
+void BigInteger_BitsOfBI (
     IN PBIG_INTEGER pBI,
     OUT unsigned int *Bits_Of_P);
 
@@ -84,7 +84,7 @@ unsigned char BigInteger_GetByteValue (
     IN PBIG_INTEGER pBI,
     IN unsigned int Index);
 
-VOID BigInteger_Copy (
+void BigInteger_Copy (
     IN PBIG_INTEGER pBI_Copied,
     OUT PBIG_INTEGER *pBI_Result);
 
@@ -92,38 +92,38 @@ INT BigInteger_UnsignedCompare (
     IN PBIG_INTEGER pFirstOperand,
     IN PBIG_INTEGER pSecondOperand);
 
-VOID BigInteger_Add (
+void BigInteger_Add (
     IN PBIG_INTEGER pFirstOperand,
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result);
 
-VOID BigInteger_Sub (
+void BigInteger_Sub (
     IN PBIG_INTEGER pFirstOperand, 
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result);
 
-VOID BigInteger_Mul (
+void BigInteger_Mul (
     IN PBIG_INTEGER pFirstOperand, 
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result);
 
-VOID BigInteger_Square (
+void BigInteger_Square (
     IN PBIG_INTEGER pBI, 
     OUT PBIG_INTEGER *pBI_Result);
     
-VOID BigInteger_Div (
+void BigInteger_Div (
     IN PBIG_INTEGER pFirstOperand, 
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result,
     OUT PBIG_INTEGER *pBI_Remainder);
 
-VOID BigInteger_Montgomery_Reduction (
+void BigInteger_Montgomery_Reduction (
     IN PBIG_INTEGER pBI_A,
     IN PBIG_INTEGER pBI_P,
     IN PBIG_INTEGER pBI_R,
     OUT PBIG_INTEGER *pBI_Result);
 
-VOID BigInteger_Montgomery_ExpMod (
+void BigInteger_Montgomery_ExpMod (
     IN PBIG_INTEGER pBI_G,
     IN PBIG_INTEGER pBI_E,
     IN PBIG_INTEGER pBI_P,

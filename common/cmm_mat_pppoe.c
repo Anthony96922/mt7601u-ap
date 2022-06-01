@@ -948,7 +948,7 @@ static NDIS_STATUS MATProto_PPPoEDis_Init(
 	pUidMacTable = (UidMacMappingTable *)pMatCfg->MatTableSet.UidMacTable;
 	if (!pUidMacTable)
 	{
-/*		pMatCfg->MatTableSet.UidMacTable = (VOID *)kmalloc(sizeof(UidMacMappingTable), GFP_KERNEL); */
+/*		pMatCfg->MatTableSet.UidMacTable = (void *)kmalloc(sizeof(UidMacMappingTable), GFP_KERNEL); */
 		os_alloc_mem_suspend(NULL, (unsigned char **)&(pMatCfg->MatTableSet.UidMacTable), sizeof(UidMacMappingTable));
 		if (pMatCfg->MatTableSet.UidMacTable)
 		{
@@ -966,7 +966,7 @@ static NDIS_STATUS MATProto_PPPoEDis_Init(
 	pSesMacTable = (SesMacMappingTable *)pMatCfg->MatTableSet.SesMacTable;
 	if (!pSesMacTable)
 	{
-/*		pMatCfg->MatTableSet.SesMacTable = (VOID *)kmalloc(sizeof(SesMacMappingTable), GFP_KERNEL); */
+/*		pMatCfg->MatTableSet.SesMacTable = (void *)kmalloc(sizeof(SesMacMappingTable), GFP_KERNEL); */
 		os_alloc_mem_suspend(NULL, (unsigned char **)&(pMatCfg->MatTableSet.SesMacTable), sizeof(SesMacMappingTable));
 		if (pMatCfg->MatTableSet.SesMacTable)
 		{

@@ -95,7 +95,7 @@ static void kd_hmac_sha256(
 		
 	========================================================================
 */
-VOID RTMPInsertWapiIe(	
+void RTMPInsertWapiIe(	
 	IN	unsigned int			AuthMode,
 	IN	unsigned int			WepStatus,
 	OUT	unsigned char *			pWIe,
@@ -245,7 +245,7 @@ bool RTMPIsWapiCipher(
          
     ==========================================================================
 */
-VOID RTMPConstructWPIIVHdr(
+void RTMPConstructWPIIVHdr(
 	IN	unsigned char			key_id,
 	IN	unsigned char			*tx_iv,
 	OUT unsigned char 			*iv_hdr)
@@ -256,7 +256,7 @@ VOID RTMPConstructWPIIVHdr(
 	NdisMoveMemory(&iv_hdr[2], tx_iv, LEN_WAPI_TSC);
 }
 
-VOID RTMPDeriveWapiGTK(
+void RTMPDeriveWapiGTK(
 	IN	unsigned char *			nmk,
 	OUT	unsigned char *			gtk_ptr)
 {
@@ -271,7 +271,7 @@ VOID RTMPDeriveWapiGTK(
 				   32);	
 }
 
-VOID RT_SMS4_TEST(
+void RT_SMS4_TEST(
 	IN unsigned char			test)
 {
 	CIPHER_KEY		CipherKey;
@@ -605,7 +605,7 @@ void rtmp_read_wapi_parms_from_file(
         
 	==========================================================================
 */
-static VOID RTMPQueryWapiConfPerBss(
+static void RTMPQueryWapiConfPerBss(
 	IN 	PRTMP_ADAPTER 	pAd,
 	IN	PWAPI_CONF		wapi_conf_ptr,
 	IN	unsigned char			apidx)
@@ -682,7 +682,7 @@ static VOID RTMPQueryWapiConfPerBss(
 	    wrq		Pointer to the ioctl argument
     ==========================================================================
 */
-VOID RTMPIoctlQueryWapiConf(
+void RTMPIoctlQueryWapiConf(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
@@ -737,7 +737,7 @@ VOID RTMPIoctlQueryWapiConf(
     Return:
     ==========================================================================
 */  
-VOID RTMPWapiUskRekeyPeriodicExec(
+void RTMPWapiUskRekeyPeriodicExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -781,7 +781,7 @@ VOID RTMPWapiUskRekeyPeriodicExec(
     Return:
     ==========================================================================
 */  
-VOID RTMPWapiMskRekeyPeriodicExec(
+void RTMPWapiMskRekeyPeriodicExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -865,7 +865,7 @@ VOID RTMPWapiMskRekeyPeriodicExec(
 }
 
 
-VOID RTMPInitWapiRekeyTimerAction(
+void RTMPInitWapiRekeyTimerAction(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry)
 {
@@ -882,7 +882,7 @@ VOID RTMPInitWapiRekeyTimerAction(
 	}
 }
 
-VOID RTMPStartWapiRekeyTimerAction(
+void RTMPStartWapiRekeyTimerAction(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY pEntry)
 {	
@@ -921,7 +921,7 @@ VOID RTMPStartWapiRekeyTimerAction(
 
 }
 
-VOID RTMPCancelWapiRekeyTimerAction(
+void RTMPCancelWapiRekeyTimerAction(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY pEntry)
 {	
@@ -1011,7 +1011,7 @@ bool WAPI_InternalCmdAction(
 }	
 
 
-VOID RTMPGetWapiTxTscFromAsic(
+void RTMPGetWapiTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	unsigned int			Wcid,
 	OUT	unsigned char			*tx_tsc)
@@ -1045,7 +1045,7 @@ VOID RTMPGetWapiTxTscFromAsic(
 }
 
 
-VOID WAPIInstallPairwiseKey(
+void WAPIInstallPairwiseKey(
 	PRTMP_ADAPTER		pAd,
 	PMAC_TABLE_ENTRY	pEntry,
 	bool				bAE)
@@ -1109,7 +1109,7 @@ VOID WAPIInstallPairwiseKey(
 }
 
 
-VOID WAPIInstallSharedKey(
+void WAPIInstallSharedKey(
 	PRTMP_ADAPTER		pAd,
 	unsigned char				GroupCipher,
 	unsigned char				BssIdx,

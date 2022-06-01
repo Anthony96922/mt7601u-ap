@@ -149,7 +149,7 @@ unsigned int	RTMP_CALC_FCS32(
 	
 	========================================================================
 */
-VOID	RTMPInitWepEngine(
+void	RTMPInitWepEngine(
 	IN	unsigned char *			pIv,
 	IN	unsigned char *			pKey,
 	IN	unsigned char			KeyLen,
@@ -195,7 +195,7 @@ VOID	RTMPInitWepEngine(
 				
 	========================================================================
 */
-VOID RTMPConstructWEPIVHdr(
+void RTMPConstructWEPIVHdr(
 	IN	unsigned char 			key_idx,
 	IN	unsigned char			*pn,	
 	OUT	unsigned char			*iv_hdr)

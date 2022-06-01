@@ -268,7 +268,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipBcnSpecInit(RTMP_ADAPTER *pAd)
+void RtmpChipBcnSpecInit(RTMP_ADAPTER *pAd)
 {
 }
 
@@ -287,7 +287,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipBcnInit(
+void RtmpChipBcnInit(
 	IN RTMP_ADAPTER *pAd)
 {
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -360,7 +360,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID rlt_bcn_buf_init(RTMP_ADAPTER *pAd)
+void rlt_bcn_buf_init(RTMP_ADAPTER *pAd)
 {
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
@@ -432,7 +432,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipWriteHighMemory(
+void RtmpChipWriteHighMemory(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned short Offset,
 	IN unsigned int Value,
@@ -475,7 +475,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipWriteMemory(
+void RtmpChipWriteMemory(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	unsigned short			Offset,
 	IN	unsigned int			Value,
@@ -498,7 +498,7 @@ VOID RtmpChipWriteMemory(
 
 
 #ifdef GREENAP_SUPPORT
-static VOID EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, bool ReduceCorePower)
+static void EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, bool ReduceCorePower)
 {
 	rtmp_bbp_set_mmps(pAd, ReduceCorePower);
 	rtmp_mac_set_mmps(pAd, ReduceCorePower);
@@ -507,7 +507,7 @@ static VOID EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, bool ReduceCorePower)
 }
 
 
-static VOID DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
+static void DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
 {
 	rtmp_bbp_set_mmps(pAd, FALSE);
 	rtmp_mac_set_mmps(pAd, FALSE);
@@ -516,7 +516,7 @@ static VOID DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
 }
 
 
-static VOID EnableAPMIMOPSv1(
+static void EnableAPMIMOPSv1(
 	IN RTMP_ADAPTER *pAd,
 	IN bool ReduceCorePower)
 {
@@ -555,7 +555,7 @@ static VOID EnableAPMIMOPSv1(
 }
 
 
-static VOID DisableAPMIMOPSv1(
+static void DisableAPMIMOPSv1(
 	IN PRTMP_ADAPTER		pAd)
 {
 	unsigned char	BBPR3 = 0,BBPR1 = 0;
@@ -610,7 +610,7 @@ static VOID DisableAPMIMOPSv1(
 #endif /* GREENAP_SUPPORT */
 
 
-static VOID RxSensitivityTuning(RTMP_ADAPTER *pAd)
+static void RxSensitivityTuning(RTMP_ADAPTER *pAd)
 {
 	unsigned char R66 = 0x26 + GET_LNA_GAIN(pAd);
 
@@ -627,7 +627,7 @@ static VOID RxSensitivityTuning(RTMP_ADAPTER *pAd)
 
 
 
-static VOID ChipBBPAdjust(RTMP_ADAPTER *pAd)
+static void ChipBBPAdjust(RTMP_ADAPTER *pAd)
 {
 	unsigned char rf_bw, ext_ch;
 	unsigned char bbp_val;
@@ -688,7 +688,7 @@ static VOID ChipBBPAdjust(RTMP_ADAPTER *pAd)
 }
 
 
-static VOID Default_ChipSwitchChannel(
+static void Default_ChipSwitchChannel(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char Channel,
 	IN bool bScan) 
@@ -697,7 +697,7 @@ static VOID Default_ChipSwitchChannel(
 }
 
 
-static VOID Default_ChipAGCInit(RTMP_ADAPTER *pAd, unsigned char BandWidth)
+static void Default_ChipAGCInit(RTMP_ADAPTER *pAd, unsigned char BandWidth)
 {
 	unsigned char R66 = 0x30, lan_gain;
 
@@ -724,7 +724,7 @@ static VOID Default_ChipAGCInit(RTMP_ADAPTER *pAd, unsigned char BandWidth)
 }
 
 
-static VOID AsicAntennaDefaultReset(
+static void AsicAntennaDefaultReset(
 	IN PRTMP_ADAPTER		pAd,
 	IN EEPROM_ANTENNA_STRUC	*pAntenna)
 {
@@ -739,7 +739,7 @@ static VOID AsicAntennaDefaultReset(
 }
 
 
-VOID NetDevNickNameInit(
+void NetDevNickNameInit(
 	IN PRTMP_ADAPTER		pAd)
 {
 }
@@ -894,7 +894,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipOpsHook(VOID *pCB)
+void RtmpChipOpsHook(void *pCB)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pCB;
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;

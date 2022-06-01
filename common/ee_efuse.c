@@ -109,14 +109,14 @@ static unsigned char eFuseReadRegisters(
 	IN	unsigned short Length, 
 	OUT	unsigned short* pData);
 
-VOID eFuseReadPhysical( 
+void eFuseReadPhysical( 
 	IN	PRTMP_ADAPTER	pAd, 
   	IN	unsigned short * lpInBuffer,
   	IN	unsigned long nInBufferSize,
   	OUT	unsigned short * lpOutBuffer,
   	IN	unsigned long nOutBufferSize);
 
-static VOID eFusePhysicalWriteRegisters(
+static void eFusePhysicalWriteRegisters(
 	IN	PRTMP_ADAPTER	pAd,	
 	IN	unsigned short Offset, 
 	IN	unsigned short Length, 
@@ -128,7 +128,7 @@ static NTSTATUS eFuseWriteRegisters(
 	IN	unsigned short Length, 
 	IN	unsigned short* pData);
 
-static VOID eFuseWritePhysical( 
+static void eFuseWritePhysical( 
 	IN	PRTMP_ADAPTER	pAd,	
   	unsigned short * lpInBuffer,
 	unsigned long nInBufferSize,
@@ -258,7 +258,7 @@ unsigned char eFuseReadRegisters(
 	
 ========================================================================
 */
-VOID eFusePhysicalReadRegisters( 
+void eFusePhysicalReadRegisters( 
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	unsigned short Offset, 
 	IN	unsigned short Length, 
@@ -344,7 +344,7 @@ VOID eFusePhysicalReadRegisters(
 	
 ========================================================================
 */
-VOID eFuseReadPhysical( 
+void eFuseReadPhysical( 
 	IN	PRTMP_ADAPTER	pAd, 
   	IN	unsigned short * lpInBuffer,
   	IN	unsigned long nInBufferSize,
@@ -408,7 +408,7 @@ NTSTATUS eFuseRead(
 	
 ========================================================================
 */
-static VOID eFusePhysicalWriteRegisters(
+static void eFusePhysicalWriteRegisters(
 	IN	PRTMP_ADAPTER	pAd,	
 	IN	unsigned short Offset, 
 	IN	unsigned short Length, 
@@ -817,7 +817,7 @@ static NTSTATUS eFuseWriteRegisters(
 	
 ========================================================================
 */
-static VOID eFuseWritePhysical( 
+static void eFuseWritePhysical( 
 	IN	PRTMP_ADAPTER	pAd,	
   	unsigned short * lpInBuffer,
 	unsigned long nInBufferSize,
@@ -1639,7 +1639,7 @@ INT eFuseWriteEeeppromBuf(
 }
 
 
-VOID eFuseGetFreeBlockCount(IN PRTMP_ADAPTER pAd, 
+void eFuseGetFreeBlockCount(IN PRTMP_ADAPTER pAd, 
 	unsigned int * EfuseFreeBlock)
 {
 	

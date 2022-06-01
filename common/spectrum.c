@@ -343,7 +343,7 @@ NDIS_STATUS MeasureReqTabInit(
 	return Status;
 }
 
-VOID MeasureReqTabExit(
+void MeasureReqTabExit(
 	IN PRTMP_ADAPTER pAd)
 {
 	NdisFreeSpinLock(&pAd->CommonCfg.MeasureReqTabLock);
@@ -485,7 +485,7 @@ PMEASURE_REQ_ENTRY MeasureReqInsert(
 	return pEntry;
 }
 
-VOID MeasureReqDelete(
+void MeasureReqDelete(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char		DialogToken)
 {
@@ -558,7 +558,7 @@ NDIS_STATUS	TpcReqTabInit(
 	return Status;
 }
 
-VOID TpcReqTabExit(
+void TpcReqTabExit(
 	IN PRTMP_ADAPTER pAd)
 {
 	NdisFreeSpinLock(&pAd->CommonCfg.TpcReqTabLock);
@@ -701,7 +701,7 @@ static PTPC_REQ_ENTRY TpcReqInsert(
 	return pEntry;
 }
 
-static VOID TpcReqDelete(
+static void TpcReqDelete(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			DialogToken)
 {
@@ -788,7 +788,7 @@ static unsigned char GetCurTxPwr(
 	return 20; /* 20 dBm */
 }
 
-VOID InsertChannelRepIE(
+void InsertChannelRepIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
@@ -868,7 +868,7 @@ VOID InsertChannelRepIE(
 	Return	: None.
 	==========================================================================
  */
-VOID InsertDialogToken(
+void InsertDialogToken(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
@@ -896,7 +896,7 @@ VOID InsertDialogToken(
 	Return	: None.
 	==========================================================================
  */
- static VOID InsertTpcReqIE(
+ static void InsertTpcReqIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen)
@@ -929,7 +929,7 @@ VOID InsertDialogToken(
 	Return	: None.
 	==========================================================================
  */
-VOID InsertTpcReportIE(
+void InsertTpcReportIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
@@ -974,7 +974,7 @@ VOID InsertTpcReportIE(
 	Return	: None.
 	==========================================================================
  */
-static VOID InsertMeasureReqIE(
+static void InsertMeasureReqIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
@@ -1012,7 +1012,7 @@ static VOID InsertMeasureReqIE(
 	Return	: None.
 	==========================================================================
  */
-static VOID InsertMeasureReportIE(
+static void InsertMeasureReportIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
@@ -1057,7 +1057,7 @@ static VOID InsertMeasureReportIE(
 	Return	: None.
 	==========================================================================
  */
-VOID MakeMeasurementReqFrame(
+void MakeMeasurementReqFrame(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pOutBuffer,
 	OUT unsigned long * pFrameLen,
@@ -1109,7 +1109,7 @@ VOID MakeMeasurementReqFrame(
 	Return	: None.
 	==========================================================================
  */
-VOID EnqueueMeasurementRep(
+void EnqueueMeasurementRep(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
 	IN unsigned char DialogToken,
@@ -1167,7 +1167,7 @@ VOID EnqueueMeasurementRep(
 	Return	: None.
 	==========================================================================
  */
-VOID EnqueueTPCReq(
+void EnqueueTPCReq(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
 	IN unsigned char DialogToken)
@@ -1216,7 +1216,7 @@ VOID EnqueueTPCReq(
 	Return	: None.
 	==========================================================================
  */
-VOID EnqueueTPCRep(
+void EnqueueTPCRep(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA,
 	IN unsigned char DialogToken,
@@ -1272,7 +1272,7 @@ VOID EnqueueTPCRep(
 	Return	: None.
 	==========================================================================
  */
-static VOID InsertChSwAnnIE(
+static void InsertChSwAnnIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pFrameBuf,
 	OUT unsigned long * pFrameLen,
@@ -1315,7 +1315,7 @@ static VOID InsertChSwAnnIE(
 	Return	: None.
 	==========================================================================
  */
-VOID EnqueueChSwAnn(
+void EnqueueChSwAnn(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pDA, 
 	IN unsigned char ChSwMode,
@@ -1385,7 +1385,7 @@ static bool DfsRequirementCheck(
 	return Result;
 }
 
-VOID NotifyChSwAnnToPeerAPs(
+void NotifyChSwAnnToPeerAPs(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pRA,
 	IN unsigned char * pTA,
@@ -1415,7 +1415,7 @@ VOID NotifyChSwAnnToPeerAPs(
 #endif /* WDS_SUPPORT */
 }
 
-static VOID StartDFSProcedure(
+static void StartDFSProcedure(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char Channel,
 	IN unsigned char ChSwMode)
@@ -1453,7 +1453,7 @@ static VOID StartDFSProcedure(
 */
 static bool PeerChSwAnnSanity(
 	IN PRTMP_ADAPTER pAd,
-	IN VOID *pMsg,
+	IN void *pMsg,
 	IN unsigned long MsgLen,
 	OUT PCH_SW_ANN_INFO pChSwAnnInfo)
 {
@@ -1509,7 +1509,7 @@ static bool PeerChSwAnnSanity(
  */
 static bool PeerMeasureReqSanity(
 	IN PRTMP_ADAPTER pAd,
-	IN VOID *pMsg,
+	IN void *pMsg,
 	IN unsigned long MsgLen,
 	OUT unsigned char * pDialogToken,
 	OUT PMEASURE_REQ_INFO pMeasureReqInfo,
@@ -1601,7 +1601,7 @@ static bool PeerMeasureReqSanity(
 */
 static bool PeerMeasureReportSanity(
 	IN PRTMP_ADAPTER pAd,
-	IN VOID *pMsg,
+	IN void *pMsg,
 	IN unsigned long MsgLen,
 	OUT unsigned char * pDialogToken,
 	OUT PMEASURE_REPORT_INFO pMeasureReportInfo,
@@ -1692,7 +1692,7 @@ static bool PeerMeasureReportSanity(
  */
 static bool PeerTpcReqSanity(
 	IN PRTMP_ADAPTER pAd,
-	IN VOID *pMsg,
+	IN void *pMsg,
 	IN unsigned long MsgLen,
 	OUT unsigned char * pDialogToken)
 {
@@ -1748,7 +1748,7 @@ static bool PeerTpcReqSanity(
  */
 static bool PeerTpcRepSanity(
 	IN PRTMP_ADAPTER pAd,
-	IN VOID *pMsg,
+	IN void *pMsg,
 	IN unsigned long MsgLen,
 	OUT unsigned char * pDialogToken,
 	OUT PTPC_REPORT_INFO pTpcRepInfo)
@@ -1802,7 +1802,7 @@ static bool PeerTpcRepSanity(
 	Return	: None.
 	==========================================================================
  */
-static VOID PeerChSwAnnAction(
+static void PeerChSwAnnAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -1842,7 +1842,7 @@ static VOID PeerChSwAnnAction(
 	Return	: None.
 	==========================================================================
  */
-static VOID PeerMeasureReqAction(
+static void PeerMeasureReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -1873,7 +1873,7 @@ static VOID PeerMeasureReqAction(
 	Return	: None.
 	==========================================================================
  */
-static VOID PeerMeasureReportAction(
+static void PeerMeasureReportAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -1941,7 +1941,7 @@ static VOID PeerMeasureReportAction(
 	Return	: None.
 	==========================================================================
  */
-static VOID PeerTpcReqAction(
+static void PeerTpcReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -1984,7 +1984,7 @@ static VOID PeerTpcReqAction(
 	Return	: None.
 	==========================================================================
  */
-static VOID PeerTpcRepAction(
+static void PeerTpcRepAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -2018,7 +2018,7 @@ static VOID PeerTpcRepAction(
 	Return	: None.
 	==========================================================================
  */
-VOID PeerSpectrumAction(
+void PeerSpectrumAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -2310,7 +2310,7 @@ static PDOT11_REGULATORY_INFORMATION GetRugClassRegion(
 	return pRugClass;
 }
 
-VOID RguClass_BuildBcnChList(
+void RguClass_BuildBcnChList(
 	IN PRTMP_ADAPTER pAd,
 	OUT unsigned char * pBuf,
 	OUT	unsigned long * pBufLen)

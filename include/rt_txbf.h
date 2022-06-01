@@ -157,7 +157,7 @@ INT ITxBFDividerCalibration(
 	IN int calMethod,
 	OUT unsigned char *divPhase);
 
-VOID ITxBFLoadLNAComp(
+void ITxBFLoadLNAComp(
 	IN RTMP_ADAPTER *pAd);
 
 int ITxBFLNACalibration(
