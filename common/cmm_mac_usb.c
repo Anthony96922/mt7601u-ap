@@ -1407,7 +1407,7 @@ VOID RT28xx_UpdateBeaconToAsic(
 	UINT  			i, padding;
 	BEACON_SYNC_STRUCT	*pBeaconSync = pAd->CommonCfg.pBeaconSync;
 	unsigned int			longValue;
-/*	USHORT			shortValue;*/
+/*	unsigned short			shortValue;*/
 	BOOLEAN			bBcnReq = FALSE;
 	unsigned char			bcn_idx = 0;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;

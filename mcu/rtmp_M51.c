@@ -289,7 +289,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 			else
 			{
 				unsigned char * ptr = pFirmwareImage;
-				USHORT crc = 0xffff;
+				unsigned short crc = 0xffff;
 
 
 				/* calculate firmware CRC */

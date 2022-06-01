@@ -146,8 +146,8 @@ PNDIS_PACKET duplicate_pkt_with_TKIP_MIC(
 
 PNDIS_PACKET duplicate_pkt_with_VLAN(
 	IN	PNET_DEV				pNetDev,
-	IN	USHORT					VLAN_VID,
-	IN	USHORT					VLAN_Priority,
+	IN	unsigned short					VLAN_VID,
+	IN	unsigned short					VLAN_Priority,
 	IN	unsigned char *					pHeader802_3,
     IN  UINT            		HdrLen,
 	IN	unsigned char *					pData,
@@ -184,8 +184,8 @@ PNDIS_PACKET ClonePacket(
 void wlan_802_11_to_802_3_packet(
 	IN	PNET_DEV				pNetDev,
 	IN	unsigned char					OpMode,
-	IN	USHORT					VLAN_VID,
-	IN	USHORT					VLAN_Priority,
+	IN	unsigned short					VLAN_VID,
+	IN	unsigned short					VLAN_Priority,
 	IN	PNDIS_PACKET			pRxPacket,
 	IN	unsigned char					*pData,
 	IN	unsigned long					DataSize,
@@ -206,7 +206,7 @@ void send_monitor_packets(
 	IN	PNDIS_PACKET			pRxPacket,
 	IN	PHEADER_802_11			pHeader,
 	IN	unsigned char					*pData,
-	IN	USHORT					DataSize,
+	IN	unsigned short					DataSize,
 	IN	unsigned char					L2PAD,
 	IN	unsigned char					PHYMODE,
 	IN	unsigned char					BW,
@@ -222,8 +222,8 @@ void send_monitor_packets(
 	IN	unsigned int					MaxRssi);
 
 unsigned char VLAN_8023_Header_Copy(
-	IN	USHORT					VLAN_VID,
-	IN	USHORT					VLAN_Priority,
+	IN	unsigned short					VLAN_VID,
+	IN	unsigned short					VLAN_Priority,
 	IN	unsigned char *					pHeader802_3,
 	IN	UINT            		HdrLen,
 	OUT unsigned char *					pData,
@@ -288,7 +288,7 @@ VOID RtmpOsPktInit(
 	IN	PNDIS_PACKET			pNetPkt,
 	IN	PNET_DEV				pNetDev,
 	IN	unsigned char					*pData,
-	IN	USHORT					DataSize);
+	IN	unsigned short					DataSize);
 
 PNDIS_PACKET RtmpOsPktIappMakeUp(
 	IN	PNET_DEV				pNetDev,
@@ -405,14 +405,14 @@ VOID RtmpOsSetNetDevPriv(
 VOID *RtmpOsGetNetDevPriv(
 	IN	VOID					*pDev);
 
-USHORT RtmpDevPrivFlagsGet(
+unsigned short RtmpDevPrivFlagsGet(
 	IN	VOID					*pDev);
 
 VOID RtmpDevPrivFlagsSet(
 	IN	VOID					*pDev,
-	IN	USHORT					PrivFlags);
+	IN	unsigned short					PrivFlags);
 
-VOID RtmpOsSetNetDevType(VOID *pDev, USHORT Type);
+VOID RtmpOsSetNetDevType(VOID *pDev, unsigned short Type);
 
 VOID RtmpOsSetNetDevTypeMonitor(VOID *pDev);
 
@@ -601,14 +601,14 @@ void hex_dump(char *str, unsigned char * pSrcBufVA, UINT SrcBufLen);
 
 typedef VOID (*RTMP_OS_SEND_WLAN_EVENT)(
 	IN	VOID					*pAdSrc,
-	IN	USHORT					Event_flag,
+	IN	unsigned short					Event_flag,
 	IN	unsigned char * 					pAddr,
 	IN  unsigned char					BssIdx,
 	IN	CHAR					Rssi);
 
 VOID RtmpOsSendWirelessEvent(
 	IN	VOID			*pAd,
-	IN	USHORT			Event_flag,
+	IN	unsigned short			Event_flag,
 	IN	unsigned char * 			pAddr,
 	IN	unsigned char			BssIdx,
 	IN	CHAR			Rssi,
@@ -651,7 +651,7 @@ VOID RtmpDrvAllMacPrint(
 
 VOID RtmpDrvAllE2PPrint(
 	IN	VOID					*pReserved,
-	IN	USHORT					*pMacContent,
+	IN	unsigned short					*pMacContent,
 	IN	unsigned int					AddrEnd,
 	IN	unsigned int					AddrStep);
 
@@ -697,20 +697,20 @@ VOID RtmpDrvMaxRateGet(
 
 char * rtstrchr(const char * s, int c);
 
-char *   WscGetAuthTypeStr(USHORT authFlag);
+char *   WscGetAuthTypeStr(unsigned short authFlag);
 
-char *   WscGetEncryTypeStr(USHORT encryFlag);
+char *   WscGetEncryTypeStr(unsigned short encryFlag);
 
-USHORT WscGetAuthTypeFromStr(char * arg);
+unsigned short WscGetAuthTypeFromStr(char * arg);
 
-USHORT WscGetEncrypTypeFromStr(char * arg);
+unsigned short WscGetEncrypTypeFromStr(char * arg);
 
 VOID RtmpMeshDown(
 	IN VOID *pDrvCtrlBK,
 	IN BOOLEAN WaitFlag,
 	IN BOOLEAN (*RtmpMeshLinkCheck)(IN VOID *pAd));
 
-USHORT RtmpOsNetPrivGet(PNET_DEV pDev);
+unsigned short RtmpOsNetPrivGet(PNET_DEV pDev);
 
 BOOLEAN RtmpOsCmdDisplayLenCheck(
 	IN	unsigned int					LenSrc,

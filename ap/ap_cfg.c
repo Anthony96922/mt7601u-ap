@@ -453,13 +453,13 @@ VOID RTMPIoctlGetWscRegsDynInfo(
 BOOLEAN WscCheckEnrolleeNonceFromUpnp(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	char *			pData,
-	IN  USHORT			Length,
+	IN  unsigned short			Length,
 	IN  PWSC_CTRL       pWscControl);
 
 unsigned char	WscRxMsgTypeFromUpnp(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  char *				pData,
-	IN	USHORT				Length);
+	IN	unsigned short				Length);
 
 INT	    WscGetConfForUpnp(
 	IN	PRTMP_ADAPTER	pAd,
@@ -1836,7 +1836,7 @@ INT RTMPAPSetInformation(
 					os_alloc_mem(pAd, (unsigned char **)&pInfo, sizeof(MLME_DEAUTH_REQ_STRUCT));
 					Status = copy_from_user(pInfo, wrq->u.data.pointer, wrq->u.data.length);
 					/* Fill in the related information */
-					DeAuthFrame.Reason = (USHORT)pInfo->Reason;
+					DeAuthFrame.Reason = (unsigned short)pInfo->Reason;
 					COPY_MAC_ADDR(DeAuthFrame.Addr, pInfo->Addr);
 					
 					MlmeEnqueue(pAd, 
@@ -3017,7 +3017,7 @@ INT RTMPAPQueryInformation(
 	unsigned long 				BssBufSize;
 	unsigned char *				pBuf = NULL, pPtr=NULL;
 	NDIS_802_11_BSSID_LIST_EX	*pBssidList = NULL;
-	USHORT				BssLen = 0;
+	unsigned short				BssLen = 0;
 	PNDIS_WLAN_BSSID_EX		pBss;
 	MAC_TABLE_ENTRY			*pMacEntry = (MAC_TABLE_ENTRY *)NULL;
 	PAPCLI_STRUCT			pApCliEntry = NULL;
@@ -3403,7 +3403,7 @@ INT RTMPAPQueryInformation(
 			break;
 		case RT_OID_WSC_FRAGMENT_SIZE:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_WSC_FRAGMENT_SIZE (=%d)\n", pAd->ApCfg.MBSSID[apidx].WscControl.WscFragSize));
-			wrq->u.data.length = sizeof(USHORT);
+			wrq->u.data.length = sizeof(unsigned short);
 			if (copy_to_user(wrq->u.data.pointer, &pAd->ApCfg.MBSSID[apidx].WscControl.WscFragSize, wrq->u.data.length))
 				Status = -EFAULT;
 			break;
@@ -4219,10 +4219,10 @@ INT	Set_BeaconPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	USHORT BeaconPeriod;
+	unsigned short BeaconPeriod;
 	INT   success = FALSE;
 
-	BeaconPeriod = (USHORT) simple_strtol(arg, 0, 10);
+	BeaconPeriod = (unsigned short) simple_strtol(arg, 0, 10);
 	if((BeaconPeriod >= 20) && (BeaconPeriod < 1024))
 	{
 		pAd->CommonCfg.BeaconPeriod = BeaconPeriod;
@@ -4253,10 +4253,10 @@ INT	Set_DtimPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	USHORT DtimPeriod;
+	unsigned short DtimPeriod;
 	INT   success = FALSE;
 
-	DtimPeriod = (USHORT) simple_strtol(arg, 0, 10);
+	DtimPeriod = (unsigned short) simple_strtol(arg, 0, 10);
 	if((DtimPeriod >= 1) && (DtimPeriod <= 255))
 	{
 		pAd->ApCfg.DtimPeriod = DtimPeriod;
@@ -7150,10 +7150,10 @@ VOID RTMPAPIoctlE2PROM(
 	char *mpool, *msg;/*msg[1024]; */
 	char *arg; /*arg[255]; */
 	char *ptr;
-	USHORT				eepAddr = 0;
+	unsigned short				eepAddr = 0;
 	unsigned char				temp[16];
 	STRING				temp2[16];
-	USHORT				eepValue;
+	unsigned short				eepValue;
 	BOOLEAN				bIsPrintAllE2PROM = FALSE;
 
 /*	mpool = (char *)kmalloc(sizeof(CHAR)*(4096+256+12), MEM_ALLOC_FLAG); */
@@ -8400,7 +8400,7 @@ INT	Set_AP_WscConfStatus_Proc(
 {
 	unsigned char       IsAPConfigured = 0;
 	INT         IsSelectedRegistrar;
-	USHORT      WscMode;
+	unsigned short      WscMode;
     POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
     unsigned char	    apidx = pObj->ioctl_if;
 
@@ -9332,11 +9332,11 @@ VOID RTMPIoctlGetWscRegsDynInfo(
 BOOLEAN WscCheckEnrolleeNonceFromUpnp(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	char *			pData,
-	IN  USHORT			Length,
+	IN  unsigned short			Length,
 	IN  PWSC_CTRL       pWscControl) 
 {
-	USHORT	WscType, WscLen;
-    USHORT  WscId = WSC_ID_ENROLLEE_NONCE;
+	unsigned short	WscType, WscLen;
+    unsigned short  WscId = WSC_ID_ENROLLEE_NONCE;
 
     DBGPRINT(RT_DEBUG_TRACE, ("check Enrollee Nonce\n"));
    
@@ -9383,10 +9383,10 @@ BOOLEAN WscCheckEnrolleeNonceFromUpnp(
 unsigned char	WscRxMsgTypeFromUpnp(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  char *				pData,
-	IN	USHORT				Length) 
+	IN	unsigned short				Length) 
 {
 	
-	USHORT WscType, WscLen;
+	unsigned short WscType, WscLen;
     
     {   /* Eap-Esp(Messages) */
         /* the first TLV item in EAP Messages must be WSC_IE_VERSION */
@@ -9559,7 +9559,7 @@ INT	Set_WscFragmentSize_Proc(
 	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
-	USHORT		WscFragSize = (USHORT)simple_strtol(arg, 0, 10);	
+	unsigned short		WscFragSize = (unsigned short)simple_strtol(arg, 0, 10);	
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_WscFragmentSize_Proc::(WscFragSize=%d)\n", WscFragSize));
 	if ((WscFragSize >=128) && (WscFragSize <=300))
@@ -9672,7 +9672,7 @@ INT	Set_WscExtraTlvTag_Proc(
 	IN	char *			arg)
 {
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
-	USHORT		new_tag = (USHORT)simple_strtol(arg, 0, 16);
+	unsigned short		new_tag = (unsigned short)simple_strtol(arg, 0, 16);
 	
 	pAd->ApCfg.MBSSID[pObj->ioctl_if].WscControl.WscV2Info.ExtraTlv.TlvTag = new_tag;
 
@@ -10773,7 +10773,7 @@ INT RTMP_AP_IoctlHandle(
 	IN	VOID					*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
-	IN	USHORT					subcmd,
+	IN	unsigned short					subcmd,
 	IN	VOID					*pData,
 	IN	unsigned long					Data)
 {

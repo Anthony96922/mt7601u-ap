@@ -155,7 +155,7 @@ BOOLEAN	RTUSBNeedQueueBackForAgg(RTMP_ADAPTER *pAd, unsigned char BulkOutPipeId)
 static VOID rlt_usb_write_txinfo(
 	IN RTMP_ADAPTER *pAd,
 	IN TXINFO_STRUC *pTxInfo,
-	IN USHORT USBDMApktLen,
+	IN unsigned short USBDMApktLen,
 	IN BOOLEAN bWiv,
 	IN unsigned char QueueSel,
 	IN unsigned char NextValid,
@@ -205,7 +205,7 @@ VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 	TXWI_STRUC *pTxWI;
 	unsigned char *buf;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
-	USHORT data_len = sizeof(pAd->NullFrame);;
+	unsigned short data_len = sizeof(pAd->NullFrame);;
 
 	PTX_CONTEXT pNullContext = &pAd->NullContext[0];
 
@@ -222,7 +222,7 @@ VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 	pTxInfo = (TXINFO_STRUC *)buf;
 	pTxWI = (TXWI_STRUC *)&buf[TXINFO_SIZE];
 	rlt_usb_write_txinfo(pAd, pTxInfo,
-			(USHORT)(data_len + TXWISize + TSO_SIZE), TRUE,
+			(unsigned short)(data_len + TXWISize + TSO_SIZE), TRUE,
 			EpToQueue[MGMTPIPEIDX], FALSE, FALSE, 1);
 	RTMPWriteTxWI(pAd, pTxWI, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, 0,
 		      BSSID_WCID, data_len, 0, 0,
@@ -292,11 +292,11 @@ static inline NDIS_STATUS RtmpUSBCanDoWrite(
 }
 
 
-USHORT RtmpUSB_WriteSubTxResource(
+unsigned short RtmpUSB_WriteSubTxResource(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
 	IN BOOLEAN bIsLast,
-	OUT	USHORT *freeCnt)
+	OUT	unsigned short *freeCnt)
 {
 
 	/* Dummy function. Should be removed in the future.*/
@@ -304,14 +304,14 @@ USHORT RtmpUSB_WriteSubTxResource(
 	
 }
 
-USHORT	RtmpUSB_WriteFragTxResource(
+unsigned short	RtmpUSB_WriteFragTxResource(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
 	IN unsigned char fragNum,
-	OUT	USHORT *freeCnt)
+	OUT	unsigned short *freeCnt)
 {
 	HT_TX_CONTEXT	*pHTTXContext;
-	USHORT			hwHdrLen;	/* The hwHdrLen consist of 802.11 header length plus the header padding length.*/
+	unsigned short			hwHdrLen;	/* The hwHdrLen consist of 802.11 header length plus the header padding length.*/
 	unsigned int			fillOffset;
 	TXINFO_STRUC	*pTxInfo;
 	TXWI_STRUC		*pTxWI;
@@ -404,11 +404,11 @@ USHORT	RtmpUSB_WriteFragTxResource(
 	/* For TxInfo, the length of USBDMApktLen = TXWI_SIZE + 802.11 header + payload*/
 #ifdef CONFIG_MULTI_CHANNEL
 	if ((QueIdx == QID_HCCA) && (pAd->Multi_Channel_Enable == TRUE))
-		rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(USBDMApktLen), 
+		rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(USBDMApktLen), 
 								FALSE, FIFO_EDCA2, FALSE, FALSE, 1);
 	else
 #endif /* CONFIG_MULTI_CHANNEL */
-	rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(USBDMApktLen), FALSE, FIFO_EDCA, FALSE /*NextValid*/,  FALSE, 1);
+	rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(USBDMApktLen), FALSE, FIFO_EDCA, FALSE /*NextValid*/,  FALSE, 1);
 	
 	if (fragNum == pTxBlk->TotalFragNum) 
 	{
@@ -507,11 +507,11 @@ USHORT	RtmpUSB_WriteFragTxResource(
 }
 
 
-USHORT RtmpUSB_WriteSingleTxResource(
+unsigned short RtmpUSB_WriteSingleTxResource(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
 	IN BOOLEAN bIsLast,
-	OUT	USHORT *freeCnt)
+	OUT	unsigned short *freeCnt)
 {
 	HT_TX_CONTEXT *pHTTXContext;
 	unsigned int fillOffset;
@@ -571,17 +571,17 @@ USHORT RtmpUSB_WriteSingleTxResource(
 #ifdef HDR_TRANS_SUPPORT
 #ifdef CONFIG_MULTI_CHANNEL
 	if ((QueIdx == QID_HCCA) && (pAd->Multi_Channel_Enable == TRUE))
-		rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(dma_len), FALSE, FIFO_EDCA2, FALSE /*NextValid*/,  FALSE, pTxBlk->NeedTrans?0:1);
+		rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(dma_len), FALSE, FIFO_EDCA2, FALSE /*NextValid*/,  FALSE, pTxBlk->NeedTrans?0:1);
 	else
 #endif /* CONFIG_MULTI_CHANNEL */
-		rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(dma_len), FALSE, FIFO_EDCA, FALSE /*NextValid*/,  FALSE, pTxBlk->NeedTrans?0:1);
+		rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(dma_len), FALSE, FIFO_EDCA, FALSE /*NextValid*/,  FALSE, pTxBlk->NeedTrans?0:1);
 #else
 #ifdef CONFIG_MULTI_CHANNEL
 	if ((QueIdx == QID_HCCA) && (pAd->Multi_Channel_Enable == TRUE))
-		rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(dma_len), FALSE, FIFO_EDCA2, FALSE /*NextValid*/,  FALSE, 1);
+		rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(dma_len), FALSE, FIFO_EDCA2, FALSE /*NextValid*/,  FALSE, 1);
 	else
 #endif /* CONFIG_MULTI_CHANNEL */
-		rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(dma_len), FALSE, FIFO_EDCA, FALSE /*NextValid*/,  FALSE, 1);
+		rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(dma_len), FALSE, FIFO_EDCA, FALSE /*NextValid*/,  FALSE, 1);
 #endif /* HDR_TRANS_SUPPORT */
 
 
@@ -692,14 +692,14 @@ USHORT RtmpUSB_WriteSingleTxResource(
 }
 
 
-USHORT RtmpUSB_WriteMultiTxResource(
+unsigned short RtmpUSB_WriteMultiTxResource(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
 	IN unsigned char frmNum,
-	OUT USHORT *freeCnt)
+	OUT unsigned short *freeCnt)
 {
 	HT_TX_CONTEXT *pHTTXContext;
-	USHORT hwHdrLen;	/* The hwHdrLen consist of 802.11 header length plus the header padding length.*/
+	unsigned short hwHdrLen;	/* The hwHdrLen consist of 802.11 header length plus the header padding length.*/
 	unsigned int fillOffset;
 	TXINFO_STRUC *pTxInfo;
 	TXWI_STRUC *pTxWI;
@@ -760,11 +760,11 @@ USHORT RtmpUSB_WriteMultiTxResource(
 			/*	pTxInfo->USBDMApktLen now just a temp value and will to correct latter.*/
 #ifdef CONFIG_MULTI_CHANNEL
 			if ((QueIdx == QID_HCCA) && (pAd->Multi_Channel_Enable == TRUE))
-				rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(pTxBlk->Priv), FALSE, FIFO_EDCA2, FALSE /*NextValid*/,  FALSE, 1);
+				rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(pTxBlk->Priv), FALSE, FIFO_EDCA2, FALSE /*NextValid*/,  FALSE, 1);
 			else
 #endif /* CONFIG_MULTI_CHANNEL */
 
-			rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(pTxBlk->Priv), FALSE, FIFO_EDCA, FALSE /*NextValid*/,  FALSE, 1);
+			rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(pTxBlk->Priv), FALSE, FIFO_EDCA, FALSE /*NextValid*/,  FALSE, 1);
 			
 			/* Copy it.*/
 			NdisMoveMemory(pWirelessPacket, pTxBlk->HeaderBuf, pTxBlk->Priv); 
@@ -834,8 +834,8 @@ done:
 VOID RtmpUSB_FinalWriteTxResource(
 	IN RTMP_ADAPTER	*pAd,
 	IN TX_BLK *pTxBlk,
-	IN USHORT totalMPDUSize,
-	IN USHORT TxIdx)
+	IN unsigned short totalMPDUSize,
+	IN unsigned short TxIdx)
 {
 	unsigned char			QueIdx;
 	HT_TX_CONTEXT	*pHTTXContext;
@@ -942,7 +942,7 @@ VOID RtmpUSB_FinalWriteTxResource(
 VOID RtmpUSBDataLastTxIdx(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
-	IN USHORT TxIdx)
+	IN unsigned short TxIdx)
 {
 	/* DO nothing for USB.*/
 }
@@ -998,7 +998,7 @@ int RtmpUSBMgmtKickOut(
 
 	/* Build our URB for USBD*/
 	BulkOutSize = (SrcBufLen + 3) & (~3);
-	rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(BulkOutSize - TXINFO_SIZE), TRUE, EpToQueue[MGMTPIPEIDX], FALSE,  FALSE, 1);
+	rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(BulkOutSize - TXINFO_SIZE), TRUE, EpToQueue[MGMTPIPEIDX], FALSE,  FALSE, 1);
 	
 	BulkOutSize += 4; /* Always add 4 extra bytes at every packet.*/
 
@@ -1119,7 +1119,7 @@ VOID RtmpUSBNullFrameKickOut(
 
 		RTMPZeroMemory(&pWirelessPkt[0], 100);
 		pTxInfo = (TXINFO_STRUC *)&pWirelessPkt[0];
-		rlt_usb_write_txinfo(pAd, pTxInfo, (USHORT)(frameLen + TXWISize + TSO_SIZE), TRUE, EpToQueue[MGMTPIPEIDX], FALSE,  FALSE, 1);
+		rlt_usb_write_txinfo(pAd, pTxInfo, (unsigned short)(frameLen + TXWISize + TSO_SIZE), TRUE, EpToQueue[MGMTPIPEIDX], FALSE,  FALSE, 1);
 		pTxInfo->TxInfoQSEL = FIFO_EDCA;
 		pTxWI = (TXWI_STRUC *)&pWirelessPkt[TXINFO_SIZE];
 		RTMPWriteTxWI(pAd, pTxWI,  FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, 0, BSSID_WCID, frameLen,

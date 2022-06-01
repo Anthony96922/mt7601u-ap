@@ -53,9 +53,9 @@ struct CMD_UNIT {
 		} MCU51;
 		struct {
 			unsigned char Type;
-			USHORT CmdPayloadLen;
+			unsigned short CmdPayloadLen;
 			unsigned char * CmdPayload;
-			USHORT RspPayloadLen;
+			unsigned short RspPayloadLen;
 			unsigned char * RspPayload;
 			unsigned long Timeout;
 			BOOLEAN NeedRsp;
@@ -80,7 +80,7 @@ struct CMD_RSP_EVENT {
 	BOOLEAN NeedWait;
 	void *	AckDone;
 	unsigned char **RspPayload;
-	USHORT *RspPayloadLen;
+	unsigned short *RspPayloadLen;
 };
 
 VOID ChipOpsMCUHook(struct _RTMP_ADAPTER *pAd, enum MCU_TYPE MCUType);

@@ -156,7 +156,7 @@ VOID RTMPHwSendNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char TxRate,
 	IN BOOLEAN bQosNull,
-	IN USHORT PwrMgmt,
+	IN unsigned short PwrMgmt,
 	IN CHAR Index)
 {
 

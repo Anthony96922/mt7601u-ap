@@ -84,7 +84,7 @@ MAC_TABLE_ENTRY *MacTableInsertWDSEntry(
 
 BOOLEAN MacTableDeleteWDSEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN USHORT wcid,
+	IN unsigned short wcid,
 	IN unsigned char * pAddr);
 
 
@@ -130,7 +130,7 @@ VOID AsicUpdateWdsEncryption(
 VOID WdsPeerBeaconProc(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN USHORT CapabilityInfo,
+	IN unsigned short CapabilityInfo,
 	IN unsigned char MaxSupportedRateIn500Kbps,
 	IN unsigned char MaxSupportedRateLen,
 	IN BOOLEAN bWmmCapable,

@@ -763,10 +763,10 @@ VOID ATESampleRssi(
 }
 
 
-VOID rt_ee_read_all(PRTMP_ADAPTER pAd, USHORT *Data)
+VOID rt_ee_read_all(PRTMP_ADAPTER pAd, unsigned short *Data)
 {
-	USHORT offset = 0;
-	USHORT value;
+	unsigned short offset = 0;
+	unsigned short value;
 
 
 	for (offset = 0; offset < (EEPROM_SIZE >> 1);)
@@ -780,10 +780,10 @@ VOID rt_ee_read_all(PRTMP_ADAPTER pAd, USHORT *Data)
 }
 
 
-VOID rt_ee_write_all(PRTMP_ADAPTER pAd, USHORT *Data)
+VOID rt_ee_write_all(PRTMP_ADAPTER pAd, unsigned short *Data)
 {
-	USHORT offset = 0;
-	USHORT value;
+	unsigned short offset = 0;
+	unsigned short value;
 
 
 #ifdef RTMP_FLASH_SUPPORT
@@ -801,7 +801,7 @@ VOID rt_ee_write_all(PRTMP_ADAPTER pAd, USHORT *Data)
 #ifdef MT7601
 		if ( IS_MT7601(pAd) )
 		{
-			USHORT	length = 0x100;
+			unsigned short	length = 0x100;
 			unsigned char	*ptr = (unsigned char *)Data;
 			unsigned char	index;
 			unsigned char	AllFF[16] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
@@ -811,7 +811,7 @@ VOID rt_ee_write_all(PRTMP_ADAPTER pAd, USHORT *Data)
 				{
 					for ( index = 0 ; index < 16 ; index += 2 )
 					{
-						value = *(USHORT *)(ptr + index);
+						value = *(unsigned short *)(ptr + index);
 						eFuseWrite(pAd, offset + index ,&value, 2);
 					}
 				}
@@ -824,8 +824,8 @@ VOID rt_ee_write_all(PRTMP_ADAPTER pAd, USHORT *Data)
 		else
 #endif /* MT7601 */
 		{
-			USHORT offset = 0;
-			USHORT length = EEPROM_SIZE;
+			unsigned short offset = 0;
+			unsigned short length = EEPROM_SIZE;
 
 			RTUSBWriteEEPROM(pAd, offset, (unsigned char *)Data, length);
 			return;
@@ -844,11 +844,11 @@ VOID rt_ee_write_all(PRTMP_ADAPTER pAd, USHORT *Data)
 }
 
 
-VOID rt_ee_write_bulk(PRTMP_ADAPTER pAd, USHORT *Data, USHORT offset, USHORT length)
+VOID rt_ee_write_bulk(PRTMP_ADAPTER pAd, unsigned short *Data, unsigned short offset, unsigned short length)
 {
-	USHORT pos;
-	USHORT value;
-	USHORT len = length;
+	unsigned short pos;
+	unsigned short value;
+	unsigned short len = length;
 
 
 	for (pos = 0; pos < (len >> 1);)
@@ -1268,7 +1268,7 @@ VOID ATEDisableAsicProtect(
 {
 	PROT_CFG_STRUC	ProtCfg, ProtCfg4;
 	unsigned int Protect[6];
-	USHORT			offset;
+	unsigned short			offset;
 	unsigned char			step;
 	unsigned int MacReg = 0;
 
@@ -3911,7 +3911,7 @@ INT	Set_ATE_TX_MODE_Proc(
 	{
 		if (pATEInfo->TxWI.TxWIPHYMODE == MODE_CCK)
 		{
-			USHORT value;
+			unsigned short value;
 			unsigned char  rf_offset;
 			unsigned char  rf_value;
 
@@ -3949,7 +3949,7 @@ INT	Set_ATE_TX_MODE_Proc(
 		}
 		else
 		{
-			USHORT value;
+			unsigned short value;
 			unsigned char  rf_offset;
 			unsigned char  rf_value;
 
@@ -4138,7 +4138,7 @@ INT Set_ATE_Load_E2P_Proc(
 	char *			src = EEPROM_BIN_FILE_NAME;
 	RTMP_OS_FD		srcf;
 	INT32 			retval;
-	USHORT 			WriteEEPROM[(EEPROM_SIZE >> 1)];
+	unsigned short 			WriteEEPROM[(EEPROM_SIZE >> 1)];
 	INT				FileLength = 0;
 	unsigned int 			value = (unsigned int) simple_strtol(arg, 0, 10);
 	RTMP_OS_FS_INFO	osFSInfo;
@@ -4260,11 +4260,11 @@ INT Set_ATE_Read_E2P_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	USHORT buffer[EEPROM_SIZE >> 1];
-	USHORT *p;
+	unsigned short buffer[EEPROM_SIZE >> 1];
+	unsigned short *p;
 	int i;
 	
-	rt_ee_read_all(pAd, (USHORT *)buffer);
+	rt_ee_read_all(pAd, (unsigned short *)buffer);
 	p = buffer;
 	for (i = 0; i < (EEPROM_SIZE >> 1); i++)
 	{
@@ -4596,7 +4596,7 @@ INT Set_ATE_TXBF_INIT_Proc(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	int val;
-	USHORT eepromVal;
+	unsigned short eepromVal;
 	unsigned char cmdStr[32];
 	
 	val = simple_strtol(arg, 0, 10);
@@ -4751,7 +4751,7 @@ INT Set_ATE_TXBF_GOLDEN_Proc(
 {
 	unsigned char ch;
 	unsigned char cmdStr[32];
-	USHORT eepromVal;
+	unsigned short eepromVal;
 	
 	ch = simple_strtol(arg, 0, 10);
 	if (rtmp_ate_txbf_cal_valid_ch(pAd, ch) == FALSE)
@@ -5392,7 +5392,7 @@ INT RT335xATETssiCalibrationExtend(
 	CHAR		TssiRefPerChannel[CFG80211_NUM_OF_CHAN_2GHZ], TssiDeltaPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
 	unsigned char		CurrentChannel;
 	unsigned char		BbpData = 0;
-	USHORT		EEPData;
+	unsigned short		EEPData;
 
 	if (pAd->ate.bTSSICalbrEnableG == FALSE)
 	{

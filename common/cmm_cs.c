@@ -334,7 +334,7 @@ INT Set_CarrierCriteria_Proc(
 	pAd->CommonCfg.CarrierDetect.criteria = Value;
 #ifdef CARRIER_DETECTION_FIRMWARE_SUPPORT
 	{
-		USHORT sVal = (USHORT) (Value >> 6); /* convert unit from 16us to ms:(2^4 /2^10)  */
+		unsigned short sVal = (unsigned short) (Value >> 6); /* convert unit from 16us to ms:(2^4 /2^10)  */
 		RTUSBMultiWrite(pAd, CD_CRITERIA, (unsigned char *) &sVal, 2, FALSE);
 		/* send enable cmd to mcu to take effect */
 		AsicSendCommandToMcu(pAd, CD_ONOFF_MCU_CMD, 0xff, 0x01, 0x00, FALSE);
@@ -613,7 +613,7 @@ VOID CarrierDetectionStart(PRTMP_ADAPTER pAd)
 		ToneRadarProgram(pAd);
 #ifdef CARRIER_DETECTION_FIRMWARE_SUPPORT
 		{
-		USHORT criteria = (USHORT) (pAd->CommonCfg.CarrierDetect.criteria >> 6); /* convert unit from 16us to 1ms:(2^4 /2^10)  */
+		unsigned short criteria = (unsigned short) (pAd->CommonCfg.CarrierDetect.criteria >> 6); /* convert unit from 16us to 1ms:(2^4 /2^10)  */
 		RTUSBMultiWrite(pAd, CD_CRITERIA, (unsigned char *) &criteria, 2, FALSE);
 		RTMP_IO_WRITE8(pAd, CD_CHECK_COUNT, pAd->CommonCfg.CarrierDetect.recheck1);
 		AsicSendCommandToMcu(pAd, CD_ONOFF_MCU_CMD, 0xff, 0x01, 0x00, FALSE);

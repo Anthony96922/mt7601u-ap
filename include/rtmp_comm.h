@@ -371,45 +371,45 @@ typedef struct  _PACKET_INFO    {
     typedef struct GNU_PACKED {
 	
 #ifdef RT_BIG_ENDIAN
-	USHORT Order:1;		/* Strict order expected */
-	USHORT Wep:1;		/* Wep data */
-	USHORT MoreData:1;	/* More data bit */
-	USHORT PwrMgmt:1;	/* Power management bit */
-	USHORT Retry:1;		/* Retry status bit */
-	USHORT MoreFrag:1;	/* More fragment bit */
-	USHORT FrDs:1;		/* From DS indication */
-	USHORT ToDs:1;		/* To DS indication */
-	USHORT SubType:4;	/* MSDU subtype */
-	USHORT Type:2;		/* MSDU type */
-	USHORT Ver:2;		/* Protocol version */
+	unsigned short Order:1;		/* Strict order expected */
+	unsigned short Wep:1;		/* Wep data */
+	unsigned short MoreData:1;	/* More data bit */
+	unsigned short PwrMgmt:1;	/* Power management bit */
+	unsigned short Retry:1;		/* Retry status bit */
+	unsigned short MoreFrag:1;	/* More fragment bit */
+	unsigned short FrDs:1;		/* From DS indication */
+	unsigned short ToDs:1;		/* To DS indication */
+	unsigned short SubType:4;	/* MSDU subtype */
+	unsigned short Type:2;		/* MSDU type */
+	unsigned short Ver:2;		/* Protocol version */
 #else
-        USHORT Ver:2;		/* Protocol version */
-	USHORT Type:2;		/* MSDU type */
-	USHORT SubType:4;	/* MSDU subtype */
-	USHORT ToDs:1;		/* To DS indication */
-	USHORT FrDs:1;		/* From DS indication */
-	USHORT MoreFrag:1;	/* More fragment bit */
-	USHORT Retry:1;		/* Retry status bit */
-	USHORT PwrMgmt:1;	/* Power management bit */
-	USHORT MoreData:1;	/* More data bit */
-	USHORT Wep:1;		/* Wep data */
-	USHORT Order:1;		/* Strict order expected */
+        unsigned short Ver:2;		/* Protocol version */
+	unsigned short Type:2;		/* MSDU type */
+	unsigned short SubType:4;	/* MSDU subtype */
+	unsigned short ToDs:1;		/* To DS indication */
+	unsigned short FrDs:1;		/* From DS indication */
+	unsigned short MoreFrag:1;	/* More fragment bit */
+	unsigned short Retry:1;		/* Retry status bit */
+	unsigned short PwrMgmt:1;	/* Power management bit */
+	unsigned short MoreData:1;	/* More data bit */
+	unsigned short Wep:1;		/* Wep data */
+	unsigned short Order:1;		/* Strict order expected */
 #endif	/* !RT_BIG_ENDIAN */
 } FRAME_CONTROL, *PFRAME_CONTROL;
 
 
 typedef struct GNU_PACKED _HEADER_802_11 {
         FRAME_CONTROL   FC;
-        USHORT          Duration;
+        unsigned short          Duration;
         unsigned char           Addr1[MAC_ADDR_LEN];
         unsigned char           Addr2[MAC_ADDR_LEN];
 	unsigned char			Addr3[MAC_ADDR_LEN];
 #ifdef RT_BIG_ENDIAN
-	USHORT			Sequence:12;
-	USHORT			Frag:4;
+	unsigned short			Sequence:12;
+	unsigned short			Frag:4;
 #else
-	USHORT			Frag:4;
-	USHORT			Sequence:12;
+	unsigned short			Frag:4;
+	unsigned short			Sequence:12;
 #endif /* !RT_BIG_ENDIAN */
 	unsigned char			Octet[0];
 }	HEADER_802_11, *PHEADER_802_11;

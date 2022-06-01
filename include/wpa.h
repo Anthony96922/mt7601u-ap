@@ -245,7 +245,7 @@ int RtmpPasswordHash(
 	IN unsigned char * data,
 	IN INT data_len,
 	OUT unsigned char * output,
-	IN USHORT len);
+	IN unsigned short len);
 
 unsigned char * WPA_ExtractSuiteFromRSNIE(
 	IN unsigned char * rsnie,

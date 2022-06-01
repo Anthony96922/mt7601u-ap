@@ -235,7 +235,7 @@ BOOLEAN	WscGenV2Msg(
 	OUT	INT				*pOutBufLen)
 {
 	unsigned char *			pWscV2Msg = NULL;
-	USHORT			WscV2MsgLen = 0;
+	unsigned short			WscV2MsgLen = 0;
 	PWSC_REG_DATA	pReg = &pWpsCtrl->RegData;
 	INT				templen = 0;
 		
@@ -249,7 +249,7 @@ BOOLEAN	WscGenV2Msg(
 
 		/* Version2 */
 		WscAppendV2SubItem(WFA_EXT_ID_VERSION2, &pReg->SelfInfo.Version2, 1, pWscV2Msg+3, &TmpLen);
-		WscV2MsgLen += (3 + (USHORT)TmpLen);
+		WscV2MsgLen += (3 + (unsigned short)TmpLen);
 
 		if (bSelRegistrar)
 		{
@@ -265,7 +265,7 @@ BOOLEAN	WscGenV2Msg(
 									AuthorizedMACsLen, 
 									pWscV2Msg+WscV2MsgLen, 
 									&TmpLen	);
-				WscV2MsgLen += (USHORT)TmpLen;
+				WscV2MsgLen += (unsigned short)TmpLen;
 			}
 			else
 			{
@@ -274,7 +274,7 @@ BOOLEAN	WscGenV2Msg(
 									MAC_ADDR_LEN, 
 									pWscV2Msg+WscV2MsgLen, 
 									&TmpLen	);
-				WscV2MsgLen += (USHORT)TmpLen;
+				WscV2MsgLen += (unsigned short)TmpLen;
 			}
 		}
 
@@ -314,12 +314,12 @@ BOOLEAN	WscAppendV2SubItem(
 BOOLEAN	WscParseV2SubItem(
 	IN	unsigned char			SubID,
 	IN	unsigned char *			pData,
-	IN	USHORT			DataLen,
+	IN	unsigned short			DataLen,
 	OUT	unsigned char *			pOutBuf,
 	OUT	unsigned char *			pOutBufLen)
 {
 	PEID_STRUCT   pEid;
-	USHORT		  Length = 0;
+	unsigned short		  Length = 0;
 	pEid = (PEID_STRUCT) (pData + 3);
 	hex_dump("WscParseV2SubItem - pData", (pData+3), DataLen-3);
 	while ((Length + 2 + pEid->Len) <= (DataLen-3))

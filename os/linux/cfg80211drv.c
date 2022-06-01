@@ -42,7 +42,7 @@ INT CFG80211DRV_IoctlHandle(
 	IN	VOID					*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
-	IN	USHORT					subcmd,
+	IN	unsigned short					subcmd,
 	IN	VOID					*pData,
 	IN	unsigned long					Data)
 {
@@ -461,7 +461,7 @@ VOID CFG80211DRV_OpsChangeBssParm(
 		CFG80211DBG(RT_DEBUG_TRACE, ("%s: ShortPreamble %d\n", __FUNCTION__, pBssInfo->use_short_preamble));
         	pAd->CommonCfg.TxPreamble = (pBssInfo->use_short_preamble == 0 ? Rt802_11PreambleLong : Rt802_11PreambleShort);	
 		TxPreamble = (pAd->CommonCfg.TxPreamble == Rt802_11PreambleLong ? 0 : 1);
-		MlmeSetTxPreamble(pAd, (USHORT)pAd->CommonCfg.TxPreamble);			
+		MlmeSetTxPreamble(pAd, (unsigned short)pAd->CommonCfg.TxPreamble);			
 	}
 	
 	/* CTS Protection */
@@ -841,7 +841,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 		pAd->MacTab.Content[0].HTPhyMode.field.MCS = 3;
 
 		AsicBBPAdjust(pAd);
-		//MlmeSetTxPreamble(pAd, (USHORT)pAd->CommonCfg.TxPreamble);	
+		//MlmeSetTxPreamble(pAd, (unsigned short)pAd->CommonCfg.TxPreamble);	
 	
 		{
 			unsigned long	Addr4;

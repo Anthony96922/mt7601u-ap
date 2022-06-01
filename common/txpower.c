@@ -699,8 +699,8 @@ VOID AsicCompensatePowerViaBBP(
 VOID RTMPReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 {
 	unsigned long data, Adata, Gdata;
-	USHORT i, value, value2;
-	USHORT value_1, value_2, value_3, value_4;
+	unsigned short i, value, value2;
+	unsigned short value_1, value_2, value_3, value_4;
 	INT Apwrdelta, Gpwrdelta;
 	unsigned char t1, t2, t3, t4;
 	BOOLEAN bApwrdeltaMinus = TRUE, bGpwrdeltaMinus = TRUE;

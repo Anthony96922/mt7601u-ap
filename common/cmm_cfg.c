@@ -778,7 +778,7 @@ INT RTMP_COM_IoctlHandle(
 	IN	VOID			*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT			cmd,
-	IN	USHORT			subcmd,
+	IN	unsigned short			subcmd,
 	IN	VOID			*pData,
 	IN	unsigned long			Data)
 {
@@ -786,7 +786,7 @@ INT RTMP_COM_IoctlHandle(
 	POS_COOKIE pObj = (POS_COOKIE)pAd->OS_Cookie;
 	INT Status = NDIS_STATUS_SUCCESS, i;
 	unsigned char PermanentAddress[MAC_ADDR_LEN];
-	USHORT Addr01, Addr23, Addr45;
+	unsigned short Addr01, Addr23, Addr45;
 
 
 	pObj = pObj; /* avoid compile warning */

@@ -344,7 +344,7 @@ BOOLEAN RTMPReplayAttackDetection(
 
 VOID RTMPUpdateStaMgmtCounter(
 	IN PRTMP_ADAPTER	pAd,
-	IN USHORT			type)
+	IN unsigned short			type)
 {
 		
 	switch (type)

@@ -44,7 +44,6 @@ typedef short INT16;
 typedef int INT32;
 typedef long long INT64;
 
-typedef unsigned short USHORT;
 typedef unsigned int UINT;
 #endif /* LINUX */
 

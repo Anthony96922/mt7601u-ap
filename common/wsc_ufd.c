@@ -78,7 +78,7 @@ static const STRING *XML_TEMPLATE =
 
 static struct {
 	char * auth_str;
-	USHORT	auth_type;
+	unsigned short	auth_type;
 } *PWSC_UFD_AUTH_TYPE, WSC_UFD_AUTH_TYPE[] = {
 	{"open", 	WSC_AUTHTYPE_OPEN},
 	{"shared",	WSC_AUTHTYPE_SHARED},
@@ -92,7 +92,7 @@ static struct {
 
 static struct {
 	char * encr_str;
-	USHORT	encr_type;
+	unsigned short	encr_type;
 } *PWSC_UFD_ENCR_TYPE, WSC_UFD_ENCR_TYPE[] = {
 	{"none", 	WSC_ENCRTYPE_NONE},
 	{"WEP",		WSC_ENCRTYPE_WEP},
@@ -177,7 +177,7 @@ BOOLEAN WscGetXmlSSID(
 
 BOOLEAN WscGetXmlAuth(
 	IN	STRING	*pXmlData,
-	OUT USHORT	*pAuthType)
+	OUT unsigned short	*pAuthType)
 {
 	STRING	*ptr, *pBuffer = pXmlData;
 	STRING	AuthStr[10] = {0};
@@ -221,7 +221,7 @@ BOOLEAN WscGetXmlAuth(
 
 BOOLEAN WscGetXmlEncr(
 	IN	STRING	*pXmlData,
-	OUT USHORT	*pEncrType)
+	OUT unsigned short	*pEncrType)
 {
 	STRING	*ptr, *pBuffer = pXmlData;
 	STRING	EncrStr[10] = {0};
@@ -266,7 +266,7 @@ BOOLEAN WscGetXmlEncr(
 BOOLEAN WscGetXmlKey(
 	IN	STRING	*pXmlData,
 	OUT unsigned char	*pKey,
-	OUT USHORT	*pKeyLen)
+	OUT unsigned short	*pKeyLen)
 {
 	STRING	*ptr, *pBuffer = pXmlData;
 	UINT	KeyLen = 0;

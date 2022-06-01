@@ -437,26 +437,26 @@ enum RXWI_FRQ_OFFSET_FIELD {
 #ifdef RT_BIG_ENDIAN
 typedef union _EEPROM_ANTENNA_STRUC {
 	struct {
-		USHORT RssiIndicationMode:1; 	/* RSSI indication mode */
-		USHORT Rsv:1;
-		USHORT BoardType:2; 		/* 0: mini card; 1: USB pen */
-		USHORT RfIcType:4;			/* see E2PROM document */
-		USHORT TxPath:4;			/* 1: 1T, 2: 2T, 3: 3T */
-		USHORT RxPath:4;			/* 1: 1R, 2: 2R, 3: 3R */
+		unsigned short RssiIndicationMode:1; 	/* RSSI indication mode */
+		unsigned short Rsv:1;
+		unsigned short BoardType:2; 		/* 0: mini card; 1: USB pen */
+		unsigned short RfIcType:4;			/* see E2PROM document */
+		unsigned short TxPath:4;			/* 1: 1T, 2: 2T, 3: 3T */
+		unsigned short RxPath:4;			/* 1: 1R, 2: 2R, 3: 3R */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_ANTENNA_STRUC, *PEEPROM_ANTENNA_STRUC;
 #else
 typedef union _EEPROM_ANTENNA_STRUC {
 	struct {
-		USHORT RxPath:4;			/* 1: 1R, 2: 2R, 3: 3R */
-		USHORT TxPath:4;			/* 1: 1T, 2: 2T, 3: 3T */
-		USHORT RfIcType:4;			/* see E2PROM document */
-		USHORT BoardType:2; 		/* 0: mini card; 1: USB pen */
-		USHORT Rsv:1;
-		USHORT RssiIndicationMode:1; 	/* RSSI indication mode */	
+		unsigned short RxPath:4;			/* 1: 1R, 2: 2R, 3: 3R */
+		unsigned short TxPath:4;			/* 1: 1T, 2: 2T, 3: 3T */
+		unsigned short RfIcType:4;			/* see E2PROM document */
+		unsigned short BoardType:2; 		/* 0: mini card; 1: USB pen */
+		unsigned short Rsv:1;
+		unsigned short RssiIndicationMode:1; 	/* RSSI indication mode */	
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_ANTENNA_STRUC, *PEEPROM_ANTENNA_STRUC;
 #endif
 
@@ -465,10 +465,10 @@ typedef union _EEPROM_ANTENNA_STRUC {
   *   EEPROM operation related marcos
   */
 #define RT28xx_EEPROM_READ16(_pAd, _offset, _value)			\
-	(_pAd)->chipOps.eeread((RTMP_ADAPTER *)(_pAd), (USHORT)(_offset), (unsigned short *)&(_value))
+	(_pAd)->chipOps.eeread((RTMP_ADAPTER *)(_pAd), (unsigned short)(_offset), (unsigned short *)&(_value))
 
 #define RT28xx_EEPROM_WRITE16(_pAd, _offset, _value)		\
-	(_pAd)->chipOps.eewrite((RTMP_ADAPTER *)(_pAd), (USHORT)(_offset), (USHORT)(_value))
+	(_pAd)->chipOps.eewrite((RTMP_ADAPTER *)(_pAd), (unsigned short)(_offset), (unsigned short)(_value))
 
 
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) 
@@ -690,15 +690,15 @@ typedef enum _CHIP_SPEC_ID
 struct _RTMP_CHIP_OP_ {
 	/*  Calibration access related callback functions */
 	int (*eeinit)(struct _RTMP_ADAPTER *pAd);
-	int (*eeread)(struct _RTMP_ADAPTER *pAd, USHORT offset, unsigned short * pValue);
-	int (*eewrite)(struct _RTMP_ADAPTER *pAd, USHORT offset, USHORT value);
+	int (*eeread)(struct _RTMP_ADAPTER *pAd, unsigned short offset, unsigned short * pValue);
+	int (*eewrite)(struct _RTMP_ADAPTER *pAd, unsigned short offset, unsigned short value);
 
 	/* MCU related callback functions */
 	int (*loadFirmware)(struct _RTMP_ADAPTER *pAd);
 	int (*eraseFirmware)(struct _RTMP_ADAPTER *pAd);
 	int (*sendCommandToMcu)(struct _RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1, BOOLEAN FlgIsNeedLocked);	/* int (*sendCommandToMcu)(RTMP_ADAPTER *pAd, unsigned char cmd, unsigned char token, unsigned char arg0, unsigned char arg1); */
 #ifdef CONFIG_ANDES_SUPPORT
-	int (*sendCommandToAndesMcu)(struct _RTMP_ADAPTER *pAd, unsigned char QueIdx, unsigned char cmd, unsigned char *pData, USHORT DataLen, BOOLEAN FlgIsNeedLocked);
+	int (*sendCommandToAndesMcu)(struct _RTMP_ADAPTER *pAd, unsigned char QueIdx, unsigned char cmd, unsigned char *pData, unsigned short DataLen, BOOLEAN FlgIsNeedLocked);
 #endif /* CONFIG_ANDES_SUPPORT */
 
 	void (*AsicRfInit)(struct _RTMP_ADAPTER *pAd);
@@ -718,7 +718,7 @@ struct _RTMP_CHIP_OP_ {
 	VOID (*RxSensitivityTuning)(IN struct _RTMP_ADAPTER *pAd);
 
 	/* MAC */
-	VOID (*BeaconUpdate)(struct _RTMP_ADAPTER *pAd, USHORT Offset, unsigned int Value, unsigned char Unit);
+	VOID (*BeaconUpdate)(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned int Value, unsigned char Unit);
 
 	/* BBP adjust */
 	VOID (*ChipBBPAdjust)(IN struct _RTMP_ADAPTER *pAd);
@@ -1054,13 +1054,13 @@ VOID rlt_bcn_buf_init(struct _RTMP_ADAPTER *pAd);
 
 VOID RtmpChipWriteHighMemory(
 	IN	struct _RTMP_ADAPTER *pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	IN	unsigned int			Value,
 	IN	unsigned char			Unit);
 
 VOID RtmpChipWriteMemory(
 	IN	struct _RTMP_ADAPTER *pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	IN	unsigned int			Value,
 	IN	unsigned char			Unit);
 

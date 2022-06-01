@@ -1016,7 +1016,7 @@ VOID RTMPGetWapiTxTscFromAsic(
 	IN	UINT			Wcid,
 	OUT	unsigned char			*tx_tsc)
 {
-	USHORT			offset;	
+	unsigned short			offset;	
 	int				i;
 
 	if (IS_HW_WAPI_SUPPORT(pAd))

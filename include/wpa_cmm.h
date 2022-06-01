@@ -167,13 +167,13 @@ typedef enum _Dot1xInternalCmd {
 typedef struct _IEEE8021X_FRAME {
 	unsigned char Version;		/* 1.0 */
 	unsigned char Type;		/* 0 = EAP Packet */
-	USHORT Length;
+	unsigned short Length;
 } IEEE8021X_FRAME, *PIEEE8021X_FRAME;
 
 typedef struct GNU_PACKED _RSN_IE_HEADER_STRUCT {
 	unsigned char Eid;
 	unsigned char Length;
-	USHORT Version;		/* Little endian format */
+	unsigned short Version;		/* Little endian format */
 } RSN_IE_HEADER_STRUCT, *PRSN_IE_HEADER_STRUCT;
 
 /* Cipher suite selector types */
@@ -190,11 +190,11 @@ typedef struct GNU_PACKED _AKM_SUITE_STRUCT {
 
 /* RSN capability */
 typedef struct GNU_PACKED _RSN_CAPABILITY {
-	USHORT Rsv:10;
-	USHORT GTKSAReplayCnt:2;
-	USHORT PTKSAReplayCnt:2;
-	USHORT NoPairwise:1;
-	USHORT PreAuth:1;
+	unsigned short Rsv:10;
+	unsigned short GTKSAReplayCnt:2;
+	unsigned short PTKSAReplayCnt:2;
+	unsigned short NoPairwise:1;
+	unsigned short PreAuth:1;
 } RSN_CAPABILITY, *PRSN_CAPABILITY;
 
 typedef struct _CIPHER_KEY {

@@ -186,7 +186,7 @@ typedef struct _MATProtoOps
 
 typedef struct _MATProtoTable
 {
-	USHORT 			protocol;
+	unsigned short 			protocol;
 	MATProtoOps		*pHandle;
 }MATProtoTable, *PMATProtoTable;
 

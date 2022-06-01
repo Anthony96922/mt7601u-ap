@@ -340,7 +340,7 @@ BOOLEAN MulticastFilterTableDeleteEntry(
 	IN unsigned char * pMemberAddr,
 	IN PNET_DEV dev)
 {
-	USHORT HashIdx;
+	unsigned short HashIdx;
 	MULTICAST_FILTER_TABLE_ENTRY *pEntry, *pPrevEntry;
 	PMULTICAST_FILTER_TABLE pMulticastFilterTable = pAd->pMulticastFilterTable;
 
@@ -372,7 +372,7 @@ BOOLEAN MulticastFilterTableDeleteEntry(
 		/* check the rule is in table already or not. */
 		if (pEntry && (pMemberAddr != NULL))
 		{
-			/*USHORT Aid = MCAST_WCID; */
+			/*unsigned short Aid = MCAST_WCID; */
 			/*SST	Sst = SST_ASSOC; */
 			/*unsigned char PsMode = PWR_ACTIVE, Rate; */
 			/*if(APSsPsInquiry(pAd, pMemberAddr, &Sst, &Aid, &PsMode, &Rate)) */
@@ -1034,7 +1034,7 @@ NDIS_STATUS IgmpPktClone(
 	PNDIS_PACKET pSkbClone = NULL;
 	PMEMBER_ENTRY pMemberEntry = NULL;
 	MAC_TABLE_ENTRY *pMacEntry = NULL;
-	USHORT Aid;
+	unsigned short Aid;
 	SST	Sst = SST_ASSOC;
 	unsigned char PsMode = PWR_ACTIVE;
 	unsigned char Rate;

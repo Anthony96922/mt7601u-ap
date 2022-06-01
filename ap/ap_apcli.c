@@ -136,7 +136,7 @@ VOID ApCliMgtMacHeaderInit(
     IN unsigned char ToDs, 
     IN unsigned char * pDA, 
     IN unsigned char * pBssid,
-    IN USHORT ifIndex)
+    IN unsigned short ifIndex)
 {
     NdisZeroMemory(pHdr80211, sizeof(HEADER_802_11));
     pHdr80211->FC.Type = BTYPE_MGMT;
@@ -167,7 +167,7 @@ VOID ApCliMgtMacHeaderInit(
 */
 BOOLEAN ApCliCheckHt(
 	IN RTMP_ADAPTER *pAd,
-	IN USHORT IfIndex,
+	IN unsigned short IfIndex,
 	INOUT HT_CAPABILITY_IE *pHtCapability,
 	INOUT ADD_HT_INFO_IE *pAddHtInfo)
 {
@@ -814,7 +814,7 @@ BOOLEAN ApCliMsgTypeSubst(
 	OUT INT *Machine, 
 	OUT INT *MsgType)
 {
-	USHORT Seq;
+	unsigned short Seq;
 	unsigned char EAPType; 
 	BOOLEAN Return = FALSE;
 #ifdef WSC_AP_SUPPORT
@@ -869,7 +869,7 @@ BOOLEAN ApCliMsgTypeSubst(
 
 			case SUBTYPE_AUTH:
 				/* get the sequence number from payload 24 Mac Header + 2 bytes algorithm */
-				NdisMoveMemory(&Seq, &pFrame->Octet[2], sizeof(USHORT));
+				NdisMoveMemory(&Seq, &pFrame->Octet[2], sizeof(unsigned short));
 				if (Seq == 2 || Seq == 4)
 				{
 					*Machine = APCLI_AUTH_STATE_MACHINE;
@@ -950,9 +950,9 @@ BOOLEAN ApCliPeerAssocRspSanity(
     IN VOID *pMsg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
-    OUT USHORT *pCapabilityInfo, 
-    OUT USHORT *pStatus, 
-    OUT USHORT *pAid, 
+    OUT unsigned short *pCapabilityInfo, 
+    OUT unsigned short *pStatus, 
+    OUT unsigned short *pAid, 
     OUT unsigned char SupRate[], 
     OUT unsigned char *pSupRateLen,
     OUT unsigned char ExtRate[], 
@@ -1029,8 +1029,8 @@ BOOLEAN ApCliPeerAssocRspSanity(
 				if (pEid->Len >= SIZE_HT_CAP_IE)  /*Note: allow extension.!! */
 				{
 					NdisMoveMemory(pHtCapability, pEid->Octet, SIZE_HT_CAP_IE);
-					*(USHORT *) (&pHtCapability->HtCapInfo) = cpu2le16(*(USHORT *)(&pHtCapability->HtCapInfo));
-					*(USHORT *) (&pHtCapability->ExtHtCapInfo) = cpu2le16(*(USHORT *)(&pHtCapability->ExtHtCapInfo));
+					*(unsigned short *) (&pHtCapability->HtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->HtCapInfo));
+					*(unsigned short *) (&pHtCapability->ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->ExtHtCapInfo));
 					*pHtCapabilityLen = SIZE_HT_CAP_IE;
 				}
 				else
@@ -1249,8 +1249,8 @@ BOOLEAN ApCliAllowToSendPacket(
 BOOLEAN 	ApCliValidateRSNIE(
 	IN		PRTMP_ADAPTER	pAd, 
 	IN 		PEID_STRUCT    	pEid_ptr,
-	IN		USHORT			eid_len,
-	IN		USHORT			idx)
+	IN		unsigned short			eid_len,
+	IN		unsigned short			idx)
 {
 	unsigned char *              pVIE;
 	unsigned char *				pTmp;
@@ -1258,7 +1258,7 @@ BOOLEAN 	ApCliValidateRSNIE(
 	PEID_STRUCT         pEid;			
 	CIPHER_SUITE		WPA;			/* AP announced WPA cipher suite */
 	CIPHER_SUITE		WPA2;			/* AP announced WPA2 cipher suite */
-	USHORT				Count;
+	unsigned short				Count;
 	unsigned char               Sanity;	 
 	PAPCLI_STRUCT   	pApCliEntry = NULL;
 	PRSN_IE_HEADER_STRUCT			pRsnHeader;
@@ -1343,11 +1343,11 @@ BOOLEAN 	ApCliValidateRSNIE(
 				pTmp += 1;
 
 				/* Store unicast cipher count */
-			    NdisMoveMemory(&Count, pTmp, sizeof(USHORT));
+			    NdisMoveMemory(&Count, pTmp, sizeof(unsigned short));
     			Count = cpu2le16(Count);		
 
 				/* pointer to unicast cipher */
-			    pTmp += sizeof(USHORT);	
+			    pTmp += sizeof(unsigned short);	
 
 				/* Parsing all unicast cipher suite */
 				while (Count > 0)
@@ -1385,10 +1385,10 @@ BOOLEAN 	ApCliValidateRSNIE(
 				}
 			
 				/* Get AKM suite counts */
-				NdisMoveMemory(&Count, pTmp, sizeof(USHORT));
+				NdisMoveMemory(&Count, pTmp, sizeof(unsigned short));
 				Count = cpu2le16(Count);		
 
-				pTmp   += sizeof(USHORT);
+				pTmp   += sizeof(unsigned short);
 
 				/* Parse AKM ciphers */
 				/* Parsing all AKM cipher suite */
@@ -1481,10 +1481,10 @@ BOOLEAN 	ApCliValidateRSNIE(
 				pTmp += 1;
 
 				/* Get pairwise cipher counts */
-				NdisMoveMemory(&Count, pTmp, sizeof(USHORT));
+				NdisMoveMemory(&Count, pTmp, sizeof(unsigned short));
 				Count = cpu2le16(Count);
 				
-				pTmp   += sizeof(USHORT);
+				pTmp   += sizeof(unsigned short);
 
 				/* 3. Get pairwise cipher */
 				/* Parsing all unicast cipher suite */
@@ -1523,10 +1523,10 @@ BOOLEAN 	ApCliValidateRSNIE(
 				}
 
 				/* Get AKM suite counts */
-				NdisMoveMemory(&Count, pTmp, sizeof(USHORT));
+				NdisMoveMemory(&Count, pTmp, sizeof(unsigned short));
 				Count = cpu2le16(Count);		
 
-				pTmp   += sizeof(USHORT);
+				pTmp   += sizeof(unsigned short);
 
 				/* Parse AKM ciphers */
 				/* Parsing all AKM cipher suite */

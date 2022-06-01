@@ -137,7 +137,7 @@ VOID RtmpCleanupPsQueue(
 VOID RtmpHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
-	IN	USHORT			Aid,
+	IN	unsigned short			Aid,
     IN	BOOLEAN			isActive)
 { 
 	PQUEUE_ENTRY	  pEntry;

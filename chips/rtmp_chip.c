@@ -434,7 +434,7 @@ Note:
 */
 VOID RtmpChipWriteHighMemory(
 	IN RTMP_ADAPTER *pAd,
-	IN USHORT Offset,
+	IN unsigned short Offset,
 	IN unsigned int Value,
 	IN unsigned char Unit)
 {
@@ -477,7 +477,7 @@ Note:
 */
 VOID RtmpChipWriteMemory(
 	IN	RTMP_ADAPTER	*pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	IN	unsigned int			Value,
 	IN	unsigned char			Unit)
 {
@@ -752,7 +752,7 @@ unsigned int SetHWAntennaDivsersity(
 	if (Enable == TRUE)
 	{
 		unsigned char BBPValue = 0, RFValue = 0;
-		USHORT value;
+		unsigned short value;
 
 		// RF_R29 bit7:6
 		RT28xx_EEPROM_READ16(pAd, EEPROM_RSSI_GAIN, value);

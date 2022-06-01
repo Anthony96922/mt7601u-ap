@@ -713,7 +713,7 @@ VOID UAPSD_SP_AUE_Handle(
 	IN unsigned char			FlgSuccess)
 {
 #ifdef UAPSD_SP_ACCURATE
-	USHORT QueId;
+	unsigned short QueId;
 
 
 	if (pEntry == NULL)

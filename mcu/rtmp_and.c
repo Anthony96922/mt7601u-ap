@@ -95,13 +95,13 @@ NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
 	INT32 SentLen;
 	unsigned int CurLen;
 	unsigned int MACValue, Loop = 0;
-	USHORT Value;
+	unsigned short Value;
 	INT Ret;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	//struct completion SentToMCUDone;
 	VOID *SentToMCUDone;
 	unsigned int ILMLen, DLMLen;
-	USHORT FWVersion, BuildVersion;
+	unsigned short FWVersion, BuildVersion;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s\n", __FUNCTION__));
 

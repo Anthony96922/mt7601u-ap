@@ -135,7 +135,7 @@ VOID WdsEntryDel(
  */
 BOOLEAN MacTableDeleteWDSEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN USHORT wcid,
+	IN unsigned short wcid,
 	IN unsigned char * pAddr)
 {
 	if (wcid >= MAX_LEN_OF_MAC_TABLE)
@@ -295,7 +295,7 @@ MAC_TABLE_ENTRY *WdsTableLookupByWcid(
 	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount)
 {
-	/*USHORT HashIdx; */
+	/*unsigned short HashIdx; */
 	unsigned long WdsIndex;
 	PMAC_TABLE_ENTRY pCurEntry = NULL;
 	PMAC_TABLE_ENTRY pEntry = NULL;
@@ -344,7 +344,7 @@ MAC_TABLE_ENTRY *WdsTableLookup(
 	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount)
 {
-	USHORT HashIdx;
+	unsigned short HashIdx;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 
 	NdisAcquireSpinLock(&pAd->WdsTabLock);
@@ -601,7 +601,7 @@ VOID AsicUpdateWdsEncryption(
 VOID WdsPeerBeaconProc(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
-	IN USHORT CapabilityInfo,
+	IN unsigned short CapabilityInfo,
 	IN unsigned char MaxSupportedRateIn500Kbps,
 	IN unsigned char MaxSupportedRateLen,
 	IN BOOLEAN bWmmCapable,

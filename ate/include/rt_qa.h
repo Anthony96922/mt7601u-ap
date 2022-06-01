@@ -38,11 +38,11 @@
 
 typedef struct ate_racfghdr {
  	unsigned int		magic_no;
-	USHORT		command_type;
-	USHORT		command_id;
-	USHORT		length;
-	USHORT		sequence;
-	USHORT		status;
+	unsigned short		command_type;
+	unsigned short		command_id;
+	unsigned short		length;
+	unsigned short		sequence;
+	unsigned short		status;
 	unsigned char		data[2046];
 }  __attribute__((packed))RACFGHDR, *pRACFGHDR;
 

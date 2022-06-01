@@ -272,8 +272,8 @@
 #define WSC_DEVICE_TYPE_SUB_CAT_PHONE_WM        1
 
 typedef	struct _WSC_TLV_0B {
-	/*USHORT	tag;*/
-	USHORT	len;
+	/*unsigned short	tag;*/
+	unsigned short	len;
 } WSC_TLV_0B, *PWSC_TLV_0B;
 
 #endif	/* __WSC_TLV_H__ */

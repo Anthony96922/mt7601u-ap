@@ -68,8 +68,8 @@ static VOID ApCliInvalidStateWhenDisassociate(
 static VOID ApCliAssocPostProc(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr2, 
-	IN USHORT CapabilityInfo, 
-	IN USHORT IfIndex, 
+	IN unsigned short CapabilityInfo, 
+	IN unsigned short IfIndex, 
 	IN unsigned char SupRate[], 
 	IN unsigned char SupRateLen,
 	IN unsigned char ExtRate[],
@@ -177,9 +177,9 @@ static VOID ApCliMlmeAssocReqAction(
 	unsigned char            ApAddr[6];
 	HEADER_802_11    AssocHdr;
 	unsigned char            WmeIe[9] = {IE_VENDOR_SPECIFIC, 0x07, 0x00, 0x50, 0xf2, 0x02, 0x00, 0x01, 0x00};
-	USHORT           ListenIntv;
+	unsigned short           ListenIntv;
 	unsigned long            Timeout;
-	USHORT           CapabilityInfo;
+	unsigned short           CapabilityInfo;
 	unsigned char *           pOutBuffer = NULL;
 	unsigned long            FrameLen = 0;
 	unsigned long            tmp;
@@ -187,10 +187,10 @@ static VOID ApCliMlmeAssocReqAction(
 	unsigned char            SupRateIe = IE_SUPP_RATES;
 	unsigned char            ExtRateIe = IE_EXT_SUPP_RATES;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
-	USHORT			VarIesOffset = 0;
+	unsigned short			VarIesOffset = 0;
 #endif /* APCLI_WPA_SUPPLICANT_SUPPORT */
 	unsigned char RSNIe = IE_WPA;
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -292,8 +292,8 @@ static VOID ApCliMlmeAssocReqAction(
 #endif /* DOT11N_SS3_SUPPORT */
 
 #ifdef RT_BIG_ENDIAN
-        		*(USHORT *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.HtCapInfo));
-        		*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));
+        		*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
+        		*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
 #endif /* RT_BIG_ENDINA */
         		MakeOutgoingFrame(pOutBuffer + FrameLen,         &TmpLen,
         							1,                           &HtCapIe,
@@ -527,7 +527,7 @@ static VOID ApCliMlmeDisassocReqAction(
 	unsigned long                 FrameLen = 0;
 	NDIS_STATUS           NStatus;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 
 
@@ -591,7 +591,7 @@ static VOID ApCliPeerAssocRspAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	BOOLEAN				Cancelled;
-	USHORT				CapabilityInfo, Status, Aid;
+	unsigned short				CapabilityInfo, Status, Aid;
 	unsigned char				SupRate[MAX_LEN_OF_SUPPORTED_RATES], SupRateLen;
 	unsigned char				ExtRate[MAX_LEN_OF_SUPPORTED_RATES], ExtRateLen;
 	unsigned char				Addr2[MAC_ADDR_LEN];
@@ -603,7 +603,7 @@ static VOID ApCliPeerAssocRspAction(
 	unsigned char				HtCapabilityLen;
 	unsigned char				AddHtInfoLen;
 	unsigned char				NewExtChannelOffset = 0xff;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 
 
@@ -656,8 +656,8 @@ static VOID ApCliPeerDisassocAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	unsigned char         Addr2[MAC_ADDR_LEN];
-	USHORT        Reason;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short        Reason;
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 
 	if(PeerDisassocSanity(pAd, Elem->Msg, Elem->MsgLen, Addr2, &Reason))
@@ -687,7 +687,7 @@ static VOID ApCliAssocTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI_ASSOC - ApCliAssocTimeoutAction\n"));
@@ -703,7 +703,7 @@ static VOID ApCliInvalidStateWhenAssoc(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI_ASSOC - ApCliInvalidStateWhenAssoc(state=%ld), reset APCLI_ASSOC state machine\n", *pCurrState));
@@ -721,7 +721,7 @@ static VOID ApCliInvalidStateWhenDisassociate(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI_ASSOC - InvalidStateWhenApCliDisassoc(state=%ld), reset APCLI_ASSOC state machine\n", *pCurrState));
@@ -744,8 +744,8 @@ static VOID ApCliInvalidStateWhenDisassociate(
 static VOID ApCliAssocPostProc(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr2, 
-	IN USHORT CapabilityInfo, 
-	IN USHORT IfIndex, 
+	IN unsigned short CapabilityInfo, 
+	IN unsigned short IfIndex, 
 	IN unsigned char SupRate[], 
 	IN unsigned char SupRateLen,
 	IN unsigned char ExtRate[],

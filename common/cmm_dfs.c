@@ -1140,17 +1140,17 @@ VOID NewRadarDetectionStop(
 
 
 int SWRadarCheck(
-	IN PRTMP_ADAPTER pAd, USHORT id)
+	IN PRTMP_ADAPTER pAd, unsigned short id)
 {
 	int i, j, start_idx, end_idx;
 	pNewDFSDebugPort pCurrent, p1, pEnd;
 	unsigned long period;
 	int radar_detected = 0;
-	USHORT	widthsum;
+	unsigned short	widthsum;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	PDFS_SW_DETECT_PARAM pDfsSwParam = &pRadarDetect->DfsSwParam;	
 	/*ENTRY_PLUS could be replace by (pDfsSwParam->sw_idx[id]+1)%128*/
-	USHORT	Total, SwIdxPlus = ENTRY_PLUS(pDfsSwParam->sw_idx[id], 1, NEW_DFS_DBG_PORT_ENT_NUM);
+	unsigned short	Total, SwIdxPlus = ENTRY_PLUS(pDfsSwParam->sw_idx[id], 1, NEW_DFS_DBG_PORT_ENT_NUM);
 	unsigned char	CounterToCheck;	
 	
 	if (!DFS_CHECK_FLAGS(pAd, pRadarDetect) ||
@@ -2727,29 +2727,29 @@ void modify_table1(PRTMP_ADAPTER pAd, unsigned long idx, unsigned long value)
 		switch (y)
 		{
 		case 1:
-			pDFS2Table->entry[x].mode = (USHORT)value;
+			pDFS2Table->entry[x].mode = (unsigned short)value;
 			break;
 		case 2:
-			pDFS2Table->entry[x].avgLen = (USHORT)value;
+			pDFS2Table->entry[x].avgLen = (unsigned short)value;
 			break;
 		case 3:
-			pDFS2Table->entry[x].ELow = (USHORT)value;
+			pDFS2Table->entry[x].ELow = (unsigned short)value;
 			break;
     	
 		case 4:
-			pDFS2Table->entry[x].EHigh = (USHORT)value;
+			pDFS2Table->entry[x].EHigh = (unsigned short)value;
 			break;
     	
 		case 5:
-			pDFS2Table->entry[x].WLow = (USHORT)value;
+			pDFS2Table->entry[x].WLow = (unsigned short)value;
 			break;
     	
 		case 6:
-			pDFS2Table->entry[x].WHigh = (USHORT)value;
+			pDFS2Table->entry[x].WHigh = (unsigned short)value;
 			break;
     	
 		case 7:
-			pDFS2Table->entry[x].EpsilonW = (USHORT)value;
+			pDFS2Table->entry[x].EpsilonW = (unsigned short)value;
 			break;
     	
 		case 8:
@@ -2761,14 +2761,14 @@ void modify_table1(PRTMP_ADAPTER pAd, unsigned long idx, unsigned long value)
 			break;
     	
 		case 0xa:
-			pDFS2Table->entry[x].EpsilonT = (USHORT)value;
+			pDFS2Table->entry[x].EpsilonT = (unsigned short)value;
 			break;
 
 		case 0xb:
-			pDFS2Table->entry[x].BLow= (USHORT)value;
+			pDFS2Table->entry[x].BLow= (unsigned short)value;
 			break;
 		case 0xc:
-			pDFS2Table->entry[x].BHigh = (USHORT)value;
+			pDFS2Table->entry[x].BHigh = (unsigned short)value;
 			break;
 
 		default:

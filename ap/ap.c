@@ -451,7 +451,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 #endif /* GREENAP_SUPPORT */
 #endif /* DOT11_N_SUPPORT */
 
-	MlmeSetTxPreamble(pAd, (USHORT)pAd->CommonCfg.TxPreamble);	
+	MlmeSetTxPreamble(pAd, (unsigned short)pAd->CommonCfg.TxPreamble);	
 	for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++) {
 		MlmeUpdateTxRates(pAd, FALSE, apidx);
 #ifdef DOT11_N_SUPPORT
@@ -487,7 +487,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 
 	/* Init Security variables */
 	for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++) {
-		USHORT Wcid = 0;
+		unsigned short Wcid = 0;
 		PMULTISSID_STRUCT pMbss = &pAd->ApCfg.MBSSID[apidx];
 
 		pMbss->PortSecured = WPA_802_1X_PORT_NOT_SECURED;
@@ -1092,7 +1092,7 @@ VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 				NDIS_STATUS NStatus;
 				unsigned long       FrameLen = 0;
 				HEADER_802_11 DeAuthHdr;
-				USHORT      Reason;
+				unsigned short      Reason;
 
 				/*  send out a DISASSOC request frame */
 				NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);
@@ -1328,7 +1328,7 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  unsigned char * pAddr, 
 	OUT SST   *Sst, 
-	OUT USHORT *Aid,
+	OUT unsigned short *Aid,
 	OUT unsigned char *PsMode,
 	OUT unsigned char *Rate) 
 {
@@ -1424,7 +1424,7 @@ BOOLEAN APPsIndicate(
 VOID ApLogEvent(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *   pAddr,
-	IN USHORT   Event)
+	IN unsigned short   Event)
 {
 	if (pAd->EventTab.Num < MAX_NUM_OF_EVENT)
 	{
@@ -1548,7 +1548,7 @@ VOID APUpdateCapabilityAndErpIe(
 #endif /* A_BAND_SUPPORT */
 
 	if (bUseBGProtection != OPSTATUS_TEST_FLAG(pAd, fOP_STATUS_BG_PROTECTION_INUSED)) {
-		USHORT OperationMode = 0;
+		unsigned short OperationMode = 0;
 		BOOLEAN	bNonGFExist = 0;
 
 #ifdef DOT11_N_SUPPORT
@@ -1578,7 +1578,7 @@ VOID APUpdateCapabilityAndErpIe(
 
 	/* deicide CapabilityInfo.ShortSlotTime bit */
 	for (apidx=0; apidx<pAd->ApCfg.BssidNum; apidx++) {
-		USHORT *pCapInfo = &(pAd->ApCfg.MBSSID[apidx].CapabilityInfo);
+		unsigned short *pCapInfo = &(pAd->ApCfg.MBSSID[apidx].CapabilityInfo);
 
 		/* In A-band, the ShortSlotTime bit should be ignored. */
 		if (ShortSlotCapable
@@ -1680,14 +1680,14 @@ VOID ApUpdateAccessControlList(
     IN PRTMP_ADAPTER pAd,
     IN unsigned char         Apidx)
 {
-	USHORT   AclIdx, MacIdx;
+	unsigned short   AclIdx, MacIdx;
 	BOOLEAN  Matched;
 
 	unsigned char *      pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	unsigned long       FrameLen = 0;
 	HEADER_802_11 DisassocHdr;
-	USHORT      Reason;
+	unsigned short      Reason;
 
 
 	/*Apidx = pObj->ioctl_if; */

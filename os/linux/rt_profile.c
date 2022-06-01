@@ -234,14 +234,14 @@ NDIS_STATUS	RTMPReadParametersHook(
 */
 VOID RtmpDrvSendWirelessEvent(
 	IN	VOID					*pAdSrc,
-	IN	USHORT					Event_flag,
+	IN	unsigned short					Event_flag,
 	IN	unsigned char *pAddr,
 	IN  unsigned char					BssIdx,
 	IN	CHAR					Rssi)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	char *pBuf = NULL, *pBufPtr = NULL;
-	USHORT	event, type, BufLen;	
+	unsigned short	event, type, BufLen;	
 	unsigned char	event_table_len = 0;
 
 	if (pAd->CommonCfg.bWirelessEvent == FALSE)
@@ -700,7 +700,7 @@ INT RTMP_AP_IoctlPrepare(
 {
 	RT_CMD_AP_IOCTL_CONFIG *pConfig = (RT_CMD_AP_IOCTL_CONFIG *)pCB;
 	POS_COOKIE pObj;
-	USHORT index;
+	unsigned short index;
 	INT	Status = NDIS_STATUS_SUCCESS;
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
 	INT cmd = 0xff;

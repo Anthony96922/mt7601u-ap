@@ -154,7 +154,7 @@ INT	Set_CSPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	pAd->Dot11_H.CSPeriod = (USHORT) simple_strtol(arg, 0, 10);
+	pAd->Dot11_H.CSPeriod = (unsigned short) simple_strtol(arg, 0, 10);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_CSPeriod_Proc::(CSPeriod=%d)\n", pAd->Dot11_H.CSPeriod));
 

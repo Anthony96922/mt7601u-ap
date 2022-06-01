@@ -99,20 +99,20 @@ typedef enum _KEY_TYPE_MODE
 
 /* the defintion of WAI header */
 typedef	struct GNU_PACKED _HEADER_WAI	{    
-    USHORT          version;
+    unsigned short          version;
 	unsigned char			type;
 	unsigned char			sub_type;
-	USHORT			reserved;
-	USHORT			length;
-	USHORT			pkt_seq;
+	unsigned short			reserved;
+	unsigned short			length;
+	unsigned short			pkt_seq;
 	unsigned char			frag_seq;
 	unsigned char			flag;
 }	HEADER_WAI, *PHEADER_WAI;
 
 /* For WAPI */
 typedef struct GNU_PACKED _WAPIIE {
-    USHORT  version;    
-    USHORT  acount;
+    unsigned short  version;    
+    unsigned short  acount;
     struct GNU_PACKED {
         unsigned char oui[4];
     }auth[1];
@@ -120,7 +120,7 @@ typedef struct GNU_PACKED _WAPIIE {
 
 /* unicast key suite */
 typedef struct GNU_PACKED _WAPIIE_UCAST {
-    USHORT ucount;
+    unsigned short ucount;
     struct GNU_PACKED {
         unsigned char oui[4];
     }ucast[1];
@@ -129,7 +129,7 @@ typedef struct GNU_PACKED _WAPIIE_UCAST {
 /* multi-cast key suite and capability */
 typedef struct GNU_PACKED _WAPIIE_MCAST {
     unsigned char   mcast[4];
-    USHORT  capability;
+    unsigned short  capability;
 } WAPIIE_MCAST,*PWAPIIE_MCAST;
 
 /* the relative to wapi daemon */

@@ -220,7 +220,7 @@ VOID APMlmePeriodicExec(
     	APUpdateOperationMode(pAd);
 		if (pAd->CommonCfg.IOTestParm.bRTSLongProtOn == FALSE)
 		{
-        	AsicUpdateProtect(pAd, (USHORT)pAd->CommonCfg.AddHTInfo.AddHtInfo2.OperaionMode, ALLN_SETPROTECT, FALSE, pAd->MacTab.fAnyStationNonGF);
+        	AsicUpdateProtect(pAd, (unsigned short)pAd->CommonCfg.AddHTInfo.AddHtInfo2.OperaionMode, ALLN_SETPROTECT, FALSE, pAd->MacTab.fAnyStationNonGF);
     	}
     }
 #endif /* DOT11_N_SUPPORT */
@@ -264,7 +264,7 @@ BOOLEAN APMsgTypeSubst(
     OUT INT *Machine, 
     OUT INT *MsgType) 
 {
-    USHORT Seq;
+    unsigned short Seq;
     unsigned char  EAPType;
     BOOLEAN     Return = FALSE;
 #ifdef WSC_AP_SUPPORT
@@ -363,7 +363,7 @@ BOOLEAN APMsgTypeSubst(
             break;
         case SUBTYPE_AUTH:
             /* get the sequence number from payload 24 Mac Header + 2 bytes algorithm */
-            NdisMoveMemory(&Seq, &pFrame->Octet[2], sizeof(USHORT));
+            NdisMoveMemory(&Seq, &pFrame->Octet[2], sizeof(unsigned short));
             
 			*Machine = AP_AUTH_STATE_MACHINE;
 			if (Seq == 1)

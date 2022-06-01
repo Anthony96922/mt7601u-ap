@@ -138,7 +138,7 @@ BOOLEAN RTMPCheckUcast(
     IN MAC_TABLE_ENTRY	*pEntry)
 {
 	unsigned char * 	pStaTmp;
-	USHORT	Count;
+	unsigned short	Count;
 	unsigned char 	apidx;
 
 	ASSERT(pEntry);
@@ -175,12 +175,12 @@ BOOLEAN RTMPCheckUcast(
 	}
 
 	/* Store unicast cipher count */
-    NdisMoveMemory(&Count, pStaTmp, sizeof(USHORT));
+    NdisMoveMemory(&Count, pStaTmp, sizeof(unsigned short));
     Count = cpu2le16(Count);		
 
 
 	/* pointer to unicast cipher */
-    pStaTmp += sizeof(USHORT);	
+    pStaTmp += sizeof(unsigned short);	
 			
     if (eid_ptr->Len >= 16)
     {
@@ -316,7 +316,7 @@ BOOLEAN RTMPCheckUcast(
 BOOLEAN RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, INT iswpa2)
 {
 	unsigned char * pTmp;
-	USHORT Count;
+	unsigned short Count;
 
 	pTmp = ap_rsn_ie;
 
@@ -327,10 +327,10 @@ BOOLEAN RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, INT isw
     /*skip OUI(4),Vesrion(2),Multicast cipher(4) 4+2+4==10 */
         pTmp += 10;/*point to number of unicast */
 	    
-    NdisMoveMemory(&Count, pTmp, sizeof(USHORT));	
+    NdisMoveMemory(&Count, pTmp, sizeof(unsigned short));	
     Count = cpu2le16(Count);		
 
-    pTmp   += sizeof(USHORT);/*pointer to unicast cipher */
+    pTmp   += sizeof(unsigned short);/*pointer to unicast cipher */
 
     /* Skip all unicast cipher suite */
     while (Count > 0)
@@ -340,10 +340,10 @@ BOOLEAN RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, INT isw
 		Count--;
 	}
 
-	NdisMoveMemory(&Count, pTmp, sizeof(USHORT));
+	NdisMoveMemory(&Count, pTmp, sizeof(unsigned short));
     Count = cpu2le16(Count);		
 
-    pTmp   += sizeof(USHORT);/*pointer to AKM cipher */
+    pTmp   += sizeof(unsigned short);/*pointer to AKM cipher */
     while (Count > 0)
     {
 		/*rtmp_hexdump(RT_DEBUG_TRACE,"MBSS WPA_IE AKM ",pTmp,4); */
@@ -375,7 +375,7 @@ BOOLEAN RTMPCheckAUTH(
     IN MAC_TABLE_ENTRY	*pEntry)
 {
 	unsigned char * pStaTmp;
-	USHORT Count;	
+	unsigned short Count;	
 	unsigned char 	apidx;
 
 	ASSERT(pEntry);
@@ -410,11 +410,11 @@ BOOLEAN RTMPCheckAUTH(
 	}
 
 	/* Store unicast cipher count */
-    NdisMoveMemory(&Count, pStaTmp, sizeof(USHORT));
+    NdisMoveMemory(&Count, pStaTmp, sizeof(unsigned short));
     Count = cpu2le16(Count);		
 
 	/* pointer to unicast cipher */
-    pStaTmp += sizeof(USHORT);	
+    pStaTmp += sizeof(unsigned short);	
 
     /* Skip all unicast cipher suite */
     while (Count > 0)
@@ -425,11 +425,11 @@ BOOLEAN RTMPCheckAUTH(
 	}
 
 	/* Store AKM count */
-	NdisMoveMemory(&Count, pStaTmp, sizeof(USHORT));
+	NdisMoveMemory(&Count, pStaTmp, sizeof(unsigned short));
     Count = cpu2le16(Count);		
 
 	/*pointer to AKM cipher */
-    pStaTmp += sizeof(USHORT);			
+    pStaTmp += sizeof(unsigned short);			
 
     if (eid_ptr->Len >= 16)
     {
@@ -839,7 +839,7 @@ VOID GREKEYPeriodicExec(
 		pMbss->RekeyCountDown--;
 		if (pMbss->RekeyCountDown == 0)
 		{
-			USHORT	Wcid;
+			unsigned short	Wcid;
 
 			/* Get a specific WCID to record this MBSS key attribute */
 			GET_GroupKey_WCID(pAd, Wcid, apidx);
@@ -1099,8 +1099,8 @@ VOID RTMPGetTxTscFromAsic(
 	IN	unsigned char			apidx,
 	OUT	unsigned char *			pTxTsc)
 {
-	USHORT			Wcid;
-	USHORT			offset;
+	unsigned short			Wcid;
+	unsigned short			offset;
 	unsigned char			IvEiv[8];
 	int				i;
 
@@ -1266,7 +1266,7 @@ VOID RTMPHandleSTAKey(
 	/*Benson add for big-endian 20081016--> */
 	NdisZeroMemory((unsigned char *)&peerKeyInfo, sizeof(peerKeyInfo));
 	NdisMoveMemory((unsigned char *)&peerKeyInfo, (unsigned char *)&pSTAKey->KeyDesc.KeyInfo, sizeof(KEY_INFO));
-	*((USHORT *)&peerKeyInfo) = cpu2le16(*((USHORT *)&peerKeyInfo));
+	*((unsigned short *)&peerKeyInfo) = cpu2le16(*((unsigned short *)&peerKeyInfo));
 	/*Benson add 20081016 <-- */
 	
     /* Check Replay Counter */
@@ -1485,7 +1485,7 @@ VOID RTMPHandleSTAKey(
        	NdisMoveMemory(pOutPacket->KeyDesc.KeyData, Key_Data, key_length);
 		NdisZeroMemory(mic, sizeof(mic));
 
-		*(USHORT *)(&pOutPacket->KeyDesc.KeyInfo) = cpu2le16(*(USHORT *)(&pOutPacket->KeyDesc.KeyInfo));
+		*(unsigned short *)(&pOutPacket->KeyDesc.KeyInfo) = cpu2le16(*(unsigned short *)(&pOutPacket->KeyDesc.KeyInfo));
 
 		MakeOutgoingFrame(pOutBuffer,			&FrameLen,
                         pOutPacket->Body_Len[1] + 4,	pOutPacket,
@@ -1591,8 +1591,8 @@ VOID    ApcliWpaSendEapolStart(
 INT	    ApcliWpaCheckEapCode(
 	IN  PRTMP_ADAPTER   		pAd,
 	IN  unsigned char *				pFrame,
-	IN  USHORT				FrameLen,
-	IN  USHORT				OffSet)
+	IN  unsigned short				FrameLen,
+	IN  unsigned short				OffSet)
 {
 	
 	unsigned char *	pData;

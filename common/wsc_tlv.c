@@ -156,14 +156,14 @@ static WSC_TLV_0B wsc_tlv_0b[]=
 extern unsigned char WPS_DH_G_VALUE[1];
 extern unsigned char WPS_DH_P_VALUE[192];
 
-int AppendWSCTLV(USHORT index, OUT unsigned char * obuf, IN unsigned char * ibuf, IN USHORT varlen)
+int AppendWSCTLV(unsigned short index, OUT unsigned char * obuf, IN unsigned char * ibuf, IN unsigned short varlen)
 {
-	USHORT len, dataLen, tag = cpu2be16(index);
+	unsigned short len, dataLen, tag = cpu2be16(index);
 
 	/*
 		The max len of WPS Vendor Extension is 1024B
 	*/
-    dataLen = ( varlen != (USHORT)0 ) ? varlen : wsc_tlv_0b[WSC_TLV_ENT(index)].len;
+    dataLen = ( varlen != (unsigned short)0 ) ? varlen : wsc_tlv_0b[WSC_TLV_ENT(index)].len;
 
 	NdisMoveMemory(obuf, &tag, 2);
     len = cpu2be16(dataLen);
@@ -198,12 +198,12 @@ static VOID	WscParseEncrSettings(
 	IN	INT					PlainLength,
 	IN  PWSC_CTRL           pWscControl)
 {
-	USHORT	WscType, WscLen, HmacLen;
+	unsigned short	WscType, WscLen, HmacLen;
 	unsigned char *	pData;
 	unsigned char	Hmac[8], Temp[32];
     PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 
-	HmacLen = (USHORT)(PlainLength - 12);
+	HmacLen = (unsigned short)(PlainLength - 12);
 	pData  = pPlainData;
 
 	/* Start to process WSC IEs */
@@ -289,7 +289,7 @@ static BOOLEAN	WscProcessCredential(
 	IN	INT					PlainLength,
 	IN  PWSC_CTRL           pWscControl)
 {
-	USHORT			WscType, WscLen, Cnt = 0, CurrentIdx=0, Idx, tmpVal = 0;
+	unsigned short			WscType, WscLen, Cnt = 0, CurrentIdx=0, Idx, tmpVal = 0;
 	unsigned char *			pData, pTmp;
 	PWSC_PROFILE	pProfile;
 #ifdef WSC_V2_SUPPORT
@@ -506,7 +506,7 @@ int BuildMessageM1(
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 	INT					idx;
-	USHORT				ConfigError = 0, ConfigMethods = 0;
+	unsigned short				ConfigError = 0, ConfigMethods = 0;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
@@ -754,7 +754,7 @@ int BuildMessageM2(
 	INT					DH_Len;
 	INT				    HmacLen = 0;
 	INT					idx;
-	USHORT				ConfigMethods;
+	unsigned short				ConfigMethods;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
@@ -1832,8 +1832,8 @@ int BuildMessageM7(
     if ((CurOpMode == AP_MODE) &&
 		(pWscControl->EntryIfIdx < MIN_NET_DEVICE_FOR_APCLI))
     {
-        USHORT  authType;
-        USHORT  encyType;
+        unsigned short  authType;
+        unsigned short  encyType;
         PWSC_CREDENTIAL pCredential = &pWscControl->WscProfile.Profile[0];
             WscCreateProfileFromCfg(pAdapter, ENROLLEE_ACTION | AP_MODE, pWscControl, &pWscControl->WscProfile);
 			
@@ -1966,8 +1966,8 @@ int BuildMessageM8(
 	unsigned char				*Plain = NULL;
 	INT					CerLen = 0, PlainLen = 0, EncrLen;
     PWSC_CREDENTIAL     pCredential = NULL;
-    USHORT              AuthType = 0;
-    USHORT              EncrType = 0;
+    unsigned short              AuthType = 0;
+    unsigned short              EncrType = 0;
 #ifdef CONFIG_AP_SUPPORT
     unsigned char               apidx = (pWscControl->EntryIfIdx & 0x0F);
 #endif /* CONFIG_AP_SUPPORT */
@@ -2265,7 +2265,7 @@ int BuildMessageNACK(
 	INT					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
-    USHORT              ConfigError = htons(pReg->SelfInfo.ConfigError);
+    unsigned short              ConfigError = htons(pReg->SelfInfo.ConfigError);
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
@@ -2355,7 +2355,7 @@ int ProcessMessageM1(
 {
 	int					ret = WSC_ERROR_NO_ERROR, DH_Len = 0, idx;
 	unsigned char *				pData = NULL;
-	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
+	unsigned short				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	unsigned char				CurOpMode = 0xFF;
 
 #ifdef CONFIG_AP_SUPPORT
@@ -2618,7 +2618,7 @@ int ProcessMessageM2(
 	unsigned char				DHKey[32], KdkInput[38], KdfKey[80];
 	INT					DH_Len;
 	unsigned char *				pData = NULL;
-	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
+	unsigned short				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	MAC_TABLE_ENTRY		*pEntry = NULL;
 	unsigned char				CurOpMode = 0xFF;
 
@@ -2907,7 +2907,7 @@ int ProcessMessageM2D(
 {
 	int					ret = WSC_ERROR_NO_ERROR;
 	unsigned char *				pData = NULL;
-	USHORT				WscType, WscLen;
+	unsigned short				WscType, WscLen;
 	
 	/* Copy the content to Regdata for lastRx information */
 	/* Length must include authenticator IE size */
@@ -3070,7 +3070,7 @@ int ProcessMessageM3(
 	INT				    HmacLen;
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
 	unsigned char *				pData = NULL;
-	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
+	unsigned short				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	
 	RTMPZeroMemory(KDK, 32);
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_VERSION))] |= (1 << WSC_TLV_BYTE1(WSC_ID_VERSION));
@@ -3206,7 +3206,7 @@ int ProcessMessageM4(
 	unsigned char *				pData = NULL;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
-	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
+	unsigned short				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	
 	RTMPZeroMemory(KDK, 32);
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_VERSION))] |= (1 << WSC_TLV_BYTE1(WSC_ID_VERSION));
@@ -3392,7 +3392,7 @@ int ProcessMessageM5(
 	unsigned char *				pData = NULL;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
-	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
+	unsigned short				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	
 	RTMPZeroMemory(KDK, 32);
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_VERSION))] |= (1 << WSC_TLV_BYTE1(WSC_ID_VERSION));
@@ -3567,7 +3567,7 @@ int ProcessMessageM6(
 	unsigned char *				pData = NULL;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
-	USHORT				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
+	unsigned short				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	
 	RTMPZeroMemory(KDK, 32);
 	FieldCheck[(WSC_TLV_BYTE2(WSC_ID_VERSION))] |= (1 << WSC_TLV_BYTE1(WSC_ID_VERSION));
@@ -3739,7 +3739,7 @@ int ProcessMessageM7(
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
 	INT					EncrLen;
 	unsigned char *				pData = NULL;
-	USHORT				WscType, WscLen;
+	unsigned short				WscType, WscLen;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 
 	RTMPZeroMemory(KDK, 32);
@@ -3882,7 +3882,7 @@ int ProcessMessageM8(
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
 	INT					EncrLen;
 	unsigned char *				pData = NULL;
-	USHORT				WscType, WscLen;
+	unsigned short				WscType, WscLen;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 	PWSC_REG_DATA       pReg = &pWscControl->RegData;
 	

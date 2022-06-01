@@ -157,7 +157,7 @@ static VOID QBSS_LoadAlarm(
 					NDIS_STATUS NStatus;
 					unsigned long       FrameLen = 0;
 					HEADER_802_11 DeAuthHdr;
-					USHORT      Reason;
+					unsigned short      Reason;
 
 					/*  send out a DISASSOC request frame */
 					NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);

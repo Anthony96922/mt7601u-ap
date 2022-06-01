@@ -1814,7 +1814,7 @@ INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 VOID MT7601_ReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 {
 	unsigned int		data, Adata, Gdata;
-	USHORT		i, value, value2;
+	unsigned short		i, value, value2;
 	CHAR		value_1, value_2;
 	CHAR		Apwrdelta, Gpwrdelta;
 	CHAR		t1,t2;
@@ -3113,8 +3113,8 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 	/*  Calibration access related callback functions */
 /*
 	int (*eeinit)(struct _RTMP_ADAPTER *pAd);
-	int (*eeread)(struct _RTMP_ADAPTER *pAd, USHORT offset, unsigned short * pValue);
-	int (*eewrite)(struct _RTMP_ADAPTER *pAd, USHORT offset, USHORT value);
+	int (*eeread)(struct _RTMP_ADAPTER *pAd, unsigned short offset, unsigned short * pValue);
+	int (*eewrite)(struct _RTMP_ADAPTER *pAd, unsigned short offset, unsigned short value);
 */
 	/* MCU related callback functions */
 /*

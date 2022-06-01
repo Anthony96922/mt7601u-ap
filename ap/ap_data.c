@@ -82,7 +82,7 @@ static inline BOOLEAN ApAllowToSendPacket(
 	UINT			SrcBufLen;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 	SST 			Sst;
-	USHORT			Aid;
+	unsigned short			Aid;
 	unsigned char			PsMode, Rate;
 	BOOLEAN			allowed;
 	
@@ -243,7 +243,7 @@ NDIS_STATUS APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 	unsigned char QueIdx, UserPriority, apidx = MAIN_MBSSID;
 	SST Sst = SST_ASSOC;
 	unsigned char PsMode = PWR_ACTIVE, Rate;
-	USHORT Wcid;
+	unsigned short Wcid;
 	MAC_TABLE_ENTRY *pMacEntry = NULL;
 	unsigned long	IrqFlags;
 #ifdef IGMP_SNOOP_SUPPORT
@@ -313,7 +313,7 @@ NDIS_STATUS APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 #endif /* WDS_SUPPORT */
 	if (IS_ENTRY_CLIENT(pMacEntry) || (Wcid == MCAST_WCID))
 	{
-		/*USHORT Aid; */
+		/*unsigned short Aid; */
 		PsMode = pMacEntry->PsMode;
 		Rate = pMacEntry->CurrTxRate;
 		Sst = pMacEntry->Sst;
@@ -1277,7 +1277,7 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	HEADER_802_11 *pHeader_802_11;
 	unsigned char *pHeaderBufPtr;
-	USHORT freeCnt = 1;
+	unsigned short freeCnt = 1;
 	MAC_TABLE_ENTRY *pMacEntry;
 	PQUEUE_ENTRY pQEntry;
 	BOOLEAN	 bHTCPlus = FALSE;
@@ -1736,7 +1736,7 @@ VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
 {
 	unsigned char *			pWiBufPtr;
 /*	unsigned char			QueIdx = pTxBlk->QueIdx; */
-	USHORT			FreeNumber = 1; /* no use */
+	unsigned short			FreeNumber = 1; /* no use */
 	MAC_TABLE_ENTRY	*pMacEntry;
 	PQUEUE_ENTRY	pQEntry;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
@@ -1937,12 +1937,12 @@ VOID AP_AMPDU_Frame_Tx_Hdr_Trns(
 VOID AP_AMSDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	unsigned char *			pHeaderBufPtr;
-	USHORT			freeCnt = 1; /* no use */
-	USHORT			subFramePayloadLen = 0;	/* AMSDU Subframe length without AMSDU-Header / Padding. */
-	USHORT			totalMPDUSize=0;
+	unsigned short			freeCnt = 1; /* no use */
+	unsigned short			subFramePayloadLen = 0;	/* AMSDU Subframe length without AMSDU-Header / Padding. */
+	unsigned short			totalMPDUSize=0;
 	unsigned char			*subFrameHeader;
 	unsigned char			padding = 0;
-	USHORT			FirstTx = 0, LastTxIdx = 0;
+	unsigned short			FirstTx = 0, LastTxIdx = 0;
 	int 			frameNum = 0;
 	PQUEUE_ENTRY	pQEntry;
 
@@ -2132,7 +2132,7 @@ VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	HEADER_802_11 *wifi_hdr;
 	unsigned char *pHeaderBufPtr;
-	USHORT freeCnt = 1;
+	unsigned short freeCnt = 1;
 	BOOLEAN bVLANPkt;
 	QUEUE_ENTRY *pQEntry;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
@@ -2492,7 +2492,7 @@ VOID AP_Legacy_Frame_Tx_Hdr_Trns(
 	IN	TX_BLK			*pTxBlk)
 {
 /*	unsigned char			QueIdx = pTxBlk->QueIdx; */
-	USHORT			FreeNumber = 1; /* no use */
+	unsigned short			FreeNumber = 1; /* no use */
 	BOOLEAN			bVLANPkt;
 	PQUEUE_ENTRY	pQEntry;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
@@ -2665,11 +2665,11 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	HEADER_802_11 *pHeader_802_11;
 	unsigned char *pHeaderBufPtr;
-	USHORT freeCnt = 1; /* no use */
+	unsigned short freeCnt = 1; /* no use */
 	unsigned char fragNum = 0;
-	USHORT EncryptionOverhead = 0;	
+	unsigned short EncryptionOverhead = 0;	
 	unsigned int FreeMpduSize, SrcRemainingBytes;
-	USHORT AckDuration;
+	unsigned short AckDuration;
 	UINT NextMpduSize;
 	BOOLEAN bVLANPkt;
 	PQUEUE_ENTRY pQEntry;
@@ -3083,9 +3083,9 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 VOID AP_ARalink_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 {
 	unsigned char *pHeaderBufPtr;
-	USHORT freeCnt = 1; /* no use */
-	USHORT totalMPDUSize=0;
-	USHORT FirstTx, LastTxIdx;
+	unsigned short freeCnt = 1; /* no use */
+	unsigned short totalMPDUSize=0;
+	unsigned short FirstTx, LastTxIdx;
 	int frameNum = 0;
 	BOOLEAN bVLANPkt;
 	PQUEUE_ENTRY pQEntry;
@@ -3469,7 +3469,7 @@ BOOLEAN APCheckClass2Class3Error(
 VOID APHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
-	IN	USHORT			Aid,
+	IN	unsigned short			Aid,
     IN	BOOLEAN			isActive)
 { 
 	PQUEUE_ENTRY	  pEntry;
@@ -3987,7 +3987,7 @@ BOOLEAN APCheckTkipMICValue(
 {
 	PHEADER_802_11	pHeader = pRxBlk->pHeader;
 	unsigned char			*pData = pRxBlk->pData;
-	USHORT			DataSize = pRxBlk->DataSize;
+	unsigned short			DataSize = pRxBlk->DataSize;
 	unsigned char			UserPriority = pRxBlk->UserPriority;
 	PCIPHER_KEY		pWpaKey;
 	unsigned char			*pDA, *pSA;
@@ -4130,13 +4130,13 @@ VOID APHandleRxMgmtFrame(
 			}
 #ifdef RT_BIG_ENDIAN
 			/* swap 16 bit fields - Auth Alg No. field */
-			*(USHORT *)pMgmt = SWAP16(*(USHORT *)pMgmt);
+			*(unsigned short *)pMgmt = SWAP16(*(unsigned short *)pMgmt);
 
 			/* swap 16 bit fields - Auth Seq No. field */
-			*(USHORT *)(pMgmt + 2) = SWAP16(*(USHORT *)(pMgmt + 2));
+			*(unsigned short *)(pMgmt + 2) = SWAP16(*(unsigned short *)(pMgmt + 2));
 
 			/* swap 16 bit fields - Status Code field */
-			*(USHORT *)(pMgmt + 4) = SWAP16(*(USHORT *)(pMgmt + 4));
+			*(unsigned short *)(pMgmt + 4) = SWAP16(*(unsigned short *)(pMgmt + 4));
 #endif /* RT_BIG_ENDIAN */
 													
 			DBGPRINT(RT_DEBUG_TRACE, ("Decrypt AUTH seq#3 successfully\n"));	
@@ -4237,7 +4237,7 @@ VOID APHandleRxControlFrame(
 		/* handle PS-POLL here */
 		case SUBTYPE_PS_POLL:
 			{
-				USHORT Aid = pHeader->Duration & 0x3fff;
+				unsigned short Aid = pHeader->Duration & 0x3fff;
 				unsigned char * pAddr = pHeader->Addr2;
 
 				if (Aid < MAX_LEN_OF_MAC_TABLE)

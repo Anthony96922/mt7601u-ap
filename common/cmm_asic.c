@@ -47,14 +47,14 @@
 */
 VOID 	AsicUpdateProtect(
 	IN PRTMP_ADAPTER pAd,
-	IN USHORT OperationMode,
+	IN unsigned short OperationMode,
 	IN unsigned char SetMask,
 	IN BOOLEAN bDisableBGProtect,
 	IN BOOLEAN bNonGFExist)
 {
 	PROT_CFG_STRUC	ProtCfg, ProtCfg4;
 	unsigned int Protect[6];
-	USHORT offset;
+	unsigned short offset;
 	unsigned char i;
 	unsigned int MacReg = 0;
 
@@ -1093,7 +1093,7 @@ VOID AsicEnableIbssSync(
 	unsigned char *			ptr;
 	UINT i;
 	unsigned long beaconBaseLocation = 0;
-	USHORT			beaconLen = (USHORT) pAd->BeaconTxWI.TxWIMPDUByteCnt;
+	unsigned short			beaconLen = (unsigned short) pAd->BeaconTxWI.TxWIMPDUByteCnt;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned int longptr;
 	
@@ -1103,7 +1103,7 @@ VOID AsicEnableIbssSync(
 	
 	NdisMoveMemory((unsigned char *)&localTxWI, (unsigned char *)&pAd->BeaconTxWI, TXWISize);
 	RTMPWIEndianChange(pAd, (unsigned char *)&localTxWI, TYPE_TXWI);
-	beaconLen = (USHORT) localTxWI.TxWIMPDUByteCnt;
+	beaconLen = (unsigned short) localTxWI.TxWIMPDUByteCnt;
 	}
 #endif /* RT_BIG_ENDIAN */
 
@@ -1616,7 +1616,7 @@ VOID AsicRemoveSharedKeyEntry(
 
 VOID AsicUpdateWCIDIVEIV(
 	IN PRTMP_ADAPTER pAd,
-	IN USHORT		WCID,
+	IN unsigned short		WCID,
 	IN unsigned long        uIV,
 	IN unsigned long        uEIV)
 {
@@ -1633,7 +1633,7 @@ VOID AsicUpdateWCIDIVEIV(
 
 VOID AsicUpdateRxWCIDTable(
 	IN PRTMP_ADAPTER pAd,
-	IN USHORT		WCID,
+	IN unsigned short		WCID,
 	IN unsigned char *        pAddr)
 {
 	unsigned long offset;
@@ -1672,7 +1672,7 @@ VOID	AsicUpdateWcidAttributeEntry(
 	IN	unsigned char			KeyTabFlag)
 {
 	WCID_ATTRIBUTE_STRUC WCIDAttri;	
-	USHORT		offset;
+	unsigned short		offset;
 
 	/* Initialize the content of WCID Attribue  */
 	WCIDAttri.word = 0;
@@ -1947,7 +1947,7 @@ VOID AsicTurnOffRFClk(
 #ifdef WAPI_SUPPORT
 VOID AsicUpdateWAPIPN(
 	IN PRTMP_ADAPTER pAd,
-	IN USHORT		 WCID,
+	IN unsigned short		 WCID,
 	IN unsigned long         pn_low,
 	IN unsigned long         pn_high)
 {
@@ -2245,7 +2245,7 @@ VOID AsicWOWSendNullFrame(
 	unsigned char * NullFrame;
 	unsigned char  packet_len;
 	unsigned char * ptr;
-	USHORT offset;
+	unsigned short offset;
 	unsigned int cipher = pAd->StaCfg.GroupCipher;
 	unsigned int Value;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
@@ -2350,7 +2350,7 @@ INT AsicReadAggCnt(RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len)
 	unsigned int reg_addr;
 	TX_AGG_CNT_STRUC reg_val;
 	int i, cnt, seg;
-	static USHORT aggReg[] = {
+	static unsigned short aggReg[] = {
 						TX_AGG_CNT, TX_AGG_CNT3,
 #if MAX_AGG_CNT > 8
 						TX_AGG_CNT4, TX_AGG_CNT7,
@@ -2362,7 +2362,7 @@ INT AsicReadAggCnt(RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len)
 
 
 	NdisZeroMemory(aggCnt, cnt_len * sizeof(unsigned long));
-	seg = (sizeof(aggReg) /sizeof(USHORT));
+	seg = (sizeof(aggReg) /sizeof(unsigned short));
 
 	cnt = 0;
 	for (i = 0; i < seg; i += 2)

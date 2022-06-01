@@ -46,9 +46,9 @@ static VOID APPeerAuthConfirmAction(
 static VOID APPeerAuthSimpleRspGenAndSend(
     IN  PRTMP_ADAPTER   pAd, 
     IN  PHEADER_802_11 pHdr80211, 
-    IN  USHORT Alg, 
-    IN  USHORT Seq, 
-    IN  USHORT StatusCode);
+    IN  unsigned short Alg, 
+    IN  unsigned short Seq, 
+    IN  unsigned short StatusCode);
 
 /*
     ==========================================================================
@@ -157,7 +157,7 @@ static VOID APPeerDeauthReqAction(
     IN PMLME_QUEUE_ELEM Elem) 
 {
     unsigned char			Addr2[MAC_ADDR_LEN];
-    USHORT			Reason;
+    unsigned short			Reason;
 	unsigned short			SeqNum;
     MAC_TABLE_ENTRY	*pEntry;
 
@@ -217,7 +217,7 @@ static VOID APPeerAuthReqAtIdleAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	INT i;
-	USHORT Seq, Alg, RspReason, Status;
+	unsigned short Seq, Alg, RspReason, Status;
 	unsigned char Addr1[MAC_ADDR_LEN];
 	unsigned char Addr2[MAC_ADDR_LEN];
 	CHAR Chtxt[CIPHER_TEXT_LEN];
@@ -403,7 +403,7 @@ static VOID APPeerAuthConfirmAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	USHORT          Seq, Alg, Status;
+	unsigned short          Seq, Alg, Status;
 	unsigned char           Addr2[MAC_ADDR_LEN];
 	PHEADER_802_11  pRcvHdr;
 	CHAR            Chtxt[CIPHER_TEXT_LEN];
@@ -534,7 +534,7 @@ VOID APCls2errAction(
     unsigned char *        pOutBuffer = NULL;
     NDIS_STATUS   NStatus;
     unsigned long         FrameLen = 0;
-    USHORT        Reason = REASON_CLS2ERR;
+    unsigned short        Reason = REASON_CLS2ERR;
     MAC_TABLE_ENTRY *pEntry = NULL;
 
 
@@ -587,9 +587,9 @@ VOID APCls2errAction(
 VOID APPeerAuthSimpleRspGenAndSend(
     IN PRTMP_ADAPTER pAd, 
     IN PHEADER_802_11 pHdr, 
-    IN USHORT Alg, 
-    IN USHORT Seq, 
-    IN USHORT StatusCode) 
+    IN unsigned short Alg, 
+    IN unsigned short Seq, 
+    IN unsigned short StatusCode) 
 {
     HEADER_802_11     AuthHdr;
     unsigned long             FrameLen = 0;

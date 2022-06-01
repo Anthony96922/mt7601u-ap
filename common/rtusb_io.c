@@ -129,7 +129,7 @@ NTSTATUS RTUSBFirmwareWrite(
 	unsigned int		MacReg;
 	NTSTATUS 	Status;
 /*	unsigned long 		i;*/
-	USHORT		writeLen;
+	unsigned short		writeLen;
 	/*unsigned long		FMode = 0;*/
 
 
@@ -194,9 +194,9 @@ NTSTATUS	RTUSBVenderReset(
 */
 NTSTATUS	RTUSBMultiRead(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	OUT	unsigned char *			pData,
-	IN	USHORT			length)
+	IN	unsigned short			length)
 {
 	NTSTATUS	Status;
 
@@ -232,13 +232,13 @@ NTSTATUS	RTUSBMultiRead(
 */
 NTSTATUS RTUSBMultiWrite_nBytes(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	IN	unsigned char *pData,
-	IN	USHORT			length,
-	IN	USHORT			batchLen)
+	IN	unsigned short			length,
+	IN	unsigned short			batchLen)
 {
 	NTSTATUS Status = STATUS_SUCCESS;
-	USHORT index = Offset, actLen = batchLen, leftLen = length;
+	unsigned short index = Offset, actLen = batchLen, leftLen = length;
 	unsigned char *pSrc = pData;
 
 
@@ -287,7 +287,7 @@ NTSTATUS RTUSBMultiWrite_nBytes(
 */
 NTSTATUS	RTUSBMultiWrite_OneByte(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	IN	unsigned char *			pData)
 {
 	NTSTATUS	Status;
@@ -308,23 +308,23 @@ NTSTATUS	RTUSBMultiWrite_OneByte(
 
 NTSTATUS	RTUSBMultiWrite(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	IN	unsigned char *			pData,
-	IN	USHORT			length,
+	IN	unsigned short			length,
 	IN	BOOLEAN			bWriteHigh)
 {
 	NTSTATUS	Status;
 
 
-	USHORT          index = 0,Value;
+	unsigned short          index = 0,Value;
 	unsigned char *          pSrc = pData;
-	USHORT          resude = 0;
+	unsigned short          resude = 0;
 
 	resude = length % 2;
 	length  += resude;
 	do
 	{
-			Value =(USHORT)( *pSrc  | (*(pSrc + 1) << 8));
+			Value =(unsigned short)( *pSrc  | (*(pSrc + 1) << 8));
 		Status = RTUSBSingleWrite(pAd,Offset + index, Value, bWriteHigh);
             index +=2;
             length -= 2;
@@ -337,8 +337,8 @@ NTSTATUS	RTUSBMultiWrite(
 
 NTSTATUS RTUSBSingleWrite(
 	IN 	RTMP_ADAPTER 	*pAd,
-	IN	USHORT			Offset,
-	IN	USHORT			Value,
+	IN	unsigned short			Offset,
+	IN	unsigned short			Value,
 	IN	BOOLEAN			WriteHigh)
 {
 	NTSTATUS	Status;
@@ -375,7 +375,7 @@ NTSTATUS RTUSBSingleWrite(
 */
 NTSTATUS	RTUSBReadMACRegister(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	OUT	unsigned int *pValue)
 {
 	NTSTATUS	Status = 0;
@@ -418,7 +418,7 @@ NTSTATUS	RTUSBReadMACRegister(
 */
 NTSTATUS	RTUSBWriteMACRegister(
 	IN RTMP_ADAPTER *pAd,
-	IN USHORT Offset,
+	IN unsigned short Offset,
 	IN unsigned int Value,
 	IN BOOLEAN bWriteHigh)
 {
@@ -426,8 +426,8 @@ NTSTATUS	RTUSBWriteMACRegister(
 	unsigned int localVal;
 
 	localVal = Value;
-	Status = RTUSBSingleWrite(pAd, Offset, (USHORT)(localVal & 0xffff), bWriteHigh);
-	Status = RTUSBSingleWrite(pAd, Offset + 2, (USHORT)((localVal & 0xffff0000) >> 16), bWriteHigh);
+	Status = RTUSBSingleWrite(pAd, Offset, (unsigned short)(localVal & 0xffff), bWriteHigh);
+	Status = RTUSBSingleWrite(pAd, Offset + 2, (unsigned short)((localVal & 0xffff0000) >> 16), bWriteHigh);
 
 	return Status;
 }
@@ -640,9 +640,9 @@ done:
 */
 NTSTATUS RTUSBReadEEPROM(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	OUT	unsigned char *			pData,
-	IN	USHORT			length)
+	IN	unsigned short			length)
 {
 	NTSTATUS	Status = STATUS_SUCCESS;
 
@@ -676,9 +676,9 @@ NTSTATUS RTUSBReadEEPROM(
 */
 NTSTATUS RTUSBWriteEEPROM(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	IN	unsigned char *			pData,
-	IN	USHORT			length)
+	IN	unsigned short			length)
 {
 	NTSTATUS	Status = STATUS_SUCCESS;
 
@@ -698,11 +698,11 @@ NTSTATUS RTUSBWriteEEPROM(
 
 NTSTATUS RTUSBReadEEPROM16(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			offset,
+	IN	unsigned short			offset,
 	OUT	unsigned short *			pData)
 {
 	NTSTATUS status;
-	USHORT  localData;
+	unsigned short  localData;
 
 	status = RTUSBReadEEPROM(pAd, offset, (unsigned char *)(&localData), 2);
 	if (status == STATUS_SUCCESS)
@@ -714,10 +714,10 @@ NTSTATUS RTUSBReadEEPROM16(
 
 NTSTATUS RTUSBWriteEEPROM16(
 	IN RTMP_ADAPTER *pAd,
-	IN USHORT offset,
-	IN USHORT value)
+	IN unsigned short offset,
+	IN unsigned short value)
 {
-	USHORT tmpVal;
+	unsigned short tmpVal;
 
 	tmpVal = cpu2le16(value);
 	return RTUSBWriteEEPROM(pAd, offset, (unsigned char *)&(tmpVal), 2);
@@ -912,8 +912,8 @@ NTSTATUS    RTUSB_VendorRequest(
 	IN	unsigned int			TransferFlags,
 	IN	unsigned char			RequestType,
 	IN	unsigned char			Request,
-	IN	USHORT			Value,
-	IN	USHORT			Index,
+	IN	unsigned short			Value,
+	IN	unsigned short			Index,
 	IN	void *			TransferBuffer,
 	IN	unsigned int			TransferBufferLength)
 {
@@ -1325,7 +1325,7 @@ static NTSTATUS ResetBulkInHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 static NTSTATUS SetAsicWcidHdlr(IN PRTMP_ADAPTER pAd, IN PCmdQElmt CMDQelmt)
 {
 	RT_SET_ASIC_WCID	SetAsicWcid;
-	USHORT		offset;
+	unsigned short		offset;
 	unsigned int		MACValue, MACRValue = 0;
 	SetAsicWcid = *((PRT_SET_ASIC_WCID)(CMDQelmt->buffer));
 
@@ -1789,7 +1789,7 @@ static CMDHdlr CMDHdlrTable[] = {
 static inline BOOLEAN ValidCMD(IN PCmdQElmt CMDQelmt)
 {
 	SHORT CMDIndex = CMDQelmt->command - CMDTHREAD_FIRST_CMD_ID;
-	USHORT CMDHdlrTableLength= sizeof(CMDHdlrTable) / sizeof(CMDHdlr);
+	unsigned short CMDHdlrTableLength= sizeof(CMDHdlrTable) / sizeof(CMDHdlr);
 
 	if ( (CMDIndex >= 0) && (CMDIndex < CMDHdlrTableLength))
 	{
@@ -1989,7 +1989,7 @@ VOID RTUSBWatchDog(IN RTMP_ADAPTER *pAd)
 	/* For Sigma debug, dump the ba_reordering sequence.*/
 	if((needDumpSeq == TRUE) && (pAd->CommonCfg.bDisableReordering == 0))
 	{
-		USHORT				Idx;
+		unsigned short				Idx;
 		PBA_REC_ENTRY		pBAEntry = NULL;
 		unsigned char				count = 0;
 		struct reordering_mpdu *mpdu_blk;

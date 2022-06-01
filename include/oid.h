@@ -638,9 +638,9 @@ typedef struct GNU_PACKED _NDIS_802_11_BSSID_LIST {
 
 typedef struct {
 	BOOLEAN bValid;		/* 1: variable contains valid value */
-	USHORT StaNum;
+	unsigned short StaNum;
 	unsigned char ChannelUtilization;
-	USHORT RemainingAdmissionControl;	/* in unit of 32-us */
+	unsigned short RemainingAdmissionControl;	/* in unit of 32-us */
 } QBSS_LOAD_UI, *PQBSS_LOAD_UI;
 
 /* Added Capabilities, IELength and IEs for each BSSID */
@@ -669,8 +669,8 @@ typedef struct GNU_PACKED _NDIS_802_11_BSSID_LIST_EX {
 
 typedef struct GNU_PACKED _NDIS_802_11_FIXED_IEs {
 	unsigned char Timestamp[8];
-	USHORT BeaconInterval;
-	USHORT Capabilities;
+	unsigned short BeaconInterval;
+	unsigned short Capabilities;
 } NDIS_802_11_FIXED_IEs, *PNDIS_802_11_FIXED_IEs;
 
 typedef struct _NDIS_802_11_VARIABLE_IEs {
@@ -727,24 +727,24 @@ typedef enum _NDIS_802_11_RELOAD_DEFAULTS {
 #define NDIS_802_11_AI_RESFI_ASSOCIATIONID     4
 
 typedef struct _NDIS_802_11_AI_REQFI {
-	USHORT Capabilities;
-	USHORT ListenInterval;
+	unsigned short Capabilities;
+	unsigned short ListenInterval;
 	NDIS_802_11_MAC_ADDRESS CurrentAPAddress;
 } NDIS_802_11_AI_REQFI, *PNDIS_802_11_AI_REQFI;
 
 typedef struct _NDIS_802_11_AI_RESFI {
-	USHORT Capabilities;
-	USHORT StatusCode;
-	USHORT AssociationId;
+	unsigned short Capabilities;
+	unsigned short StatusCode;
+	unsigned short AssociationId;
 } NDIS_802_11_AI_RESFI, *PNDIS_802_11_AI_RESFI;
 
 typedef struct _NDIS_802_11_ASSOCIATION_INFORMATION {
 	unsigned long Length;
-	USHORT AvailableRequestFixedIEs;
+	unsigned short AvailableRequestFixedIEs;
 	NDIS_802_11_AI_REQFI RequestFixedIEs;
 	unsigned long RequestIELength;
 	unsigned long OffsetRequestIEs;
-	USHORT AvailableResponseFixedIEs;
+	unsigned short AvailableResponseFixedIEs;
 	NDIS_802_11_AI_RESFI ResponseFixedIEs;
 	unsigned long ResponseIELength;
 	unsigned long OffsetResponseIEs;
@@ -929,53 +929,53 @@ typedef struct _NDIS_802_11_CAPABILITY {
 typedef union _HTTRANSMIT_SETTING {
 #ifdef RT_BIG_ENDIAN
 	struct {
-		USHORT MODE:3;	/* Use definition MODE_xxx. */
-		USHORT iTxBF:1;
-		USHORT eTxBF:1;
-		USHORT STBC:1;	/* only support in HT/VHT mode with MCS0~7 */
-		USHORT ShortGI:1;
-		USHORT BW:2;	/* channel bandwidth 20MHz/40/80 MHz */
-		USHORT MCS:7;	/* MCS */
+		unsigned short MODE:3;	/* Use definition MODE_xxx. */
+		unsigned short iTxBF:1;
+		unsigned short eTxBF:1;
+		unsigned short STBC:1;	/* only support in HT/VHT mode with MCS0~7 */
+		unsigned short ShortGI:1;
+		unsigned short BW:2;	/* channel bandwidth 20MHz/40/80 MHz */
+		unsigned short MCS:7;	/* MCS */
 	} field;
 #else
 	struct {
-		USHORT MCS:7;
-		USHORT BW:2;
-		USHORT ShortGI:1;
-		USHORT STBC:1;
-		USHORT eTxBF:1;
-		USHORT iTxBF:1;
-		USHORT MODE:3;
+		unsigned short MCS:7;
+		unsigned short BW:2;
+		unsigned short ShortGI:1;
+		unsigned short STBC:1;
+		unsigned short eTxBF:1;
+		unsigned short iTxBF:1;
+		unsigned short MODE:3;
 	} field;
 #endif
-	USHORT word;
+	unsigned short word;
 } HTTRANSMIT_SETTING, *PHTTRANSMIT_SETTING;
 #else
 typedef union _HTTRANSMIT_SETTING {
 #ifdef RT_BIG_ENDIAN
 	struct {
-		USHORT MODE:2;	/* Use definition MODE_xxx. */
-		USHORT iTxBF:1;
-		USHORT rsv:1;
-		USHORT eTxBF:1;
-		USHORT STBC:2;	/*SPACE */
-		USHORT ShortGI:1;
-		USHORT BW:1;	/*channel bandwidth 20MHz or 40 MHz */
-		USHORT MCS:7;	/* MCS */
+		unsigned short MODE:2;	/* Use definition MODE_xxx. */
+		unsigned short iTxBF:1;
+		unsigned short rsv:1;
+		unsigned short eTxBF:1;
+		unsigned short STBC:2;	/*SPACE */
+		unsigned short ShortGI:1;
+		unsigned short BW:1;	/*channel bandwidth 20MHz or 40 MHz */
+		unsigned short MCS:7;	/* MCS */
 	} field;
 #else
 	struct {
-		USHORT MCS:7;	/* MCS */
-		USHORT BW:1;	/*channel bandwidth 20MHz or 40 MHz */
-		USHORT ShortGI:1;
-		USHORT STBC:2;	/*SPACE */
-		USHORT eTxBF:1;
-		USHORT rsv:1;
-		USHORT iTxBF:1;
-		USHORT MODE:2;	/* Use definition MODE_xxx. */
+		unsigned short MCS:7;	/* MCS */
+		unsigned short BW:1;	/*channel bandwidth 20MHz or 40 MHz */
+		unsigned short ShortGI:1;
+		unsigned short STBC:2;	/*SPACE */
+		unsigned short eTxBF:1;
+		unsigned short rsv:1;
+		unsigned short iTxBF:1;
+		unsigned short MODE:2;	/* Use definition MODE_xxx. */
 	} field;
 #endif
-	USHORT word;
+	unsigned short word;
 } HTTRANSMIT_SETTING, *PHTTRANSMIT_SETTING;
 #endif /* RT65xx */
 
@@ -1047,7 +1047,7 @@ typedef struct _RT_802_11_LINK_STATUS {
 typedef struct _RT_802_11_EVENT_LOG {
 	LARGE_INTEGER SystemTime;	/* timestammp via NdisGetCurrentSystemTime() */
 	unsigned char Addr[MAC_ADDR_LENGTH];
-	USHORT Event;		/* EVENT_xxx */
+	unsigned short Event;		/* EVENT_xxx */
 } RT_802_11_EVENT_LOG, *PRT_802_11_EVENT_LOG;
 
 typedef struct _RT_802_11_EVENT_TABLE {
@@ -1060,14 +1060,14 @@ typedef struct _RT_802_11_EVENT_TABLE {
 /* MIMO Tx parameter, ShortGI, MCS, STBC, etc.  these are fields in TXWI. Don't change this definition!!! */
 typedef union _MACHTTRANSMIT_SETTING {
 	struct {
-		USHORT MCS:7;	/* MCS */
-		USHORT BW:1;	/*channel bandwidth 20MHz or 40 MHz */
-		USHORT ShortGI:1;
-		USHORT STBC:2;	/*SPACE */
-		USHORT rsv:3;
-		USHORT MODE:2;	/* Use definition MODE_xxx. */
+		unsigned short MCS:7;	/* MCS */
+		unsigned short BW:1;	/*channel bandwidth 20MHz or 40 MHz */
+		unsigned short ShortGI:1;
+		unsigned short STBC:2;	/*SPACE */
+		unsigned short rsv:3;
+		unsigned short MODE:2;	/* Use definition MODE_xxx. */
 	} field;
-	USHORT word;
+	unsigned short word;
 } MACHTTRANSMIT_SETTING, *PMACHTTRANSMIT_SETTING;
 
 typedef struct _RT_802_11_MAC_ENTRY {
@@ -1157,7 +1157,7 @@ typedef struct _OID_BACAP_STRUC {
 
 typedef struct _RT_802_11_ACL_ENTRY {
 	unsigned char Addr[MAC_ADDR_LENGTH];
-	USHORT Rsv;
+	unsigned short Rsv;
 } RT_802_11_ACL_ENTRY, *PRT_802_11_ACL_ENTRY;
 
 typedef struct GNU_PACKED _RT_802_11_ACL {
@@ -1243,10 +1243,10 @@ typedef struct _RT_CHANNEL_LIST_INFO {
 /* WSC configured credential */
 typedef struct _WSC_CREDENTIAL {
 	NDIS_802_11_SSID SSID;	/* mandatory */
-	USHORT AuthType;	/* mandatory, 1: open, 2: wpa-psk, 4: shared, 8:wpa, 0x10: wpa2, 0x20: wpa2-psk */
-	USHORT EncrType;	/* mandatory, 1: none, 2: wep, 4: tkip, 8: aes */
+	unsigned short AuthType;	/* mandatory, 1: open, 2: wpa-psk, 4: shared, 8:wpa, 0x10: wpa2, 0x20: wpa2-psk */
+	unsigned short EncrType;	/* mandatory, 1: none, 2: wep, 4: tkip, 8: aes */
 	unsigned char Key[64];		/* mandatory, Maximum 64 byte */
-	USHORT KeyLength;
+	unsigned short KeyLength;
 	unsigned char MacAddr[MAC_ADDR_LENGTH];	/* mandatory, AP MAC address */
 	unsigned char KeyIndex;		/* optional, default is 1 */
 	unsigned char bFromUPnP;	/* TRUE: This credential is from external UPnP registrar */
@@ -1268,12 +1268,12 @@ typedef enum _WAPI_PORT_SECURE_STATE {
 
 typedef struct _WAPI_PORT_SECURE_STRUCT {
 	unsigned char Addr[MAC_ADDR_LENGTH];
-	USHORT state;
+	unsigned short state;
 } WAPI_PORT_SECURE_STRUCT, *PWAPI_PORT_SECURE_STRUCT;
 
 typedef struct _WAPI_UCAST_KEY_STRUCT {
 	unsigned char Addr[MAC_ADDR_LENGTH];
-	USHORT key_id;
+	unsigned short key_id;
 	unsigned char PTK[64];		/* unicast and additional key */
 } WAPI_UCAST_KEY_STRUCT, *PWAPI_UCAST_KEY_STRUCT;
 

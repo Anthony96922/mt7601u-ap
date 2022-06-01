@@ -168,11 +168,11 @@ VOID MlmeADDBAAction(
 			BA_PARM		tmpBaParm;
 
 			NdisMoveMemory((unsigned char *)(&tmpBaParm), (unsigned char *)(&Frame.BaParm), sizeof(BA_PARM));
-			*(USHORT *)(&tmpBaParm) = cpu2le16(*(USHORT *)(&tmpBaParm));
+			*(unsigned short *)(&tmpBaParm) = cpu2le16(*(unsigned short *)(&tmpBaParm));
 			NdisMoveMemory((unsigned char *)(&Frame.BaParm), (unsigned char *)(&tmpBaParm), sizeof(BA_PARM));
 		}
 #else
-		*(USHORT *)(&(Frame.BaParm)) = cpu2le16((*(USHORT *)(&(Frame.BaParm))));
+		*(unsigned short *)(&(Frame.BaParm)) = cpu2le16((*(unsigned short *)(&(Frame.BaParm))));
 #endif /* UNALIGNMENT_SUPPORT */
 
 		Frame.TimeOutValue = cpu2le16(Frame.TimeOutValue);
@@ -300,7 +300,7 @@ VOID MlmeDELBAAction(
 		Frame.DelbaParm.Initiator = pInfo->Initiator;
 		Frame.DelbaParm.TID = pInfo->TID;
 		Frame.ReasonCode = 39; /* Time Out*/
-		*(USHORT *)(&Frame.DelbaParm) = cpu2le16(*(USHORT *)(&Frame.DelbaParm));
+		*(unsigned short *)(&Frame.DelbaParm) = cpu2le16(*(unsigned short *)(&Frame.DelbaParm));
 		Frame.ReasonCode = cpu2le16(Frame.ReasonCode);
 		
 		MakeOutgoingFrame(pOutBuffer,               &FrameLen,
@@ -959,7 +959,7 @@ VOID ORIBATimerTimeout(
 /*	unsigned long			FrameLen;*/
 /*	NDIS_STATUS 	NStatus;*/
 /*	unsigned char *			pOutBuffer = NULL;*/
-/*	USHORT			Sequence;*/
+/*	unsigned short			Sequence;*/
 	unsigned char			TID;
 
 #ifdef RALINK_ATE
@@ -991,9 +991,9 @@ VOID SendRefreshBAR(
 	unsigned long			FrameLen;
 	NDIS_STATUS 	NStatus;
 	unsigned char *			pOutBuffer = NULL;
-	USHORT			Sequence;
+	unsigned short			Sequence;
 	unsigned char			i, TID;
-	USHORT			idx;
+	unsigned short			idx;
 	BA_ORI_ENTRY	*pBAEntry;
 
 	for (i = 0; i <NUM_OF_TID; i++)
@@ -1075,7 +1075,7 @@ VOID BarHeaderInit(
 	IN unsigned char * pDA,
 	IN unsigned char * pSA) 
 {
-/*	USHORT	Duration;*/
+/*	unsigned short	Duration;*/
 
 	NdisZeroMemory(pCntlBar, sizeof(FRAME_BAR));
 	pCntlBar->FC.Type = BTYPE_CNTL;

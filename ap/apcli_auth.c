@@ -153,13 +153,13 @@ static VOID ApCliMlmeAuthReqAction(
 	BOOLEAN             Cancelled;
 	NDIS_STATUS         NState;
 	unsigned char               Addr[MAC_ADDR_LEN];
-	USHORT              Alg, Seq, Status;
+	unsigned short              Alg, Seq, Status;
 	unsigned long               Timeout;
 	HEADER_802_11       AuthHdr; 
 	unsigned char *              pOutBuffer = NULL;
 	unsigned long               FrameLen = 0;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -233,8 +233,8 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 {
 	BOOLEAN         Cancelled;
 	unsigned char           Addr2[MAC_ADDR_LEN];
-	USHORT          Seq, Status, Alg;
-	USHORT          RemoteStatus;
+	unsigned short          Seq, Status, Alg;
+	unsigned short          RemoteStatus;
 	unsigned char			iv_hdr[LEN_WEP_IV_HDR];
 /*	unsigned char           ChlgText[CIPHER_TEXT_LEN]; */
 	unsigned char           *ChlgText = NULL;
@@ -247,7 +247,7 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	unsigned char		  	ChallengeIe = IE_CHALLENGE_TEXT;
 	unsigned char		  	len_challengeText = CIPHER_TEXT_LEN;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -312,9 +312,9 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 					/* Construct the 4-bytes WEP IV header */
 					RTMPConstructWEPIVHdr(default_key, pKey->TxTsc, iv_hdr);
 									 
-					Alg = cpu2le16(*(USHORT *)&Alg);
-					Seq = cpu2le16(*(USHORT *)&Seq);
-					RemoteStatus= cpu2le16(*(USHORT *)&RemoteStatus);                    				
+					Alg = cpu2le16(*(unsigned short *)&Alg);
+					Seq = cpu2le16(*(unsigned short *)&Seq);
+					RemoteStatus= cpu2le16(*(unsigned short *)&RemoteStatus);                    				
 
 					/* Construct message text */
 					MakeOutgoingFrame(CyperChlgText,        &c_len, 
@@ -389,10 +389,10 @@ static VOID ApCliPeerAuthRspAtSeq4Action(
 {
 	BOOLEAN     Cancelled;
 	unsigned char       Addr2[MAC_ADDR_LEN];
-	USHORT      Alg, Seq, Status;
+	unsigned short      Alg, Seq, Status;
 	CHAR        ChlgText[CIPHER_TEXT_LEN];
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -436,8 +436,8 @@ static VOID ApCliPeerDeauthAction(
 	unsigned char       Addr1[MAC_ADDR_LEN];
 	unsigned char       Addr2[MAC_ADDR_LEN];
 	unsigned char       Addr3[MAC_ADDR_LEN];
-	USHORT      Reason;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short      Reason;
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 	PMAC_TABLE_ENTRY pMacEntry = NULL;
@@ -487,7 +487,7 @@ static VOID ApCliAuthTimeoutAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI AUTH - AuthTimeoutAction\n"));
@@ -509,7 +509,7 @@ static VOID ApCliInvalidStateWhenAuth(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI AUTH - InvalidStateWhenAuth (state=%ld), reset AUTH state machine\n",
@@ -538,7 +538,7 @@ static VOID ApCliMlmeDeauthReqAction(
 	unsigned char * pOutBuffer = NULL;
 	unsigned long FrameLen = 0;
 	NDIS_STATUS NStatus;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 

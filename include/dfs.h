@@ -173,32 +173,32 @@ typedef enum _DFS_VERSION {
 
 typedef struct _NewDFSValidRadar
 {
-	USHORT type;
-	USHORT channel; /* bit map*/
-	USHORT WLow;
-	USHORT WHigh;
-	USHORT W;  /* for fixed width radar*/
-	USHORT WMargin;
+	unsigned short type;
+	unsigned short channel; /* bit map*/
+	unsigned short WLow;
+	unsigned short WHigh;
+	unsigned short W;  /* for fixed width radar*/
+	unsigned short WMargin;
 	unsigned long TLow;
 	unsigned long THigh;
 	unsigned long T;  /* for fixed period radar */
-	USHORT TMargin;
+	unsigned short TMargin;
 }NewDFSValidRadar, *pNewDFSValidRadar;
 
 typedef struct _NewDFSDebugPort {
 	unsigned long counter;
 	unsigned long timestamp;
-	USHORT width;
-	USHORT start_idx;	/* start index to period table */
-	USHORT end_idx;		/* end index to period table */
+	unsigned short width;
+	unsigned short start_idx;	/* start index to period table */
+	unsigned short end_idx;		/* end index to period table */
 } NewDFSDebugPort, *pNewDFSDebugPort;
 
 /* Matched Period Table */
 typedef struct _NewDFSMPeriod {
-	USHORT idx;
-	USHORT width;
-	USHORT idx2;
-	USHORT width2;
+	unsigned short idx;
+	unsigned short width;
+	unsigned short idx2;
+	unsigned short width2;
 	unsigned long period;
 } NewDFSMPeriod, *pNewDFSMPeriod;
 
@@ -207,11 +207,11 @@ typedef struct _NewDFSMPeriod {
 typedef struct _NewDFSParam {
 	BOOLEAN valid;
 	unsigned char mode;
-	USHORT avgLen;
-	USHORT ELow;
-	USHORT EHigh;
-	USHORT WLow;
-	USHORT WHigh;
+	unsigned short avgLen;
+	unsigned short ELow;
+	unsigned short EHigh;
+	unsigned short WLow;
+	unsigned short WHigh;
 	unsigned char EpsilonW;
 	unsigned long TLow;
 	unsigned long THigh;
@@ -222,7 +222,7 @@ typedef struct _NewDFSParam {
 
 typedef struct _DFS_PROGRAM_PARAM{
 	NewDFSParam NewDFSTableEntry[NEW_DFS_MAX_CHANNEL*4];
-	USHORT ChEnable;	/* Enabled Dfs channels (bit wise)*/
+	unsigned short ChEnable;	/* Enabled Dfs channels (bit wise)*/
 	unsigned char DeltaDelay;
 	/* Support after dfs_func >= 2 */
 	unsigned char Symmetric_Round;
@@ -234,7 +234,7 @@ typedef struct _DFS_PROGRAM_PARAM{
 
 typedef struct _NewDFSTable
 {
-	USHORT type;
+	unsigned short type;
 	NewDFSParam entry[NEW_DFS_MAX_CHANNEL];
 }NewDFSTable, *pNewDFSTable;
 
@@ -261,14 +261,14 @@ typedef struct _DFS_SW_DETECT_PARAM{
 	NewDFSDebugPort FCC_5[NEW_DFS_FCC_5_ENT_NUM];
 	unsigned char fcc_5_idx;
 	unsigned char fcc_5_last_idx;
-	USHORT fcc_5_threshold; /* to check the width of long pulse radar */
-	USHORT dfs_width_diff_ch1_Shift;
-	USHORT dfs_width_diff_ch2_Shift;
-	USHORT dfs_period_err;
+	unsigned short fcc_5_threshold; /* to check the width of long pulse radar */
+	unsigned short dfs_width_diff_ch1_Shift;
+	unsigned short dfs_width_diff_ch2_Shift;
+	unsigned short dfs_period_err;
 	unsigned long dfs_max_period;	/* Max possible Period */
-	USHORT dfs_width_diff;
-	USHORT dfs_width_ch0_err_L;
-	USHORT dfs_width_ch0_err_H;
+	unsigned short dfs_width_diff;
+	unsigned short dfs_width_ch0_err_L;
+	unsigned short dfs_width_ch0_err_H;
 	unsigned char dfs_check_loop;
 	unsigned char dfs_declare_thres;	
 	unsigned long dfs_w_counter;
@@ -277,13 +277,13 @@ typedef struct _DFS_SW_DETECT_PARAM{
 	UINT sw_idx[NEW_DFS_MAX_CHANNEL];
 	UINT hw_idx[NEW_DFS_MAX_CHANNEL];
 	UINT pr_idx[NEW_DFS_MAX_CHANNEL];	
-	USHORT dfs_t_idx[NEW_DFS_MAX_CHANNEL];	
-	USHORT dfs_w_idx[NEW_DFS_MAX_CHANNEL];
-	USHORT dfs_w_last_idx[NEW_DFS_MAX_CHANNEL];
+	unsigned short dfs_t_idx[NEW_DFS_MAX_CHANNEL];	
+	unsigned short dfs_w_idx[NEW_DFS_MAX_CHANNEL];
+	unsigned short dfs_w_last_idx[NEW_DFS_MAX_CHANNEL];
 	NewDFSDebugPort DFS_W[NEW_DFS_MAX_CHANNEL][NEW_DFS_DBG_PORT_ENT_NUM];
 	NewDFSMPeriod DFS_T[NEW_DFS_MAX_CHANNEL][NEW_DFS_MPERIOD_ENT_NUM];	/* period table */
 	/*unsigned char	ce_sw_id_check;*/
-	/*USHORT	ce_sw_t_diff;*/
+	/*unsigned short	ce_sw_t_diff;*/
 	/*unsigned long fcc_5_counter;*/
 	/* CE Staggered radar / weather radar */	
 #ifdef DFS_DEBUG
@@ -320,7 +320,7 @@ typedef struct _RADAR_DETECT_STRUCT {
 	unsigned char bChannelSwitchInProgress; /* RDMode could cover this*/
 	BOOLEAN bDfsSwDisable; /* disable sotfwre check */
 	BOOLEAN bDfsInit;		/* to indicate if dfs regs has been initialized */
-	USHORT PollTime;
+	unsigned short PollTime;
 	INT DfsRssiHigh;
 	INT DfsRssiLow;
 	BOOLEAN DfsRssiHighFromCfg;
@@ -349,10 +349,10 @@ typedef struct _RADAR_DETECT_STRUCT {
 	INT		ch_busy_sum;
 	INT		ch_idle_sum;
 	unsigned char fdf_num;
-	USHORT ch_busy_threshold[MAX_FDF_NUMBER];
+	unsigned short ch_busy_threshold[MAX_FDF_NUMBER];
 	INT		rssi_threshold[MAX_FDF_NUMBER];	
 	unsigned char McuRadarDebug;
-	USHORT McuRadarTick;
+	unsigned short McuRadarTick;
 	unsigned long RadarTimeStampHigh;
 	unsigned long RadarTimeStampLow;
 	unsigned char EnabledChMask;				/* Bit-wise mask for enabled DFS channels */
@@ -364,11 +364,11 @@ typedef struct _NewDFSProgParam
 {
 	unsigned char channel;
 	unsigned char mode;			/* reg 0x10, Detection Mode[2:0]*/
-	USHORT avgLen;		/* reg 0x11~0x12, M[7:0] & M[8]*/
-	USHORT ELow;		/* reg 0x13~0x14, Energy Low[7:0] & Energy Low[11:8]*/
-	USHORT EHigh;		/* reg 0x15~0x16, Energy High[7:0] & Energy High[11:8]*/
-	USHORT WLow;		/* reg 0x28~0x29, Width Low[7:0] & Width Low[11:8]*/
-	USHORT WHigh;		/* reg 0x2a~0x2b, Width High[7:0] & Width High[11:8]*/
+	unsigned short avgLen;		/* reg 0x11~0x12, M[7:0] & M[8]*/
+	unsigned short ELow;		/* reg 0x13~0x14, Energy Low[7:0] & Energy Low[11:8]*/
+	unsigned short EHigh;		/* reg 0x15~0x16, Energy High[7:0] & Energy High[11:8]*/
+	unsigned short WLow;		/* reg 0x28~0x29, Width Low[7:0] & Width Low[11:8]*/
+	unsigned short WHigh;		/* reg 0x2a~0x2b, Width High[7:0] & Width High[11:8]*/
 	unsigned char EpsilonW;		/* reg 0x2c, Width Delta[7:0], (Width Measurement Uncertainty) */
 	unsigned long TLow;			/* reg 0x17~0x1a, Period Low[7:0] & Period Low[15:8] & Period Low[23:16] & Period Low[31:24]*/
 	unsigned long THigh;		/* reg 0x1b~0x1e, Period High[7:0] & Period High[15:8] & Period High[23:16] & Period High[31:24]*/
@@ -398,7 +398,7 @@ void schedule_dfs_task(
 	 IN PRTMP_ADAPTER pAd);
  
 int SWRadarCheck(
-	 IN PRTMP_ADAPTER pAd, USHORT id);
+	 IN PRTMP_ADAPTER pAd, unsigned short id);
 
 VOID NewRadarDetectionProgram(
 	IN PRTMP_ADAPTER pAd,

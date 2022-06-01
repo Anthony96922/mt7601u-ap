@@ -153,25 +153,25 @@
 typedef	struct GNU_PACKED _WFD_DEVICE_INFO 
 {
 #ifndef RT_BIG_ENDIAN
-	USHORT DeviceType:2;
-	USHORT SourceCoupled:1;
-	USHORT SinkCoupled:1;
-	USHORT SessionAvail:2;
-	USHORT WSD:1;
-	USHORT PC:1;								/* Preferred Connectivity */
-	USHORT CP:1;
-	USHORT TimeSync:1;
-	USHORT Rsvd:6;
+	unsigned short DeviceType:2;
+	unsigned short SourceCoupled:1;
+	unsigned short SinkCoupled:1;
+	unsigned short SessionAvail:2;
+	unsigned short WSD:1;
+	unsigned short PC:1;								/* Preferred Connectivity */
+	unsigned short CP:1;
+	unsigned short TimeSync:1;
+	unsigned short Rsvd:6;
 #else
-	USHORT Rsvd:6;
-	USHORT TimeSync:1;							/* 802.1AS Support */
-	USHORT CP:1;								/* Content Protection */
-	USHORT PC:1;								/* Preferred Connectivity */
-	USHORT WSD:1;								/* WFD Service Discovery */
-	USHORT SessionAvail:2;
-	USHORT SinkCoupled:1;
-	USHORT SourceCoupled:1;
-	USHORT DeviceType:2;
+	unsigned short Rsvd:6;
+	unsigned short TimeSync:1;							/* 802.1AS Support */
+	unsigned short CP:1;								/* Content Protection */
+	unsigned short PC:1;								/* Preferred Connectivity */
+	unsigned short WSD:1;								/* WFD Service Discovery */
+	unsigned short SessionAvail:2;
+	unsigned short SinkCoupled:1;
+	unsigned short SourceCoupled:1;
+	unsigned short DeviceType:2;
 #endif
 }	WFD_DEVICE_INFO, *PWFD_DEVICE_INFO;
 
@@ -195,13 +195,13 @@ typedef	struct GNU_PACKED _WFD_SESSION_INFO
 	unsigned char 					DeviceAddr[MAC_ADDR_LEN];
 	unsigned char 					Bssid[MAC_ADDR_LEN];
 	WFD_DEVICE_INFO 		WfdDevInfo;
-	USHORT					MaxThroughput;
+	unsigned short					MaxThroughput;
 	WFD_COUPLED_SINK_INFO 	CoupledSinkInfo;									
 	unsigned char 					CoupledPeerAddr[MAC_ADDR_LEN];
 #else
 	unsigned char 					CoupledPeerAddr[MAC_ADDR_LEN];
 	WFD_COUPLED_SINK_INFO 	CoupledSinkInfo;
-	USHORT					MaxThroughput;
+	unsigned short					MaxThroughput;
 	WFD_DEVICE_INFO 		WfdDevInfo;
 	unsigned char 					Bssid[MAC_ADDR_LEN];
 	unsigned char 					DeviceAddr[MAC_ADDR_LEN];
@@ -250,8 +250,8 @@ typedef struct _WFD_ENTRY_INFO
 	unsigned char	sink_audio_unsupport;
 	unsigned char	source_audio_only;
 	unsigned char	tdls_persistent_group;
-	USHORT	rtsp_port;
-	USHORT	max_throughput;
+	unsigned short	rtsp_port;
+	unsigned short	max_throughput;
 	unsigned char	assoc_addr[MAC_ADDR_LEN];
 	WFD_COUPLED_SINK_INFO	coupled_sink_status;
 	unsigned char   	coupled_peer_addr[MAC_ADDR_LEN];
@@ -275,8 +275,8 @@ typedef struct _RT_WFD_CONFIG
 	unsigned char  	PC;
 	unsigned char  	CP;                     /* WFD Content Protection capability */
 	unsigned char  	TimeSync;
-	USHORT 	RtspPort;				/* Deafult WFD_RTSP_DEFAULT_PORT */
-	USHORT	MaxThroughput;			/* Maximum average throughput capability */
+	unsigned short 	RtspPort;				/* Deafult WFD_RTSP_DEFAULT_PORT */
+	unsigned short	MaxThroughput;			/* Maximum average throughput capability */
 	unsigned char	Bssid[MAC_ADDR_LEN];
 	unsigned char	IPv4Addr[4];
 	unsigned char  	TdlsSecurity;

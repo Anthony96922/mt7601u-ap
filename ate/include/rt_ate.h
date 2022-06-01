@@ -82,7 +82,7 @@ typedef struct _ATE_INFO {
 	CHAR TxAntennaSel;
 	CHAR RxAntennaSel;
 	TXWI_STRUC TxWI;	/* TXWI */
-	USHORT QID;
+	unsigned short QID;
 	unsigned char Addr1[MAC_ADDR_LEN];
 	unsigned char Addr2[MAC_ADDR_LEN];
 	unsigned char Addr3[MAC_ADDR_LEN];
@@ -130,18 +130,18 @@ typedef struct _ATE_INFO {
 	SHORT AvgRssi1X8;	/* sum of last 8 frames' RSSI */
 	SHORT AvgRssi2X8;	/* sum of last 8 frames' RSSI */
 	unsigned int NumOfAvgRssiSample;
-	USHORT HLen;		/* Header Length */
+	unsigned short HLen;		/* Header Length */
 
 #ifdef RALINK_QA
 	/* Tx frame */
 #ifdef RTMP_MAC_USB
 	TXINFO_STRUC TxInfo;	/* TxInfo */
 #endif /* RTMP_MAC_USB */
-	USHORT PLen;		/* Pattern Length */
+	unsigned short PLen;		/* Pattern Length */
 	unsigned char Header[32];	/* Header buffer */
 	unsigned char Pattern[32];	/* Pattern buffer */
-	USHORT DLen;		/* Data Length */
-	USHORT seq;
+	unsigned short DLen;		/* Data Length */
+	unsigned short seq;
 	unsigned int CID;
 	RTMP_OS_PID AtePid;
 	/* counters */
@@ -437,17 +437,17 @@ INT Set_RFWrite_Proc(
 
 VOID rt_ee_read_all(
 	IN  PRTMP_ADAPTER   pAd,
-	OUT USHORT *Data);
+	OUT unsigned short *Data);
 
 VOID rt_ee_write_all(
 	IN  PRTMP_ADAPTER   pAd,
-	IN  USHORT *Data);
+	IN  unsigned short *Data);
 
 VOID rt_ee_write_bulk(
 	IN  PRTMP_ADAPTER	pAd,
-	IN  USHORT *Data,
-	IN  USHORT offset,
-	IN  USHORT length);
+	IN  unsigned short *Data,
+	IN  unsigned short offset,
+	IN  unsigned short length);
 
 INT Set_ATE_Proc(
 	IN	PRTMP_ADAPTER	pAd, 

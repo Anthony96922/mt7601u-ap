@@ -78,7 +78,7 @@ unsigned char ZERO_MAC_ADDR[MAC_ADDR_LEN]  = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 CHAR RssiSafeLevelForTxRate[] ={  -92, -91, -90, -87, -88, -86, -85, -83, -81, -78, -72, -71, -40, -40 };
 
 unsigned char  RateIdToMbps[]	 = { 1, 2, 5, 11, 6, 9, 12, 18, 24, 36, 48, 54, 72, 100};
-USHORT RateIdTo500Kbps[] = { 2, 4, 11, 22, 12, 18, 24, 36, 48, 72, 96, 108, 144, 200};
+unsigned short RateIdTo500Kbps[] = { 2, 4, 11, 22, 12, 18, 24, 36, 48, 72, 96, 108, 144, 200};
 
 unsigned char SsidIe = IE_SSID;
 unsigned char SupRateIe = IE_SUPP_RATES;
@@ -1006,7 +1006,7 @@ VOID MlmeCalculateChannelQuality(
 /* IRQL = DISPATCH_LEVEL*/
 VOID MlmeSetTxPreamble(
 	IN PRTMP_ADAPTER pAd, 
-	IN USHORT TxPreamble)
+	IN unsigned short TxPreamble)
 {
 	AUTO_RSP_CFG_STRUC csr4;
 
@@ -1890,7 +1890,7 @@ VOID BssEntrySet(
 	OUT BSS_ENTRY *pBss, 
 	IN BCN_IE_LIST *ie_list,
 	IN CHAR Rssi,
-	IN USHORT LengthVIE,	
+	IN unsigned short LengthVIE,	
 	IN PNDIS_802_11_VARIABLE_IEs pVIE) 
 {
 	COPY_MAC_ADDR(pBss->Bssid, ie_list->Bssid);
@@ -2039,7 +2039,7 @@ VOID BssEntrySet(
 
 	{
 		PEID_STRUCT     pEid;
-		USHORT          Length = 0;
+		unsigned short          Length = 0;
 
 #ifdef WSC_INCLUDED
 		pBss->WpsAP = 0x00;
@@ -2047,7 +2047,7 @@ VOID BssEntrySet(
 #endif /* WSC_INCLUDED */
 
 		pEid = (PEID_STRUCT) pVIE;
-		while ((Length + 2 + (USHORT)pEid->Len) <= LengthVIE)    
+		while ((Length + 2 + (unsigned short)pEid->Len) <= LengthVIE)    
 		{
 #define WPS_AP		0x01
 			switch(pEid->Eid)
@@ -2067,7 +2067,7 @@ VOID BssEntrySet(
 					break;
 
 			}
-			Length = Length + 2 + (USHORT)pEid->Len;  /* Eid[1] + Len[1]+ content[Len]*/
+			Length = Length + 2 + (unsigned short)pEid->Len;  /* Eid[1] + Len[1]+ content[Len]*/
 			pEid = (PEID_STRUCT)((unsigned char*)pEid + 2 + pEid->Len);        
 		}
 	}
@@ -2103,7 +2103,7 @@ unsigned long BssTableSetEntry(
 	OUT BSS_TABLE *Tab,
 	IN BCN_IE_LIST *ie_list,
 	IN CHAR Rssi,
-	IN USHORT LengthVIE,	
+	IN unsigned short LengthVIE,	
 	IN PNDIS_802_11_VARIABLE_IEs pVIE)
 {
 	unsigned long	Idx;
@@ -2165,7 +2165,7 @@ VOID BssCipherParse(
 	PRSN_IE_HEADER_STRUCT			pRsnHeader;
 	PCIPHER_SUITE_STRUCT			pCipher;
 	PAKM_SUITE_STRUCT				pAKM;
-	USHORT							Count;
+	unsigned short							Count;
 	INT								Length;
 	NDIS_802_11_ENCRYPTION_STATUS	TmpCipher;
 
@@ -2269,7 +2269,7 @@ VOID BssCipherParse(
 				/* skip all unicast cipher suites*/
 				/*Count = *(unsigned short *) pTmp;				*/
 				Count = (pTmp[1]<<8) + pTmp[0];
-				pTmp   += sizeof(USHORT);
+				pTmp   += sizeof(unsigned short);
 
 				/* Parsing all unicast cipher suite*/
 				while (Count > 0)
@@ -2309,7 +2309,7 @@ VOID BssCipherParse(
 				/* 4. get AKM suite counts*/
 				/*Count	= *(unsigned short *) pTmp;*/
 				Count = (pTmp[1]<<8) + pTmp[0];
-				pTmp   += sizeof(USHORT);
+				pTmp   += sizeof(unsigned short);
 				pTmp   += 3;
 				
 				switch (*pTmp)
@@ -2389,7 +2389,7 @@ VOID BssCipherParse(
 				/* 2. Get pairwise cipher counts*/
 				/*Count = *(unsigned short *) pTmp;*/
 				Count = (pTmp[1]<<8) + pTmp[0];
-				pTmp   += sizeof(USHORT);			
+				pTmp   += sizeof(unsigned short);			
 
 				/* 3. Get pairwise cipher*/
 				/* Parsing all unicast cipher suite*/
@@ -2430,7 +2430,7 @@ VOID BssCipherParse(
 				/* 4. get AKM suite counts*/
 				/*Count	= *(unsigned short *) pTmp;*/
 				Count = (pTmp[1]<<8) + pTmp[0];
-				pTmp   += sizeof(USHORT);
+				pTmp   += sizeof(unsigned short);
 
 				/* 5. Get AKM ciphers*/
 				/* Parsing all AKM ciphers*/
@@ -2490,7 +2490,7 @@ VOID BssCipherParse(
 				/* 6. Get RSN capability*/
 				/*pBss->WPA2.RsnCapability = *(unsigned short *) pTmp;*/
 				pBss->WPA2.RsnCapability = (pTmp[1]<<8) + pTmp[0];
-				pTmp += sizeof(USHORT);
+				pTmp += sizeof(unsigned short);
 				
 				/* Check the Pair & Group, if different, turn on mixed mode flag*/
 				if (pBss->WPA2.GroupCipher != pBss->WPA2.PairCipher)
@@ -2507,9 +2507,9 @@ VOID BssCipherParse(
 				pTmp += sizeof(RSN_IE_HEADER_STRUCT);
 
 				/* 1. Get AKM suite counts*/
-				NdisMoveMemory(&Count, pTmp, sizeof(USHORT));	
+				NdisMoveMemory(&Count, pTmp, sizeof(unsigned short));	
     			Count = cpu2le16(Count);				
-				pTmp += sizeof(USHORT);
+				pTmp += sizeof(unsigned short);
 
 				/* 2. Get AKM ciphers*/
 				pAKM = (PAKM_SUITE_STRUCT) pTmp;
@@ -2532,9 +2532,9 @@ VOID BssCipherParse(
 				pTmp += (Count * sizeof(AKM_SUITE_STRUCT));
 
 				/* 3. Get pairwise cipher counts*/
-				NdisMoveMemory(&Count, pTmp, sizeof(USHORT));	
+				NdisMoveMemory(&Count, pTmp, sizeof(unsigned short));	
     			Count = cpu2le16(Count);	
-				pTmp += sizeof(USHORT);			
+				pTmp += sizeof(unsigned short);			
 
 				/* 4. Get pairwise cipher*/
 				/* Parsing all unicast cipher suite*/
@@ -2591,7 +2591,7 @@ VOID BssCipherParse(
 
 				/* update the WAPI capability*/
 				pBss->WAPI.RsnCapability = (pTmp[1]<<8) + pTmp[0];
-				pTmp += sizeof(USHORT);
+				pTmp += sizeof(unsigned short);
 
 				break;
 #endif /* WAPI_SUPPORT */				

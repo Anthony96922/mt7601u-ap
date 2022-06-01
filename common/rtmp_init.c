@@ -354,12 +354,12 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 */
 VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 {
-	USHORT i, value, value2;
+	unsigned short i, value, value2;
 	EEPROM_TX_PWR_STRUC Power;
 	EEPROM_VERSION_STRUC Version;
 	EEPROM_ANTENNA_STRUC Antenna;
 	EEPROM_NIC_CONFIG2_STRUC NicConfig2;
-	USHORT  Addr01,Addr23,Addr45 ;
+	unsigned short  Addr01,Addr23,Addr45 ;
 	MAC_DW0_STRUC csr2;
 	MAC_DW1_STRUC csr3;
 
@@ -998,14 +998,14 @@ VOID	NICInitAsicFromEEPROM(
 	IN	PRTMP_ADAPTER	pAd)
 {
 #ifdef RALINK_ATE
-	USHORT value;
+	unsigned short value;
 #endif /* RALINK_ATE */
 	EEPROM_NIC_CONFIG2_STRUC NicConfig2;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("--> NICInitAsicFromEEPROM\n"));
 
 #if !defined(RT65xx) && !defined(MT7601)
-	for(USHORT i = EEPROM_BBP_ARRAY_OFFSET; i < NUM_EEPROM_BBP_PARMS; i++)
+	for(unsigned short i = EEPROM_BBP_ARRAY_OFFSET; i < NUM_EEPROM_BBP_PARMS; i++)
 	{
 		unsigned char BbpRegIdx, BbpValue;
 	
@@ -1170,7 +1170,7 @@ VOID AsicInitBcnBuf(IN RTMP_ADAPTER *pAd)
 		};
 		for (idx = 0; idx < 4; idx ++)
 		{
-			RTMP_IO_WRITE32(pAd, (USHORT)bcn_mac_reg_tb[idx].Register, 
+			RTMP_IO_WRITE32(pAd, (unsigned short)bcn_mac_reg_tb[idx].Register, 
 									bcn_mac_reg_tb[idx].Value);
 		}
 	}
@@ -1269,7 +1269,7 @@ NDIS_STATUS	NICInitializeAsic(
 	USB_DMA_CFG_STRUC UsbCfg;
 #endif /* RTMP_MAC_USB */
 #if !(defined(RTMP_MAC_USB) && defined(RLT_MAC))
-	USHORT			KeyIdx;
+	unsigned short			KeyIdx;
 #endif
 
 #ifdef RLT_MAC
@@ -1361,7 +1361,7 @@ NDIS_STATUS	NICInitializeAsic(
 	/* Initialize MAC register to default value*/
 	for(Index=0; Index<NUM_MAC_REG_PARMS; Index++)
 	{
-		RTMP_IO_WRITE32(pAd, (USHORT)MACRegTable[Index].Register, MACRegTable[Index].Value);
+		RTMP_IO_WRITE32(pAd, (unsigned short)MACRegTable[Index].Register, MACRegTable[Index].Value);
 	}
 #endif /* defined(RTMP_MAC_USB) && defined(RLT_MAC) */
 
@@ -1450,7 +1450,7 @@ NDIS_STATUS	NICInitializeAsic(
 	/*Initialize WCID table*/
 	for(Index =0 ;Index < 254;Index++)
 	{
-		RTUSBMultiWrite(pAd, (USHORT)(MAC_WCID_BASE + Index * 8), MAC_Value, 8, FALSE);
+		RTUSBMultiWrite(pAd, (unsigned short)(MAC_WCID_BASE + Index * 8), MAC_Value, 8, FALSE);
 	}
 	}
 

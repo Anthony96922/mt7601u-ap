@@ -39,9 +39,9 @@ typedef struct _DOT11_H {
 	/* 802.11H and DFS related params */
 	unsigned char CSCount;		/*Channel switch counter */
 	unsigned char CSPeriod; 	/*Channel switch period (beacon count) */
-	USHORT RDCount; 	/*Radar detection counter, if RDCount >  ChMovingTime, start to send beacons*/
+	unsigned short RDCount; 	/*Radar detection counter, if RDCount >  ChMovingTime, start to send beacons*/
 	unsigned char RDMode;		/*Radar Detection mode */
-	USHORT ChMovingTime;
+	unsigned short ChMovingTime;
 	BOOLEAN bDFSIndoor;
 	unsigned long InServiceMonitorCount;	/* unit: sec */
 } DOT11_H, *PDOT11_H;

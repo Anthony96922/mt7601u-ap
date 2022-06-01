@@ -107,7 +107,7 @@ BOOLEAN APCheckClass2Class3Error(
 VOID APHandleRxPsPoll(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			pAddr,
-	IN	USHORT			Aid,
+	IN	unsigned short			Aid,
     IN	BOOLEAN			isActive);
 
 VOID    RTMPDescriptorEndianChange(
@@ -131,13 +131,13 @@ VOID APAssocStateMachineInit(
 VOID MbssKickOutStas(
 	IN PRTMP_ADAPTER pAd,
 	IN INT apidx,
-	IN USHORT Reason);
+	IN unsigned short Reason);
 
 VOID APMlmeKickOutSta(
     IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pStaAddr, 
 	IN unsigned char Wcid,
-	IN USHORT Reason);
+	IN unsigned short Reason);
 
 
 
@@ -332,7 +332,7 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
     IN  PRTMP_ADAPTER   pAd, 
     IN  unsigned char *          pAddr, 
     OUT SST             *Sst, 
-    OUT USHORT          *Aid,
+    OUT unsigned short          *Aid,
     OUT unsigned char           *PsMode,
     OUT unsigned char           *Rate); 
 
@@ -346,7 +346,7 @@ BOOLEAN APPsIndicate(
 VOID ApLogEvent(
     IN PRTMP_ADAPTER    pAd,
     IN unsigned char *           pAddr,
-    IN USHORT           Event);
+    IN unsigned short           Event);
 #else
 #define ApLogEvent(_pAd, _pAddr, _Event)
 #endif /* SYSTEM_LOG_SUPPORT */
@@ -395,7 +395,7 @@ BOOLEAN PeerDisassocReqSanity(
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT	unsigned short	*SeqNum,
-    OUT USHORT *Reason);
+    OUT unsigned short *Reason);
 
 BOOLEAN PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
@@ -403,7 +403,7 @@ BOOLEAN PeerDeauthReqSanity(
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
    	OUT	unsigned short	*SeqNum,    
-    OUT USHORT *Reason);
+    OUT unsigned short *Reason);
 
 BOOLEAN APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
@@ -411,9 +411,9 @@ BOOLEAN APPeerAuthSanity(
     IN unsigned long MsgLen, 
 	OUT unsigned char * pAddr1, 
     OUT unsigned char * pAddr2, 
-    OUT USHORT *Alg, 
-    OUT USHORT *Seq, 
-    OUT USHORT *Status, 
+    OUT unsigned short *Alg, 
+    OUT unsigned short *Seq, 
+    OUT unsigned short *Status, 
     OUT CHAR *ChlgText
 	);
 

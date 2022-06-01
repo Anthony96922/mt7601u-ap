@@ -111,7 +111,7 @@ INT rt28xx_ap_ioctl(
 	struct iwreq		*wrqin = (struct iwreq *) rq;
 	RTMP_IOCTL_INPUT_STRUCT rt_wrq, *wrq = &rt_wrq;
 	INT			Status = NDIS_STATUS_SUCCESS;
-	USHORT			subcmd; /*, index; */
+	unsigned short			subcmd; /*, index; */
 /*	POS_COOKIE		pObj; */
 	INT			apidx=0;
 	unsigned int			org_len;

@@ -618,7 +618,7 @@ VOID MlmeDecTxQuality(
 VOID MlmeSetTxQuality(
 	IN MAC_TABLE_ENTRY	*pEntry,
 	IN unsigned char			rateIndex,
-	IN USHORT			txQuality)
+	IN unsigned short			txQuality)
 {
 #ifdef TXBF_SUPPORT
 	if (pEntry->phyETxBf || pEntry->phyITxBf)
@@ -629,7 +629,7 @@ VOID MlmeSetTxQuality(
 }
 
 
-USHORT MlmeGetTxQuality(
+unsigned short MlmeGetTxQuality(
 	IN MAC_TABLE_ENTRY	*pEntry,
 	IN unsigned char			rateIndex)
 {
@@ -768,7 +768,7 @@ VOID APMlmeSetTxRate(
 #endif /* DBG_CTRL_SUPPORT */
 #endif /* DOT11_N_SUPPORT */
 
-	pAd->LastTxRate = (USHORT)(pEntry->HTPhyMode.word);
+	pAd->LastTxRate = (unsigned short)(pEntry->HTPhyMode.word);
 
 #ifdef FIFO_EXT_SUPPORT
 	AsicFifoExtEntryClean(pAd, pEntry);
@@ -1483,10 +1483,10 @@ VOID MlmeRALog(
 		if (pAd->CommonCfg.DebugFlags & DBF_DBQ_RA_LOG)
 		{
 			struct {
-				USHORT phyMode;
-				USHORT per;
-				USHORT tp;
-				USHORT bfRatio;
+				unsigned short phyMode;
+				unsigned short per;
+				unsigned short tp;
+				unsigned short bfRatio;
 			} raLogInfo;
 
 			raLogInfo.phyMode = pEntry->HTPhyMode.word;
@@ -1735,7 +1735,7 @@ VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 		txbf_rate_adjust(pAd, pEntry);
 #endif /*  TXBF_SUPPORT */
 
-	pAd->LastTxRate = (USHORT)(pEntry->HTPhyMode.word);
+	pAd->LastTxRate = (unsigned short)(pEntry->HTPhyMode.word);
 
 #ifdef STREAM_MODE_SUPPORT
 	/*  Enable/disable stream mode based on MCS */

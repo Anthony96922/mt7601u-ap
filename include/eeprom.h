@@ -43,7 +43,7 @@ typedef	union _EEPROM_WORD_STRUC {
 		unsigned char	Byte1;				// High Byte
 		unsigned char	Byte0;				// Low Byte
 	} field;
-	USHORT	word;
+	unsigned short	word;
 } EEPROM_WORD_STRUC;
 #else
 typedef	union _EEPROM_WORD_STRUC {
@@ -51,7 +51,7 @@ typedef	union _EEPROM_WORD_STRUC {
 		unsigned char	Byte0;
 		unsigned char	Byte1;
 	} field;
-	USHORT	word;
+	unsigned short	word;
 } EEPROM_WORD_STRUC;
 #endif
 
@@ -72,46 +72,46 @@ typedef	union _EEPROM_WORD_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _EEPROM_NIC_CINFIG2_STRUC {
 	struct {
-		USHORT DACTestBit:1;	/* control if driver should patch the DAC issue */
-		USHORT CoexBit:1;
-		USHORT bInternalTxALC:1;	/* Internal Tx ALC */
-		USHORT AntOpt:1;	/* Fix Antenna Option: 0:Main; 1: Aux */
-		USHORT AntDiversity:1;	/* Antenna diversity */
-		USHORT Rsv1:1;	/* must be 0 */
-		USHORT BW40MAvailForA:1;	/* 0:enable, 1:disable */
-		USHORT BW40MAvailForG:1;	/* 0:enable, 1:disable */
-		USHORT EnableWPSPBC:1;	/* WPS PBC Control bit */
-		USHORT BW40MSidebandForA:1;
-		USHORT BW40MSidebandForG:1;
-		USHORT CardbusAcceleration:1;	/* !!! NOTE: 0 - enable, 1 - disable */
-		USHORT ExternalLNAForA:1;	/* external LNA enable for 5G */
-		USHORT ExternalLNAForG:1;	/* external LNA enable for 2.4G */
-		USHORT DynamicTxAgcControl:1;	/* */
-		USHORT HardwareRadioControl:1;	/* Whether RF is controlled by driver or HW. 1:enable hw control, 0:disable */
+		unsigned short DACTestBit:1;	/* control if driver should patch the DAC issue */
+		unsigned short CoexBit:1;
+		unsigned short bInternalTxALC:1;	/* Internal Tx ALC */
+		unsigned short AntOpt:1;	/* Fix Antenna Option: 0:Main; 1: Aux */
+		unsigned short AntDiversity:1;	/* Antenna diversity */
+		unsigned short Rsv1:1;	/* must be 0 */
+		unsigned short BW40MAvailForA:1;	/* 0:enable, 1:disable */
+		unsigned short BW40MAvailForG:1;	/* 0:enable, 1:disable */
+		unsigned short EnableWPSPBC:1;	/* WPS PBC Control bit */
+		unsigned short BW40MSidebandForA:1;
+		unsigned short BW40MSidebandForG:1;
+		unsigned short CardbusAcceleration:1;	/* !!! NOTE: 0 - enable, 1 - disable */
+		unsigned short ExternalLNAForA:1;	/* external LNA enable for 5G */
+		unsigned short ExternalLNAForG:1;	/* external LNA enable for 2.4G */
+		unsigned short DynamicTxAgcControl:1;	/* */
+		unsigned short HardwareRadioControl:1;	/* Whether RF is controlled by driver or HW. 1:enable hw control, 0:disable */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_NIC_CONFIG2_STRUC, *PEEPROM_NIC_CONFIG2_STRUC;
 #else
 typedef union _EEPROM_NIC_CINFIG2_STRUC {
 	struct {
-		USHORT HardwareRadioControl:1;	/* 1:enable, 0:disable */
-		USHORT DynamicTxAgcControl:1;	/* */
-		USHORT ExternalLNAForG:1;	/* */
-		USHORT ExternalLNAForA:1;	/* external LNA enable for 2.4G */
-		USHORT CardbusAcceleration:1;	/* !!! NOTE: 0 - enable, 1 - disable */
-		USHORT BW40MSidebandForG:1;
-		USHORT BW40MSidebandForA:1;
-		USHORT EnableWPSPBC:1;	/* WPS PBC Control bit */
-		USHORT BW40MAvailForG:1;	/* 0:enable, 1:disable */
-		USHORT BW40MAvailForA:1;	/* 0:enable, 1:disable */
-		USHORT Rsv1:1;	/* must be 0 */
-		USHORT AntDiversity:1;	/* Antenna diversity */
-		USHORT AntOpt:1;	/* Fix Antenna Option: 0:Main; 1: Aux */
-		USHORT bInternalTxALC:1;	/* Internal Tx ALC */
-		USHORT CoexBit:1;
-		USHORT DACTestBit:1;	/* control if driver should patch the DAC issue */
+		unsigned short HardwareRadioControl:1;	/* 1:enable, 0:disable */
+		unsigned short DynamicTxAgcControl:1;	/* */
+		unsigned short ExternalLNAForG:1;	/* */
+		unsigned short ExternalLNAForA:1;	/* external LNA enable for 2.4G */
+		unsigned short CardbusAcceleration:1;	/* !!! NOTE: 0 - enable, 1 - disable */
+		unsigned short BW40MSidebandForG:1;
+		unsigned short BW40MSidebandForA:1;
+		unsigned short EnableWPSPBC:1;	/* WPS PBC Control bit */
+		unsigned short BW40MAvailForG:1;	/* 0:enable, 1:disable */
+		unsigned short BW40MAvailForA:1;	/* 0:enable, 1:disable */
+		unsigned short Rsv1:1;	/* must be 0 */
+		unsigned short AntDiversity:1;	/* Antenna diversity */
+		unsigned short AntOpt:1;	/* Fix Antenna Option: 0:Main; 1: Aux */
+		unsigned short bInternalTxALC:1;	/* Internal Tx ALC */
+		unsigned short CoexBit:1;
+		unsigned short DACTestBit:1;	/* control if driver should patch the DAC issue */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_NIC_CONFIG2_STRUC, *PEEPROM_NIC_CONFIG2_STRUC;
 #endif
 
@@ -121,22 +121,22 @@ typedef union _EEPROM_NIC_CINFIG2_STRUC {
 #ifdef RT_BIG_ENDIAN
 typedef union _EEPROM_NIC_CINFIG3_STRUC {
 	struct {
-		USHORT Rsv1:7;	/* must be 0 */
-		USHORT CoexMethod:1;
-		USHORT TxStream:4;	/* Number of Tx stream */
-		USHORT RxStream:4;	/* Number of rx stream */
+		unsigned short Rsv1:7;	/* must be 0 */
+		unsigned short CoexMethod:1;
+		unsigned short TxStream:4;	/* Number of Tx stream */
+		unsigned short RxStream:4;	/* Number of rx stream */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_NIC_CONFIG3_STRUC, *PEEPROM_NIC_CONFIG3_STRUC;
 #else
 typedef union _EEPROM_NIC_CINFIG3_STRUC {
 	struct {
-		USHORT RxStream:4;	/* Number of rx stream */
-		USHORT TxStream:4;	/* Number of Tx stream */
-		USHORT CoexMethod:1;
-		USHORT Rsv1:7;	/* must be 0 */
+		unsigned short RxStream:4;	/* Number of rx stream */
+		unsigned short TxStream:4;	/* Number of Tx stream */
+		unsigned short CoexMethod:1;
+		unsigned short Rsv1:7;	/* must be 0 */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_NIC_CONFIG3_STRUC, *PEEPROM_NIC_CONFIG3_STRUC;
 #endif
 #endif /* RTMP_USB_SUPPORT */
@@ -154,7 +154,7 @@ typedef union _EEPROM_TX_PWR_STRUC {
 		signed char Byte1;	/* High Byte */
 		signed char Byte0;	/* Low Byte */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_TX_PWR_STRUC, *PEEPROM_TX_PWR_STRUC;
 #else
 typedef union _EEPROM_TX_PWR_STRUC {
@@ -162,7 +162,7 @@ typedef union _EEPROM_TX_PWR_STRUC {
 		signed char Byte0;	/* Low Byte */
 		signed char Byte1;	/* High Byte */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_TX_PWR_STRUC, *PEEPROM_TX_PWR_STRUC;
 #endif
 
@@ -172,7 +172,7 @@ typedef union _EEPROM_VERSION_STRUC {
 		unsigned char Version;	/* High Byte */
 		unsigned char FaeReleaseNumber;	/* Low Byte */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_VERSION_STRUC, *PEEPROM_VERSION_STRUC;
 #else
 typedef union _EEPROM_VERSION_STRUC {
@@ -180,41 +180,41 @@ typedef union _EEPROM_VERSION_STRUC {
 		unsigned char FaeReleaseNumber;	/* Low Byte */
 		unsigned char Version;	/* High Byte */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_VERSION_STRUC, *PEEPROM_VERSION_STRUC;
 #endif
 
 #ifdef RT_BIG_ENDIAN
 typedef union _EEPROM_LED_STRUC {
 	struct {
-		USHORT Rsvd:3;	/* Reserved */
-		USHORT LedMode:5;	/* Led mode. */
-		USHORT PolarityGPIO_4:1;	/* Polarity GPIO#4 setting. */
-		USHORT PolarityGPIO_3:1;	/* Polarity GPIO#3 setting. */
-		USHORT PolarityGPIO_2:1;	/* Polarity GPIO#2 setting. */
-		USHORT PolarityGPIO_1:1;	/* Polarity GPIO#1 setting. */
-		USHORT PolarityGPIO_0:1;	/* Polarity GPIO#0 setting. */
-		USHORT PolarityACT:1;	/* Polarity ACT setting. */
-		USHORT PolarityRDY_A:1;	/* Polarity RDY_A setting. */
-		USHORT PolarityRDY_G:1;	/* Polarity RDY_G setting. */
+		unsigned short Rsvd:3;	/* Reserved */
+		unsigned short LedMode:5;	/* Led mode. */
+		unsigned short PolarityGPIO_4:1;	/* Polarity GPIO#4 setting. */
+		unsigned short PolarityGPIO_3:1;	/* Polarity GPIO#3 setting. */
+		unsigned short PolarityGPIO_2:1;	/* Polarity GPIO#2 setting. */
+		unsigned short PolarityGPIO_1:1;	/* Polarity GPIO#1 setting. */
+		unsigned short PolarityGPIO_0:1;	/* Polarity GPIO#0 setting. */
+		unsigned short PolarityACT:1;	/* Polarity ACT setting. */
+		unsigned short PolarityRDY_A:1;	/* Polarity RDY_A setting. */
+		unsigned short PolarityRDY_G:1;	/* Polarity RDY_G setting. */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_LED_STRUC, *PEEPROM_LED_STRUC;
 #else
 typedef union _EEPROM_LED_STRUC {
 	struct {
-		USHORT PolarityRDY_G:1;	/* Polarity RDY_G setting. */
-		USHORT PolarityRDY_A:1;	/* Polarity RDY_A setting. */
-		USHORT PolarityACT:1;	/* Polarity ACT setting. */
-		USHORT PolarityGPIO_0:1;	/* Polarity GPIO#0 setting. */
-		USHORT PolarityGPIO_1:1;	/* Polarity GPIO#1 setting. */
-		USHORT PolarityGPIO_2:1;	/* Polarity GPIO#2 setting. */
-		USHORT PolarityGPIO_3:1;	/* Polarity GPIO#3 setting. */
-		USHORT PolarityGPIO_4:1;	/* Polarity GPIO#4 setting. */
-		USHORT LedMode:5;	/* Led mode. */
-		USHORT Rsvd:3;	/* Reserved */
+		unsigned short PolarityRDY_G:1;	/* Polarity RDY_G setting. */
+		unsigned short PolarityRDY_A:1;	/* Polarity RDY_A setting. */
+		unsigned short PolarityACT:1;	/* Polarity ACT setting. */
+		unsigned short PolarityGPIO_0:1;	/* Polarity GPIO#0 setting. */
+		unsigned short PolarityGPIO_1:1;	/* Polarity GPIO#1 setting. */
+		unsigned short PolarityGPIO_2:1;	/* Polarity GPIO#2 setting. */
+		unsigned short PolarityGPIO_3:1;	/* Polarity GPIO#3 setting. */
+		unsigned short PolarityGPIO_4:1;	/* Polarity GPIO#4 setting. */
+		unsigned short LedMode:5;	/* Led mode. */
+		unsigned short Rsvd:3;	/* Reserved */
 	} field;
-	USHORT word;
+	unsigned short word;
 } EEPROM_LED_STRUC, *PEEPROM_LED_STRUC;
 #endif
 
@@ -248,7 +248,7 @@ typedef union _EEPROM_TX_PWR_OFFSET_STRUC
 		unsigned char	Byte0;	/* Low Byte */
 	} field;
 	
-	USHORT		word;
+	unsigned short		word;
 } EEPROM_TX_PWR_OFFSET_STRUC, *PEEPROM_TX_PWR_OFFSET_STRUC;
 #else
 typedef union _EEPROM_TX_PWR_OFFSET_STRUC
@@ -259,7 +259,7 @@ typedef union _EEPROM_TX_PWR_OFFSET_STRUC
 		unsigned char	Byte1;	/* High Byte */
 	} field;
 
-	USHORT		word;
+	unsigned short		word;
 } EEPROM_TX_PWR_OFFSET_STRUC, *PEEPROM_TX_PWR_OFFSET_STRUC;
 #endif /* RT_BIG_ENDIAN */
 
@@ -271,22 +271,22 @@ struct _RTMP_ADAPTER;
 #ifdef RTMP_USB_SUPPORT
 NTSTATUS RTUSBReadEEPROM16(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN USHORT offset,
-	OUT	USHORT *pData);
+	IN unsigned short offset,
+	OUT	unsigned short *pData);
 
 NTSTATUS RTUSBWriteEEPROM16(
 	IN struct _RTMP_ADAPTER *pAd, 
-	IN USHORT offset, 
-	IN USHORT value);
+	IN unsigned short offset, 
+	IN unsigned short value);
 #endif /* RTMP_USB_SUPPORT */
 
 
 #if defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT)
 NDIS_STATUS rtmp_nv_init(struct _RTMP_ADAPTER *pAd);
-int rtmp_ee_flash_read(struct _RTMP_ADAPTER *pAd, USHORT Offset, USHORT *pVal);
-int rtmp_ee_flash_write(struct _RTMP_ADAPTER *pAd, USHORT Offset, USHORT data);
-VOID rtmp_ee_flash_read_all(struct _RTMP_ADAPTER *pAd, USHORT *Data);
-VOID rtmp_ee_flash_write_all(struct _RTMP_ADAPTER *pAd, USHORT *Data);
+int rtmp_ee_flash_read(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pVal);
+int rtmp_ee_flash_write(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short data);
+VOID rtmp_ee_flash_read_all(struct _RTMP_ADAPTER *pAd, unsigned short *Data);
+VOID rtmp_ee_flash_write_all(struct _RTMP_ADAPTER *pAd, unsigned short *Data);
 #endif /* defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT) */
 
 
@@ -295,12 +295,12 @@ INT eFuseLoadEEPROM(struct _RTMP_ADAPTER *pAd);
 INT eFuseWriteEeeppromBuf(struct _RTMP_ADAPTER *pAd);
 VOID eFuseGetFreeBlockCount(struct _RTMP_ADAPTER *pAd, UINT *EfuseFreeBlock);
 
-int rtmp_ee_efuse_read16(struct _RTMP_ADAPTER *pAd, USHORT Offset, USHORT *pVal);
-int rtmp_ee_efuse_write16(struct _RTMP_ADAPTER *pAd, USHORT Offset, USHORT data);
+int rtmp_ee_efuse_read16(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pVal);
+int rtmp_ee_efuse_write16(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short data);
 
 
-NTSTATUS eFuseRead(struct _RTMP_ADAPTER *pAd, USHORT Offset, USHORT *pData, USHORT len);
-NTSTATUS eFuseWrite(struct _RTMP_ADAPTER *pAd, USHORT Offset, USHORT *pData, USHORT len);
+NTSTATUS eFuseRead(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pData, unsigned short len);
+NTSTATUS eFuseWrite(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pData, unsigned short len);
 
 INT eFuse_init(struct _RTMP_ADAPTER *pAd);
 INT efuse_probe(struct _RTMP_ADAPTER *pAd);

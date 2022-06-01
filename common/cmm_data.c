@@ -1104,7 +1104,7 @@ BOOLEAN RTMP_FillTxBlkInfo(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	}
 
 
-	pAd->LastTxRate = (USHORT)pTxBlk->pTransmit->word;
+	pAd->LastTxRate = (unsigned short)pTxBlk->pTransmit->word;
 
 	return TRUE;
 }
@@ -1494,7 +1494,7 @@ VOID RTMPDeQueuePacket(
 	
 	========================================================================
 */
-USHORT	RTMPCalcDuration(
+unsigned short	RTMPCalcDuration(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char			Rate,
 	IN	unsigned long			Size)
@@ -1508,14 +1508,14 @@ USHORT	RTMPCalcDuration(
 		else
 			Duration = 192; /* 144+48 preamble+plcp*/
 
-		Duration += (USHORT)((Size << 4) / RateIdTo500Kbps[Rate]);
+		Duration += (unsigned short)((Size << 4) / RateIdTo500Kbps[Rate]);
 		if ((Size << 4) % RateIdTo500Kbps[Rate])
 			Duration ++;
 	}
 	else if (Rate <= RATE_LAST_OFDM_RATE)/* OFDM rates*/
 	{
 		Duration = 20 + 6;		/* 16+4 preamble+plcp + Signal Extension*/
-		Duration += 4 * (USHORT)((11 + Size * 4) / RateIdTo500Kbps[Rate]);
+		Duration += 4 * (unsigned short)((11 + Size * 4) / RateIdTo500Kbps[Rate]);
 		if ((11 + Size * 4) % RateIdTo500Kbps[Rate])
 			Duration += 4;
 	}
@@ -1524,7 +1524,7 @@ USHORT	RTMPCalcDuration(
 		Duration = 20 + 6;		/* 16+4 preamble+plcp + Signal Extension*/
 	}
 	
-	return (USHORT)Duration;
+	return (unsigned short)Duration;
 }
 
 
@@ -1639,8 +1639,8 @@ UINT deaggregate_AMSDU_announce(
 	IN	unsigned long			DataSize,
 	IN	unsigned char			OpMode)
 {
-	USHORT 			PayloadSize;
-	USHORT 			SubFrameSize;
+	unsigned short 			PayloadSize;
+	unsigned short 			SubFrameSize;
 	PHEADER_802_3 	pAMSDUsubheader;
 	UINT			nMSDU;
     unsigned char			Header802_3[14];
@@ -1651,7 +1651,7 @@ UINT deaggregate_AMSDU_announce(
 #ifdef CONFIG_AP_SUPPORT
 	unsigned char FromWhichBSSID = RTMP_GET_PACKET_IF(pPacket);
 	unsigned char VLAN_Size;
-	USHORT VLAN_VID = 0, VLAN_Priority = 0;
+	unsigned short VLAN_VID = 0, VLAN_Priority = 0;
 
 
 	if ((FromWhichBSSID < pAd->ApCfg.BssidNum)
@@ -1773,11 +1773,11 @@ UINT BA_Reorder_AMSDU_Annnounce(
 	IN	unsigned char			OpMode)
 {
 	unsigned char *			pData;
-	USHORT			DataSize;
+	unsigned short			DataSize;
 	UINT			nMSDU = 0;
 
 	pData = (unsigned char *) GET_OS_PKT_DATAPTR(pPacket);
-	DataSize = (USHORT) GET_OS_PKT_LEN(pPacket);
+	DataSize = (unsigned short) GET_OS_PKT_LEN(pPacket);
 
 	nMSDU = deaggregate_AMSDU_announce(pAd, pPacket, pData, DataSize, OpMode);
 
@@ -1810,9 +1810,9 @@ VOID AssocParmFill(
 	IN PRTMP_ADAPTER pAd,
 	IN OUT MLME_ASSOC_REQ_STRUCT *AssocReq,
 	IN unsigned char *                     pAddr,
-	IN USHORT                     CapabilityInfo,
+	IN unsigned short                     CapabilityInfo,
 	IN unsigned long                      Timeout,
-	IN USHORT                     ListenIntv)
+	IN unsigned short                     ListenIntv)
 {
 	COPY_MAC_ADDR(AssocReq->Addr, pAddr);
 	/* Add mask to support 802.11b mode only */
@@ -1834,7 +1834,7 @@ VOID DisassocParmFill(
 	IN PRTMP_ADAPTER pAd,
 	IN OUT MLME_DISASSOC_REQ_STRUCT *DisassocReq,
 	IN unsigned char * pAddr,
-	IN USHORT Reason)
+	IN unsigned short Reason)
 {
 	COPY_MAC_ADDR(DisassocReq->Addr, pAddr);
 	DisassocReq->Reason = Reason;
@@ -1849,7 +1849,7 @@ BOOLEAN RTMPCheckEtherType(
 	OUT unsigned char * pUserPriority,
 	OUT unsigned char * pQueIdx)
 {
-	USHORT	TypeLen;
+	unsigned short	TypeLen;
 	unsigned char	Byte0, Byte1;
 	unsigned char *	pSrcBuf;
 	unsigned int	pktLen;
@@ -1913,7 +1913,7 @@ BOOLEAN RTMPCheckEtherType(
 		{
 			Sniff2BytesFromNdisBuffer((PNDIS_BUFFER)pSrcBuf, 6, &Byte0, &Byte1);
 			RTMP_SET_PACKET_LLCSNAP(pPacket, 1);
-			TypeLen = (USHORT)((Byte0 << 8) + Byte1);
+			TypeLen = (unsigned short)((Byte0 << 8) + Byte1);
 			pSrcBuf += 8; /* Skip this LLC/SNAP header*/
 		}
 		else
@@ -1926,7 +1926,7 @@ BOOLEAN RTMPCheckEtherType(
 	if (TypeLen == 0x8100)
 	{
 #ifdef CONFIG_AP_SUPPORT
-		USHORT VLAN_VID = 0;
+		unsigned short VLAN_VID = 0;
 
 		/* 0x8100 means VLAN packets */
 
@@ -1960,7 +1960,7 @@ BOOLEAN RTMPCheckEtherType(
 		{
 			/* check if the packet is my VLAN */
 			/* VLAN tag: 3-bit UP + 1-bit CFI + 12-bit VLAN ID */
-			USHORT vlan_id = *(USHORT *)pSrcBuf;
+			unsigned short vlan_id = *(unsigned short *)pSrcBuf;
 
 			vlan_id = cpu2be16(vlan_id);
 			vlan_id = vlan_id & 0x0FFF; /* 12 bit */
@@ -1974,7 +1974,7 @@ BOOLEAN RTMPCheckEtherType(
 
 		RTMP_SET_PACKET_VLAN(pPacket, 1);
 		Sniff2BytesFromNdisBuffer((PNDIS_BUFFER)pSrcBuf, 2, &Byte0, &Byte1);
-		TypeLen = (USHORT)((Byte0 << 8) + Byte1);
+		TypeLen = (unsigned short)((Byte0 << 8) + Byte1);
 
 		/* only use VLAN tag */
 		if (bWmmReq)
@@ -2210,7 +2210,7 @@ VOID Indicate_Legacy_Packet(
 {
 	PNDIS_PACKET pRxPacket = pRxBlk->pRxPacket;
 	unsigned char Header802_3[LENGTH_802_3];
-	USHORT VLAN_VID = 0, VLAN_Priority = 0;
+	unsigned short VLAN_VID = 0, VLAN_Priority = 0;
 
 
 //+++Add by shiang for debug
@@ -2249,7 +2249,7 @@ if (0) {
 		unsigned long				Now32;
 		unsigned char				Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
 		unsigned char				TID = pRxBlk->pRxWI->RxWITID;
-		USHORT				Idx;
+		unsigned short				Idx;
 		
 #define REORDERING_PACKET_TIMEOUT		((100 * OS_HZ)/1000)	/* system ticks -- 100 ms*/
 
@@ -2319,7 +2319,7 @@ VOID Indicate_Legacy_Packet_Hdr_Trns(
 {
 	PNDIS_PACKET pRxPacket = pRxBlk->pRxPacket;
 	unsigned char Header802_3[LENGTH_802_3];
-	USHORT VLAN_VID = 0, VLAN_Priority = 0;
+	unsigned short VLAN_VID = 0, VLAN_Priority = 0;
 
 //+++Add by shiang for debug
 if (0) {
@@ -2354,7 +2354,7 @@ if (0) {
 		unsigned long				Now32;
 		unsigned char				Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
 		unsigned char				TID = pRxBlk->pRxWI->RxWITID;
-		USHORT				Idx;
+		unsigned short				Idx;
 		
 #define REORDERING_PACKET_TIMEOUT		((100 * OS_HZ)/1000)	/* system ticks -- 100 ms*/
 
@@ -2492,7 +2492,7 @@ VOID CmmRxRalinkFrameIndicate(
 	unsigned short 			Payload1Size, Payload2Size;
 	unsigned char * 			pData2;
 	PNDIS_PACKET	pPacket2 = NULL;
-	USHORT			VLAN_VID = 0, VLAN_Priority = 0;
+	unsigned short			VLAN_VID = 0, VLAN_Priority = 0;
 
 
 	Msdu2Size = *(pRxBlk->pData) + (*(pRxBlk->pData+1) << 8);
@@ -2528,7 +2528,7 @@ VOID CmmRxRalinkFrameIndicate(
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
-		USHORT VLAN_VID = 0, VLAN_Priority = 0;
+		unsigned short VLAN_VID = 0, VLAN_Priority = 0;
 
 		MBSS_VLAN_INFO_GET(pAd, VLAN_VID, VLAN_Priority, FromWhichBSSID);
 #ifdef WDS_VLAN_SUPPORT
@@ -2597,7 +2597,7 @@ PNDIS_PACKET RTMPDeFragmentDataFrame(
 	HEADER_802_11 *pHeader = pRxBlk->pHeader;
 	PNDIS_PACKET pRxPacket = pRxBlk->pRxPacket;
 	unsigned char *pData = pRxBlk->pData;
-	USHORT DataSize = pRxBlk->DataSize;
+	unsigned short DataSize = pRxBlk->DataSize;
 	PNDIS_PACKET pRetPacket = NULL;
 	unsigned char *pFragBuffer = NULL;
 	BOOLEAN bReassDone = FALSE;
@@ -2989,7 +2989,7 @@ MAC_TABLE_ENTRY *MulTestTableLookup(
 	IN unsigned char * pAddr,
 	IN BOOLEAN bResetIdelCount)
 {
-	USHORT HashIdx;
+	unsigned short HashIdx;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 
 	NdisAcquireSpinLock(&pAd->MacTabLock);

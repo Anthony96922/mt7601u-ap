@@ -331,7 +331,7 @@ static unsigned char * IPv6MacTableLookUp(
 static inline unsigned short int icmpv6_csum(
 	RT_IPV6_ADDR *saddr,
 	RT_IPV6_ADDR *daddr,
-	USHORT		  len,
+	unsigned short		  len,
 	unsigned char 		  proto,
 	unsigned char 		 *pICMPMsg)
 {
@@ -416,7 +416,7 @@ static PNDIS_PACKET ICMPv6_Handle_Tx(
 	RT_ICMPV6_HDR 			*pICMPv6Hdr;
 	RT_ICMPV6_OPTION_HDR 	*pOptHdr;
 
-	USHORT payloadLen;
+	unsigned short payloadLen;
 	unsigned int ICMPOffset = 0, ICMPMsgLen = 0, leftLen;
 	
 	PNDIS_PACKET newSkb = NULL;

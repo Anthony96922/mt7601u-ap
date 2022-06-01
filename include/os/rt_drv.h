@@ -507,14 +507,14 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 
 #define RTMP_IO_WRITE8(_A, _R, _V)								\
 {																\
-	USHORT	_Val = _V;											\
-	RTUSBSingleWrite((_A), (_R), (USHORT) (_Val), FALSE);		\
+	unsigned short	_Val = _V;											\
+	RTUSBSingleWrite((_A), (_R), (unsigned short) (_Val), FALSE);		\
 }
 
 
 #define RTMP_IO_WRITE16(_A, _R, _V)								\
 {																\
-	RTUSBSingleWrite((_A), (_R), (USHORT) (_V), FALSE);			\
+	RTUSBSingleWrite((_A), (_R), (unsigned short) (_V), FALSE);			\
 }
 
 #define RTMP_SYS_IO_READ32

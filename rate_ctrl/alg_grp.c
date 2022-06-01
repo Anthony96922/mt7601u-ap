@@ -725,7 +725,7 @@ VOID MlmeNewRateAdapt(
 	IN unsigned long			TrainDown,
 	IN unsigned long			TxErrorRatio)
 {
-	USHORT		phyRateLimit20 = 0;
+	unsigned short		phyRateLimit20 = 0;
 	BOOLEAN		bTrainUp = FALSE;
 #ifdef TXBF_SUPPORT
 	BOOLEAN 	invertTxBf = FALSE;

@@ -73,7 +73,7 @@ typedef struct rt_ipv6_addr_
 	union
 	{
 		unsigned char	ipv6Addr8[16];
-		USHORT	ipv6Addr16[8];
+		unsigned short	ipv6Addr16[8];
 		unsigned int	ipv6Addr32[4];
 	}addr;
 #define ipv6_addr			addr.ipv6Addr8
@@ -99,7 +99,7 @@ typedef struct GNU_PACKED _rt_ipv6_hdr_
 	unsigned int 			ver:4,
 					trafficClass:8,
         		   	flowLabel:20;
-	USHORT 			payload_len;
+	unsigned short 			payload_len;
 	unsigned char  			nextHdr;
 	unsigned char  			hopLimit;
 	RT_IPV6_ADDR  	srcAddr;
@@ -120,7 +120,7 @@ typedef struct GNU_PACKED _rt_ipv6_icmpv6_hdr_
 {
 	unsigned char	type;
 	unsigned char	code;
-	USHORT	chksum;
+	unsigned short	chksum;
 	unsigned char	octets[1]; /*hook to extend header message body. */
 }RT_ICMPV6_HDR, *PRT_ICMPV6_HDR;
 

@@ -21,11 +21,11 @@ static void ba_mpdu_blk_free(PRTMP_ADAPTER pAd, struct reordering_mpdu *mpdu_blk
 
 BA_ORI_ENTRY *BATableAllocOriEntry(
 								  IN  PRTMP_ADAPTER   pAd,
-								  OUT USHORT          *Idx);
+								  OUT unsigned short          *Idx);
 
 BA_REC_ENTRY *BATableAllocRecEntry(
 								  IN  PRTMP_ADAPTER   pAd,
-								  OUT USHORT          *Idx);
+								  OUT unsigned short          *Idx);
 
 VOID BAOriSessionSetupTimeout(
     IN void * SystemSpecific1, 
@@ -328,13 +328,13 @@ static void ba_mpdu_blk_free(PRTMP_ADAPTER pAd, struct reordering_mpdu *mpdu_blk
 }
 
 
-static USHORT ba_indicate_reordering_mpdus_in_order(
+static unsigned short ba_indicate_reordering_mpdus_in_order(
 												   IN PRTMP_ADAPTER    pAd, 
 												   IN PBA_REC_ENTRY    pBAEntry,
-												   IN USHORT           StartSeq)
+												   IN unsigned short           StartSeq)
 {
 	struct reordering_mpdu *mpdu_blk;
-	USHORT  LastIndSeq = RESET_RCV_SEQ;
+	unsigned short  LastIndSeq = RESET_RCV_SEQ;
 
 	NdisAcquireSpinLock(&pBAEntry->RxReRingLock);
 
@@ -365,7 +365,7 @@ static USHORT ba_indicate_reordering_mpdus_in_order(
 static void ba_indicate_reordering_mpdus_le_seq(
 											   IN PRTMP_ADAPTER    pAd, 
 											   IN PBA_REC_ENTRY    pBAEntry,
-											   IN USHORT           Sequence)
+											   IN unsigned short           Sequence)
 {
 	struct reordering_mpdu *mpdu_blk;
 
@@ -423,7 +423,7 @@ void ba_flush_reordering_timeout_mpdus(
 									IN unsigned long            Now32)
 
 {
-	USHORT Sequence;
+	unsigned short Sequence;
 
     if ((pBAEntry == NULL) || (pBAEntry->list.qlen <= 0))
         return;
@@ -480,14 +480,14 @@ VOID BAOriSessionSetUp(
 					  IN PRTMP_ADAPTER    pAd, 
 					  IN MAC_TABLE_ENTRY  *pEntry,
 					  IN unsigned char            TID,
-					  IN USHORT           TimeOut,
+					  IN unsigned short           TimeOut,
 					  IN unsigned long            DelayTime,
 					  IN BOOLEAN          isForced)
 
 {
 	/*MLME_ADDBA_REQ_STRUCT	AddbaReq;*/
 	BA_ORI_ENTRY            *pBAEntry = NULL;
-	USHORT                  Idx;
+	unsigned short                  Idx;
 	BOOLEAN                 Cancelled;
 
 	ASSERT(TID < NUM_OF_TID);
@@ -565,7 +565,7 @@ VOID BAOriSessionAdd(
 	BA_ORI_ENTRY	*pBAEntry = NULL;
 	BOOLEAN		Cancelled;
 	unsigned char		TID;
-	USHORT		Idx;
+	unsigned short		Idx;
 	unsigned char *		pOutBuffer2 = NULL;
 	NDIS_STATUS	NStatus;
 	unsigned long		FrameLen;
@@ -666,7 +666,7 @@ BOOLEAN BARecSessionAdd(
 	BA_REC_ENTRY            *pBAEntry = NULL;
 	BOOLEAN                 Status = TRUE;
 	BOOLEAN                 Cancelled;
-	USHORT                  Idx;
+	unsigned short                  Idx;
 	unsigned char                   TID;
 	unsigned char                   BAWinSize;
 	/*unsigned int                  Value;*/
@@ -750,7 +750,7 @@ BOOLEAN BARecSessionAdd(
 
 BA_REC_ENTRY *BATableAllocRecEntry(
 								  IN  PRTMP_ADAPTER   pAd,
-								  OUT USHORT          *Idx)
+								  OUT unsigned short          *Idx)
 {
 	int             i;
 	BA_REC_ENTRY    *pBAEntry = NULL;
@@ -786,7 +786,7 @@ done:
 
 BA_ORI_ENTRY *BATableAllocOriEntry(
 								  IN  PRTMP_ADAPTER   pAd,
-								  OUT USHORT          *Idx)
+								  OUT unsigned short          *Idx)
 {
 	int             i;
 	BA_ORI_ENTRY    *pBAEntry = NULL;
@@ -1300,11 +1300,11 @@ VOID PeerAddBAReqAction(
 		BA_PARM		tmpBaParm;
 
 		NdisMoveMemory((unsigned char *)(&tmpBaParm), (unsigned char *)(&ADDframe.BaParm), sizeof(BA_PARM));
-		*(USHORT *)(&tmpBaParm) = cpu2le16(*(USHORT *)(&tmpBaParm));
+		*(unsigned short *)(&tmpBaParm) = cpu2le16(*(unsigned short *)(&tmpBaParm));
 		NdisMoveMemory((unsigned char *)(&ADDframe.BaParm), (unsigned char *)(&tmpBaParm), sizeof(BA_PARM));
 	}
 #else
-	*(USHORT *)(&ADDframe.BaParm) = cpu2le16(*(USHORT *)(&ADDframe.BaParm));
+	*(unsigned short *)(&ADDframe.BaParm) = cpu2le16(*(unsigned short *)(&ADDframe.BaParm));
 #endif /* UNALIGNMENT_SUPPORT */
 
 	ADDframe.StatusCode = cpu2le16(ADDframe.StatusCode);
@@ -1529,8 +1529,8 @@ VOID SendPSMPAction(
 typedef struct GNU_PACKED _BEACON_REQUEST {
 	unsigned char	RegulatoryClass;
 	unsigned char	ChannelNumber;
-	USHORT	RandomInterval;
-	USHORT	MeasurementDuration;
+	unsigned short	RandomInterval;
+	unsigned short	MeasurementDuration;
 	unsigned char	MeasurementMode;
 	unsigned char   BSSID[MAC_ADDR_LEN];
 	unsigned char	ReportingCondition;
@@ -1645,7 +1645,7 @@ void convert_reordering_packet_to_preAMSDU_or_802_3_packet(
 			/* maybe insert VLAN tag to the received packet */
 			unsigned char VLAN_Size = 0;
 			unsigned char *data_p;
-			USHORT VLAN_VID = 0, VLAN_Priority = 0;
+			unsigned short VLAN_VID = 0, VLAN_Priority = 0;
 
 			/* VLAN related */
 			MBSS_VLAN_INFO_GET(pAd, VLAN_VID, VLAN_Priority, FromWhichBSSID);
@@ -1859,7 +1859,7 @@ VOID Indicate_AMPDU_Packet(
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID)
 {
-	USHORT Idx;
+	unsigned short Idx;
 	PBA_REC_ENTRY pBAEntry = NULL;
 	unsigned short Sequence = pRxBlk->pHeader->Sequence;
 	unsigned long Now32;
@@ -1935,7 +1935,7 @@ VOID Indicate_AMPDU_Packet(
 	/* I. Check if in order.*/
 	if (SEQ_STEPONE(Sequence, pBAEntry->LastIndSeq, MAXSEQ))
 	{
-		USHORT  LastIndSeq;
+		unsigned short  LastIndSeq;
 
 		pBAEntry->LastIndSeq = Sequence;
 		INDICATE_LEGACY_OR_AMSDU(pAd, pRxBlk, FromWhichBSSID);
@@ -2005,7 +2005,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID)
 {
-	USHORT Idx;
+	unsigned short Idx;
 	PBA_REC_ENTRY pBAEntry = NULL;
 	unsigned short Sequence = pRxBlk->pHeader->Sequence;
 	unsigned long Now32;
@@ -2079,7 +2079,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 	/* I. Check if in order.*/
 	if (SEQ_STEPONE(Sequence, pBAEntry->LastIndSeq, MAXSEQ))
 	{
-		USHORT  LastIndSeq;
+		unsigned short  LastIndSeq;
 
 		pBAEntry->LastIndSeq = Sequence;
 		INDICATE_LEGACY_OR_AMSDU_HDR_TRNS(pAd, pRxBlk, FromWhichBSSID);
@@ -2146,7 +2146,7 @@ VOID BaReOrderingBufferMaintain(
 {
     unsigned long Now32;
     unsigned char Wcid;
-    USHORT Idx;
+    unsigned short Idx;
     unsigned char TID;
     PBA_REC_ENTRY pBAEntry = NULL;
     PMAC_TABLE_ENTRY pEntry = NULL;

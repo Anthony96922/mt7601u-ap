@@ -300,22 +300,22 @@ VOID APPeerProbeReqAction(
 						END_OF_ARGS);
 #else
 			NdisMoveMemory(&HtCapabilityTmp, &pAd->CommonCfg.HtCapability, HtLen);
-			*(USHORT *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.HtCapInfo));
+			*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
 #ifdef UNALIGNMENT_SUPPORT
 			{
 				EXT_HT_CAP_INFO extHtCapInfo;
 
 				NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-				*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
+				*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
 				NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 			}
 #else
-			*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = cpu2le16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));
+			*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
 #endif /* UNALIGNMENT_SUPPORT */
 
 			NdisMoveMemory(&addHTInfoTmp, &pAd->CommonCfg.AddHTInfo, AddHtLen);
-			*(USHORT *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(USHORT *)(&addHTInfoTmp.AddHtInfo2));
-			*(USHORT *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(USHORT *)(&addHTInfoTmp.AddHtInfo3));
+			*(unsigned short *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo2));
+			*(unsigned short *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo3));
 
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 						1, &HtCapIe,
@@ -414,17 +414,17 @@ VOID APPeerProbeReqAction(
 							END_OF_ARGS);
 #else
 				NdisMoveMemory(&HtCapabilityTmp, &pAd->CommonCfg.HtCapability, HtLen);
-				*(USHORT *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.HtCapInfo));
+				*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
 #ifdef UNALIGNMENT_SUPPORT
 				{
 					EXT_HT_CAP_INFO extHtCapInfo;
 
 					NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-					*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
+					*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
 					NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 				}
 #else
-				*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = cpu2le16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));
+				*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
 #endif /* UNALIGNMENT_SUPPORT */
 
 				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
@@ -446,8 +446,8 @@ VOID APPeerProbeReqAction(
 							END_OF_ARGS);
 #else
 				NdisMoveMemory(&addHTInfoTmp, &pAd->CommonCfg.AddHTInfo, AddHtLen);
-				*(USHORT *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(USHORT *)(&addHTInfoTmp.AddHtInfo2));
-				*(USHORT *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(USHORT *)(&addHTInfoTmp.AddHtInfo3));
+				*(unsigned short *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo2));
+				*(unsigned short *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo3));
 
 				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 							1, &WpaIe,
@@ -629,7 +629,7 @@ VOID APPeerBeaconAction(
 		BOOLEAN LegacyBssExist;
 		CHAR RealRssi;
 		unsigned char *VarIE = NULL;
-		USHORT LenVIE;
+		unsigned short LenVIE;
 		NDIS_802_11_VARIABLE_IEs *pVIE = NULL;
 		unsigned char MaxSupportedRate = 0;
 		BCN_IE_LIST *ie_list = NULL;
@@ -978,7 +978,7 @@ VOID APPeerBeaconAtScanAction(
 {
 	PFRAME_802_11 pFrame;
 	unsigned char *VarIE = NULL;
-	USHORT LenVIE;
+	unsigned short LenVIE;
 	NDIS_802_11_VARIABLE_IEs *pVIE = NULL;
 	CHAR RealRssi = -127;
 

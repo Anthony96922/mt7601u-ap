@@ -105,9 +105,9 @@ typedef	union	_EFUSE_CTRL_STRUC {
 
 static unsigned char eFuseReadRegisters(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	OUT	USHORT* pData);
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	OUT	unsigned short* pData);
 
 VOID eFuseReadPhysical( 
 	IN	PRTMP_ADAPTER	pAd, 
@@ -118,15 +118,15 @@ VOID eFuseReadPhysical(
 
 static VOID eFusePhysicalWriteRegisters(
 	IN	PRTMP_ADAPTER	pAd,	
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	OUT	USHORT* pData);
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	OUT	unsigned short* pData);
 
 static NTSTATUS eFuseWriteRegisters(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	IN	USHORT* pData);
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	IN	unsigned short* pData);
 
 static VOID eFuseWritePhysical( 
 	IN	PRTMP_ADAPTER	pAd,	
@@ -138,9 +138,9 @@ static VOID eFuseWritePhysical(
 
 static NTSTATUS eFuseWriteRegistersFromBin(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	IN	USHORT* pData);
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	IN	unsigned short* pData);
 
 
 /*
@@ -158,13 +158,13 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 */
 unsigned char eFuseReadRegisters(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	OUT	USHORT* pData)
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	OUT	unsigned short* pData)
 {
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
 	int	i;
-	USHORT	efuseDataOffset;
+	unsigned short	efuseDataOffset;
 	unsigned int	data;
 	unsigned int efuse_ctrl_reg = EFUSE_CTRL;
 	
@@ -260,13 +260,13 @@ unsigned char eFuseReadRegisters(
 */
 VOID eFusePhysicalReadRegisters( 
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	OUT	USHORT* pData)
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	OUT	unsigned short* pData)
 {
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
 	int	i;
-	USHORT	efuseDataOffset;
+	unsigned short	efuseDataOffset;
 	unsigned int	data;
 	unsigned int efuse_ctrl_reg = EFUSE_CTRL;
 
@@ -352,11 +352,11 @@ VOID eFuseReadPhysical(
   	IN	unsigned long nOutBufferSize  
 )
 {
-	USHORT* pInBuf = (USHORT*)lpInBuffer;
-	USHORT* pOutBuf = (USHORT*)lpOutBuffer;
+	unsigned short* pInBuf = (unsigned short*)lpInBuffer;
+	unsigned short* pOutBuf = (unsigned short*)lpOutBuffer;
 
-	USHORT Offset = pInBuf[0];					/*addr*/
-	USHORT Length = pInBuf[1];					/*length*/
+	unsigned short Offset = pInBuf[0];					/*addr*/
+	unsigned short Length = pInBuf[1];					/*length*/
 	int 		i;
 	
 	for(i=0; i<Length; i+=2)
@@ -380,9 +380,9 @@ VOID eFuseReadPhysical(
 */
 NTSTATUS eFuseRead(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	OUT	unsigned short *			pData,
-	IN	USHORT			Length)
+	IN	unsigned short			Length)
 {
 	NTSTATUS Status = STATUS_SUCCESS;
 	unsigned char	EFSROM_AOUT;
@@ -410,13 +410,13 @@ NTSTATUS eFuseRead(
 */
 static VOID eFusePhysicalWriteRegisters(
 	IN	PRTMP_ADAPTER	pAd,	
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	OUT	USHORT* pData)
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	OUT	unsigned short* pData)
 {
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
 	int	i;
-	USHORT	efuseDataOffset;
+	unsigned short	efuseDataOffset;
 	unsigned int	data, eFuseDataBuffer[4];
 	unsigned int efuse_ctrl_reg = EFUSE_CTRL;
 
@@ -547,17 +547,17 @@ static VOID eFusePhysicalWriteRegisters(
 */
 static NTSTATUS eFuseWriteRegisters(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	IN	USHORT* pData)
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	IN	unsigned short* pData)
 {
-	USHORT	i,Loop=0, StartBlock=0, EndBlock=0;
-	USHORT	eFuseData;
-	USHORT	LogicalAddress, BlkNum = 0xffff;
+	unsigned short	i,Loop=0, StartBlock=0, EndBlock=0;
+	unsigned short	eFuseData;
+	unsigned short	LogicalAddress, BlkNum = 0xffff;
 	unsigned char	EFSROM_AOUT;
 
-	USHORT addr,tmpaddr, InBuf[3], tmpOffset;
-	USHORT buffer[8];
+	unsigned short addr,tmpaddr, InBuf[3], tmpOffset;
+	unsigned short buffer[8];
 	BOOLEAN		bWriteSuccess = TRUE;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("eFuseWriteRegisters Offset=%x, pData=%x\n", Offset, *pData));
@@ -825,12 +825,12 @@ static VOID eFuseWritePhysical(
   	unsigned long nOutBufferSize  
 )
 {
-	USHORT* pInBuf = (USHORT*)lpInBuffer;
+	unsigned short* pInBuf = (unsigned short*)lpInBuffer;
 	int 		i;
-	/*USHORT* pOutBuf = (USHORT*)ioBuffer;*/
-	USHORT Offset = pInBuf[0];					/* addr*/
-	USHORT Length = pInBuf[1];					/* length*/
-	USHORT* pValueX = &pInBuf[2];				/* value ...		*/
+	/*unsigned short* pOutBuf = (unsigned short*)ioBuffer;*/
+	unsigned short Offset = pInBuf[0];					/* addr*/
+	unsigned short Length = pInBuf[1];					/* length*/
+	unsigned short* pValueX = &pInBuf[2];				/* value ...		*/
 
 	DBGPRINT(RT_DEBUG_TRACE, ("eFuseWritePhysical Offset=0x%x, length=%d\n", Offset, Length));
 
@@ -865,15 +865,15 @@ static VOID eFuseWritePhysical(
 */
 NTSTATUS eFuseWrite(  
    	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT			Offset,
+	IN	unsigned short			Offset,
 	IN	unsigned short *			pData,
-	IN	USHORT			length)
+	IN	unsigned short			length)
 {
 	int i;
-	USHORT* pValueX = (unsigned short *) pData;				/*value ...		*/
+	unsigned short* pValueX = (unsigned short *) pData;				/*value ...		*/
 	unsigned short * OddWriteByteBuf;
-/*	OddWriteByteBuf=(unsigned short *)kmalloc(sizeof(USHORT)*2, MEM_ALLOC_FLAG);*/
-	os_alloc_mem(NULL, (unsigned char **)&OddWriteByteBuf, sizeof(USHORT)*2);
+/*	OddWriteByteBuf=(unsigned short *)kmalloc(sizeof(unsigned short)*2, MEM_ALLOC_FLAG);*/
+	os_alloc_mem(NULL, (unsigned char **)&OddWriteByteBuf, sizeof(unsigned short)*2);
 	/* The input value=3070 will be stored as following*/
 	/* Little-endian		S	|	S	Big-endian*/
 	/* addr			1	0	|	0	1	*/
@@ -941,7 +941,7 @@ INT set_eFusedump_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	USHORT InBuf[3];
+	unsigned short InBuf[3];
 	INT i=0;
 	
 	if (pAd->bUseEfuse == FALSE && pAd->bFroceEEPROMBuffer == FALSE)
@@ -974,10 +974,10 @@ INT	set_eFuseLoadFromBin_Proc(
 	INT 						retval, memSize;
 	char *buffer, *memPtr;
 	INT						TotalByte= 0,ReadedByte=0,CompareBuf=1;
-	USHORT					*PDATA;
-	USHORT					DATA;
+	unsigned short					*PDATA;
+	unsigned short					DATA;
 	
-	memSize = 128 + MAX_EEPROM_BIN_FILE_SIZE + sizeof(USHORT) * 8;
+	memSize = 128 + MAX_EEPROM_BIN_FILE_SIZE + sizeof(unsigned short) * 8;
 /*	memPtr = kmalloc(memSize, MEM_ALLOC_FLAG);*/
 	os_alloc_mem(NULL, (unsigned char **)&memPtr, memSize);
 	if (memPtr == NULL)
@@ -986,7 +986,7 @@ INT	set_eFuseLoadFromBin_Proc(
 	NdisZeroMemory(memPtr, memSize);
 	src = memPtr; /* kmalloc(128, MEM_ALLOC_FLAG);*/
 	buffer = src + 128;		/* kmalloc(MAX_EEPROM_BIN_FILE_SIZE, MEM_ALLOC_FLAG);*/
-	PDATA = (USHORT*)(buffer + MAX_EEPROM_BIN_FILE_SIZE);	/* kmalloc(sizeof(USHORT)*8,MEM_ALLOC_FLAG);*/
+	PDATA = (unsigned short*)(buffer + MAX_EEPROM_BIN_FILE_SIZE);	/* kmalloc(sizeof(unsigned short)*8,MEM_ALLOC_FLAG);*/
 	
  	if(strlen(arg)>0)
 		NdisMoveMemory(src, arg, strlen(arg));
@@ -1043,11 +1043,11 @@ INT	set_eFuseLoadFromBin_Proc(
 				DBGPRINT(RT_DEBUG_TRACE, (" result=%02X,blk=%02x\n",CompareBuf,ReadedByte/16));
 
 				if(CompareBuf!=0xff)
-					eFuseWriteRegistersFromBin(pAd,(USHORT)ReadedByte-15, 16, PDATA);
+					eFuseWriteRegistersFromBin(pAd,(unsigned short)ReadedByte-15, 16, PDATA);
 				else
 				{
 					if(eFuseReadRegisters(pAd,ReadedByte, 2,(unsigned short *)&DATA)!=0x3f)
-						eFuseWriteRegistersFromBin(pAd,(USHORT)ReadedByte-15, 16, PDATA);
+						eFuseWriteRegistersFromBin(pAd,(unsigned short)ReadedByte-15, 16, PDATA);
 				}
 				/*
 				for(l=0;l<8;l++)
@@ -1080,18 +1080,18 @@ recoverFS:
 
 static NTSTATUS eFuseWriteRegistersFromBin(
 	IN	PRTMP_ADAPTER	pAd,
-	IN	USHORT Offset, 
-	IN	USHORT Length, 
-	IN	USHORT* pData)
+	IN	unsigned short Offset, 
+	IN	unsigned short Length, 
+	IN	unsigned short* pData)
 {
-	USHORT	i,StartBlock=0,EndBlock=0;
-	USHORT	eFuseData;
-	USHORT	LogicalAddress, BlkNum = 0xffff;
+	unsigned short	i,StartBlock=0,EndBlock=0;
+	unsigned short	eFuseData;
+	unsigned short	LogicalAddress, BlkNum = 0xffff;
 	unsigned char	EFSROM_AOUT,Loop=0;
 	EFUSE_CTRL_STRUC		eFuseCtrlStruc;
-	USHORT	efuseDataOffset;
+	unsigned short	efuseDataOffset;
 	unsigned int	data,tempbuffer;
-	USHORT addr,tmpaddr, InBuf[3], tmpOffset;
+	unsigned short addr,tmpaddr, InBuf[3], tmpOffset;
 	unsigned int buffer[4];
 	BOOLEAN		bWriteSuccess = TRUE;
 	BOOLEAN		bNotWrite=TRUE;
@@ -1425,8 +1425,8 @@ static NTSTATUS eFuseWriteRegistersFromBin(
 
 int rtmp_ee_efuse_read16(
 	IN RTMP_ADAPTER *pAd, 
-	IN USHORT Offset,
-	OUT USHORT *pValue)
+	IN unsigned short Offset,
+	OUT unsigned short *pValue)
 {
 
 	if (pAd->bFroceEEPROMBuffer
@@ -1447,8 +1447,8 @@ int rtmp_ee_efuse_read16(
 
 int rtmp_ee_efuse_write16(
 	IN RTMP_ADAPTER *pAd, 
-	IN USHORT Offset, 
-	IN USHORT data)
+	IN unsigned short Offset, 
+	IN unsigned short data)
 {
     if (pAd->bFroceEEPROMBuffer
 #ifdef RALINK_ATE
@@ -1469,7 +1469,7 @@ int rtmp_ee_efuse_write16(
 int RtmpEfuseSupportCheck(
 	IN RTMP_ADAPTER *pAd)
 {
-	USHORT value;
+	unsigned short value;
 	
 	if (IS_RT30xx(pAd) || IS_RT3593(pAd))
 	{
@@ -1643,9 +1643,9 @@ VOID eFuseGetFreeBlockCount(IN PRTMP_ADAPTER pAd,
 	unsigned int * EfuseFreeBlock)
 {
 	
-	USHORT i=0, StartBlock=0, EndBlock=0;
-	USHORT	LogicalAddress;
-	USHORT	FirstFreeBlock = 0xffff, LastFreeBlock = 0xffff;
+	unsigned short i=0, StartBlock=0, EndBlock=0;
+	unsigned short	LogicalAddress;
+	unsigned short	FirstFreeBlock = 0xffff, LastFreeBlock = 0xffff;
 
 	if(!pAd->bUseEfuse)
 		{

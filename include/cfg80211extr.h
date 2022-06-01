@@ -100,7 +100,7 @@ INT CFG80211DRV_IoctlHandle(
 	IN	VOID					*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
-	IN	USHORT					subcmd,
+	IN	unsigned short					subcmd,
 	IN	VOID					*pData,
 	IN	unsigned long					Data);
 

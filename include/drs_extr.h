@@ -166,11 +166,11 @@ unsigned char MlmeSelectTxRate(
 VOID MlmeClearTxQuality(struct _MAC_TABLE_ENTRY *pEntry);
 VOID MlmeClearAllTxQuality(struct _MAC_TABLE_ENTRY *pEntry);
 VOID MlmeDecTxQuality(struct _MAC_TABLE_ENTRY *pEntry, unsigned char rateIndex);
-USHORT MlmeGetTxQuality(struct _MAC_TABLE_ENTRY *pEntry, unsigned char rateIndex);
+unsigned short MlmeGetTxQuality(struct _MAC_TABLE_ENTRY *pEntry, unsigned char rateIndex);
 VOID MlmeSetTxQuality(
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN unsigned char rateIndex,
-	IN USHORT txQuality);
+	IN unsigned short txQuality);
 
 
 

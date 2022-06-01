@@ -87,7 +87,7 @@ static void ap_assoc_info_debugshow(
 
 }
 
-static USHORT update_associated_mac_entry(
+static unsigned short update_associated_mac_entry(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN IE_LISTS *ie_list,
@@ -391,14 +391,14 @@ static USHORT update_associated_mac_entry(
        others - association failed due to resource issue
     ==========================================================================
  */
-static USHORT APBuildAssociation(
+static unsigned short APBuildAssociation(
     IN RTMP_ADAPTER *pAd,
     IN MAC_TABLE_ENTRY *pEntry,
     IN IE_LISTS *ie_list,
     IN unsigned char MaxSupportedRateIn500Kbps,
-    OUT USHORT *pAid)
+    OUT unsigned short *pAid)
 {
-	USHORT StatusCode = MLME_SUCCESS;
+	unsigned short StatusCode = MLME_SUCCESS;
 	unsigned char MaxSupportedRate = RATE_11;
 	MULTISSID_STRUCT *wdev;
 
@@ -585,9 +585,9 @@ VOID ap_cmm_peer_assoc_req_action(
 {
 	IE_LISTS *ie_list = NULL;
 	HEADER_802_11 AssocRspHdr;
-	USHORT CapabilityInfoForAssocResp;
-	USHORT StatusCode = MLME_SUCCESS;
-	USHORT Aid;
+	unsigned short CapabilityInfoForAssocResp;
+	unsigned short StatusCode = MLME_SUCCESS;
+	unsigned short Aid;
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	unsigned long FrameLen = 0;
@@ -896,22 +896,22 @@ VOID ap_cmm_peer_assoc_req_action(
 					END_OF_ARGS);
 #else
 		NdisMoveMemory(&HtCapabilityTmp, &HtCapabilityRsp, ie_list->ht_cap_len);
-		*(USHORT *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.HtCapInfo));
+		*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
 #ifdef UNALIGNMENT_SUPPORT
 		{
 			EXT_HT_CAP_INFO extHtCapInfo;
 
 			NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-			*(USHORT *)(&extHtCapInfo) = cpu2le16(*(USHORT *)(&extHtCapInfo));
+			*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
 			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
 		}
 #else
-		*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(USHORT *)(&HtCapabilityTmp.ExtHtCapInfo));
+		*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
 #endif /* UNALIGNMENT_SUPPORT */
 
 		NdisMoveMemory(&addHTInfoTmp, &pAd->CommonCfg.AddHTInfo, HtLen1);
-		*(USHORT *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(USHORT *)(&addHTInfoTmp.AddHtInfo2));
-		*(USHORT *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(USHORT *)(&addHTInfoTmp.AddHtInfo3));
+		*(unsigned short *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo2));
+		*(unsigned short *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo3));
 
 		MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 					1, &HtCapIe,
@@ -1364,7 +1364,7 @@ VOID APPeerDisassocReqAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	unsigned char Addr2[MAC_ADDR_LEN];
-	USHORT Reason;
+	unsigned short Reason;
 	unsigned short SeqNum;		
 	MAC_TABLE_ENTRY *pEntry;
 	MULTISSID_STRUCT *wdev;
@@ -1420,7 +1420,7 @@ VOID APPeerDisassocReqAction(
 VOID MbssKickOutStas(
 	IN PRTMP_ADAPTER pAd,
 	IN INT apidx,
-	IN USHORT Reason)
+	IN unsigned short Reason)
 {
 	INT i;
 	PMAC_TABLE_ENTRY pEntry;
@@ -1447,7 +1447,7 @@ VOID APMlmeKickOutSta(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pStaAddr,
 	IN unsigned char Wcid,
-	IN USHORT Reason)
+	IN unsigned short Reason)
 {
 	HEADER_802_11 DisassocHdr;
 	unsigned char * pOutBuffer = NULL;
@@ -1537,7 +1537,7 @@ VOID APCls3errAction(
 	unsigned char * pOutBuffer = NULL;
 	unsigned long FrameLen = 0;
 	NDIS_STATUS NStatus;
-	USHORT Reason = REASON_CLS3ERR;
+	unsigned short Reason = REASON_CLS3ERR;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 
 	if (Wcid < MAX_LEN_OF_MAC_TABLE)

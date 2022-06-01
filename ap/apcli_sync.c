@@ -56,7 +56,7 @@ static VOID ApCliEnqueueProbeRequest(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char SsidLen,
 	OUT char * Ssid,
-	IN USHORT ifIndex);
+	IN unsigned short ifIndex);
 
 DECLARE_TIMER_FUNCTION(ApCliProbeTimeout);
 BUILD_TIMER_FUNCTION(ApCliProbeTimeout);
@@ -134,7 +134,7 @@ static VOID ApCliMlmeProbeReqAction(
 {
 	BOOLEAN Cancelled;
 	APCLI_MLME_JOIN_REQ_STRUCT *Info = (APCLI_MLME_JOIN_REQ_STRUCT *)(Elem->Msg);
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
 
 
@@ -173,7 +173,7 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	USHORT LenVIE;
+	unsigned short LenVIE;
 	unsigned char *VarIE = NULL;
 	NDIS_802_11_VARIABLE_IEs *pVIE = NULL;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
@@ -182,7 +182,7 @@ static VOID ApCliPeerProbeRspAtJoinAction(
         unsigned char CentralChannel;
 #endif /* DOT11_N_SUPPORT */
 
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
 
 	BCN_IE_LIST *ie_list = NULL;
@@ -454,7 +454,7 @@ static VOID ApCliProbeTimeoutAtJoinAction(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
 
 
@@ -487,7 +487,7 @@ static VOID ApCliInvalidStateWhenJoin(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
-	USHORT ifIndex = (USHORT)(Elem->Priv);
+	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
 
 	*pCurrState = APCLI_SYNC_IDLE;
@@ -509,7 +509,7 @@ static VOID ApCliEnqueueProbeRequest(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char SsidLen,
 	OUT char * Ssid,
-	IN USHORT ifIndex)
+	IN unsigned short ifIndex)
 {
 	NDIS_STATUS     NState;
 	unsigned char *          pOutBuffer;

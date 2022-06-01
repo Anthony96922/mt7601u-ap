@@ -58,7 +58,7 @@ typedef struct _APCLI_MLME_JOIN_REQ_STRUCT {
 } APCLI_MLME_JOIN_REQ_STRUCT;
 
 typedef struct _STA_CTRL_JOIN_REQ_STRUCT {
-	USHORT	Status;
+	unsigned short	Status;
 } APCLI_CTRL_MSG_STRUCT, *PSTA_CTRL_MSG_STRUCT;
 
 BOOLEAN isValidApCliIf(
@@ -110,8 +110,8 @@ BOOLEAN ApCliAllowToSendPacket(
 BOOLEAN 	ApCliValidateRSNIE(
 	IN		PRTMP_ADAPTER	pAd, 
 	IN 		PEID_STRUCT    	pEid_ptr,
-	IN		USHORT			eid_len,
-	IN		USHORT			idx);
+	IN		unsigned short			eid_len,
+	IN		unsigned short			idx);
 
 
 VOID ApCli_Remove(
@@ -144,12 +144,12 @@ VOID ApCliMgtMacHeaderInit(
     IN unsigned char ToDs, 
     IN unsigned char * pDA, 
     IN unsigned char * pBssid,
-    IN USHORT ifIndex);
+    IN unsigned short ifIndex);
 
 #ifdef DOT11_N_SUPPORT
 BOOLEAN ApCliCheckHt(
 	IN		PRTMP_ADAPTER 		pAd,
-	IN		USHORT 				IfIndex,
+	IN		unsigned short 				IfIndex,
 	IN OUT	HT_CAPABILITY_IE 	*pHtCapability,
 	IN OUT	ADD_HT_INFO_IE 		*pAddHtInfo);
 #endif /* DOT11_N_SUPPORT */
@@ -188,9 +188,9 @@ BOOLEAN ApCliPeerAssocRspSanity(
     IN VOID *pMsg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
-    OUT USHORT *pCapabilityInfo, 
-    OUT USHORT *pStatus, 
-    OUT USHORT *pAid, 
+    OUT unsigned short *pCapabilityInfo, 
+    OUT unsigned short *pStatus, 
+    OUT unsigned short *pAid, 
     OUT unsigned char SupRate[], 
     OUT unsigned char *pSupRateLen,
     OUT unsigned char ExtRate[], 
@@ -267,7 +267,7 @@ BOOLEAN ApCli_Close(
 
 BOOLEAN ApCliWaitProbRsp(
 	IN PRTMP_ADAPTER pAd,
-	IN USHORT ifIndex);
+	IN unsigned short ifIndex);
 
 #endif /* APCLI_SUPPORT */
 

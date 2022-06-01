@@ -704,7 +704,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 		pNextTxRate = (RTMP_RA_LEGACY_TB *)(&pTable[(pEntry->CurrTxRateIndex + 1) * SIZE_OF_AGS_RATE_TABLE_ENTRY]);
 		APMlmeSetTxRate(pAd, pEntry, pNextTxRate);
 
-		RTMPZeroMemory(pEntry->TxQuality, (sizeof(USHORT) * (MAX_TX_RATE_INDEX+1)));
+		RTMPZeroMemory(pEntry->TxQuality, (sizeof(unsigned short) * (MAX_TX_RATE_INDEX+1)));
 		RTMPZeroMemory(pEntry->PER, (sizeof(unsigned char) * (MAX_TX_RATE_INDEX+1)));
 		
 		pEntry->fLastSecAccordingRSSI = TRUE;			
@@ -1009,7 +1009,7 @@ VOID ApQuickResponeForRateUpExecAGS(
 	/* MCS selection based on the RSSI information when the Tx samples are fewer than 15. */
 	if (AGSStatisticsInfo.AccuTxTotalCnt <= 15)
 	{
-		RTMPZeroMemory(pEntry->TxQuality, sizeof(USHORT) * (MAX_TX_RATE_INDEX+1));
+		RTMPZeroMemory(pEntry->TxQuality, sizeof(unsigned short) * (MAX_TX_RATE_INDEX+1));
 		RTMPZeroMemory(pEntry->PER, sizeof(unsigned char) * (MAX_TX_RATE_INDEX+1));
 
 		if ((pEntry->LastSecTxRateChangeAction == 1) && (CurrRateIdx != DownRateIdx))
@@ -1062,7 +1062,7 @@ VOID ApQuickResponeForRateUpExecAGS(
 					("%s: QuickAGS: (UP) keep rate-up (Current PER:%ld, NewMcs's TrainDown:%d)\n", 
 					__FUNCTION__, AGSStatisticsInfo.TxErrorRatio, TrainDown));
 
-				RTMPZeroMemory(pEntry->TxQuality, sizeof(USHORT) * (MAX_TX_RATE_INDEX+1));
+				RTMPZeroMemory(pEntry->TxQuality, sizeof(unsigned short) * (MAX_TX_RATE_INDEX+1));
 
 				if (pEntry->AGSCtrl.MCSGroup == 0)
 				{

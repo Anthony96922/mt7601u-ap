@@ -37,7 +37,7 @@ INT (*RTMP_COM_IoctlHandle)(
 	IN	VOID *pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT *wrq,
 	IN	INT cmd,
-	IN	USHORT subcmd,
+	IN	unsigned short subcmd,
 	IN	VOID *pData,
 	IN	unsigned long Data);
 
@@ -77,7 +77,7 @@ INT (*RTMP_AP_IoctlHandle)(
 	IN	VOID					*pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
-	IN	USHORT					subcmd,
+	IN	unsigned short					subcmd,
 	IN	VOID					*pData,
 	IN	unsigned long					Data);
 
@@ -85,10 +85,10 @@ INT (*RTMP_STA_IoctlHandle)(
 	IN	VOID					*pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
-	IN	USHORT					subcmd,
+	IN	unsigned short					subcmd,
 	IN	VOID					*pData,
 	IN	unsigned long					Data,
-	IN  USHORT                  priv_flags);
+	IN  unsigned short                  priv_flags);
 
 VOID (*RTMPDrvOpen)(VOID *pAd);
 
@@ -193,7 +193,7 @@ INT RTMP_COM_IoctlHandle(
 	IN	VOID					*pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
-	IN	USHORT					subcmd,
+	IN	unsigned short					subcmd,
 	IN	VOID					*pData,
 	IN	unsigned long					Data);
 
@@ -234,7 +234,7 @@ INT RTMP_AP_IoctlHandle(
 	IN	VOID					*pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
-	IN	USHORT					subcmd,
+	IN	unsigned short					subcmd,
 	IN	VOID					*pData,
 	IN	unsigned long					Data);
 #endif /* CONFIG_AP_SUPPORT */

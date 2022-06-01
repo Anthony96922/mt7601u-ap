@@ -148,7 +148,7 @@ static VOID ATEWriteTxWI(
 static VOID ATEWriteTxInfo(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TXINFO_STRUC *pTxInfo,
-	IN	USHORT		USBDMApktLen,
+	IN	unsigned short		USBDMApktLen,
 	IN	BOOLEAN		bWiv,
 	IN	unsigned char			QueueSel,
 	IN	unsigned char			NextValid,
@@ -286,7 +286,7 @@ INT ATESetUpFrame(
 			ASSERT(pATEInfo->TxLength <= (MAX_FRAME_SIZE - 34/* == 2312 */));
 
 			/* pTxInfo->TxInfoPktLen will be updated to include padding later */
-			ATEWriteTxInfo(pAd, pTxInfo, (USHORT)(TXWISize + pATEInfo->TxLength)
+			ATEWriteTxInfo(pAd, pTxInfo, (unsigned short)(TXWISize + pATEInfo->TxLength)
 			, TRUE, EpToQueue[MGMTPIPEIDX], FALSE,  FALSE);
 			pTxInfo->TxInfoQSEL = FIFO_EDCA;
 		}

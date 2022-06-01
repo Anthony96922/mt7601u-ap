@@ -465,10 +465,10 @@ PNDIS_PACKET DuplicatePacket(
 {
 	struct sk_buff *skb;
 	PNDIS_PACKET pRetPacket = NULL;
-	USHORT DataSize;
+	unsigned short DataSize;
 	unsigned char *pData;
 
-	DataSize = (USHORT) GET_OS_PKT_LEN(pPacket);
+	DataSize = (unsigned short) GET_OS_PKT_LEN(pPacket);
 	pData = (unsigned char *) GET_OS_PKT_DATAPTR(pPacket);
 
 	skb = skb_clone(RTPKT_TO_OSPKT(pPacket), MEM_ALLOC_FLAG);
@@ -542,8 +542,8 @@ PNDIS_PACKET duplicate_pkt_with_TKIP_MIC(
 #ifdef CONFIG_AP_SUPPORT
 PNDIS_PACKET duplicate_pkt_with_VLAN(
 	IN PNET_DEV pNetDev,
-	IN USHORT VLAN_VID,
-	IN USHORT VLAN_Priority,
+	IN unsigned short VLAN_VID,
+	IN unsigned short VLAN_Priority,
 	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
 	IN unsigned char * pData,
@@ -701,7 +701,7 @@ VOID RtmpOsPktInit(
 	IN PNDIS_PACKET pNetPkt,
 	IN PNET_DEV pNetDev,
 	IN unsigned char *pData,
-	IN USHORT DataSize)
+	IN unsigned short DataSize)
 {
 	PNDIS_PACKET pRxPkt;
 
@@ -717,8 +717,8 @@ VOID RtmpOsPktInit(
 void wlan_802_11_to_802_3_packet(
 	IN PNET_DEV pNetDev,
 	IN unsigned char OpMode,
-	IN USHORT VLAN_VID,
-	IN USHORT VLAN_Priority,
+	IN unsigned short VLAN_VID,
+	IN unsigned short VLAN_Priority,
 	IN PNDIS_PACKET pRxPacket,
 	IN unsigned char *pData,
 	IN unsigned long DataSize,
@@ -829,7 +829,7 @@ void hex_dump(char *str, unsigned char *pSrcBufVA, UINT SrcBufLen)
 */
 VOID RtmpOsSendWirelessEvent(
 	IN VOID *pAd,
-	IN USHORT Event_flag,
+	IN unsigned short Event_flag,
 	IN unsigned char * pAddr,
 	IN unsigned char BssIdx,
 	IN CHAR Rssi,
@@ -1668,8 +1668,8 @@ PNET_DEV RtmpOSNetDevCreate(
 
 #ifdef CONFIG_AP_SUPPORT
 unsigned char VLAN_8023_Header_Copy(
-	IN USHORT VLAN_VID,
-	IN USHORT VLAN_Priority,
+	IN unsigned short VLAN_VID,
+	IN unsigned short VLAN_Priority,
 	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
 	OUT unsigned char * pData,
@@ -1827,7 +1827,7 @@ VOID RtmpDrvAllMacPrint(
 
 VOID RtmpDrvAllE2PPrint(
 	IN VOID *pReserved,
-	IN USHORT *pMacContent,
+	IN unsigned short *pMacContent,
 	IN unsigned int AddrEnd,
 	IN unsigned int AddrStep)
 {
@@ -1835,8 +1835,8 @@ VOID RtmpDrvAllE2PPrint(
 	char * fileName = "EEPROMDump.txt";
 	mm_segment_t orig_fs;
 	STRING *msg;
-	USHORT eepAddr = 0;
-	USHORT eepValue;
+	unsigned short eepAddr = 0;
+	unsigned short eepValue;
 
 	os_alloc_mem(NULL, (unsigned char **)&msg, 1024);
 	if (!msg)
@@ -2218,7 +2218,7 @@ typedef struct GNU_PACKED _RT_IAPP_L2_UPDATE_FRAME {
 	unsigned char DA[ETH_ALEN];	/* broadcast MAC address */
 	unsigned char SA[ETH_ALEN];	/* the MAC address of the STA that has just associated
 				   or reassociated */
-	USHORT Len;		/* 8 octets */
+	unsigned short Len;		/* 8 octets */
 	unsigned char DSAP;		/* null */
 	unsigned char SSAP;		/* null */
 	unsigned char Control;		/* reference to IEEE Std 802.2 */
@@ -3184,7 +3184,7 @@ Return Value:
 Note:
 ========================================================================
 */
-USHORT RtmpDevPrivFlagsGet(VOID *pDev)
+unsigned short RtmpDevPrivFlagsGet(VOID *pDev)
 {
 
 	DEV_PRIV_INFO *pDevInfo = NULL;
@@ -3211,7 +3211,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpDevPrivFlagsSet(VOID *pDev, USHORT PrivFlags)
+VOID RtmpDevPrivFlagsSet(VOID *pDev, unsigned short PrivFlags)
 {
 	DEV_PRIV_INFO *pDevInfo = NULL;
 
@@ -4224,7 +4224,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsSetNetDevType(VOID *pDev, USHORT Type)
+VOID RtmpOsSetNetDevType(VOID *pDev, unsigned short Type)
 {
 	RTMP_OS_NETDEV_SET_TYPE((PNET_DEV) pDev, Type);
 }

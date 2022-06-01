@@ -442,7 +442,7 @@ BOOLEAN RTMPSoftDecryptAES(
 	UINT			payload_len;	
 	UINT			num_blocks;
 	UINT			payload_remainder;
-	USHORT			fc;
+	unsigned short			fc;
 	unsigned char			fc0;
 	unsigned char			fc1;	
 	UINT			frame_type;

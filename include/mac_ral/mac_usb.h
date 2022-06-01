@@ -189,7 +189,7 @@ typedef struct _TX_CONTEXT
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef UAPSD_SUPPORT
-	USHORT			Wcid;
+	unsigned short			Wcid;
 #endif /* UAPSD_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 }	TX_CONTEXT, *PTX_CONTEXT, **PPTX_CONTEXT;

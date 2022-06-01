@@ -215,13 +215,13 @@ VOID RTMPSetHT(
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : RxBAWinLimit = %d\n", pAd->CommonCfg.BACapability.field.RxBAWinLimit));
 
 	/* Mimo power save, A-MSDU size, */
-	rt_ht_cap->AmsduEnable = (USHORT)pAd->CommonCfg.BACapability.field.AmsduEnable;
+	rt_ht_cap->AmsduEnable = (unsigned short)pAd->CommonCfg.BACapability.field.AmsduEnable;
 	rt_ht_cap->AmsduSize = (unsigned char)pAd->CommonCfg.BACapability.field.AmsduSize;
 	rt_ht_cap->MimoPs = (unsigned char)pAd->CommonCfg.BACapability.field.MMPSmode;
 	rt_ht_cap->MpduDensity = (unsigned char)pAd->CommonCfg.BACapability.field.MpduDensity;
 
-	ht_cap->HtCapInfo.AMsduSize = (USHORT)pAd->CommonCfg.BACapability.field.AmsduSize;
-	ht_cap->HtCapInfo.MimoPs = (USHORT)pAd->CommonCfg.BACapability.field.MMPSmode;
+	ht_cap->HtCapInfo.AMsduSize = (unsigned short)pAd->CommonCfg.BACapability.field.AmsduSize;
+	ht_cap->HtCapInfo.MimoPs = (unsigned short)pAd->CommonCfg.BACapability.field.MMPSmode;
 	ht_cap->HtCapParm.MpduDensity = (unsigned char)pAd->CommonCfg.BACapability.field.MpduDensity;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : AMsduSize = %d, MimoPs = %d, MpduDensity = %d, MaxRAmpduFactor = %d\n",

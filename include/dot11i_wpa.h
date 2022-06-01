@@ -220,9 +220,9 @@ typedef struct GNU_PACKED _GTK_KDE
 /* For WPA1 */
 typedef struct GNU_PACKED _RSNIE {
     unsigned char   oui[4];
-    USHORT  version;
+    unsigned short  version;
     unsigned char   mcast[4];
-    USHORT  ucount;
+    unsigned short  ucount;
     struct GNU_PACKED {
         unsigned char oui[4];
     }ucast[1];
@@ -230,9 +230,9 @@ typedef struct GNU_PACKED _RSNIE {
 
 /* For WPA2 */
 typedef struct GNU_PACKED _RSNIE2 {
-    USHORT  version;
+    unsigned short  version;
     unsigned char   mcast[4];
-    USHORT  ucount;
+    unsigned short  ucount;
     struct GNU_PACKED {
         unsigned char oui[4];
     }ucast[1];
@@ -240,7 +240,7 @@ typedef struct GNU_PACKED _RSNIE2 {
 
 /* AKM Suite */
 typedef struct GNU_PACKED _RSNIE_AUTH {
-    USHORT acount;
+    unsigned short acount;
     struct GNU_PACKED {
         unsigned char oui[4];
     }auth[1];
@@ -248,7 +248,7 @@ typedef struct GNU_PACKED _RSNIE_AUTH {
 
 /* PMKID List */
 typedef struct GNU_PACKED _RSNIE_PMKID {
-    USHORT pcount;
+    unsigned short pcount;
     struct GNU_PACKED {
         unsigned char list[16];
     }pmkid[1];
@@ -257,24 +257,24 @@ typedef struct GNU_PACKED _RSNIE_PMKID {
 typedef	union GNU_PACKED _RSN_CAPABILITIES	{
 	struct	GNU_PACKED {
 #ifdef RT_BIG_ENDIAN
-        USHORT		Rsvd:8;		
-		USHORT		MFPC:1;
-		USHORT		MFPR:1;
-        USHORT		GTKSA_R_Counter:2;
-        USHORT		PTKSA_R_Counter:2;
-        USHORT		No_Pairwise:1;
-		USHORT		PreAuth:1;
+        unsigned short		Rsvd:8;		
+		unsigned short		MFPC:1;
+		unsigned short		MFPR:1;
+        unsigned short		GTKSA_R_Counter:2;
+        unsigned short		PTKSA_R_Counter:2;
+        unsigned short		No_Pairwise:1;
+		unsigned short		PreAuth:1;
 #else
-        USHORT		PreAuth:1;
-		USHORT		No_Pairwise:1;
-		USHORT		PTKSA_R_Counter:2;
-		USHORT		GTKSA_R_Counter:2;
-		USHORT		MFPR:1;
-		USHORT		MFPC:1;
-		USHORT		Rsvd:8;
+        unsigned short		PreAuth:1;
+		unsigned short		No_Pairwise:1;
+		unsigned short		PTKSA_R_Counter:2;
+		unsigned short		GTKSA_R_Counter:2;
+		unsigned short		MFPR:1;
+		unsigned short		MFPC:1;
+		unsigned short		Rsvd:8;
 #endif
 	}	field;
-	USHORT			word;
+	unsigned short			word;
 }	RSN_CAPABILITIES, *PRSN_CAPABILITIES;
 
 typedef struct GNU_PACKED _EAP_HDR {

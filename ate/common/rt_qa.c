@@ -223,10 +223,10 @@ static VOID memcpy_exs(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src
 {
 	unsigned long i;
 	{
-		USHORT *pDst, *pSrc;
+		unsigned short *pDst, *pSrc;
 		
-		pDst = (USHORT *) dst;
-		pSrc = (USHORT *) src;
+		pDst = (unsigned short *) dst;
+		pSrc = (unsigned short *) src;
 
 		for (i =0; i < (len >> 1); i++)
 		{
@@ -289,10 +289,10 @@ VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, INT32 RSSI[3][10])
  	CHAR		Rssi0Offset, Rssi1Offset, Rssi2Offset;
 	unsigned char		BbpR50Rssi0 = 0, BbpR51Rssi1 = 0, BbpR52Rssi2 = 0;
 	unsigned char		Org_BBP66value = 0, Org_BBP69value = 0, Org_BBP70value = 0, data = 0;
-	USHORT		LNA_Gain = 0;
+	unsigned short		LNA_Gain = 0;
 	INT32		column = 0;
 	unsigned char		Org_Channel = pATEInfo->Channel;
-	USHORT	    GainValue = 0, OffsetValue = 0;
+	unsigned short	    GainValue = 0, OffsetValue = 0;
 
 	ATE_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R66, &Org_BBP66value);
 	ATE_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R69, &Org_BBP69value);	
@@ -453,7 +453,7 @@ static VOID ATE_BBPWrite(
 }
 
 
-BOOLEAN SyncTxRxConfig(PRTMP_ADAPTER pAd, USHORT offset, unsigned char value)
+BOOLEAN SyncTxRxConfig(PRTMP_ADAPTER pAd, unsigned short offset, unsigned char value)
 { 
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned char tmp = 0, bbp_data = 0;
@@ -659,7 +659,7 @@ static  INT DO_RACFG_CMD_RF_WRITE_ALL(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	unsigned int R1, R2, R3, R4;
-	USHORT channel;
+	unsigned short channel;
 	
 	memcpy(&R1, pRaCfg->data-2, 4);
 	memcpy(&R2, pRaCfg->data+2, 4);
@@ -690,7 +690,7 @@ static  INT DO_RACFG_CMD_E2PROM_READ16(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	unsigned short	offset=0, value=0;
-	USHORT  tmp=0;				
+	unsigned short  tmp=0;				
 
 	offset = OS_NTOHS(pRaCfg->status);
 	RT28xx_EEPROM_READ16(pAd, offset, tmp);
@@ -711,7 +711,7 @@ static  INT DO_RACFG_CMD_E2PROM_WRITE16(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT	offset, value;
+	unsigned short	offset, value;
 	
 	offset = OS_NTOHS(pRaCfg->status);
 	memcpy(&value, pRaCfg->data, 2);
@@ -729,9 +729,9 @@ static  INT DO_RACFG_CMD_E2PROM_READ_ALL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT buffer[EEPROM_SIZE >> 1];
+	unsigned short buffer[EEPROM_SIZE >> 1];
 
-	rt_ee_read_all(pAd,(USHORT *)buffer);
+	rt_ee_read_all(pAd,(unsigned short *)buffer);
 	memcpy_exs(pAd, pRaCfg->data, (unsigned char *)buffer, EEPROM_SIZE);
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status)+EEPROM_SIZE, NDIS_STATUS_SUCCESS);
@@ -745,11 +745,11 @@ static  INT DO_RACFG_CMD_E2PROM_WRITE_ALL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT buffer[EEPROM_SIZE >> 1];
+	unsigned short buffer[EEPROM_SIZE >> 1];
 
 	NdisZeroMemory((unsigned char *)buffer, EEPROM_SIZE);
 	memcpy_exs(pAd, (unsigned char *)buffer, (unsigned char *)&pRaCfg->status, EEPROM_SIZE);
-	rt_ee_write_all(pAd,(USHORT *)buffer);
+	rt_ee_write_all(pAd,(unsigned short *)buffer);
 
 	ResponseToGUI(pRaCfg, wrq, sizeof(pRaCfg->status), NDIS_STATUS_SUCCESS);
 
@@ -818,7 +818,7 @@ static  INT DO_RACFG_CMD_IO_READ_BULK(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	unsigned int	offset;
-	USHORT	len;
+	unsigned short	len;
 	
 	memcpy(&offset, &pRaCfg->status, 4);
 	offset = OS_NTOHL(offset);
@@ -849,7 +849,7 @@ static  INT DO_RACFG_CMD_BBP_READ8(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT	offset;
+	unsigned short	offset;
 	unsigned char	value;
 	
 	value = 0;
@@ -870,7 +870,7 @@ static  INT DO_RACFG_CMD_BBP_WRITE8(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT	offset;
+	unsigned short	offset;
 	unsigned char	value;
 	
 	offset = OS_NTOHS(pRaCfg->status);
@@ -893,7 +893,7 @@ static  INT DO_RACFG_CMD_BBP_READ_ALL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT bbp_reg_index;
+	unsigned short bbp_reg_index;
 	
 	for (bbp_reg_index = 0; bbp_reg_index < pAd->chipCap.MaxNumOfBbpId+1; bbp_reg_index++)
 	{
@@ -987,8 +987,8 @@ static  INT DO_RACFG_CMD_TX_START(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	USHORT *p;
-	USHORT	err = 1;
+	unsigned short *p;
+	unsigned short	err = 1;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned char TxInfoSize = 4;
 
@@ -1045,12 +1045,12 @@ static  INT DO_RACFG_CMD_TX_START(
 		NdisMoveMemory(&pATEInfo->TxCount, pRaCfg->data + TXWISize + 2, 4);
 		pATEInfo->TxCount = OS_NTOHL(pATEInfo->TxCount);
 
-/*		p = (USHORT *)(&pRaCfg->data[TXWISize + TxInfoSize + 2]); */
+/*		p = (unsigned short *)(&pRaCfg->data[TXWISize + TxInfoSize + 2]); */
 
 		/* always use QID_AC_BE */
 		pATEInfo->QID = 0;
 
-		p = (USHORT *)(&pRaCfg->data[TXWISize + TxInfoSize + 2*2]);
+		p = (unsigned short *)(&pRaCfg->data[TXWISize + TxInfoSize + 2*2]);
 		pATEInfo->HLen = OS_NTOHS(*p);
 
 		if (pATEInfo->HLen > 32)
@@ -1583,7 +1583,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_COUNT(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT    value = 0;
+	unsigned short    value = 0;
 	STRING    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1624,15 +1624,15 @@ static  INT DO_RACFG_CMD_ATE_E2PROM_READ_BULK(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT offset;
-	USHORT len;
-	USHORT buffer[EEPROM_SIZE >> 1];
+	unsigned short offset;
+	unsigned short len;
+	unsigned short buffer[EEPROM_SIZE >> 1];
 	
 	offset = OS_NTOHS(pRaCfg->status);
 	memcpy(&len, pRaCfg->data, 2);
 	len = OS_NTOHS(len);
 	
-	rt_ee_read_all(pAd, (USHORT *)buffer);
+	rt_ee_read_all(pAd, (unsigned short *)buffer);
 
 	if (offset + len <= EEPROM_SIZE)
 		memcpy_exs(pAd, pRaCfg->data, (unsigned char *)buffer+offset, len);
@@ -1650,9 +1650,9 @@ static  INT DO_RACFG_CMD_ATE_E2PROM_WRITE_BULK(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT offset;
-	USHORT len;
-	USHORT buffer[EEPROM_SIZE >> 1];
+	unsigned short offset;
+	unsigned short len;
+	unsigned short buffer[EEPROM_SIZE >> 1];
 	
 	offset = OS_NTOHS(pRaCfg->status);
 	memcpy(&len, pRaCfg->data, 2);
@@ -1662,7 +1662,7 @@ static  INT DO_RACFG_CMD_ATE_E2PROM_WRITE_BULK(
 
 	if ((offset + len) <= EEPROM_SIZE)
 	{
-		rt_ee_write_bulk(pAd,(USHORT *)(((unsigned char *)buffer) + offset), offset, len);
+		rt_ee_write_bulk(pAd,(unsigned short *)(((unsigned char *)buffer) + offset), offset, len);
 	}
 	else
 	{
@@ -1684,7 +1684,7 @@ static  INT DO_RACFG_CMD_ATE_IO_WRITE_BULK(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	unsigned int offset, pos, value;
-	USHORT len;
+	unsigned short len;
 	
 	memcpy(&offset, &pRaCfg->status, 4);
 	offset = OS_NTOHL(offset);
@@ -1709,9 +1709,9 @@ static  INT DO_RACFG_CMD_ATE_BBP_READ_BULK(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT offset;
-	USHORT len;
-	USHORT pos;
+	unsigned short offset;
+	unsigned short len;
+	unsigned short pos;
 	
 	offset = OS_NTOHS(pRaCfg->status);
 	memcpy(&len, pRaCfg->data, 2);
@@ -1735,9 +1735,9 @@ static  INT DO_RACFG_CMD_ATE_BBP_WRITE_BULK(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT offset;
-	USHORT len;
-	USHORT pos;
+	unsigned short offset;
+	unsigned short len;
+	unsigned short pos;
 	unsigned char *value;
 	
 	offset = OS_NTOHS(pRaCfg->status);
@@ -1783,7 +1783,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_LNA_CAL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT band;
+	unsigned short band;
 	CHAR bandStr[32] = {0};
 	
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_LNA_CAL\n"));
@@ -1805,7 +1805,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_DIV_CAL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	USHORT band;
+	unsigned short band;
 	CHAR bandStr[32] = {0};
 	
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_DIV_CAL\n"));
@@ -2151,7 +2151,7 @@ static INT32 RACfgCMDHandler(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	INT32 Status = NDIS_STATUS_SUCCESS;
-	USHORT Command_Id;
+	unsigned short Command_Id;
 	unsigned int TableIndex = 0;
 
 	Command_Id = OS_NTOHS(pRaCfg->command_id);
@@ -2344,11 +2344,11 @@ INT Set_EERead_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	USHORT buffer[EEPROM_SIZE >> 1];
-	USHORT *p;
+	unsigned short buffer[EEPROM_SIZE >> 1];
+	unsigned short *p;
 	INT offset;
 	
-	rt_ee_read_all(pAd, (USHORT *)buffer);
+	rt_ee_read_all(pAd, (unsigned short *)buffer);
 	p = buffer;
 
 	for (offset = 0; offset < (EEPROM_SIZE >> 1); offset++)
@@ -2367,7 +2367,7 @@ INT Set_EEWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	USHORT offset = 0, value;
+	unsigned short offset = 0, value;
 	char * p2 = arg;
 	
 	while ((*p2 != ':') && (*p2 != '\0'))
@@ -2417,7 +2417,7 @@ INT Set_BBPWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	USHORT offset = 0;
+	unsigned short offset = 0;
 	char * p2 = arg;
 	unsigned char value;
 	

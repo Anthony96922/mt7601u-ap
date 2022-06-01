@@ -58,7 +58,7 @@ BOOLEAN RTMPReplayAttackDetection(
 
 VOID RTMPUpdateStaMgmtCounter(
 	IN PRTMP_ADAPTER	pAd,
-	IN USHORT			type);
+	IN unsigned short			type);
 
 VOID RTMPClearAllIdsCounter(
 	IN PRTMP_ADAPTER	pAd);

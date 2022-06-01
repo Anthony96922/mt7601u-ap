@@ -52,11 +52,11 @@ static inline VOID LowerClock(
 }
 
 /* IRQL = PASSIVE_LEVEL*/
-static inline USHORT ShiftInBits(
+static inline unsigned short ShiftInBits(
 	IN PRTMP_ADAPTER	pAd)
 {
 	unsigned int		x,i;
-	USHORT      data=0;
+	unsigned short      data=0;
 
 	RTMP_IO_READ32(pAd, E2PROM_CSR, &x);
 
@@ -82,8 +82,8 @@ static inline USHORT ShiftInBits(
 /* IRQL = PASSIVE_LEVEL*/
 static inline VOID ShiftOutBits(
 	IN PRTMP_ADAPTER	pAd,
-	IN USHORT			data,
-	IN USHORT			count)
+	IN unsigned short			data,
+	IN unsigned short			count)
 {
 	unsigned int       x,mask;
 
@@ -175,11 +175,11 @@ static inline VOID EWDS(
 /* IRQL = PASSIVE_LEVEL*/
 int rtmp_ee_prom_read16(
 	IN RTMP_ADAPTER *pAd,
-	IN USHORT Offset,
-	OUT USHORT *pValue)
+	IN unsigned short Offset,
+	OUT unsigned short *pValue)
 {
 	unsigned int x;
-	USHORT data;
+	unsigned short data;
 
 
 
@@ -216,8 +216,8 @@ int rtmp_ee_prom_read16(
 
 int rtmp_ee_prom_write16(
     IN RTMP_ADAPTER *pAd,
-    IN USHORT Offset,
-    IN USHORT Data)
+    IN unsigned short Offset,
+    IN unsigned short Data)
 {
 	unsigned int x;
 

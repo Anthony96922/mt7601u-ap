@@ -271,7 +271,7 @@ INT Set_PeerRtspPort_Proc(
 	unsigned int ip_addr;
 
 	MAC_TABLE_ENTRY *pEntry;
-	USHORT RtspPort = WFD_RTSP_DEFAULT_PORT;
+	unsigned short RtspPort = WFD_RTSP_DEFAULT_PORT;
 	unsigned char P2pIdx = P2P_NOT_FOUND;
 	PRT_P2P_CONFIG pP2PCtrl = &pAd->P2pCfg;
 	INT i;
@@ -367,7 +367,7 @@ unsigned long InsertWfdSubelmtTlv(
 	PRT_WFD_CONFIG	pWFDCtrl = &pAd->StaCfg.WfdCfg;
 	unsigned char *	pDest;
 	unsigned long	Length, tmpValue = 0;
-	USHORT	EidLen = 0;
+	unsigned short	EidLen = 0;
 
 	pDest = pOutBuffer;
 	RTMPZeroMemory(pDest, 255);

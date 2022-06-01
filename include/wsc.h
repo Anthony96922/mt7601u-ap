@@ -45,7 +45,7 @@
 
 /* structure to store Simple Config Attributes Info */
 typedef struct GNU_PACKED _WSC_LV_INFO {
-    USHORT  ValueLen;
+    unsigned short  ValueLen;
     unsigned char   Value[512];
 } WSC_LV_INFO;
 
@@ -58,8 +58,8 @@ typedef struct GNU_PACKED _WSC_IE_HEADER {
 /* WSC IE structure */
 typedef	struct GNU_PACKED _WSC_IE
 {
-	USHORT	Type;
-	USHORT	Length;
+	unsigned short	Type;
+	unsigned short	Length;
 	unsigned char	Data[1];	/* variable length data */
 }	WSC_IE, *PWSC_IE;
 
@@ -76,7 +76,7 @@ typedef	struct GNU_PACKED _WSC_FRAME
 typedef	struct GNU_PACKED _EAP_FRAME	{
 	unsigned char	Code;						/* 1 = Request, 2 = Response */
 	unsigned char	Id;
-	USHORT	Length;
+	unsigned short	Length;
 	unsigned char	Type;						/* 1 = Identity, 0xfe = reserved, used by WSC */
 }	EAP_FRAME, *PEAP_FRAME;
 
@@ -447,10 +447,10 @@ typedef struct	_WSC_DEV_INFO
 	unsigned char	DeviceName[32];
 	unsigned char	PriDeviceType[8];
 	unsigned char	SecDevTypList[MAX_2ND_DEV_TYPE_LIST_BUFFER]; /* 2nd Device Type List, ref. P2P Spec. v1.1 Table 29*/
-	USHORT	AuthTypeFlags;
-	USHORT	EncrTypeFlags;
+	unsigned short	AuthTypeFlags;
+	unsigned short	EncrTypeFlags;
 	unsigned char	ConnTypeFlags;
-	USHORT	ConfigMethods;
+	unsigned short	ConfigMethods;
 	unsigned char	ScState;
 	unsigned char	Manufacturer[64];
 	unsigned char	ModelName[32];
@@ -459,9 +459,9 @@ typedef struct	_WSC_DEV_INFO
 	unsigned char	RfBand;
 	UINT	OsVersion;
 	UINT	FeatureId;
-	USHORT	AssocState;
-	USHORT	DevPwdId;
-	USHORT	ConfigError;
+	unsigned short	AssocState;
+	unsigned short	DevPwdId;
+	unsigned short	ConfigError;
 	unsigned char	Ssid[32];
     unsigned char	NewKey[64 + 1]; /* not sure sprintf would add '\0' or not, add one byte for \0' */
     INT     NewKeyLen;
@@ -503,7 +503,7 @@ typedef	struct	_WSC_REG_DATA
 	unsigned char		KeyWrapKey[16];
 	unsigned char		Emsk[32];
 	
-	USHORT		EnrolleePwdId;
+	unsigned short		EnrolleePwdId;
 	unsigned char		EnrolleeNonce[16];		/*N1, from enrollee */
 	unsigned char		RegistrarNonce[16];		/*N2, from registrar */
 	unsigned char		SelfNonce[16];
@@ -558,8 +558,8 @@ typedef struct GNU_PACKED _WSC_PEER_DEV_INFO {
 #define		TLV_HEX		1
 
 typedef	struct	_WSC_TLV {
-	USHORT	TlvTag;
-	USHORT	TlvLen;
+	unsigned short	TlvTag;
+	unsigned short	TlvLen;
 	unsigned char *	pTlvData;
 	unsigned char	TlvType;	/* 0: ASCII, 1: Hex */
 } WSC_TLV, *PWSC_TLV;
@@ -578,7 +578,7 @@ typedef	struct	_WSC_CTRL
 	                                /* 5 un-configure AP with Registrar ; 7 un-configure AP with proxy and Registrar */
 	INT             WscMode;        /* 1 PIN ;2 PBC set from UI dynamically */
 	unsigned char           WscConfStatus;  /* 1 un-configured; 2 configured; need to update to .dat */
-	USHORT			WscConfigMethods;  /* Registrar support list. The List is bitwise. PBC:0x0080 Lable:0x0004 Display:0x0008 */
+	unsigned short			WscConfigMethods;  /* Registrar support list. The List is bitwise. PBC:0x0080 Lable:0x0004 Display:0x0008 */
 	INT             WscStatus;      /* for user to monitor the status */
 	INT             WscState;    	/* WSC Protocl State: M1 to M8 */
 	UINT            WscPinCode;     /* record the UI's PIN code input when we are registrar */
@@ -665,7 +665,7 @@ typedef	struct	_WSC_CTRL
 	BOOLEAN				bWscFragment;
 	unsigned char *				pWscRxBuf;
 	INT					WscRxBufLen;
-	USHORT				WscFragSize;
+	unsigned short				WscFragSize;
 	INT					WscTxBufLen;
 	unsigned char *				pWscTxBuf;
 	BOOLEAN				bWscLastOne;
@@ -679,10 +679,10 @@ typedef	struct	_WSC_CTRL
 }	WSC_CTRL, *PWSC_CTRL;
 
 typedef struct GNU_PACKED _WSC_CONFIGURED_VALUE {
-	USHORT WscConfigured; /* 1 un-configured; 2 configured */
+	unsigned short WscConfigured; /* 1 un-configured; 2 configured */
 	unsigned char	WscSsid[32 + 1];
-	USHORT WscAuthMode;	/* mandatory, 0x01: open, 0x02: wpa-psk, 0x04: shared, 0x08:wpa, 0x10: wpa2, 0x20: wpa2-psk */
-	USHORT	WscEncrypType;	/* 0x01: none, 0x02: wep, 0x04: tkip, 0x08: aes */
+	unsigned short WscAuthMode;	/* mandatory, 0x01: open, 0x02: wpa-psk, 0x04: shared, 0x08:wpa, 0x10: wpa2, 0x20: wpa2-psk */
+	unsigned short	WscEncrypType;	/* 0x01: none, 0x02: wep, 0x04: tkip, 0x08: aes */
 	unsigned char	DefaultKeyIdx;
 	unsigned char	WscWPAKey[64 + 1];
 } WSC_CONFIGURED_VALUE;
@@ -700,8 +700,8 @@ typedef struct GNU_PACKED _RTMP_WSC_NLMSG_HDR{
 	UINT	envID;			/* Unique event Identification assigned by sender. */
 	UINT	ackID;			/* Notify that this message is a repsone for the message whose event identifier is "ackID". */
 	UINT	msgLen;			/* Totally length for this message. This message may seperate in serveral packets. */
-	USHORT	flags;			
-	USHORT	segLen;			/* The "segLen" means the actual data length in this one msg packet.
+	unsigned short	flags;			
+	unsigned short	segLen;			/* The "segLen" means the actual data length in this one msg packet.
 								Because the NETLINK socket just support 256bytes for "IWCUSTOM" typed message, so we may 
 								need to do fragement for our msg. If one message was fragemented as serveral pieces, the 
 								user space receiver need to re-assemble it.
@@ -715,8 +715,8 @@ typedef struct GNU_PACKED _RTMP_WSC_NLMSG_HDR{
 */
 #define RTMP_WSC_MSG_HDR_LEN		12	/*msgType(2) + msgSubType(2) + ipAddr(4) + len(4) */
 typedef struct GNU_PACKED _RTMP_WSC_MSG_HDR{
-	USHORT	msgType;
-	USHORT	msgSubType;
+	unsigned short	msgType;
+	unsigned short	msgSubType;
 	UINT   ipAddr;
 	UINT   msgLen;		/*Not include this header. */
 }RTMP_WSC_MSG_HDR;
@@ -728,10 +728,10 @@ typedef struct GNU_PACKED _RTMP_WSC_MSG_HDR{
 #define WSC_MSG_TYPE_MGMT	 0x5
 
 char *   WscGetAuthTypeStr(
-    IN  USHORT authFlag);
+    IN  unsigned short authFlag);
 
 char *   WscGetEncryTypeStr(
-    IN  USHORT encryFlag);
+    IN  unsigned short encryFlag);
 
 #define IWEVCUSTOM_MSG_MAX_LEN  255 /*refer to kernel definition. <linux/wireless.h> */
 #define IWEVCUSTOM_PAYLOD_MAX_LEN  (IWEVCUSTOM_MSG_MAX_LEN - RTMP_WSC_NLMSG_HDR_LEN)

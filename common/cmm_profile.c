@@ -464,7 +464,7 @@ INT RTMPGetKeyParameter(
 INT RTMPGetKeyParameterWithOffset(
 	IN  char *key,
 	OUT char *dest,
-	OUT USHORT	*end_offset,
+	OUT unsigned short	*end_offset,
 	IN int destsize,
 	IN char *buffer,
 	IN bool	bTrimSpace)
@@ -1170,7 +1170,7 @@ static void rtmp_read_ap_wmm_parms_from_file(IN  PRTMP_ADAPTER pAd, char *tmpbuf
 	{
 		for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 		{
-			pAd->CommonCfg.APEdcaParm.Txop[i] = (USHORT) simple_strtol(macptr, 0, 10);;
+			pAd->CommonCfg.APEdcaParm.Txop[i] = (unsigned short) simple_strtol(macptr, 0, 10);;
 
 			DBGPRINT(RT_DEBUG_TRACE, ("APTxop[%d] = %d\n", i, pAd->CommonCfg.APEdcaParm.Txop[i]));
 		}
@@ -1220,7 +1220,7 @@ static void rtmp_read_ap_wmm_parms_from_file(IN  PRTMP_ADAPTER pAd, char *tmpbuf
 	{
 		for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 		{
-			pAd->ApCfg.BssEdcaParm.Txop[i] = (USHORT) simple_strtol(macptr, 0, 10);;
+			pAd->ApCfg.BssEdcaParm.Txop[i] = (unsigned short) simple_strtol(macptr, 0, 10);;
 
 			DBGPRINT(RT_DEBUG_TRACE, ("BSSTxop[%d] = %d\n", i, pAd->ApCfg.BssEdcaParm.Txop[i]));
 		}
@@ -1323,7 +1323,7 @@ static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf,
 	unsigned int					ip_addr;
 	int					i = 0;
 	bool					bUsePrevFormat = FALSE;
-	USHORT					offset;
+	unsigned short					offset;
 	int						count[HW_BEACON_MAX_NUM];
 
 	/* own_ip_addr*/
@@ -2210,7 +2210,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 		/* BeaconPeriod */
 		if(RTMPGetKeyParameter("BeaconPeriod", tmpbuf, 10, pBuffer, TRUE))
 		{
-			USHORT bcn_val = (USHORT) simple_strtol(tmpbuf, 0, 10);
+			unsigned short bcn_val = (unsigned short) simple_strtol(tmpbuf, 0, 10);
 
 			/* The acceptable is 20~1000 ms. Refer to WiFi test plan. */
 			if (bcn_val >= 20 && bcn_val <= 1000)	
@@ -2230,7 +2230,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 		
 		if (RTMPGetKeyParameter("DfsIndoor", tmpbuf, 10, pBuffer, TRUE))
 		{
-			pAd->Dot11_H.bDFSIndoor = (USHORT) (simple_strtol(tmpbuf, 0, 10) != 0);
+			pAd->Dot11_H.bDFSIndoor = (unsigned short) (simple_strtol(tmpbuf, 0, 10) != 0);
 			DBGPRINT(RT_DEBUG_TRACE, ("DfsIndoor = %d\n", pAd->Dot11_H.bDFSIndoor));
 		}
 		{
@@ -2420,7 +2420,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 		{
 			RtsThresh = simple_strtol(tmpbuf, 0, 10);
 			if ((RtsThresh >= 1) && (RtsThresh <= MAX_RTS_THRESHOLD))
-				pAd->CommonCfg.RtsThreshold = (USHORT)RtsThresh;
+				pAd->CommonCfg.RtsThreshold = (unsigned short)RtsThresh;
 			else
 				pAd->CommonCfg.RtsThreshold = MAX_RTS_THRESHOLD;
 			
@@ -2441,10 +2441,10 @@ NDIS_STATUS RTMPSetProfileParameters(
 			{
 				/* The length of each fragment shall always be an even number of octets, except for the last fragment*/
 				/* of an MSDU or MMPDU, which may be either an even or an odd number of octets.*/
-				pAd->CommonCfg.FragmentThreshold = (USHORT)(FragThresh - 1);
+				pAd->CommonCfg.FragmentThreshold = (unsigned short)(FragThresh - 1);
 			}
 			else
-				pAd->CommonCfg.FragmentThreshold = (USHORT)FragThresh;
+				pAd->CommonCfg.FragmentThreshold = (unsigned short)FragThresh;
 				/*pAd->CommonCfg.AllowFragSize = (pAd->CommonCfg.FragmentThreshold) - LENGTH_802_11 - LENGTH_CRC;*/
 				DBGPRINT(RT_DEBUG_TRACE, ("FragThreshold = %d\n", pAd->CommonCfg.FragmentThreshold));
 		}
@@ -3176,7 +3176,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 					if (i >= pAd->ApCfg.BssidNum)
 						break;
 
-					pAd->ApCfg.MBSSID[i].WscControl.WscConfigMethods = (USHORT)simple_strtol(macptr, 0, 16);
+					pAd->ApCfg.MBSSID[i].WscControl.WscConfigMethods = (unsigned short)simple_strtol(macptr, 0, 16);
 					DBGPRINT(RT_DEBUG_TRACE, ("I/F(ra%d) WscConfMethods = 0x%x\n", i, pAd->ApCfg.MBSSID[i].WscControl.WscConfigMethods));
 				}
 			}
@@ -3533,7 +3533,7 @@ BOOLEAN RTMP_CardInfoRead(
 	INT32 card_select_method;
 	INT32 card_free_id, card_nouse_id, card_same_mac_id, card_match_id;
 	EEPROM_ANTENNA_STRUC antenna;
-	USHORT addr01, addr23, addr45;
+	unsigned short addr01, addr23, addr45;
 	unsigned char mac[6];
 	unsigned int data, card_index;
 	unsigned char *start_ptr;
@@ -4368,7 +4368,7 @@ unsigned char GetSkuChannelBasePwr(
 VOID InitSkuRateDiffTable(
 	IN PRTMP_ADAPTER 	pAd )
 {
-	USHORT		i, value;
+	unsigned short		i, value;
 	CHAR		BasePwr, Pwr;
 
 	RT28xx_EEPROM_READ16(pAd, EEPROM_TXPOWER_BYRATE_20MHZ_2_4G + 4, value);

@@ -464,8 +464,8 @@ typedef struct  GNU_PACKED _VHT_CONTROL{
 
 
 typedef struct GNU_PACKED _NDPA_PKT{
-	USHORT frm_ctrl;
-	USHORT duration;
+	unsigned short frm_ctrl;
+	unsigned short duration;
 	unsigned char ra[MAC_ADDR_LEN];
 	unsigned char ta[MAC_ADDR_LEN];
 	unsigned char snd_seq;

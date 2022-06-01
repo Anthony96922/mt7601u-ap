@@ -72,7 +72,7 @@ MAC_TABLE_ENTRY *MacTableInsertEntry(
 	unsigned char HashIdx;
 	int i, FirstWcid;
 	MAC_TABLE_ENTRY *pEntry = NULL, *pCurrEntry;
-/*	USHORT	offset;*/
+/*	unsigned short	offset;*/
 /*	unsigned long	addr;*/
 	BOOLEAN Cancelled;
 
@@ -297,7 +297,7 @@ MAC_TABLE_ENTRY *MacTableInsertEntry(
 
 			pEntry->Sst = SST_NOT_AUTH;
 			pEntry->AuthState = AS_NOT_AUTH;
-			pEntry->Aid = (USHORT)i;  /*0;*/
+			pEntry->Aid = (unsigned short)i;  /*0;*/
 			pEntry->CapabilityInfo = 0;
 			pEntry->PsMode = PWR_ACTIVE;
 			pEntry->PsQIdleCount = 0;
@@ -406,13 +406,13 @@ MAC_TABLE_ENTRY *MacTableInsertEntry(
  */
 BOOLEAN MacTableDeleteEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN USHORT wcid,
+	IN unsigned short wcid,
 	IN unsigned char * pAddr)
 {
-	USHORT HashIdx;
+	unsigned short HashIdx;
 	MAC_TABLE_ENTRY *pEntry, *pPrevEntry, *pProbeEntry;
 	BOOLEAN Cancelled;
-	/*USHORT	offset;	 unused variable*/
+	/*unsigned short	offset;	 unused variable*/
 	/*unsigned char	j;			 unused variable*/
 
 	if (wcid >= MAX_LEN_OF_MAC_TABLE)
@@ -634,7 +634,7 @@ VOID MacTableReset(
 	NDIS_STATUS NStatus;
 	unsigned long       FrameLen = 0;
 	HEADER_802_11 DeAuthHdr;
-	USHORT      Reason;
+	unsigned short      Reason;
     unsigned char       apidx = MAIN_MBSSID;
 #endif /* CONFIG_AP_SUPPORT */
 
