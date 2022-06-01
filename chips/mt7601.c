@@ -1716,7 +1716,7 @@ void MT7601_NICInitAsicFromEEPROM(
 }
 
 
-INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
+int MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 {
 	unsigned int i, idx, ss_offset_g, MacReg;
 	EEPROM_TX_PWR_STRUC Power;
@@ -2253,7 +2253,7 @@ void MT7601_EnableTSSI(IN PRTMP_ADAPTER pAd)
 void MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 {
 	unsigned char Rf_B5_R03, Rf_B4_R39, bbp_r47;
-	INT i, count;
+	int i, count;
 	unsigned char RValue;
 	short tssi_linear;
 	short tssi0_db = 0, tssi0_db_hvga = 0;
@@ -2803,7 +2803,7 @@ void MT7601_AsicTxAlcGetAutoAgcOffset(
 #endif /* RTMP_INTERNAL_TX_ALC */
 
 
-INT MT7601_Bootup_Read_Temperature(
+int MT7601_Bootup_Read_Temperature(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char*			Temperature)
 {
@@ -2855,7 +2855,7 @@ INT MT7601_Bootup_Read_Temperature(
 }
 
 
-INT MT7601_Read_Temperature(
+int MT7601_Read_Temperature(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char*			Temperature)
 {

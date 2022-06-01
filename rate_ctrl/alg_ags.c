@@ -185,7 +185,7 @@ unsigned char Ags2x2VhtRateTable[] = {
 #endif /* DOT11_VHT_AC */
 
 
-INT Show_AGS_Proc(
+int Show_AGS_Proc(
     IN  PRTMP_ADAPTER	pAd, 
     IN  char * arg)
 {
@@ -218,7 +218,7 @@ INT Show_AGS_Proc(
 */
 void ApMlmeDynamicTxRateSwitchingAGS(
 	IN RTMP_ADAPTER *pAd,
-	IN INT idx)
+	IN int idx)
 {
 	unsigned char *pTable, TableSize = 0;
 	MAC_TABLE_ENTRY *pEntry = &pAd->MacTab.Content[idx];
@@ -576,7 +576,7 @@ void ApMlmeDynamicTxRateSwitchingAGS(
 #ifdef DOT11_VHT_AC
 		if ((pTable == Ags2x2VhtRateTable) || (pTable == Ags1x1VhtRateTable))
 		{
-			INT mcs_idx_offset;
+			int mcs_idx_offset;
 			while (idx < pTable[0])
 			{
 				pCurrTxRate = (RTMP_RA_AGS_TB *)(&pTable[(idx + 1) * SIZE_OF_AGS_RATE_TABLE_ENTRY]);
@@ -904,7 +904,7 @@ void ApMlmeDynamicTxRateSwitchingAGS(
 */
 void ApQuickResponeForRateUpExecAGS(
 	IN RTMP_ADAPTER *pAd,
-	IN INT idx)
+	IN int idx)
 {
 	unsigned char *pTable, TableSize = 0;
 	unsigned char UpRateIdx = 0, DownRateIdx = 0, CurrRateIdx = 0;

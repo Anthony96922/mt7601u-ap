@@ -151,7 +151,7 @@ void ITxBFGetEEPROM(
 	IN ITXBF_LNA_PARAMS *lnaParams,
 	IN ITXBF_DIV_PARAMS *divParams);
 
-INT ITxBFDividerCalibration(
+int ITxBFDividerCalibration(
 	IN RTMP_ADAPTER *pAd,
 	IN int calFunction,
 	IN int calMethod,

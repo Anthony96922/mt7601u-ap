@@ -321,8 +321,8 @@ typedef struct _RADAR_DETECT_STRUCT {
 	bool bDfsSwDisable; /* disable sotfwre check */
 	bool bDfsInit;		/* to indicate if dfs regs has been initialized */
 	unsigned short PollTime;
-	INT DfsRssiHigh;
-	INT DfsRssiLow;
+	int DfsRssiHigh;
+	int DfsRssiLow;
 	bool DfsRssiHighFromCfg;
 	bool DfsRssiLowFromCfg;
 	bool DfsRssiHighCfgValid;
@@ -346,11 +346,11 @@ typedef struct _RADAR_DETECT_STRUCT {
 	unsigned long ch_busy_sta[CH_BUSY_SAMPLE];
 	unsigned long ch_idle_sta[CH_BUSY_SAMPLE];
 	unsigned char ch_busy_sta_index;
-	INT		ch_busy_sum;
-	INT		ch_idle_sum;
+	int		ch_busy_sum;
+	int		ch_idle_sum;
 	unsigned char fdf_num;
 	unsigned short ch_busy_threshold[MAX_FDF_NUMBER];
-	INT		rssi_threshold[MAX_FDF_NUMBER];	
+	int		rssi_threshold[MAX_FDF_NUMBER];	
 	unsigned char McuRadarDebug;
 	unsigned short McuRadarTick;
 	unsigned long RadarTimeStampHigh;
@@ -411,140 +411,140 @@ bool DfsSwCheckOnHwDetection(
 	 IN unsigned long RadarPeriod,
 	 IN unsigned long RadarWidth);
 
-INT Set_RfReg_Proc(
+int Set_RfReg_Proc(
     IN  PRTMP_ADAPTER   pAdapter, 
     IN  char *          arg);
 
-INT	Show_BlockCh_Proc(
+int	Show_BlockCh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_RadarDebug_Proc(
+int	Set_RadarDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ResetRadarHwDetect_Proc(
+int	Set_ResetRadarHwDetect_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_DfsSwDisable_Proc(
+int Set_DfsSwDisable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_DfsEnvtDropAdjTime_Proc(
+int Set_DfsEnvtDropAdjTime_Proc(
 	IN PRTMP_ADAPTER   pAd, 
 	IN char *  arg);
 
-INT	Set_RadarStart_Proc(
+int	Set_RadarStart_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_RadarStop_Proc(
+int	Set_RadarStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_RadarSetTbl1_Proc(
+int	Set_RadarSetTbl1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_RadarSetTbl2_Proc(
+int	Set_RadarSetTbl2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_Fcc5Thrd_Proc(
+int	Set_Fcc5Thrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ChBusyThrd_Proc(
+int	Set_ChBusyThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_RssiThrd_Proc(
+int	Set_RssiThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_PollTime_Proc(
+int	Set_PollTime_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_PrintBusyIdle_Proc(
+int	Set_PrintBusyIdle_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_RadarSim_Proc(
+int	Set_RadarSim_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT	Set_BusyIdleRatio_Proc(
+int	Set_BusyIdleRatio_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_DfsRssiHigh_Proc(
+int	Set_DfsRssiHigh_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT	Set_DfsRssiLow_Proc(
+int	Set_DfsRssiLow_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT	Set_EventExpire_Proc(
+int	Set_EventExpire_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN      char *                 arg);
 
-INT	Set_CEPrint_Proc(
+int	Set_CEPrint_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_Ch0LErr_Proc(
+int	Set_Ch0LErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_MaxPeriod_Proc(
+int	Set_MaxPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_PeriodErr_Proc(
+int	Set_PeriodErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_Ch0HErr_Proc(
+int	Set_Ch0HErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_Ch1Shift_Proc(
+int	Set_Ch1Shift_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_Ch2Shift_Proc(
+int	Set_Ch2Shift_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_DeclareThres_Proc(
+int	Set_DeclareThres_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_CheckLoop_Proc(
+int	Set_CheckLoop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 #ifdef DFS_DEBUG
-INT	Set_DfsLowerLimit_Proc(
+int	Set_DfsLowerLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_DfsUpperLimit_Proc(
+int	Set_DfsUpperLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_FixDfsLimit_Proc(
+int	Set_FixDfsLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_AvgRssiReq_Proc(
+int	Set_AvgRssiReq_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_CEPrintDebug_Proc(
+int	Set_CEPrintDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* DFS_DEBUG */

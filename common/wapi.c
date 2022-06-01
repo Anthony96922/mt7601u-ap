@@ -352,10 +352,10 @@ void rtmp_read_wapi_parms_from_file(
 {	
 	unsigned int					ip_addr;
 #ifdef CONFIG_AP_SUPPORT	
-	INT						apidx = 0;
+	int						apidx = 0;
 #endif /* CONFIG_AP_SUPPORT */
 	char		tok_str[32];
-	INT idx;
+	int idx;
 
 	PCOMMON_WAPI_INFO pInfo = &pAd->CommonCfg.comm_wapi_info;
 	
@@ -534,7 +534,7 @@ void rtmp_read_wapi_parms_from_file(
 	/* WapiPskType */
 	if (RTMPGetKeyParameter("WapiPskType", tmpbuf, 32, buffer, TRUE))
 	{		
-		INT	err;
+		int	err;
 
 #ifdef CONFIG_AP_SUPPORT
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -816,7 +816,7 @@ void RTMPWapiMskRekeyPeriodicExec(
 #ifdef CONFIG_AP_SUPPORT
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		{
-			INT apidx = 0;
+			int apidx = 0;
     		unsigned int cnt;
 			
 			for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)

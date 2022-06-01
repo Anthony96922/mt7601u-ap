@@ -7,7 +7,7 @@
 #include <rt_config.h>
 
 
-INT dev_adjust_radio(RTMP_ADAPTER *pAd)
+int dev_adjust_radio(RTMP_ADAPTER *pAd)
 {
 	struct hw_setting *hw_cfg = &pAd->hw_cfg, new_cfg;
 

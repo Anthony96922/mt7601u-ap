@@ -35,7 +35,7 @@ REG_PAIR   BBPRegTable[] = {
 
 NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 {
-	INT Index = 0;
+	int Index = 0;
 	
 	/* Read BBP register, make sure BBP is up and running before write new data*/
 	if (rtmp_bbp_is_ready(pAd)== FALSE)
@@ -103,7 +103,7 @@ NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 }
 
 
-INT rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, INT tx_dac)
+int rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, int tx_dac)
 {
 	unsigned char val, old_val = 0;
 
@@ -131,7 +131,7 @@ INT rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, INT tx_dac)
 }
 
 
-INT rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, INT rxpath)
+int rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, int rxpath)
 {
 	unsigned char val = 0;
 
@@ -150,7 +150,7 @@ INT rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, INT rxpath)
 }
 
 
-INT rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT ext_ch)
+int rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, int ext_ch)
 {
 	unsigned char val, old_val = 0;
 
@@ -175,7 +175,7 @@ INT rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT ext_ch)
 }
 
 
-INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
+int rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, int bw)
 {
 	unsigned char val, old_val = 0;
 	bool bstop = FALSE;
@@ -236,7 +236,7 @@ INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
 }
 
 
-INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
+int rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
 {
 	unsigned char bbp_val, org_val;
 	
@@ -343,19 +343,19 @@ NDIS_STATUS AsicBBPReadWithRxChain(
 }
 
 
-INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX idx)
+int rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX idx)
 {
 	return AsicBBPReadWithRxChain(pAd, BBP_R66, agc, idx);
 }
 
 
-INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX idx)
+int rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX idx)
 {
 	return AsicBBPWriteWithRxChain(pAd, BBP_R66, agc, idx);
 }
 
 
-INT rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, unsigned char Channel)
+int rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, unsigned char Channel)
 {
 	unsigned char bbp_val = 0, org_val = 0;
 
@@ -391,9 +391,9 @@ unsigned char rtmp_bbp_get_random_seed(RTMP_ADAPTER *pAd)
 }
 
 
-INT rtmp_bbp_is_ready(struct _RTMP_ADAPTER *pAd)
+int rtmp_bbp_is_ready(struct _RTMP_ADAPTER *pAd)
 {
-	INT idx = 0;
+	int idx = 0;
 	unsigned char val;
 	
 	do 
@@ -415,7 +415,7 @@ INT rtmp_bbp_is_ready(struct _RTMP_ADAPTER *pAd)
 
 #ifdef CFO_TRACK
 #ifdef CONFIG_AP_SUPPORT
-INT rtmp_cfo_track(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, INT lastClient)
+int rtmp_cfo_track(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, int lastClient)
 {
 	/* CFO Tracking */
 	if (IS_RT3883(pAd))

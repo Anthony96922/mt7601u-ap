@@ -211,7 +211,7 @@ void BigInteger_Free (
 
 void BigInteger_AllocSize (
     IN PBIG_INTEGER *pBI,
-    IN INT Length)
+    IN int Length)
 {
     unsigned int ArrayLength = 0;
 
@@ -248,7 +248,7 @@ void BigInteger_AllocSize (
 void BigInteger_ClearHighBits (
     IN PBIG_INTEGER pBI)
 {
-    INT BIArrayIndex, ShiftIndex = 0;
+    int BIArrayIndex, ShiftIndex = 0;
     unsigned char value;
 
     if ((pBI == NULL) || (pBI->pIntegerArray == NULL))
@@ -283,7 +283,7 @@ void BigInteger_BI2Bin (
     OUT unsigned char *pValue,
     OUT unsigned int *Length)
 {
-    INT  ValueIndex, BIArrayIndex, ShiftIndex;
+    int  ValueIndex, BIArrayIndex, ShiftIndex;
     unsigned int  Number;
 
     if (pBI == NULL) {
@@ -328,7 +328,7 @@ void BigInteger_Bin2BI (
     IN unsigned int Length,
     OUT PBIG_INTEGER *pBI)
 {
-    INT  ValueIndex, BIArrayIndex, ShiftIndex;
+    int  ValueIndex, BIArrayIndex, ShiftIndex;
     unsigned int  Number;
     
     BigInteger_AllocSize(pBI, Length);    
@@ -370,7 +370,7 @@ void BigInteger_BitsOfBI (
 } /* End of BigInteger_BitsOfBN */
 
 
-INT BigInteger_GetBitValue (
+int BigInteger_GetBitValue (
     IN PBIG_INTEGER pBI,
     IN unsigned int Index)
 {
@@ -419,11 +419,11 @@ void BigInteger_Copy (
 } /* End of BigInteger_Copy */
 
 
-INT BigInteger_UnsignedCompare (
+int BigInteger_UnsignedCompare (
     IN PBIG_INTEGER pFirstOperand, 
     IN PBIG_INTEGER pSecondOperand)
 {
-    INT BIArrayIndex;
+    int BIArrayIndex;
 
     if (pFirstOperand->IntegerLength > pSecondOperand->IntegerLength)
         return 1;
@@ -450,7 +450,7 @@ void BigInteger_Add (
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result)
 {
-    INT CompareResult;
+    int CompareResult;
     unsigned int BIArrayIndex;
     unsigned long long Sum, Carry;
     PBIG_INTEGER pTempBI = NULL;
@@ -524,7 +524,7 @@ void BigInteger_Sub (
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result)
 {
-    INT CompareResult;
+    int CompareResult;
     unsigned int BIArrayIndex, Carry;
     PBIG_INTEGER pTempBI = NULL, pTempBI2 = NULL;
     
@@ -679,7 +679,7 @@ void BigInteger_Square (
     IN PBIG_INTEGER pBI, 
     OUT PBIG_INTEGER *pBI_Result)
 {
-    INT BIFirstIndex, BISecondIndex;
+    int BIFirstIndex, BISecondIndex;
 	unsigned int HBITS_Value, LBITS_Value, Temp1_Value, Temp2_Value, Carry32;
 	unsigned int *Point_Of_S, *Point_Of_Result, *Point_Of_BI;
     unsigned long long Result64_1, Result64_2, Carry64, TempValue64;    
@@ -798,8 +798,8 @@ void BigInteger_Div (
     OUT PBIG_INTEGER *pBI_Result,
     OUT PBIG_INTEGER *pBI_Remainder)
 {
-    INT CompareResult;
-    INT Index, MulIndex, ComputeSize;
+    int CompareResult;
+    int Index, MulIndex, ComputeSize;
     unsigned int MulStart;
     unsigned int AllocLength, ArrayIndex, ShiftIndex;
     PBIG_INTEGER pTempBI = NULL, pTempBI2 = NULL, pMulBI = NULL;
@@ -924,7 +924,7 @@ void BigInteger_Montgomery_Reduction (
     unsigned int *Point_P, *Point_Result;
     unsigned int LoopCount;
     unsigned long long Result64_1, Result64_2, Carry64, TempValue64;  
-    INT FirstLoop, SecondLoop; 
+    int FirstLoop, SecondLoop; 
 
     BigInteger_AllocSize(pBI_Result, pBI_A->IntegerLength+ pBI_P->IntegerLength + 20);
     BigInteger_Copy(pBI_A, pBI_Result);

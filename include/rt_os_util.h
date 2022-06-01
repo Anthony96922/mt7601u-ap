@@ -236,7 +236,7 @@ void RtmpOsPktBodyCopy(
 	IN	unsigned long					ThisFrameLen,
 	IN	unsigned char *					pData);
 
-INT RtmpOsIsPktCloned(
+int RtmpOsIsPktCloned(
 	IN	PNDIS_PACKET			pNetPkt);
 
 PNDIS_PACKET RtmpOsPktCopy(
@@ -335,11 +335,11 @@ void RtmpOSNetDevClose(
 void RtmpOSNetDevFree(
 	IN	PNET_DEV				pNetDev);
 
-INT RtmpOSNetDevAlloc(
+int RtmpOSNetDevAlloc(
 	IN	PNET_DEV				*new_dev_p,
 	IN	unsigned int					privDataSize);
 
-INT RtmpOSNetDevOpsAlloc(
+int RtmpOSNetDevOpsAlloc(
 	IN	void *					*pNetDevOps);
 
 
@@ -350,7 +350,7 @@ PNET_DEV RtmpOSNetDevGetByName(
 void RtmpOSNetDeviceRefPut(
 	IN	PNET_DEV				pNetDev);
 
-INT RtmpOSNetDevDestory(
+int RtmpOSNetDevDestory(
 	IN	void					*pReserved,
 	IN	PNET_DEV				pNetDev);
 
@@ -368,9 +368,9 @@ void RtmpOSNetDevProtect(
 PNET_DEV RtmpOSNetDevCreate(
 	IN	int					MC_RowID,
 	IN	unsigned int					*pIoctlIF,
-	IN	INT 					devType,
-	IN	INT						devNum,
-	IN	INT						privMemSize,
+	IN	int 					devType,
+	IN	int						devNum,
+	IN	int						privMemSize,
 	IN	char *					pNamePrefix);
 
 bool RtmpOSNetDevIsUp(
@@ -422,7 +422,7 @@ void RtmpOsCmdUp(RTMP_OS_TASK *pCmdQTask);
 bool RtmpOsSemaInitLocked(RTMP_OS_SEM *pSemOrg, LIST_HEADER *pSemList);
 bool RtmpOsSemaInit(RTMP_OS_SEM *pSemOrg, LIST_HEADER *pSemList);
 bool RtmpOsSemaDestory(RTMP_OS_SEM *pSemOrg);
-INT RtmpOsSemaWaitInterruptible(RTMP_OS_SEM *pSemOrg);
+int RtmpOsSemaWaitInterruptible(RTMP_OS_SEM *pSemOrg);
 void RtmpOsSemaWakeUp(RTMP_OS_SEM *pSemOrg);
 void RtmpOsMlmeUp(RTMP_OS_TASK *pMlmeQTask);
 
@@ -457,7 +457,7 @@ void RtmpOSTaskFree(
 NDIS_STATUS RtmpOSTaskKill(
 	IN	RTMP_OS_TASK			*pTaskOrg);
 
-INT RtmpOSTaskNotifyToExit(
+int RtmpOSTaskNotifyToExit(
 	IN	RTMP_OS_TASK			*pTaskOrg);
 
 void RtmpOSTaskCustomize(
@@ -616,7 +616,7 @@ void RtmpOsSendWirelessEvent(
 
 #ifdef CONFIG_AP_SUPPORT
 void SendSignalToDaemon(
-	IN	INT sig,
+	IN	int sig,
 	IN	RTMP_OS_PID	 pid,
 	IN	unsigned long pid_no);
 #endif /* CONFIG_AP_SUPPORT */
@@ -624,7 +624,7 @@ void SendSignalToDaemon(
 int RtmpOSWrielessEventSend(
 	IN	PNET_DEV				pNetDev,
 	IN	unsigned int					eventType,
-	IN	INT						flags,
+	IN	int						flags,
 	IN	unsigned char *					pSrcMac,
 	IN	unsigned char *					pData,
 	IN	unsigned int					dataLen);
@@ -632,7 +632,7 @@ int RtmpOSWrielessEventSend(
 int RtmpOSWrielessEventSendExt(
 	IN	PNET_DEV				pNetDev,
 	IN	unsigned int					eventType,
-	IN	INT						flags,
+	IN	int						flags,
 	IN	unsigned char *					pSrcMac,
 	IN	unsigned char *					pData,
 	IN	unsigned int					dataLen,

@@ -195,7 +195,7 @@ int AppendWSCTLV(unsigned short index, OUT unsigned char * obuf, IN unsigned cha
 static void	WscParseEncrSettings(
 	IN	PRTMP_ADAPTER		pAdapter, 
 	IN	unsigned char *				pPlainData,
-	IN	INT					PlainLength,
+	IN	int					PlainLength,
 	IN  PWSC_CTRL           pWscControl)
 {
 	unsigned short	WscType, WscLen, HmacLen;
@@ -286,7 +286,7 @@ static void	WscParseEncrSettings(
 static bool	WscProcessCredential(
 	IN	PRTMP_ADAPTER		pAdapter, 
 	IN	unsigned char *				pPlainData,
-	IN	INT					PlainLength,
+	IN	int					PlainLength,
 	IN  PWSC_CTRL           pWscControl)
 {
 	unsigned short			WscType, WscLen, Cnt = 0, CurrentIdx=0, Idx, tmpVal = 0;
@@ -502,10 +502,10 @@ int BuildMessageM1(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
-	INT					idx;
+	int					idx;
 	unsigned short				ConfigError = 0, ConfigMethods = 0;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
@@ -747,13 +747,13 @@ int BuildMessageM2(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
     PWSC_REG_DATA		pReg;
 	unsigned char				DHKey[32], KDK[32], KdkInput[38], KdfKey[80];
-	INT					DH_Len;
-	INT				    HmacLen = 0;
-	INT					idx;
+	int					DH_Len;
+	int				    HmacLen = 0;
+	int					idx;
 	unsigned short				ConfigMethods;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
@@ -996,7 +996,7 @@ int BuildMessageM2D(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 #ifdef WSC_V2_SUPPORT
@@ -1156,10 +1156,10 @@ int BuildMessageM3(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
 	PWSC_REG_DATA		pReg = NULL;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				*pHash=NULL;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
@@ -1318,14 +1318,14 @@ int BuildMessageM4(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				KDK[32];
 	unsigned char				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
 	unsigned char				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
-	INT					PlainLen = 0, EncrLen;
+	int					PlainLen = 0, EncrLen;
 	unsigned char				*pHash=NULL;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
@@ -1511,14 +1511,14 @@ int BuildMessageM5(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 	unsigned char *				pAuth;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
 	unsigned char				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
-	INT					PlainLen=0, EncrLen;
+	int					PlainLen=0, EncrLen;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
@@ -1646,14 +1646,14 @@ int BuildMessageM6(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				KDK[32];
 	unsigned char				Plain[128]; /*, IV_EncrData[144];//IV len 16,EncrData len 128 */
 	unsigned char				*IV_EncrData = NULL;/*IV len 16,EncrData len 128 */
-	INT					PlainLen = 0, EncrLen;
+	int					PlainLen = 0, EncrLen;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
@@ -1786,12 +1786,12 @@ int BuildMessageM7(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[32];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
     PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Plain[256], *IV_EncrData=NULL;/*IV len 16 ,EncrData len */
-	INT					PlainLen=0, EncrLen;
+	int					PlainLen=0, EncrLen;
 #ifdef WSC_V2_SUPPORT
 	PWSC_TLV			pWscTLV = &pWscControl->WscV2Info.ExtraTlv;
 #endif /* WSC_V2_SUPPORT */
@@ -1957,14 +1957,14 @@ int BuildMessageM8(
 {
 /*	unsigned char				TB[256]; */
 	unsigned char				*TB = NULL;
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf, pAuth;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				KDK[32];
 	unsigned char				/* Plain[300], */ *IV_EncrData=NULL;/*IV len 16 ,EncrData len */
 	unsigned char				*Plain = NULL;
-	INT					CerLen = 0, PlainLen = 0, EncrLen;
+	int					CerLen = 0, PlainLen = 0, EncrLen;
     PWSC_CREDENTIAL     pCredential = NULL;
     unsigned short              AuthType = 0;
     unsigned short              EncrType = 0;
@@ -2142,7 +2142,7 @@ int BuildMessageDONE(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 #ifdef WSC_V2_SUPPORT
@@ -2202,7 +2202,7 @@ int BuildMessageACK(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[1];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
 #ifdef WSC_V2_SUPPORT
@@ -2262,7 +2262,7 @@ int BuildMessageNACK(
 	OUT	void *pbuf)
 {
 	unsigned char				TB[2];
-	INT					Len = 0, templen = 0;
+	int					Len = 0, templen = 0;
 	unsigned char *				pData = (unsigned char *)pbuf;
 	PWSC_REG_DATA		pReg = (PWSC_REG_DATA) &pWscControl->RegData;
     unsigned short              ConfigError = htons(pReg->SelfInfo.ConfigError);
@@ -2350,7 +2350,7 @@ int ProcessMessageM1(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	INT Length,
+	IN	int Length,
 	OUT	PWSC_REG_DATA pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR, DH_Len = 0, idx;
@@ -2608,15 +2608,15 @@ int ProcessMessageM2(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN  PWSC_CTRL		pWscControl,
 	IN	void 			*precv,
-	IN	INT 			Length,
+	IN	int 			Length,
 	IN  unsigned char			apidx,
 	OUT	PWSC_REG_DATA 	pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
 	unsigned char				DHKey[32], KdkInput[38], KdfKey[80];
-	INT					DH_Len;
+	int					DH_Len;
 	unsigned char *				pData = NULL;
 	unsigned short				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
 	MAC_TABLE_ENTRY		*pEntry = NULL;
@@ -2902,7 +2902,7 @@ int ProcessMessageM2(
 int ProcessMessageM2D(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN	void *precv,
-	IN	INT Length,
+	IN	int Length,
 	OUT	PWSC_REG_DATA pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
@@ -3063,11 +3063,11 @@ int ProcessMessageM2D(
 int ProcessMessageM3(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN	void *precv,
-	IN	INT Length,
+	IN	int Length,
 	OUT	PWSC_REG_DATA pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
 	unsigned char *				pData = NULL;
 	unsigned short				WscType, WscLen, FieldCheck[7]={0,0,0,0,0,0,0};
@@ -3196,13 +3196,13 @@ int ProcessMessageM4(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	INT Length,
+	IN	int Length,
 	OUT	PWSC_REG_DATA pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], RHash[32];
-	INT					EncrLen;
+	int					EncrLen;
 	unsigned char *				pData = NULL;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
@@ -3382,13 +3382,13 @@ int ProcessMessageM5(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	INT Length,
+	IN	int Length,
 	OUT	PWSC_REG_DATA pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], EHash[32];
-	INT					EncrLen;
+	int					EncrLen;
 	unsigned char *				pData = NULL;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
@@ -3557,13 +3557,13 @@ int ProcessMessageM6(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	INT Length,
+	IN	int Length,
 	OUT	PWSC_REG_DATA pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32], RHash[32];
-	INT					EncrLen;
+	int					EncrLen;
 	unsigned char *				pData = NULL;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
 	unsigned char				*pHash=NULL;/*Reuse IV_DecrData memory */
@@ -3731,13 +3731,13 @@ int ProcessMessageM7(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	INT Length,
+	IN	int Length,
 	OUT	PWSC_REG_DATA pReg)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
-	INT					EncrLen;
+	int					EncrLen;
 	unsigned char *				pData = NULL;
 	unsigned short				WscType, WscLen;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */
@@ -3874,13 +3874,13 @@ int ProcessMessageM7(
 int ProcessMessageM8(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN	void *precv,
-	IN	INT Length,
+	IN	int Length,
 	IN  PWSC_CTRL       pWscControl)
 {
 	int					ret = WSC_ERROR_NO_ERROR;
-	INT				    HmacLen;
+	int				    HmacLen;
 	unsigned char				Hmac[8] = { 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff }, KDK[32];
-	INT					EncrLen;
+	int					EncrLen;
 	unsigned char *				pData = NULL;
 	unsigned short				WscType, WscLen;
 	unsigned char				*IV_DecrData=NULL;/*IV len 16 ,DecrData len */

@@ -269,7 +269,7 @@
 #define RF_BANK14	14
 #define RF_BANK15	15
 
-INT rlt_bbp_is_ready(struct _RTMP_ADAPTER *pAd);
+int rlt_bbp_is_ready(struct _RTMP_ADAPTER *pAd);
 
 #endif /* __RLT_PHY_H__ */
 

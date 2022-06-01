@@ -487,7 +487,7 @@ do {													\
 #define ATE_KILL_THREAD_PID(PID)	KILL_THREAD_PID(PID, SIGTERM, 1)
 
 typedef int (*cast_fn)(void *);
-typedef INT (*RTMP_OS_TASK_CALLBACK)(unsigned long);
+typedef int (*RTMP_OS_TASK_CALLBACK)(unsigned long);
 
 #ifdef WORKQUEUE_BH
 typedef struct work_struct OS_NET_TASK_STRUCT;
@@ -634,8 +634,8 @@ struct os_cookie {
 	RTMP_OS_PID			wapi_pid; /*wapi daemon pid */
 	unsigned long			wapi_pid_nr;
 #endif /* WAPI_SUPPORT */
-	INT						ioctl_if_type;
-	INT 					ioctl_if;
+	int						ioctl_if_type;
+	int 					ioctl_if;
 };
 
 typedef struct os_cookie	* POS_COOKIE;
@@ -1172,10 +1172,10 @@ struct net_device *alloc_netdev(int sizeof_priv, const char *mask, void (*setup)
 
 
 
-INT rt28xx_ioctl(
+int rt28xx_ioctl(
 	IN	PNET_DEV		net_dev,
 	IN	OUT	struct ifreq	*rq, 
-	IN	INT			cmd);
+	IN	int			cmd);
 
 extern int ra_mtd_write(int num, loff_t to, size_t len, const u_char *buf);
 extern int ra_mtd_read(int num, loff_t from, size_t len, u_char *buf);
@@ -1524,7 +1524,7 @@ extern int rausb_control_msg(void *dev,
 
 ******************************************************************************/
 #define ate_print printk
-#define ATEDBGPRINT DBGPRINT
+#define ATEDBGPRint DBGPRINT
 
 #ifdef RTMP_MAC_USB
 #ifdef CONFIG_AP_SUPPORT
@@ -1548,7 +1548,7 @@ USBHST_STATUS ATE_RTUSBBulkOutDataPacketComplete(URBCompleteStatus Status, purbb
 #endif /* RALINK_ATE */
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,31)
-INT RtmpOSNetDevOpsAlloc(
+int RtmpOSNetDevOpsAlloc(
 	IN void * *pNetDevOps);
 #endif
 

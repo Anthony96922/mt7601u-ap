@@ -200,7 +200,7 @@ void DefaultATEAsicAdjustTxPower(
 {
 	PATE_INFO   pATEInfo = &(pAd->ate);
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
-	INT			index = 0, inner_index = 0, maxTxPwrCnt;
+	int			index = 0, inner_index = 0, maxTxPwrCnt;
 	char		DeltaPwr = 0;
 	bool		bAutoTxAgc = FALSE;
 	unsigned char		TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep;
@@ -1162,7 +1162,7 @@ static int CheckMCSValid(
 }
 
 
-INT DefaultATETxPwrHandler(
+int DefaultATETxPwrHandler(
 	IN PRTMP_ADAPTER pAd,
 	IN char index)
 {
@@ -1203,7 +1203,7 @@ INT DefaultATETxPwrHandler(
 }
 
 
-INT ATETxPwrHandler(
+int ATETxPwrHandler(
 	IN PRTMP_ADAPTER pAd,
 	IN char index)
 {
@@ -1369,7 +1369,7 @@ void ATEAPStop(
 {
 	bool     Cancelled;
 	unsigned int		Value = 0;
-	INT         apidx = 0;
+	int         apidx = 0;
 		
 	DBGPRINT(RT_DEBUG_TRACE, ("!!! ATEAPStop !!!\n"));
 
@@ -2801,7 +2801,7 @@ static NDIS_STATUS	ATECmdHandler(
 }
 
 
-INT	Set_ATE_Proc(
+int	Set_ATE_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2851,13 +2851,13 @@ INT	Set_ATE_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_DA_Proc(
+int	Set_ATE_DA_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	char *				value;
-	INT					octet;
+	int					octet;
 
 	/* Mac address acceptable format 01:02:03:04:05:06 length 17 */	
 	if (strlen(arg) != 17)  
@@ -2906,13 +2906,13 @@ INT	Set_ATE_DA_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_SA_Proc(
+int	Set_ATE_SA_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	char *				value;
-	INT					octet;
+	int					octet;
 
 	/* Mac address acceptable format 01:02:03:04:05:06 length 17 */	
 	if (strlen(arg) != 17)  
@@ -2959,13 +2959,13 @@ INT	Set_ATE_SA_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_BSSID_Proc(
+int	Set_ATE_BSSID_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	char *				value;
-	INT					octet;
+	int					octet;
 
 	/* Mac address acceptable format 01:02:03:04:05:06 length 17 */	
 	if (strlen(arg) != 17)  
@@ -3014,7 +3014,7 @@ INT	Set_ATE_BSSID_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_CHANNEL_Proc(
+int	Set_ATE_CHANNEL_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -3055,7 +3055,7 @@ INT	Set_ATE_CHANNEL_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_INIT_CHAN_Proc(
+int	Set_ATE_INIT_CHAN_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -3123,15 +3123,15 @@ INT	Set_ATE_INIT_CHAN_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-static INT ATESetAntennaTxPower(
+static int ATESetAntennaTxPower(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char * 		arg,	
-	IN  INT 		Antenna)
+	IN  int 		Antenna)
 
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	char TxPower;
-	INT  index, maximun_index;
+	int  index, maximun_index;
 
 	pATEInfo = &(pAd->ate);
 	TxPower = simple_strtol(arg, 0, 10);
@@ -3221,11 +3221,11 @@ static INT ATESetAntennaTxPower(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_POWER0_Proc(
+int	Set_ATE_TX_POWER0_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	INT ret;
+	int ret;
 	
 	ret = ATESetAntennaTxPower(pAd, arg, 0);
 	return ret;
@@ -3241,11 +3241,11 @@ INT	Set_ATE_TX_POWER0_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_POWER1_Proc(
+int	Set_ATE_TX_POWER1_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	INT ret;
+	int ret;
 	
 	ret = ATESetAntennaTxPower(pAd, arg, 1);
 	return ret;
@@ -3262,11 +3262,11 @@ INT	Set_ATE_TX_POWER1_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_POWER2_Proc(
+int	Set_ATE_TX_POWER2_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	INT ret;
+	int ret;
 	
 	ret = ATESetAntennaTxPower(pAd, arg, 2);
 	return ret;
@@ -3283,13 +3283,13 @@ INT	Set_ATE_TX_POWER2_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_Antenna_Proc(
+int	Set_ATE_TX_Antenna_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	char value;
-	INT maximun_index = pAd->Antenna.field.TxPath;
+	int maximun_index = pAd->Antenna.field.TxPath;
 	
 	value = simple_strtol(arg, 0, 10);
 
@@ -3325,13 +3325,13 @@ INT	Set_ATE_TX_Antenna_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_RX_Antenna_Proc(
+int	Set_ATE_RX_Antenna_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	char value;
-	INT maximun_index = pAd->Antenna.field.RxPath;
+	int maximun_index = pAd->Antenna.field.RxPath;
 	
 	value = simple_strtol(arg, 0, 10);
 
@@ -3426,7 +3426,7 @@ void ATEAsicTemperCompensation(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT Set_ATE_PA_Bias_Proc(
+int Set_ATE_PA_Bias_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -3468,7 +3468,7 @@ INT Set_ATE_PA_Bias_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Default_Set_ATE_TX_FREQ_OFFSET_Proc(
+int	Default_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -3506,12 +3506,12 @@ INT	Default_Set_ATE_TX_FREQ_OFFSET_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_FREQ_OFFSET_Proc(
+int	Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	INT ret = FALSE;
+	int ret = FALSE;
 
 	if (pATEInfo->pChipStruct->Set_FREQ_OFFSET_Proc != NULL)
 	{
@@ -3540,12 +3540,12 @@ INT	Set_ATE_TX_FREQ_OFFSET_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Default_Set_ATE_TX_BW_Proc(
+int	Default_Set_ATE_TX_BW_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	INT powerIndex;
+	int powerIndex;
 	unsigned char value = 0;
 	unsigned char BBPCurrentBW;
 	
@@ -3632,7 +3632,7 @@ INT	Default_Set_ATE_TX_BW_Proc(
 
 		if (pATEInfo->Channel == 14)
 		{
-			INT TxMode = pATEInfo->TxWI.TxWIPHYMODE;
+			int TxMode = pATEInfo->TxWI.TxWIPHYMODE;
 
 			if (TxMode == MODE_CCK)
 			{
@@ -3724,7 +3724,7 @@ INT	Default_Set_ATE_TX_BW_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_BW_Proc(
+int	Set_ATE_TX_BW_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -3752,7 +3752,7 @@ INT	Set_ATE_TX_BW_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_LENGTH_Proc(
+int	Set_ATE_TX_LENGTH_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -3786,7 +3786,7 @@ INT	Set_ATE_TX_LENGTH_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_COUNT_Proc(
+int	Set_ATE_TX_COUNT_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -3818,13 +3818,13 @@ INT	Set_ATE_TX_COUNT_Proc(
         	TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_MCS_Proc(
+int	Set_ATE_TX_MCS_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned char MCS;
-	INT result;
+	int result;
 
 	MCS = simple_strtol(arg, 0, 10);
 	result = CheckMCSValid(pAd, pATEInfo->TxWI.TxWIPHYMODE, MCS);
@@ -3862,7 +3862,7 @@ INT	Set_ATE_TX_MCS_Proc(
         	TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_MODE_Proc(
+int	Set_ATE_TX_MODE_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -4006,7 +4006,7 @@ INT	Set_ATE_TX_MODE_Proc(
         	TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TX_GI_Proc(
+int	Set_ATE_TX_GI_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -4031,7 +4031,7 @@ INT	Set_ATE_TX_GI_Proc(
 }
 
 
-INT	Set_ATE_RX_FER_Proc(
+int	Set_ATE_RX_FER_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4055,7 +4055,7 @@ INT	Set_ATE_RX_FER_Proc(
 }
 
 
-INT Set_ATE_Read_RF_Proc(
+int Set_ATE_Read_RF_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4069,7 +4069,7 @@ INT Set_ATE_Read_RF_Proc(
 }
 
 
-INT Set_ATE_Write_RF1_Proc(
+int Set_ATE_Write_RF1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4082,7 +4082,7 @@ INT Set_ATE_Write_RF1_Proc(
 }
 
 
-INT Set_ATE_Write_RF2_Proc(
+int Set_ATE_Write_RF2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4095,7 +4095,7 @@ INT Set_ATE_Write_RF2_Proc(
 }
 
 
-INT Set_ATE_Write_RF3_Proc(
+int Set_ATE_Write_RF3_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4108,7 +4108,7 @@ INT Set_ATE_Write_RF3_Proc(
 }
 
 
-INT Set_ATE_Write_RF4_Proc(
+int Set_ATE_Write_RF4_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4130,7 +4130,7 @@ INT Set_ATE_Write_RF4_Proc(
         	TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT Set_ATE_Load_E2P_Proc(
+int Set_ATE_Load_E2P_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4139,7 +4139,7 @@ INT Set_ATE_Load_E2P_Proc(
 	RTMP_OS_FD		srcf;
 	int 			retval;
 	unsigned short 			WriteEEPROM[(EEPROM_SIZE >> 1)];
-	INT				FileLength = 0;
+	int				FileLength = 0;
 	unsigned int 			value = (unsigned int) simple_strtol(arg, 0, 10);
 	RTMP_OS_FS_INFO	osFSInfo;
 
@@ -4217,7 +4217,7 @@ INT Set_ATE_Load_E2P_Proc(
         	TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT Set_ATE_Load_E2P_From_Buf_Proc(
+int Set_ATE_Load_E2P_From_Buf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4240,7 +4240,7 @@ INT Set_ATE_Load_E2P_From_Buf_Proc(
 }
 
 
-INT Set_ATE_Cal_Free_Info_Proc(
+int Set_ATE_Cal_Free_Info_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4256,7 +4256,7 @@ INT Set_ATE_Cal_Free_Info_Proc(
 #endif /* RTMP_EFUSE_SUPPORT */
 
 
-INT Set_ATE_Read_E2P_Proc(
+int Set_ATE_Read_E2P_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4294,7 +4294,7 @@ INT Set_ATE_Read_E2P_Proc(
         	TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_AUTO_ALC_Proc(
+int	Set_ATE_AUTO_ALC_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4329,7 +4329,7 @@ INT	Set_ATE_AUTO_ALC_Proc(
         	TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TXBF_Proc(
+int	Set_ATE_TXBF_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4385,7 +4385,7 @@ INT	Set_ATE_TXBF_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TXSOUNDING_Proc(
+int	Set_ATE_TXSOUNDING_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -4421,7 +4421,7 @@ INT	Set_ATE_TXSOUNDING_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TXBF_DIVCAL_Proc(
+int	Set_ATE_TXBF_DIVCAL_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -4490,7 +4490,7 @@ INT	Set_ATE_TXBF_DIVCAL_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_TXBF_LNACAL_Proc(
+int	Set_ATE_TXBF_LNACAL_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -4590,7 +4590,7 @@ static bool rtmp_ate_txbf_cal_valid_ch(
    	This cmd shall only used in DUT side for calibration
 ==========================================================================
 */
-INT Set_ATE_TXBF_INIT_Proc(
+int Set_ATE_TXBF_INIT_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4678,7 +4678,7 @@ INT Set_ATE_TXBF_INIT_Proc(
    	This cmd shall only used in DUT side for calibration
 ==========================================================================
 */
-INT Set_ATE_TXBF_CAL_Proc(
+int Set_ATE_TXBF_CAL_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4745,7 +4745,7 @@ INT Set_ATE_TXBF_CAL_Proc(
    	This cmd shall only used in GOLDEN side for calibration feedback
 ==========================================================================
 */
-INT Set_ATE_TXBF_GOLDEN_Proc(
+int Set_ATE_TXBF_GOLDEN_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4827,7 +4827,7 @@ INT Set_ATE_TXBF_GOLDEN_Proc(
 	This cmd shall only used in GOLDEN side for calibration verification
 ==========================================================================
 */
-INT Set_ATE_TXBF_VERIFY_Proc(
+int Set_ATE_TXBF_VERIFY_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4876,7 +4876,7 @@ INT Set_ATE_TXBF_VERIFY_Proc(
 }
 
 
-INT Set_ATE_ForceBBP_Proc(
+int Set_ATE_ForceBBP_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4912,7 +4912,7 @@ INT Set_ATE_ForceBBP_Proc(
 	This cmd shall only used in GOLDEN side for calibration verification
 ==========================================================================
 */
-INT Set_ATE_TXBF_VERIFY_NoComp_Proc(
+int Set_ATE_TXBF_VERIFY_NoComp_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -4993,7 +4993,7 @@ INT Set_ATE_TXBF_VERIFY_NoComp_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_IPG_Proc(
+int	Set_ATE_IPG_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -5084,7 +5084,7 @@ INT	Set_ATE_IPG_Proc(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	Set_ATE_Payload_Proc(
+int	Set_ATE_Payload_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -5111,7 +5111,7 @@ INT	Set_ATE_Payload_Proc(
 
 
 
-INT	Set_ATE_Show_Proc(
+int	Set_ATE_Show_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -5221,7 +5221,7 @@ INT	Set_ATE_Show_Proc(
 }
 
 
-INT	Set_ATE_Help_Proc(
+int	Set_ATE_Help_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -5288,7 +5288,7 @@ INT	Set_ATE_Help_Proc(
 #ifdef RTMP_INTERNAL_TX_ALC
 
 
-INT Set_ATE_TSSI_CALIBRATION_Proc(
+int Set_ATE_TSSI_CALIBRATION_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {    
@@ -5307,7 +5307,7 @@ INT Set_ATE_TSSI_CALIBRATION_Proc(
 }
 	
 
-INT Set_ATE_TSSI_CALIBRATION_EX_Proc(
+int Set_ATE_TSSI_CALIBRATION_EX_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {    
@@ -5327,7 +5327,7 @@ INT Set_ATE_TSSI_CALIBRATION_EX_Proc(
 
 
 #if defined(RT3350) || defined(RT3352)
-INT RT335x2_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
+int RT335x2_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 		{
@@ -5385,7 +5385,7 @@ char InsertTssi(unsigned char InChannel, unsigned char Channel0, unsigned char C
 }
 
 
-INT RT335xATETssiCalibrationExtend(
+int RT335xATETssiCalibrationExtend(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {    
@@ -5553,7 +5553,7 @@ INT RT335xATETssiCalibrationExtend(
 #ifdef RTMP_TEMPERATURE_COMPENSATION
 
 
-INT Set_ATE_READ_EXTERNAL_TSSI_Proc(
+int Set_ATE_READ_EXTERNAL_TSSI_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -5567,7 +5567,7 @@ INT Set_ATE_READ_EXTERNAL_TSSI_Proc(
 
 
 #ifdef MT7601
-INT Set_ATE_Read_Temperature_Proc(
+int Set_ATE_Read_Temperature_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -5583,7 +5583,7 @@ INT Set_ATE_Read_Temperature_Proc(
 }
 
 
-INT Set_ATE_Read_TSSI_DC_Proc(
+int Set_ATE_Read_TSSI_DC_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -6001,7 +6001,7 @@ NDIS_STATUS ATEBBPWriteWithRxChain(
 
 
 #ifdef RLT_MAC
-INT Set_ADCDump_Proc(
+int Set_ADCDump_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -6011,7 +6011,7 @@ INT Set_ADCDump_Proc(
 }
 
 #else
-INT Set_ADCDump_Proc(
+int Set_ADCDump_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {

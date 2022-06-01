@@ -79,46 +79,46 @@
 
 #include "rtmp_type.h"
 
-INT Set_WfdEnable_Proc(
+int Set_WfdEnable_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 
 #ifdef RT_CFG80211_SUPPORT
-INT Set_WfdInsertIe_Proc
+int Set_WfdInsertIe_Proc
 (
 	IN	PRTMP_ADAPTER		pAd, 
 	IN	char * 		arg);
 #endif /* RT_CFG80211_SUPPORT */
 
-INT Set_WfdDeviceType_Proc(
+int Set_WfdDeviceType_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 
-INT Set_WfdCouple_Proc(
+int Set_WfdCouple_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 
-INT Set_WfdSessionAvailable_Proc(
+int Set_WfdSessionAvailable_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 
-INT Set_WfdCP_Proc(
+int Set_WfdCP_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 
-INT	Set_WfdRtspPort_Proc(
+int	Set_WfdRtspPort_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 
-INT	Set_WfdMaxThroughput_Proc(
+int	Set_WfdMaxThroughput_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 
-INT Set_WfdLocalIp_Proc(
+int Set_WfdLocalIp_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 
-INT Set_PeerRtspPort_Proc(
+int Set_PeerRtspPort_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg);
 

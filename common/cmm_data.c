@@ -1183,7 +1183,7 @@ void RTMPDeQueuePacket(
 	IN RTMP_ADAPTER *pAd,
 	IN bool bIntContext,
 	IN unsigned char QIdx,
-	IN INT Max_Tx_Packets)
+	IN int Max_Tx_Packets)
 {
 	PQUEUE_ENTRY pEntry = NULL;
 	PNDIS_PACKET pPacket;
@@ -3293,7 +3293,7 @@ void AsicUpdateMulTestEncryption(
 			   ) && (pAd->MulTestTab.WdsEntry[WdsIdex].WdsKey.KeyLen > 0))
 		{
 			
-			INT DefaultKeyId = 0;
+			int DefaultKeyId = 0;
 
 			if (pAd->MulTestTab.WdsEntry[WdsIdex].WepStatus == Ndis802_11Encryption1Enabled)
 				DefaultKeyId = pAd->MulTestTab.WdsEntry[pEntry->MatchWDSTabIdx].KeyIdx;

@@ -789,7 +789,7 @@ void RTMPDrvOpen(
 #ifdef CONFIG_AP_SUPPORT
 	if (pAd->OpMode == OPMODE_AP)
 	{
-		INT index;
+		int index;
 		for (index = 0; index < pAd->ApCfg.BssidNum; index++)
 		{
 #ifdef HOSTAPD_SUPPORT

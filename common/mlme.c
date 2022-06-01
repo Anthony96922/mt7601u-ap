@@ -107,9 +107,9 @@ unsigned char	ZeroSsid[32] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 
 
-unsigned char dot11_max_sup_rate(INT SupRateLen, unsigned char *SupRate, INT ExtRateLen, unsigned char *ExtRate)
+unsigned char dot11_max_sup_rate(int SupRateLen, unsigned char *SupRate, int ExtRateLen, unsigned char *ExtRate)
 {
-	INT idx;
+	int idx;
 	unsigned char MaxSupportedRateIn500Kbps = 0;
 	
 	/* supported rates array may not be sorted. sort it and find the maximum rate */
@@ -1044,7 +1044,7 @@ void MlmeSetTxPreamble(
 void UpdateBasicRateBitmap(
     IN  PRTMP_ADAPTER   pAdapter)
 {
-    INT  i, j;
+    int  i, j;
                   /* 1  2  5.5, 11,  6,  9, 12, 18, 24, 36, 48,  54 */
     unsigned char rate[] = { 2, 4,  11, 22, 12, 18, 24, 36, 48, 72, 96, 108 };
     unsigned char *sup_p = pAdapter->CommonCfg.SupRate;
@@ -2166,7 +2166,7 @@ void BssCipherParse(
 	PCIPHER_SUITE_STRUCT			pCipher;
 	PAKM_SUITE_STRUCT				pAKM;
 	unsigned short							Count;
-	INT								Length;
+	int								Length;
 	NDIS_802_11_ENCRYPTION_STATUS	TmpCipher;
 
 	
@@ -2616,7 +2616,7 @@ void MacAddrRandomBssid(
 	IN PRTMP_ADAPTER pAd, 
 	OUT unsigned char * pAddr) 
 {
-	INT i;
+	int i;
 
 	for (i = 0; i < MAC_ADDR_LEN; i++) 
 	{
@@ -2733,7 +2733,7 @@ NDIS_STATUS MlmeQueueInit(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE *Queue) 
 {
-	INT i;
+	int i;
 
 	NdisAllocateSpinLock(pAd, &Queue->Lock);
 
@@ -2774,7 +2774,7 @@ bool MlmeEnqueue(
 	IN void *Msg,
 	IN unsigned long Priv) 
 {
-	INT Tail;
+	int Tail;
 	MLME_QUEUE	*Queue = (MLME_QUEUE *)&pAd->Mlme.Queue;
 
 	/* Do nothing if the driver is starting halt state.*/
@@ -2850,9 +2850,9 @@ bool MlmeEnqueueForRecv(
 	IN unsigned char Signal,
 	IN unsigned char OpMode)
 {
-	INT 		 Tail, Machine = 0xff;
+	int 		 Tail, Machine = 0xff;
 	PFRAME_802_11 pFrame = (PFRAME_802_11)Msg;
-	INT		 MsgType = 0x0;
+	int		 MsgType = 0x0;
 	MLME_QUEUE	*Queue = (MLME_QUEUE *)&pAd->Mlme.Queue;
 
 #ifdef RALINK_ATE			
@@ -2992,7 +2992,7 @@ bool MlmeEnqueueForWsc(
 	IN unsigned long MsgLen, 
 	IN void *Msg) 
 {
-    INT Tail;
+    int Tail;
     /*unsigned long			IrqFlags;*/
 	MLME_QUEUE	*Queue = (MLME_QUEUE *)&pAd->Mlme.Queue;
 
@@ -3824,7 +3824,7 @@ bool RTMPAutoRateSwitchCheck(
 #ifdef CONFIG_AP_SUPPORT		
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
-		INT	apidx = 0;
+		int	apidx = 0;
 	
 		for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
 		{

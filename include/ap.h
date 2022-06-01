@@ -130,7 +130,7 @@ void APAssocStateMachineInit(
 
 void MbssKickOutStas(
 	IN PRTMP_ADAPTER pAd,
-	IN INT apidx,
+	IN int apidx,
 	IN unsigned short Reason);
 
 void APMlmeKickOutSta(
@@ -175,17 +175,17 @@ void APCls2errAction(
 #ifdef CONFIG_AP_SUPPORT
 bool BeaconTransmitRequired(
 	IN PRTMP_ADAPTER	pAd,
-	IN INT				apidx,
+	IN int				apidx,
 	IN MULTISSID_STRUCT *pMbss);
 #endif /* CONFIG_AP_SUPPORT */
 
 void APMakeBssBeacon(
     IN  PRTMP_ADAPTER   pAd,
-	IN	INT				apidx);
+	IN	int				apidx);
 
 void  APUpdateBeaconFrame(
     IN  PRTMP_ADAPTER   pAd,
-	IN	INT				apidx);
+	IN	int				apidx);
 
 void APMakeAllBssBeacon(
     IN  PRTMP_ADAPTER   pAd);
@@ -258,7 +258,7 @@ bool ApScanRunning(
 void APOverlappingBSSScan(
 	IN RTMP_ADAPTER *pAd);
 
-INT GetBssCoexEffectedChRange(
+int GetBssCoexEffectedChRange(
 	IN RTMP_ADAPTER *pAd,
 	IN BSS_COEX_CH_RANGE *pCoexChRange);
 
@@ -277,8 +277,8 @@ void APMlmePeriodicExec(
 bool APMsgTypeSubst(
     IN PRTMP_ADAPTER pAd,
     IN PFRAME_802_11 pFrame, 
-    OUT INT *Machine, 
-    OUT INT *MsgType);
+    OUT int *Machine, 
+    OUT int *MsgType);
 
 void APQuickResponeForRateUpExec(
     IN void * SystemSpecific1, 
@@ -385,7 +385,7 @@ bool PeerAssocReqCmmSanity(
     IN PRTMP_ADAPTER pAd, 
 	IN bool isRessoc,
     IN void *Msg, 
-    IN INT MsgLen,
+    IN int MsgLen,
     IN IE_LISTS *ie_lists);
 
 
@@ -420,15 +420,15 @@ bool APPeerAuthSanity(
 
 #ifdef DOT1X_SUPPORT
 /* ap_cfg.h */
-INT	Set_OwnIPAddr_Proc(
+int	Set_OwnIPAddr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_EAPIfName_Proc(
+int	Set_EAPIfName_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_PreAuthIfName_Proc(
+int	Set_PreAuthIfName_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
@@ -451,4 +451,4 @@ void AP_E2PROM_IOCTL_PostCtrl(
 void IAPP_L2_UpdatePostCtrl(
 	IN PRTMP_ADAPTER	pAd,
     IN unsigned char *mac_p,
-    IN INT  bssid);
+    IN int  bssid);

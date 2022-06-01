@@ -38,7 +38,7 @@ typedef struct _BIG_INTEGER_STRUC
 	unsigned int AllocSize;
 	unsigned int ArrayLength;
 	unsigned int IntegerLength;
-	INT  Signed;
+	int  Signed;
 } BIG_INTEGER, *PBIG_INTEGER;
 
 
@@ -57,7 +57,7 @@ void BigInteger_Free (
 
 void BigInteger_AllocSize (
     IN PBIG_INTEGER *pBI,
-    IN INT Length);
+    IN int Length);
 
 void BigInteger_ClearHighBits (
     IN PBIG_INTEGER pBI);
@@ -76,7 +76,7 @@ void BigInteger_BitsOfBI (
     IN PBIG_INTEGER pBI,
     OUT unsigned int *Bits_Of_P);
 
-INT BigInteger_GetBitValue (
+int BigInteger_GetBitValue (
     IN PBIG_INTEGER pBI,
     IN unsigned int Index);
 
@@ -88,7 +88,7 @@ void BigInteger_Copy (
     IN PBIG_INTEGER pBI_Copied,
     OUT PBIG_INTEGER *pBI_Result);
 
-INT BigInteger_UnsignedCompare (
+int BigInteger_UnsignedCompare (
     IN PBIG_INTEGER pFirstOperand,
     IN PBIG_INTEGER pSecondOperand);
 

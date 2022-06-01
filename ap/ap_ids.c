@@ -57,7 +57,7 @@ void RTMPIdsStop(
 void RTMPHandleIdsEvent(
 	IN PRTMP_ADAPTER	pAd)
 {
-	INT i, j;
+	int i, j;
 
 	unsigned int	FloodFrameCount[IW_FLOOD_EVENT_TYPE_NUM];
 	unsigned int	FloodFrameThreshold[IW_FLOOD_EVENT_TYPE_NUM];
@@ -92,7 +92,7 @@ void RTMPHandleIdsEvent(
 	{	
 		unsigned int	SpoofedFrameCount[IW_SPOOF_EVENT_TYPE_NUM];
 		char	RssiOfSpoofedFrame[IW_SPOOF_EVENT_TYPE_NUM];
-		INT		k;
+		int		k;
 
 		SpoofedFrameCount[0] = pAd->ApCfg.MBSSID[i].RcvdConflictSsidCount;
 		SpoofedFrameCount[1] = pAd->ApCfg.MBSSID[i].RcvdSpoofedAssocRespCount;
@@ -133,7 +133,7 @@ void RTMPHandleIdsEvent(
 void RTMPClearAllIdsCounter(
 	IN PRTMP_ADAPTER	pAd)
 {
-	INT	i;
+	int	i;
 
 	pAd->ApCfg.RcvdAuthCount = 0;
 	pAd->ApCfg.RcvdAssocReqCount = 0;
@@ -222,7 +222,7 @@ bool RTMPSpoofedMgmtDetection(
 	IN char				Rssi2,
 	IN unsigned char			AntSel)
 {
-	INT	i;	
+	int	i;	
 
 	for (i = 0; i < pAd->ApCfg.BssidNum; i++)
 	{
@@ -296,7 +296,7 @@ void RTMPConflictSsidDetection(
 	IN char				Rssi2,
 	IN unsigned char			AntSel)
 {
-	INT	i;
+	int	i;
 	
 	for (i = 0; i < pAd->ApCfg.BssidNum; i++)
 	{
@@ -323,7 +323,7 @@ bool RTMPReplayAttackDetection(
 	IN unsigned char			AntSel,
 	IN unsigned char			BW)
 {
-	INT	i;
+	int	i;
 	
 	for (i = 0; i < pAd->ApCfg.BssidNum; i++)
 	{

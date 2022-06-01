@@ -32,9 +32,9 @@
 typedef struct _ATE_CHIP_STRUCT {
 	/* functions */
 	void	(*ChannelSwitch)(PRTMP_ADAPTER pAd);
-	INT		(*TxPwrHandler)(PRTMP_ADAPTER pAd, char index);
-	INT		(*TssiCalibration)(PRTMP_ADAPTER pAd, char * arg);
-	INT		(*ExtendedTssiCalibration)(PRTMP_ADAPTER pAd, char * arg);
+	int		(*TxPwrHandler)(PRTMP_ADAPTER pAd, char index);
+	int		(*TssiCalibration)(PRTMP_ADAPTER pAd, char * arg);
+	int		(*ExtendedTssiCalibration)(PRTMP_ADAPTER pAd, char * arg);
 	void	(*RxVGAInit)(PRTMP_ADAPTER pAd);
 	void	(*AsicSetTxRxPath)(PRTMP_ADAPTER pAd);
 	void	(*AdjustTxPower)(PRTMP_ADAPTER pAd);
@@ -42,11 +42,11 @@ typedef struct _ATE_CHIP_STRUCT {
 	void 	(*TemperCompensation)(PRTMP_ADAPTER *pAd);
 	
 	/* command handlers */
-	INT		(*Set_BW_Proc)(PRTMP_ADAPTER pAd, char * arg);
-	INT		(*Set_FREQ_OFFSET_Proc)(PRTMP_ADAPTER pAd, char * arg);	
+	int		(*Set_BW_Proc)(PRTMP_ADAPTER pAd, char * arg);
+	int		(*Set_FREQ_OFFSET_Proc)(PRTMP_ADAPTER pAd, char * arg);	
 
 	/* variables */
-	INT maxTxPwrCnt;
+	int maxTxPwrCnt;
 	bool bBBPStoreTXCARR;
 	bool bBBPStoreTXCARRSUPP;
 	bool bBBPStoreTXCONT;
@@ -355,11 +355,11 @@ void ATE_RTUSBCancelPendingBulkInIRP(
 void ATEResetBulkIn(
 	IN PRTMP_ADAPTER	pAd);
 
-INT ATEResetBulkOut(
+int ATEResetBulkOut(
 	IN PRTMP_ADAPTER	pAd);
 #endif /* RTMP_MAC_USB */
 
-INT DefaultATETxPwrHandler(
+int DefaultATETxPwrHandler(
 	IN PRTMP_ADAPTER pAd,
 	IN char index);
 
@@ -371,7 +371,7 @@ INT DefaultATETxPwrHandler(
 void RT28xxATEAsicSwitchChannel(
     IN PRTMP_ADAPTER pAd);
 
-INT RT28xxATETxPwrHandler(
+int RT28xxATETxPwrHandler(
 	IN PRTMP_ADAPTER pAd,
 	IN char index);
 #endif /* defined(RT28xx) || defined(RT2880) */
@@ -384,37 +384,37 @@ void ATE_QA_Statistics(
 	IN RXINFO_STRUC *pRxInfo,
 	IN PHEADER_802_11 pHeader);
 	
-INT RtmpDoAte(
+int RtmpDoAte(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq,
 	IN char * wrq_name);
 
-INT Set_TxStop_Proc(
+int Set_TxStop_Proc(
 	IN RTMP_ADAPTER	*pAd,
 	IN char * arg);
 
-INT Set_RxStop_Proc(
+int Set_RxStop_Proc(
 	IN RTMP_ADAPTER *pAd, 
 	IN char * arg);
 
 #ifdef DBG
-INT Set_EERead_Proc(
+int Set_EERead_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_EEWrite_Proc(
+int Set_EEWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_BBPRead_Proc(
+int Set_BBPRead_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_BBPWrite_Proc(
+int Set_BBPWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_RFWrite_Proc(
+int Set_RFWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* DBG */ 
@@ -449,46 +449,46 @@ void rt_ee_write_bulk(
 	IN  unsigned short offset,
 	IN  unsigned short length);
 
-INT Set_ATE_Proc(
+int Set_ATE_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_DA_Proc(
+int	Set_ATE_DA_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_SA_Proc(
+int	Set_ATE_SA_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_BSSID_Proc(
+int	Set_ATE_BSSID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 
-INT	Set_ATE_CHANNEL_Proc(
+int	Set_ATE_CHANNEL_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_INIT_CHAN_Proc(
+int	Set_ATE_INIT_CHAN_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT Set_ADCDump_Proc(
+int Set_ADCDump_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 #ifdef RTMP_INTERNAL_TX_ALC
-INT Set_ATE_TSSI_CALIBRATION_Proc(
+int Set_ATE_TSSI_CALIBRATION_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT Set_ATE_TSSI_CALIBRATION_EX_Proc(
+int Set_ATE_TSSI_CALIBRATION_EX_Proc(
 	IN      PRTMP_ADAPTER   pAd,
 	IN      char *                 arg);
 
 
 #if defined(RT3350) || defined(RT3352)
-INT RT335x_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
+int RT335x_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
@@ -499,7 +499,7 @@ char InsertTssi(
 	IN char Tssi0,
 	IN char Tssi1);
 
-INT RT335xATETssiCalibrationExtend(
+int RT335xATETssiCalibrationExtend(
 	IN struct _RTMP_ADAPTER		*pAd,
 	IN char *					arg);
 #endif /* defined(RT3350) || defined(RT3352) */
@@ -511,30 +511,30 @@ char ATEGetDesiredTSSI(
 
 #ifdef RTMP_TEMPERATURE_COMPENSATION
 
-INT Set_ATE_READ_EXTERNAL_TSSI_Proc(
+int Set_ATE_READ_EXTERNAL_TSSI_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 #endif /* RTMP_TEMPERATURE_COMPENSATION */
 
-INT	Set_ATE_TX_POWER0_Proc(
+int	Set_ATE_TX_POWER0_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_TX_POWER1_Proc(
+int	Set_ATE_TX_POWER1_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
 #ifdef DOT11N_SS3_SUPPORT
-INT	Set_ATE_TX_POWER2_Proc(
+int	Set_ATE_TX_POWER2_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 #endif /* DOT11N_SS3_SUPPORT */
 
-INT	Set_ATE_TX_Antenna_Proc(
+int	Set_ATE_TX_Antenna_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT	Set_ATE_RX_Antenna_Proc(
+int	Set_ATE_RX_Antenna_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
@@ -544,12 +544,12 @@ void DefaultATEAsicExtraPowerOverMAC(
 void ATEAsicExtraPowerOverMAC(
 	IN	PRTMP_ADAPTER	pAd);
 #ifdef RT3350
-INT	Set_ATE_PA_Bias_Proc(
+int	Set_ATE_PA_Bias_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* RT3350 */
 
-INT	Default_Set_ATE_TX_FREQ_OFFSET_Proc(
+int	Default_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
@@ -558,17 +558,17 @@ INT	Default_Set_ATE_TX_FREQ_OFFSET_Proc(
 
 
 #if defined(RT28xx) || defined(RT2880)
-INT	RT28xx_Set_ATE_TX_FREQ_OFFSET_Proc(
+int	RT28xx_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* defined(RT28xx) || defined(RT2880) */
 
 
-INT	Set_ATE_TX_FREQ_OFFSET_Proc(
+int	Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Default_Set_ATE_TX_BW_Proc(
+int	Default_Set_ATE_TX_BW_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
@@ -577,142 +577,142 @@ INT	Default_Set_ATE_TX_BW_Proc(
 
 
 #if defined(RT28xx) || defined(RT2880)
-INT	RT28xx_Set_ATE_TX_BW_Proc(
+int	RT28xx_Set_ATE_TX_BW_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* defined(RT28xx) || defined(RT2880) */
 
 
-INT	Set_ATE_TX_BW_Proc(
+int	Set_ATE_TX_BW_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_TX_LENGTH_Proc(
+int	Set_ATE_TX_LENGTH_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_TX_COUNT_Proc(
+int	Set_ATE_TX_COUNT_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_TX_MCS_Proc(
+int	Set_ATE_TX_MCS_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT	Set_ATE_TX_MODE_Proc(
+int	Set_ATE_TX_MODE_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT	Set_ATE_TX_GI_Proc(
+int	Set_ATE_TX_GI_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
 
-INT	Set_ATE_RX_FER_Proc(
+int	Set_ATE_RX_FER_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Read_RF_Proc(
+int Set_ATE_Read_RF_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Write_RF1_Proc(
+int Set_ATE_Write_RF1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Write_RF2_Proc(
+int Set_ATE_Write_RF2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Write_RF3_Proc(
+int Set_ATE_Write_RF3_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Write_RF4_Proc(
+int Set_ATE_Write_RF4_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Load_E2P_Proc(
+int Set_ATE_Load_E2P_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 #ifdef RTMP_EFUSE_SUPPORT
-INT Set_ATE_Load_E2P_From_Buf_Proc(
+int Set_ATE_Load_E2P_From_Buf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Cal_Free_Info_Proc(
+int Set_ATE_Cal_Free_Info_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* RTMP_EFUSE_SUPPORT */
 
-INT Set_ATE_Read_E2P_Proc(
+int Set_ATE_Read_E2P_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 #ifdef LED_CONTROL_SUPPORT
 #endif /* LED_CONTROL_SUPPORT */
 
-INT	Set_ATE_AUTO_ALC_Proc(
+int	Set_ATE_AUTO_ALC_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_IPG_Proc(
+int	Set_ATE_IPG_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Payload_Proc(
+int Set_ATE_Payload_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg);
 
 #ifdef TXBF_SUPPORT
-INT	Set_ATE_TXBF_Proc(
+int	Set_ATE_TXBF_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_TXSOUNDING_Proc(
+int	Set_ATE_TXSOUNDING_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_TXBF_DIVCAL_Proc(
+int	Set_ATE_TXBF_DIVCAL_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT	Set_ATE_TXBF_LNACAL_Proc(
+int	Set_ATE_TXBF_LNACAL_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-INT Set_ATE_TXBF_INIT_Proc(
+int Set_ATE_TXBF_INIT_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_TXBF_CAL_Proc(
+int Set_ATE_TXBF_CAL_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_TXBF_GOLDEN_Proc(
+int Set_ATE_TXBF_GOLDEN_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_TXBF_VERIFY_Proc(
+int Set_ATE_TXBF_VERIFY_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_TXBF_VERIFY_NoComp_Proc(
+int Set_ATE_TXBF_VERIFY_NoComp_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_ForceBBP_Proc(
+int Set_ATE_ForceBBP_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* TXBF_SUPPORT */
 
 
-INT	Set_ATE_Show_Proc(
+int	Set_ATE_Show_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT	Set_ATE_Help_Proc(
+int	Set_ATE_Help_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
@@ -721,11 +721,11 @@ void DefaultATEAsicAdjustTxPower(
 
 
 #ifdef MT7601
-INT Set_ATE_Read_Temperature_Proc(
+int Set_ATE_Read_Temperature_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-INT Set_ATE_Read_TSSI_DC_Proc(
+int Set_ATE_Read_TSSI_DC_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* MT7601 */
@@ -739,17 +739,17 @@ void ATESampleRssi(
 
 
 #ifdef RTMP_MAC_USB
-INT TxDmaBusy(
+int TxDmaBusy(
 	IN PRTMP_ADAPTER pAd);
 
-INT RxDmaBusy(
+int RxDmaBusy(
 	IN PRTMP_ADAPTER pAd);
 
 void RtmpDmaEnable(
 	IN PRTMP_ADAPTER pAd,
-	IN INT Enable);
+	IN int Enable);
 
-INT ATESetUpFrame(
+int ATESetUpFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned int TxIdx);
 

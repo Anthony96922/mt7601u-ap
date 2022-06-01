@@ -64,7 +64,7 @@ void RT28xx_WDS_Init(
 }
 
 
-INT WdsVirtualIFSendPackets(
+int WdsVirtualIFSendPackets(
 	IN PNDIS_PACKET			pPktSrc, 
 	IN PNET_DEV				pDev)
 {
@@ -83,12 +83,12 @@ INT WdsVirtualIFSendPackets(
 }
 
 
-INT WdsVirtualIF_open(
+int WdsVirtualIF_open(
 	IN	PNET_DEV dev)
 {
 	void			*pAd;
 #ifdef RTL865X_SOC
-	INT				index;
+	int				index;
 	unsigned int 	linkid;
 #endif
 
@@ -107,7 +107,7 @@ INT WdsVirtualIF_open(
 }
 
 
-INT WdsVirtualIF_close(
+int WdsVirtualIF_close(
 	IN PNET_DEV dev)
 {
 	void		*pAd;
@@ -128,10 +128,10 @@ INT WdsVirtualIF_close(
 }
 
 
-INT WdsVirtualIF_ioctl(
+int WdsVirtualIF_ioctl(
 	IN PNET_DEV net_dev, 
 	IN OUT void *rq, 
-	IN INT cmd)
+	IN int cmd)
 {
 	void *pAd = RTMP_OS_NETDEV_GET_PRIV(net_dev); /*RTMP_OS_NETDEV_GET_PRIV(pVirtualAd->RtmpDev); */
 	

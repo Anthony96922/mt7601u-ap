@@ -102,18 +102,18 @@ const struct iw_handler_def rt28xx_ap_iw_handler_def =
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 
-INT rt28xx_ap_ioctl(
+int rt28xx_ap_ioctl(
 	IN	struct net_device	*net_dev,
 	IN	OUT	struct ifreq	*rq,
-	IN	INT			cmd)
+	IN	int			cmd)
 {
 	void			*pAd = NULL;
 	struct iwreq		*wrqin = (struct iwreq *) rq;
 	RTMP_IOCTL_INPUT_STRUCT rt_wrq, *wrq = &rt_wrq;
-	INT			Status = NDIS_STATUS_SUCCESS;
+	int			Status = NDIS_STATUS_SUCCESS;
 	unsigned short			subcmd; /*, index; */
 /*	POS_COOKIE		pObj; */
-	INT			apidx=0;
+	int			apidx=0;
 	unsigned int			org_len;
 	RT_CMD_AP_IOCTL_CONFIG IoctlConfig, *pIoctlConfig = &IoctlConfig;
 

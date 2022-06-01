@@ -540,11 +540,11 @@ bool SyncTxRxConfig(PRTMP_ADAPTER pAd, unsigned short offset, unsigned char valu
 }
 
 
-static INT ResponseToGUI(
+static int ResponseToGUI(
 	IN  struct ate_racfghdr *pRaCfg,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*pwrq,
-	IN  INT Length,
-	IN  INT Status)
+	IN  int Length,
+	IN  int Status)
 {
 	(pRaCfg)->length = OS_HTONS((Length));
 	(pRaCfg)->status = OS_HTONS((Status));
@@ -569,7 +569,7 @@ static INT ResponseToGUI(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_START(
+static  int DO_RACFG_CMD_ATE_START(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -594,7 +594,7 @@ static  INT DO_RACFG_CMD_ATE_START(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_STOP(
+static  int DO_RACFG_CMD_ATE_STOP(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -653,7 +653,7 @@ static  INT DO_RACFG_CMD_ATE_STOP(
 }
 
 
-static  INT DO_RACFG_CMD_RF_WRITE_ALL(
+static  int DO_RACFG_CMD_RF_WRITE_ALL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -684,7 +684,7 @@ static  INT DO_RACFG_CMD_RF_WRITE_ALL(
 }
 
 
-static  INT DO_RACFG_CMD_E2PROM_READ16(
+static  int DO_RACFG_CMD_E2PROM_READ16(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -706,7 +706,7 @@ static  INT DO_RACFG_CMD_E2PROM_READ16(
 }
 
 
-static  INT DO_RACFG_CMD_E2PROM_WRITE16(
+static  int DO_RACFG_CMD_E2PROM_WRITE16(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -724,7 +724,7 @@ static  INT DO_RACFG_CMD_E2PROM_WRITE16(
 }
 
 
-static  INT DO_RACFG_CMD_E2PROM_READ_ALL(
+static  int DO_RACFG_CMD_E2PROM_READ_ALL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -740,7 +740,7 @@ static  INT DO_RACFG_CMD_E2PROM_READ_ALL(
 }
 
 
-static  INT DO_RACFG_CMD_E2PROM_WRITE_ALL(
+static  int DO_RACFG_CMD_E2PROM_WRITE_ALL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -757,7 +757,7 @@ static  INT DO_RACFG_CMD_E2PROM_WRITE_ALL(
 }
 
 
-static  INT DO_RACFG_CMD_IO_READ(
+static  int DO_RACFG_CMD_IO_READ(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -785,7 +785,7 @@ static  INT DO_RACFG_CMD_IO_READ(
 }
 
 
-static  INT DO_RACFG_CMD_IO_WRITE(
+static  int DO_RACFG_CMD_IO_WRITE(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -812,7 +812,7 @@ static  INT DO_RACFG_CMD_IO_WRITE(
 }
 
 
-static  INT DO_RACFG_CMD_IO_READ_BULK(
+static  int DO_RACFG_CMD_IO_READ_BULK(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -844,7 +844,7 @@ static  INT DO_RACFG_CMD_IO_READ_BULK(
 }
 
 
-static  INT DO_RACFG_CMD_BBP_READ8(
+static  int DO_RACFG_CMD_BBP_READ8(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -865,7 +865,7 @@ static  INT DO_RACFG_CMD_BBP_READ8(
 }
 
 
-static  INT DO_RACFG_CMD_BBP_WRITE8(
+static  int DO_RACFG_CMD_BBP_WRITE8(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -888,7 +888,7 @@ static  INT DO_RACFG_CMD_BBP_WRITE8(
 }
 
 
-static  INT DO_RACFG_CMD_BBP_READ_ALL(
+static  int DO_RACFG_CMD_BBP_READ_ALL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -907,7 +907,7 @@ static  INT DO_RACFG_CMD_BBP_READ_ALL(
 }
 
 
-static  INT DO_RACFG_CMD_GET_NOISE_LEVEL(
+static  int DO_RACFG_CMD_GET_NOISE_LEVEL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -927,7 +927,7 @@ static  INT DO_RACFG_CMD_GET_NOISE_LEVEL(
 
 
 
-static  INT DO_RACFG_CMD_GET_COUNTER(
+static  int DO_RACFG_CMD_GET_COUNTER(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -956,7 +956,7 @@ static  INT DO_RACFG_CMD_GET_COUNTER(
 }
 
 
-static  INT DO_RACFG_CMD_CLEAR_COUNTER(
+static  int DO_RACFG_CMD_CLEAR_COUNTER(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -981,7 +981,7 @@ static  INT DO_RACFG_CMD_CLEAR_COUNTER(
 }
 
 
-static  INT DO_RACFG_CMD_TX_START(
+static  int DO_RACFG_CMD_TX_START(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1093,7 +1093,7 @@ tx_start_error:
 }
 
 
-static  INT DO_RACFG_CMD_GET_TX_STATUS(
+static  int DO_RACFG_CMD_GET_TX_STATUS(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1110,7 +1110,7 @@ static  INT DO_RACFG_CMD_GET_TX_STATUS(
 }
 
 
-static  INT DO_RACFG_CMD_TX_STOP(
+static  int DO_RACFG_CMD_TX_STOP(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1125,7 +1125,7 @@ static  INT DO_RACFG_CMD_TX_STOP(
 }
 
 
-static  INT DO_RACFG_CMD_RX_START(
+static  int DO_RACFG_CMD_RX_START(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1143,7 +1143,7 @@ static  INT DO_RACFG_CMD_RX_START(
 }	
 
 
-static  INT DO_RACFG_CMD_RX_STOP(
+static  int DO_RACFG_CMD_RX_STOP(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1158,7 +1158,7 @@ static  INT DO_RACFG_CMD_RX_STOP(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_START_TX_CARRIER(
+static  int DO_RACFG_CMD_ATE_START_TX_CARRIER(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1173,7 +1173,7 @@ static  INT DO_RACFG_CMD_ATE_START_TX_CARRIER(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_START_TX_CONT(
+static  int DO_RACFG_CMD_ATE_START_TX_CONT(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1188,7 +1188,7 @@ static  INT DO_RACFG_CMD_ATE_START_TX_CONT(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_START_TX_FRAME(
+static  int DO_RACFG_CMD_ATE_START_TX_FRAME(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1203,7 +1203,7 @@ static  INT DO_RACFG_CMD_ATE_START_TX_FRAME(
 }	
 
 
-static  INT DO_RACFG_CMD_ATE_SET_BW(
+static  int DO_RACFG_CMD_ATE_SET_BW(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1227,7 +1227,7 @@ static  INT DO_RACFG_CMD_ATE_SET_BW(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_TX_POWER0(
+static  int DO_RACFG_CMD_ATE_SET_TX_POWER0(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1250,7 +1250,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER0(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_TX_POWER1(
+static  int DO_RACFG_CMD_ATE_SET_TX_POWER1(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1274,7 +1274,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER1(
 
 
 #ifdef DOT11N_SS3_SUPPORT
-static  INT DO_RACFG_CMD_ATE_SET_TX_POWER2(
+static  int DO_RACFG_CMD_ATE_SET_TX_POWER2(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1298,7 +1298,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER2(
 #endif /* DOT11N_SS3_SUPPORT */
 
 
-static  INT DO_RACFG_CMD_ATE_SET_FREQ_OFFSET(
+static  int DO_RACFG_CMD_ATE_SET_FREQ_OFFSET(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1321,7 +1321,7 @@ static  INT DO_RACFG_CMD_ATE_SET_FREQ_OFFSET(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_GET_STATISTICS(
+static  int DO_RACFG_CMD_ATE_GET_STATISTICS(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1368,7 +1368,7 @@ static  INT DO_RACFG_CMD_ATE_GET_STATISTICS(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_RESET_COUNTER(
+static  int DO_RACFG_CMD_ATE_RESET_COUNTER(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1392,7 +1392,7 @@ static  INT DO_RACFG_CMD_ATE_RESET_COUNTER(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SEL_TX_ANTENNA(
+static  int DO_RACFG_CMD_ATE_SEL_TX_ANTENNA(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)	
@@ -1415,7 +1415,7 @@ static  INT DO_RACFG_CMD_ATE_SEL_TX_ANTENNA(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SEL_RX_ANTENNA(
+static  int DO_RACFG_CMD_ATE_SEL_RX_ANTENNA(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1438,7 +1438,7 @@ static  INT DO_RACFG_CMD_ATE_SEL_RX_ANTENNA(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_PREAMBLE(
+static  int DO_RACFG_CMD_ATE_SET_PREAMBLE(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1461,7 +1461,7 @@ static  INT DO_RACFG_CMD_ATE_SET_PREAMBLE(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_CHANNEL(
+static  int DO_RACFG_CMD_ATE_SET_CHANNEL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1484,7 +1484,7 @@ static  INT DO_RACFG_CMD_ATE_SET_CHANNEL(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_ADDR1(
+static  int DO_RACFG_CMD_ATE_SET_ADDR1(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1500,7 +1500,7 @@ static  INT DO_RACFG_CMD_ATE_SET_ADDR1(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_ADDR2(
+static  int DO_RACFG_CMD_ATE_SET_ADDR2(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1516,7 +1516,7 @@ static  INT DO_RACFG_CMD_ATE_SET_ADDR2(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_ADDR3(
+static  int DO_RACFG_CMD_ATE_SET_ADDR3(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1532,7 +1532,7 @@ static  INT DO_RACFG_CMD_ATE_SET_ADDR3(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_RATE(
+static  int DO_RACFG_CMD_ATE_SET_RATE(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1555,7 +1555,7 @@ static  INT DO_RACFG_CMD_ATE_SET_RATE(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_LEN(
+static  int DO_RACFG_CMD_ATE_SET_TX_FRAME_LEN(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1578,7 +1578,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_LEN(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_COUNT(
+static  int DO_RACFG_CMD_ATE_SET_TX_FRAME_COUNT(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1604,7 +1604,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_COUNT(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_START_RX_FRAME(
+static  int DO_RACFG_CMD_ATE_START_RX_FRAME(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1619,7 +1619,7 @@ static  INT DO_RACFG_CMD_ATE_START_RX_FRAME(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_E2PROM_READ_BULK(
+static  int DO_RACFG_CMD_ATE_E2PROM_READ_BULK(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1645,7 +1645,7 @@ static  INT DO_RACFG_CMD_ATE_E2PROM_READ_BULK(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_E2PROM_WRITE_BULK(
+static  int DO_RACFG_CMD_ATE_E2PROM_WRITE_BULK(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1678,7 +1678,7 @@ static  INT DO_RACFG_CMD_ATE_E2PROM_WRITE_BULK(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_IO_WRITE_BULK(
+static  int DO_RACFG_CMD_ATE_IO_WRITE_BULK(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1704,7 +1704,7 @@ static  INT DO_RACFG_CMD_ATE_IO_WRITE_BULK(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_BBP_READ_BULK(
+static  int DO_RACFG_CMD_ATE_BBP_READ_BULK(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1730,7 +1730,7 @@ static  INT DO_RACFG_CMD_ATE_BBP_READ_BULK(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_BBP_WRITE_BULK(
+static  int DO_RACFG_CMD_ATE_BBP_WRITE_BULK(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1763,7 +1763,7 @@ static  INT DO_RACFG_CMD_ATE_BBP_WRITE_BULK(
 
 
 #ifdef TXBF_SUPPORT
-static  INT DO_RACFG_CMD_ATE_TXBF_DUT_INIT(
+static  int DO_RACFG_CMD_ATE_TXBF_DUT_INIT(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1778,7 +1778,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_DUT_INIT(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_TXBF_LNA_CAL(
+static  int DO_RACFG_CMD_ATE_TXBF_LNA_CAL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1800,7 +1800,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_LNA_CAL(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_TXBF_DIV_CAL(
+static  int DO_RACFG_CMD_ATE_TXBF_DIV_CAL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1822,7 +1822,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_DIV_CAL(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_TXBF_PHASE_CAL(
+static  int DO_RACFG_CMD_ATE_TXBF_PHASE_CAL(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1848,7 +1848,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_PHASE_CAL(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_TXBF_GOLDEN_INIT(
+static  int DO_RACFG_CMD_ATE_TXBF_GOLDEN_INIT(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1872,7 +1872,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_GOLDEN_INIT(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY(
+static  int DO_RACFG_CMD_ATE_TXBF_VERIFY(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1899,7 +1899,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY(
 }
 
 
-static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP(
+static  int DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
@@ -1990,7 +1990,7 @@ static int DO_RACFG_CMD_ATE_SHOW_PARAM(
 }
 
 
-typedef INT (*RACFG_CMD_HANDLER)(
+typedef int (*RACFG_CMD_HANDLER)(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg);
@@ -2216,7 +2216,7 @@ static int RACfgCMDHandler(
 }
 
 
-INT RtmpDoAte(
+int RtmpDoAte(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT		*wrq,
 	IN	char *			wrq_name)
@@ -2305,7 +2305,7 @@ void ATE_QA_Statistics(
 }
 
 
-INT Set_TxStop_Proc(
+int Set_TxStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2322,7 +2322,7 @@ INT Set_TxStop_Proc(
 }
 
 
-INT Set_RxStop_Proc(
+int Set_RxStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2340,13 +2340,13 @@ INT Set_RxStop_Proc(
 
 
 #ifdef DBG
-INT Set_EERead_Proc(
+int Set_EERead_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
 	unsigned short buffer[EEPROM_SIZE >> 1];
 	unsigned short *p;
-	INT offset;
+	int offset;
 	
 	rt_ee_read_all(pAd, (unsigned short *)buffer);
 	p = buffer;
@@ -2363,7 +2363,7 @@ INT Set_EERead_Proc(
 }
 
 
-INT Set_EEWrite_Proc(
+int Set_EEWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2397,7 +2397,7 @@ INT Set_EEWrite_Proc(
 }
 
 
-INT Set_BBPRead_Proc(
+int Set_BBPRead_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2413,7 +2413,7 @@ INT Set_BBPRead_Proc(
 }
 
 
-INT Set_BBPWrite_Proc(
+int Set_BBPWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2442,7 +2442,7 @@ INT Set_BBPWrite_Proc(
 }
 
 
-INT Set_RFWrite_Proc(
+int Set_RFWrite_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {

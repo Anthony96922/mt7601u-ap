@@ -113,19 +113,19 @@ void IgmpGroupDelMembers(
 	IN unsigned char * pMemberAddr,
 	IN PNET_DEV pDev);
 
-INT Set_IgmpSn_Enable_Proc(
+int Set_IgmpSn_Enable_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg);
 
-INT Set_IgmpSn_AddEntry_Proc(
+int Set_IgmpSn_AddEntry_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg);
 
-INT Set_IgmpSn_DelEntry_Proc(
+int Set_IgmpSn_DelEntry_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg);
 
-INT Set_IgmpSn_TabDisplay_Proc(
+int Set_IgmpSn_TabDisplay_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg);
 
@@ -139,13 +139,13 @@ NDIS_STATUS IgmpPktInfoQuery(
 	IN unsigned char * pSrcBufVA,
 	IN PNDIS_PACKET pPacket,
 	IN unsigned char FromWhichBSSID,
-	OUT INT *pInIgmpGroup,
+	OUT int *pInIgmpGroup,
 	OUT PMULTICAST_FILTER_TABLE_ENTRY *ppGroupEntry);
 
 NDIS_STATUS IgmpPktClone(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
-	IN INT IgmpPktInGroup,
+	IN int IgmpPktInGroup,
 	IN PMULTICAST_FILTER_TABLE_ENTRY pGroupEntry,
 	IN unsigned char QueIdx,
 	IN unsigned char UserPriority,

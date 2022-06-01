@@ -432,7 +432,7 @@ typedef	enum	_WscState
 /* WSC saved message */
 typedef	struct	_WSC_MESSAGE
 {
-	INT	    Length;			/* Length of saved message */
+	int	    Length;			/* Length of saved message */
 	unsigned char	Data[2048];		/* Contents */
 }	WSC_MESSAGE, *PWSC_MESSAGE;
 
@@ -464,7 +464,7 @@ typedef struct	_WSC_DEV_INFO
 	unsigned short	ConfigError;
 	unsigned char	Ssid[32];
     unsigned char	NewKey[64 + 1]; /* not sure sprintf would add '\0' or not, add one byte for \0' */
-    INT     NewKeyLen;
+    int     NewKeyLen;
     unsigned char   NewKeyIndex;
 }	WSC_DEV_INFO, *PWSC_DEV_INFO;
 
@@ -574,19 +574,19 @@ typedef	struct	_WSC_V2_INFO {
 /* WSC control block */
 typedef	struct	_WSC_CTRL
 {
-	INT             WscConfMode;    /* 0 Wsc not enable; 1 un-configure AP ; 3 un-configure AP with Proxy ; */
+	int             WscConfMode;    /* 0 Wsc not enable; 1 un-configure AP ; 3 un-configure AP with Proxy ; */
 	                                /* 5 un-configure AP with Registrar ; 7 un-configure AP with proxy and Registrar */
-	INT             WscMode;        /* 1 PIN ;2 PBC set from UI dynamically */
+	int             WscMode;        /* 1 PIN ;2 PBC set from UI dynamically */
 	unsigned char           WscConfStatus;  /* 1 un-configured; 2 configured; need to update to .dat */
 	unsigned short			WscConfigMethods;  /* Registrar support list. The List is bitwise. PBC:0x0080 Lable:0x0004 Display:0x0008 */
-	INT             WscStatus;      /* for user to monitor the status */
-	INT             WscState;    	/* WSC Protocl State: M1 to M8 */
+	int             WscStatus;      /* for user to monitor the status */
+	int             WscState;    	/* WSC Protocl State: M1 to M8 */
 	unsigned int            WscPinCode;     /* record the UI's PIN code input when we are registrar */
 	unsigned char			WscPinCodeLen;	/* record the UI's PIN code input length when we are registrar */
 	bool         WscEnrollee4digitPinCode;  /* flag to use 4 or 8 digit Device own PIN code. */
 	unsigned int            WscEnrolleePinCode; /* recored Device own PIN code. */
 	unsigned char			WscEnrolleePinCodeLen; /* recored Device own PIN code length */
-	INT             WscSelReg;     /* record the UI's PIN code input when we are registrar */
+	int             WscSelReg;     /* record the UI's PIN code input when we are registrar */
 	NDIS_802_11_SSID	    WscSsid;		        /* select a desired ssid to connect for PIN mode */
 	unsigned char					WscPBCBssCount;			/* Count of PBC activated APs. */
 	unsigned char				    WscBssid[MAC_ADDR_LEN];	/* select a desired bssid to connect */
@@ -626,7 +626,7 @@ typedef	struct	_WSC_CTRL
 	bool 				bWPSWalkTimeExpiration;
 #endif /* WSC_LED_SUPPORT */
     unsigned char               WpaPsk[64];
-    INT                 WpaPskLen;
+    int                 WpaPskLen;
     bool             bWscTrigger;        /* TRUE: AP-Enrollee & AP-Registrar work, FALSE: AP-Enrollee & AP-Registrar stop working */
     void *               pAd;
     unsigned int                WscLastPinFromEnrollee;
@@ -635,8 +635,8 @@ typedef	struct	_WSC_CTRL
 	NDIS_802_11_SSID	    WscDefaultSsid;		/* Default WPS SSID after WPS process complete with Enrollee when AP is un-configured Registrar. */
 	bool					bWCNTest;
 #endif /* CONFIG_AP_SUPPORT */
-	INT					WscKeyASCII; 		/*WscKeyASCII (0:Hex, 1:ASCII(random length), others: ASCII length(8~63, default 8)) */
-	INT					WscActionMode;
+	int					WscKeyASCII; 		/*WscKeyASCII (0:Hex, 1:ASCII(random length), others: ASCII length(8~63, default 8)) */
+	int					WscActionMode;
 	unsigned char                   Wsc_Uuid_E[UUID_LEN_HEX];
 	unsigned char                   Wsc_Uuid_Str[UUID_LEN_STR];
 
@@ -664,9 +664,9 @@ typedef	struct	_WSC_CTRL
 	bool				bWscAutoTigeer;
 	bool				bWscFragment;
 	unsigned char *				pWscRxBuf;
-	INT					WscRxBufLen;
+	int					WscRxBufLen;
 	unsigned short				WscFragSize;
-	INT					WscTxBufLen;
+	int					WscTxBufLen;
 	unsigned char *				pWscTxBuf;
 	bool				bWscLastOne;
 	bool				bWscFirstOne;
@@ -675,7 +675,7 @@ typedef	struct	_WSC_CTRL
 	LIST_HEADER			WscPeerList;
 	RALINK_TIMER_STRUCT M2DTimer;
 	bool				bM2DTimerRunning;
-	INT					M2DACKBalance;
+	int					M2DACKBalance;
 }	WSC_CTRL, *PWSC_CTRL;
 
 typedef struct GNU_PACKED _WSC_CONFIGURED_VALUE {
@@ -767,7 +767,7 @@ typedef	struct GNU_PACKED _RTMP_WSC_U2KMSG_HDR{
 #define		WPS_CONFIG_METHODS_LABEL		0x0004
 #define		WPS_CONFIG_METHODS_DISPLAY		0x0008
 #define		WPS_CONFIG_METHODS_ENT			0x0010 /* External NFC Token */
-#define		WPS_CONFIG_METHODS_INT			0x0020 /* Integrated NFC Token */
+#define		WPS_CONFIG_METHODS_int			0x0020 /* Integrated NFC Token */
 #define		WPS_CONFIG_METHODS_NFCI			0x0040 /* NFC Interface */
 #define		WPS_CONFIG_METHODS_PBC			0x0080
 #define		WPS_CONFIG_METHODS_KEYPAD		0x0100

@@ -127,7 +127,7 @@ char *rtstrstruncasecmp(char *s1, char *s2)
   */
 char *rtstrstr(char *s1, const char *s2)
 {
-	INT l1, l2;
+	int l1, l2;
 
 	l2 = strlen(s2);
 	if (!l2)
@@ -183,9 +183,9 @@ char *rstrtok(char *s, const char *ct)
  * @ct: The delimiter to search for.
  * Notice : We suppose the delimiter is a single-char string(for example : ";").
  */
-INT delimitcnt(char *s, char *ct)
+int delimitcnt(char *s, char *ct)
 {
-	INT count = 0;
+	int count = 0;
 	/* point to the beginning of the line */
 	char *token = s;
 
@@ -361,7 +361,7 @@ char *RTMPFindSection(
 	For SSID and security key related parameters, we SHALL NOT trim the space(' ') character.
     ========================================================================
 */
-INT RTMPGetKeyParameter(
+int RTMPGetKeyParameter(
     IN char *key,
     OUT char *dest,
     IN int destsize,
@@ -461,7 +461,7 @@ INT RTMPGetKeyParameter(
         This routine get the value with the matched key (case case-sensitive)
     ========================================================================
 */
-INT RTMPGetKeyParameterWithOffset(
+int RTMPGetKeyParameterWithOffset(
 	IN  char *key,
 	OUT char *dest,
 	OUT unsigned short	*end_offset,
@@ -559,10 +559,10 @@ INT RTMPGetKeyParameterWithOffset(
 
 
 
-static int rtmp_parse_key_buffer_from_file(IN PRTMP_ADAPTER pAd,IN char *buffer,IN unsigned long KeyType,IN INT BSSIdx,IN INT KeyIdx)
+static int rtmp_parse_key_buffer_from_file(IN PRTMP_ADAPTER pAd,IN char *buffer,IN unsigned long KeyType,IN int BSSIdx,IN int KeyIdx)
 {
 	char *		keybuff;
-	/*INT		i = BSSIdx, idx = KeyIdx, retVal;*/
+	/*int		i = BSSIdx, idx = KeyIdx, retVal;*/
 	unsigned long		KeyLen;
 	/*unsigned char		CipherAlg = CIPHER_WEP64;*/
 	CIPHER_KEY	*pSharedKey;
@@ -1394,7 +1394,7 @@ static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf,
 		{
 			if (rtinet_aton(macptr, &ip_addr) && pAd->ApCfg.MBSSID[i].radius_srv_num < MAX_RADIUS_SRV_NUM)
 			{
-				INT	srv_idx = pAd->ApCfg.MBSSID[i].radius_srv_num;
+				int	srv_idx = pAd->ApCfg.MBSSID[i].radius_srv_num;
 
 				pAd->ApCfg.MBSSID[i].radius_srv_info[srv_idx].radius_ip = ip_addr;
 				pAd->ApCfg.MBSSID[i].radius_srv_num++;
@@ -1412,7 +1412,7 @@ static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf,
 		{
 			if (count[i] < pAd->ApCfg.MBSSID[i].radius_srv_num)
 			{		
-				INT		srv_idx = count[i];
+				int		srv_idx = count[i];
 				pAd->ApCfg.MBSSID[i].radius_srv_info[srv_idx].radius_port = (unsigned int) simple_strtol(macptr, 0, 10);
 				count[i]++;
 				DBGPRINT(RT_DEBUG_TRACE, ("IF(ra%d), radius_port(seq-%d) = %d\n", i, count[i], pAd->ApCfg.MBSSID[i].radius_srv_info[srv_idx].radius_port));
@@ -1432,7 +1432,7 @@ static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf,
 		{
 			if (strlen(macptr) > 0 && (count[i] < pAd->ApCfg.MBSSID[i].radius_srv_num))
 			{
-				INT		srv_idx = count[i];
+				int		srv_idx = count[i];
 			
 				pAd->ApCfg.MBSSID[i].radius_srv_info[srv_idx].radius_key_len = strlen(macptr);
 				NdisMoveMemory(pAd->ApCfg.MBSSID[i].radius_srv_info[srv_idx].radius_key, macptr, strlen(macptr));
@@ -1461,7 +1461,7 @@ static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf,
 	{
 		for (i = 0; i < MAX_MBSSID_NUM(pAd); i++)
 		{
-			INT	srv_idx = 0;
+			int	srv_idx = 0;
 			
 			snprintf(tok_str, sizeof(tok_str), "RADIUS_Key%d", i + 1);
 			
@@ -1485,7 +1485,7 @@ static void rtmp_read_radius_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf,
 }
 #endif /* DOT1X_SUPPORT */
 
-static int rtmp_parse_wpapsk_buffer_from_file(IN PRTMP_ADAPTER pAd,IN char *buffer,IN INT BSSIdx)
+static int rtmp_parse_wpapsk_buffer_from_file(IN PRTMP_ADAPTER pAd,IN char *buffer,IN int BSSIdx)
 {
 	char *		tmpbuf = buffer;
 	int		i = BSSIdx;
@@ -1988,7 +1988,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 	unsigned long		RtsThresh;
 	unsigned long		FragThresh;
 	char *		macptr;							
-	INT		i = 0, retval;
+	int		i = 0, retval;
 
 /*	tmpbuf = kmalloc(MAX_PARAM_BUFFER_SIZE, MEM_ALLOC_FLAG);*/
 	os_alloc_mem(NULL, (unsigned char **)&tmpbuf, MAX_PARAM_BUFFER_SIZE);
@@ -3141,7 +3141,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			{
 				for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 				{
-					INT WscConfMode = simple_strtol(macptr, 0, 10);
+					int WscConfMode = simple_strtol(macptr, 0, 10);
 
 					if (i >= pAd->ApCfg.BssidNum)
 						break;
@@ -3186,7 +3186,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			{
 				for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 				{
-					INT Value;
+					int Value;
 
 					if (i >= pAd->ApCfg.BssidNum)
 						break;
@@ -3209,7 +3209,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 
 				for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)				
 				{
-					INT tmpMode = 0;
+					int tmpMode = 0;
 
 					if (i >= pAd->ApCfg.BssidNum)
 						break;
@@ -3526,7 +3526,7 @@ bool RTMP_CardInfoRead(
 	}
 
 	RTMP_OS_FD srcf;
-	INT retval;
+	int retval;
 	char *buffer, *tmpbuf;
 	char card_id_buf[30], RFIC_word[30];
 	bool flg_match_ok = FALSE;
@@ -3906,7 +3906,7 @@ void rtmp_read_multest_from_file(
 			}
 
 			{
-				INT iii;
+				int iii;
 				long WdsTabIdx = -1;
 
 				for (iii = 0; iii < MAX_WDS_ENTRY; iii++) {
@@ -4097,7 +4097,7 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 {
 	char *buffer, *readline, *token;
 	RTMP_OS_FD srcf;
-	INT retval;
+	int retval;
 	char *ptr;
 	int index, i;
 	CH_POWER *StartCh = NULL;

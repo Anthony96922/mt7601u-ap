@@ -384,7 +384,7 @@ void WpaEAPOLKeyAction(
 #ifdef CONFIG_AP_SUPPORT				
 				else if ((peerKeyInfo.Request == 1) && (peerKeyInfo.Error == 0))
 				{			
-					INT		i;
+					int		i;
 					unsigned char 	apidx = pEntry->apidx;	
 					
 	                /* Need to check KeyType for groupkey or pairwise key update, refer to 8021i P.114, */
@@ -1922,7 +1922,7 @@ void PeerGroupMsg2Action(
 */
 bool	WpaMsgTypeSubst(
 	IN	unsigned char	EAPType,
-	OUT	INT		*MsgType)	
+	OUT	int		*MsgType)	
 {
 	switch (EAPType)
 	{
@@ -1996,12 +1996,12 @@ void inc_iv_byte(unsigned char *iv, unsigned int len, unsigned int cnt)
 
 	Arguments:
 		unsigned char	*key,		-	the key material for HMAC_SHA1 use
-		INT		key_len		-	the length of key
+		int		key_len		-	the length of key
 		unsigned char	*prefix		-	a prefix label
-		INT		prefix_len	-	the length of the label
+		int		prefix_len	-	the length of the label
 		unsigned char	*data		-	a specific data with variable length		
-		INT		data_len	-	the length of a specific data	
-		INT		len			-	the output lenght
+		int		data_len	-	the length of a specific data	
+		int		len			-	the output lenght
 
 	Return Value:
 		unsigned char	*output		-	the calculated result 
@@ -2013,18 +2013,18 @@ void inc_iv_byte(unsigned char *iv, unsigned int len, unsigned int cnt)
 */
 void	PRF(
 	IN	unsigned char	*key,
-	IN	INT		key_len,
+	IN	int		key_len,
 	IN	unsigned char	*prefix,
-	IN	INT		prefix_len,
+	IN	int		prefix_len,
 	IN	unsigned char	*data,
-	IN	INT		data_len,
+	IN	int		data_len,
 	OUT	unsigned char	*output,
-	IN	INT		len)
+	IN	int		len)
 {
-	INT		i;
+	int		i;
     unsigned char   *input;
-	INT		currentindex = 0;
-	INT		total_len;
+	int		currentindex = 0;
+	int		total_len;
 
 	/* Allocate memory for input*/
 	os_alloc_mem(NULL, (unsigned char * *)&input, 1024);
@@ -2107,7 +2107,7 @@ static void F(char *password, unsigned char *ssid, int ssidlength, int iteration
 * ssidlength - length of ssid in octets 
 * output must be 40 octets in length and outputs 256 bits of key 
 */ 
-int RtmpPasswordHash(char * password, unsigned char * ssid, INT ssidlength, unsigned char * output) 
+int RtmpPasswordHash(char * password, unsigned char * ssid, int ssidlength, unsigned char * output) 
 { 
     if ((strlen(password) > 63) || (ssidlength > 32))
         return 0; 
@@ -2148,18 +2148,18 @@ int RtmpPasswordHash(char * password, unsigned char * ssid, INT ssidlength, unsi
 */
 void	KDF(
 	IN	unsigned char *	key,
-	IN	INT		key_len,
+	IN	int		key_len,
 	IN	unsigned char *	label,
-	IN	INT		label_len,
+	IN	int		label_len,
 	IN	unsigned char *	data,
-	IN	INT		data_len,
+	IN	int		data_len,
 	OUT	unsigned char *	output,
 	IN	unsigned short	len)
 {
 	unsigned short	i;
     unsigned char   *input;
-	INT		currentindex = 0;
-	INT		total_len;
+	int		currentindex = 0;
+	int		total_len;
 	unsigned int	len_in_bits = (len << 3);
 
 	os_alloc_mem(NULL, (unsigned char * *)&input, 1024);
@@ -2396,7 +2396,7 @@ void	GenRandom(
 	IN	unsigned char			*macAddr,
 	OUT	unsigned char			*random)
 {	
-	INT		i, curr;
+	int		i, curr;
 	unsigned char	local[80], KeyCounter[32];
 	unsigned char	result[80];
 	unsigned long	CurrentTime;
@@ -3768,7 +3768,7 @@ void	ConstructEapolKeyData(
 			/* a single octet 0xdd followed by zero or more 0x00 octets. */
 			if ((remainder = data_offset & 0x07) != 0)
 			{
-				INT		i;
+				int		i;
 			
 				pad_len = (8 - remainder);
 				Key_Data[data_offset] = 0xDD;
@@ -4022,7 +4022,7 @@ NDIS_STATUS	RTMPSoftDecryptionAction(
 #ifdef SOFT_ENCRYPT
 		case CIPHER_SMS4:
 			{
-				INT	ret;
+				int	ret;
 #ifdef RT_BIG_ENDIAN
 				RTMPFrameEndianChange(pAd, pHdr, DIR_READ, FALSE);
 #endif				
@@ -4153,9 +4153,9 @@ unsigned char *	WPA_ExtractSuiteFromRSNIE(
 		OUT	unsigned char	*count)
 {
 	PEID_STRUCT pEid;
-	INT			len;
+	int			len;
 	unsigned char *		pBuf;
-	INT			offset = 0;
+	int			offset = 0;
 
 	pEid = (PEID_STRUCT)rsnie;
 	len = rsnie_len - 2;	/* exclude IE and length*/
@@ -4682,7 +4682,7 @@ void RTMPSetWcidSecurityInfo(
 	/* Prepare initial IV value */
 	if (CipherAlg == CIPHER_WEP64 || CipherAlg == CIPHER_WEP128)
 	{
-		INT	i;	
+		int	i;	
 		unsigned char	TxTsc[LEN_WEP_TSC];
 
 		/* Generate 3-bytes IV randomly for encryption using */						

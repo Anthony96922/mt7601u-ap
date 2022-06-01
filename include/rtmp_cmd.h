@@ -392,7 +392,7 @@ typedef struct __RT_CMD_SHARED_KEY_ADD {
 } RT_CMD_SHARED_KEY_ADD;
 
 typedef struct __RT_CMD_MBSS_KICKOUT {
-	IN INT BssId;
+	IN int BssId;
 	IN unsigned short Reason;
 } RT_CMD_MBSS_KICKOUT;
 
@@ -478,14 +478,14 @@ typedef struct __RT_CMD_AP_IOCTL_CONFIG {
 	IN char *pCmdData;
 	IN int CmdId_RTPRIV_IOCTL_SET;
 	IN char *name;
-	IN INT apidx;
+	IN int apidx;
 
 	OUT int Status;
 } RT_CMD_AP_IOCTL_CONFIG;
 
 typedef struct __RT_CMD_AP_IOCTL_SSID {
 	IN unsigned long priv_flags;
-	IN INT apidx;
+	IN int apidx;
 
 	OUT char *pSsidStr;
 	OUT int length;

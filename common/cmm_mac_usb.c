@@ -23,7 +23,7 @@ static NDIS_STATUS RTMPAllocUsbBulkBufStruct(
 	IN RTMP_ADAPTER *pAd,
 	IN PURB *ppUrb,
 	IN void * *ppXBuffer,
-	IN INT	bufLen,
+	IN int	bufLen,
 	IN ra_dma_addr_t *pDmaAddr,
 	IN char * pBufName)
 {
@@ -51,7 +51,7 @@ static NDIS_STATUS RTMPFreeUsbBulkBufStruct(
 	IN RTMP_ADAPTER *pAd,
 	IN PURB *ppUrb,
 	IN unsigned char * *ppXBuffer,
-	IN INT bufLen,
+	IN int bufLen,
 	IN ra_dma_addr_t data_dma)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -550,7 +550,7 @@ NDIS_STATUS	RTMPAllocTxRxRingMemory(
 	PTX_CONTEXT pNullContext   = &(pAd->NullContext);
 	PTX_CONTEXT pPsPollContext = &(pAd->PsPollContext);
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &(pAd->CmdRspEventContext);
-	INT i, acidx;
+	int i, acidx;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> RTMPAllocTxRxRingMemory\n"));
 
@@ -675,7 +675,7 @@ err:
 NDIS_STATUS RTMPInitTxRxRingMemory
 	(IN RTMP_ADAPTER *pAd)
 {
-	INT				num;
+	int				num;
 	NDIS_STATUS		Status;
 
 	/* Init the CmdQ and CmdQLock*/
@@ -1070,7 +1070,7 @@ NDIS_STATUS	RTMPAllocTxRxRingMemory(
 {
 /*	COUNTER_802_11	pCounter = &pAd->WlanCounters;*/
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	INT				num;
+	int				num;
 
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("--> RTMPAllocTxRxRingMemory\n"));
@@ -1398,7 +1398,7 @@ Note:
 */
 void RT28xx_UpdateBeaconToAsic(
 	IN RTMP_ADAPTER		*pAd,
-	IN INT				apidx,
+	IN int				apidx,
 	IN unsigned long			FrameLen,
 	IN unsigned long			UpdatePos)
 {
@@ -1511,7 +1511,7 @@ void RTUSBBssBeaconStop(
 	pBeaconSync = pAd->CommonCfg.pBeaconSync;
 	if (pBeaconSync && pBeaconSync->EnableBeacon)
 	{
-		INT NumOfBcn = 0;
+		int NumOfBcn = 0;
 
 #ifdef CONFIG_AP_SUPPORT
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -1551,7 +1551,7 @@ void RTUSBBssBeaconStart(
 	pBeaconSync = pAd->CommonCfg.pBeaconSync;
 	if (pBeaconSync && pBeaconSync->EnableBeacon)
 	{
-		INT NumOfBcn = 0;
+		int NumOfBcn = 0;
 
 #ifdef CONFIG_AP_SUPPORT
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
@@ -2048,7 +2048,7 @@ bool AsicCheckCommandOk(
 {
 	unsigned int	CmdStatus, CID, i;
 	unsigned int	ThisCIDMask = 0;
-	INT ret;
+	int ret;
 
 
 #ifdef RTMP_MAC_USB

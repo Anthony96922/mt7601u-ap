@@ -119,7 +119,7 @@ unsigned int FCSTAB_32[256] =
 unsigned int	RTMP_CALC_FCS32(
 	IN	unsigned int	Fcs,
 	IN	unsigned char *	Cp,
-	IN	INT		Len)
+	IN	int		Len)
 {
 	while (Len--)
 	   Fcs = (((Fcs) >> 8) ^ FCSTAB_32[((Fcs) ^ (*Cp++)) & 0xff]);

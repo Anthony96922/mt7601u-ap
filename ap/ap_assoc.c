@@ -561,7 +561,7 @@ static unsigned short APBuildAssociation(
 static bool IAPP_L2_Update_Frame_Send(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *mac_p,
-	IN INT bssid)
+	IN int bssid)
 {
 	NDIS_PACKET *pNetBuf;
 
@@ -1204,7 +1204,7 @@ void ap_cmm_peer_assoc_req_action(
 		else if ((pEntry->AuthMode == Ndis802_11AuthModeWPA2) && 
 			((pPmkid = WPA_ExtractSuiteFromRSNIE(ie_list->RSN_IE, ie_list->RSNIE_Len, PMKID_LIST, &pmkid_count)) != NULL))
 		{	/* Key cache */
-			INT CacheIdx;
+			int CacheIdx;
 
 			if (((CacheIdx = RTMPSearchPMKIDCache(pAd, pEntry->apidx, pEntry->Addr)) != -1)
 				&& (RTMPEqualMemory(pPmkid, &wdev->PMKIDCache.BSSIDInfo[CacheIdx].PMKID, LEN_PMKID)))
@@ -1419,10 +1419,10 @@ void APPeerDisassocReqAction(
  */
 void MbssKickOutStas(
 	IN PRTMP_ADAPTER pAd,
-	IN INT apidx,
+	IN int apidx,
 	IN unsigned short Reason)
 {
-	INT i;
+	int i;
 	PMAC_TABLE_ENTRY pEntry;
 
 	for (i = 0; i < MAX_LEN_OF_MAC_TABLE; i++)

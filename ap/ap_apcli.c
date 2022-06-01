@@ -86,7 +86,7 @@ void RT28xx_ApCli_Close(
 
 
 /* --------------------------------- Private -------------------------------- */
-INT ApCliIfLookUp(
+int ApCliIfLookUp(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr)
 {
@@ -415,7 +415,7 @@ bool ApCliLinkUp(
 			)
 			{			
 				PCIPHER_KEY pKey; 			
-				INT 		idx, BssIdx;
+				int 		idx, BssIdx;
 
 				BssIdx = pAd->ApCfg.BssidNum + MAX_MESH_NUM + ifIndex;
 			
@@ -433,7 +433,7 @@ bool ApCliLinkUp(
 
 						if (idx == wdev->DefaultKeyId)
 						{						
-							INT	cnt;
+							int	cnt;
 					
 							/* Generate 3-bytes IV randomly for software encryption using */						
 					    	for(cnt = 0; cnt < LEN_WEP_TSC; cnt++)
@@ -811,8 +811,8 @@ void ApCliIfMonitor(
 bool ApCliMsgTypeSubst(
 	IN PRTMP_ADAPTER pAd,
 	IN PFRAME_802_11 pFrame, 
-	OUT INT *Machine, 
-	OUT INT *MsgType)
+	OUT int *Machine, 
+	OUT int *MsgType)
 {
 	unsigned short Seq;
 	unsigned char EAPType; 
@@ -907,8 +907,8 @@ bool ApCliMsgTypeSubst(
 bool preCheckMsgTypeSubset(
 	IN PRTMP_ADAPTER  pAd,
 	IN PFRAME_802_11 pFrame, 
-	OUT INT *Machine, 
-	OUT INT *MsgType)
+	OUT int *Machine, 
+	OUT int *MsgType)
 {
 	if (pFrame->Hdr.FC.Type == BTYPE_MGMT) 		
 	{
@@ -1157,7 +1157,7 @@ MAC_TABLE_ENTRY *ApCliTableLookUpByWcid(
  */
 static inline bool ValidApCliEntry(
 	IN PRTMP_ADAPTER pAd,
-	IN INT apCliIdx)
+	IN int apCliIdx)
 {
 	bool result;
 	PMAC_TABLE_ENTRY pMacEntry;
@@ -2011,7 +2011,7 @@ void APCli_Init(
 #define APCLI_MAX_DEV_NUM	32
 	PNET_DEV	new_dev_p;
 /*	VIRTUAL_ADAPTER *apcli_pAd; */
-	INT apcli_index;
+	int apcli_index;
 /*	RTMP_OS_NETDEV_OP_HOOK	netDevOpHook; */
 	APCLI_STRUCT	*pApCliEntry;
 	
@@ -2173,7 +2173,7 @@ int APC_PacketSend(
 {
 	RTMP_ADAPTER *pAd;
 	PAPCLI_STRUCT pApCli;
-	INT apcliIndex;
+	int apcliIndex;
 
 
 

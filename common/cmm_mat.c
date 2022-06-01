@@ -176,7 +176,7 @@ unsigned char * MATEngineTxHandle(
 {
 	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL,  pMacAddr = NULL;
 	unsigned short		protoType, protoType_ori;
-	INT			i;
+	int			i;
 	struct _MATProtoOps 	*pHandle = NULL;
 	unsigned char *  retSkb = NULL;
 	bool bVLANPkt = FALSE;
@@ -258,7 +258,7 @@ unsigned char * MATEngineRxHandle(
 	unsigned char *				pMacAddr = NULL;
 	unsigned char * 		pLayerHdr = NULL, pPktHdr = NULL;
 	unsigned short		protoType;
-	INT			i =0;
+	int			i =0;
 	struct _MATProtoOps 	*pHandle = NULL;
 
 

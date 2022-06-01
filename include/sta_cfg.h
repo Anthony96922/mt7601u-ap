@@ -30,41 +30,41 @@
 #ifndef __STA_CFG_H__
 #define __STA_CFG_H__
 
-INT RTMPSTAPrivIoctlSet(
+int RTMPSTAPrivIoctlSet(
 	IN RTMP_ADAPTER *pAd,
 	IN char * SetProcName,
 	IN char * ProcArg);
 
 #if (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT)
 /* set WOW enable */
-INT Set_WOW_Enable(
+int Set_WOW_Enable(
         IN PRTMP_ADAPTER        pAd,
         IN char *              arg);
 /* set GPIO pin for wake-up signal */
-INT Set_WOW_GPIO(
+int Set_WOW_GPIO(
         IN PRTMP_ADAPTER        pAd,
         IN char *              arg);
 /* set delay time for WOW really enable */
-INT Set_WOW_Delay(
+int Set_WOW_Delay(
         IN PRTMP_ADAPTER        pAd,
         IN char *              arg);
 /* set wake up hold time */
-INT Set_WOW_Hold(
+int Set_WOW_Hold(
 		IN PRTMP_ADAPTER		pAd,
 		IN char *				arg);
 /* set wakeup signal type */
-INT Set_WOW_InBand(
+int Set_WOW_InBand(
 		IN PRTMP_ADAPTER		pAd,
 		IN char *				arg);
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
 
 #ifdef RTMP_MAC_USB
 /* Sets the FW into WOW Suspend mode */
-INT Set_UsbWOWSuspend(
+int Set_UsbWOWSuspend(
 		IN PRTMP_ADAPTER		pAd,
 		IN char *				arg);
 /* Resume the FW to Normal mode */
-INT Set_UsbWOWResume(
+int Set_UsbWOWResume(
 		IN PRTMP_ADAPTER		pAd,
 		IN char *				arg);
 #endif /* RTMP_MAC_USB */

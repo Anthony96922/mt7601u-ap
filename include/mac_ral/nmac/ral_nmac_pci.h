@@ -63,7 +63,7 @@
 #endif /* CARRIER_DETECTION_SUPPORT*/
 
  /* Delayed Rx or indivi rx */
-#define RxINT			(INT_R0_DONE | INT_R1_DONE /* | INT_RX_DLY */)
+#define Rxint			(INT_R0_DONE | INT_R1_DONE /* | INT_RX_DLY */)
 /* Delayed Tx or indivi tx */
 #define TxDataInt		(INT_T0_DONE | INT_T1_DONE | INT_T2_DONE | INT_T3_DONE /*| INT_TX_DLY*/)
 

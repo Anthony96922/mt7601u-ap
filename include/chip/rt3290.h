@@ -91,7 +91,7 @@ void MlmeAntSelection(
 	IN unsigned long TxSuccess,
 	IN char Rssi);
 
-INT RT3290_eeprom_access_grant(
+int RT3290_eeprom_access_grant(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN bool bGetCtrl);
 	

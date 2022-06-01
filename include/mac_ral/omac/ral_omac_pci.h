@@ -30,7 +30,7 @@
 /* INT_SOURCE_CSR: Interrupt source register. Write one to clear corresponding bit */
 #define INT_SOURCE_CSR		0x200
 
-#define RxINT				0x00000005	/* Delayed Rx or indivi rx */
+#define Rxint				0x00000005	/* Delayed Rx or indivi rx */
 #define TxDataInt			0x000000fa	/* Delayed Tx or indivi tx */
 #define TxMgmtInt			0x00000102	/* Delayed Tx or indivi tx */
 #define TxCoherent			0x00020000	/* tx coherent */

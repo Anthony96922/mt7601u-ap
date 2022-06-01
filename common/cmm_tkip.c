@@ -163,7 +163,7 @@ unsigned long	RTMPTkipGetUInt32(
 	IN	unsigned char *	pMICKey)
 {  	
 	unsigned long	res = 0; 
-	INT		i;
+	int		i;
 	
 	for (i = 0; i < 4; i++) 
 	{ 
@@ -196,7 +196,7 @@ void	RTMPTkipPutUInt32(
 	IN OUT	unsigned char *		pDst,
 	IN		unsigned long		val)					  
 { 	
-	INT i;
+	int i;
 	
 	for(i = 0; i < 4; i++) 
 	{ 
@@ -627,8 +627,8 @@ void RTMPTkipMixKey(
 	unsigned int ppk4; 
 	unsigned int ppk5; 
 
-	INT i; 
-	INT j; 
+	int i; 
+	int j; 
 
 	tsc0 = (unsigned int)((pnh >> 16) % 65536); /* msb */ 
 	tsc1 = (unsigned int)(pnh % 65536); 

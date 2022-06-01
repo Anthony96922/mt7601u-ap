@@ -459,7 +459,7 @@ bool MacTableDeleteEntry(
 			)
 			{
 #ifdef DOT1X_SUPPORT 
-				INT		PmkCacheIdx = -1;
+				int		PmkCacheIdx = -1;
 #endif /* DOT1X_SUPPORT */
 			
 				RTMPReleaseTimer(&pEntry->RetryTimer, &Cancelled);

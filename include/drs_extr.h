@@ -248,31 +248,31 @@ void MlmeNewRateAdapt(
 	IN unsigned long			TrainDown,
 	IN unsigned long			TxErrorRatio);
 
-INT	Set_PerThrdAdj_Proc(
+int	Set_PerThrdAdj_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN char * arg);
 
-INT	Set_LowTrafficThrd_Proc(
+int	Set_LowTrafficThrd_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN char *			arg);
 
-INT	Set_TrainUpRule_Proc(
+int	Set_TrainUpRule_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN char *			arg);
 
-INT	Set_TrainUpRuleRSSI_Proc(
+int	Set_TrainUpRuleRSSI_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN char *			arg);
 
-INT	Set_TrainUpLowThrd_Proc(
+int	Set_TrainUpLowThrd_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN char *			arg);
 
-INT	Set_TrainUpHighThrd_Proc(
+int	Set_TrainUpHighThrd_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN char *			arg);
 
-INT Set_RateTable_Proc(
+int Set_RateTable_Proc(
 	IN  struct _RTMP_ADAPTER *pAd,
 	IN  char * arg);
 

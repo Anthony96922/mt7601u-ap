@@ -34,7 +34,7 @@ bool	WscAppendV2SubItem(
 #ifdef CONFIG_AP_SUPPORT
 void 	WscOnOff(
 	IN  PRTMP_ADAPTER	pAd,
-	IN  INT				ApIdx,
+	IN  int				ApIdx,
 	IN  bool			bOff)
 {
 	PWSC_V2_INFO	pWpsV2Info = &pAd->ApCfg.MBSSID[ApIdx & 0x0F].WscControl.WscV2Info;
@@ -53,7 +53,7 @@ void 	WscOnOff(
 		pWpsV2Info->bWpsEnable = TRUE;
 		if (pAd->ApCfg.MBSSID[ApIdx & 0x0F].WscControl.WscConfMode != WSC_DISABLE)
 		{
-			INT IsAPConfigured;
+			int IsAPConfigured;
 			IsAPConfigured = pAd->ApCfg.MBSSID[ApIdx & 0x0F].WscControl.WscConfStatus;
 			WscBuildBeaconIE(pAd, IsAPConfigured, FALSE, 0, 0, (ApIdx & 0x0F), NULL, 0, AP_MODE);
 			WscBuildProbeRespIE(pAd, WSC_MSGTYPE_AP_WLAN_MGR, IsAPConfigured, FALSE, 0, 0, ApIdx, NULL, 0, AP_MODE);
@@ -65,11 +65,11 @@ void 	WscOnOff(
 
 void	WscAddEntryToAclList(
 	IN  PRTMP_ADAPTER	pAd,
-	IN	INT				ApIdx,
+	IN	int				ApIdx,
 	IN  unsigned char *			pMacAddr)
 {
 	PRT_802_11_ACL	pACL = NULL;
-	INT				i;
+	int				i;
 	bool			bFound = FALSE;
 	
 	pACL = &pAd->ApCfg.MBSSID[ApIdx].AccessControlList;
@@ -230,14 +230,14 @@ bool	WscGenV2Msg(
 	IN  PWSC_CTRL		pWpsCtrl,
 	IN  bool			bSelRegistrar,
 	IN	unsigned char *			pAuthorizedMACs,
-	IN  INT   			AuthorizedMACsLen,
+	IN  int   			AuthorizedMACsLen,
 	OUT	unsigned char			**pOutBuf,
-	OUT	INT				*pOutBufLen)
+	OUT	int				*pOutBufLen)
 {
 	unsigned char *			pWscV2Msg = NULL;
 	unsigned short			WscV2MsgLen = 0;
 	PWSC_REG_DATA	pReg = &pWpsCtrl->RegData;
-	INT				templen = 0;
+	int				templen = 0;
 		
 	os_alloc_mem(NULL, (unsigned char **)&pWscV2Msg, 128);
 	if (pWscV2Msg)
@@ -368,7 +368,7 @@ void	WscSendEapFragData(
 	IN  PWSC_CTRL			pWscControl,
 	IN	PMAC_TABLE_ENTRY	pEntry)
 {
-	INT 	DataLen = 0;
+	int 	DataLen = 0;
 	unsigned char *	pData = NULL;
 	
 	if (pEntry == NULL)

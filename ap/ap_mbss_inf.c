@@ -133,7 +133,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT MBSS_VirtualIF_Open(
+int MBSS_VirtualIF_Open(
 	IN	PNET_DEV	pDev)
 {
 	void *pAd;
@@ -172,7 +172,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT MBSS_VirtualIF_Close(
+int MBSS_VirtualIF_Close(
 	IN	PNET_DEV	pDev)
 {
 	void *pAd;
@@ -209,7 +209,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT MBSS_VirtualIF_PacketSend(
+int MBSS_VirtualIF_PacketSend(
 	IN PNDIS_PACKET			pPktSrc, 
 	IN PNET_DEV				pDev)
 {
@@ -246,10 +246,10 @@ Note:
                             report link failure activity.
 ========================================================================
 */
-INT MBSS_VirtualIF_Ioctl(
+int MBSS_VirtualIF_Ioctl(
 	IN PNET_DEV				pDev, 
 	IN OUT void 			*pIoCtrl, 
-	IN INT 					Command)
+	IN int 					Command)
 {
 	void *pAd;
 

@@ -72,7 +72,7 @@ int rt28xx_close(void *net_dev);
 int rt28xx_open(void *net_dev);
 
 /* private function prototype */
-static INT rt28xx_send_packets(IN struct sk_buff *skb_p, IN struct net_device *net_dev);
+static int rt28xx_send_packets(IN struct sk_buff *skb_p, IN struct net_device *net_dev);
 
 
 
@@ -573,13 +573,13 @@ struct iw_statistics *rt28xx_get_wireless_stats(struct net_device *net_dev)
 #endif /* WIRELESS_EXT */
 
 
-INT rt28xx_ioctl(
+int rt28xx_ioctl(
 	IN PNET_DEV net_dev, 
 	INOUT struct ifreq	*rq, 
-	IN INT cmd)
+	IN int cmd)
 {
 	void *pAd = NULL;
-	INT ret = 0;
+	int ret = 0;
 	unsigned long OpMode;
 
 	GET_PAD_FROM_NET_DEV(pAd, net_dev);	
@@ -763,7 +763,7 @@ struct net_device_stats *RT28xx_get_wds_ether_stats(
     IN PNET_DEV net_dev)
 {
     void *pAd = NULL;
-/*	INT WDS_apidx = 0,index; */
+/*	int WDS_apidx = 0,index; */
 	struct net_device_stats *pStats;
 	RT_CMD_STATS WdsStats, *pWdsStats = &WdsStats;
 

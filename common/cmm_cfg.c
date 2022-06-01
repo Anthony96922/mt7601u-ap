@@ -53,10 +53,10 @@ void DisplayTxAgg (RTMP_ADAPTER *pAd)
 static bool RT_isLegalCmdBeforeInfUp(
        IN char * SetCmd);
 
-INT ComputeChecksum(
+int ComputeChecksum(
 	IN unsigned int PIN)
 {
-	INT digit_s;
+	int digit_s;
 	unsigned int accum = 0;
 
 	PIN *= 10;
@@ -137,10 +137,10 @@ char* get_bw_str(int bandwidth)
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-INT RT_CfgSetCountryRegion(
+int RT_CfgSetCountryRegion(
 	IN PRTMP_ADAPTER	pAd, 
 	IN char *			arg,
-	IN INT				band)
+	IN int				band)
 {
 	long region;
 	unsigned char *pCountryRegion;
@@ -209,7 +209,7 @@ static char * WMODE_STR[]= {"", "a", "b", "g", "n", "n", "ac"};
 unsigned char *wmode_2_str(unsigned char wmode)
 {
 	unsigned char *str;
-	INT idx, pos, max_len;
+	int idx, pos, max_len;
 
 	max_len = WMODE_COMP * 3;
 	if (os_alloc_mem(NULL, &str, max_len) == NDIS_STATUS_SUCCESS)
@@ -251,7 +251,7 @@ unsigned char cfgmode_2_wmode(unsigned char cfg_mode)
 
 unsigned char wmode_2_cfgmode(unsigned char wmode)
 {
-	INT index;
+	int index;
 	DBGPRINT(RT_DEBUG_OFF, ("wmode = %d\n", wmode));
 
 	for (index = 0; index < PHY_MODE_MAX; index++ ) {
@@ -324,7 +324,7 @@ bool wmode_band_equal(unsigned char smode, unsigned char tmode)
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, char * arg)
+int RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
 	long cfg_mode;
 	unsigned char wmode, *mode_str;
@@ -366,7 +366,7 @@ INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 static unsigned char RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
 {
 	unsigned char wmode = 0, *mode_str;
-	INT idx;
+	int idx;
 	MULTISSID_STRUCT *wdev;
 
 	for (idx = 0; idx < pAd->ApCfg.BssidNum; idx++) {
@@ -398,7 +398,7 @@ static unsigned char RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
+int RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
 	long cfg_mode;
 	unsigned char wmode;
@@ -471,7 +471,7 @@ static bool RT_isLegalCmdBeforeInfUp(
 }
 
 
-INT RT_CfgSetShortSlot(
+int RT_CfgSetShortSlot(
 	IN PRTMP_ADAPTER	pAd,
 	IN char *		arg)
 {
@@ -498,14 +498,14 @@ INT RT_CfgSetShortSlot(
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-INT	RT_CfgSetWepKey(
+int	RT_CfgSetWepKey(
 	IN PRTMP_ADAPTER	pAd,
 	IN char *		keyString,
 	IN CIPHER_KEY		*pSharedKey,
-	IN INT			keyIdx)
+	IN int			keyIdx)
 {
-	INT			KeyLen;
-	INT			i;
+	int			KeyLen;
+	int			i;
 	/*unsigned char			CipherAlg = CIPHER_NONE;*/
 	bool			bKeyIsHex = FALSE;
 
@@ -560,12 +560,12 @@ INT	RT_CfgSetWepKey(
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-INT RT_CfgSetWPAPSKKey(
+int RT_CfgSetWPAPSKKey(
 	IN RTMP_ADAPTER	*pAd,
 	IN char *	keyString,
-	IN INT		keyStringLen,
+	IN int		keyStringLen,
 	IN unsigned char	*pHashStr,
-	IN INT		hashStrLen,
+	IN int		hashStrLen,
 	OUT unsigned char *	pPMKBuf)
 {
 	unsigned char keyMaterial[40];
@@ -587,9 +587,9 @@ INT RT_CfgSetWPAPSKKey(
 	return TRUE;
 }
 
-INT	RT_CfgSetFixedTxPhyMode(char * arg)
+int	RT_CfgSetFixedTxPhyMode(char * arg)
 {
-	INT fix_tx_mode = FIXED_TXMODE_HT;
+	int fix_tx_mode = FIXED_TXMODE_HT;
 	unsigned long value;
 
 
@@ -617,11 +617,11 @@ INT	RT_CfgSetFixedTxPhyMode(char * arg)
 	return fix_tx_mode;
 }
 
-INT	RT_CfgSetMacAddress(
+int	RT_CfgSetMacAddress(
 	IN PRTMP_ADAPTER	pAd,
 	IN char *		arg)
 {
-	INT	i, mac_len;
+	int	i, mac_len;
 
 	/* Mac address acceptable format 01:02:03:04:05:06 length 17 */
 	mac_len = strlen(arg);
@@ -644,10 +644,10 @@ INT	RT_CfgSetMacAddress(
 	return TRUE;
 }
 
-INT	RT_CfgSetTxMCSProc(char * arg, bool *pAutoRate)
+int	RT_CfgSetTxMCSProc(char * arg, bool *pAutoRate)
 {
-	INT	Value = simple_strtol(arg, 0, 10);
-	INT	TxMcs;
+	int	Value = simple_strtol(arg, 0, 10);
+	int	TxMcs;
 
 	if ((Value >= 0 && Value <= 23) || (Value == 32)) { /* 3*3*/
 		TxMcs = Value;
@@ -661,7 +661,7 @@ INT	RT_CfgSetTxMCSProc(char * arg, bool *pAutoRate)
 
 }
 
-INT	RT_CfgSetAutoFallBack(
+int	RT_CfgSetAutoFallBack(
 	IN PRTMP_ADAPTER pAd,
 	IN char *	arg)
 {
@@ -676,7 +676,7 @@ INT	RT_CfgSetAutoFallBack(
 }
 
 #ifdef WSC_INCLUDED
-INT	RT_CfgSetWscPinCode(
+int	RT_CfgSetWscPinCode(
 	IN RTMP_ADAPTER *pAd,
 	IN char *	pPinCodeStr,
 	OUT PWSC_CTRL   pWscControl)
@@ -717,7 +717,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT RtmpIoctl_rt_ioctl_giwname(
+int RtmpIoctl_rt_ioctl_giwname(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	void		*pData,
 	IN	unsigned long		Data)
@@ -774,17 +774,17 @@ INT RtmpIoctl_rt_ioctl_giwname(
 }
 
 
-INT RTMP_COM_IoctlHandle(
+int RTMP_COM_IoctlHandle(
 	IN	void			*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	INT			cmd,
+	IN	int			cmd,
 	IN	unsigned short			subcmd,
 	IN	void			*pData,
 	IN	unsigned long			Data)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	POS_COOKIE pObj = (POS_COOKIE)pAd->OS_Cookie;
-	INT Status = NDIS_STATUS_SUCCESS, i;
+	int Status = NDIS_STATUS_SUCCESS, i;
 	unsigned char PermanentAddress[MAC_ADDR_LEN];
 	unsigned short Addr01, Addr23, Addr45;
 
@@ -1114,7 +1114,7 @@ INT RTMP_COM_IoctlHandle(
 #ifdef CONFIG_AP_SUPPORT
 				else if (pAd->OpMode == OPMODE_AP)
 				{
-					INT index;
+					int index;
 					for(index = 0; index < MAX_MBSSID_NUM(pAd); index++)
 					{
 						if (pAd->ApCfg.MBSSID[index].MSSIDDev == (PNET_DEV)(pStats->pNetDev))
@@ -1183,7 +1183,7 @@ INT RTMP_COM_IoctlHandle(
 #ifdef APCLI_SUPPORT
 				if ((pStats->priv_flags == INT_APCLI))
 				{
-					INT ApCliIdx = ApCliIfLookUp(pAd, (unsigned char *)pStats->dev_addr);
+					int ApCliIdx = ApCliIfLookUp(pAd, (unsigned char *)pStats->dev_addr);
 					if ((ApCliIdx >= 0) && VALID_WCID(pAd->ApCfg.ApCliTab[ApCliIdx].MacTabWCID))
 						pMacEntry = &pAd->MacTab.Content[pAd->ApCfg.ApCliTab[ApCliIdx].MacTabWCID];
 				}
@@ -1365,7 +1365,7 @@ INT RTMP_COM_IoctlHandle(
                1.) iwpriv ra0 set site_survey
     ==========================================================================
 */
-INT Set_SiteSurvey_Proc(
+int Set_SiteSurvey_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -1410,7 +1410,7 @@ INT Set_SiteSurvey_Proc(
 	return TRUE;
 }
 
-INT	Set_Antenna_Proc(
+int	Set_Antenna_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -1450,7 +1450,7 @@ INT	Set_Antenna_Proc(
 
 
 #ifdef MICROWAVE_OVEN_SUPPORT
-INT Set_MO_FalseCCATh_Proc(
+int Set_MO_FalseCCATh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *		arg)
 {

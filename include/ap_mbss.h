@@ -63,7 +63,7 @@
 
 
 /* Public function list */
-INT	Show_MbssInfo_Display_Proc(
+int	Show_MbssInfo_Display_Proc(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	char *						arg);
 
@@ -74,10 +74,10 @@ void MBSS_Init(
 void MBSS_Remove(
 	IN PRTMP_ADAPTER				pAd);
 
-INT MBSS_Open(
+int MBSS_Open(
 	IN	PNET_DEV					pDev);
 
-INT MBSS_Close(
+int MBSS_Close(
 	IN	PNET_DEV					pDev);
 
 int RT28xx_MBSS_IdxGet(

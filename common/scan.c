@@ -6,9 +6,9 @@
 
 
 #ifdef SCAN_SUPPORT
-static INT scan_ch_restore(RTMP_ADAPTER *pAd, unsigned char OpMode)
+static int scan_ch_restore(RTMP_ADAPTER *pAd, unsigned char OpMode)
 {
-	INT bw, ch;
+	int bw, ch;
 		
 	if (pAd->CommonCfg.BBPCurrentBW != pAd->hw_cfg.bbp_bw)
 	{	
@@ -78,7 +78,7 @@ static INT scan_ch_restore(RTMP_ADAPTER *pAd, unsigned char OpMode)
 
 
 
-static INT scan_active(RTMP_ADAPTER *pAd, unsigned char OpMode, unsigned char ScanType)
+static int scan_active(RTMP_ADAPTER *pAd, unsigned char OpMode, unsigned char ScanType)
 {
 	unsigned char *frm_buf = NULL;
 	HEADER_802_11 Hdr80211;

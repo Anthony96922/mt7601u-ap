@@ -791,7 +791,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT	Show_QoSLoad_Proc(
+int	Show_QoSLoad_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -846,7 +846,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT	Set_QloadClr_Proc(
+int	Set_QloadClr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			Arg)
 {
@@ -870,7 +870,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT	Set_QloadAlarmTimeThreshold_Proc(
+int	Set_QloadAlarmTimeThreshold_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			Arg)
 {
@@ -901,7 +901,7 @@ Return Value:
 Note:
 ========================================================================
 */
-INT	Set_QloadAlarmNumThreshold_Proc(
+int	Set_QloadAlarmNumThreshold_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			Arg)
 {

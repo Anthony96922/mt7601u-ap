@@ -162,7 +162,7 @@ void MT7601ATEAsicSwitchChannel(
 }
 
 
-INT MT7601ATETxPwrHandler(
+int MT7601ATETxPwrHandler(
 	IN PRTMP_ADAPTER pAd,
 	IN char index)
 {
@@ -231,14 +231,14 @@ INT MT7601ATETxPwrHandler(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	MT7601_Set_ATE_TX_BW_Proc(
+int	MT7601_Set_ATE_TX_BW_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	INT powerIndex;
+	int powerIndex;
 	unsigned char value = 0;
 	unsigned char BBPCurrentBW;
-	INT IdReg;
+	int IdReg;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
 	
@@ -310,7 +310,7 @@ INT	MT7601_Set_ATE_TX_BW_Proc(
 		/* BBP_R4 should be overwritten for every chip if the condition matched. */
 		if (pAd->ate.Channel == 14)
 		{
-			INT TxMode = pAd->ate.TxWI.TxWIPHYMODE;
+			int TxMode = pAd->ate.TxWI.TxWIPHYMODE;
 
 			if (TxMode == MODE_CCK)
 			{
@@ -823,7 +823,7 @@ void MT7601ATEAsicAdjustTxPower(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-INT	MT7601_Set_ATE_TX_FREQ_OFFSET_Proc(
+int	MT7601_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {

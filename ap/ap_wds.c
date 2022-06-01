@@ -36,7 +36,7 @@
 #define VAILD_KEY_INDEX( _X ) ((((_X) >= 0) && ((_X) < 4)) ? (TRUE) : (FALSE))
 
 
-/*extern INT rt28xx_ioctl(PNET_DEV net_dev, struct ifreq *rq, int cmd); */
+/*extern int rt28xx_ioctl(PNET_DEV net_dev, struct ifreq *rq, int cmd); */
 
 
 bool ApWdsAllowToSendPacket(
@@ -71,7 +71,7 @@ long WdsEntryAlloc(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr)
 {
-	INT i;
+	int i;
 	long WdsTabIdx = -1;
 
 	NdisAcquireSpinLock(&pAd->WdsTabLock);
@@ -107,7 +107,7 @@ void WdsEntryDel(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr)
 {
-	INT i;
+	int i;
 
 	/* delete one WDS entry */
 	NdisAcquireSpinLock(&pAd->WdsTabLock);
@@ -570,7 +570,7 @@ void AsicUpdateWdsEncryption(
 				&& (pAd->WdsTab.WdsEntry[WdsIdex].WdsKey.KeyLen > 0))
 		{
 			
-			INT DefaultKeyId = 0;
+			int DefaultKeyId = 0;
 
 			if (pAd->WdsTab.WdsEntry[WdsIdex].WepStatus == Ndis802_11Encryption1Enabled)
 				DefaultKeyId = pAd->WdsTab.WdsEntry[pEntry->MatchWDSTabIdx].KeyIdx;
@@ -755,7 +755,7 @@ void WdsPeerBeaconProc(
 void APWdsInitialize(
 	IN PRTMP_ADAPTER pAd)
 {
-	INT i;
+	int i;
 
 	pAd->WdsTab.Mode = WDS_DISABLE_MODE;
 	pAd->WdsTab.Size = 0;
@@ -774,11 +774,11 @@ void APWdsInitialize(
 	return;	
 }
 
-INT	Show_WdsTable_Proc(
+int	Show_WdsTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	INT 	i;
+	int 	i;
 
 	for(i = 0; i < MAX_WDS_ENTRY; i++)
 	{					
@@ -825,7 +825,7 @@ void rtmp_read_wds_from_file(
 			char * buffer)
 {
 	char *		macptr;
-	INT			i=0, j;
+	int			i=0, j;
 	char		tok_str[16];
 	bool		bUsePrevFormat = FALSE;
 	unsigned char		macAddress[MAC_ADDR_LEN];
@@ -1146,7 +1146,7 @@ void rtmp_read_wds_from_file(
 void WdsPrepareWepKeyFromMainBss(
 	IN  PRTMP_ADAPTER pAd)
 {
-	INT	i;
+	int	i;
 	
 	/* Prepare WEP key for each wds-link if necessary */
 	for (i = 0; i < MAX_WDS_ENTRY; i++)
@@ -1181,7 +1181,7 @@ void WDS_Init(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	RTMP_OS_NETDEV_OP_HOOK		*pNetDevOps)
 {
-	INT index;
+	int index;
 	PNET_DEV pWdsNetDev;
 	
 	/* sanity check to avoid redundant virtual interfaces are created */
@@ -1313,7 +1313,7 @@ bool WDS_StatsGet(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	RT_CMD_STATS		*pStats)
 {
-	INT WDS_apidx = 0,index;
+	int WDS_apidx = 0,index;
 
 
 	/*struct net_device_stats	stats; */

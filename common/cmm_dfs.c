@@ -334,7 +334,7 @@ static void SwCheckDfsEventWithFw(
 void ApRadarDetectPeriodic(
 	IN PRTMP_ADAPTER pAd)
 {
-	INT	i;
+	int	i;
 
 	pAd->Dot11_H.InServiceMonitorCount++;
 
@@ -363,7 +363,7 @@ void ApRadarDetectPeriodic(
 
 /* 	0 = Switch Channel when Radar Hit (Normal mode) 
 	1 = Don't Switch Channel when Radar Hit */
-INT	Set_RadarDebug_Proc(
+int	Set_RadarDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -389,7 +389,7 @@ INT	Set_RadarDebug_Proc(
 	return TRUE;
 }
 
-INT	Set_ResetRadarHwDetect_Proc(
+int	Set_ResetRadarHwDetect_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -409,7 +409,7 @@ INT	Set_ResetRadarHwDetect_Proc(
 }
 
 
-INT	Set_DfsLowerLimit_Proc(
+int	Set_DfsLowerLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -419,7 +419,7 @@ INT	Set_DfsLowerLimit_Proc(
 	return TRUE;
 }
 
-INT	Set_DfsUpperLimit_Proc(
+int	Set_DfsUpperLimit_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -430,7 +430,7 @@ INT	Set_DfsUpperLimit_Proc(
 }
 
 
-INT Set_DfsSwDisable_Proc(
+int Set_DfsSwDisable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -441,7 +441,7 @@ INT Set_DfsSwDisable_Proc(
 	return TRUE;
 }
 
-INT Set_DfsEnvtDropAdjTime_Proc(
+int Set_DfsEnvtDropAdjTime_Proc(
 	IN PRTMP_ADAPTER   pAd, 
 	IN char *  arg)
 {
@@ -451,7 +451,7 @@ INT Set_DfsEnvtDropAdjTime_Proc(
 	return TRUE;
 }
 
-INT	Set_RadarStart_Proc(
+int	Set_RadarStart_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -471,7 +471,7 @@ INT	Set_RadarStart_Proc(
 	return TRUE;
 }
 
-INT	Set_RadarStop_Proc(
+int	Set_RadarStop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -480,7 +480,7 @@ INT	Set_RadarStop_Proc(
 }
 
 
-INT	Set_RadarSetTbl1_Proc(
+int	Set_RadarSetTbl1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -512,7 +512,7 @@ INT	Set_RadarSetTbl1_Proc(
 	return TRUE;
 }
 
-INT	Set_RadarSetTbl2_Proc(
+int	Set_RadarSetTbl2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -537,7 +537,7 @@ INT	Set_RadarSetTbl2_Proc(
 }
 
 
-INT	Set_Fcc5Thrd_Proc(
+int	Set_Fcc5Thrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -546,7 +546,7 @@ INT	Set_Fcc5Thrd_Proc(
 	return TRUE;
 }
 
-INT	Set_ChBusyThrd_Proc(
+int	Set_ChBusyThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -594,7 +594,7 @@ INT	Set_ChBusyThrd_Proc(
 }
 
 
-INT	Set_RssiThrd_Proc(
+int	Set_RssiThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -644,7 +644,7 @@ INT	Set_RssiThrd_Proc(
 	return TRUE;
 }
 
-INT	Set_PollTime_Proc(
+int	Set_PollTime_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -653,7 +653,7 @@ INT	Set_PollTime_Proc(
 	return TRUE;
 }
 
-INT	Set_Ch0LErr_Proc(
+int	Set_Ch0LErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -662,7 +662,7 @@ INT	Set_Ch0LErr_Proc(
 	return TRUE;
 }
 
-INT	Set_DeclareThres_Proc(
+int	Set_DeclareThres_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -671,7 +671,7 @@ INT	Set_DeclareThres_Proc(
 	return TRUE;
 }
 
-INT	Set_CheckLoop_Proc(
+int	Set_CheckLoop_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -680,7 +680,7 @@ INT	Set_CheckLoop_Proc(
 	return TRUE;
 }
 
-INT	Set_MaxPeriod_Proc(
+int	Set_MaxPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -689,7 +689,7 @@ INT	Set_MaxPeriod_Proc(
 	return TRUE;
 }
 
-INT	Set_PeriodErr_Proc(
+int	Set_PeriodErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -698,7 +698,7 @@ INT	Set_PeriodErr_Proc(
 	return TRUE;
 }
 
-INT	Set_Ch0HErr_Proc(
+int	Set_Ch0HErr_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -707,7 +707,7 @@ INT	Set_Ch0HErr_Proc(
 	return TRUE;
 }
 
-INT	Set_Ch1Shift_Proc(
+int	Set_Ch1Shift_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -716,7 +716,7 @@ INT	Set_Ch1Shift_Proc(
 	return TRUE;
 }
 
-INT	Set_Ch2Shift_Proc(
+int	Set_Ch2Shift_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -727,7 +727,7 @@ INT	Set_Ch2Shift_Proc(
 
 
 #ifdef DFS_DEBUG
-INT	Set_CEPrintDebug_Proc(
+int	Set_CEPrintDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -757,7 +757,7 @@ INT	Set_CEPrintDebug_Proc(
 #endif /* DFS_DEBUG */
 
 
-INT	Set_RadarSim_Proc(
+int	Set_RadarSim_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -790,7 +790,7 @@ int dfs_data[] = {		208, 142172,
 	return TRUE;
 }
 
-INT	Set_PrintBusyIdle_Proc(
+int	Set_PrintBusyIdle_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -799,7 +799,7 @@ INT	Set_PrintBusyIdle_Proc(
 	return TRUE;
 }
 
-INT	Set_BusyIdleRatio_Proc(
+int	Set_BusyIdleRatio_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -808,7 +808,7 @@ INT	Set_BusyIdleRatio_Proc(
 	return TRUE;
 }
 
-INT	Set_DfsRssiHigh_Proc(
+int	Set_DfsRssiHigh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -817,7 +817,7 @@ INT	Set_DfsRssiHigh_Proc(
 	return TRUE;
 }
 
-INT	Set_DfsRssiLow_Proc(
+int	Set_DfsRssiLow_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -825,7 +825,7 @@ INT	Set_DfsRssiLow_Proc(
 	pRadarDetect->DfsRssiLow = simple_strtol(arg, 0, 10);
 	return TRUE;
 }
-INT	Set_EventExpire_Proc(
+int	Set_EventExpire_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN      char *                 arg) 
 {
@@ -864,7 +864,7 @@ INT	Set_EventExpire_Proc(
 
 	return TRUE;
 }
-INT	Set_CEPrint_Proc(
+int	Set_CEPrint_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -948,7 +948,7 @@ INT	Set_CEPrint_Proc(
 }
 
 
-INT Set_RfReg_Proc(
+int Set_RfReg_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg)
 {
@@ -960,7 +960,7 @@ INT Set_RfReg_Proc(
 	return TRUE;
 }
 
-INT	Show_BlockCh_Proc(
+int	Show_BlockCh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -980,7 +980,7 @@ INT	Show_BlockCh_Proc(
 
 void DFSInit(PRTMP_ADAPTER pAd)
 {
-	INT i;
+	int i;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pRadarDetect->DfsProgramParam;
 	
