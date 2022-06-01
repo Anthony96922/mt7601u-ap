@@ -799,7 +799,7 @@ BOOLEAN RTMPSoftDecryptTKIP(
 	}
 
 	pnl = (*(pData)) << 8 | (*(pData + 2));	
-	pnh = *((PULONG)(pData + 4));
+	pnh = *((unsigned long *)(pData + 4));
 	pnh = cpu2le32(pnh);	
 	RTMPTkipMixKey(pKey->Key, TA, pnl, pnh, RC4Key, p1k);
 

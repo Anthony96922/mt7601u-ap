@@ -4434,7 +4434,7 @@ VOID WpaShowAllsuite(
 
 VOID RTMPInsertRSNIE(
 	IN PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN PUINT8 rsnie_ptr,
 	IN UINT8  rsnie_len,
 	IN PUINT8 pmkid_ptr,

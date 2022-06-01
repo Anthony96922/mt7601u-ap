@@ -126,7 +126,7 @@ VOID WfdMakeWfdIE(
 	IN	PRTMP_ADAPTER	pAd,
 	IN 	ULONG			WfdIeBitmap,
 	OUT	PUCHAR			pOutBuf,
-	OUT	PULONG			pIeLen);
+	OUT	unsigned long *pIeLen);
 
 ULONG InsertWfdSubelmtTlv(
 	IN PRTMP_ADAPTER 	pAd,

@@ -89,7 +89,7 @@ static NTSTATUS	RTUSBFirmwareRun(
 */
 NTSTATUS	RTUSBFirmwareOpmode(
 	IN	PRTMP_ADAPTER	pAd,
-	OUT	PULONG			pValue)
+	OUT	unsigned long *pValue)
 {
 	NTSTATUS	Status;
 

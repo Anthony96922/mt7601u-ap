@@ -376,12 +376,12 @@ void DisplayTxAgg (RTMP_ADAPTER *pAd);
 typedef struct _RTMP_SCATTER_GATHER_ELEMENT {
 	PVOID Address;
 	ULONG Length;
-	PULONG Reserved;
+	unsigned long * Reserved;
 } RTMP_SCATTER_GATHER_ELEMENT, *PRTMP_SCATTER_GATHER_ELEMENT;
 
 typedef struct _RTMP_SCATTER_GATHER_LIST {
 	ULONG NumberOfElements;
-	PULONG Reserved;
+	unsigned long * Reserved;
 	RTMP_SCATTER_GATHER_ELEMENT Elements[NIC_MAX_PHYS_BUF_COUNT];
 } RTMP_SCATTER_GATHER_LIST, *PRTMP_SCATTER_GATHER_LIST;
 
@@ -4807,7 +4807,7 @@ VOID BarHeaderInit(
 VOID InsertActField(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 Category,
 	IN UINT8 ActCode);
 
@@ -4884,7 +4884,7 @@ NDIS_STATUS	RTMPHardTransmit(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET		pPacket,
 	IN  UCHAR			QueIdx,
-	OUT	PULONG			pFreeTXDLeft);
+	OUT	unsigned long *pFreeTXDLeft);
 
 NDIS_STATUS	STAHardTransmit(
 	IN PRTMP_ADAPTER	pAd,
@@ -5004,7 +5004,7 @@ VOID RTMPCckBbpTuning(
 /* Asic/RF/BBP related functions */
 VOID AsicGetTxPowerOffset(
 	IN PRTMP_ADAPTER 			pAd,
-	IN PULONG					TxPwr);
+	IN unsigned long *TxPwr);
 
 VOID AsicGetAutoAgcOffsetForExternalTxAlc(
 	IN PRTMP_ADAPTER 		pAd,
@@ -5026,7 +5026,7 @@ VOID AsicGetAutoAgcOffsetForTemperatureSensor(
 VOID GetSingleSkuDeltaPower(
 	IN 		PRTMP_ADAPTER 	pAd,
 	IN 		PCHAR 			pTotalDeltaPower,
-	INOUT 	PULONG			pSingleSKUTotalDeltaPwr,
+	INOUT	unsigned long *pSingleSKUTotalDeltaPwr,
 	INOUT  	PUCHAR              	pSingleSKUBbpR1Offset);
 #endif /* SINGLE_SKU*/
 

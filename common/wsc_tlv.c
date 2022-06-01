@@ -2551,7 +2551,7 @@ int ProcessMessageM1(
 				break;
 				
 			case WSC_ID_OS_VERSION:
-				pReg->PeerInfo.OsVersion = get_unalignedlong((PULONG) pData);/**((PULONG) pData); */
+				pReg->PeerInfo.OsVersion = get_unalignedlong((unsigned long *) pData);/**((unsigned long *) pData); */
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_OS_VERSION))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_OS_VERSION));
 				break;
 
@@ -2788,7 +2788,7 @@ int ProcessMessageM2(
 				break;
 				
 			case WSC_ID_OS_VERSION:
-				pReg->PeerInfo.OsVersion = get_unalignedlong((PULONG) pData);
+				pReg->PeerInfo.OsVersion = get_unalignedlong((unsigned long *) pData);
 				FieldCheck[(WSC_TLV_BYTE2(WSC_ID_OS_VERSION))] ^= (1 << WSC_TLV_BYTE1(WSC_ID_OS_VERSION));
 				break;
 				
@@ -3015,7 +3015,7 @@ int ProcessMessageM2D(
 				break;
 				
 			case WSC_ID_OS_VERSION:
-				pReg->PeerInfo.OsVersion = get_unalignedlong((PULONG)pData);
+				pReg->PeerInfo.OsVersion = get_unalignedlong((unsigned long *)pData);
 				break;
 				
 			case WSC_ID_AUTHENTICATOR:

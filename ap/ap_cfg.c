@@ -1349,7 +1349,7 @@ INT RTMPAPSetInformation(
 	PNDIS_APCLI_802_11_KEY		pApCliKey = NULL;
 	MLME_DISASSOC_REQ_STRUCT	DisassocReq;
 	MLME_DEAUTH_REQ_STRUCT		DeAuthFrame;
-	PULONG				pCurrState;
+	unsigned long *pCurrState;
 #endif/*APCLI_WPA_SUPPLICANT_SUPPORT*/
 #endif/*APCLI_SUPPORT*/
 

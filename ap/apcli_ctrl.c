@@ -161,7 +161,7 @@ static VOID ApCliCtrlJoinReqAction(
 	APCLI_MLME_JOIN_REQ_STRUCT JoinReq;
 	PAPCLI_STRUCT pApCliEntry;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 #ifdef WSC_AP_SUPPORT
 	PWSC_CTRL	pWpsCtrl = &pAd->ApCfg.ApCliTab[ifIndex].WscControl;
 #endif /* WSC_AP_SUPPORT */
@@ -269,7 +269,7 @@ static VOID ApCliCtrlJoinReqTimeoutAction(
 	APCLI_MLME_JOIN_REQ_STRUCT JoinReq;
 	PAPCLI_STRUCT pApCliEntry;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("(%s) Probe Req Timeout.\n", __FUNCTION__));
@@ -338,7 +338,7 @@ static VOID ApCliCtrlProbeRspAction(
 	PAPCLI_STRUCT pApCliEntry;
 	MLME_AUTH_REQ_STRUCT AuthReq;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -403,7 +403,7 @@ static VOID ApCliCtrlAuthRspAction(
 	MLME_AUTH_REQ_STRUCT AuthReq;
 	PAPCLI_STRUCT pApCliEntry;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -464,7 +464,7 @@ static VOID ApCliCtrlAuth2RspAction(
 	MLME_ASSOC_REQ_STRUCT  AssocReq;
 	PAPCLI_STRUCT pApCliEntry;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -505,7 +505,7 @@ static VOID ApCliCtrlAuthReqTimeoutAction(
 	MLME_AUTH_REQ_STRUCT AuthReq;
 	PAPCLI_STRUCT pApCliEntry;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("(%s) Auth Req Timeout.\n", __FUNCTION__));
@@ -567,7 +567,7 @@ static VOID ApCliCtrlAssocRspAction(
 	APCLI_CTRL_MSG_STRUCT *Info = (APCLI_CTRL_MSG_STRUCT *)(Elem->Msg);
 	USHORT Status = Info->Status;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -629,7 +629,7 @@ static VOID ApCliCtrlDeAssocRspAction(
 	APCLI_CTRL_MSG_STRUCT *Info = (APCLI_CTRL_MSG_STRUCT *)(Elem->Msg);
 	USHORT Status = Info->Status;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	if (ifIndex >= MAX_APCLI_NUM)
@@ -665,7 +665,7 @@ static VOID ApCliCtrlAssocReqTimeoutAction(
 	MLME_ASSOC_REQ_STRUCT  AssocReq;
 	PAPCLI_STRUCT pApCliEntry;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("(%s) Assoc Req Timeout.\n", __FUNCTION__));
@@ -711,7 +711,7 @@ static VOID ApCliCtrlDisconnectReqAction(
 {
 	PAPCLI_STRUCT pApCliEntry;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("(%s) MLME Request disconnect.\n", __FUNCTION__));
@@ -749,7 +749,7 @@ static VOID ApCliCtrlPeerDeAssocReqAction(
 {
 	PAPCLI_STRUCT pApCliEntry;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("(%s) Peer DeAssoc Req.\n", __FUNCTION__));
@@ -788,7 +788,7 @@ static VOID ApCliCtrlDeAssocAction(
 	PAPCLI_STRUCT pApCliEntry;
 	MLME_DISASSOC_REQ_STRUCT DisassocReq;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("(%s) MLME Request Disconnect.\n", __FUNCTION__));
@@ -833,7 +833,7 @@ static VOID ApCliCtrlDeAuthAction(
 	PAPCLI_STRUCT pApCliEntry;
 	MLME_DEAUTH_REQ_STRUCT	DeAuthFrame;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].CtrlCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("(%s) MLME Request Disconnect.\n", __FUNCTION__));

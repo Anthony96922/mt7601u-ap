@@ -29,7 +29,7 @@ CHAR RTMP_GetTxPwr(
 VOID MakeMeasurementReqFrame(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pOutBuffer,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 TotalLen,
 	IN UINT8 Category,
 	IN UINT8 Action,
@@ -177,21 +177,21 @@ VOID MeasureReqDelete(
 VOID InsertChannelRepIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN PSTRING pCountry,
 	IN UINT8 RegulatoryClass);
 
 VOID InsertTpcReportIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 TxPwr,
 	IN UINT8 LinkMargin);
 
 VOID InsertDialogToken(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 DialogToken);
 
 NDIS_STATUS	TpcReqTabInit(
@@ -210,6 +210,6 @@ VOID NotifyChSwAnnToPeerAPs(
 VOID RguClass_BuildBcnChList(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pBuf,
-	OUT	PULONG pBufLen);
+	OUT	unsigned long * pBufLen);
 #endif /* __SPECTRUM_H__ */
 

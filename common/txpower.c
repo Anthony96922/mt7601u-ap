@@ -267,7 +267,7 @@ VOID AsicAdjustTxPower(
 #endif /* SINGLE_SKU */
 
 	/* Get Tx rate offset table which from EEPROM 0xDEh ~ 0xEFh */
-	RTMP_CHIP_ASIC_TX_POWER_OFFSET_GET(pAd, (PULONG)&CfgOfTxPwrCtrlOverMAC);
+	RTMP_CHIP_ASIC_TX_POWER_OFFSET_GET(pAd, (unsigned long *)&CfgOfTxPwrCtrlOverMAC);
 	/* Get temperature compensation delta power value */
 	RTMP_CHIP_ASIC_AUTO_AGC_OFFSET_GET(
 		pAd, &DeltaPwr, &TotalDeltaPower, &TxAgcCompensate, &DeltaPowerByBbpR1);
@@ -291,7 +291,7 @@ VOID AsicAdjustTxPower(
 	if (pAd->CommonCfg.bSKUMode == TRUE)
 	{
 		/* Re calculate delta power while enabling Single SKU */
-		GetSingleSkuDeltaPower(pAd, &TotalDeltaPower, (PULONG)&SingleSKUTotalDeltaPwr, &SingleSKUBbpR1Offset);
+		GetSingleSkuDeltaPower(pAd, &TotalDeltaPower, (unsigned long *)&SingleSKUTotalDeltaPwr, &SingleSKUBbpR1Offset);
 	
 		TotalDeltaPowerOri = TotalDeltaPower;
 	}
@@ -411,7 +411,7 @@ VOID AsicAdjustTxPower(
 VOID GetSingleSkuDeltaPower(
 	IN PRTMP_ADAPTER pAd,
 	IN PCHAR pTotalDeltaPower,
-	INOUT PULONG pSingleSKUTotalDeltaPwr,
+	INOUT unsigned long * pSingleSKUTotalDeltaPwr,
 	INOUT PUCHAR pSingleSKUBbpR1Offset) 
 {
 	INT i, j;
@@ -423,7 +423,7 @@ VOID GetSingleSkuDeltaPower(
 	CONFIGURATION_OF_TX_POWER_CONTROL_OVER_MAC CfgOfTxPwrCtrlOverMAC = {0};
 	
 	/* Get TX rate offset table which from EEPROM 0xDEh ~ 0xEFh */
-	RTMP_CHIP_ASIC_TX_POWER_OFFSET_GET(pAd, (PULONG)&CfgOfTxPwrCtrlOverMAC);
+	RTMP_CHIP_ASIC_TX_POWER_OFFSET_GET(pAd, (unsigned long *)&CfgOfTxPwrCtrlOverMAC);
 		
 	/* Handle regulatory max. TX power constraint */
 	if (pAd->CommonCfg.Channel > 14) 

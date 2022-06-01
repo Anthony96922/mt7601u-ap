@@ -791,7 +791,7 @@ static UINT8 GetCurTxPwr(
 VOID InsertChannelRepIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN PSTRING pCountry,
 	IN UINT8 RegulatoryClass)
 {
@@ -871,7 +871,7 @@ VOID InsertChannelRepIE(
 VOID InsertDialogToken(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 DialogToken)
 {
 	ULONG TempLen;
@@ -899,7 +899,7 @@ VOID InsertDialogToken(
  static VOID InsertTpcReqIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen)
+	OUT unsigned long * pFrameLen)
 {
 	ULONG TempLen;
 	UINT8 Len = 0;
@@ -932,7 +932,7 @@ VOID InsertDialogToken(
 VOID InsertTpcReportIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 TxPwr,
 	IN UINT8 LinkMargin)
 {
@@ -977,7 +977,7 @@ VOID InsertTpcReportIE(
 static VOID InsertMeasureReqIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 Len,
 	IN PMEASURE_REQ_INFO pMeasureReqIE)
 {
@@ -1015,7 +1015,7 @@ static VOID InsertMeasureReqIE(
 static VOID InsertMeasureReportIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN PMEASURE_REPORT_INFO pMeasureReportIE,
 	IN UINT8 ReportLnfoLen,
 	IN PUINT8 pReportInfo)
@@ -1060,7 +1060,7 @@ static VOID InsertMeasureReportIE(
 VOID MakeMeasurementReqFrame(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pOutBuffer,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 TotalLen,
 	IN UINT8 Category,
 	IN UINT8 Action,
@@ -1275,7 +1275,7 @@ VOID EnqueueTPCRep(
 static VOID InsertChSwAnnIE(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pFrameBuf,
-	OUT PULONG pFrameLen,
+	OUT unsigned long * pFrameLen,
 	IN UINT8 ChSwMode,
 	IN UINT8 NewChannel,
 	IN UINT8 ChSwCnt)
@@ -2313,7 +2313,7 @@ static PDOT11_REGULATORY_INFORMATION GetRugClassRegion(
 VOID RguClass_BuildBcnChList(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pBuf,
-	OUT	PULONG pBufLen)
+	OUT	unsigned long * pBufLen)
 {
 	INT loop;
 	ULONG TmpLen;

@@ -1753,7 +1753,7 @@ VOID BuildChannelListEx(
 VOID BuildBeaconChList(
 	IN PRTMP_ADAPTER pAd,
 	OUT PUCHAR pBuf,
-	OUT	PULONG pBufLen)
+	OUT	unsigned long * pBufLen)
 {
 	INT i;
 	ULONG TmpLen;

@@ -160,7 +160,7 @@ static VOID ApCliMlmeAuthReqAction(
 	ULONG               FrameLen = 0;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	if (ifIndex >= MAX_APCLI_NUM)
 		return;
@@ -248,7 +248,7 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 	UCHAR		  	ChallengeIe = IE_CHALLENGE_TEXT;
 	UCHAR		  	len_challengeText = CIPHER_TEXT_LEN;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	if (ifIndex >= MAX_APCLI_NUM)
 		return;
@@ -393,7 +393,7 @@ static VOID ApCliPeerAuthRspAtSeq4Action(
 	CHAR        ChlgText[CIPHER_TEXT_LEN];
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	if (ifIndex >= MAX_APCLI_NUM)
 		return;
@@ -438,7 +438,7 @@ static VOID ApCliPeerDeauthAction(
 	UCHAR       Addr3[MAC_ADDR_LEN];
 	USHORT      Reason;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 	PMAC_TABLE_ENTRY pMacEntry = NULL;
 #endif /*APCLI_WPA_SUPPLICANT_SUPPORT*/
@@ -488,7 +488,7 @@ static VOID ApCliAuthTimeoutAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI AUTH - AuthTimeoutAction\n"));
 
@@ -510,7 +510,7 @@ static VOID ApCliInvalidStateWhenAuth(
 {
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI AUTH - InvalidStateWhenAuth (state=%ld), reset AUTH state machine\n",
 		pAd->Mlme.ApCliAuthMachine.CurrState));
@@ -539,7 +539,7 @@ static VOID ApCliMlmeDeauthReqAction(
 	ULONG FrameLen = 0;
 	NDIS_STATUS NStatus;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI AUTH - ApCliMlmeAuthReqAction (state=%ld), reset AUTH state machine\n",

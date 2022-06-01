@@ -1204,7 +1204,7 @@ VOID PeerAddBAReqAction(
 	PFRAME_ADDBA_REQ  pAddreqFrame = NULL;
 	/*UCHAR		BufSize;*/
 	ULONG       FrameLen;
-	PULONG      ptemp;
+	unsigned long *      ptemp;
 	PMAC_TABLE_ENTRY	pMacEntry;
 #ifdef CONFIG_AP_SUPPORT
 	INT         apidx;
@@ -1220,7 +1220,7 @@ VOID PeerAddBAReqAction(
 	
 	pMacEntry = &pAd->MacTab.Content[Elem->Wcid];
 	DBGPRINT(RT_DEBUG_TRACE,("BA - PeerAddBAReqAction\n"));
-	ptemp = (PULONG)Elem->Msg;
+	ptemp = (unsigned long *)Elem->Msg;
 	/*DBGPRINT_RAW(RT_DEBUG_EMU, ("%08x:: %08x:: %08x:: %08x:: %08x:: %08x:: %08x:: %08x:: %08x\n", *(ptemp), *(ptemp+1), *(ptemp+2), *(ptemp+3), *(ptemp+4), *(ptemp+5), *(ptemp+6), *(ptemp+7), *(ptemp+8)));*/
 
 	if (PeerAddBAReqActionSanity(pAd, Elem->Msg, Elem->MsgLen, pAddr))

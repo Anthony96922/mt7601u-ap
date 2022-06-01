@@ -135,7 +135,7 @@ static VOID ApCliMlmeProbeReqAction(
 	BOOLEAN Cancelled;
 	APCLI_MLME_JOIN_REQ_STRUCT *Info = (APCLI_MLME_JOIN_REQ_STRUCT *)(Elem->Msg);
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ApCli SYNC - ApCliMlmeProbeReqAction(Ssid %s)\n", Info->Ssid));
@@ -183,7 +183,7 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 #endif /* DOT11_N_SUPPORT */
 
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
 
 	BCN_IE_LIST *ie_list = NULL;
 
@@ -455,7 +455,7 @@ static VOID ApCliProbeTimeoutAtJoinAction(
 {
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("APCLI_SYNC - ProbeTimeoutAtJoinAction\n"));
@@ -488,7 +488,7 @@ static VOID ApCliInvalidStateWhenJoin(
 {
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
-	PULONG pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
+	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].SyncCurrState;
 
 	*pCurrState = APCLI_SYNC_IDLE;
 	ApCliCtrlMsg.Status = MLME_STATE_MACHINE_REJECT;
