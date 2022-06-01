@@ -277,7 +277,7 @@ VOID MlmeHandler(RTMP_ADAPTER *pAd)
 {
 	MLME_QUEUE_ELEM *Elem = NULL;
 #ifdef APCLI_SUPPORT
-	SHORT apcliIfIndex;
+	short apcliIfIndex;
 #endif /* APCLI_SUPPORT */
 
 	/* Only accept MLME and Frame from peer side, no other (control/data) frame should*/
@@ -1026,7 +1026,7 @@ VOID MlmeSetTxPreamble(
 	else
 	{
 		/* NOTE: 1Mbps should always use long preamble*/
-		DBGPRINT(RT_DEBUG_TRACE, ("MlmeSetTxPreamble (= SHORT PREAMBLE)\n"));
+		DBGPRINT(RT_DEBUG_TRACE, ("MlmeSetTxPreamble (= short PREAMBLE)\n"));
 		OPSTATUS_SET_FLAG(pAd, fOP_STATUS_SHORT_PREAMBLE_INUSED);
 		csr4.field.AutoResponderPreamble = 1;
 	}

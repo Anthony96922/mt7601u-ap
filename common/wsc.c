@@ -7400,7 +7400,7 @@ VOID WscCheckWpsIeFromWpsAP(
     OUT unsigned short *			pDPIDFromAP)
 {
 	unsigned char *				pData;
-	SHORT				Len = 0;
+	short				Len = 0;
 	PWSC_IE				pWscIE;
 	unsigned short				DevicePasswordID;
 		
@@ -7408,7 +7408,7 @@ VOID WscCheckWpsIeFromWpsAP(
 		)
 	{
 		pData = (unsigned char *) pEid->Octet + 4;
-		Len = (SHORT)(pEid->Len - 4);
+		Len = (short)(pEid->Len - 4);
 
 		while (Len > 0)
 		{

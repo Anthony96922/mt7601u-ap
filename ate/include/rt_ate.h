@@ -108,7 +108,7 @@ typedef struct _ATE_INFO {
 #endif /* RTMP_INTERNAL_TX_ALC */
 #ifdef TXBF_SUPPORT
 	bool bTxBF;		/* Enable Tx Bean Forming */
-	SHORT	txSoundingMode;	/* Sounding mode for non-QA ATE. 0=none, 1=Data Sounding, 2=NDP */
+	short	txSoundingMode;	/* Sounding mode for non-QA ATE. 0=none, 1=Data Sounding, 2=NDP */
 	unsigned char	calParams[2];
 #endif				/* TXBF_SUPPORT */
 	unsigned int RxTotalCnt;
@@ -126,9 +126,9 @@ typedef struct _ATE_INFO {
 	char AvgRssi0;		/* last 8 frames' average RSSI */
 	char AvgRssi1;		/* last 8 frames' average RSSI */
 	char AvgRssi2;		/* last 8 frames' average RSSI */
-	SHORT AvgRssi0X8;	/* sum of last 8 frames' RSSI */
-	SHORT AvgRssi1X8;	/* sum of last 8 frames' RSSI */
-	SHORT AvgRssi2X8;	/* sum of last 8 frames' RSSI */
+	short AvgRssi0X8;	/* sum of last 8 frames' RSSI */
+	short AvgRssi1X8;	/* sum of last 8 frames' RSSI */
+	short AvgRssi2X8;	/* sum of last 8 frames' RSSI */
 	unsigned int NumOfAvgRssiSample;
 	unsigned short HLen;		/* Header Length */
 

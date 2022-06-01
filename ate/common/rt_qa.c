@@ -1208,7 +1208,7 @@ static  INT DO_RACFG_CMD_ATE_SET_BW(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1232,7 +1232,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER0(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1255,7 +1255,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER1(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1279,7 +1279,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_POWER2(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1303,7 +1303,7 @@ static  INT DO_RACFG_CMD_ATE_SET_FREQ_OFFSET(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1374,7 +1374,7 @@ static  INT DO_RACFG_CMD_ATE_RESET_COUNTER(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	SHORT    value = 1;
+	short    value = 1;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1397,7 +1397,7 @@ static  INT DO_RACFG_CMD_ATE_SEL_TX_ANTENNA(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)	
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1420,7 +1420,7 @@ static  INT DO_RACFG_CMD_ATE_SEL_RX_ANTENNA(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1443,7 +1443,7 @@ static  INT DO_RACFG_CMD_ATE_SET_PREAMBLE(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1466,7 +1466,7 @@ static  INT DO_RACFG_CMD_ATE_SET_CHANNEL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1537,7 +1537,7 @@ static  INT DO_RACFG_CMD_ATE_SET_RATE(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1560,7 +1560,7 @@ static  INT DO_RACFG_CMD_ATE_SET_TX_FRAME_LEN(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1827,7 +1827,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_PHASE_CAL(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 	bool	result = FALSE;
 
@@ -1853,7 +1853,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_GOLDEN_INIT(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN  struct ate_racfghdr *pRaCfg)
 {
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 
 	NdisZeroMemory(str, LEN_OF_ARG);
@@ -1878,7 +1878,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 	bool	result;
 
@@ -1905,7 +1905,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_VERIFY_NOCOMP(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	SHORT    value = 0;
+	short    value = 0;
 	char    str[LEN_OF_ARG];
 	bool	result;
 

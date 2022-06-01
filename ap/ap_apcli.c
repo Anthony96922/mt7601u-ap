@@ -90,8 +90,8 @@ INT ApCliIfLookUp(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr)
 {
-	SHORT i;
-	SHORT ifIndex = -1;
+	short i;
+	short ifIndex = -1;
 
 	do
 	{
@@ -110,7 +110,7 @@ INT ApCliIfLookUp(
 }
 
 bool isValidApCliIf(
-	SHORT ifIndex)
+	short ifIndex)
 {
 	if((ifIndex >= 0) && (ifIndex < MAX_APCLI_NUM))
 		return TRUE;

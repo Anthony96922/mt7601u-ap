@@ -568,7 +568,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 	/* MCS selection based on the RSSI information when the Tx samples are fewer than 15. */
 	if (AGSStatisticsInfo.AccuTxTotalCnt <= 15)
 	{
-		char idx = 0;
+		unsigned char idx = 0;
 		unsigned char TxRateIdx;
 		unsigned char MCS[24] = {0};
 		/* Check the existence and index of each needed MCS */
