@@ -164,7 +164,7 @@ VOID APPeerDlsReqAction(
 			Capability information and supported rate field are present
 			only when status code is zero.
 		*/
-        MakeOutgoingFrame(pOutBuffer,				(ULONG *) &FrameLen,
+        MakeOutgoingFrame(pOutBuffer,				(unsigned long *) &FrameLen,
                           sizeof(HEADER_802_11),	&DlsRspHdr,
                           1,						&Category,
                           1,						&Action,

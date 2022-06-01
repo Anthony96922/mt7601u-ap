@@ -131,7 +131,7 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 typedef	struct _MGMT_STRUC	{
 	BOOLEAN		Valid;
 	unsigned char *		pBuffer;
-	ULONG		Length;
+	unsigned long		Length;
 } MGMT_STRUC, *PMGMT_STRUC;
 
 
@@ -172,7 +172,7 @@ typedef struct _TX_CONTEXT
 	PIRP			pIrp;			/*used to cancel pending bulk out. */
 									/*Initialized in MiniportInitialize */
 	PTX_BUFFER		TransferBuffer;	/*Initialized in MiniportInitialize */
-	ULONG			BulkOutSize;
+	unsigned long			BulkOutSize;
 	UCHAR			BulkOutPipeId;
 	UCHAR			SelfIdx;
 	BOOLEAN			InUse;
@@ -183,7 +183,7 @@ typedef struct _TX_CONTEXT
 	BOOLEAN			bAggregatible;
 	UCHAR			Header_802_3[LENGTH_802_3];
 	UCHAR			Rsv[2];
-	ULONG			DataOffset;
+	unsigned long			DataOffset;
 	UINT			TxRate;
 	ra_dma_addr_t		data_dma;
 
@@ -203,7 +203,7 @@ typedef struct _HT_TX_CONTEXT
 	PIRP			pIrp;			/*used to cancel pending bulk out. */
 									/*Initialized in MiniportInitialize */
 	PHTTX_BUFFER	TransferBuffer;	/*Initialized in MiniportInitialize */
-	ULONG			BulkOutSize;	/* Indicate the total bulk-out size in bytes in one bulk-transmission */
+	unsigned long			BulkOutSize;	/* Indicate the total bulk-out size in bytes in one bulk-transmission */
 	UCHAR			BulkOutPipeId;
 	BOOLEAN			IRPPending;
 	BOOLEAN			LastOne;
@@ -212,15 +212,15 @@ typedef struct _HT_TX_CONTEXT
 	BOOLEAN			bCopySavePad;
 	UCHAR			SavedPad[8];
 	UCHAR			Header_802_3[LENGTH_802_3];
-	ULONG			CurWritePosition;		/* Indicate the buffer offset which packet will be inserted start from. */
-	ULONG			CurWriteRealPos;		/* Indicate the buffer offset which packet now are writing to. */
-	ULONG			NextBulkOutPosition;	/* Indicate the buffer start offset of a bulk-transmission */
-	ULONG			ENextBulkOutPosition;	/* Indicate the buffer end offset of a bulk-transmission */
+	unsigned long			CurWritePosition;		/* Indicate the buffer offset which packet will be inserted start from. */
+	unsigned long			CurWriteRealPos;		/* Indicate the buffer offset which packet now are writing to. */
+	unsigned long			NextBulkOutPosition;	/* Indicate the buffer start offset of a bulk-transmission */
+	unsigned long			ENextBulkOutPosition;	/* Indicate the buffer end offset of a bulk-transmission */
 	UINT			TxRate;
 	ra_dma_addr_t		data_dma;		/* urb dma on linux */
 #ifdef USB_BULK_BUF_ALIGMENT
-	ULONG 			CurWriteIdx;	/* pointer to next 32k bytes position when wirte tx resource or when bulk out sizze not > 0x6000 */
-	ULONG 			NextBulkIdx;	/* pointer to next alignment section when bulk ot */
+	unsigned long 			CurWriteIdx;	/* pointer to next 32k bytes position when wirte tx resource or when bulk out sizze not > 0x6000 */
+	unsigned long 			NextBulkIdx;	/* pointer to next alignment section when bulk ot */
 #endif /* USB_BULK_BUF_ALIGMENT */
 
 }	HT_TX_CONTEXT, *PHT_TX_CONTEXT, **PPHT_TX_CONTEXT;
@@ -246,7 +246,7 @@ typedef struct _RX_CONTEXT
 	PIRP				pIrp;/*used to cancel pending bulk in. */
 	PURB				pUrb;
 	/*These 2 Boolean shouldn't both be 1 at the same time. */
-	ULONG				BulkInOffset;	/* number of packets waiting for reordering . */
+	unsigned long				BulkInOffset;	/* number of packets waiting for reordering . */
 /*	BOOLEAN				ReorderInUse;	// At least one packet in this buffer are in reordering buffer and wait for receive indication */
 	BOOLEAN				bRxHandling;	/* Notify this packet is being process now. */
 	BOOLEAN				InUse;			/* USB Hardware Occupied. Wait for USB HW to put packet. */

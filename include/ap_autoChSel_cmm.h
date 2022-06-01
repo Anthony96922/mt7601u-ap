@@ -26,8 +26,8 @@
 
 
 typedef struct {
-	ULONG dirtyness[MAX_NUM_OF_CHANNELS+1];
-	ULONG ApCnt[MAX_NUM_OF_CHANNELS+1];
+	unsigned long dirtyness[MAX_NUM_OF_CHANNELS+1];
+	unsigned long ApCnt[MAX_NUM_OF_CHANNELS+1];
 	unsigned int FalseCCA[MAX_NUM_OF_CHANNELS+1];
     BOOLEAN SkipList[MAX_NUM_OF_CHANNELS+1];
 #ifdef AP_QLOAD_SUPPORT

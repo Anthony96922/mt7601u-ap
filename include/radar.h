@@ -43,14 +43,14 @@ typedef struct _DOT11_H {
 	UCHAR RDMode;		/*Radar Detection mode */
 	USHORT ChMovingTime;
 	BOOLEAN bDFSIndoor;
-	ULONG InServiceMonitorCount;	/* unit: sec */
+	unsigned long InServiceMonitorCount;	/* unit: sec */
 } DOT11_H, *PDOT11_H;
 
 BOOLEAN RadarChannelCheck(
 	IN PRTMP_ADAPTER	pAd,
 	IN UCHAR			Ch);
 
-ULONG JapRadarType(
+unsigned long JapRadarType(
 	IN PRTMP_ADAPTER pAd);
 
 #ifdef CONFIG_AP_SUPPORT

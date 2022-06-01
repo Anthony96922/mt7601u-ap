@@ -42,7 +42,7 @@ MAC_TABLE_ENTRY *MacTableLookup(
 	IN PRTMP_ADAPTER pAd,
 	unsigned char * pAddr)
 {
-	ULONG HashIdx;
+	unsigned long HashIdx;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	
 	HashIdx = MAC_ADDR_HASH_INDEX(pAddr);
@@ -73,7 +73,7 @@ MAC_TABLE_ENTRY *MacTableInsertEntry(
 	int i, FirstWcid;
 	MAC_TABLE_ENTRY *pEntry = NULL, *pCurrEntry;
 /*	USHORT	offset;*/
-/*	ULONG	addr;*/
+/*	unsigned long	addr;*/
 	BOOLEAN Cancelled;
 
 	/* if FULL, return*/
@@ -632,7 +632,7 @@ VOID MacTableReset(
 #ifdef CONFIG_AP_SUPPORT
 	unsigned char *      pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
-	ULONG       FrameLen = 0;
+	unsigned long       FrameLen = 0;
 	HEADER_802_11 DeAuthHdr;
 	USHORT      Reason;
     UCHAR       apidx = MAIN_MBSSID;

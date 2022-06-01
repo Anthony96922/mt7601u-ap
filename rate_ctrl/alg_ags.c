@@ -228,8 +228,8 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 	BOOLEAN bTxRateChanged = TRUE, bUpgradeQuality = FALSE;
 	UCHAR TrainUp = 0, TrainDown = 0, next_grp;
 	CHAR RssiOffset = 0;
-	ULONG TxTotalCnt, TxErrorRatio = 0;
-	ULONG TxSuccess, TxRetransmit, TxFailCount;
+	unsigned long TxTotalCnt, TxErrorRatio = 0;
+	unsigned long TxSuccess, TxRetransmit, TxFailCount;
 	AGS_STATISTICS_INFO AGSStatisticsInfo = {0};
 
 
@@ -264,7 +264,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 #ifdef FIFO_EXT_SUPPORT
 		if (pEntry->Aid >= 1 && pEntry->Aid <= 8)
 		{
-			ULONG 	HwTxCnt, HwErrRatio;
+			unsigned long 	HwTxCnt, HwErrRatio;
 
 			NicGetMacFifoTxCnt(pAd, pEntry);
 			HwTxCnt = pEntry->fifoTxSucCnt + pEntry->fifoTxRtyCnt;
@@ -913,11 +913,11 @@ VOID ApQuickResponeForRateUpExecAGS(
 	BOOLEAN bTxRateChanged = TRUE;
 	UCHAR TrainUp = 0, TrainDown = 0;
 	CHAR ratio = 0;
-	ULONG OneSecTxNoRetryOKRationCount = 0;
+	unsigned long OneSecTxNoRetryOKRationCount = 0;
 	MAC_TABLE_ENTRY *pEntry;
 	AGS_STATISTICS_INFO AGSStatisticsInfo = {0};
-	ULONG TxTotalCnt, TxErrorRatio = 0;
-	ULONG TxSuccess, TxRetransmit, TxFailCount;
+	unsigned long TxTotalCnt, TxErrorRatio = 0;
+	unsigned long TxSuccess, TxRetransmit, TxFailCount;
 
 
 	DBGPRINT_RAW(RT_DEBUG_TRACE, ("QuickAGS: ---> %s\n", __FUNCTION__));
@@ -956,7 +956,7 @@ VOID ApQuickResponeForRateUpExecAGS(
 #ifdef FIFO_EXT_SUPPORT
 		if (pEntry->Aid >= 1 && pEntry->Aid <= 8)
 		{
-			ULONG 	HwTxCnt, HwErrRatio;
+			unsigned long 	HwTxCnt, HwErrRatio;
 
 			NicGetMacFifoTxCnt(pAd, pEntry);
 			HwTxCnt = pEntry->fifoTxSucCnt + pEntry->fifoTxRtyCnt;

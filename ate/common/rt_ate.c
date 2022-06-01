@@ -206,7 +206,7 @@ VOID DefaultATEAsicAdjustTxPower(
 	UCHAR		TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep;
 	UCHAR		BbpR49 = 0, idx;
 	char *		pTxAgcCompensate;
-	ULONG		TxPwr[9];	/* NOTE: the TxPwr array size should be the maxima value of all supported chipset!!!! */
+	unsigned long		TxPwr[9];	/* NOTE: the TxPwr array size should be the maxima value of all supported chipset!!!! */
 	CHAR		Value;
 #ifdef RTMP_INTERNAL_TX_ALC
 	/* (non-positive number) including the transmit power controlled by the MAC and the BBP R1 */    
@@ -2359,7 +2359,7 @@ static NDIS_STATUS TXFRAME(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
 #ifdef RTMP_MAC_USB
-	ULONG			IrqFlags = 0;
+	unsigned long			IrqFlags = 0;
 #endif /* RTMP_MAC_USB */
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	UCHAR			BbpData = 0;
@@ -3361,8 +3361,8 @@ INT	Set_ATE_RX_Antenna_Proc(
 VOID DefaultATEAsicExtraPowerOverMAC(
 	IN	PRTMP_ADAPTER 		pAd)
 {
-	ULONG	ExtraPwrOverMAC = 0;
-	ULONG	ExtraPwrOverTxPwrCfg7 = 0, ExtraPwrOverTxPwrCfg8 = 0, ExtraPwrOverTxPwrCfg9 = 0;
+	unsigned long	ExtraPwrOverMAC = 0;
+	unsigned long	ExtraPwrOverTxPwrCfg7 = 0, ExtraPwrOverTxPwrCfg8 = 0, ExtraPwrOverTxPwrCfg9 = 0;
 
 	/* For OFDM_54 and HT_MCS_7, extra fill the corresponding register value into MAC 0x13D4 */
 	RTMP_IO_READ32(pAd, 0x1318, &ExtraPwrOverMAC);  

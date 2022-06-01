@@ -186,7 +186,7 @@ static VOID ApCliCtrlJoinReqAction(
     if ((pWpsCtrl->WscConfMode != WSC_DISABLE) &&
 		(pWpsCtrl->bWscTrigger == TRUE))
     {
-    	ULONG bss_idx = 0;
+    	unsigned long bss_idx = 0;
         NdisZeroMemory(JoinReq.Ssid, MAX_LEN_OF_SSID);
         JoinReq.SsidLen = pAd->ApCfg.ApCliTab[ifIndex].WscControl.WscSsid.SsidLength;
 		NdisMoveMemory(JoinReq.Ssid, pAd->ApCfg.ApCliTab[ifIndex].WscControl.WscSsid.Ssid, JoinReq.SsidLen);

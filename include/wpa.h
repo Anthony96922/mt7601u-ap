@@ -31,7 +31,7 @@
 
 #ifndef ROUND_UP
 #define ROUND_UP(__x, __y) \
-	(((ULONG)((__x)+((__y)-1))) & ((ULONG)~((__y)-1)))
+	(((unsigned long)((__x)+((__y)-1))) & ((unsigned long)~((__y)-1)))
 #endif
 
 #define	SET_UINT16_TO_ARRARY(_V, _LEN)		\
@@ -305,7 +305,7 @@ BOOLEAN RTMPCheckWPAframe(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char * pData,
-	IN ULONG DataByteCount,
+	IN unsigned long DataByteCount,
 	IN UCHAR FromWhichBSSID);
 
 #ifdef HDR_TRANS_SUPPORT
@@ -313,7 +313,7 @@ BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char * pData,
-	IN ULONG DataByteCount,
+	IN unsigned long DataByteCount,
 	IN UCHAR FromWhichBSSID);
 #endif /* HDR_TRANS_SUPPORT */
 
@@ -433,7 +433,7 @@ BOOLEAN RTMPSoftEncryptWEP(
 	IN unsigned char * pIvHdr,
 	IN PCIPHER_KEY pKey,
 	INOUT unsigned char * pData,
-	IN ULONG DataByteCnt);
+	IN unsigned long DataByteCnt);
 
 BOOLEAN RTMPSoftDecryptWEP(
 	IN PRTMP_ADAPTER pAd,
@@ -476,7 +476,7 @@ VOID TKIP_GTK_KEY_UNWRAP(
 BOOLEAN RTMPSoftDecryptAES(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pData,
-	IN ULONG DataByteCnt,
+	IN unsigned long DataByteCnt,
 	IN PCIPHER_KEY pWpaKey);
 
 VOID RTMPConstructCCMPHdr(

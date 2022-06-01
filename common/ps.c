@@ -45,7 +45,7 @@ NDIS_STATUS RtmpInsertPsQueue(
 	IN MAC_TABLE_ENTRY *pMacEntry,
 	IN UCHAR QueIdx)
 {
-	ULONG IrqFlags;
+	unsigned long IrqFlags;
 #ifdef UAPSD_SUPPORT
 	/* put the U-APSD packet to its U-APSD queue by AC ID */
 	unsigned int ac_id = QueIdx - QID_AC_BE; /* should be >= 0 */
@@ -109,7 +109,7 @@ VOID RtmpCleanupPsQueue(
 	PQUEUE_ENTRY pEntry;
 	PNDIS_PACKET pPacket;
 
-	DBGPRINT(RT_DEBUG_TRACE, ("RtmpCleanupPsQueue (0x%08lx)...\n", (ULONG)pQueue));
+	DBGPRINT(RT_DEBUG_TRACE, ("RtmpCleanupPsQueue (0x%08lx)...\n", (unsigned long)pQueue));
 
 	while (pQueue->Head)
 	{
@@ -121,7 +121,7 @@ VOID RtmpCleanupPsQueue(
 		pPacket = QUEUE_ENTRY_TO_PACKET(pEntry);
 		RELEASE_NDIS_PACKET(pAd, pPacket, NDIS_STATUS_FAILURE);
 
-		DBGPRINT(RT_DEBUG_TRACE, ("RtmpCleanupPsQueue pkt = %lx...\n", (ULONG)pPacket));
+		DBGPRINT(RT_DEBUG_TRACE, ("RtmpCleanupPsQueue pkt = %lx...\n", (unsigned long)pPacket));
 	}
 }
 
@@ -310,7 +310,7 @@ VOID RtmpHandleRxPsPoll(
 BOOLEAN RtmpPsIndicate(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr, 
-	IN ULONG Wcid, 
+	IN unsigned long Wcid, 
 	IN UCHAR Psm) 
 {
 	MAC_TABLE_ENTRY *pEntry;

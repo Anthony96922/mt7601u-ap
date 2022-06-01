@@ -81,7 +81,7 @@ VOID RTMPInsertWapiIe(
 
 BOOLEAN RTMPCheckWAIframe(
     IN unsigned char *           pData,
-    IN ULONG            DataByteCount);
+    IN unsigned long            DataByteCount);
 
 VOID RTMPConstructWPIIVHdr(
 	IN	UCHAR			key_id,

@@ -40,7 +40,7 @@ extern UCHAR	EAPOL[];
 */
 MAC_TABLE_ENTRY *PACInquiry(
     IN  PRTMP_ADAPTER               pAd, 
-    IN  ULONG                       Wcid)
+    IN  unsigned long                       Wcid)
 {
 
     MAC_TABLE_ENTRY *pEntry = (MAC_TABLE_ENTRY*)NULL;
@@ -758,7 +758,7 @@ VOID GREKEYPeriodicExec(
     IN void * SystemSpecific3) 
 {
     UINT            i, apidx;
-    ULONG           temp_counter = 0;
+    unsigned long           temp_counter = 0;
     PRTMP_ADAPTER   pAd = (PRTMP_ADAPTER)FunctionContext;
 	PRALINK_TIMER_STRUCT 	pTimer = (PRALINK_TIMER_STRUCT) SystemSpecific3;
 	PMULTISSID_STRUCT	pMbss = NULL;
@@ -879,7 +879,7 @@ VOID GREKEYPeriodicExec(
 VOID WpaSend(
     IN  PRTMP_ADAPTER   pAdapter,
     IN  unsigned char *          pPacket,
-    IN  ULONG           Len)
+    IN  unsigned long           Len)
 {
     PEAP_HDR        	pEapHdr;
     UCHAR         		Addr[MAC_ADDR_LEN];
@@ -1003,7 +1003,7 @@ VOID RTMPAddPMKIDCache(
  
 	if (i == MAX_PMKID_COUNT)
 	{
-		ULONG	timestamp = 0, idx = 0;
+		unsigned long	timestamp = 0, idx = 0;
 
 		DBGPRINT(RT_DEBUG_TRACE, ("RTMPAddPMKIDCache(IF(%d) Cache full\n", apidx));
 		for (i = 0; i < MAX_PMKID_COUNT; i++)
@@ -1072,7 +1072,7 @@ VOID RTMPMaintainPMKIDCache(
 	IN  PRTMP_ADAPTER   pAd)
 {
 	INT	i, j;
-	ULONG Now;
+	unsigned long Now;
 	for (i = 0; i < MAX_MBSSID_NUM(pAd); i++)
 	{
 		PMULTISSID_STRUCT pMbss = &pAd->ApCfg.MBSSID[i];
@@ -1223,7 +1223,7 @@ VOID RTMPHandleSTAKey(
     IN MLME_QUEUE_ELEM  *Elem) 
 {
 	extern UCHAR		OUI_WPA2_WEP40[];
-	ULONG				FrameLen = 0;
+	unsigned long				FrameLen = 0;
 	unsigned char *				pOutBuffer = NULL;
 	UCHAR				Header802_3[14];
 	UCHAR				*mpool;
@@ -1231,7 +1231,7 @@ VOID RTMPHandleSTAKey(
 	PEAPOL_PACKET		pSTAKey;
 	PHEADER_802_11		pHeader;
 	UCHAR				Offset = 0;
-	ULONG				MICMsgLen;
+	unsigned long				MICMsgLen;
 	UCHAR				DA[MAC_ADDR_LEN];
 	UCHAR				Key_Data[512];
 	UCHAR				key_length;

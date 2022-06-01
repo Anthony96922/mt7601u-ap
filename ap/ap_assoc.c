@@ -590,7 +590,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	USHORT Aid;
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
-	ULONG FrameLen = 0;
+	unsigned long FrameLen = 0;
 	UCHAR MaxSupportedRate = 0;
 	UCHAR SupRateLen, PhyMode, FlgIs11bSta;
 	UCHAR i;
@@ -861,7 +861,7 @@ VOID ap_cmm_peer_assoc_req_action(
 
 	if ((pAd->CommonCfg.ExtRateLen) && (PhyMode != WMODE_B) && (FlgIs11bSta == 0))
 	{
-		ULONG TmpLen;
+		unsigned long TmpLen;
 		MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 					1, &ExtRateIe,
 					1, &pAd->CommonCfg.ExtRateLen,
@@ -874,7 +874,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	/* HT capability in AssocRsp frame. */
 	if ((ie_list->ht_cap_len > 0) && WMODE_CAP_N(pAd->CommonCfg.PhyMode))
 	{
-		ULONG TmpLen;
+		unsigned long TmpLen;
 		UCHAR HtLen1 = sizeof(pAd->CommonCfg.AddHTInfo);
 		HT_CAPABILITY_IE HtCapabilityRsp;
 #ifdef RT_BIG_ENDIAN
@@ -927,7 +927,7 @@ VOID ap_cmm_peer_assoc_req_action(
 
 		/* 7.3.2.27 Extended Capabilities IE */
 		{
-			ULONG TmpLen, infoPos;
+			unsigned long TmpLen, infoPos;
 			unsigned char * pInfo;
 			UCHAR extInfoLen;
 			BOOLEAN bNeedAppendExtIE = FALSE;
@@ -973,7 +973,7 @@ VOID ap_cmm_peer_assoc_req_action(
 			(pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == 1))
 	 	{
 			OVERLAP_BSS_SCAN_IE OverlapScanParam;
-			ULONG TmpLen;
+			unsigned long TmpLen;
 			UCHAR OverlapScanIE, ScanIELen;
 
 			OverlapScanIE = IE_OVERLAPBSS_SCAN_PARM;
@@ -1049,7 +1049,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	/* add WMM IE here */
 	if (wdev->bWmmCapable && CLIENT_STATUS_TEST_FLAG(pEntry, fCLIENT_STATUS_WMM_CAPABLE))
 	{
-		ULONG TmpLen;
+		unsigned long TmpLen;
 		UCHAR WmeParmIe[26] = {IE_VENDOR_SPECIFIC, 24, 0x00, 0x50, 0xf2, 0x02, 0x01, 0x01, 0, 0};
 		WmeParmIe[8] = pAd->ApCfg.BssEdcaParm.EdcaUpdateCount & 0x0f;
 #ifdef UAPSD_SUPPORT
@@ -1074,7 +1074,7 @@ VOID ap_cmm_peer_assoc_req_action(
 
 	/* add Ralink-specific IE here - Byte0.b0=1 for aggregation, Byte0.b1=1 for piggy-back */
 	{
-		ULONG TmpLen;
+		unsigned long TmpLen;
 		UCHAR RalinkSpecificIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
 
 		if (pAd->CommonCfg.bAggregationCapable)
@@ -1095,7 +1095,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	if (pEntry->bWscCapable)
 	{
 		UCHAR *pWscBuf = NULL, WscIeLen = 0;
-		ULONG WscTmpLen = 0;
+		unsigned long WscTmpLen = 0;
 
 		os_alloc_mem(NULL, (UCHAR **)&pWscBuf, 512);
 		if (pWscBuf)
@@ -1451,7 +1451,7 @@ VOID APMlmeKickOutSta(
 {
 	HEADER_802_11 DisassocHdr;
 	unsigned char * pOutBuffer = NULL;
-	ULONG FrameLen = 0;
+	unsigned long FrameLen = 0;
 	NDIS_STATUS NStatus;
 	MAC_TABLE_ENTRY *pEntry;
 	UCHAR Aid;
@@ -1530,12 +1530,12 @@ VOID APMlmeDisassocReqAction(
  */
 VOID APCls3errAction(
 	IN PRTMP_ADAPTER pAd,
-	IN 	ULONG Wcid,
+	IN 	unsigned long Wcid,
 	IN	PHEADER_802_11	pHeader)
 {
 	HEADER_802_11 DisassocHdr;
 	unsigned char * pOutBuffer = NULL;
-	ULONG FrameLen = 0;
+	unsigned long FrameLen = 0;
 	NDIS_STATUS NStatus;
 	USHORT Reason = REASON_CLS3ERR;
 	MAC_TABLE_ENTRY *pEntry = NULL;

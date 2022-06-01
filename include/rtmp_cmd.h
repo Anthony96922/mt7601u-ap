@@ -6,7 +6,7 @@
 typedef struct _CmdQElmt {
 	UINT command;
 	void * buffer;
-	ULONG bufferlength;
+	unsigned long bufferlength;
 	BOOLEAN CmdFromNdis;
 	BOOLEAN SetOperation;
 	struct _CmdQElmt *next;
@@ -306,7 +306,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_IBSS {
 typedef struct __CMD_RTPRIV_IOCTL_80211_STA {
 
 	unsigned char MAC[6];
-	ULONG DataRate;
+	unsigned long DataRate;
 
 #define RT_CMD_80211_TXRATE_LEGACY		0x01
 #define RT_CMD_80211_TXRATE_BW_40		0x02
@@ -453,7 +453,7 @@ typedef struct __RT_CMD_STATS {
 
 typedef struct __RT_CMD_IW_STATS {
 
-	ULONG priv_flags;
+	unsigned long priv_flags;
 	UCHAR *dev_addr;
 
 	VOID *pStats;		/* point to pAd->iw_stats */
@@ -474,7 +474,7 @@ typedef struct __RT_CMD_PCIE_INIT {
 
 typedef struct __RT_CMD_AP_IOCTL_CONFIG {
 	IN VOID *net_dev;
-	IN ULONG priv_flags;
+	IN unsigned long priv_flags;
 	IN char *pCmdData;
 	IN INT32 CmdId_RTPRIV_IOCTL_SET;
 	IN char *name;
@@ -484,7 +484,7 @@ typedef struct __RT_CMD_AP_IOCTL_CONFIG {
 } RT_CMD_AP_IOCTL_CONFIG;
 
 typedef struct __RT_CMD_AP_IOCTL_SSID {
-	IN ULONG priv_flags;
+	IN unsigned long priv_flags;
 	IN INT apidx;
 
 	OUT char *pSsidStr;
@@ -492,7 +492,7 @@ typedef struct __RT_CMD_AP_IOCTL_SSID {
 } RT_CMD_AP_IOCTL_SSID;
 
 typedef struct __RT_CMD_IOCTL_RATE {
-	IN ULONG priv_flags;
+	IN unsigned long priv_flags;
 	OUT unsigned int BitRate;
 } RT_CMD_IOCTL_RATE;
 
@@ -558,7 +558,7 @@ typedef struct __RT_CMD_STA_IOCTL_BSS_TABLE {
 } RT_CMD_STA_IOCTL_BSS_TABLE;
 
 typedef struct __RT_CMD_STA_IOCTL_SCAN_TABLE {
-	IN ULONG priv_flags;
+	IN unsigned long priv_flags;
 	OUT unsigned int BssNr;
 	OUT RT_CMD_STA_IOCTL_BSS_TABLE *pBssTable;	/* must be freed by caller */
 	OUT UCHAR MainSharedKey[4][16];

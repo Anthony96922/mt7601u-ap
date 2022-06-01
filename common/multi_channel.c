@@ -249,7 +249,7 @@ VOID RtmpEnqueueLastNullFrame(
 	IN UCHAR OpMode)
 {
 	UCHAR	NullFrame[48];
-	ULONG	Length;
+	unsigned long	Length;
 	PHEADER_802_11	pHeader_802_11;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	PAPCLI_STRUCT pApCliEntry = NULL;
@@ -592,7 +592,7 @@ static VOID ProcessHCCAToEDCA(
 }
 
 static INT MultiChannelTaskThread(
-    IN  ULONG Context)
+    IN  unsigned long Context)
 {
 	RTMP_OS_TASK *pTask;
 	RTMP_ADAPTER *pAd;
@@ -681,7 +681,7 @@ NDIS_STATUS MultiChannelThreadInit(
 	RTMPInitTimer(pAd, &pAd->Mlme.ConcurrentP2PConnectTimer, GET_TIMER_FUNCTION(ConcurrentP2PConnectTimeout), pAd, FALSE);
 
 	RTMP_OS_TASK_INIT(pTask, "MultiChannelTask", pAd);
-	status = RtmpOSTaskAttach(pTask, MultiChannelTaskThread, (ULONG)&pAd->MultiChannelTask);
+	status = RtmpOSTaskAttach(pTask, MultiChannelTaskThread, (unsigned long)&pAd->MultiChannelTask);
 	DBGPRINT(RT_DEBUG_TRACE, ("<-- %s, status=%d!\n", __FUNCTION__, status));
 
 	return status;

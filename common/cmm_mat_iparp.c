@@ -50,7 +50,7 @@ typedef struct _IPMacMappingEntry
 {
 	UINT	ipAddr;	/* In network order */
 	UCHAR	macAddr[MAC_ADDR_LEN];
-	ULONG	lastTime;
+	unsigned long	lastTime;
 	struct _IPMacMappingEntry *pNext;
 }IPMacMappingEntry, *PIPMacMappingEntry;
 
@@ -165,7 +165,7 @@ static NDIS_STATUS IPMacTableUpdate(
 	UINT 				hashIdx;
 	IPMacMappingTable *pIPMacTable;
 	IPMacMappingEntry	*pEntry = NULL, *pPrev = NULL, *pNewEntry =NULL;
-	ULONG			now;
+	unsigned long			now;
 
 	pIPMacTable = (IPMacMappingTable *)pMatCfg->MatTableSet.IPMacTable;
 
@@ -633,7 +633,7 @@ static NDIS_STATUS MATProto_IP_Init(
 }
 
 
-static inline void IPintToIPstr(int ipint, char Ipstr[20], ULONG BufLen)
+static inline void IPintToIPstr(int ipint, char Ipstr[20], unsigned long BufLen)
 {
 	 int temp = 0;
 	 
@@ -651,7 +651,7 @@ static inline void IPintToIPstr(int ipint, char Ipstr[20], ULONG BufLen)
 VOID getIPMacTbInfo(
 	IN MAT_STRUCT *pMatCfg, 
 	IN char *pOutBuf,
-	IN ULONG BufLen)
+	IN unsigned long BufLen)
 {
 	IPMacMappingTable *pIPMacTable;
 	IPMacMappingEntry *pHead;

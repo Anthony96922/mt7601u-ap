@@ -11,7 +11,7 @@
 #define MDSM_ADD_TX_POWER_BY_6dBm						0x03
 #define MDSM_BBP_R1_STATIC_TX_POWER_CONTROL_MASK		0x03
 
-VOID AsicGetTxPowerOffset(RTMP_ADAPTER *pAd, ULONG *TxPwr)
+VOID AsicGetTxPowerOffset(RTMP_ADAPTER *pAd, unsigned long *TxPwr)
 {
 	CONFIGURATION_OF_TX_POWER_CONTROL_OVER_MAC CfgOfTxPwrCtrlOverMAC;
 	DBGPRINT(RT_DEBUG_INFO, ("-->AsicGetTxPowerOffset\n"));
@@ -263,7 +263,7 @@ VOID AsicAdjustTxPower(
 #ifdef SINGLE_SKU
 	CHAR TotalDeltaPowerOri = 0;
 	UCHAR SingleSKUBbpR1Offset = 0;
-	ULONG SingleSKUTotalDeltaPwr[MAX_TXPOWER_ARRAY_SIZE] = {0};
+	unsigned long SingleSKUTotalDeltaPwr[MAX_TXPOWER_ARRAY_SIZE] = {0};
 #endif /* SINGLE_SKU */
 
 	/* Get Tx rate offset table which from EEPROM 0xDEh ~ 0xEFh */
@@ -312,7 +312,7 @@ VOID AsicAdjustTxPower(
 		for (i = 0; i < CfgOfTxPwrCtrlOverMAC.NumOfEntries; i++)
 		{
 			TX_POWER_CONTROL_OVER_MAC_ENTRY *pTxPwrEntry;
-			ULONG reg_val;
+			unsigned long reg_val;
 
 			pTxPwrEntry = &CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i];
 			reg_val = pTxPwrEntry->RegisterValue;
@@ -698,7 +698,7 @@ VOID AsicCompensatePowerViaBBP(
 */
 VOID RTMPReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 {
-	ULONG data, Adata, Gdata;
+	unsigned long data, Adata, Gdata;
 	USHORT i, value, value2;
 	USHORT value_1, value_2, value_3, value_4;
 	INT Apwrdelta, Gpwrdelta;

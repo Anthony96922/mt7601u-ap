@@ -1399,8 +1399,8 @@ Note:
 VOID RT28xx_UpdateBeaconToAsic(
 	IN RTMP_ADAPTER		*pAd,
 	IN INT				apidx,
-	IN ULONG			FrameLen,
-	IN ULONG			UpdatePos)
+	IN unsigned long			FrameLen,
+	IN unsigned long			UpdatePos)
 {
 	unsigned char *        	pBeaconFrame = NULL;
 	UCHAR  			*ptr;
@@ -1705,7 +1705,7 @@ VOID BeaconUpdateExec(
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		{
 			BEACON_SYNC_STRUCT *pBeaconSync = pAd->CommonCfg.pBeaconSync;
-			ULONG UpTime;
+			unsigned long UpTime;
 
 			/* update channel utilization */
 			NdisGetSystemUpTime(&UpTime);

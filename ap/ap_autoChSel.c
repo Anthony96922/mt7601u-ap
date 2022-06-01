@@ -39,7 +39,7 @@ static inline INT GetABandChOffset(
 	return 0;
 }
 
-ULONG AutoChBssSearchWithSSID(
+unsigned long AutoChBssSearchWithSSID(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * Bssid,
 	IN unsigned char * pSsid,
@@ -52,7 +52,7 @@ ULONG AutoChBssSearchWithSSID(
 	if(pBssInfoTab == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("pAd->pBssInfoTab equal NULL.\n"));
-		return (ULONG)BSS_NOT_FOUND;
+		return (unsigned long)BSS_NOT_FOUND;
 	}
 
 	for (i = 0; i < pBssInfoTab->BssNr; i++) 
@@ -65,7 +65,7 @@ ULONG AutoChBssSearchWithSSID(
 			(NdisEqualMemory(pBssInfoTab->BssEntry[i].Ssid, ZeroSsid, pBssInfoTab->BssEntry[i].SsidLen))))
 			return i;
 	}
-	return (ULONG)BSS_NOT_FOUND;
+	return (unsigned long)BSS_NOT_FOUND;
 }
 
 static inline VOID AutoChBssEntrySet(
@@ -837,7 +837,7 @@ static inline UCHAR SelectClearChannelApCnt(
 	
 }
 
-ULONG AutoChBssInsertEntry(
+unsigned long AutoChBssInsertEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pBssid,
 	IN CHAR Ssid[],
@@ -846,7 +846,7 @@ ULONG AutoChBssInsertEntry(
 	IN UCHAR ExtChOffset,
 	IN CHAR Rssi)
 {
-	ULONG	Idx;
+	unsigned long	Idx;
 	PBSSINFO pBssInfoTab = pAd->pBssInfoTab;
 
 	if(pBssInfoTab == NULL)

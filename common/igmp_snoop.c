@@ -237,7 +237,7 @@ BOOLEAN MulticastFilterTableInsertEntry(
 	RTMP_SEM_LOCK(&pMulticastFilterTable->MulticastFilterTabLock);
 	do
 	{
-		ULONG Now;
+		unsigned long Now;
 		/* the multicast entry already exist but doesn't include the member yet. */
 		if (pEntry != NULL && pMemberAddr != NULL)
 		{
@@ -424,7 +424,7 @@ PMULTICAST_FILTER_TABLE_ENTRY MulticastFilterTableLookup(
 	IN unsigned char * pAddr,
 	IN PNET_DEV dev)
 {
-	ULONG HashIdx, Now;
+	unsigned long HashIdx, Now;
 	PMULTICAST_FILTER_TABLE_ENTRY pEntry = NULL, pPrev = NULL;
 	
 	if (pMulticastFilterTable == NULL)

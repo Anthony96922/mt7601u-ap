@@ -102,7 +102,7 @@ INT CFG80211DRV_IoctlHandle(
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
 	IN	VOID					*pData,
-	IN	ULONG					Data);
+	IN	unsigned long					Data);
 
 BOOLEAN CFG80211DRV_OpsSetChannel(
 	VOID						*pAdOrg,
@@ -150,12 +150,12 @@ VOID CFG80211DRV_PmkidConfig(
 VOID CFG80211_RegHint(
 	IN VOID						*pAdCB,
 	IN UCHAR					*pCountryIe,
-	IN ULONG					CountryIeLen);
+	IN unsigned long					CountryIeLen);
 
 VOID CFG80211_RegHint11D(
 	IN VOID						*pAdCB,
 	IN UCHAR					*pCountryIe,
-	IN ULONG					CountryIeLen);
+	IN unsigned long					CountryIeLen);
 
 VOID CFG80211_ScanEnd(
 	IN VOID						*pAdCB,

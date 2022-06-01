@@ -55,7 +55,7 @@
 
 static inline BOOLEAN WDS_IF_UP_CHECK(
 	IN  PRTMP_ADAPTER   pAd, 
-	IN  ULONG ifidx)
+	IN  unsigned long ifidx)
 {
 	if ((pAd->flg_wds_init != TRUE) ||
 		(ifidx >= MAX_WDS_ENTRY))
@@ -134,7 +134,7 @@ VOID WdsPeerBeaconProc(
 	IN UCHAR MaxSupportedRateIn500Kbps,
 	IN UCHAR MaxSupportedRateLen,
 	IN BOOLEAN bWmmCapable,
-	IN ULONG ClientRalinkIe,
+	IN unsigned long ClientRalinkIe,
 	IN HT_CAPABILITY_IE *pHtCapability,
 	IN UCHAR HtCapabilityLen);
 

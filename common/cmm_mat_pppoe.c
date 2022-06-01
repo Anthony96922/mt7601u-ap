@@ -121,7 +121,7 @@ typedef struct _UidMacMappingEntry
 	UCHAR uIDAddByUs;				 /* If the host-uniq or AC-cookie is add by our driver, set it as 1, else set as 0. */
 	UCHAR uIDStr[PPPOE_DIS_UID_LEN]; /* String used for identify who sent this pppoe packet in discovery stage. */
 	UCHAR macAddr[MAC_ADDR_LEN];	 /* Mac address associated to this uid string. */
-	ULONG lastTime;
+	unsigned long lastTime;
 	struct _UidMacMappingEntry *pNext;	/*Pointer to next entry in link-list of Uid hash table. */
 }UidMacMappingEntry, *PUidMacMappingEntry;
 
@@ -139,7 +139,7 @@ typedef struct _SesMacMappingEntry
 	unsigned short	sessionID;	/* In network order */
 	UCHAR	outMacAddr[MAC_ADDR_LEN];
 	UCHAR	inMacAddr[MAC_ADDR_LEN];
-	ULONG 	lastTime;
+	unsigned long 	lastTime;
 	struct	_SesMacMappingEntry *pNext;	
 }SesMacMappingEntry, *PSesMacMappingEntry;
 
@@ -339,7 +339,7 @@ static PUidMacMappingEntry UidMacTableUpdate(
 	UidMacMappingEntry	*pEntry = NULL, *pPrev = NULL, *pNewEntry =NULL;
 	UCHAR 				hashVal = 0;
 	unsigned char *				pUIDStr= NULL;
-	ULONG				now;
+	unsigned long				now;
 
 
 	pUidMacTable = (UidMacMappingTable *)pMatCfg->MatTableSet.UidMacTable;
@@ -551,7 +551,7 @@ static NDIS_STATUS SesMacTableUpdate(
 	unsigned short hashIdx;
 	SesMacMappingEntry *pEntry, *pPrev, *pNewEntry;
 	SesMacMappingTable *pSesMacTable;
-	ULONG	now;
+	unsigned long	now;
 
 	pSesMacTable = (SesMacMappingTable *)pMatCfg->MatTableSet.SesMacTable;
 	if ((!pSesMacTable) || (!pSesMacTable->valid))

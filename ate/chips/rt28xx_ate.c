@@ -381,7 +381,7 @@ INT RT28xxATETxPwrHandler(
 	IN char index)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	ULONG R;
+	unsigned long R;
 	CHAR TxPower = 0;
 	UCHAR Bbp94 = 0;
 	BOOLEAN bPowerReduce = FALSE;
@@ -427,7 +427,7 @@ INT RT28xxATETxPwrHandler(
 		else
 		{  
 			/* 0 ~ 31 */
-			R = (ULONG) TxPower;
+			R = (unsigned long) TxPower;
 			Bbp94 = BBPR94_DEFAULT;
 		}
 
@@ -445,13 +445,13 @@ INT RT28xxATETxPwrHandler(
 			/* R3, R4 can't less than 0 */
 			/* -1 ~ -7 */
 			ASSERT((TxPower >= -7));
-			R = (ULONG)(TxPower + 7);
+			R = (unsigned long)(TxPower + 7);
 			bPowerReduce = TRUE;
 		}
 		else
 		{  
 			/* 0 ~ 15 */
-			R = (ULONG) TxPower;
+			R = (unsigned long) TxPower;
 		}
 
 		DBGPRINT(RT_DEBUG_TRACE, ("%s : (TxPower=%d, R=%lu)\n", __FUNCTION__, TxPower, R));
@@ -735,7 +735,7 @@ INT	RT28xx_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	ULONG R4 = 0;
+	unsigned long R4 = 0;
 	UCHAR RFFreqOffset = 0;
 
 	RFFreqOffset = simple_strtol(arg, 0, 10);

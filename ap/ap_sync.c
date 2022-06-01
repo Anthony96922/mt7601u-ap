@@ -90,7 +90,7 @@ VOID APPeerProbeReqAction(
 	HEADER_802_11 ProbeRspHdr;
 	NDIS_STATUS NStatus;
 	unsigned char * pOutBuffer = NULL;
-	ULONG FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
+	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
 	LARGE_INTEGER FakeTimestamp;
 	UCHAR DsLen = 1, ErpIeLen = 1, apidx = 0, PhyMode, SupRateLen, RSNIe = IE_WPA, RSNIe2 = IE_WPA2;
 	BOOLEAN	bRequestRssi = FALSE;
@@ -127,7 +127,7 @@ VOID APPeerProbeReqAction(
 		/* buffalo WPS testbed STA send ProbrRequest ssid length = 32 and ssid are not AP , but DA are AP. for WPS test send ProbeResponse */
 			((SsidLen == 32) && MAC_ADDR_EQUAL(Addr3, pAd->ApCfg.MBSSID[apidx].Bssid) && (pAd->ApCfg.MBSSID[apidx].bHideSsid == 0)) ||
 #endif /* WSC_AP_SUPPORT */
-			((SsidLen == pAd->ApCfg.MBSSID[apidx].SsidLen) && NdisEqualMemory(Ssid, pAd->ApCfg.MBSSID[apidx].Ssid, (ULONG) SsidLen)))
+			((SsidLen == pAd->ApCfg.MBSSID[apidx].SsidLen) && NdisEqualMemory(Ssid, pAd->ApCfg.MBSSID[apidx].Ssid, (unsigned long) SsidLen)))
 			;
 		else
 			continue; /* check next BSS */
@@ -584,7 +584,7 @@ VOID APPeerProbeReqAction(
 
 		/* add Simple Config Information Element */
 		if ((pAd->ApCfg.MBSSID[apidx].WscControl.WscConfMode > WSC_DISABLE) && (pAd->ApCfg.MBSSID[apidx].WscIEProbeResp.ValueLen)) {
-			ULONG WscTmpLen = 0;
+			unsigned long WscTmpLen = 0;
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &WscTmpLen,
 						pAd->ApCfg.MBSSID[apidx].WscIEProbeResp.ValueLen, pAd->ApCfg.MBSSID[apidx].WscIEProbeResp.Value,
 						END_OF_ARGS);
@@ -616,7 +616,7 @@ VOID APPeerProbeReqAction(
 
 
 typedef struct {
-	ULONG count;
+	unsigned long count;
 	UCHAR bssid[MAC_ADDR_LEN];
 } BSSIDENTRY;
 
@@ -1007,7 +1007,7 @@ VOID APPeerBeaconAtScanAction(
 	if (PeerBeaconAndProbeRspSanity(pAd,
 					Elem->Msg, Elem->MsgLen, Elem->Channel,
 					ie_list, &LenVIE, pVIE)) {
-		ULONG Idx;
+		unsigned long Idx;
 		CHAR  Rssi = -127;
 
 		RealRssi = RTMPMaxRssi(pAd, ConvertToRssi(pAd, Elem->Rssi0, RSSI_0, Elem->AntSel, BW_20),
@@ -1178,10 +1178,10 @@ VOID SupportRate(
 	}
 
 	if (ExtRateLen + *RatesLen <= MAX_LEN_OF_SUPPORTED_RATES) {
-		NdisMoveMemory((*ppRates + (ULONG)*RatesLen), ExtRate, ExtRateLen);
+		NdisMoveMemory((*ppRates + (unsigned long)*RatesLen), ExtRate, ExtRateLen);
 		*RatesLen = (*RatesLen) + ExtRateLen;
 	} else {
-		NdisMoveMemory((*ppRates + (ULONG)*RatesLen), ExtRate, MAX_LEN_OF_SUPPORTED_RATES - (*RatesLen));
+		NdisMoveMemory((*ppRates + (unsigned long)*RatesLen), ExtRate, MAX_LEN_OF_SUPPORTED_RATES - (*RatesLen));
 		*RatesLen = MAX_LEN_OF_SUPPORTED_RATES;
 	}
 

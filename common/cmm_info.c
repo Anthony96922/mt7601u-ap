@@ -600,7 +600,7 @@ INT	Set_INF_AMAZON_SE_PPA_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *			arg)
 {
-	ULONG aggre;
+	unsigned long aggre;
 	UINT status;
 
 	aggre = simple_strtol(arg, 0, 10);
@@ -1344,7 +1344,7 @@ NDIS_STATUS RTMPWPARemoveKeyProc(
 	IN	void *			pBuf)
 {
 	PNDIS_802_11_REMOVE_KEY pKey;
-	ULONG					KeyIdx;
+	unsigned long					KeyIdx;
 	NDIS_STATUS 			Status = NDIS_STATUS_FAILURE;
 	BOOLEAN 	bTxKey; 		/* Set the key as transmit key*/
 	BOOLEAN 	bPairwise;		/* Indicate the key is pairwise key*/
@@ -1442,7 +1442,7 @@ NDIS_STATUS RTMPWPARemoveKeyProc(
 */
 VOID RTMPSetPhyMode(
 	IN RTMP_ADAPTER *pAd,
-	IN ULONG phymode)
+	IN unsigned long phymode)
 {
 	INT i;
 	/* the selected phymode must be supported by the RF IC encoded in E2PROM*/
@@ -2421,7 +2421,7 @@ INT	Set_BADecline_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG bBADecline;
+	unsigned long bBADecline;
 
 	bBADecline = simple_strtol(arg, 0, 10);
 
@@ -2555,7 +2555,7 @@ INT	Set_HtBw_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG HtBw;
+	unsigned long HtBw;
 
 	HtBw = simple_strtol(arg, 0, 10);
 
@@ -2578,7 +2578,7 @@ INT	Set_HtMcs_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG HtMcs, Mcs_tmp, ValidMcs = 15;
+	unsigned long HtMcs, Mcs_tmp, ValidMcs = 15;
 #ifdef CONFIG_AP_SUPPORT    
     POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 #endif /* CONFIG_AP_SUPPORT */	
@@ -2613,7 +2613,7 @@ INT	Set_HtGi_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG HtGi;
+	unsigned long HtGi;
 
 	HtGi = simple_strtol(arg, 0, 10);
 		
@@ -2654,7 +2654,7 @@ INT	Set_HtDisallowTKIP_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 
 	Value = simple_strtol(arg, 0, 10);
 		
@@ -2678,7 +2678,7 @@ INT	Set_HtOpMode_Proc(
 	IN	char *			arg)
 {
 
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 
@@ -2702,7 +2702,7 @@ INT	Set_HtStbc_Proc(
 	IN	char *			arg)
 {
 
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	
@@ -2725,7 +2725,7 @@ INT	Set_HtHtc_Proc(
 	IN	char *			arg)
 {
 
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -2745,7 +2745,7 @@ INT	Set_HtExtcha_Proc(
 	IN	char *			arg)
 {
 
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	
@@ -2767,7 +2767,7 @@ INT	Set_HtMpduDensity_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	
@@ -2787,7 +2787,7 @@ INT	Set_HtBaWinSize_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 
@@ -2819,7 +2819,7 @@ INT	Set_HtRdg_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	
@@ -2844,7 +2844,7 @@ INT	Set_HtLinkAdapt_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -2866,7 +2866,7 @@ INT	Set_HtAmsdu_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -2887,7 +2887,7 @@ INT	Set_HtAutoBa_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -2917,7 +2917,7 @@ INT	Set_HtProtect_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -2990,7 +2990,7 @@ INT	Set_HtMIMOPSmode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	
@@ -3019,7 +3019,7 @@ INT	Set_HtTxStream_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG 	Value;	
+	unsigned long 	Value;	
 		
 	Value = simple_strtol(arg, 0, 10);
 
@@ -3056,7 +3056,7 @@ INT	Set_HtRxStream_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG 	Value;	
+	unsigned long 	Value;	
 		
 	Value = simple_strtol(arg, 0, 10);
 
@@ -3087,7 +3087,7 @@ INT	Set_GreenAP_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -3112,7 +3112,7 @@ INT	Set_ForceShortGI_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -3135,7 +3135,7 @@ INT	Set_ForceGF_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -3156,7 +3156,7 @@ INT	Set_HtMimoPs_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 
 	Value = simple_strtol(arg, 0, 10);
 	if (Value == 0)
@@ -3207,7 +3207,7 @@ INT	Set_VhtBw_Proc(
 	IN RTMP_ADAPTER *pAd, 
 	IN char * arg)
 {
-	ULONG vht_cw;
+	unsigned long vht_cw;
 	UCHAR cent_ch;
 	vht_cw = simple_strtol(arg, 0, 10);
 
@@ -3250,7 +3250,7 @@ INT	Set_VhtStbc_Proc(
 	IN RTMP_ADAPTER *pAd, 
 	IN char * arg)
 {
-	ULONG Value;
+	unsigned long Value;
 	
 	Value = simple_strtol(arg, 0, 10);
 	
@@ -3295,7 +3295,7 @@ INT	Set_OpMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 
 	Value = simple_strtol(arg, 0, 10);
 
@@ -3334,7 +3334,7 @@ INT	Set_OpMode_Proc(
 typedef
 struct {
 	UCHAR type;					/* type of data*/
-	ULONG timestamp;			/* sec/usec timestamp from gettimeofday*/
+	unsigned long timestamp;			/* sec/usec timestamp from gettimeofday*/
 	UCHAR data[DBQ_DATA_LENGTH];	/* data*/
 } DBQUEUE_ENTRY;
 
@@ -3353,9 +3353,9 @@ struct {
 #define DBQ_ENA_SIG		0x4442454E	/* 'DBEN' - dbqEnable enabled flag*/
 
 static DBQUEUE_ENTRY dbQueue[DBQ_LENGTH];
-static ULONG dbqTail=0;
-static ULONG dbqEnable=0;
-static ULONG dbqInit=0;
+static unsigned long dbqTail=0;
+static unsigned long dbqEnable=0;
+static unsigned long dbqInit=0;
 
 /* dbQueueInit - initialize Debug Queue variables and clear the queue*/
 void dbQueueInit(void)
@@ -3411,7 +3411,7 @@ void dbQueueEnqueueTxFrame(UCHAR *pTxWI, UCHAR *pHeader_802_11)
 	}
 }
 
-void dbQueueEnqueueRxFrame(UCHAR *pRxWI, UCHAR *pHeader_802_11, ULONG flags)
+void dbQueueEnqueueRxFrame(UCHAR *pRxWI, UCHAR *pHeader_802_11, unsigned long flags)
 {
 	/* Ignore Beacons if disabled */
 	if ((flags & DBF_DBQ_NO_BCN) && (pHeader_802_11[0] & 0xfc)==0x80)
@@ -3459,7 +3459,7 @@ static void dbQueueDump(
 {
 	DBQUEUE_ENTRY *oldTail;
 	int i, origMCS, succMCS;
-	ULONG lastTimestamp=0;
+	unsigned long lastTimestamp=0;
 	BOOLEAN showTimestamp;
 	USHORT phyRate;
 
@@ -3606,8 +3606,8 @@ static void dbQueueDump(
 
 		if (showTimestamp)
 		{
-			ULONG t = oldTail->timestamp;
-			ULONG dt = oldTail->timestamp-lastTimestamp;
+			unsigned long t = oldTail->timestamp;
+			unsigned long dt = oldTail->timestamp-lastTimestamp;
 
 			DBGPRINT(RT_DEBUG_OFF, ("%lu.%06lu ", t/1000000L, t % 1000000L) );
 
@@ -3629,7 +3629,7 @@ INT Set_DebugQueue_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg)
 {
-    ULONG argValue = simple_strtol(arg, 0, 10);
+    unsigned long argValue = simple_strtol(arg, 0, 10);
 
 	switch (argValue) {
 	case 0:
@@ -3893,7 +3893,7 @@ char * RTMPGetRalinkEncryModeStr(
 INT	Show_SSID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	UCHAR	ssid_str[33];
 
@@ -3917,7 +3917,7 @@ INT	Show_SSID_Proc(
 INT	Show_WirelessMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	switch(pAd->CommonCfg.PhyMode)
 	{
@@ -3971,7 +3971,7 @@ INT	Show_WirelessMode_Proc(
 INT	Show_TxBurst_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%s", pAd->CommonCfg.bEnableTxBurst ? "TRUE":"FALSE");
 	return 0;
@@ -3980,7 +3980,7 @@ INT	Show_TxBurst_Proc(
 INT	Show_TxPreamble_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	switch(pAd->CommonCfg.TxPreamble)
 	{
@@ -4004,7 +4004,7 @@ INT	Show_TxPreamble_Proc(
 INT	Show_TxPower_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%lu", pAd->CommonCfg.TxPowerPercentage);
 	return 0;
@@ -4013,7 +4013,7 @@ INT	Show_TxPower_Proc(
 INT	Show_Channel_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%d", pAd->CommonCfg.Channel);
 	return 0;
@@ -4022,7 +4022,7 @@ INT	Show_Channel_Proc(
 INT	Show_BGProtection_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	switch(pAd->CommonCfg.UseBGProtection)
 	{
@@ -4045,7 +4045,7 @@ INT	Show_BGProtection_Proc(
 INT	Show_RTSThreshold_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%u", pAd->CommonCfg.RtsThreshold);
 	return 0;
@@ -4054,7 +4054,7 @@ INT	Show_RTSThreshold_Proc(
 INT	Show_FragThreshold_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%u", pAd->CommonCfg.FragmentThreshold);
 	return 0;
@@ -4064,7 +4064,7 @@ INT	Show_FragThreshold_Proc(
 INT	Show_HtBw_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	if (pAd->CommonCfg.RegTransmitSetting.field.BW == BW_40)
 	{
@@ -4080,7 +4080,7 @@ INT	Show_HtBw_Proc(
 INT	Show_HtMcs_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 #ifdef CONFIG_AP_SUPPORT    
     POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -4095,7 +4095,7 @@ INT	Show_HtMcs_Proc(
 INT	Show_HtGi_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	switch(pAd->CommonCfg.RegTransmitSetting.field.ShortGI)
 	{
@@ -4115,7 +4115,7 @@ INT	Show_HtGi_Proc(
 INT	Show_HtOpMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	switch(pAd->CommonCfg.RegTransmitSetting.field.HTMODE)
 	{
@@ -4135,7 +4135,7 @@ INT	Show_HtOpMode_Proc(
 INT	Show_HtExtcha_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	switch(pAd->CommonCfg.RegTransmitSetting.field.EXTCHA)
 	{
@@ -4156,7 +4156,7 @@ INT	Show_HtExtcha_Proc(
 INT	Show_HtMpduDensity_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%u", pAd->CommonCfg.BACapability.field.MpduDensity);
 	return 0;
@@ -4165,7 +4165,7 @@ INT	Show_HtMpduDensity_Proc(
 INT	Show_HtBaWinSize_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%u", pAd->CommonCfg.BACapability.field.RxBAWinLimit);
 	return 0;
@@ -4174,7 +4174,7 @@ INT	Show_HtBaWinSize_Proc(
 INT	Show_HtRdg_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%s", pAd->CommonCfg.bRdg ? "TRUE":"FALSE");
 	return 0;
@@ -4183,7 +4183,7 @@ INT	Show_HtRdg_Proc(
 INT	Show_HtAmsdu_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%s", pAd->CommonCfg.BACapability.field.AmsduEnable ? "TRUE":"FALSE");
 	return 0;
@@ -4192,7 +4192,7 @@ INT	Show_HtAmsdu_Proc(
 INT	Show_HtAutoBa_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%s", pAd->CommonCfg.BACapability.field.AutoBA ? "TRUE":"FALSE");
 	return 0;
@@ -4202,7 +4202,7 @@ INT	Show_HtAutoBa_Proc(
 INT	Show_CountryRegion_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%d", pAd->CommonCfg.CountryRegion);
 	return 0;
@@ -4211,7 +4211,7 @@ INT	Show_CountryRegion_Proc(
 INT	Show_CountryRegionABand_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%d", pAd->CommonCfg.CountryRegionForABand);
 	return 0;
@@ -4220,7 +4220,7 @@ INT	Show_CountryRegionABand_Proc(
 INT	Show_CountryCode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%s", pAd->CommonCfg.CountryCode);
 	return 0;
@@ -4230,7 +4230,7 @@ INT	Show_CountryCode_Proc(
 INT	Show_PktAggregate_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%s", pAd->CommonCfg.bAggregationCapable ? "TRUE":"FALSE");
 	return 0;
@@ -4241,7 +4241,7 @@ INT	Show_PktAggregate_Proc(
 INT	Show_WmmCapable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 #ifdef CONFIG_AP_SUPPORT    
     POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -4258,7 +4258,7 @@ INT	Show_WmmCapable_Proc(
 INT	Show_IEEE80211H_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\t%s", pAd->CommonCfg.bIEEE80211H ? "TRUE":"FALSE");
 	return 0;
@@ -4268,7 +4268,7 @@ INT	Show_IEEE80211H_Proc(
 INT	Show_AuthMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	NDIS_802_11_AUTHENTICATION_MODE	AuthMode = Ndis802_11AuthModeOpen; 
 #ifdef CONFIG_AP_SUPPORT    
@@ -4297,7 +4297,7 @@ INT	Show_AuthMode_Proc(
 INT	Show_EncrypType_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	NDIS_802_11_WEP_STATUS	WepStatus = Ndis802_11WEPDisabled;
 #ifdef CONFIG_AP_SUPPORT    
@@ -4323,7 +4323,7 @@ INT	Show_EncrypType_Proc(
 INT	Show_DefaultKeyID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	UCHAR DefaultKeyId = 0;
 #ifdef CONFIG_AP_SUPPORT    
@@ -4343,7 +4343,7 @@ INT	Show_WepKey_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  INT				KeyIdx,
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	UCHAR   Key[16] = {0}, KeyLength = 0;
 	INT		index = BSS0;
@@ -4373,7 +4373,7 @@ INT	Show_WepKey_Proc(
 INT	Show_Key1_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	Show_WepKey_Proc(pAd, 0, pBuf, BufLen);
 	return 0;
@@ -4382,7 +4382,7 @@ INT	Show_Key1_Proc(
 INT	Show_Key2_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	Show_WepKey_Proc(pAd, 1, pBuf, BufLen);
 	return 0;
@@ -4391,7 +4391,7 @@ INT	Show_Key2_Proc(
 INT	Show_Key3_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	Show_WepKey_Proc(pAd, 2, pBuf, BufLen);
 	return 0;
@@ -4400,7 +4400,7 @@ INT	Show_Key3_Proc(
 INT	Show_Key4_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	Show_WepKey_Proc(pAd, 3, pBuf, BufLen);
 	return 0;
@@ -4409,7 +4409,7 @@ INT	Show_Key4_Proc(
 INT	Show_PMK_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	INT 	idx;
 	UCHAR	PMK[32] = {0};
@@ -4433,7 +4433,7 @@ INT	Show_PMK_Proc(
 INT	Show_STA_RAInfo_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 #ifdef DBG
 	sprintf(pBuf, "\n");
@@ -4479,7 +4479,7 @@ INT	Show_MacTable_Proc(
 #ifdef DBG
 	INT i;
     	unsigned int RegValue;
-	ULONG DataRate = 0;
+	unsigned long DataRate = 0;
 
 	printk("\n");
 	RTMP_IO_READ32(pAd, BKOFF_SLOT_CFG, &RegValue);
@@ -4613,7 +4613,7 @@ INT show_devinfo_proc(RTMP_ADAPTER *pAd, char * arg)
 INT	Show_WpsManufacturer_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char *			pBuf,
-	IN ULONG			BufLen)
+	IN unsigned long			BufLen)
 {
 	sprintf(pBuf, "\tManufacturer = %s", pAd->StaCfg.WscControl.RegData.SelfInfo.Manufacturer);	
 	return 0;
@@ -4622,7 +4622,7 @@ INT	Show_WpsManufacturer_Proc(
 INT	Show_WpsModelName_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char *			pBuf,
-	IN ULONG			BufLen)
+	IN unsigned long			BufLen)
 {
 	sprintf(pBuf, "\tModelName = %s", pAd->StaCfg.WscControl.RegData.SelfInfo.ModelName);
 	return 0;
@@ -4631,7 +4631,7 @@ INT	Show_WpsModelName_Proc(
 INT	Show_WpsDeviceName_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char *			pBuf,
-	IN ULONG			BufLen)
+	IN unsigned long			BufLen)
 {
 	sprintf(pBuf, "\tDeviceName = %s", pAd->StaCfg.WscControl.RegData.SelfInfo.DeviceName);
 	return 0;
@@ -4640,7 +4640,7 @@ INT	Show_WpsDeviceName_Proc(
 INT	Show_WpsModelNumber_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char *			pBuf,
-	IN ULONG			BufLen)
+	IN unsigned long			BufLen)
 {
 	sprintf(pBuf, "\tModelNumber = %s", pAd->StaCfg.WscControl.RegData.SelfInfo.ModelNumber);
 	return 0;
@@ -4649,7 +4649,7 @@ INT	Show_WpsModelNumber_Proc(
 INT	Show_WpsSerialNumber_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char *			pBuf,
-	IN ULONG			BufLen)
+	IN unsigned long			BufLen)
 {
 	sprintf(pBuf, "\tSerialNumber = %s", pAd->StaCfg.WscControl.RegData.SelfInfo.SerialNumber);
 	return 0;
@@ -4658,7 +4658,7 @@ INT	Show_WpsSerialNumber_Proc(
 INT	Show_WpsUuid_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char *			pBuf,
-	IN ULONG			BufLen)
+	IN unsigned long			BufLen)
 {
 	UCHAR *bin = pAd->StaCfg.WscControl.RegData.SelfInfo.Uuid;
 
@@ -4678,7 +4678,7 @@ INT	Show_WpsUuid_Proc(
 INT	Show_ModuleTxpower_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	OUT	char *			pBuf,
-	IN	ULONG			BufLen)
+	IN	unsigned long			BufLen)
 {
 	snprintf(pBuf, BufLen, "\tModuleTxpower = %d", pAd->CommonCfg.ModuleTxpower);
 	return 0;
@@ -4741,7 +4741,7 @@ INT	Show_ModuleTxpower_Proc(
 }
 #endif/*APCLI_SUPPORT*/
 
-void  getRate(HTTRANSMIT_SETTING HTSetting, ULONG* fLastTxRxRate)
+void  getRate(HTTRANSMIT_SETTING HTSetting, unsigned long* fLastTxRxRate)
 
 {
 	 INT MCSMappingRateTable[] =
@@ -4780,7 +4780,7 @@ void  getRate(HTTRANSMIT_SETTING HTSetting, ULONG* fLastTxRxRate)
         rate_index = rate_count-1;
 
     value = (MCSMappingRateTable[rate_index] * 5)/10;
-	*fLastTxRxRate=(ULONG)value;
+	*fLastTxRxRate=(unsigned long)value;
 	return;
 }
 
@@ -5137,7 +5137,7 @@ INT Set_ITxBfTimeout_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg)
 {
-	ULONG t = simple_strtol(arg, 0, 10);
+	unsigned long t = simple_strtol(arg, 0, 10);
 
 	if (t > 65535) {
 		DBGPRINT(RT_DEBUG_ERROR, ("Set_ITxBfTimeout_Proc: value > 65535!\n"));
@@ -5164,7 +5164,7 @@ INT Set_ETxBfTimeout_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg)
 {
-	ULONG t = simple_strtol(arg, 0, 10);
+	unsigned long t = simple_strtol(arg, 0, 10);
 
 	if (t > 65535) {
 		DBGPRINT(RT_DEBUG_ERROR, ("Set_ETxBfTimeout_Proc: value > 65535!\n"));
@@ -5187,7 +5187,7 @@ INT Set_ETxBfCodebook_Proc(
     IN  char *         arg)
 {
 	TX_TXBF_CFG_0_STRUC regValue;
-	ULONG t = simple_strtol(arg, 0, 10);
+	unsigned long t = simple_strtol(arg, 0, 10);
 
 	if (t > 3) {
 		DBGPRINT(RT_DEBUG_ERROR, ("Set_ETxBfCodebook_Proc: value > 3!\n"));
@@ -5210,7 +5210,7 @@ INT Set_ETxBfCoefficient_Proc(
     IN  char *         arg)
 {
 	TX_TXBF_CFG_0_STRUC regValue;
-	ULONG t = simple_strtol(arg, 0, 10);
+	unsigned long t = simple_strtol(arg, 0, 10);
 
 	if (t > 3) {
 		DBGPRINT(RT_DEBUG_ERROR, ("Set_ETxBfCoefficient_Proc: value > 3!\n"));
@@ -5233,7 +5233,7 @@ INT Set_ETxBfGrouping_Proc(
     IN  char *         arg)
 {
 	TX_TXBF_CFG_0_STRUC regValue;
-	ULONG t = simple_strtol(arg, 0, 10);
+	unsigned long t = simple_strtol(arg, 0, 10);
 
 	if (t > 2) {
 		DBGPRINT(RT_DEBUG_ERROR, ("Set_ETxBfGrouping_Proc: value > 2!\n"));
@@ -5255,7 +5255,7 @@ INT Set_ETxBfNoncompress_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg)
 {
-	ULONG t = simple_strtol(arg, 0, 10);
+	unsigned long t = simple_strtol(arg, 0, 10);
 
 	if (t > 1) {
 		DBGPRINT(RT_DEBUG_ERROR, ("Set_ETxBfNoncompress_Proc: value > 1!\n"));
@@ -5275,7 +5275,7 @@ INT Set_ETxBfIncapable_Proc(
     IN  PRTMP_ADAPTER   pAd,
     IN  char *         arg)
 {
-	ULONG t = simple_strtol(arg, 0, 10);
+	unsigned long t = simple_strtol(arg, 0, 10);
 
 	if (t > 1)
 		return FALSE;
@@ -5754,7 +5754,7 @@ INT	Set_BurstMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG Value;
+	unsigned long Value;
 
 	Value = simple_strtol(arg, 0, 10);
 
@@ -5845,7 +5845,7 @@ INT Set_RateAdaptInterval(
 	unsigned int ra_time, ra_qtime;
 	char * token;
 	char sep = ':';
-	ULONG irqFlags;
+	unsigned long irqFlags;
 
 /*
 	The ra_interval inupt string format should be d:d, in units of ms. 
@@ -5979,7 +5979,7 @@ INT set_data_basize(RTMP_ADAPTER *pAd, char * arg)
 
 INT set_fpga_mode(RTMP_ADAPTER *pAd, char * arg)
 {
-	ULONG fpga_on;
+	unsigned long fpga_on;
 	
 	fpga_on = simple_strtol(arg, 0, 10);
 
@@ -6061,7 +6061,7 @@ INT set_rf(RTMP_ADAPTER *pAd, char * arg)
 
 static struct {
 	char * name;
-	INT (*show_proc)(PRTMP_ADAPTER pAdapter, char * arg, ULONG BufLen);
+	INT (*show_proc)(PRTMP_ADAPTER pAdapter, char * arg, unsigned long BufLen);
 } *PRTMP_PRIVATE_STA_SHOW_CFG_VALUE_PROC, RTMP_PRIVATE_STA_SHOW_CFG_VALUE_PROC[] = {
 #ifdef DBG
 	{"SSID",					Show_SSID_Proc}, 

@@ -556,7 +556,7 @@ VOID RTMPToWirelessSta(
 BOOLEAN PeerWpaMessageSanity(
     IN 	PRTMP_ADAPTER 		pAd, 
     IN 	PEAPOL_PACKET 		pMsg, 
-    IN 	ULONG 				MsgLen, 
+    IN 	unsigned long 				MsgLen, 
     IN 	UCHAR				MsgType,
     IN 	MAC_TABLE_ENTRY  	*pEntry)
 {
@@ -765,7 +765,7 @@ LabelErr:
 VOID WPAStart4WayHS(
     IN PRTMP_ADAPTER    pAd, 
     IN MAC_TABLE_ENTRY  *pEntry,
-    IN ULONG			TimeInterval) 
+    IN unsigned long			TimeInterval) 
 {
     UCHAR           Header802_3[14];
 	UCHAR   		*mpool;
@@ -1773,7 +1773,7 @@ VOID MlmeDeAuthAction(
 	IN BOOLEAN          bDataFrameFirst)
 {
     unsigned char *          pOutBuffer = NULL;
-    ULONG           FrameLen = 0;
+    unsigned long           FrameLen = 0;
     HEADER_802_11   DeAuthHdr;
     NDIS_STATUS     NStatus;
 
@@ -2399,7 +2399,7 @@ VOID	GenRandom(
 	INT		i, curr;
 	UCHAR	local[80], KeyCounter[32];
 	UCHAR	result[80];
-	ULONG	CurrentTime;
+	unsigned long	CurrentTime;
 	UCHAR	prefix[] = {'I', 'n', 'i', 't', ' ', 'C', 'o', 'u', 'n', 't', 'e', 'r'};
 
 	/* Zero the related information*/
@@ -2991,10 +2991,10 @@ BOOLEAN RTMPCheckWPAframe(
     IN PRTMP_ADAPTER    pAd,
     IN PMAC_TABLE_ENTRY	pEntry,
     IN unsigned char *           pData,
-    IN ULONG            DataByteCount,
+    IN unsigned long            DataByteCount,
 	IN UCHAR			FromWhichBSSID)
 {
-	ULONG	Body_len;
+	unsigned long	Body_len;
 	BOOLEAN Cancelled;
 
 	do
@@ -3068,10 +3068,10 @@ BOOLEAN RTMPCheckWPAframe_Hdr_Trns(
     IN PRTMP_ADAPTER    pAd,
     IN PMAC_TABLE_ENTRY	pEntry,
     IN unsigned char *           pData,
-    IN ULONG            DataByteCount,
+    IN unsigned long            DataByteCount,
 	IN UCHAR			FromWhichBSSID)
 {
-	ULONG	Body_len;
+	unsigned long	Body_len;
 	BOOLEAN Cancelled;
 
 	do
@@ -3663,7 +3663,7 @@ VOID	ConstructEapolKeyData(
 	OUT PEAPOL_PACKET   pMsg)
 {
 	UCHAR		*mpool, *Key_Data, *eGTK;  	  
-	ULONG		data_offset;
+	unsigned long		data_offset;
 	BOOLEAN		bWPA2Capable = FALSE;
 	BOOLEAN		GTK_Included = FALSE;
 
@@ -3834,7 +3834,7 @@ VOID	CalculateMIC(
 	OUT PEAPOL_PACKET   pMsg)
 {
     UCHAR   *OutBuffer;
-	ULONG	FrameLen = 0;
+	unsigned long	FrameLen = 0;
 	UCHAR	mic[LEN_KEY_DESC_MIC];
 	UCHAR	digest[80];
 
@@ -4441,7 +4441,7 @@ VOID RTMPInsertRSNIE(
 	IN unsigned char  pmkid_len)
 {
 	unsigned char *	pTmpBuf;
-	ULONG 	TempLen = 0;
+	unsigned long 	TempLen = 0;
 	unsigned char 	extra_len = 0;
 	unsigned short 	pmk_count = 0;
 	UCHAR	ie_num;

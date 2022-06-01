@@ -206,13 +206,13 @@ typedef VOID * 			RTMP_OS_FD;
 /***********************************************************************************
  *	OS task related data structure and definitions
  ***********************************************************************************/
-#define RTMP_OS_PID				ULONG /* value or pointer */
+#define RTMP_OS_PID				unsigned long /* value or pointer */
 
 #define RTMP_GET_OS_PID(_a, _b)			RtmpOsGetPid(&_a, _b);
 #define CHECK_TASK_LEGALITY(_task)		RtmpOsCheckTaskLegality(_task)
 #define ATE_KILL_THREAD_PID			RtmpThreadPidKill
 
-typedef INT (*RTMP_OS_TASK_CALLBACK)(ULONG);
+typedef INT (*RTMP_OS_TASK_CALLBACK)(unsigned long);
 
 
 /***********************************************************************************
@@ -246,7 +246,7 @@ typedef INT (*RTMP_OS_TASK_CALLBACK)(ULONG);
  **********************************************************************************/
 #define OS_HZ					RtmpOsTickUnitGet()
 
-typedef void (*TIMER_FUNCTION)(ULONG);
+typedef void (*TIMER_FUNCTION)(unsigned long);
 
 #define OS_WAIT					RtmpOsWait
 
@@ -346,13 +346,13 @@ typedef struct os_cookie	* POS_COOKIE;
 	addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]
 
 #ifdef DBG
-extern ULONG		RTDebugLevel;
-extern ULONG		RTDebugFunc;
+extern unsigned long		RTDebugLevel;
+extern unsigned long		RTDebugFunc;
 
 #define DBGPRINT_RAW(Level, Fmt)	\
 do {					\
-	ULONG __gLevel = (Level) & 0xff;\
-	ULONG __fLevel = ((Level)>>8) & 0xffffff;\
+	unsigned long __gLevel = (Level) & 0xff;\
+	unsigned long __fLevel = ((Level)>>8) & 0xffffff;\
 	if (__gLevel <= RTDebugLevel)	\
 	{                               \
 		if ((RTDebugFunc == 0) || \
@@ -407,7 +407,7 @@ void hex_dump(char *str, unsigned char *pSrcBufVA, unsigned int SrcBufLen);
  * Device DMA Access related definitions and data structures.
  **********************************************************************************/
 /*#ifdef RTMP_MAC_PCI*/
-#define size_t						ULONG
+#define size_t						unsigned long
 
 ra_dma_addr_t linux_pci_map_single(void *handle, void *ptr, size_t size, int sd_idx, int direction);
 void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, int direction);
@@ -432,20 +432,20 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 	_Pkt = RtmpOSNetPktAlloc(_pAd, _length);
 
 /*#ifdef RTMP_MAC_USB */
-/*#define PCI_MAP_SINGLE(_handle, _ptr, _size, _dir)				(ULONG)0 */
+/*#define PCI_MAP_SINGLE(_handle, _ptr, _size, _dir)				(unsigned long)0 */
 /*#define PCI_UNMAP_SINGLE(_handle, _ptr, _size, _dir) */
 /*#endif RTMP_MAC_USB */
 
 
 /*
- * ULONG
+ * unsigned long
  * RTMP_GetPhysicalAddressLow(
  *   IN NDIS_PHYSICAL_ADDRESS  PhysicalAddress);
  */
 #define RTMP_GetPhysicalAddressLow(phy_addr)		(phy_addr)
 
 /*
- * ULONG
+ * unsigned long
  * RTMP_GetPhysicalAddressHigh(
  *   IN NDIS_PHYSICAL_ADDRESS  PhysicalAddress);
  */
@@ -455,7 +455,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
  * VOID
  * RTMP_SetPhysicalAddressLow(
  *   IN NDIS_PHYSICAL_ADDRESS  PhysicalAddress,
- *   IN ULONG  Value);
+ *   IN unsigned long  Value);
  */
 #define RTMP_SetPhysicalAddressLow(phy_addr, Value)	\
 			phy_addr = Value;
@@ -464,7 +464,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
  * VOID
  * RTMP_SetPhysicalAddressHigh(
  *   IN NDIS_PHYSICAL_ADDRESS  PhysicalAddress,
- *   IN ULONG  Value);
+ *   IN unsigned long  Value);
  */
 #define RTMP_SetPhysicalAddressHigh(phy_addr, Value)
 
@@ -563,13 +563,13 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
  * 	- convert internal rt packet to os packet or
  *             os packet to rt packet
  */
-extern ULONG RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
+extern unsigned long RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 
 #define RTPKT_TO_OSPKT(_p)		(_p)
 #define OSPKT_TO_RTPKT(_p)		(_p)
 
 #define GET_OS_PKT_DATAPTR(_pkt) \
-		((UCHAR *)(*(ULONG *)((UCHAR *)_pkt + RTPktOffsetData)))
+		((UCHAR *)(*(unsigned long *)((UCHAR *)_pkt + RTPktOffsetData)))
 
 #define SET_OS_PKT_DATAPTR		\
 		RtmpOsPktDataPtrAssign
@@ -611,8 +611,8 @@ extern ULONG RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 extern unsigned int RtmpOsGetUnaligned32(
 	IN unsigned int				*pWord);
 
-extern ULONG RtmpOsGetUnalignedlong(
-	IN ULONG				*pWord);
+extern unsigned long RtmpOsGetUnalignedlong(
+	IN unsigned long				*pWord);
 
 #define get_unaligned		RtmpOsGetUnaligned
 #define get_unaligned32		RtmpOsGetUnaligned32

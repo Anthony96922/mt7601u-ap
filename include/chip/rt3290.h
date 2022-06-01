@@ -86,9 +86,9 @@ struct _RTMP_ADAPTER;
 
 VOID MlmeAntSelection(
 	IN struct _RTMP_ADAPTER *pAd,
-	IN ULONG	 AccuTxTotalCnt,
-	IN ULONG	 TxErrorRatio,
-	IN ULONG TxSuccess,
+	IN unsigned long	 AccuTxTotalCnt,
+	IN unsigned long	 TxErrorRatio,
+	IN unsigned long TxSuccess,
 	IN CHAR Rssi);
 
 INT RT3290_eeprom_access_grant(

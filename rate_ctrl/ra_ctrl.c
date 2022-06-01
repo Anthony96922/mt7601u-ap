@@ -1392,18 +1392,18 @@ VOID MlmeRALog(
 	IN PRTMP_ADAPTER	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
 	IN RA_LOG_TYPE		raLogType,
-	IN ULONG			TxErrorRatio,
-	IN ULONG			TxTotalCnt)
+	IN unsigned long			TxErrorRatio,
+	IN unsigned long			TxTotalCnt)
 {
 #ifdef TXBF_SUPPORT
 	UINT ETxCount = pEntry->TxBFCounters.ETxSuccessCount + pEntry->TxBFCounters.ETxFailCount;
 	UINT ITxCount = pEntry->TxBFCounters.ITxSuccessCount + pEntry->TxBFCounters.ITxFailCount;
 	UINT TxCount = pEntry->TxBFCounters.TxSuccessCount + pEntry->TxBFCounters.TxFailCount + ETxCount + ITxCount;
-	ULONG bfRatio = 0;
+	unsigned long bfRatio = 0;
 #endif /*  TXBF_SUPPORT */
 #ifdef TIMESTAMP_RA_LOG
-	ULONG newTime;
-	static ULONG saveRATime;
+	unsigned long newTime;
+	static unsigned long saveRATime;
 	struct timeval tval;
 
 	do_gettimeofday(&tval);
@@ -1420,7 +1420,7 @@ VOID MlmeRALog(
 		BOOLEAN csd = FALSE;
 #endif
 		BOOLEAN stbc;
-		ULONG tp;
+		unsigned long tp;
 
 		/*  Get STBC and StreamMode state */
 		stbc = (pEntry->HTPhyMode.field.STBC && pEntry->HTPhyMode.field.MCS<8);
@@ -1428,7 +1428,7 @@ VOID MlmeRALog(
 #ifdef STREAM_MODE_SUPPORT
 		if (pEntry->StreamModeMACReg != 0)
 		{
-			ULONG streamWord;
+			unsigned long streamWord;
 
 			RTMP_IO_READ32(pAd, pEntry->StreamModeMACReg+4, &streamWord);
 			if (pEntry->HTPhyMode.field.MCS < 8)
@@ -1558,7 +1558,7 @@ VOID MlmeCheckRDG(
 		CLIENT_STATUS_TEST_FLAG(pEntry, fCLIENT_STATUS_RDG_CAPABLE))
 	{
 		TX_LINK_CFG_STRUC	TxLinkCfg;
-		ULONG				TxOpThres;
+		unsigned long				TxOpThres;
 		UCHAR				TableStep;
 		RTMP_RA_LEGACY_TB *pTempTxRate;
 
@@ -1753,7 +1753,7 @@ VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 		streamWord = mcsDisable ? 0 : StreamModeRegVal(pAd);
 
 		/*  Update Stream Mode control reg */
-		RTMP_IO_WRITE32(pAd, pEntry->StreamModeMACReg+4, streamWord | (ULONG)(pEntry->Addr[4]) | (ULONG)(pEntry->Addr[5] << 8));
+		RTMP_IO_WRITE32(pAd, pEntry->StreamModeMACReg+4, streamWord | (unsigned long)(pEntry->Addr[4]) | (unsigned long)(pEntry->Addr[5] << 8));
 	}
 #endif /* STREAM_MODE_SUPPORT */
 }

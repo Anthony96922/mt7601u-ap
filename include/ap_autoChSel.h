@@ -25,7 +25,7 @@
 
 #define AP_AUTO_CH_SEL(__P, __O)	APAutoSelectChannel((__P), (__O))
 
-ULONG AutoChBssSearchWithSSID(
+unsigned long AutoChBssSearchWithSSID(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * Bssid,
 	IN unsigned char * pSsid,
@@ -40,7 +40,7 @@ VOID UpdateChannelInfo(
 	IN int ch,
 	IN ChannelSel_Alg Alg);
 
-ULONG AutoChBssInsertEntry(
+unsigned long AutoChBssInsertEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pBssid,
 	IN CHAR Ssid[],

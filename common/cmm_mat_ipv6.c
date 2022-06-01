@@ -48,7 +48,7 @@ typedef struct _IPv6MacMappingEntry
 {
 	UCHAR ipv6Addr[16];	/* In network order */
 	UCHAR macAddr[MAC_ADDR_LEN];
-	ULONG lastTime;
+	unsigned long lastTime;
 	struct _IPv6MacMappingEntry *pNext;
 }IPv6MacMappingEntry, *PIPv6MacMappingEntry;
 
@@ -193,7 +193,7 @@ static NDIS_STATUS IPv6MacTableUpdate(
 	UINT 				hashIdx;
 	IPv6MacMappingTable	*pIPv6MacTable;
 	IPv6MacMappingEntry	*pEntry = NULL, *pPrev = NULL, *pNewEntry =NULL;
-	ULONG				now;
+	unsigned long				now;
 
 
 	pIPv6MacTable = (IPv6MacMappingTable *)pMatCfg->MatTableSet.IPv6MacTable;
@@ -779,7 +779,7 @@ static NDIS_STATUS MATProto_IPv6_Init(
 VOID getIPv6MacTbInfo(
 	IN MAT_STRUCT *pMatCfg, 
 	IN char *pOutBuf,
-	IN ULONG BufLen)
+	IN unsigned long BufLen)
 {
 	IPv6MacMappingTable *pIPv6MacTable;
 	IPv6MacMappingEntry *pHead;

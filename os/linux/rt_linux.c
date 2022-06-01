@@ -54,19 +54,19 @@
 #define RT_CONFIG_IF_OPMODE_ON_STA(__OpMode)
 #endif
 
-ULONG RTDebugLevel = RT_DEBUG_ERROR;
-ULONG RTDebugFunc = 0;
+unsigned long RTDebugLevel = RT_DEBUG_ERROR;
+unsigned long RTDebugFunc = 0;
 
 #ifdef OS_ABL_FUNC_SUPPORT
-ULONG RTPktOffsetData = 0, RTPktOffsetLen = 0, RTPktOffsetCB = 0;
+unsigned long RTPktOffsetData = 0, RTPktOffsetLen = 0, RTPktOffsetCB = 0;
 #endif /* OS_ABL_FUNC_SUPPORT */
 
 
 #ifdef VENDOR_FEATURE4_SUPPORT
-ULONG OS_NumOfMemAlloc = 0, OS_NumOfMemFree = 0;
+unsigned long OS_NumOfMemAlloc = 0, OS_NumOfMemFree = 0;
 #endif /* VENDOR_FEATURE4_SUPPORT */
 #ifdef VENDOR_FEATURE2_SUPPORT
-ULONG OS_NumOfPktAlloc = 0, OS_NumOfPktFree = 0;
+unsigned long OS_NumOfPktAlloc = 0, OS_NumOfPktFree = 0;
 #endif /* VENDOR_FEATURE2_SUPPORT */
 
 /*
@@ -168,9 +168,9 @@ static inline VOID __RTMP_OS_Release_Timer(
 
 
 /* Unify all delay routine by using udelay */
-VOID RTMPusecDelay(ULONG usec)
+VOID RTMPusecDelay(unsigned long usec)
 {
-	ULONG i;
+	unsigned long i;
 
 	for (i = 0; i < (usec / 50); i++)
 		udelay(50);
@@ -181,12 +181,12 @@ VOID RTMPusecDelay(ULONG usec)
 
 
 /* Unify all delay routine by using udelay */
-VOID RtmpOsUsDelay(ULONG value)
+VOID RtmpOsUsDelay(unsigned long value)
 {
 	udelay(value);
 }
 
-VOID RtmpOsMsDelay(ULONG msec)
+VOID RtmpOsMsDelay(unsigned long msec)
 {
 	mdelay(msec);
 }
@@ -196,7 +196,7 @@ void RTMP_GetCurrentSystemTime(LARGE_INTEGER * time)
 	time->u.LowPart = jiffies;
 }
 
-void RTMP_GetCurrentSystemTick(ULONG *pNow)
+void RTMP_GetCurrentSystemTick(unsigned long *pNow)
 {
 	*pNow = jiffies;
 }
@@ -206,7 +206,7 @@ void RTMP_GetCurrentSystemTick(ULONG *pNow)
 NDIS_STATUS os_alloc_mem(
 	IN VOID *pReserved,
 	OUT UCHAR **mem,
-	IN ULONG size)
+	IN unsigned long size)
 {
 	*mem = (unsigned char *) kmalloc(size, GFP_ATOMIC);
 	if (*mem) {
@@ -222,7 +222,7 @@ NDIS_STATUS os_alloc_mem(
 NDIS_STATUS os_alloc_mem_suspend(
 	IN VOID *pReserved,
 	OUT UCHAR **mem,
-	IN ULONG size)
+	IN unsigned long size)
 {
 	*mem = (unsigned char *) kmalloc(size, GFP_KERNEL);
 	if (*mem) {
@@ -282,8 +282,8 @@ extern int ra_mtd_read_nm(char *name, loff_t from, size_t len, u_char *buf);
 
 void RtmpFlashRead(
 	UCHAR *p,
-	ULONG a,
-	ULONG b)
+	unsigned long a,
+	unsigned long b)
 {
 #ifdef CONFIG_RALINK_FLASH_API
 	FlashRead((uint32_t *) p, (uint32_t *) a, (uint32_t) b);
@@ -298,8 +298,8 @@ void RtmpFlashRead(
 
 void RtmpFlashWrite(
 	UCHAR * p,
-	ULONG a,
-	ULONG b)
+	unsigned long a,
+	unsigned long b)
 {
 #ifdef CONFIG_RALINK_FLASH_API
 	FlashWrite((uint16_t *) p, (uint16_t *) a, (uint32_t) b);
@@ -325,7 +325,7 @@ PNDIS_PACKET RtmpOSNetPktAlloc(VOID *dummy, int size)
 	return ((PNDIS_PACKET) skb);
 }
 
-PNDIS_PACKET RTMP_AllocateFragPacketBuffer(VOID *dummy, ULONG len)
+PNDIS_PACKET RTMP_AllocateFragPacketBuffer(VOID *dummy, unsigned long len)
 {
 	struct sk_buff *pkt;
 
@@ -488,7 +488,7 @@ PNDIS_PACKET duplicate_pkt(
 	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
 	IN unsigned char * pData,
-	IN ULONG DataSize,
+	IN unsigned long DataSize,
 	IN UCHAR FromWhichBSSID)
 {
 	struct sk_buff *skb;
@@ -547,7 +547,7 @@ PNDIS_PACKET duplicate_pkt_with_VLAN(
 	IN unsigned char * pHeader802_3,
 	IN UINT HdrLen,
 	IN unsigned char * pData,
-	IN ULONG DataSize,
+	IN unsigned long DataSize,
 	IN UCHAR FromWhichBSSID,
 	IN UCHAR *TPID)
 {
@@ -674,7 +674,7 @@ PNDIS_PACKET ClonePacket(
 	IN VOID *pReserved,
 	IN PNDIS_PACKET pPacket,
 	IN unsigned char * pData,
-	IN ULONG DataSize)
+	IN unsigned long DataSize)
 {
 	struct sk_buff *pRxPkt;
 	struct sk_buff *pClonedPkt;
@@ -721,7 +721,7 @@ void wlan_802_11_to_802_3_packet(
 	IN USHORT VLAN_Priority,
 	IN PNDIS_PACKET pRxPacket,
 	IN UCHAR *pData,
-	IN ULONG DataSize,
+	IN unsigned long DataSize,
 	IN unsigned char * pHeader802_3,
 	IN UCHAR FromWhichBSSID,
 	IN UCHAR *TPID)
@@ -766,7 +766,7 @@ VOID RtmpOsSetPacket(
 	IN PNET_DEV pNetDev,
 	IN PNDIS_PACKET pRxPacket,
 	IN UCHAR *pData,
-	IN ULONG DataSize)
+	IN unsigned long DataSize)
 {
 
 	struct sk_buff *pOSPkt;
@@ -1050,7 +1050,7 @@ static inline void __RtmpOSTaskCustomize(OS_TASK *pTask)
 static inline NDIS_STATUS __RtmpOSTaskAttach(
 	IN OS_TASK *pTask,
 	IN RTMP_OS_TASK_CALLBACK fn,
-	IN ULONG arg)
+	IN unsigned long arg)
 {
 	NDIS_STATUS status = NDIS_STATUS_SUCCESS;
 #ifndef KTHREAD_SUPPORT
@@ -1747,9 +1747,9 @@ NDIS_STATUS AdapterBlockAllocateMemory(VOID *handle, VOID **ppAd, unsigned int S
 			return NDIS_STATUS_FAILURE;
 		}
 
-		RTPktOffsetData = (ULONG) (&(pPkt->data)) - (ULONG) pPkt;
-		RTPktOffsetLen = (ULONG) (&(pPkt->len)) - (ULONG) pPkt;
-		RTPktOffsetCB = (ULONG) (pPkt->cb) - (ULONG) pPkt;
+		RTPktOffsetData = (unsigned long) (&(pPkt->data)) - (unsigned long) pPkt;
+		RTPktOffsetLen = (unsigned long) (&(pPkt->len)) - (unsigned long) pPkt;
+		RTPktOffsetCB = (unsigned long) (pPkt->cb) - (unsigned long) pPkt;
 		kfree(pPkt);
 
 		DBGPRINT(RT_DEBUG_TRACE, ("packet> data offset = %lu\n", RTPktOffsetData));
@@ -2066,7 +2066,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID *RtmpOsVmalloc(ULONG Size)
+VOID *RtmpOsVmalloc(unsigned long Size)
 {
 	return vmalloc(Size);
 }
@@ -2747,7 +2747,7 @@ Note:
 VOID CFG80211OS_RegHint(
 	IN VOID *pCB,
 	IN UCHAR *pCountryIe,
-	IN ULONG CountryIeLen)
+	IN unsigned long CountryIeLen)
 {
 	CFG80211_CB *pCfg80211_CB = (CFG80211_CB *)pCB;
 
@@ -2788,7 +2788,7 @@ Note:
 VOID CFG80211OS_RegHint11D(
 	IN VOID *pCB,
 	IN UCHAR *pCountryIe,
-	IN ULONG CountryIeLen)
+	IN unsigned long CountryIeLen)
 {
 	/* no regulatory_hint_11d() in 2.6.32 */
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(2,6,32))
@@ -3101,8 +3101,8 @@ Note:
 ========================================================================
 */
 VOID RtmpOsDCacheFlush(
-	IN ULONG AddrStart,
-	IN ULONG Size)
+	IN unsigned long AddrStart,
+	IN unsigned long Size)
 {
 	RTMP_UTIL_DCACHE_FLUSH(AddrStart, Size);
 }
@@ -3318,7 +3318,7 @@ Note:
 BOOLEAN RtmpOsTaskletInit(
 	RTMP_NET_TASK_STRUCT *pTasklet,
 	VOID (*pFunc) (unsigned long data),
-	ULONG Data,
+	unsigned long Data,
 	LIST_HEADER *pTaskletList)
 {
 #ifdef WORKQUEUE_BH
@@ -3367,7 +3367,7 @@ BOOLEAN RtmpOsTaskletKill(RTMP_NET_TASK_STRUCT *pTasklet)
 }
 
 
-VOID RtmpOsTaskletDataAssign(RTMP_NET_TASK_STRUCT *pTasklet, ULONG Data)
+VOID RtmpOsTaskletDataAssign(RTMP_NET_TASK_STRUCT *pTasklet, unsigned long Data)
 {
 #ifndef WORKQUEUE_BH
 	if (pTasklet->pContent != NULL)
@@ -3439,7 +3439,7 @@ BOOLEAN RtmpOsCheckTaskLegality(RTMP_OS_TASK *pTaskOrg)
 
 
 /* timeout -- ms */
-VOID RTMP_SetPeriodicTimer(NDIS_MINIPORT_TIMER *pTimerOrg, ULONG timeout)
+VOID RTMP_SetPeriodicTimer(NDIS_MINIPORT_TIMER *pTimerOrg, unsigned long timeout)
 {
 	OS_NDIS_MINIPORT_TIMER *pTimer;
 
@@ -3468,7 +3468,7 @@ VOID RTMP_OS_Init_Timer(
 }
 
 
-VOID RTMP_OS_Add_Timer(NDIS_MINIPORT_TIMER *pTimerOrg, ULONG timeout)
+VOID RTMP_OS_Add_Timer(NDIS_MINIPORT_TIMER *pTimerOrg, unsigned long timeout)
 {
 	OS_NDIS_MINIPORT_TIMER *pTimer;
 
@@ -3483,7 +3483,7 @@ VOID RTMP_OS_Add_Timer(NDIS_MINIPORT_TIMER *pTimerOrg, ULONG timeout)
 } 
 
 
-VOID RTMP_OS_Mod_Timer(NDIS_MINIPORT_TIMER *pTimerOrg, ULONG timeout)
+VOID RTMP_OS_Mod_Timer(NDIS_MINIPORT_TIMER *pTimerOrg, unsigned long timeout)
 {
 	OS_NDIS_MINIPORT_TIMER *pTimer;
 
@@ -3639,11 +3639,11 @@ BOOLEAN RTMP_OS_Remove_Rsc(
 		pObj = (LIST_RESOURCE_OBJ_ENTRY *) removeHeadList(pRscList);
 		if (pRscHead == NULL)
 			pRscHead = pObj->pRscObj; /* backup first entry */
-		else if (((ULONG)pRscHead) == ((ULONG)(pObj->pRscObj)))
+		else if (((unsigned long)pRscHead) == ((unsigned long)(pObj->pRscObj)))
 			break; /* has searched all entries */
 
 		pRsc = (OS_RSTRUC *) (pObj->pRscObj);
-		if ((ULONG)pRsc == (ULONG)pRscRev)
+		if ((unsigned long)pRsc == (unsigned long)pRscRev)
 			break; /* find it */
 
 		/* re-insert it */
@@ -3852,7 +3852,7 @@ Note:
 NDIS_STATUS RtmpOSTaskAttach(
 	RTMP_OS_TASK *pTaskOrg,
 	RTMP_OS_TASK_CALLBACK fn,
-	ULONG arg)
+	unsigned long arg)
 {
 	OS_TASK *pTask;
 
@@ -4071,7 +4071,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsIntLock(NDIS_SPIN_LOCK *pLockOrg, ULONG *pIrqFlags)
+VOID RtmpOsIntLock(NDIS_SPIN_LOCK *pLockOrg, unsigned long *pIrqFlags)
 {
 	OS_NDIS_SPIN_LOCK *pLock;
 
@@ -4097,7 +4097,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsIntUnLock(NDIS_SPIN_LOCK *pLockOrg, ULONG IrqFlags)
+VOID RtmpOsIntUnLock(NDIS_SPIN_LOCK *pLockOrg, unsigned long IrqFlags)
 {
 	OS_NDIS_SPIN_LOCK *pLock;
 
@@ -4266,8 +4266,8 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsGetPid(IN ULONG *pDst,
-		  IN ULONG PID)
+VOID RtmpOsGetPid(IN unsigned long *pDst,
+		  IN unsigned long PID)
 {
 	RT_GET_OS_PID(*pDst, PID);
 }
@@ -4307,7 +4307,7 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned int RtmpOsTimerAfter(ULONG a, ULONG b)
+unsigned int RtmpOsTimerAfter(unsigned long a, unsigned long b)
 {
 	return RTMP_TIME_AFTER(a, b);
 }
@@ -4327,7 +4327,7 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned int RtmpOsTimerBefore(ULONG a, ULONG b)
+unsigned int RtmpOsTimerBefore(unsigned long a, unsigned long b)
 {
 	return RTMP_TIME_BEFORE(a, b);
 }
@@ -4347,7 +4347,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsGetSystemUpTime(ULONG *pTime)
+VOID RtmpOsGetSystemUpTime(unsigned long *pTime)
 {
 	NdisGetSystemUpTime(pTime);
 }
@@ -4503,7 +4503,7 @@ Return Value:
 Note:
 ========================================================================
 */
-ULONG RtmpOsGetUnalignedlong(ULONG *pWord)
+unsigned long RtmpOsGetUnalignedlong(unsigned long *pWord)
 {
 	return get_unaligned(pWord);
 }
@@ -4524,7 +4524,7 @@ Note:
 	Used in site servey.
 ========================================================================
 */
-ULONG RtmpOsMaxScanDataGet(VOID)
+unsigned long RtmpOsMaxScanDataGet(VOID)
 {
 	return IW_SCAN_MAX_DATA;
 }
@@ -4546,7 +4546,7 @@ Return Value:
 Note:
 ========================================================================
 */
-ULONG RtmpOsCopyFromUser(VOID *to, const void *from, ULONG n)
+unsigned long RtmpOsCopyFromUser(VOID *to, const void *from, unsigned long n)
 {
 	return (copy_from_user(to, from, n));
 }
@@ -4568,7 +4568,7 @@ Return Value:
 Note:
 ========================================================================
 */
-ULONG RtmpOsCopyToUser(VOID *to, const void *from, ULONG n)
+unsigned long RtmpOsCopyToUser(VOID *to, const void *from, unsigned long n)
 {
 	return (copy_to_user(to, from, n));
 }
@@ -4752,7 +4752,7 @@ Note:
 VOID RtmpOsPktBodyCopy(
 	PNET_DEV pNetDev,
 	PNDIS_PACKET pNetPkt,
-	ULONG ThisFrameLen,
+	unsigned long ThisFrameLen,
 	unsigned char * pData)
 {
 	memcpy(skb_put(pNetPkt, ThisFrameLen), pData, ThisFrameLen);
@@ -5003,9 +5003,9 @@ BOOLEAN RtmpOsPktOffsetInit(VOID)
 		if (pPkt == NULL)
 			return FALSE;
 
-		RTPktOffsetData = (ULONG) (&(pPkt->data)) - (ULONG) pPkt;
-		RTPktOffsetLen = (ULONG) (&(pPkt->len)) - (ULONG) pPkt;
-		RTPktOffsetCB = (ULONG) (pPkt->cb) - (ULONG) pPkt;
+		RTPktOffsetData = (unsigned long) (&(pPkt->data)) - (unsigned long) pPkt;
+		RTPktOffsetLen = (unsigned long) (&(pPkt->len)) - (unsigned long) pPkt;
+		RTPktOffsetCB = (unsigned long) (pPkt->cb) - (unsigned long) pPkt;
 		kfree(pPkt);
 
 		DBGPRINT(RT_DEBUG_TRACE,
@@ -5229,7 +5229,7 @@ void RtmpOSTaskCustomize(RTMP_OS_TASK *pTask)
 NDIS_STATUS RtmpOSTaskAttach(
 	RTMP_OS_TASK *pTask,
 	RTMP_OS_TASK_CALLBACK fn,
-	ULONG arg)
+	unsigned long arg)
 {
 	return __RtmpOSTaskAttach(pTask, fn, arg);
 }

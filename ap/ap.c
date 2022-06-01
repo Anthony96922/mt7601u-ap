@@ -832,7 +832,7 @@ VOID APCleanupPsQueue(
 	PQUEUE_ENTRY pEntry;
 	PNDIS_PACKET pPacket;
 
-	DBGPRINT(RT_DEBUG_TRACE, ("%s(): (0x%08lx)...\n", __FUNCTION__, (ULONG)pQueue));
+	DBGPRINT(RT_DEBUG_TRACE, ("%s(): (0x%08lx)...\n", __FUNCTION__, (unsigned long)pQueue));
 
 	while (pQueue->Head) {
 		DBGPRINT(RT_DEBUG_TRACE, ("%s():%ld...\n", __FUNCTION__, pQueue->Number));
@@ -857,7 +857,7 @@ VOID APCleanupPsQueue(
 VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 	int i;
 #ifdef DOT11_N_SUPPORT
-	ULONG MinimumAMPDUSize = pAd->CommonCfg.DesiredHtPhy.MaxRAmpduFactor; /*Default set minimum AMPDU Size to 2, i.e. 32K */
+	unsigned long MinimumAMPDUSize = pAd->CommonCfg.DesiredHtPhy.MaxRAmpduFactor; /*Default set minimum AMPDU Size to 2, i.e. 32K */
 	BOOLEAN	bRdgActive;
 	BOOLEAN bRalinkBurstMode;
 #endif /* DOT11_N_SUPPORT */
@@ -1090,7 +1090,7 @@ VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 			if (pEntry->Sst == SST_ASSOC) {
 				unsigned char *      pOutBuffer = NULL;
 				NDIS_STATUS NStatus;
-				ULONG       FrameLen = 0;
+				unsigned long       FrameLen = 0;
 				HEADER_802_11 DeAuthHdr;
 				USHORT      Reason;
 
@@ -1371,7 +1371,7 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
 BOOLEAN APPsIndicate(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr, 
-	IN ULONG Wcid, 
+	IN unsigned long Wcid, 
 	IN UCHAR Psm) 
 {
 	MAC_TABLE_ENTRY *pEntry;
@@ -1646,7 +1646,7 @@ BOOLEAN ApCheckAccessControlList(
 	if (pAd->ApCfg.MBSSID[Apidx].AccessControlList.Policy == 0)       /* ACL is disabled */
 		Result = TRUE;
 	else {
-		ULONG i;
+		unsigned long i;
 		if (pAd->ApCfg.MBSSID[Apidx].AccessControlList.Policy == 1)   /* ACL is a positive list */
 			Result = FALSE;
 		else                                              /* ACL is a negative list */
@@ -1685,7 +1685,7 @@ VOID ApUpdateAccessControlList(
 
 	unsigned char *      pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
-	ULONG       FrameLen = 0;
+	unsigned long       FrameLen = 0;
 	HEADER_802_11 DisassocHdr;
 	USHORT      Reason;
 
@@ -1805,7 +1805,7 @@ VOID ApEnqueueNullFrame(
 	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
 	unsigned char * pFrame;
-	ULONG		   Length;
+	unsigned long		   Length;
 
 
 	/* since TxRate may change, we have to change Duration each time */

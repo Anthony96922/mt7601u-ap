@@ -25,32 +25,32 @@ VOID RtmpUtilInit(VOID);
 
 /* OS Time */
 VOID RTMPusecDelay(
-	IN	ULONG					usec);
+	IN	unsigned long					usec);
 
-VOID RtmpOsUsDelay(ULONG value);
+VOID RtmpOsUsDelay(unsigned long value);
 
 VOID RtmpOsMsDelay(
-	IN	ULONG					msec);
+	IN	unsigned long					msec);
 
 void RTMP_GetCurrentSystemTime(
 	IN	LARGE_INTEGER			*time);
 
 void RTMP_GetCurrentSystemTick(
-	IN	ULONG					*pNow);
+	IN	unsigned long					*pNow);
 
 VOID RtmpOsWait(
 	IN	unsigned int					Time);
 
 unsigned int RtmpOsTimerAfter(
-	IN	ULONG					a,
-	IN	ULONG					b);
+	IN	unsigned long					a,
+	IN	unsigned long					b);
 
 unsigned int RtmpOsTimerBefore(
-	IN	ULONG					a,
-	IN	ULONG					b);
+	IN	unsigned long					a,
+	IN	unsigned long					b);
 
 VOID RtmpOsGetSystemUpTime(
-	IN	ULONG					*pTime);
+	IN	unsigned long					*pTime);
 
 unsigned int RtmpOsTickUnitGet(VOID);
 
@@ -58,12 +58,12 @@ unsigned int RtmpOsTickUnitGet(VOID);
 NDIS_STATUS os_alloc_mem(
 	IN	VOID					*pReserved,
 	OUT	UCHAR					**mem,
-	IN	ULONG					size);
+	IN	unsigned long					size);
 
 NDIS_STATUS os_alloc_mem_suspend(
 	IN	VOID					*pReserved,
 	OUT	UCHAR					**mem,
-	IN	ULONG					size);
+	IN	unsigned long					size);
 
 NDIS_STATUS os_free_mem(
 	IN	VOID					*pReserved,
@@ -75,20 +75,20 @@ NDIS_STATUS AdapterBlockAllocateMemory(
 	IN	unsigned int					SizeOfpAd);
 
 VOID *RtmpOsVmalloc(
-	IN	ULONG					Size);
+	IN	unsigned long					Size);
 
 VOID RtmpOsVfree(
 	IN	VOID					*pMem);
 
-ULONG RtmpOsCopyFromUser(
+unsigned long RtmpOsCopyFromUser(
 	OUT	VOID					*to,
 	IN	const void				*from,
-	IN	ULONG					n);
+	IN	unsigned long					n);
 
-ULONG RtmpOsCopyToUser(
+unsigned long RtmpOsCopyToUser(
 	OUT VOID					*to,
 	IN	const void				*from,
-	IN	ULONG					n);
+	IN	unsigned long					n);
 
 BOOLEAN RtmpOsStatsAlloc(
 	IN	VOID					**ppStats,
@@ -101,7 +101,7 @@ PNDIS_PACKET RtmpOSNetPktAlloc(
 
 PNDIS_PACKET RTMP_AllocateFragPacketBuffer(
 	IN	VOID					*pReserved,
-	IN	ULONG					Length);
+	IN	unsigned long					Length);
 
 NDIS_STATUS RTMPAllocateNdisPacket(
 	IN	VOID					*pReserved,
@@ -137,7 +137,7 @@ PNDIS_PACKET duplicate_pkt(
 	IN	unsigned char *					pHeader802_3,
     IN  UINT            		HdrLen,
 	IN	unsigned char *					pData,
-	IN	ULONG					DataSize,
+	IN	unsigned long					DataSize,
 	IN	UCHAR					FromWhichBSSID);
 
 PNDIS_PACKET duplicate_pkt_with_TKIP_MIC(
@@ -151,7 +151,7 @@ PNDIS_PACKET duplicate_pkt_with_VLAN(
 	IN	unsigned char *					pHeader802_3,
     IN  UINT            		HdrLen,
 	IN	unsigned char *					pData,
-	IN	ULONG					DataSize,
+	IN	unsigned long					DataSize,
 	IN	UCHAR					FromWhichBSSID,
 	IN	UCHAR					*TPID);
 
@@ -179,7 +179,7 @@ PNDIS_PACKET ClonePacket(
 	IN	VOID					*pReserved,
 	IN	PNDIS_PACKET			pPacket,
 	IN	unsigned char *					pData,
-	IN	ULONG					DataSize);
+	IN	unsigned long					DataSize);
 
 void wlan_802_11_to_802_3_packet(
 	IN	PNET_DEV				pNetDev,
@@ -188,7 +188,7 @@ void wlan_802_11_to_802_3_packet(
 	IN	USHORT					VLAN_Priority,
 	IN	PNDIS_PACKET			pRxPacket,
 	IN	UCHAR					*pData,
-	IN	ULONG					DataSize,
+	IN	unsigned long					DataSize,
 	IN	unsigned char *					pHeader802_3,
 	IN  UCHAR					FromWhichBSSID,
 	IN	UCHAR					*TPID);
@@ -198,7 +198,7 @@ VOID RtmpOsSetPacket(
 	IN PNET_DEV pNetDev,
 	IN PNDIS_PACKET pRxPacket,
 	IN UCHAR *pData,
-	IN ULONG DataSize);
+	IN unsigned long DataSize);
 #endif /* HDR_TRANS_SUPPORT */
 
 void send_monitor_packets(
@@ -233,7 +233,7 @@ UCHAR VLAN_8023_Header_Copy(
 VOID RtmpOsPktBodyCopy(
 	IN	PNET_DEV				pNetDev,
 	IN	PNDIS_PACKET			pNetPkt,
-	IN	ULONG					ThisFrameLen,
+	IN	unsigned long					ThisFrameLen,
 	IN	unsigned char *					pData);
 
 INT RtmpOsIsPktCloned(
@@ -432,14 +432,14 @@ BOOLEAN RtmpOsTaskletSche(RTMP_NET_TASK_STRUCT *pTasklet);
 BOOLEAN RtmpOsTaskletInit(
 	RTMP_NET_TASK_STRUCT *pTasklet,
 	VOID (*pFunc)(unsigned long data),
-	ULONG Data,
+	unsigned long Data,
 	LIST_HEADER *pTaskletList);
 
 BOOLEAN RtmpOsTaskletKill(RTMP_NET_TASK_STRUCT *pTasklet);
 
 VOID RtmpOsTaskletDataAssign(
 	RTMP_NET_TASK_STRUCT *pTasklet,
-	ULONG Data);
+	unsigned long Data);
 
 VOID RtmpOsTaskWakeUp(RTMP_OS_TASK *pTaskOrg);
 
@@ -466,7 +466,7 @@ VOID RtmpOSTaskCustomize(
 NDIS_STATUS RtmpOSTaskAttach(
 	IN	RTMP_OS_TASK			*pTaskOrg,
 	IN	RTMP_OS_TASK_CALLBACK	fn,
-	IN	ULONG					arg);
+	IN	unsigned long					arg);
 
 NDIS_STATUS RtmpOSTaskInit(
 	IN	RTMP_OS_TASK			*pTaskOrg,
@@ -485,7 +485,7 @@ VOID *RtmpOsTaskDataGet(RTMP_OS_TASK *pTaskOrg);
 INT32 RtmpThreadPidKill(RTMP_OS_PID	 PID);
 
 /* OS Cache */
-VOID RtmpOsDCacheFlush(ULONG AddrStart, ULONG Size);
+VOID RtmpOsDCacheFlush(unsigned long AddrStart, unsigned long Size);
 
 /* OS Timer */
 VOID RTMP_SetPeriodicTimer(
@@ -534,20 +534,20 @@ VOID RtmpOsSpinLockBh(
 	IN	NDIS_SPIN_LOCK			*pLockOrg);
 
 VOID RtmpOsSpinUnLockBh(NDIS_SPIN_LOCK *pLockOrg);
-VOID RtmpOsIntLock(NDIS_SPIN_LOCK *pLockOrg, ULONG *pIrqFlags);
-VOID RtmpOsIntUnLock(NDIS_SPIN_LOCK *pLockOrg, ULONG IrqFlags);
+VOID RtmpOsIntLock(NDIS_SPIN_LOCK *pLockOrg, unsigned long *pIrqFlags);
+VOID RtmpOsIntUnLock(NDIS_SPIN_LOCK *pLockOrg, unsigned long IrqFlags);
 
 /* OS PID */
-VOID RtmpOsGetPid(ULONG *pDst, ULONG PID);
+VOID RtmpOsGetPid(unsigned long *pDst, unsigned long PID);
 VOID RtmpOsTaskPidInit(RTMP_OS_PID *pPid);
 
 /* OS I/O */
-VOID RTMP_PCI_Writel(ULONG Value, VOID *pAddr);
-VOID RTMP_PCI_Writew(ULONG Value, VOID *pAddr);
-VOID RTMP_PCI_Writeb(ULONG Value, VOID *pAddr);
-ULONG RTMP_PCI_Readl(VOID *pAddr);
-ULONG RTMP_PCI_Readw(VOID *pAddr);
-ULONG RTMP_PCI_Readb(VOID *pAddr);
+VOID RTMP_PCI_Writel(unsigned long Value, VOID *pAddr);
+VOID RTMP_PCI_Writew(unsigned long Value, VOID *pAddr);
+VOID RTMP_PCI_Writeb(unsigned long Value, VOID *pAddr);
+unsigned long RTMP_PCI_Readl(VOID *pAddr);
+unsigned long RTMP_PCI_Readw(VOID *pAddr);
+unsigned long RTMP_PCI_Readb(VOID *pAddr);
 
 int RtmpOsPciConfigReadWord(
 	IN	VOID					*pDev,
@@ -579,7 +579,7 @@ int RtmpOsPciMsiEnable(VOID *pDev);
 VOID RtmpOsPciMsiDisable(VOID *pDev);
 
 /* OS Wireless */
-ULONG RtmpOsMaxScanDataGet(VOID);
+unsigned long RtmpOsMaxScanDataGet(VOID);
 
 /* OS Interrutp */
 INT32 RtmpOsIsInInterrupt(VOID);
@@ -587,7 +587,7 @@ INT32 RtmpOsIsInInterrupt(VOID);
 /* OS USB */
 VOID *RtmpOsUsbUrbDataGet(VOID *pUrb);
 NTSTATUS RtmpOsUsbUrbStatusGet(VOID *pUrb);
-ULONG RtmpOsUsbUrbLenGet(VOID *pUrb);
+unsigned long RtmpOsUsbUrbLenGet(VOID *pUrb);
 
 /* OS Atomic */
 BOOLEAN RtmpOsAtomicInit(RTMP_OS_ATOMIC *pAtomic, LIST_HEADER *pAtomicList);
@@ -677,7 +677,7 @@ unsigned short RtmpOsGetUnaligned(unsigned short *pWord);
 
 unsigned int RtmpOsGetUnaligned32(unsigned int *pWord);
 
-ULONG RtmpOsGetUnalignedlong(ULONG *pWord);
+unsigned long RtmpOsGetUnalignedlong(unsigned long *pWord);
 
 long RtmpOsSimpleStrtol(
 	IN	const char				*cp,
@@ -732,37 +732,37 @@ VOID    SendAssocIEsToWpaSupplicant(
 
 void * RtmpInitCompletion(VOID);
 
-ULONG RtmpWaitForCompletionTimeout(VOID *Completion, ULONG Expire);
+unsigned long RtmpWaitForCompletionTimeout(VOID *Completion, unsigned long Expire);
 
 VOID RtmpComplete(VOID *Completion);
 
-ULONG RtmpMsecsToJiffies(unsigned int msecs);
+unsigned long RtmpMsecsToJiffies(unsigned int msecs);
 /* ============================ rt_rbus_pci_util.c ========================== */
 void RtmpAllocDescBuf(
 	IN PPCI_DEV pPciDev,
 	IN UINT Index,
-	IN ULONG Length,
+	IN unsigned long Length,
 	IN BOOLEAN Cached,
 	OUT VOID **VirtualAddress,
 	OUT PNDIS_PHYSICAL_ADDRESS	PhysicalAddress);
 
 void RtmpFreeDescBuf(
 	IN PPCI_DEV pPciDev,
-	IN ULONG Length,
+	IN unsigned long Length,
 	IN VOID *VirtualAddress,
 	IN NDIS_PHYSICAL_ADDRESS	PhysicalAddress);
 
 void RTMP_AllocateFirstTxBuffer(
 	IN PPCI_DEV pPciDev,
 	IN UINT Index,
-	IN ULONG Length,
+	IN unsigned long Length,
 	IN BOOLEAN Cached,
 	OUT VOID **VirtualAddress,
 	OUT PNDIS_PHYSICAL_ADDRESS	PhysicalAddress);
 
 void RTMP_FreeFirstTxBuffer(
 	IN	PPCI_DEV				pPciDev,
-	IN	ULONG					Length,
+	IN	unsigned long					Length,
 	IN	BOOLEAN					Cached,
 	IN	void *					VirtualAddress,
 	IN	NDIS_PHYSICAL_ADDRESS	PhysicalAddress);
@@ -770,7 +770,7 @@ void RTMP_FreeFirstTxBuffer(
 PNDIS_PACKET RTMP_AllocateRxPacketBuffer(
 	IN	VOID					*pReserved,
 	IN	VOID					*pPciDev,
-	IN	ULONG					Length,
+	IN	unsigned long					Length,
 	IN	BOOLEAN					Cached,
 	OUT	void *					*VirtualAddress,
 	OUT	PNDIS_PHYSICAL_ADDRESS	PhysicalAddress);
@@ -823,9 +823,9 @@ int rausb_control_msg(VOID *dev,
 						__u16 size,
 						int timeout);
 
-unsigned int rausb_sndctrlpipe(VOID *dev, ULONG address);
+unsigned int rausb_sndctrlpipe(VOID *dev, unsigned long address);
 
-unsigned int rausb_rcvctrlpipe(VOID *dev, ULONG address);
+unsigned int rausb_rcvctrlpipe(VOID *dev, unsigned long address);
 
 void rausb_kill_urb(VOID *urb);
 
@@ -841,7 +841,7 @@ VOID	RtmpOsUsbInitHTTxDesc(
 	IN	VOID			*pUsb_Dev,
 	IN	UINT			BulkOutEpAddr,
 	IN	unsigned char *			pSrc,
-	IN	ULONG			BulkOutSize,
+	IN	unsigned long			BulkOutSize,
 	IN	USB_COMPLETE_HANDLER	Func,
 	IN	VOID			*pTxContext,
 	IN	ra_dma_addr_t		TransferDma);
@@ -869,13 +869,13 @@ VOID RtmpOsUsbDmaMapping(
 #if defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT)
 void RtmpFlashRead(
 	UCHAR * p,
-	ULONG a,
-	ULONG b);
+	unsigned long a,
+	unsigned long b);
 
 void RtmpFlashWrite(
 	UCHAR * p,
-	ULONG a,
-	ULONG b);
+	unsigned long a,
+	unsigned long b);
 #endif /* defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT) */
 
 unsigned int RtmpOsGetUsbDevVendorID(
@@ -919,12 +919,12 @@ BOOLEAN CFG80211OS_SupBandReInit(
 VOID CFG80211OS_RegHint(
 	IN VOID						*pCB,
 	IN UCHAR					*pCountryIe,
-	IN ULONG					CountryIeLen);
+	IN unsigned long					CountryIeLen);
 
 VOID CFG80211OS_RegHint11D(
 	IN VOID						*pCB,
 	IN UCHAR					*pCountryIe,
-	IN ULONG					CountryIeLen);
+	IN unsigned long					CountryIeLen);
 
 BOOLEAN CFG80211OS_BandInfoGet(
 	IN VOID						*pCB,
@@ -991,9 +991,9 @@ extern UCHAR TPID[];
 extern UCHAR IPX[2];
 extern UCHAR APPLE_TALK[2];
 extern UCHAR NUM_BIT8[8];
-extern ULONG RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
+extern unsigned long RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 
-extern ULONG OS_NumOfMemAlloc, OS_NumOfMemFree;
+extern unsigned long OS_NumOfMemAlloc, OS_NumOfMemFree;
 
 extern INT32 ralinkrate[];
 extern unsigned int RT_RateSize;

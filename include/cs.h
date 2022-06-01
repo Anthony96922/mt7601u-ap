@@ -38,10 +38,10 @@ typedef struct CARRIER_DETECTION_s {
 	unsigned char recheck1;
 	unsigned int TimeStamp; /*unit:16us*/
 	unsigned int criteria;
-	ULONG idle_time;
-	ULONG busy_time;
-	ULONG Debug;
-	ULONG OneSecIntCount;
+	unsigned long idle_time;
+	unsigned long busy_time;
+	unsigned long Debug;
+	unsigned long OneSecIntCount;
 	unsigned char CarrierGoneThreshold;
 	UCHAR VGA_Mask;
 	UCHAR Packet_End_Mask;
@@ -94,7 +94,7 @@ INT CarrierDetectReset(
 	IN PRTMP_ADAPTER pAd);
 
 extern VOID RtmpOsMsDelay(
-	IN	ULONG	msec);
+	IN	unsigned long	msec);
 
 INT Set_CarrierCriteria_Proc(
 	IN PRTMP_ADAPTER 	pAd,
@@ -151,11 +151,11 @@ VOID CarrierDetectionStop(
 
 VOID ToneRadarProgram_v1(
 	IN PRTMP_ADAPTER pAd,
-	IN ULONG threshold);
+	IN unsigned long threshold);
 
 VOID ToneRadarProgram_v2(
 	IN PRTMP_ADAPTER pAd,
-	IN ULONG threshold);
+	IN unsigned long threshold);
 
 #ifdef CARRIER_DETECTION_FIRMWARE_SUPPORT
 VOID CarrierDetectionPeriodicStateCtrl(

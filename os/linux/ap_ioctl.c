@@ -204,7 +204,7 @@ INT rt28xx_ap_ioctl(
 			break;
 		case SIOCGIWFREQ: /* get channel/frequency (Hz) */
 			{
-				ULONG Channel;
+				unsigned long Channel;
 				RTMP_DRIVER_CHANNEL_GET(pAd, &Channel);
 				wrqin->u.freq.m = Channel; /*pAd->CommonCfg.Channel; */
 				wrqin->u.freq.e = 0;

@@ -124,13 +124,13 @@ NTSTATUS	RTUSBFirmwareOpmode(
 NTSTATUS RTUSBFirmwareWrite(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *pFwImage,
-	IN ULONG		FwLen)
+	IN unsigned long		FwLen)
 {
 	unsigned int		MacReg;
 	NTSTATUS 	Status;
-/*	ULONG 		i;*/
+/*	unsigned long 		i;*/
 	USHORT		writeLen;
-	/*ULONG		FMode = 0;*/
+	/*unsigned long		FMode = 0;*/
 
 
 	Status = RTUSBReadMACRegister(pAd, MAC_CSR0, &MacReg);
@@ -1855,7 +1855,7 @@ VOID RTUSBWatchDog(IN RTMP_ADAPTER *pAd)
 {
 	PHT_TX_CONTEXT		pHTTXContext;
 	int 					idx;
-	ULONG				irqFlags;
+	unsigned long				irqFlags;
 	PURB		   		pUrb;
 	BOOLEAN				needDumpSeq = FALSE;
 	unsigned int          	MACValue;

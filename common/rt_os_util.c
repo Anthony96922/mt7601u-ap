@@ -141,7 +141,7 @@ void * RtmpInitCompletion(VOID)
 }
 
 
-ULONG RtmpWaitForCompletionTimeout(VOID *Completion, ULONG Expire)
+unsigned long RtmpWaitForCompletionTimeout(VOID *Completion, unsigned long Expire)
 {
 	return wait_for_completion_timeout((struct completion *)Completion, Expire);
 }
@@ -153,7 +153,7 @@ VOID RtmpComplete(VOID *Completion)
 }
 #endif /* RTMP_USB_SUPPORT */
 
-ULONG RtmpMsecsToJiffies(unsigned int msecs)
+unsigned long RtmpMsecsToJiffies(unsigned int msecs)
 {
 	return msecs_to_jiffies(msecs);
 }

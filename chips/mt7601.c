@@ -1374,9 +1374,9 @@ NTSTATUS MT7601DisableTxRx(
 		RTMP_CLEAR_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_ACTIVE);
 
 	DBGPRINT(RT_DEBUG_INFO, ("%s Tx success = %ld\n", 
-		__FUNCTION__, (ULONG)pAd->WlanCounters.TransmittedFragmentCount.u.LowPart));
+		__FUNCTION__, (unsigned long)pAd->WlanCounters.TransmittedFragmentCount.u.LowPart));
 	DBGPRINT(RT_DEBUG_INFO, ("%s Tx success = %ld\n", 
-		__FUNCTION__, (ULONG)pAd->WlanCounters.ReceivedFragmentCount.QuadPart));
+		__FUNCTION__, (unsigned long)pAd->WlanCounters.ReceivedFragmentCount.QuadPart));
 
 	if (StopDmaTx(pAd, Level) == STATUS_UNSUCCESSFUL)
 		return STATUS_UNSUCCESSFUL;
@@ -1969,8 +1969,8 @@ VOID MT7601_ReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 VOID MT7601_AsicExtraPowerOverMAC(
 	IN	PRTMP_ADAPTER 		pAd)
 {
-	ULONG	ExtraPwrOverMAC = 0;
-	ULONG	ExtraPwrOverTxPwrCfg7 = 0, ExtraPwrOverTxPwrCfg9 = 0;
+	unsigned long	ExtraPwrOverMAC = 0;
+	unsigned long	ExtraPwrOverTxPwrCfg7 = 0, ExtraPwrOverTxPwrCfg9 = 0;
 
 	/* For OFDM_54 and HT_MCS_7, extra fill the corresponding register value into MAC 0x13D4 */
 	RTMP_IO_READ32(pAd, 0x1318, &ExtraPwrOverMAC);

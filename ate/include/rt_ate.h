@@ -178,7 +178,7 @@ typedef struct _ATE_INFO {
 	UCHAR soundingResp[MAX_SOUNDING_RESPONSE_SIZE];	/* Entire Sounding response */
 #endif /* TXBF_SUPPORT */
 	RALINK_TIMER_STRUCT PeriodicTimer;
-	ULONG OneSecPeriodicRound;
+	unsigned long OneSecPeriodicRound;
 } ATE_INFO, *PATE_INFO;
 
 /* 

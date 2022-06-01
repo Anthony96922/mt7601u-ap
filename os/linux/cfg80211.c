@@ -191,8 +191,8 @@ static INT32 CFG80211_RegNotifier(
 /* get RALINK pAd control block in 80211 Ops */
 #define MAC80211_PAD_GET(__pAd, __pWiphy)							\
 	{																\
-		ULONG *__pPriv;												\
-		__pPriv = (ULONG *)(wiphy_priv(__pWiphy));					\
+		unsigned long *__pPriv;												\
+		__pPriv = (unsigned long *)(wiphy_priv(__pWiphy));					\
 		__pAd = (VOID *)(*__pPriv);									\
 		if (__pAd == NULL)											\
 		{															\
@@ -972,8 +972,8 @@ static int CFG80211_OpsSurveyGet(
 	pSurvey->channel_time_ext_busy = SurveyInfo.ChannelTimeExtBusy;
 
 	CFG80211DBG(RT_DEBUG_ERROR, ("80211> busy time = %ld %ld\n",
-				(ULONG)SurveyInfo.ChannelTimeBusy,
-				(ULONG)SurveyInfo.ChannelTimeExtBusy));
+				(unsigned long)SurveyInfo.ChannelTimeBusy,
+				(unsigned long)SurveyInfo.ChannelTimeExtBusy));
 	return 0;
 #else
 
@@ -1184,7 +1184,7 @@ static struct wireless_dev *CFG80211_WdevAlloc(
 	IN struct device				*pDev)
 {
 	struct wireless_dev *pWdev;
-	ULONG *pPriv;
+	unsigned long *pPriv;
 
 
 	/*
@@ -1204,7 +1204,7 @@ static struct wireless_dev *CFG80211_WdevAlloc(
 		return NULL;
 	} /* End of if */
 
-	pWdev->wiphy = wiphy_new(&CFG80211_Ops, sizeof(ULONG *));
+	pWdev->wiphy = wiphy_new(&CFG80211_Ops, sizeof(unsigned long *));
 	if (pWdev->wiphy == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("80211> Wiphy device allocation fail!\n"));
@@ -1212,8 +1212,8 @@ static struct wireless_dev *CFG80211_WdevAlloc(
 	} /* End of if */
 
 	/* keep pAd pointer */
-	pPriv = (ULONG *)(wiphy_priv(pWdev->wiphy));
-	*pPriv = (ULONG)pAd;
+	pPriv = (unsigned long *)(wiphy_priv(pWdev->wiphy));
+	*pPriv = (unsigned long)pAd;
 
 	set_wiphy_dev(pWdev->wiphy, pDev);
 
@@ -1357,11 +1357,11 @@ static INT32 CFG80211_RegNotifier(
 	IN struct regulatory_request	*pRequest)
 {
 	VOID *pAd;
-	ULONG *pPriv;
+	unsigned long *pPriv;
 
 
 	/* sanity check */
-	pPriv = (ULONG *)(wiphy_priv(pWiphy));
+	pPriv = (unsigned long *)(wiphy_priv(pWiphy));
 	pAd = (VOID *)(*pPriv);
 
 	if (pAd == NULL)

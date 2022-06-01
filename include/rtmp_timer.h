@@ -60,8 +60,8 @@ typedef struct _RALINK_TIMER_STRUCT {
 	BOOLEAN State;		/* True if timer cancelled */
 	BOOLEAN PeriodicType;	/* True if timer is periodic timer */
 	BOOLEAN Repeat;		/* True if periodic timer */
-	ULONG TimerValue;	/* Timer value in milliseconds */
-	ULONG cookie;		/* os specific object */
+	unsigned long TimerValue;	/* Timer value in milliseconds */
+	unsigned long cookie;		/* os specific object */
 	void *pAd;
 #ifdef RTMP_TIMER_TASK_SUPPORT
 	RTMP_TIMER_TASK_HANDLE handle;

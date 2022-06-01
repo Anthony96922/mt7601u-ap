@@ -57,7 +57,7 @@ struct CMD_UNIT {
 			unsigned char * CmdPayload;
 			USHORT RspPayloadLen;
 			unsigned char * RspPayload;
-			ULONG Timeout;
+			unsigned long Timeout;
 			BOOLEAN NeedRsp;
 			BOOLEAN NeedWait;
 			CMD_RSP_HANDLER CmdRspHdler;

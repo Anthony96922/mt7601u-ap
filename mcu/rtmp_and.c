@@ -783,7 +783,7 @@ INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
 	INT32 Ret = NDIS_STATUS_SUCCESS;
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
 	struct CMD_RSP_EVENT *CmdRspEvent;
-	ULONG Expire;
+	unsigned long Expire;
 	unsigned long IrqFlags;
 
 	if (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_MCU_SEND_IN_BAND_CMD))
@@ -864,7 +864,7 @@ INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
 
 	/* Wait for Command Rsp */
 	if (CmdUnit->u.ANDES.NeedWait) {
-		ULONG Timeout = CmdUnit->u.ANDES.Timeout;
+		unsigned long Timeout = CmdUnit->u.ANDES.Timeout;
 		Expire = Timeout ? RtmpMsecsToJiffies(Timeout) : RtmpMsecsToJiffies(300);
 		if (!RtmpWaitForCompletionTimeout(CmdRspEvent->AckDone, Expire))
 		{

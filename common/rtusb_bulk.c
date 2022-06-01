@@ -203,7 +203,7 @@ VOID	RTUSBInitHTTxDesc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PHT_TX_CONTEXT	pTxContext,
 	IN	UCHAR			BulkOutPipeId,
-	IN	ULONG			BulkOutSize,
+	IN	unsigned long			BulkOutSize,
 	IN	usb_complete_t	Func)
 {
 	PURB				pUrb;
@@ -251,7 +251,7 @@ VOID	RTUSBInitRxDesc(
 {
 	PURB				pUrb;
 	POS_COOKIE			pObj = (POS_COOKIE) pAd->OS_Cookie;
-	ULONG				RX_bulk_size;
+	unsigned long				RX_bulk_size;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
 	pUrb = pRxContext->pUrb;
@@ -331,7 +331,7 @@ VOID	RTUSBBulkOutDataPacket(
 	int				ret = 0;
 	TXINFO_STRUC *pTxInfo, *pLastTxInfo = NULL;
 	TXWI_STRUC *pTxWI;
-	ULONG			TmpBulkEndPos, ThisBulkSize;
+	unsigned long			TmpBulkEndPos, ThisBulkSize;
 	unsigned long	IrqFlags = 0, IrqFlags2 = 0;
 	unsigned char *pWirelessPkt, *pAppendant;
 

@@ -60,7 +60,7 @@ typedef struct wsc_ie_probreq_data
 BOOLEAN MlmeAddBAReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2) 
 {
     PMLME_ADDBA_REQ_STRUCT   pInfo;
@@ -110,7 +110,7 @@ BOOLEAN MlmeAddBAReqSanity(
 BOOLEAN MlmeDelBAReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen) 
+    IN unsigned long MsgLen) 
 {
 	MLME_DELBA_REQ_STRUCT *pInfo;
 	pInfo = (MLME_DELBA_REQ_STRUCT *)Msg;
@@ -145,7 +145,7 @@ BOOLEAN MlmeDelBAReqSanity(
 BOOLEAN PeerAddBAReqActionSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *pMsg, 
-    IN ULONG MsgLen,
+    IN unsigned long MsgLen,
 	OUT unsigned char * pAddr2)
 {
 	PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;
@@ -186,7 +186,7 @@ BOOLEAN PeerAddBAReqActionSanity(
 BOOLEAN PeerAddBARspActionSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *pMsg, 
-    IN ULONG MsgLen)
+    IN unsigned long MsgLen)
 {
 	/*PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;*/
 	PFRAME_ADDBA_RSP pAddFrame;
@@ -226,7 +226,7 @@ BOOLEAN PeerDelBAActionSanity(
     IN PRTMP_ADAPTER pAd, 
     IN UCHAR Wcid, 
     IN VOID *pMsg, 
-    IN ULONG MsgLen )
+    IN unsigned long MsgLen )
 {
 	/*PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;*/
 	PFRAME_DELBA_REQ  pDelFrame;
@@ -248,7 +248,7 @@ BOOLEAN PeerDelBAActionSanity(
 BOOLEAN PeerBeaconAndProbeRspSanity_Old(
     IN PRTMP_ADAPTER pAd,
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     IN UCHAR  MsgChannel,
     OUT unsigned char * pAddr2, 
     OUT unsigned char * pBssid, 
@@ -276,7 +276,7 @@ BOOLEAN PeerBeaconAndProbeRspSanity_Old(
     OUT PEDCA_PARM pEdcaParm,
     OUT PQBSS_LOAD_PARM pQbssLoad,
     OUT PQOS_CAPABILITY_PARM pQosCapability,
-    OUT ULONG *pRalinkIe,
+    OUT unsigned long *pRalinkIe,
     OUT UCHAR *pHtCapabilityLen,
     OUT HT_CAPABILITY_IE *pHtCapability,
     OUT EXT_CAP_INFO_ELEMENT	*pExtCapInfo,
@@ -293,7 +293,7 @@ BOOLEAN PeerBeaconAndProbeRspSanity_Old(
     UCHAR				Sanity;
     /*UCHAR				ECWMin, ECWMax;*/
     /*MAC_CSR9_STRUC		Csr9;*/
-    ULONG				Length = 0;
+    unsigned long				Length = 0;
 	UCHAR				*pPeerWscIe = NULL;
 	INT					PeerWscIeLen = 0;
     UCHAR				LatchRfChannel = 0;
@@ -800,7 +800,7 @@ SanityCheck:
 BOOLEAN PeerBeaconAndProbeRspSanity(
 	IN PRTMP_ADAPTER pAd,
 	IN VOID *Msg, 
-	IN ULONG MsgLen, 
+	IN unsigned long MsgLen, 
 	IN UCHAR  MsgChannel,
 	OUT BCN_IE_LIST *ie_list,
 	OUT USHORT *LengthVIE,	
@@ -811,7 +811,7 @@ BOOLEAN PeerBeaconAndProbeRspSanity(
 	PEID_STRUCT pEid;
 	UCHAR SubType;
 	UCHAR Sanity;
-	ULONG Length = 0;
+	unsigned long Length = 0;
 	UCHAR *pPeerWscIe = NULL;
 	INT PeerWscIeLen = 0;
 	UCHAR LatchRfChannel = 0;
@@ -1303,14 +1303,14 @@ SanityCheck:
 BOOLEAN PeerBeaconAndProbeRspSanity2(
 	IN PRTMP_ADAPTER pAd, 
 	IN VOID *Msg, 
-	IN ULONG MsgLen, 
+	IN unsigned long MsgLen, 
 	IN OVERLAP_BSS_SCAN_IE *BssScan,
 	OUT UCHAR 	*RegClass)
 {
 	CHAR				*Ptr;
 	PFRAME_802_11		pFrame;
 	PEID_STRUCT			pEid;
-	ULONG				Length = 0;	
+	unsigned long				Length = 0;	
 	BOOLEAN				brc;
 
 	pFrame = (PFRAME_802_11)Msg;
@@ -1389,7 +1389,7 @@ BOOLEAN PeerBeaconAndProbeRspSanity2(
 BOOLEAN MlmeScanReqSanity(
 	IN PRTMP_ADAPTER pAd, 
 	IN VOID *Msg, 
-	IN ULONG MsgLen, 
+	IN unsigned long MsgLen, 
 	OUT UCHAR *pBssType, 
 	OUT CHAR Ssid[], 
 	OUT UCHAR *pSsidLen, 
@@ -1446,7 +1446,7 @@ UCHAR ChannelSanity(
 BOOLEAN PeerDeauthSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr1, 
     OUT unsigned char * pAddr2, 
     OUT unsigned char * pAddr3, 
@@ -1476,7 +1476,7 @@ BOOLEAN PeerDeauthSanity(
 BOOLEAN PeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr, 
     OUT USHORT *pAlg, 
     OUT USHORT *pSeq, 
@@ -1537,9 +1537,9 @@ BOOLEAN PeerAuthSanity(
 BOOLEAN MlmeAuthReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr, 
-    OUT ULONG *pTimeout, 
+    OUT unsigned long *pTimeout, 
     OUT USHORT *pAlg) 
 {
     MLME_AUTH_REQ_STRUCT *pInfo;
@@ -1576,10 +1576,10 @@ BOOLEAN MlmeAuthReqSanity(
 BOOLEAN MlmeAssocReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pApAddr, 
     OUT USHORT *pCapabilityInfo, 
-    OUT ULONG *pTimeout, 
+    OUT unsigned long *pTimeout, 
     OUT USHORT *pListenIntv) 
 {
     MLME_ASSOC_REQ_STRUCT *pInfo;
@@ -1607,7 +1607,7 @@ BOOLEAN MlmeAssocReqSanity(
 BOOLEAN PeerDisassocSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT USHORT *pReason) 
 {
@@ -1706,7 +1706,7 @@ NDIS_802_11_NETWORK_TYPE NetworkTypeInUseSanity(
 BOOLEAN PeerDlsReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen,
+    IN unsigned long MsgLen,
     OUT unsigned char * pDA,
     OUT unsigned char * pSA,
     OUT USHORT *pCapabilityInfo, 
@@ -1829,7 +1829,7 @@ BOOLEAN PeerDlsReqSanity(
 BOOLEAN PeerDlsRspSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen,
+    IN unsigned long MsgLen,
     OUT unsigned char * pDA,
     OUT unsigned char * pSA,
     OUT USHORT *pCapabilityInfo, 
@@ -1957,7 +1957,7 @@ BOOLEAN PeerDlsRspSanity(
 BOOLEAN PeerDlsTearDownSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen,
+    IN unsigned long MsgLen,
     OUT unsigned char * pDA,
     OUT unsigned char * pSA,
     OUT USHORT *pReason) 
@@ -2000,7 +2000,7 @@ BOOLEAN PeerDlsTearDownSanity(
 BOOLEAN PeerProbeReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2,
     OUT CHAR Ssid[], 
     OUT UCHAR *SsidLen, 

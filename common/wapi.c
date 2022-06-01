@@ -168,7 +168,7 @@ VOID RTMPInsertWapiIe(
 */
 BOOLEAN RTMPCheckWAIframe(
     IN unsigned char *           pData,
-    IN ULONG            DataByteCount)
+    IN unsigned long            DataByteCount)
 {
     if(DataByteCount < (LENGTH_802_1_H + LENGTH_WAI_H))
         return FALSE;

@@ -128,7 +128,7 @@ VOID RTMP_MapChannelID2KHZ(
 	OUT unsigned int *pFreq);
 
 VOID RTMP_MapKHZ2ChannelID(
-	IN ULONG Freq,
+	IN unsigned long Freq,
 	OUT INT *pCh);
 
 UCHAR GetChannel_5GHZ(

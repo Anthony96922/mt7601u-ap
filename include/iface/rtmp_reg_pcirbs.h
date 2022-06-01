@@ -280,34 +280,34 @@ typedef union _COEXCFG2_STRUC{
 #ifdef RT_BIG_ENDIAN
 typedef	union	_PLL_CTRL_STRUC	{
 	struct	{
-		ULONG		VBGBK_EN:1;
-		ULONG      	LOCK_DETECT_WINDOW_CTRL:3;
-		ULONG		PFD_DELAY_CTRL:2;
-		ULONG		CP_CURRENT_CTRL:2;
-		ULONG		LPF_C2_CTRL:2;
-		ULONG		LPF_C1_CTRL:2;
-		ULONG		LPF_R1:1;
-		ULONG		VCO_FIXED_CURRENT_CONTROL:3;
-		ULONG		RESERVED_INPUT2:8;
-		ULONG		RESERVED_INPUT1:8;
+		unsigned long		VBGBK_EN:1;
+		unsigned long      	LOCK_DETECT_WINDOW_CTRL:3;
+		unsigned long		PFD_DELAY_CTRL:2;
+		unsigned long		CP_CURRENT_CTRL:2;
+		unsigned long		LPF_C2_CTRL:2;
+		unsigned long		LPF_C1_CTRL:2;
+		unsigned long		LPF_R1:1;
+		unsigned long		VCO_FIXED_CURRENT_CONTROL:3;
+		unsigned long		RESERVED_INPUT2:8;
+		unsigned long		RESERVED_INPUT1:8;
 	}	field;
-	ULONG			word;
+	unsigned long			word;
 }	PLL_CTRL_STRUC, *PPLL_CTRL_STRUC;
 #else
 typedef	union	_PLL_CTRL_STRUC	{
 	struct	{
-		ULONG		RESERVED_INPUT1:8;
-		ULONG		RESERVED_INPUT2:8;
-		ULONG		VCO_FIXED_CURRENT_CONTROL:3;
-		ULONG		LPF_R1:1;
-		ULONG		LPF_C1_CTRL:2;
-		ULONG		LPF_C2_CTRL:2;
-		ULONG		CP_CURRENT_CTRL:2;
-		ULONG		PFD_DELAY_CTRL:2;
-		ULONG      	LOCK_DETECT_WINDOW_CTRL:3;
-		ULONG		VBGBK_EN:1;
+		unsigned long		RESERVED_INPUT1:8;
+		unsigned long		RESERVED_INPUT2:8;
+		unsigned long		VCO_FIXED_CURRENT_CONTROL:3;
+		unsigned long		LPF_R1:1;
+		unsigned long		LPF_C1_CTRL:2;
+		unsigned long		LPF_C2_CTRL:2;
+		unsigned long		CP_CURRENT_CTRL:2;
+		unsigned long		PFD_DELAY_CTRL:2;
+		unsigned long      	LOCK_DETECT_WINDOW_CTRL:3;
+		unsigned long		VBGBK_EN:1;
 	}	field;
-	ULONG			word;
+	unsigned long			word;
 } PLL_CTRL_STRUC, *PPLL_CTRL_STRUC;
 #endif /* RT_BIG_ENDIAN */
 

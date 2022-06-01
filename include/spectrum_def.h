@@ -48,7 +48,7 @@
 typedef struct _MEASURE_REQ_ENTRY
 {
 	struct _MEASURE_REQ_ENTRY *pNext;
-	ULONG lastTime;
+	unsigned long lastTime;
 	BOOLEAN	Valid;
 	unsigned char DialogToken;
 	unsigned char MeasureDialogToken[3];	/* 0:basic measure, 1: CCA measure, 2: RPI_Histogram measure. */
@@ -64,7 +64,7 @@ typedef struct _MEASURE_REQ_TAB
 typedef struct _TPC_REQ_ENTRY
 {
 	struct _TPC_REQ_ENTRY *pNext;
-	ULONG lastTime;
+	unsigned long lastTime;
 	BOOLEAN Valid;
 	unsigned char DialogToken;
 } TPC_REQ_ENTRY, *PTPC_REQ_ENTRY;

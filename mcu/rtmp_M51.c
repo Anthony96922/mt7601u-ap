@@ -132,7 +132,7 @@ NDIS_STATUS isMCUNeedToLoadFIrmware(
 	IN PRTMP_ADAPTER pAd)
 {
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	ULONG			Index;
+	unsigned long			Index;
 	unsigned int			MacReg;
 	
 	Index = 0;
@@ -159,7 +159,7 @@ NDIS_STATUS isMCUnotReady(
 	IN PRTMP_ADAPTER pAd)
 {
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
-	ULONG			Index;
+	unsigned long			Index;
 	unsigned int			MacReg;
 
 #ifdef RT65xx
@@ -228,8 +228,8 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	unsigned char *			pFirmwareImage;
 	INT				FileLength = 0;
 	unsigned int			MacReg;
-	ULONG			Index;
-	ULONG			firm;
+	unsigned long			Index;
+	unsigned long			firm;
 	BOOLEAN			flg_default_firm_use = FALSE;
 	RTMP_OS_FS_INFO	osFSInfo;
 
@@ -395,7 +395,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	unsigned char *			pFirmwareImage;
-	ULONG			FileLength;
+	unsigned long			FileLength;
 	unsigned int			Version = (pAd->MACVersion >> 16);
 #ifdef RTMP_MAC_USB
 	BOOLEAN			Equal = TRUE;

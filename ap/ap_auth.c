@@ -98,7 +98,7 @@ static VOID APMlmeDeauthReqAction(
 	HEADER_802_11	Hdr;
 	unsigned char *		pOutBuffer = NULL;
 	NDIS_STATUS	NStatus;
-	ULONG		FrameLen = 0;
+	unsigned long		FrameLen = 0;
 	MAC_TABLE_ENTRY	*pEntry;
 	UCHAR		apidx;
 
@@ -227,7 +227,7 @@ static VOID APPeerAuthReqAtIdleAction(
 	HEADER_802_11 AuthHdr;
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
-	ULONG FrameLen = 0;
+	unsigned long FrameLen = 0;
 	MAC_TABLE_ENTRY *pEntry;
 	UCHAR ChTxtIe = 16, ChTxtLen = CIPHER_TEXT_LEN;
 
@@ -527,13 +527,13 @@ static VOID APPeerAuthConfirmAction(
  */
 VOID APCls2errAction(
     IN PRTMP_ADAPTER pAd, 
-	IN 	ULONG Wcid, 
+	IN 	unsigned long Wcid, 
     IN	PHEADER_802_11	pHeader) 
 {
     HEADER_802_11 Hdr;
     unsigned char *        pOutBuffer = NULL;
     NDIS_STATUS   NStatus;
-    ULONG         FrameLen = 0;
+    unsigned long         FrameLen = 0;
     USHORT        Reason = REASON_CLS2ERR;
     MAC_TABLE_ENTRY *pEntry = NULL;
 
@@ -592,7 +592,7 @@ VOID APPeerAuthSimpleRspGenAndSend(
     IN USHORT StatusCode) 
 {
     HEADER_802_11     AuthHdr;
-    ULONG             FrameLen = 0;
+    unsigned long             FrameLen = 0;
     unsigned char *            pOutBuffer = NULL;
     NDIS_STATUS       NStatus;
 

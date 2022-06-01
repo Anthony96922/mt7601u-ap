@@ -192,7 +192,7 @@ NDIS_STATUS RXSTOP(
 }
 
 
-static VOID memcpy_exl(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, ULONG len)
+static VOID memcpy_exl(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, unsigned long len)
 {
 	unsigned int i, Value = 0;
 	UCHAR *pDst = NULL, *pSrc = NULL;
@@ -219,9 +219,9 @@ static VOID memcpy_exl(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, ULONG len)
 }
 
 
-static VOID memcpy_exs(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, ULONG len)
+static VOID memcpy_exs(PRTMP_ADAPTER pAd, UCHAR *dst, UCHAR *src, unsigned long len)
 {
-	ULONG i;
+	unsigned long i;
 	{
 		USHORT *pDst, *pSrc;
 		

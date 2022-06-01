@@ -180,9 +180,9 @@ VOID MlmeOldRateAdapt(
 	IN UCHAR			CurrRateIdx,
 	IN UCHAR			UpRateIdx,
 	IN UCHAR			DownRateIdx,
-	IN ULONG			TrainUp,
-	IN ULONG			TrainDown,
-	IN ULONG			TxErrorRatio);
+	IN unsigned long			TrainUp,
+	IN unsigned long			TrainDown,
+	IN unsigned long			TxErrorRatio);
 
 VOID MlmeRestoreLastRate(
 	IN struct _MAC_TABLE_ENTRY *pEntry);
@@ -236,17 +236,17 @@ BOOLEAN MlmeRAHybridRule(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN RTMP_RA_GRP_TB *pCurrTxRate,
-	IN ULONG			NewTxOkCount,
-	IN ULONG			TxErrorRatio);
+	IN unsigned long			NewTxOkCount,
+	IN unsigned long			TxErrorRatio);
 
 VOID MlmeNewRateAdapt(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN UCHAR			UpRateIdx,
 	IN UCHAR			DownRateIdx,
-	IN ULONG			TrainUp,
-	IN ULONG			TrainDown,
-	IN ULONG			TxErrorRatio);
+	IN unsigned long			TrainUp,
+	IN unsigned long			TrainDown,
+	IN unsigned long			TxErrorRatio);
 
 INT	Set_PerThrdAdj_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
@@ -277,8 +277,8 @@ INT Set_RateTable_Proc(
 	IN  char * arg);
 
 #ifdef CONFIG_AP_SUPPORT
-VOID APMlmeDynamicTxRateSwitchingAdapt(struct _RTMP_ADAPTER *pAd, ULONG idx);
-VOID APQuickResponeForRateUpExecAdapt(struct _RTMP_ADAPTER *pAd, ULONG idx);
+VOID APMlmeDynamicTxRateSwitchingAdapt(struct _RTMP_ADAPTER *pAd, unsigned long idx);
+VOID APQuickResponeForRateUpExecAdapt(struct _RTMP_ADAPTER *pAd, unsigned long idx);
 #endif /* CONFIG_AP_SUPPORT */
 
 #endif /* NEW_RATE_ADAPT_SUPPORT */
@@ -307,8 +307,8 @@ VOID MlmeRALog(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN RA_LOG_TYPE raLogType,
-	IN ULONG TxErrorRatio,
-	IN ULONG TxTotalCnt);
+	IN unsigned long TxErrorRatio,
+	IN unsigned long TxTotalCnt);
 
 VOID MlmeSelectTxRateTable(
 	IN struct _RTMP_ADAPTER *pAd,

@@ -36,11 +36,11 @@
 /* DisplayTxAgg - display Aggregation statistics from MAC */
 void DisplayTxAgg (RTMP_ADAPTER *pAd)
 {
-	ULONG totalCount;
-	ULONG aggCnt[MAX_AGG_CNT + 2];
+	unsigned long totalCount;
+	unsigned long aggCnt[MAX_AGG_CNT + 2];
 	int i;
 
-	AsicReadAggCnt(pAd, aggCnt, sizeof(aggCnt) / sizeof(ULONG));
+	AsicReadAggCnt(pAd, aggCnt, sizeof(aggCnt) / sizeof(unsigned long));
 	totalCount = aggCnt[0] + aggCnt[1];
 	if (totalCount > 0)
 		for (i = 0; i< MAX_AGG_CNT; i++)
@@ -590,7 +590,7 @@ INT RT_CfgSetWPAPSKKey(
 INT	RT_CfgSetFixedTxPhyMode(char * arg)
 {
 	INT fix_tx_mode = FIXED_TXMODE_HT;
-	ULONG value;
+	unsigned long value;
 
 
 	if (rtstrcasecmp(arg, "OFDM") == TRUE)
@@ -720,7 +720,7 @@ Note:
 INT RtmpIoctl_rt_ioctl_giwname(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	VOID		*pData,
-	IN	ULONG		Data)
+	IN	unsigned long		Data)
 {
 	strcpy(pData, "IEEE 802.11");
 	switch(pAd->CommonCfg.PhyMode) {
@@ -780,7 +780,7 @@ INT RTMP_COM_IoctlHandle(
 	IN	INT			cmd,
 	IN	USHORT			subcmd,
 	IN	VOID			*pData,
-	IN	ULONG			Data)
+	IN	unsigned long			Data)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	POS_COOKIE pObj = (POS_COOKIE)pAd->OS_Cookie;
@@ -812,7 +812,7 @@ INT RTMP_COM_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_OPMODE_GET:
 		/* get Operation Mode */
-			*(ULONG *)pData = pAd->OpMode;
+			*(unsigned long *)pData = pAd->OpMode;
 			break;
 
 
@@ -898,7 +898,7 @@ INT RTMP_COM_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_SIOCGIWFREQ:
 		/* get channel number */
-			*(ULONG *)pData = pAd->CommonCfg.Channel;
+			*(unsigned long *)pData = pAd->CommonCfg.Channel;
 			break;
 
 		case CMD_RTPRIV_IOCTL_BEACON_UPDATE:
@@ -911,11 +911,11 @@ INT RTMP_COM_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_RXPATH_GET:
 		/* get the number of rx path */
-			*(ULONG *)pData = pAd->Antenna.field.RxPath;
+			*(unsigned long *)pData = pAd->Antenna.field.RxPath;
 			break;
 
 		case CMD_RTPRIV_IOCTL_CHAN_LIST_NUM_GET:
-			*(ULONG *)pData = pAd->ChannelListNum;
+			*(unsigned long *)pData = pAd->ChannelListNum;
 			break;
 
 		case CMD_RTPRIV_IOCTL_CHAN_LIST_GET:
@@ -1083,12 +1083,12 @@ INT RTMP_COM_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_VIRTUAL_INF_GET:
 		/* get virtual interface number */
-			*(ULONG *)pData = VIRTUAL_IF_NUM(pAd);
+			*(unsigned long *)pData = VIRTUAL_IF_NUM(pAd);
 			break;
 
 		case CMD_RTPRIV_IOCTL_INF_TYPE_GET:
 		/* get current interface type */
-			*(ULONG *)pData = pAd->infType;
+			*(unsigned long *)pData = pAd->infType;
 			break;
 
 		case CMD_RTPRIV_IOCTL_INF_STATS_GET:
@@ -1237,7 +1237,7 @@ INT RTMP_COM_IoctlHandle(
 			break;
 
 		case CMD_RTPRIV_IOCTL_INF_MAIN_ID_GET:
-			*(ULONG *)pData = INT_MAIN;
+			*(unsigned long *)pData = INT_MAIN;
 			break;
 
 		case CMD_RTPRIV_IOCTL_INF_MAIN_CHECK:
@@ -1454,7 +1454,7 @@ INT Set_MO_FalseCCATh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *		arg)
 {
-	ULONG th;
+	unsigned long th;
 
 	th = simple_strtol(arg, 0, 10);
 	

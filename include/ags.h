@@ -70,12 +70,12 @@ typedef struct _AGS_CONTROL {
 /* The statistics information for AGS */
 typedef struct _AGS_STATISTICS_INFO {
 	CHAR	RSSI;
-	ULONG	TxErrorRatio;
-	ULONG	AccuTxTotalCnt;
-	ULONG	TxTotalCnt;
-	ULONG	TxSuccess;
-	ULONG	TxRetransmit;
-	ULONG	TxFailCount;
+	unsigned long	TxErrorRatio;
+	unsigned long	AccuTxTotalCnt;
+	unsigned long	TxTotalCnt;
+	unsigned long	TxSuccess;
+	unsigned long	TxRetransmit;
+	unsigned long	TxFailCount;
 } AGS_STATISTICS_INFO, *PAGS_STATISTICS_INFO;
 
 

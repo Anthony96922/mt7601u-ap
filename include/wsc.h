@@ -534,7 +534,7 @@ typedef struct _WSC_UPNP_NODE_INFO{
 
 #define MAX_PBC_STA_TABLE_SIZE	4
 typedef struct _WSC_STA_PBC_PROBE_INFO {
-	ULONG				ReciveTime[MAX_PBC_STA_TABLE_SIZE];
+	unsigned long				ReciveTime[MAX_PBC_STA_TABLE_SIZE];
     UCHAR				WscPBCStaProbeCount;
     UCHAR   			StaMacAddr[MAX_PBC_STA_TABLE_SIZE][MAC_ADDR_LEN];
 	UCHAR				Valid[MAX_PBC_STA_TABLE_SIZE];
@@ -613,8 +613,8 @@ typedef	struct	_WSC_CTRL
 	BOOLEAN                 WscProfileRetryTimerRunning;
 	RALINK_TIMER_STRUCT		WscProfileRetryTimer;
 #ifdef WSC_LED_SUPPORT
-	ULONG					WscLEDMode; /* WPS LED mode: LED_WPS_XXX definitions. */
-	ULONG					WscLastWarningLEDMode; /* LED_WPS_ERROR or LED_WPS_SESSION_OVERLAP_DETECTED */
+	unsigned long					WscLEDMode; /* WPS LED mode: LED_WPS_XXX definitions. */
+	unsigned long					WscLastWarningLEDMode; /* LED_WPS_ERROR or LED_WPS_SESSION_OVERLAP_DETECTED */
 	BOOLEAN 				bSkipWPSTurnOffLED; /* Skip the WPS turn off LED command. */
 	BOOLEAN 				WscLEDTimerRunning;
 	RALINK_TIMER_STRUCT 	WscLEDTimer;
@@ -809,7 +809,7 @@ typedef enum _WscSecurityMode{
 
 typedef struct _WSC_PEER_ENTRY {
 	struct _WSC_PEER_ENTRY *pNext;
-	ULONG	receive_time;
+	unsigned long	receive_time;
 	UCHAR	mac_addr[MAC_ADDR_LEN];
 } WSC_PEER_ENTRY, *PWSC_PEER_ENTRY;
 

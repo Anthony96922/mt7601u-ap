@@ -96,7 +96,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 	UCHAR DsLen = 1, SsidLen;
 	HEADER_802_11 BcnHdr;
 	LARGE_INTEGER FakeTimestamp;
-	ULONG FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
+	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
 	unsigned char * pBeaconFrame = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	UCHAR *ptr;
 	UINT i;
@@ -200,7 +200,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 	/* AP Channel Report */
 	//{
 		//UCHAR APChannelReportIe = IE_AP_CHANNEL_REPORT;
-		//ULONG TmpLen;
+		//unsigned long TmpLen;
 
 		/*
 			802.11n D2.0 Annex J, USA regulatory
@@ -276,8 +276,8 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 {
 	UCHAR *pBeaconFrame = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	UCHAR *ptr;
-	ULONG FrameLen = pAd->ApCfg.MBSSID[apidx].TimIELocationInBeacon;
-	ULONG UpdatePos = pAd->ApCfg.MBSSID[apidx].TimIELocationInBeacon;
+	unsigned long FrameLen = pAd->ApCfg.MBSSID[apidx].TimIELocationInBeacon;
+	unsigned long UpdatePos = pAd->ApCfg.MBSSID[apidx].TimIELocationInBeacon;
 	UCHAR RSNIe = IE_WPA, RSNIe2 = IE_WPA2;
 	UCHAR ID_1B, TimFirst, TimLast, *pTim;
 	MULTISSID_STRUCT *pMbss;
@@ -288,7 +288,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 #endif /* ifdef WSC_AP_SUPPORT */
 	UINT i;
 	HTTRANSMIT_SETTING BeaconTransmit = {.word = 0}; /* MGMT frame PHY rate setting when operatin at Ht rate. */
-	ULONG TmpLen = 0;
+	unsigned long TmpLen = 0;
 
 	pMbss = &pAd->ApCfg.MBSSID[apidx];
 	pComCfg = &pAd->CommonCfg;
@@ -495,7 +495,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 
 		/* 7.3.2.27 Extended Capabilities IE */
 		{
-			ULONG infoPos;
+			unsigned long infoPos;
 			unsigned char * pInfo;
 			UCHAR extInfoLen;
 			BOOLEAN	bNeedAppendExtIE = FALSE;
@@ -551,7 +551,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 		bHasWpsIE = TRUE;
 
 	if (bHasWpsIE) {
-		ULONG WscTmpLen = 0;
+		unsigned long WscTmpLen = 0;
 
 		MakeOutgoingFrame(pBeaconFrame + FrameLen, &WscTmpLen,
 					pAd->ApCfg.MBSSID[apidx].WscIEBeacon.ValueLen, pAd->ApCfg.MBSSID[apidx].WscIEBeacon.Value,

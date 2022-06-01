@@ -1310,7 +1310,7 @@ INT RTMPAPSetInformation(
 	UINT			KeyIdx = 0;
 	PNDIS_AP_802_11_KEY	pKey = NULL;
 	TX_RTY_CFG_STRUC	tx_rty_cfg;
-	ULONG			ShortRetryLimit, LongRetryLimit;
+	unsigned long			ShortRetryLimit, LongRetryLimit;
 	UCHAR			ctmp;
 #endif /* SNMP_SUPPORT */
 
@@ -2196,7 +2196,7 @@ INT RTMPAPSetInformation(
 
 #ifdef SNMP_SUPPORT
 		case OID_802_11_SHORTRETRYLIMIT:
-			if (wrq->u.data.length != sizeof(ULONG))
+			if (wrq->u.data.length != sizeof(unsigned long))
 				Status = -EINVAL;
 			else
 			{
@@ -2210,7 +2210,7 @@ INT RTMPAPSetInformation(
 
 		case OID_802_11_LONGRETRYLIMIT:
 			DBGPRINT(RT_DEBUG_TRACE, ("Set::OID_802_11_LONGRETRYLIMIT \n"));
-			if (wrq->u.data.length != sizeof(ULONG))
+			if (wrq->u.data.length != sizeof(unsigned long))
 				Status = -EINVAL;
 			else
 			{
@@ -2992,11 +2992,11 @@ INT RTMPAPQueryInformation(
 #endif /* WSC_AP_SUPPORT */
 
 #ifdef SNMP_SUPPORT
-	ULONG ulInfo;
+	unsigned long ulInfo;
 	DefaultKeyIdxValue		*pKeyIdxValue;
 	INT				valueLen;
 	TX_RTY_CFG_STRUC		tx_rty_cfg;
-	ULONG				ShortRetryLimit, LongRetryLimit;
+	unsigned long				ShortRetryLimit, LongRetryLimit;
 	UCHAR				snmp_tmp[64];
 #endif /* SNMP_SUPPORT */
 
@@ -3014,7 +3014,7 @@ INT RTMPAPQueryInformation(
 	UCHAR 				ifIndex;
 	BOOLEAN				apcliEn = FALSE;
 	INT 				i, Padding = 0;
-	ULONG 				BssBufSize;
+	unsigned long 				BssBufSize;
 	unsigned char *				pBuf = NULL, pPtr=NULL;
 	NDIS_802_11_BSSID_LIST_EX	*pBssidList = NULL;
 	USHORT				BssLen = 0;
@@ -3093,7 +3093,7 @@ INT RTMPAPQueryInformation(
 			pAd->ApCfg.ApCliTab[ifIndex].WpaSupplicantScanCount = 0;
 
 		DBGPRINT(RT_DEBUG_TRACE, ("Query::OID_802_11_BSSID_LIST (%d BSS returned)\n",pAd->ScanTab.BssNr));
-		BssBufSize = sizeof(ULONG);
+		BssBufSize = sizeof(unsigned long);
 
 		for (i = 0; i < pAd->ScanTab.BssNr; i++)
 			BssBufSize += (sizeof(NDIS_WLAN_BSSID_EX) - 1 + sizeof(NDIS_802_11_FIXED_IEs) + pAd->ScanTab.BssEntry[i].VarIELen + Padding);
@@ -3161,13 +3161,13 @@ INT RTMPAPQueryInformation(
 			}
 			else
 			{
-				pBss->IELength = (ULONG)(sizeof(NDIS_802_11_FIXED_IEs) + pAd->ScanTab.BssEntry[i].VarIELen);
+				pBss->IELength = (unsigned long)(sizeof(NDIS_802_11_FIXED_IEs) + pAd->ScanTab.BssEntry[i].VarIELen);
 				pPtr = pPtr + sizeof(NDIS_WLAN_BSSID_EX) - 1 + sizeof(NDIS_802_11_FIXED_IEs);
 				NdisMoveMemory(pBss->IEs, &pAd->ScanTab.BssEntry[i].FixIEs, sizeof(NDIS_802_11_FIXED_IEs));
 				NdisMoveMemory(pBss->IEs + sizeof(NDIS_802_11_FIXED_IEs), pAd->ScanTab.BssEntry[i].VarIEs, pAd->ScanTab.BssEntry[i].VarIELen);
 				pPtr += pAd->ScanTab.BssEntry[i].VarIELen;
 			}
-			pBss->Length = (ULONG)(sizeof(NDIS_WLAN_BSSID_EX) - 1 + sizeof(NDIS_802_11_FIXED_IEs) + pAd->ScanTab.BssEntry[i].VarIELen + Padding);
+			pBss->Length = (unsigned long)(sizeof(NDIS_WLAN_BSSID_EX) - 1 + sizeof(NDIS_802_11_FIXED_IEs) + pAd->ScanTab.BssEntry[i].VarIELen + Padding);
 
 #if WIRELESS_EXT < 17                
 			if ((BssLen + pBss->Length) < wrq->u.data.length)
@@ -3481,7 +3481,7 @@ INT RTMPAPQueryInformation(
 
 		case RT_OID_802_11_PRIVACYOPTIONIMPLEMENTED:
 			{
-				ULONG ulInfo;
+				unsigned long ulInfo;
 				DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_802_11_PRIVACYOPTIONIMPLEMENTED\n"));
 				ulInfo = 1; /* 1 is support wep else 2 is not support. */
 				wrq->u.data.length = sizeof(ulInfo);
@@ -3490,7 +3490,7 @@ INT RTMPAPQueryInformation(
 			}
 		case RT_OID_802_11_POWERMANAGEMENTMODE:
 			{
-				ULONG ulInfo;
+				unsigned long ulInfo;
 				DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_802_11_POWERMANAGEMENTMODE\n"));
 				ulInfo = 1; /* 1 is power active else 2 is power save. */
 				wrq->u.data.length = sizeof(ulInfo);
@@ -3535,7 +3535,7 @@ INT RTMPAPQueryInformation(
 
 		case OID_802_11_SHORTRETRYLIMIT:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::OID_802_11_SHORTRETRYLIMIT\n"));
-			wrq->u.data.length = sizeof(ULONG);
+			wrq->u.data.length = sizeof(unsigned long);
 			RTMP_IO_READ32(pAd, TX_RTY_CFG, &tx_rty_cfg.word);
 			ShortRetryLimit = tx_rty_cfg.field.ShortRtyLimit;
 			DBGPRINT(RT_DEBUG_TRACE, ("ShortRetryLimit = %ld,  tx_rty_cfg.field.ShortRetryLimit = %d\n", ShortRetryLimit, tx_rty_cfg.field.ShortRtyLimit));
@@ -3544,7 +3544,7 @@ INT RTMPAPQueryInformation(
 
 		case OID_802_11_LONGRETRYLIMIT:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::OID_802_11_LONGRETRYLIMIT\n"));
-			wrq->u.data.length = sizeof(ULONG);
+			wrq->u.data.length = sizeof(unsigned long);
 			RTMP_IO_READ32(pAd, TX_RTY_CFG, &tx_rty_cfg.word);
 			LongRetryLimit = tx_rty_cfg.field.LongRtyLimit;
 			DBGPRINT(RT_DEBUG_TRACE, ("LongRetryLimit = %ld,  tx_rty_cfg.field.LongRtyLimit = %d\n", LongRetryLimit, tx_rty_cfg.field.LongRtyLimit));
@@ -3832,7 +3832,7 @@ INT RTMPAPQueryInformation(
 #ifdef APCLI_SUPPORT
 		case OID_GEN_MEDIA_CONNECT_STATUS:
 			{
-				ULONG ApCliIdx = pObj->ioctl_if;
+				unsigned long ApCliIdx = pObj->ioctl_if;
 
 				NDIS_MEDIA_STATE MediaState;
 				PMAC_TABLE_ENTRY pEntry;
@@ -3934,7 +3934,7 @@ INT Set_ChGeography_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *		arg)
 {
-	ULONG Geography;
+	unsigned long Geography;
 		
 	Geography = simple_strtol(arg, 0, 10);
 	if (Geography <= BOTH)
@@ -4189,9 +4189,9 @@ INT Set_TxRate_Proc(
 INT Set_BasicRate_Proc(RTMP_ADAPTER *pAd, char * arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
-	ULONG BasicRateBitmap;
+	unsigned long BasicRateBitmap;
 
-	BasicRateBitmap = (ULONG) simple_strtol(arg, 0, 10);
+	BasicRateBitmap = (unsigned long) simple_strtol(arg, 0, 10);
 
 	if (BasicRateBitmap > 4095) /* (2 ^ MAX_LEN_OF_SUPPORTED_RATES) -1 */
 		return FALSE;
@@ -4384,7 +4384,7 @@ INT	Set_NoForwarding_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG NoForwarding;
+	unsigned long NoForwarding;
 
 	POS_COOKIE	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	
@@ -4416,7 +4416,7 @@ INT	Set_NoForwardingBTNSSID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG NoForwarding;
+	unsigned long NoForwarding;
 
 	NoForwarding = simple_strtol(arg, 0, 10);
 
@@ -4563,7 +4563,7 @@ INT	Set_AP_AuthMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG       i;
+	unsigned long       i;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR		apidx = pObj->ioctl_if;
 
@@ -4785,7 +4785,7 @@ INT	Set_AP_DefaultKeyID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG KeyIdx;
+	unsigned long KeyIdx;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR	apidx = pObj->ioctl_if;
 
@@ -5598,10 +5598,10 @@ INT	Show_StaCount_Proc(
 				pEntry->Addr[0], pEntry->Addr[1], pEntry->Addr[2],
 				pEntry->Addr[3], pEntry->Addr[4], pEntry->Addr[5]);
 			printk("%-4d", (int)pEntry->Aid);
-			printk("%-12ld",(ULONG)pEntry->TxPackets.QuadPart);
-			printk("%-12ld", (ULONG)pEntry->RxPackets.QuadPart);
-			printk("%-12ld", (ULONG)pEntry->TxBytes);
-			printk("%-12ld", (ULONG)pEntry->RxBytes);
+			printk("%-12ld",(unsigned long)pEntry->TxPackets.QuadPart);
+			printk("%-12ld", (unsigned long)pEntry->RxPackets.QuadPart);
+			printk("%-12ld", (unsigned long)pEntry->TxBytes);
+			printk("%-12ld", (unsigned long)pEntry->RxBytes);
 			printk("\n");
 		}
 	}
@@ -5773,7 +5773,7 @@ INT	Show_Sat_Proc(
 	printk("FrameDuplicateCount = %d\n", pAd->WlanCounters.FrameDuplicateCount.u.LowPart);
 	printk("ReceivedFragmentCount = %d\n", pAd->WlanCounters.ReceivedFragmentCount.u.LowPart);
 	printk("MulticastReceivedFrameCount = %d\n", pAd->WlanCounters.MulticastReceivedFrameCount.u.LowPart);
-	printk("Rx drop due to out of resource  = %ld\n", (ULONG)pAd->Counters8023.RxNoBuffer);
+	printk("Rx drop due to out of resource  = %ld\n", (unsigned long)pAd->Counters8023.RxNoBuffer);
 #ifdef DBG 		
 	printk("RealFcsErrCount = %d\n", pAd->RalinkCounters.RealFcsErrCount.u.LowPart);
 #else
@@ -5786,14 +5786,14 @@ INT	Show_Sat_Proc(
 #ifdef DOT11_N_SUPPORT
 	printk("\n===Some 11n statistics variables:\n");
 	/* Some 11n statistics variables */
-	printk("TransmittedAMSDUCount = %ld\n", (ULONG)pAd->RalinkCounters.TransmittedAMSDUCount.u.LowPart);
-	printk("TransmittedOctetsInAMSDU = %ld\n", (ULONG)pAd->RalinkCounters.TransmittedOctetsInAMSDU.QuadPart);
-	printk("ReceivedAMSDUCount = %ld\n", (ULONG)pAd->RalinkCounters.ReceivedAMSDUCount.u.LowPart);	
-	printk("ReceivedOctesInAMSDUCount = %ld\n", (ULONG)pAd->RalinkCounters.ReceivedOctesInAMSDUCount.QuadPart);	
-	printk("TransmittedAMPDUCount = %ld\n", (ULONG)pAd->RalinkCounters.TransmittedAMPDUCount.u.LowPart);
-	printk("TransmittedMPDUsInAMPDUCount = %ld\n", (ULONG)pAd->RalinkCounters.TransmittedMPDUsInAMPDUCount.u.LowPart);
-	printk("TransmittedOctetsInAMPDUCount = %ld\n", (ULONG)pAd->RalinkCounters.TransmittedOctetsInAMPDUCount.u.LowPart);
-	printk("MPDUInReceivedAMPDUCount = %ld\n", (ULONG)pAd->RalinkCounters.MPDUInReceivedAMPDUCount.u.LowPart);
+	printk("TransmittedAMSDUCount = %ld\n", (unsigned long)pAd->RalinkCounters.TransmittedAMSDUCount.u.LowPart);
+	printk("TransmittedOctetsInAMSDU = %ld\n", (unsigned long)pAd->RalinkCounters.TransmittedOctetsInAMSDU.QuadPart);
+	printk("ReceivedAMSDUCount = %ld\n", (unsigned long)pAd->RalinkCounters.ReceivedAMSDUCount.u.LowPart);	
+	printk("ReceivedOctesInAMSDUCount = %ld\n", (unsigned long)pAd->RalinkCounters.ReceivedOctesInAMSDUCount.QuadPart);	
+	printk("TransmittedAMPDUCount = %ld\n", (unsigned long)pAd->RalinkCounters.TransmittedAMPDUCount.u.LowPart);
+	printk("TransmittedMPDUsInAMPDUCount = %ld\n", (unsigned long)pAd->RalinkCounters.TransmittedMPDUsInAMPDUCount.u.LowPart);
+	printk("TransmittedOctetsInAMPDUCount = %ld\n", (unsigned long)pAd->RalinkCounters.TransmittedOctetsInAMPDUCount.u.LowPart);
+	printk("MPDUInReceivedAMPDUCount = %ld\n", (unsigned long)pAd->RalinkCounters.MPDUInReceivedAMPDUCount.u.LowPart);
 #ifdef DOT11N_DRAFT3
 	printk("fAnyStaFortyIntolerant=%d\n", pAd->MacTab.fAnyStaFortyIntolerant);
 #endif /* DOT11N_DRAFT3 */
@@ -5894,7 +5894,7 @@ INT	Show_Sat_Reset_Proc(
 	printk("FrameDuplicateCount = %d\n", pAd->WlanCounters.FrameDuplicateCount.u.LowPart);
 	printk("ReceivedFragmentCount = %d\n", pAd->WlanCounters.ReceivedFragmentCount.u.LowPart);
 	printk("MulticastReceivedFrameCount = %d\n", pAd->WlanCounters.MulticastReceivedFrameCount.u.LowPart);
-	printk("Rx drop due to out of resource  = %ld\n", (ULONG)pAd->Counters8023.RxNoBuffer);
+	printk("Rx drop due to out of resource  = %ld\n", (unsigned long)pAd->Counters8023.RxNoBuffer);
 #ifdef DBG 		
 	printk("RealFcsErrCount = %d\n", pAd->RalinkCounters.RealFcsErrCount.u.LowPart);
 #else
@@ -6165,7 +6165,7 @@ VOID RTMPIoctlAddWPAKey(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
 	NDIS_AP_802_11_KEY 	*pKey;
-	ULONG				KeyIdx;
+	unsigned long				KeyIdx;
 	MAC_TABLE_ENTRY  	*pEntry;
 	UCHAR				apidx;
 
@@ -6468,8 +6468,8 @@ VOID RTMPAPIoctlBBP32(
 	}
 
 	NdisZeroMemory(mpool, MAX_BBP_MSG_SIZE * 2 +256+12);
-	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (char *)((ULONG)(msg+MAX_BBP_MSG_SIZE * 2+3) & (ULONG)~0x03);
+	msg = (char *)((unsigned long)(mpool+3) & (unsigned long)~0x03);
+	arg = (char *)((unsigned long)(msg+MAX_BBP_MSG_SIZE * 2+3) & (unsigned long)~0x03);
 
 	bAllowDump = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_NODUMPMSG) == RTPRIV_IOCTL_FLAG_NODUMPMSG) ? FALSE : TRUE;
 	bCopyMsg = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_NOSPACE) == RTPRIV_IOCTL_FLAG_NOSPACE) ? FALSE : TRUE;
@@ -6647,8 +6647,8 @@ VOID RTMPAPIoctlBBP(
 	}
 
 	NdisZeroMemory(mpool, MAX_BBP_MSG_SIZE+256+12);
-	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (char *)((ULONG)(msg+MAX_BBP_MSG_SIZE+3) & (ULONG)~0x03);
+	msg = (char *)((unsigned long)(mpool+3) & (unsigned long)~0x03);
+	arg = (char *)((unsigned long)(msg+MAX_BBP_MSG_SIZE+3) & (unsigned long)~0x03);
 
 	bAllowDump = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_NODUMPMSG) == RTPRIV_IOCTL_FLAG_NODUMPMSG) ? FALSE : TRUE;
 	bCopyMsg = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_NOSPACE) == RTPRIV_IOCTL_FLAG_NOSPACE) ? FALSE : TRUE;
@@ -6854,8 +6854,8 @@ VOID RTMPAPIoctlMAC(
 
 	bFromUI = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_UI) == RTPRIV_IOCTL_FLAG_UI) ? TRUE : FALSE;
 	
-	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (char *)((ULONG)(msg+4096+3) & (ULONG)~0x03);
+	msg = (char *)((unsigned long)(mpool+3) & (unsigned long)~0x03);
+	arg = (char *)((unsigned long)(msg+4096+3) & (unsigned long)~0x03);
 
 	memset(msg, 0x00, 4096);
 	memset(arg, 0x00, 256);
@@ -7084,8 +7084,8 @@ VOID RTMPAPIoctlRF(
 	bFromUI = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_UI) == RTPRIV_IOCTL_FLAG_UI) ? TRUE : FALSE;
 	
 	NdisZeroMemory(mpool, memLen);
-	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (char *)((ULONG)(msg+2048+3) & (ULONG)~0x03);
+	msg = (char *)((unsigned long)(mpool+3) & (unsigned long)~0x03);
+	arg = (char *)((unsigned long)(msg+2048+3) & (unsigned long)~0x03);
 	argLen = strlen((char *)(wrq->u.data.pointer));
 	if (bIsPrintAllRF)
 	{
@@ -7163,8 +7163,8 @@ VOID RTMPAPIoctlE2PROM(
 		return;
 	}
 
-	msg = (char *)((ULONG)(mpool+3) & (ULONG)~0x03);
-	arg = (char *)((ULONG)(msg+4096+3) & (ULONG)~0x03);
+	msg = (char *)((unsigned long)(mpool+3) & (unsigned long)~0x03);
+	arg = (char *)((unsigned long)(msg+4096+3) & (unsigned long)~0x03);
 
 
 	memset(msg, 0x00, 4096);
@@ -7346,9 +7346,9 @@ VOID RTMPIoctlStatistics(
 #ifdef WSC_AP_SUPPORT
     UCHAR idx = 0;
 #endif /* WSC_AP_SUPPORT */
-	ULONG txCount = 0;
+	unsigned long txCount = 0;
 #ifdef ENHANCED_STAT_DISPLAY
-	ULONG per, plr;
+	unsigned long per, plr;
 	INT i;
 #endif
 #ifdef RTMP_EFUSE_SUPPORT
@@ -7380,32 +7380,32 @@ VOID RTMPIoctlStatistics(
 #ifdef ENHANCED_STAT_DISPLAY
 	per = txCount==0? 0: 1000*(pAd->WlanCounters.RetryCount.u.LowPart+pAd->WlanCounters.FailedCount.u.LowPart)/(pAd->WlanCounters.RetryCount.u.LowPart+pAd->WlanCounters.FailedCount.u.LowPart+txCount);
     sprintf(msg+strlen(msg), "Tx retry count                  = %ld, PER=%ld.%1ld%%\n",
-									(ULONG)pAd->WlanCounters.RetryCount.u.LowPart,
+									(unsigned long)pAd->WlanCounters.RetryCount.u.LowPart,
 									per/10, per % 10);
 	plr = txCount==0? 0: 10000*pAd->WlanCounters.FailedCount.u.LowPart/(pAd->WlanCounters.FailedCount.u.LowPart+txCount);
     sprintf(msg+strlen(msg), "Tx fail to Rcv ACK after retry  = %ld, PLR=%ld.%02ld%%\n",
-									(ULONG)pAd->WlanCounters.FailedCount.u.LowPart, plr/100, plr%100);
+									(unsigned long)pAd->WlanCounters.FailedCount.u.LowPart, plr/100, plr%100);
 
-    sprintf(msg+strlen(msg), "Rx success                      = %ld\n", (ULONG)pAd->WlanCounters.ReceivedFragmentCount.QuadPart);
+    sprintf(msg+strlen(msg), "Rx success                      = %ld\n", (unsigned long)pAd->WlanCounters.ReceivedFragmentCount.QuadPart);
 	per = pAd->WlanCounters.ReceivedFragmentCount.u.LowPart==0? 0: 1000*(pAd->WlanCounters.FCSErrorCount.u.LowPart)/(pAd->WlanCounters.FCSErrorCount.u.LowPart+pAd->WlanCounters.ReceivedFragmentCount.u.LowPart);
 	sprintf(msg+strlen(msg), "Rx with CRC                     = %ld, PER=%ld.%1ld%%\n",
-									(ULONG)pAd->WlanCounters.FCSErrorCount.u.LowPart, per/10, per % 10);
-	sprintf(msg+strlen(msg), "Rx drop due to out of resource  = %ld\n", (ULONG)pAd->Counters8023.RxNoBuffer);
-	sprintf(msg+strlen(msg), "Rx duplicate frame              = %ld\n", (ULONG)pAd->WlanCounters.FrameDuplicateCount.u.LowPart);
+									(unsigned long)pAd->WlanCounters.FCSErrorCount.u.LowPart, per/10, per % 10);
+	sprintf(msg+strlen(msg), "Rx drop due to out of resource  = %ld\n", (unsigned long)pAd->Counters8023.RxNoBuffer);
+	sprintf(msg+strlen(msg), "Rx duplicate frame              = %ld\n", (unsigned long)pAd->WlanCounters.FrameDuplicateCount.u.LowPart);
 
-	sprintf(msg+strlen(msg), "False CCA                       = %ld\n", (ULONG)pAd->RalinkCounters.FalseCCACnt);
+	sprintf(msg+strlen(msg), "False CCA                       = %ld\n", (unsigned long)pAd->RalinkCounters.FalseCCACnt);
 #else
-    sprintf(msg+strlen(msg), "Tx retry count                  = %ld\n", (ULONG)pAd->WlanCounters.RetryCount.u.LowPart);
-    sprintf(msg+strlen(msg), "Tx fail to Rcv ACK after retry  = %ld\n", (ULONG)pAd->WlanCounters.FailedCount.u.LowPart);
-    sprintf(msg+strlen(msg), "RTS Success Rcv CTS             = %ld\n", (ULONG)pAd->WlanCounters.RTSSuccessCount.u.LowPart);
-    sprintf(msg+strlen(msg), "RTS Fail Rcv CTS                = %ld\n", (ULONG)pAd->WlanCounters.RTSFailureCount.u.LowPart);
+    sprintf(msg+strlen(msg), "Tx retry count                  = %ld\n", (unsigned long)pAd->WlanCounters.RetryCount.u.LowPart);
+    sprintf(msg+strlen(msg), "Tx fail to Rcv ACK after retry  = %ld\n", (unsigned long)pAd->WlanCounters.FailedCount.u.LowPart);
+    sprintf(msg+strlen(msg), "RTS Success Rcv CTS             = %ld\n", (unsigned long)pAd->WlanCounters.RTSSuccessCount.u.LowPart);
+    sprintf(msg+strlen(msg), "RTS Fail Rcv CTS                = %ld\n", (unsigned long)pAd->WlanCounters.RTSFailureCount.u.LowPart);
 
-    sprintf(msg+strlen(msg), "Rx success                      = %ld\n", (ULONG)pAd->WlanCounters.ReceivedFragmentCount.QuadPart);
-    sprintf(msg+strlen(msg), "Rx with CRC                     = %ld\n", (ULONG)pAd->WlanCounters.FCSErrorCount.u.LowPart);
-    sprintf(msg+strlen(msg), "Rx drop due to out of resource  = %ld\n", (ULONG)pAd->Counters8023.RxNoBuffer);
-    sprintf(msg+strlen(msg), "Rx duplicate frame              = %ld\n", (ULONG)pAd->WlanCounters.FrameDuplicateCount.u.LowPart);
+    sprintf(msg+strlen(msg), "Rx success                      = %ld\n", (unsigned long)pAd->WlanCounters.ReceivedFragmentCount.QuadPart);
+    sprintf(msg+strlen(msg), "Rx with CRC                     = %ld\n", (unsigned long)pAd->WlanCounters.FCSErrorCount.u.LowPart);
+    sprintf(msg+strlen(msg), "Rx drop due to out of resource  = %ld\n", (unsigned long)pAd->Counters8023.RxNoBuffer);
+    sprintf(msg+strlen(msg), "Rx duplicate frame              = %ld\n", (unsigned long)pAd->WlanCounters.FrameDuplicateCount.u.LowPart);
 
-    sprintf(msg+strlen(msg), "False CCA (one second)          = %ld\n", (ULONG)pAd->RalinkCounters.OneSecFalseCCACnt);
+    sprintf(msg+strlen(msg), "False CCA (one second)          = %ld\n", (unsigned long)pAd->RalinkCounters.OneSecFalseCCACnt);
 #endif /* ENHANCED_STAT_DISPLAY */
 
 #ifdef RALINK_ATE
@@ -7532,7 +7532,7 @@ VOID RTMPIoctlStatistics(
 		for (i=0; i<MAX_LEN_OF_MAC_TABLE; i++) {
 			PMAC_TABLE_ENTRY pEntry = &(pAd->MacTab.Content[i]);
 			COUNTER_TXBF *pCnt;
-			ULONG totalNBF, totalEBF, totalIBF, totalTx, totalRetry, totalSuccess;
+			unsigned long totalNBF, totalEBF, totalIBF, totalTx, totalRetry, totalSuccess;
 
 			if (!IS_ENTRY_CLIENT(pEntry) || pEntry->Sst!=SST_ASSOC)
 				continue;
@@ -7830,7 +7830,7 @@ INT	Set_ApCli_AuthMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG       i;
+	unsigned long       i;
 	POS_COOKIE 	pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR 		ifIndex;
 
@@ -7947,7 +7947,7 @@ INT	Set_ApCli_DefaultKeyID_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	ULONG 			KeyIdx;
+	unsigned long 			KeyIdx;
 	POS_COOKIE 		pObj = (POS_COOKIE) pAd->OS_Cookie;
 	UCHAR 			ifIndex;
 	PAPCLI_STRUCT   pApCliEntry = NULL;
@@ -8227,7 +8227,7 @@ INT	Set_ApCli_IEEE8021X_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-    	ULONG ieee8021x;
+    	unsigned long ieee8021x;
 	POS_COOKIE 		pObj;
 	UCHAR 			ifIndex;
 	PAPCLI_STRUCT	pApCliEntry = NULL;
@@ -9848,7 +9848,7 @@ INT	Set_IEEE8021X_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-    ULONG ieee8021x;
+    unsigned long ieee8021x;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
 	ieee8021x = simple_strtol(arg, 0, 10);
@@ -9877,7 +9877,7 @@ INT	Set_PreAuth_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-    ULONG PreAuth;
+    unsigned long PreAuth;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
 	PreAuth = simple_strtol(arg, 0, 10);
@@ -10254,7 +10254,7 @@ INT Set_EntryLifeCheck_Proc(
 	IN PRTMP_ADAPTER 	pAd,
 	IN char *			arg)
 {
-	ULONG LifeCheckCnt = (ULONG) simple_strtol(arg, 0, 10);
+	unsigned long LifeCheckCnt = (unsigned long) simple_strtol(arg, 0, 10);
 
 	if (LifeCheckCnt <= 65535)
 		pAd->ApCfg.EntryLifeCheck = LifeCheckCnt;
@@ -10367,7 +10367,7 @@ VOID RTMPApCliAddKey(
 	IN 	INT				apidx,
 	IN	PNDIS_APCLI_802_11_KEY    pKey)
 {
-	ULONG				KeyIdx;
+	unsigned long				KeyIdx;
 	MAC_TABLE_ENTRY  	*pEntry;
 	INT 	ifIndex,BssIdx;
 	PAPCLI_STRUCT pApCliEntry;
@@ -10775,7 +10775,7 @@ INT RTMP_AP_IoctlHandle(
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
 	IN	VOID					*pData,
-	IN	ULONG					Data)
+	IN	unsigned long					Data)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	POS_COOKIE pObj = (POS_COOKIE)pAd->OS_Cookie;
@@ -10802,7 +10802,7 @@ INT RTMP_AP_IoctlHandle(
 						DBGPRINT(RT_DEBUG_TRACE, ("Query::Get phy mode (%02X) \n", pAd->CommonCfg.PhyMode));
 						modetmp = (UINT) pAd->CommonCfg.PhyMode;
 						wrq->u.data.length = 1;
-						/**(ULONG *)pData = (ULONG)pAd->CommonCfg.PhyMode; */
+						/**(unsigned long *)pData = (unsigned long)pAd->CommonCfg.PhyMode; */
 						if (copy_to_user(pData, &modetmp, wrq->u.data.length))
 							Status = -EFAULT;							
 					}
@@ -11276,10 +11276,10 @@ INT	Set_TestTxFrameProc(
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
 		unsigned char *	pOutBuffer = NULL;
-		ULONG	FrameLen = 0;
-		//ULONG	TempLen;
+		unsigned long	FrameLen = 0;
+		//unsigned long	TempLen;
 		UCHAR	idxCount;
-		ULONG TmpLen1 = 0;
+		unsigned long TmpLen1 = 0;
 		UCHAR RalinkIe[10] = {0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf};
 		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
@@ -11293,7 +11293,7 @@ INT	Set_TestTxFrameProc(
 
 		for (idxCount = 0; idxCount < WirelessMode; idxCount++)
 		{
-			//ULONG TmpLen1 = 0;
+			//unsigned long TmpLen1 = 0;
 			//UCHAR RalinkIe[10] = {0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5};
 			TmpLen1 = 0;
 
@@ -11491,8 +11491,8 @@ INT	Set_TestTxFrame1Proc(
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
 		unsigned char *	pOutBuffer = NULL;
-		ULONG	FrameLen = 0;
-		ULONG	TempLen;
+		unsigned long	FrameLen = 0;
+		unsigned long	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
 		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
@@ -11510,7 +11510,7 @@ INT	Set_TestTxFrame1Proc(
 		FrameLen = FrameLen + TempLen;
 
 		{
-			ULONG TmpLen;
+			unsigned long TmpLen;
 			UCHAR RalinkIe[9] = {0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf}; 
 			MakeOutgoingFrame(pOutBuffer+FrameLen,		 &TmpLen,
 							  9,						 RalinkIe,
@@ -11560,8 +11560,8 @@ INT	Set_TestTxFrame2Proc(
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
 		unsigned char *	pOutBuffer = NULL;
-		ULONG	FrameLen = 0;
-		ULONG	TempLen;
+		unsigned long	FrameLen = 0;
+		unsigned long	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
 		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
@@ -11579,7 +11579,7 @@ INT	Set_TestTxFrame2Proc(
 		FrameLen = FrameLen + TempLen;
 
 		{
-			ULONG TmpLen;
+			unsigned long TmpLen;
 			UCHAR RalinkIe[9] = {0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf}; 
 			MakeOutgoingFrame(pOutBuffer+FrameLen,		 &TmpLen,
 							  9,						 RalinkIe,
@@ -11630,8 +11630,8 @@ INT	Set_TestTxFrame3Proc(
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
 		unsigned char *	pOutBuffer = NULL;
-		ULONG	FrameLen = 0;
-		ULONG	TempLen;
+		unsigned long	FrameLen = 0;
+		unsigned long	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
 		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
@@ -11649,7 +11649,7 @@ INT	Set_TestTxFrame3Proc(
 		FrameLen = FrameLen + TempLen;
 
 		{
-			ULONG TmpLen;
+			unsigned long TmpLen;
 			UCHAR RalinkIe[9] = {0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf}; 
 			MakeOutgoingFrame(pOutBuffer+FrameLen,		 &TmpLen,
 							  9,						 RalinkIe,
@@ -11700,8 +11700,8 @@ INT	Set_TestTxFrame4Proc(
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
 		unsigned char *	pOutBuffer = NULL;
-		ULONG	FrameLen = 0;
-		ULONG	TempLen;
+		unsigned long	FrameLen = 0;
+		unsigned long	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
 		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
@@ -11719,7 +11719,7 @@ INT	Set_TestTxFrame4Proc(
 		FrameLen = FrameLen + TempLen;
 
 		{
-			ULONG TmpLen;
+			unsigned long TmpLen;
 			UCHAR RalinkIe[9] = {0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf}; 
 			MakeOutgoingFrame(pOutBuffer+FrameLen,		 &TmpLen,
 							  9,						 RalinkIe,
@@ -11798,8 +11798,8 @@ INT	Set_TestWAPIFrameProc(
 		UCHAR	TDLS_ETHERTYPE[] = {0x89, 0x0d};
 		UCHAR	Header802_3[14];
 		unsigned char *	pOutBuffer = NULL;
-		ULONG	FrameLen = 0;
-		ULONG	TempLen;
+		unsigned long	FrameLen = 0;
+		unsigned long	TempLen;
 		UCHAR	RemoteFrameType = 0xaf;
 		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
@@ -11817,7 +11817,7 @@ INT	Set_TestWAPIFrameProc(
 		FrameLen = FrameLen + TempLen;
 
 		{
-			ULONG TmpLen;
+			unsigned long TmpLen;
 			UCHAR RalinkIe[9] = {0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf}; 
 			MakeOutgoingFrame(pOutBuffer+FrameLen,		 &TmpLen,
 							  9,						 RalinkIe,
@@ -11870,8 +11870,8 @@ INT	Set_TestMultiMacAddrProc(
 		//AsicUpdateRxWCIDTable(pAd, BSSID_WCID + 111 + tid, tempMAC);
 
 		{
-			ULONG offset;
-			ULONG Addr;
+			unsigned long offset;
+			unsigned long Addr;
 	
 			offset = 0x1480 + (HW_WCID_ENTRY_SIZE * tid);	
 			Addr = tempMAC[0] + (tempMAC[1] << 8) +(tempMAC[2] << 16) +(tempMAC[3] << 24);

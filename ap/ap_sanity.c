@@ -368,7 +368,7 @@ BOOLEAN PeerAssocReqCmmSanity(
 BOOLEAN PeerDisassocReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT	unsigned short	*SeqNum,
     OUT USHORT *Reason) 
@@ -394,7 +394,7 @@ BOOLEAN PeerDisassocReqSanity(
 BOOLEAN PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT	unsigned short	*SeqNum, 
     OUT USHORT *Reason) 
@@ -420,7 +420,7 @@ BOOLEAN PeerDeauthReqSanity(
 BOOLEAN APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr1, 
     OUT unsigned char * pAddr2, 
     OUT USHORT *Alg, 

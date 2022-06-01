@@ -61,7 +61,7 @@ BOOLEAN APBridgeToWirelessSta(
     IN  UINT            HdrLen,
     IN  unsigned char *          pData,
     IN  UINT            DataLen,
-    IN  ULONG           fromwdsidx);
+    IN  unsigned long           fromwdsidx);
 
 VOID RTMP_BASetup(
 	IN PRTMP_ADAPTER pAd,
@@ -101,7 +101,7 @@ NDIS_STATUS APCheckRxError(
 
 BOOLEAN APCheckClass2Class3Error(
     IN  PRTMP_ADAPTER   pAd,
-	IN ULONG Wcid, 
+	IN unsigned long Wcid, 
 	IN  PHEADER_802_11  pHeader);
 
 VOID APHandleRxPsPoll(
@@ -112,12 +112,12 @@ VOID APHandleRxPsPoll(
 
 VOID    RTMPDescriptorEndianChange(
     IN  unsigned char *          pData,
-    IN  ULONG           DescriptorType);
+    IN  unsigned long           DescriptorType);
     
 VOID    RTMPFrameEndianChange(
     IN  PRTMP_ADAPTER   pAd,
     IN  unsigned char *          pData,
-    IN  ULONG           Dir,
+    IN  unsigned long           Dir,
     IN  BOOLEAN         FromRxDoneInt);
 
 /* ap_assoc.c */
@@ -143,7 +143,7 @@ VOID APMlmeKickOutSta(
 
 VOID  APCls3errAction(
     IN  PRTMP_ADAPTER   pAd, 
-	IN 	ULONG Wcid,
+	IN 	unsigned long Wcid,
     IN	PHEADER_802_11	pHeader);
 
 /*
@@ -167,7 +167,7 @@ void APAuthStateMachineInit(
 
 VOID APCls2errAction(
     IN PRTMP_ADAPTER pAd, 
-	IN 	ULONG Wcid,
+	IN 	unsigned long Wcid,
     IN	PHEADER_802_11	pHeader);
 
 /* ap_connect.c */
@@ -339,7 +339,7 @@ MAC_TABLE_ENTRY *APSsPsInquiry(
 BOOLEAN APPsIndicate(
     IN  PRTMP_ADAPTER   pAd, 
     IN  unsigned char *          pAddr, 
-	IN ULONG Wcid, 
+	IN unsigned long Wcid, 
     IN  UCHAR           Psm);
 
 #ifdef SYSTEM_LOG_SUPPORT
@@ -392,7 +392,7 @@ BOOLEAN PeerAssocReqCmmSanity(
 BOOLEAN PeerDisassocReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT	unsigned short	*SeqNum,
     OUT USHORT *Reason);
@@ -400,7 +400,7 @@ BOOLEAN PeerDisassocReqSanity(
 BOOLEAN PeerDeauthReqSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
    	OUT	unsigned short	*SeqNum,    
     OUT USHORT *Reason);
@@ -408,7 +408,7 @@ BOOLEAN PeerDeauthReqSanity(
 BOOLEAN APPeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *Msg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
 	OUT unsigned char * pAddr1, 
     OUT unsigned char * pAddr2, 
     OUT USHORT *Alg, 

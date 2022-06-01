@@ -948,7 +948,7 @@ BOOLEAN preCheckMsgTypeSubset(
 BOOLEAN ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *pMsg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT USHORT *pCapabilityInfo, 
     OUT USHORT *pStatus, 
@@ -968,7 +968,7 @@ BOOLEAN ApCliPeerAssocRspSanity(
 	CHAR          IeType, *Ptr;
 	PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;
 	PEID_STRUCT   pEid;
-	ULONG         Length = 0;
+	unsigned long         Length = 0;
     
 	*pNewExtChannelOffset = 0xff;
 	*pHtCapabilityLen = 0;
@@ -1112,7 +1112,7 @@ MAC_TABLE_ENTRY *ApCliTableLookUpByWcid(
 	IN UCHAR wcid,
 	IN unsigned char * pAddrs)
 {
-	ULONG ApCliIndex;
+	unsigned long ApCliIndex;
 	PMAC_TABLE_ENTRY pCurEntry = NULL;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 

@@ -140,7 +140,7 @@ VOID WscSendNACK(
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl);
 
-static INT wsc_write_dat_file_thread(IN ULONG data);
+static INT wsc_write_dat_file_thread(IN unsigned long data);
 
 
 VOID	WscDelListEntryByMAC(
@@ -196,7 +196,7 @@ INT WscGenerateUUID(
 	/* Get the current time. */
 	if (bUseCurrentTime)
 	{
-		NdisGetSystemUpTime((ULONG *)&uuid_time);
+		NdisGetSystemUpTime((unsigned long *)&uuid_time);
 	}
 	else
 		uuid_time = 2860; /*xtime.tv_sec; 	// Well, we fix this to make JumpStart  happy! */
@@ -3443,7 +3443,7 @@ VOID	WscSendEapReqId(
 	IEEE8021X_FRAME		Ieee_8021x;
 	EAP_FRAME			EapFrame;
 	UCHAR				*pOutBuffer = NULL;
-	ULONG				FrameLen = 0;
+	unsigned long				FrameLen = 0;
     UCHAR				Data[] = "hello";
     UCHAR				Id;
 	PWSC_CTRL			pWpsCtrl = NULL;
@@ -3608,7 +3608,7 @@ VOID	WscSendEapRspId(
 	IEEE8021X_FRAME		Ieee_8021x;
 	EAP_FRAME			EapFrame;
 	UCHAR				*pOutBuffer = NULL;
-	ULONG				FrameLen = 0;
+	unsigned long				FrameLen = 0;
     UCHAR               regIdentity[] = "WFA-SimpleConfig-Registrar-1-0";
     UCHAR               enrIdentity[] = "WFA-SimpleConfig-Enrollee-1-0";
 	UCHAR				CurOpMode = 0xff;
@@ -3832,7 +3832,7 @@ int WscSendUPnPMessage(
 #ifdef CONFIG_AP_SUPPORT
 	UCHAR	bssIdx = devIfIdx;
 #endif /* CONFIG_AP_SUPPORT */
-	ULONG Now;
+	unsigned long Now;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscSendUPnPMessage\n"));
@@ -3977,7 +3977,7 @@ VOID	WscSendMessage(
 	EAP_FRAME			EapFrame;
 	WSC_FRAME			WscFrame;
 	UCHAR				*pOutBuffer = NULL;
-	ULONG				FrameLen = 0;
+	unsigned long				FrameLen = 0;
 	MAC_TABLE_ENTRY     *pEntry;
 #ifdef CONFIG_AP_SUPPORT
 	UCHAR				bssIdx = (pWscControl->EntryIfIdx & 0x0F);
@@ -4075,7 +4075,7 @@ VOID	WscSendMessage(
     		if (pWscControl->bWscFragment && (pWscControl->bWscFirstOne))
     		{
     			UCHAR	LF_Len = 2;
-				ULONG	TmpLen = 0;
+				unsigned long	TmpLen = 0;
 
 				pWscControl->bWscFirstOne = FALSE;
     			MakeOutgoingFrame(pOutBuffer, &TmpLen,
@@ -4534,7 +4534,7 @@ VOID	WscSendEapFail(
 	IEEE8021X_FRAME		Ieee_8021x;
 	EAP_FRAME			EapFrame;
 	UCHAR				*pOutBuffer = NULL;
-	ULONG				FrameLen = 0;
+	unsigned long				FrameLen = 0;
 #ifdef CONFIG_AP_SUPPORT
 	UCHAR				apidx = (pWscControl->EntryIfIdx & 0x0F);
 #endif /* CONFIG_AP_SUPPORT */
@@ -7452,7 +7452,7 @@ VOID WscCheckWpsIeFromWpsAP(
 VOID WscPBCSessionOverlapCheck(
 	IN  PRTMP_ADAPTER 	pAd)
 {
-	ULONG	now;
+	unsigned long	now;
 	PWSC_STA_PBC_PROBE_INFO	pWscStaPbcProbeInfo = &pAd->CommonCfg.WscStaPbcProbeInfo;
 	
 	pAd->CommonCfg.WscPBCOverlap = FALSE;
@@ -7489,7 +7489,7 @@ VOID WscPBC_DPID_FromSTA(
 	INT		Index = 0;
 	UCHAR	tab_idx;
 	BOOLEAN bAddEntry = FALSE;
-	ULONG	now;
+	unsigned long	now;
 	PWSC_STA_PBC_PROBE_INFO	pWscStaPbcProbeInfo = &pAd->CommonCfg.WscStaPbcProbeInfo;
 
 	NdisGetSystemUpTime(&now);
@@ -8166,7 +8166,7 @@ WriteFileOpenErr:
 #endif/*CONFIG_AP_SUPPORT*/
 
 static INT wsc_write_dat_file_thread (
-    IN ULONG Context)
+    IN unsigned long Context)
 {
 	RTMP_OS_TASK *pTask;
 	RTMP_ADAPTER *pAd;
@@ -8360,7 +8360,7 @@ NDIS_STATUS WscThreadInit(RTMP_ADAPTER *pAd)
 
 
 	RTMP_OS_TASK_INIT(pTask, "RtmpWscTask", pAd);
-	status = RtmpOSTaskAttach(pTask, wsc_write_dat_file_thread, (ULONG)&pAd->wscTask);
+	status = RtmpOSTaskAttach(pTask, wsc_write_dat_file_thread, (unsigned long)&pAd->wscTask);
 	if (status == NDIS_STATUS_SUCCESS)
 	{
 		os_alloc_mem(NULL, &pAd->pHmacData, sizeof(CHAR)*(2048));
@@ -8948,7 +8948,7 @@ VOID	WscMaintainPeerList(
 	PWSC_PEER_ENTRY 	pPeerEntry = NULL;
 	PLIST_ENTRY			pListEntry = NULL, pTempListEntry = NULL;
 	PLIST_HEADER		pWscEnList = NULL;
-	ULONG				now_time = 0;
+	unsigned long				now_time = 0;
 
 	RTMP_SEM_LOCK(&pWpsCtrl->WscPeerListSemLock);
 	pWscEnList = &pWpsCtrl->WscPeerList;

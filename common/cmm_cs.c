@@ -28,10 +28,10 @@
 #include "rt_config.h"
 
 #ifdef CARRIER_DETECTION_SUPPORT
-static ULONG time[20];
-static ULONG idle[20];
-static ULONG busy[20];
-static ULONG cd_idx=0;
+static unsigned long time[20];
+static unsigned long idle[20];
+static unsigned long busy[20];
+static unsigned long cd_idx=0;
 
 static void ToneRadarProgram(PRTMP_ADAPTER pAd);
 
@@ -123,7 +123,7 @@ VOID CarrierDetectionPeriodicStateCtrl(
 	IN PRTMP_ADAPTER pAd)
 {
 	CD_STATE *pCD_State = &pAd->CommonCfg.CarrierDetect.CD_State;
-	ULONG *pOneSecIntCount = &pAd->CommonCfg.CarrierDetect.OneSecIntCount;
+	unsigned long *pOneSecIntCount = &pAd->CommonCfg.CarrierDetect.OneSecIntCount;
 	CARRIER_DETECT_PARAM CarrDetectParam;
 
 			
@@ -600,7 +600,7 @@ VOID CSInit(
 */
 VOID CarrierDetectionStart(PRTMP_ADAPTER pAd)
 {		
-	/*ULONG Value;*/
+	/*unsigned long Value;*/
 	/* Enable Bandwidth usage monitor*/
 	DBGPRINT(RT_DEBUG_TRACE, ("CarrierDetectionStart\n"));
 	/*RTMP_IO_READ32(pAd, CH_TIME_CFG, &Value);*/
@@ -666,7 +666,7 @@ VOID CarrierDetectionStop(IN PRTMP_ADAPTER	pAd)
 */
 static VOID ToneRadarProgram(PRTMP_ADAPTER pAd)
 {
-	ULONG threshold;
+	unsigned long threshold;
 	/* if wireless mode is 20Mhz mode, then the threshold should div by 2 */	
 	if (pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_20)		
 		threshold = pAd->CommonCfg.CarrierDetect.threshold >> 1;	
@@ -690,7 +690,7 @@ static VOID ToneRadarProgram(PRTMP_ADAPTER pAd)
     Note:
     ==========================================================================
 */
-VOID ToneRadarProgram_v1(PRTMP_ADAPTER pAd, ULONG threshold)
+VOID ToneRadarProgram_v1(PRTMP_ADAPTER pAd, unsigned long threshold)
 {
 	UCHAR bbp;
 
@@ -732,7 +732,7 @@ VOID ToneRadarProgram_v1(PRTMP_ADAPTER pAd, ULONG threshold)
     Note:
     ==========================================================================
 */
-VOID ToneRadarProgram_v2(PRTMP_ADAPTER pAd, ULONG threshold)
+VOID ToneRadarProgram_v2(PRTMP_ADAPTER pAd, unsigned long threshold)
 {
 	UCHAR bbp;
 

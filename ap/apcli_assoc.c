@@ -178,11 +178,11 @@ static VOID ApCliMlmeAssocReqAction(
 	HEADER_802_11    AssocHdr;
 	UCHAR            WmeIe[9] = {IE_VENDOR_SPECIFIC, 0x07, 0x00, 0x50, 0xf2, 0x02, 0x00, 0x01, 0x00};
 	USHORT           ListenIntv;
-	ULONG            Timeout;
+	unsigned long            Timeout;
 	USHORT           CapabilityInfo;
 	unsigned char *           pOutBuffer = NULL;
-	ULONG            FrameLen = 0;
-	ULONG            tmp;
+	unsigned long            FrameLen = 0;
+	unsigned long            tmp;
 	UCHAR            SsidIe    = IE_SSID;
 	UCHAR            SupRateIe = IE_SUPP_RATES;
 	UCHAR            ExtRateIe = IE_EXT_SUPP_RATES;
@@ -282,7 +282,7 @@ static VOID ApCliMlmeAssocReqAction(
 		if ((pAd->ApCliMlmeAux.HtCapabilityLen > 0) && 
 			WMODE_CAP_N(pAd->CommonCfg.PhyMode))
 		{
-			ULONG TmpLen;
+			unsigned long TmpLen;
 			HT_CAPABILITY_IE HtCapabilityTmp;
 
 			NdisZeroMemory(&HtCapabilityTmp, sizeof(HT_CAPABILITY_IE));
@@ -320,7 +320,7 @@ static VOID ApCliMlmeAssocReqAction(
 #ifdef PIGGYBACK_SUPPORT
 			if ((pAd->CommonCfg.bPiggyBackCapable) && ((pAd->ApCliMlmeAux.APRalinkIe & 0x00000003) == 3))
 			{
-				ULONG TmpLen;
+				unsigned long TmpLen;
 				UCHAR RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x03, 0x00, 0x00, 0x00}; 
 				MakeOutgoingFrame(pOutBuffer+FrameLen,           &TmpLen,
 								  9,                             RalinkIe,
@@ -330,7 +330,7 @@ static VOID ApCliMlmeAssocReqAction(
 #endif /* PIGGYBACK_SUPPORT */
 			if (pAd->ApCliMlmeAux.APRalinkIe & 0x00000001)
 			{
-				ULONG TmpLen;
+				unsigned long TmpLen;
 				UCHAR RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x01, 0x00, 0x00, 0x00}; 
 				MakeOutgoingFrame(pOutBuffer+FrameLen,           &TmpLen,
 								  9,                             RalinkIe,
@@ -340,7 +340,7 @@ static VOID ApCliMlmeAssocReqAction(
 		}
 		else
 		{
-			ULONG TmpLen;
+			unsigned long TmpLen;
 			UCHAR RalinkIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x06, 0x00, 0x00, 0x00}; 
 			MakeOutgoingFrame(pOutBuffer+FrameLen,		 &TmpLen,
 							  9,						 RalinkIe,
@@ -474,7 +474,7 @@ static VOID ApCliMlmeAssocReqAction(
 		if ((pAd->ApCfg.ApCliTab[ifIndex].WpaSupplicantUP & WPA_SUPPLICANT_ENABLE) &&
 			(pAd->ApCfg.ApCliTab[ifIndex].bRSN_IE_FromWpaSupplicant == TRUE))			
 		{
-			ULONG TmpWpaAssocIeLen = 0;
+			unsigned long TmpWpaAssocIeLen = 0;
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpWpaAssocIeLen,
 	                        	pAd->ApCfg.ApCliTab[ifIndex].WpaAssocIeLen, pAd->ApCfg.ApCliTab[ifIndex].pWpaAssocIe,
 	                        	END_OF_ARGS);
@@ -524,7 +524,7 @@ static VOID ApCliMlmeDisassocReqAction(
 	PMLME_DISASSOC_REQ_STRUCT pDisassocReq;
 	HEADER_802_11         DisassocHdr;
 	unsigned char *                 pOutBuffer = NULL;
-	ULONG                 FrameLen = 0;
+	unsigned long                 FrameLen = 0;
 	NDIS_STATUS           NStatus;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);

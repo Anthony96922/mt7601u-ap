@@ -475,7 +475,7 @@ extern int DetectOverlappingPeriodicRound;
 VOID Handle_BSS_Width_Trigger_Events(
 	IN PRTMP_ADAPTER pAd) 
 {
-	ULONG Now32;
+	unsigned long Now32;
 	
 	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == BW_40) &&
 		(pAd->CommonCfg.Channel <=14))

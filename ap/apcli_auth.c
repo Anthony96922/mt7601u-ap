@@ -154,10 +154,10 @@ static VOID ApCliMlmeAuthReqAction(
 	NDIS_STATUS         NState;
 	UCHAR               Addr[MAC_ADDR_LEN];
 	USHORT              Alg, Seq, Status;
-	ULONG               Timeout;
+	unsigned long               Timeout;
 	HEADER_802_11       AuthHdr; 
 	unsigned char *              pOutBuffer = NULL;
-	ULONG               FrameLen = 0;
+	unsigned long               FrameLen = 0;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
@@ -239,11 +239,11 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 /*	UCHAR           ChlgText[CIPHER_TEXT_LEN]; */
 	UCHAR           *ChlgText = NULL;
 	UCHAR           CyperChlgText[CIPHER_TEXT_LEN + 8 + 8];
-	ULONG			c_len = 0;	
+	unsigned long			c_len = 0;	
 	HEADER_802_11   AuthHdr;
 	NDIS_STATUS     NState;
 	unsigned char *          pOutBuffer = NULL;
-	ULONG           FrameLen = 0;
+	unsigned long           FrameLen = 0;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	UCHAR		  	ChallengeIe = IE_CHALLENGE_TEXT;
 	UCHAR		  	len_challengeText = CIPHER_TEXT_LEN;
@@ -536,7 +536,7 @@ static VOID ApCliMlmeDeauthReqAction(
 	PMLME_DEAUTH_REQ_STRUCT pDeauthReq;
 	HEADER_802_11 DeauthHdr;
 	unsigned char * pOutBuffer = NULL;
-	ULONG FrameLen = 0;
+	unsigned long FrameLen = 0;
 	NDIS_STATUS NStatus;
 	USHORT ifIndex = (USHORT)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;

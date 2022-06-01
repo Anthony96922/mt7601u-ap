@@ -559,11 +559,11 @@ INT RTMPGetKeyParameterWithOffset(
 
 
 
-static int rtmp_parse_key_buffer_from_file(IN PRTMP_ADAPTER pAd,IN char *buffer,IN ULONG KeyType,IN INT BSSIdx,IN INT KeyIdx)
+static int rtmp_parse_key_buffer_from_file(IN PRTMP_ADAPTER pAd,IN char *buffer,IN unsigned long KeyType,IN INT BSSIdx,IN INT KeyIdx)
 {
 	char *		keybuff;
 	/*INT		i = BSSIdx, idx = KeyIdx, retVal;*/
-	ULONG		KeyLen;
+	unsigned long		KeyLen;
 	/*UCHAR		CipherAlg = CIPHER_WEP64;*/
 	CIPHER_KEY	*pSharedKey;
 	
@@ -590,8 +590,8 @@ static void rtmp_read_key_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf, ch
 	STRING		tok_str[16];
 	char *		macptr;						
 	int		i = 0, idx;
-	ULONG		KeyType[HW_BEACON_MAX_NUM];
-	ULONG		KeyIdx;
+	unsigned long		KeyType[HW_BEACON_MAX_NUM];
+	unsigned long		KeyIdx;
 
 	NdisZeroMemory(KeyType, sizeof(KeyType));
 
@@ -691,10 +691,10 @@ static void rtmp_read_ap_client_from_file(
 	UCHAR macAddress[MAC_ADDR_LEN];
 	/*UCHAR		keyMaterial[40];*/
 	PAPCLI_STRUCT pApCliEntry = NULL;
-	ULONG KeyIdx;
+	unsigned long KeyIdx;
 	STRING tok_str[16];
-	ULONG KeyType[MAX_APCLI_NUM];
-	ULONG KeyLen;
+	unsigned long KeyType[MAX_APCLI_NUM];
+	unsigned long KeyLen;
 	/*UCHAR		CipherAlg = CIPHER_WEP64;*/
 
 
@@ -1985,8 +1985,8 @@ NDIS_STATUS RTMPSetProfileParameters(
 	IN char *	pBuffer)
 {
 	char *		tmpbuf;
-	ULONG		RtsThresh;
-	ULONG		FragThresh;
+	unsigned long		RtsThresh;
+	unsigned long		FragThresh;
 	char *		macptr;							
 	INT		i = 0, retval;
 
@@ -2203,8 +2203,8 @@ NDIS_STATUS RTMPSetProfileParameters(
 		/* BasicRate */
 		if(RTMPGetKeyParameter("BasicRate", tmpbuf, 10, pBuffer, TRUE))
 		{
-			pAd->CommonCfg.BasicRateBitmap = (ULONG) simple_strtol(tmpbuf, 0, 10);
-			pAd->CommonCfg.BasicRateBitmapOld = (ULONG) simple_strtol(tmpbuf, 0, 10);
+			pAd->CommonCfg.BasicRateBitmap = (unsigned long) simple_strtol(tmpbuf, 0, 10);
+			pAd->CommonCfg.BasicRateBitmapOld = (unsigned long) simple_strtol(tmpbuf, 0, 10);
 			DBGPRINT(RT_DEBUG_TRACE, ("BasicRate = %ld\n", pAd->CommonCfg.BasicRateBitmap));
 		}
 		/* BeaconPeriod */
@@ -2290,7 +2290,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 
 				if (RTMPGetKeyParameter(tok_str, tmpbuf, 128, pBuffer, TRUE))
 				{
-					ULONG DfsParam;
+					unsigned long DfsParam;
 					for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 					{
 						DfsParam = simple_strtol(macptr, 0, 10);
@@ -2355,7 +2355,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 		/*TxPower*/
 		if(RTMPGetKeyParameter("TxPower", tmpbuf, 10, pBuffer, TRUE))
 		{
-			pAd->CommonCfg.TxPowerPercentage = (ULONG) simple_strtol(tmpbuf, 0, 10);
+			pAd->CommonCfg.TxPowerPercentage = (unsigned long) simple_strtol(tmpbuf, 0, 10);
 			DBGPRINT(RT_DEBUG_TRACE, ("TxPower = %ld\n", pAd->CommonCfg.TxPowerPercentage));
 		}
 		/*BGProtection*/
@@ -2972,7 +2972,7 @@ NDIS_STATUS RTMPSetProfileParameters(
 			{
 				for (i = 0, macptr = rstrtok(tmpbuf,";"); macptr; macptr = rstrtok(NULL,";"), i++)
 				{				
-					ULONG value_interval;
+					unsigned long value_interval;
 					PRT_WPA_REKEY pRekeyInfo = &pAd->ApCfg.MBSSID[i].WPAREKEY;
 
 					value_interval = simple_strtol(macptr, 0, 10);

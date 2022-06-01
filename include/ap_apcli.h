@@ -186,7 +186,7 @@ BOOLEAN preCheckMsgTypeSubset(
 BOOLEAN ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 
     IN VOID *pMsg, 
-    IN ULONG MsgLen, 
+    IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT USHORT *pCapabilityInfo, 
     OUT USHORT *pStatus, 

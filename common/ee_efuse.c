@@ -112,9 +112,9 @@ static UCHAR eFuseReadRegisters(
 VOID eFuseReadPhysical( 
 	IN	PRTMP_ADAPTER	pAd, 
   	IN	unsigned short * lpInBuffer,
-  	IN	ULONG nInBufferSize,
+  	IN	unsigned long nInBufferSize,
   	OUT	unsigned short * lpOutBuffer,
-  	IN	ULONG nOutBufferSize);
+  	IN	unsigned long nOutBufferSize);
 
 static VOID eFusePhysicalWriteRegisters(
 	IN	PRTMP_ADAPTER	pAd,	
@@ -131,9 +131,9 @@ static NTSTATUS eFuseWriteRegisters(
 static VOID eFuseWritePhysical( 
 	IN	PRTMP_ADAPTER	pAd,	
   	unsigned short * lpInBuffer,
-	ULONG nInBufferSize,
+	unsigned long nInBufferSize,
   	unsigned char * lpOutBuffer,
-  	ULONG nOutBufferSize);
+  	unsigned long nOutBufferSize);
 
 
 static NTSTATUS eFuseWriteRegistersFromBin(
@@ -347,9 +347,9 @@ VOID eFusePhysicalReadRegisters(
 VOID eFuseReadPhysical( 
 	IN	PRTMP_ADAPTER	pAd, 
   	IN	unsigned short * lpInBuffer,
-  	IN	ULONG nInBufferSize,
+  	IN	unsigned long nInBufferSize,
   	OUT	unsigned short * lpOutBuffer,
-  	IN	ULONG nOutBufferSize  
+  	IN	unsigned long nOutBufferSize  
 )
 {
 	USHORT* pInBuf = (USHORT*)lpInBuffer;
@@ -820,9 +820,9 @@ static NTSTATUS eFuseWriteRegisters(
 static VOID eFuseWritePhysical( 
 	IN	PRTMP_ADAPTER	pAd,	
   	unsigned short * lpInBuffer,
-	ULONG nInBufferSize,
+	unsigned long nInBufferSize,
   	unsigned char * lpOutBuffer,
-  	ULONG nOutBufferSize  
+  	unsigned long nOutBufferSize  
 )
 {
 	USHORT* pInBuf = (USHORT*)lpInBuffer;

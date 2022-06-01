@@ -101,9 +101,9 @@ VOID MlmeADDBAAction(
 	UCHAR           Addr[6];
 	unsigned char *         pOutBuffer = NULL;
 	NDIS_STATUS     NStatus;
-	ULONG		Idx;
+	unsigned long		Idx;
 	FRAME_ADDBA_REQ  Frame;
-	ULONG		FrameLen;
+	unsigned long		FrameLen;
 	BA_ORI_ENTRY			*pBAEntry = NULL;
 #ifdef CONFIG_AP_SUPPORT
 	UCHAR			apidx;
@@ -209,9 +209,9 @@ VOID MlmeDELBAAction(
 	unsigned char *         pOutBuffer = NULL;
 	unsigned char *		   pOutBuffer2 = NULL;
 	NDIS_STATUS     NStatus;
-	ULONG		Idx;
+	unsigned long		Idx;
 	FRAME_DELBA_REQ  Frame;
-	ULONG		FrameLen;
+	unsigned long		FrameLen;
 	FRAME_BAR	FrameBar;
 #ifdef CONFIG_AP_SUPPORT
 	UCHAR		apidx;
@@ -424,7 +424,7 @@ VOID SendBSS2040CoexistMgmtAction(
 	unsigned char *			pOutBuffer = NULL;
 	NDIS_STATUS 	NStatus;
 	FRAME_ACTION_HDR	Frame;
-	ULONG			FrameLen;
+	unsigned long			FrameLen;
 	BSS_2040_COEXIST_ELEMENT		BssCoexistInfo;
 	BSS_2040_INTOLERANT_CH_REPORT	BssIntolerantInfo;
 	unsigned char *		pAddr1;
@@ -759,7 +759,7 @@ static VOID respond_ht_information_exchange_action(
 {
 	unsigned char *			pOutBuffer = NULL;
 	NDIS_STATUS		NStatus;
-	ULONG			FrameLen;
+	unsigned long			FrameLen;
 #ifdef CONFIG_AP_SUPPORT
 	INT         	apidx;
 #endif /* CONFIG_AP_SUPPORT */
@@ -825,7 +825,7 @@ VOID SendNotifyBWActionFrame(
 	unsigned char *			pOutBuffer = NULL;
 	NDIS_STATUS 	NStatus;
 	FRAME_ACTION_HDR	Frame;
-	ULONG			FrameLen;
+	unsigned long			FrameLen;
 	unsigned char *			pAddr1;
 
 	
@@ -956,7 +956,7 @@ VOID ORIBATimerTimeout(
 	MAC_TABLE_ENTRY	*pEntry;
 	INT			i, total;
 /*	FRAME_BAR			FrameBar;*/
-/*	ULONG			FrameLen;*/
+/*	unsigned long			FrameLen;*/
 /*	NDIS_STATUS 	NStatus;*/
 /*	unsigned char *			pOutBuffer = NULL;*/
 /*	USHORT			Sequence;*/
@@ -988,7 +988,7 @@ VOID SendRefreshBAR(
 	IN	MAC_TABLE_ENTRY	*pEntry) 
 {
 	FRAME_BAR		FrameBar;
-	ULONG			FrameLen;
+	unsigned long			FrameLen;
 	NDIS_STATUS 	NStatus;
 	unsigned char *			pOutBuffer = NULL;
 	USHORT			Sequence;
@@ -1113,7 +1113,7 @@ VOID InsertActField(
 	IN unsigned char Category,
 	IN unsigned char ActCode)
 {
-	ULONG TempLen;
+	unsigned long TempLen;
 
 	MakeOutgoingFrame(	pFrameBuf,		&TempLen,
 						1,				&Category,

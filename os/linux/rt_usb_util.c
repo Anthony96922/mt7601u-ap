@@ -344,13 +344,13 @@ int rausb_control_msg(VOID *dev,
 }
 EXPORT_SYMBOL(rausb_control_msg);
 
-unsigned int rausb_sndctrlpipe(VOID *dev, ULONG address)
+unsigned int rausb_sndctrlpipe(VOID *dev, unsigned long address)
 {
 	return usb_sndctrlpipe(dev, address);
 }
 EXPORT_SYMBOL(rausb_sndctrlpipe);
 
-unsigned int rausb_rcvctrlpipe(VOID *dev, ULONG address)
+unsigned int rausb_rcvctrlpipe(VOID *dev, unsigned long address)
 {
 	return usb_rcvctrlpipe(dev, address);
 }
@@ -430,7 +430,7 @@ VOID	RtmpOsUsbInitHTTxDesc(
 	IN	VOID			*pUsb_Dev,
 	IN	UINT			BulkOutEpAddr,
 	IN	unsigned char *			pSrc,
-	IN	ULONG			BulkOutSize,
+	IN	unsigned long			BulkOutSize,
 	IN	USB_COMPLETE_HANDLER	Func,
 	IN	VOID			*pTxContext,
 	IN	ra_dma_addr_t		TransferDma)
@@ -558,7 +558,7 @@ Return Value:
 Note:
 ========================================================================
 */
-ULONG RtmpOsUsbUrbLenGet(
+unsigned long RtmpOsUsbUrbLenGet(
 	IN	VOID					*pUrb)
 {
 	return RTMP_USB_URB_LEN_GET(pUrb);

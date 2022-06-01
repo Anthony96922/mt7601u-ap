@@ -93,8 +93,8 @@ static BOOLEAN USBDevConfigInit(
 {
 	struct usb_interface_descriptor *iface_desc;
 	struct usb_endpoint_descriptor *endpoint;
-	ULONG BulkOutIdx;
-	ULONG BulkInIdx;
+	unsigned long BulkOutIdx;
+	unsigned long BulkInIdx;
 	unsigned int i;
 	RT_CMD_USB_DEV_CONFIG Config, *pConfig = &Config;
 
@@ -203,8 +203,8 @@ static BOOLEAN USBDevConfigInit(
 	IN VOID 				*pAd)
 {
 	struct usb_host_interface *iface_desc;
-	ULONG BulkOutIdx;
-	ULONG BulkInIdx;
+	unsigned long BulkOutIdx;
+	unsigned long BulkInIdx;
 	unsigned int i;
 	RT_CMD_USB_DEV_CONFIG Config, *pConfig = &Config;
 	
@@ -605,7 +605,7 @@ static int rt2870_probe(
 	INT                 	status, rv;
 	void *					handle;
 	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
-	ULONG					OpMode;
+	unsigned long					OpMode;
 #ifdef CONFIG_PM
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
 /*	INT 		pm_usage_cnt; */

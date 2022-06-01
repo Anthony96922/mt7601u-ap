@@ -230,7 +230,7 @@ BOOLEAN	RTMPSoftEncryptWEP(
 	IN 		unsigned char *			pIvHdr,
 	IN 		PCIPHER_KEY		pKey,
 	INOUT 	unsigned char *			pData,
-	IN 		ULONG			DataByteCnt)
+	IN 		unsigned long			DataByteCnt)
 {
 	ARC4_CTX_STRUC *ARC4_CTX = NULL;
 	UINT 	FCSCRC32;

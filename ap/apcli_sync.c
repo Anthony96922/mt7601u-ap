@@ -513,7 +513,7 @@ static VOID ApCliEnqueueProbeRequest(
 {
 	NDIS_STATUS     NState;
 	unsigned char *          pOutBuffer;
-	ULONG           FrameLen = 0;
+	unsigned long           FrameLen = 0;
 	HEADER_802_11   Hdr80211;
 	UCHAR           SsidIe    = IE_SSID;
 	UCHAR           SupRateIe = IE_SUPP_RATES;
@@ -555,7 +555,7 @@ static VOID ApCliEnqueueProbeRequest(
 		/* Add the extended rate IE */
 		if (pAd->ApCliMlmeAux.ExtRateLen != 0)
 		{
-			ULONG            tmp;
+			unsigned long            tmp;
 		
 			MakeOutgoingFrame(pOutBuffer + FrameLen,    &tmp,
 				1,                        &ExtRateIe,

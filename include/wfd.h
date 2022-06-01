@@ -124,11 +124,11 @@ INT Set_PeerRtspPort_Proc(
 
 VOID WfdMakeWfdIE(
 	IN	PRTMP_ADAPTER	pAd,
-	IN 	ULONG			WfdIeBitmap,
+	IN 	unsigned long			WfdIeBitmap,
 	OUT	unsigned char *			pOutBuf,
 	OUT	unsigned long *pIeLen);
 
-ULONG InsertWfdSubelmtTlv(
+unsigned long InsertWfdSubelmtTlv(
 	IN PRTMP_ADAPTER 	pAd,
 	IN UCHAR			SubId,
 	IN unsigned char *			pInBuffer,
@@ -139,7 +139,7 @@ VOID WfdParseSubElmt(
 	IN PRTMP_ADAPTER 	pAd, 
 	IN PWFD_ENTRY_INFO	pWfdEntryInfo,
 	IN VOID 				*Msg, 
-	IN ULONG 			MsgLen);
+	IN unsigned long 			MsgLen);
 
 VOID WfdCfgInit(
 	IN PRTMP_ADAPTER pAd);

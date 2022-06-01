@@ -39,7 +39,7 @@ INT (*RTMP_COM_IoctlHandle)(
 	IN	INT cmd,
 	IN	USHORT subcmd,
 	IN	VOID *pData,
-	IN	ULONG Data);
+	IN	unsigned long Data);
 
 int (*RTMPSendPackets)(
 	IN	NDIS_HANDLE MiniportAdapterContext,
@@ -79,7 +79,7 @@ INT (*RTMP_AP_IoctlHandle)(
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
 	IN	VOID					*pData,
-	IN	ULONG					Data);
+	IN	unsigned long					Data);
 
 INT (*RTMP_STA_IoctlHandle)(
 	IN	VOID					*pAd, 
@@ -87,7 +87,7 @@ INT (*RTMP_STA_IoctlHandle)(
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
 	IN	VOID					*pData,
-	IN	ULONG					Data,
+	IN	unsigned long					Data,
 	IN  USHORT                  priv_flags);
 
 VOID (*RTMPDrvOpen)(VOID *pAd);
@@ -195,7 +195,7 @@ INT RTMP_COM_IoctlHandle(
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
 	IN	VOID					*pData,
-	IN	ULONG					Data);
+	IN	unsigned long					Data);
 
 int	RTMPSendPackets(
 	IN	NDIS_HANDLE		MiniportAdapterContext,
@@ -236,7 +236,7 @@ INT RTMP_AP_IoctlHandle(
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
 	IN	VOID					*pData,
-	IN	ULONG					Data);
+	IN	unsigned long					Data);
 #endif /* CONFIG_AP_SUPPORT */
 
 

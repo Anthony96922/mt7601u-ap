@@ -155,7 +155,7 @@ static VOID QBSS_LoadAlarm(
 				{
 					unsigned char *      pOutBuffer = NULL;
 					NDIS_STATUS NStatus;
-					ULONG       FrameLen = 0;
+					unsigned long       FrameLen = 0;
 					HEADER_802_11 DeAuthHdr;
 					USHORT      Reason;
 
@@ -499,7 +499,7 @@ unsigned int QBSS_LoadElementAppend(
 	OUT		unsigned char			*pBeaconBuf)
 {
 	ELM_QBSS_LOAD load, *pLoad = &load;
-	ULONG ElmLen;
+	unsigned long ElmLen;
 
 
 	/* check whether channel busy time calculation is enabled */
@@ -553,7 +553,7 @@ Note:
 */
 VOID QBSS_LoadUpdate(
  	IN		RTMP_ADAPTER	*pAd,
-	IN		ULONG			UpTime)
+	IN		unsigned long			UpTime)
 {
 	unsigned int ChanUtilNu, ChanUtilDe;
 	unsigned int BusyTime = 0;

@@ -676,7 +676,7 @@ struct _RTMP_CHIP_CAP_ {
 	UCHAR *FWImageName;
 };
 
-typedef VOID (*CHIP_SPEC_FUNC)(VOID *pAd, VOID *pData, ULONG Data);
+typedef VOID (*CHIP_SPEC_FUNC)(VOID *pAd, VOID *pData, unsigned long Data);
 
 /* The chip specific function ID */
 typedef enum _CHIP_SPEC_ID
@@ -749,7 +749,7 @@ struct _RTMP_CHIP_OP_ {
 
 
 	
-	VOID (*AsicGetTxPowerOffset)(struct _RTMP_ADAPTER *pAd, ULONG *TxPwr);
+	VOID (*AsicGetTxPowerOffset)(struct _RTMP_ADAPTER *pAd, unsigned long *TxPwr);
 	VOID (*AsicExtraPowerOverMAC)(struct _RTMP_ADAPTER *pAd);
 	
 	/* Antenna */
@@ -775,7 +775,7 @@ struct _RTMP_CHIP_OP_ {
 	VOID (*AsicResetBbpAgent)(IN struct _RTMP_ADAPTER *pAd);
 
 #ifdef CARRIER_DETECTION_SUPPORT
-	VOID (*ToneRadarProgram)(struct _RTMP_ADAPTER *pAd, ULONG  threshold);
+	VOID (*ToneRadarProgram)(struct _RTMP_ADAPTER *pAd, unsigned long  threshold);
 #endif /* CARRIER_DETECTION_SUPPORT */
 	VOID (*CckMrcStatusCtrl)(struct _RTMP_ADAPTER *pAd);
 	VOID (*RadarGLRTCompensate)(struct _RTMP_ADAPTER *pAd);
@@ -1090,6 +1090,6 @@ extern UCHAR NUM_OF_2850_CHNL;
 
 BOOLEAN AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us);
 INT AsicSetPreTbttInt(struct _RTMP_ADAPTER *pAd, BOOLEAN enable);
-INT AsicReadAggCnt(struct _RTMP_ADAPTER *pAd, ULONG *aggCnt, int cnt_len);
+INT AsicReadAggCnt(struct _RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len);
 
 #endif /* __RTMP_CHIP_H__ */

@@ -64,7 +64,7 @@ unsigned int CW_MAX_IN_BITS;
 extern UCHAR	 OfdmRateToRxwiMCS[];
 /* since RT61 has better RX sensibility, we have to limit TX ACK rate not to exceed our normal data TX rate.*/
 /* otherwise the WLAN peer may not be able to receive the ACK thus downgrade its data TX rate*/
-ULONG BasicRateMask[12]				= {0xfffff001 /* 1-Mbps */, 0xfffff003 /* 2 Mbps */, 0xfffff007 /* 5.5 */, 0xfffff00f /* 11 */,
+unsigned long BasicRateMask[12]				= {0xfffff001 /* 1-Mbps */, 0xfffff003 /* 2 Mbps */, 0xfffff007 /* 5.5 */, 0xfffff00f /* 11 */,
 									  0xfffff01f /* 6 */	 , 0xfffff03f /* 9 */	  , 0xfffff07f /* 12 */ , 0xfffff0ff /* 18 */,
 									  0xfffff1ff /* 24 */	 , 0xfffff3ff /* 36 */	  , 0xfffff7ff /* 48 */ , 0xffffffff /* 54 */};
 
@@ -564,7 +564,7 @@ VOID MlmePeriodicExec(
 	IN void * SystemSpecific2, 
 	IN void * SystemSpecific3) 
 {
-	ULONG			TxTotalCnt;
+	unsigned long			TxTotalCnt;
 	PRTMP_ADAPTER	pAd = (RTMP_ADAPTER *)FunctionContext;
 
 #ifdef MICROWAVE_OVEN_SUPPORT
@@ -906,10 +906,10 @@ BOOLEAN MlmeValidateSSID(
 VOID MlmeCalculateChannelQuality(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pMacEntry,
-	IN ULONG Now32)
+	IN unsigned long Now32)
 {
-	ULONG TxOkCnt, TxCnt, TxPER, TxPRR;
-	ULONG RxCnt, RxPER;
+	unsigned long TxOkCnt, TxCnt, TxPER, TxPRR;
+	unsigned long RxCnt, RxPER;
 	UCHAR NorRssi;
 	CHAR  MaxRssi;
 	RSSI_SAMPLE *pRssiSample = NULL;
@@ -918,7 +918,7 @@ VOID MlmeCalculateChannelQuality(
 	unsigned int OneSecTxFailCount = 0;
 	unsigned int OneSecRxOkCnt = 0;
 	unsigned int OneSecRxFcsErrCnt = 0;
-	ULONG ChannelQuality = 0;  /* 0..100, Channel Quality Indication for Roaming*/
+	unsigned long ChannelQuality = 0;  /* 0..100, Channel Quality Indication for Roaming*/
 
 
 
@@ -1049,7 +1049,7 @@ VOID UpdateBasicRateBitmap(
     UCHAR rate[] = { 2, 4,  11, 22, 12, 18, 24, 36, 48, 72, 96, 108 };
     UCHAR *sup_p = pAdapter->CommonCfg.SupRate;
     UCHAR *ext_p = pAdapter->CommonCfg.ExtRate;
-    ULONG bitmap = pAdapter->CommonCfg.BasicRateBitmap;
+    unsigned long bitmap = pAdapter->CommonCfg.BasicRateBitmap;
 
     /* if A mode, always use fix BasicRateBitMap */
     /*if (pAdapter->CommonCfg.Channel == WMODE_A)*/
@@ -1116,7 +1116,7 @@ VOID MlmeUpdateTxRates(
 	int i, num;
 	UCHAR Rate = RATE_6, MaxDesire = RATE_1, MaxSupport = RATE_1;
 	UCHAR MinSupport = RATE_54;
-	ULONG BasicRateBitmap = 0;
+	unsigned long BasicRateBitmap = 0;
 	UCHAR CurrBasicRate = RATE_1;
 	UCHAR *pSupRate, SupRateLen, *pExtRate, ExtRateLen;
 	HTTRANSMIT_SETTING *pHtPhy = NULL, *pMaxHtPhy = NULL, *pMinHtPhy = NULL;
@@ -1491,7 +1491,7 @@ VOID MlmeUpdateHtTxRates(
 	UCHAR StbcMcs;
 	RT_HT_CAPABILITY *pRtHtCap = NULL;
 	RT_PHY_INFO *pActiveHtPhy = NULL;	
-	ULONG BasicMCS;
+	unsigned long BasicMCS;
 	RT_PHY_INFO *pDesireHtPhy = NULL;
 	PHTTRANSMIT_SETTING pHtPhy = NULL;
 	PHTTRANSMIT_SETTING pMaxHtPhy = NULL;
@@ -1739,7 +1739,7 @@ VOID BssTableInit(BSS_TABLE *Tab)
  IRQL = DISPATCH_LEVEL
 
  */
-ULONG BssTableSearch(
+unsigned long BssTableSearch(
 	IN BSS_TABLE *Tab, 
 	IN unsigned char *	 pBssid,
 	IN UCHAR	 Channel) 
@@ -1760,10 +1760,10 @@ ULONG BssTableSearch(
 			return i;
 		}
 	}
-	return (ULONG)BSS_NOT_FOUND;
+	return (unsigned long)BSS_NOT_FOUND;
 }
 
-ULONG BssSsidTableSearch(
+unsigned long BssSsidTableSearch(
 	IN BSS_TABLE *Tab, 
 	IN unsigned char *	 pBssid,
 	IN unsigned char *	 pSsid,
@@ -1786,10 +1786,10 @@ ULONG BssSsidTableSearch(
 			return i;
 		}
 	}
-	return (ULONG)BSS_NOT_FOUND;
+	return (unsigned long)BSS_NOT_FOUND;
 }
 
-ULONG BssTableSearchWithSSID(
+unsigned long BssTableSearchWithSSID(
 	IN BSS_TABLE *Tab, 
 	IN unsigned char *	 Bssid,
 	IN unsigned char *	 pSsid,
@@ -1810,11 +1810,11 @@ ULONG BssTableSearchWithSSID(
 			return i;
 		}
 	}
-	return (ULONG)BSS_NOT_FOUND;
+	return (unsigned long)BSS_NOT_FOUND;
 }
 
 
-ULONG BssSsidTableSearchBySSID(
+unsigned long BssSsidTableSearchBySSID(
 	IN BSS_TABLE *Tab,
 	IN unsigned char *	 pSsid,
 	IN UCHAR	 SsidLen)
@@ -1828,7 +1828,7 @@ ULONG BssSsidTableSearchBySSID(
 			return i;
 		}
 	}
-	return (ULONG)BSS_NOT_FOUND;
+	return (unsigned long)BSS_NOT_FOUND;
 }
 
 
@@ -2098,7 +2098,7 @@ VOID BssEntrySet(
  IRQL = DISPATCH_LEVEL
  
  */
-ULONG BssTableSetEntry(
+unsigned long BssTableSetEntry(
 	IN PRTMP_ADAPTER pAd,
 	OUT BSS_TABLE *Tab,
 	IN BCN_IE_LIST *ie_list,
@@ -2106,7 +2106,7 @@ ULONG BssTableSetEntry(
 	IN USHORT LengthVIE,	
 	IN PNDIS_802_11_VARIABLE_IEs pVIE)
 {
-	ULONG	Idx;
+	unsigned long	Idx;
 
 
 	Idx = BssTableSearch(Tab, ie_list->Bssid, ie_list->Channel);
@@ -2686,13 +2686,13 @@ VOID MgtMacHeaderInit(
  IRQL = DISPATCH_LEVEL
   
  ****************************************************************************/
-ULONG MakeOutgoingFrame(
+unsigned long MakeOutgoingFrame(
 	OUT UCHAR *Buffer, 
-	OUT ULONG *FrameLen, ...) 
+	OUT unsigned long *FrameLen, ...) 
 {
 	UCHAR   *p;
 	int 	leng;
-	ULONG	TotLeng;
+	unsigned long	TotLeng;
 	va_list Args;
 
 	/* calculates the total length*/
@@ -2768,11 +2768,11 @@ NDIS_STATUS MlmeQueueInit(
  */
 BOOLEAN MlmeEnqueue(
 	IN	PRTMP_ADAPTER	pAd,
-	IN ULONG Machine, 
-	IN ULONG MsgType, 
-	IN ULONG MsgLen, 
+	IN unsigned long Machine, 
+	IN unsigned long MsgType, 
+	IN unsigned long MsgLen, 
 	IN VOID *Msg,
-	IN ULONG Priv) 
+	IN unsigned long Priv) 
 {
 	INT Tail;
 	MLME_QUEUE	*Queue = (MLME_QUEUE *)&pAd->Mlme.Queue;
@@ -2838,14 +2838,14 @@ BOOLEAN MlmeEnqueue(
  */
 BOOLEAN MlmeEnqueueForRecv(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN ULONG Wcid, 
-	IN ULONG TimeStampHigh, 
-	IN ULONG TimeStampLow,
+	IN unsigned long Wcid, 
+	IN unsigned long TimeStampHigh, 
+	IN unsigned long TimeStampLow,
 	IN UCHAR Rssi0, 
 	IN UCHAR Rssi1, 
 	IN UCHAR Rssi2, 
 	IN UCHAR AntSel, 
-	IN ULONG MsgLen, 
+	IN unsigned long MsgLen, 
 	IN VOID *Msg,
 	IN UCHAR Signal,
 	IN UCHAR OpMode)
@@ -2954,7 +2954,7 @@ BOOLEAN MlmeEnqueueForRecv(
 	Queue->Entry[Tail].AntSel = AntSel;
 	Queue->Entry[Tail].Signal = Signal;
 	Queue->Entry[Tail].Wcid = (UCHAR)Wcid;
-	Queue->Entry[Tail].OpMode = (ULONG)OpMode;
+	Queue->Entry[Tail].OpMode = (unsigned long)OpMode;
 	Queue->Entry[Tail].Priv = 0;
 
 	Queue->Entry[Tail].Channel = pAd->LatchRfRegs.Channel;
@@ -2985,15 +2985,15 @@ BOOLEAN MlmeEnqueueForRecv(
  */
 BOOLEAN MlmeEnqueueForWsc(
 	IN	PRTMP_ADAPTER	pAd,
-	IN ULONG eventID,
+	IN unsigned long eventID,
 	IN LONG senderID,
-	IN ULONG Machine, 
-	IN ULONG MsgType, 
-	IN ULONG MsgLen, 
+	IN unsigned long Machine, 
+	IN unsigned long MsgType, 
+	IN unsigned long MsgLen, 
 	IN VOID *Msg) 
 {
     INT Tail;
-    /*ULONG			IrqFlags;*/
+    /*unsigned long			IrqFlags;*/
 	MLME_QUEUE	*Queue = (MLME_QUEUE *)&pAd->Mlme.Queue;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> MlmeEnqueueForWsc\n"));
@@ -3191,13 +3191,13 @@ VOID MlmeQueueDestroy(
 VOID StateMachineInit(
 	IN STATE_MACHINE *S, 
 	IN STATE_MACHINE_FUNC Trans[], 
-	IN ULONG StNr, 
-	IN ULONG MsgNr, 
+	IN unsigned long StNr, 
+	IN unsigned long MsgNr, 
 	IN STATE_MACHINE_FUNC DefFunc, 
-	IN ULONG InitState, 
-	IN ULONG Base) 
+	IN unsigned long InitState, 
+	IN unsigned long Base) 
 {
-	ULONG i, j;
+	unsigned long i, j;
 
 	/* set number of states and messages*/
 	S->NrState = StNr;
@@ -3232,11 +3232,11 @@ VOID StateMachineInit(
  */
 VOID StateMachineSetAction(
 	IN STATE_MACHINE *S, 
-	IN ULONG St, 
-	IN ULONG Msg, 
+	IN unsigned long St, 
+	IN unsigned long Msg, 
 	IN STATE_MACHINE_FUNC Func) 
 {
-	ULONG MsgIdx;
+	unsigned long MsgIdx;
 
 	MsgIdx = Msg - S->Base;
 
@@ -3260,7 +3260,7 @@ VOID StateMachinePerformAction(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN STATE_MACHINE *S, 
 	IN MLME_QUEUE_ELEM *Elem,
-	IN ULONG CurrState)
+	IN unsigned long CurrState)
 {
 
 	if (S->TransFunc[(CurrState) * S->NrMsg + Elem->MsgType - S->Base])
@@ -3289,13 +3289,13 @@ VOID Drop(
 UCHAR RandomByte(
 	IN PRTMP_ADAPTER pAd) 
 {
-	ULONG i;
+	unsigned long i;
 	UCHAR R, Result;
 
 	R = 0;
 
 	if (pAd->Mlme.ShiftReg == 0)
-	NdisGetSystemUpTime((ULONG *)&pAd->Mlme.ShiftReg);
+	NdisGetSystemUpTime((unsigned long *)&pAd->Mlme.ShiftReg);
 
 	for (i = 0; i < 8; i++) 
 	{

@@ -766,7 +766,7 @@ VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 		RT28xx_EEPROM_READ16(pAd, EEPROM_FREQ_OFFSET, value);
 
 	if ((value & 0x00FF) != 0x00FF)
-		pAd->RfFreqOffset = (ULONG) (value & 0x00FF);
+		pAd->RfFreqOffset = (unsigned long) (value & 0x00FF);
 	else
 		pAd->RfFreqOffset = 0;
 
@@ -1202,7 +1202,7 @@ NDIS_STATUS	NICInitializeAdapter(
 	IN   BOOLEAN    bHardReset)
 {
 	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
-	ULONG j=0;
+	unsigned long j=0;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> NICInitializeAdapter\n"));
@@ -1262,7 +1262,7 @@ NDIS_STATUS	NICInitializeAsic(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  BOOLEAN		bHardReset)
 {
-	ULONG			Index = 0;
+	unsigned long			Index = 0;
 	unsigned int			MACValue = 0;
 #ifdef RTMP_MAC_USB
 	unsigned int			Counter = 0;
@@ -1934,8 +1934,8 @@ VOID NICUpdateRawCounters(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int	OldValue;/*, Value2;*/
-	/*ULONG	PageSum, OneSecTransmitCount;*/
-	/*ULONG	TxErrorRatio, Retry, Fail;*/
+	/*unsigned long	PageSum, OneSecTransmitCount;*/
+	/*unsigned long	TxErrorRatio, Retry, Fail;*/
 	RX_STA_CNT0_STRUC	RxStaCnt0;
 #ifndef MICROWAVE_OVEN_SUPPORT
 	RX_STA_CNT1_STRUC	RxStaCnt1;
@@ -2233,14 +2233,14 @@ VOID NICEraseFirmware(
 		
 	========================================================================
 */
-ULONG	RTMPCompareMemory(
+unsigned long	RTMPCompareMemory(
 	IN	void *	pSrc1,
 	IN	void *	pSrc2,
-	IN	ULONG	Length)
+	IN	unsigned long	Length)
 {
 	unsigned char *	pMem1;
 	unsigned char *	pMem2;
-	ULONG	Index = 0;
+	unsigned long	Index = 0;
 
 	pMem1 = (unsigned char *) pSrc1;
 	pMem2 = (unsigned char *) pSrc2;
@@ -2280,10 +2280,10 @@ ULONG	RTMPCompareMemory(
 */
 VOID	RTMPZeroMemory(
 	IN	void *	pSrc,
-	IN	ULONG	Length)
+	IN	unsigned long	Length)
 {
 	unsigned char *	pMem;
-	ULONG	Index = 0;
+	unsigned long	Index = 0;
 
 	pMem = (unsigned char *) pSrc;
 
@@ -2318,7 +2318,7 @@ VOID	RTMPZeroMemory(
 VOID RTMPMoveMemory(
 	OUT	void *	pDest,
 	IN	void *	pSrc,
-	IN	ULONG	Length)
+	IN	unsigned long	Length)
 {
 	unsigned char *	pMem1;
 	unsigned char *	pMem2;
@@ -3040,7 +3040,7 @@ VOID	RTMP_TimerListAdd(
 	{
 		if (pObj == NULL)
 			break;
-		if ((ULONG)(pObj->pRscObj) == (ULONG)pRsc)
+		if ((unsigned long)(pObj->pRscObj) == (unsigned long)pRsc)
 			return; /* exists */
 		pObj = pObj->pNext;
 	}
@@ -3056,7 +3056,7 @@ VOID	RTMP_TimerListAdd(
 	{
 		pObj->pRscObj = pRsc;
 		insertTailList(pRscList, (LIST_ENTRY *)pObj);
-		DBGPRINT(RT_DEBUG_ERROR, ("%s: add timer obj %lx!\n", __FUNCTION__, (ULONG)pRsc));
+		DBGPRINT(RT_DEBUG_ERROR, ("%s: add timer obj %lx!\n", __FUNCTION__, (unsigned long)pRsc));
 	}
 }
 
@@ -3089,7 +3089,7 @@ VOID	RTMP_TimerListRelease(
 	{
 		if (pObj == NULL)
 			break;
-		DBGPRINT(RT_DEBUG_TRACE, ("%s: Cancel timer obj %lx!\n", __FUNCTION__, (ULONG)(pObj->pRscObj)));
+		DBGPRINT(RT_DEBUG_TRACE, ("%s: Cancel timer obj %lx!\n", __FUNCTION__, (unsigned long)(pObj->pRscObj)));
 		RTMPReleaseTimer(pObj->pRscObj, &Cancel);
 		pObjOld = pObj;
 		pObj = pObj->pNext;
@@ -3113,7 +3113,7 @@ VOID RTMP_AllTimerListRelease(RTMP_ADAPTER *pAd)
    {
            if (pObj == NULL)
                    break;
-           DBGPRINT(RT_DEBUG_TRACE, ("%s: Cancel timer obj %lx!\n", __FUNCTION__, (ULONG)(pObj->pRscObj)));
+           DBGPRINT(RT_DEBUG_TRACE, ("%s: Cancel timer obj %lx!\n", __FUNCTION__, (unsigned long)(pObj->pRscObj)));
            pObjOld = pObj;
            pObj = pObj->pNext;
            RTMPReleaseTimer(pObjOld->pRscObj, &Cancel);
@@ -3164,11 +3164,11 @@ VOID	RTMPInitTimer(
 	
 	pTimer->PeriodicType = Repeat;
 	pTimer->State      = FALSE;
-	pTimer->cookie = (ULONG) pData;
+	pTimer->cookie = (unsigned long) pData;
 	pTimer->pAd = pAd;
 
 	RTMP_OS_Init_Timer(pAd, &pTimer->TimerObj,	pTimerFunc, (void *) pTimer, &pAd->RscTimerMemList);	
-	DBGPRINT(RT_DEBUG_TRACE,("%s: %lx\n",__FUNCTION__, (ULONG)pTimer));
+	DBGPRINT(RT_DEBUG_TRACE,("%s: %lx\n",__FUNCTION__, (unsigned long)pTimer));
 
 	RTMP_SEM_UNLOCK(&TimerSemLock);
 }
@@ -3194,7 +3194,7 @@ VOID	RTMPInitTimer(
 */
 VOID	RTMPSetTimer(
 	IN	PRALINK_TIMER_STRUCT	pTimer,
-	IN	ULONG					Value)
+	IN	unsigned long					Value)
 {
 	RTMP_SEM_LOCK(&TimerSemLock);
 
@@ -3223,7 +3223,7 @@ VOID	RTMPSetTimer(
 			RTMP_OS_Add_Timer(&pTimer->TimerObj, Value);
 		}
 
-		DBGPRINT(RT_DEBUG_INFO,("%s: %lx\n",__FUNCTION__, (ULONG)pTimer));
+		DBGPRINT(RT_DEBUG_INFO,("%s: %lx\n",__FUNCTION__, (unsigned long)pTimer));
 	}
 	else
 	{
@@ -3253,7 +3253,7 @@ VOID	RTMPSetTimer(
 */
 VOID	RTMPModTimer(
 	IN	PRALINK_TIMER_STRUCT	pTimer,
-	IN	ULONG					Value)
+	IN	unsigned long					Value)
 {
 	BOOLEAN	Cancel;
 
@@ -3275,7 +3275,7 @@ VOID	RTMPModTimer(
 			RTMP_OS_Mod_Timer(&pTimer->TimerObj, Value);
 			RTMP_SEM_UNLOCK(&TimerSemLock);
 		}
-		DBGPRINT(RT_DEBUG_TRACE,("%s: %lx\n",__FUNCTION__, (ULONG)pTimer));
+		DBGPRINT(RT_DEBUG_TRACE,("%s: %lx\n",__FUNCTION__, (unsigned long)pTimer));
 	}
 	else
 	{
@@ -3328,7 +3328,7 @@ VOID RTMPCancelTimer(
 		RtmpTimerQRemove(pTimer->pAd, pTimer);
 #endif /* RTMP_TIMER_TASK_SUPPORT */
 
-		DBGPRINT(RT_DEBUG_INFO,("%s: %lx\n",__FUNCTION__, (ULONG)pTimer));
+		DBGPRINT(RT_DEBUG_INFO,("%s: %lx\n",__FUNCTION__, (unsigned long)pTimer));
 	}
 	else
 	{
@@ -3366,7 +3366,7 @@ VOID	RTMPReleaseTimer(
 
 		pTimer->Valid = FALSE;
 
-		DBGPRINT(RT_DEBUG_INFO,("%s: %lx\n",__FUNCTION__, (ULONG)pTimer));
+		DBGPRINT(RT_DEBUG_INFO,("%s: %lx\n",__FUNCTION__, (unsigned long)pTimer));
 	}
 	else
 	{

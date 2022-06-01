@@ -420,7 +420,7 @@ static void ba_refresh_reordering_mpdus(
 void ba_flush_reordering_timeout_mpdus(
 									IN PRTMP_ADAPTER    pAd, 
 									IN PBA_REC_ENTRY    pBAEntry,
-									IN ULONG            Now32)
+									IN unsigned long            Now32)
 
 {
 	USHORT Sequence;
@@ -481,7 +481,7 @@ VOID BAOriSessionSetUp(
 					  IN MAC_TABLE_ENTRY  *pEntry,
 					  IN UCHAR            TID,
 					  IN USHORT           TimeOut,
-					  IN ULONG            DelayTime,
+					  IN unsigned long            DelayTime,
 					  IN BOOLEAN          isForced)
 
 {
@@ -568,7 +568,7 @@ VOID BAOriSessionAdd(
 	USHORT		Idx;
 	unsigned char *		pOutBuffer2 = NULL;
 	NDIS_STATUS	NStatus;
-	ULONG		FrameLen;
+	unsigned long		FrameLen;
 	FRAME_BAR	FrameBar;
 	UCHAR		MaxPeerBufSize;
 #ifdef CONFIG_AP_SUPPORT
@@ -821,7 +821,7 @@ done:
 
 VOID BATableFreeOriEntry(
 						IN  PRTMP_ADAPTER   pAd,
-						IN  ULONG           Idx)
+						IN  unsigned long           Idx)
 {
 	BA_ORI_ENTRY    *pBAEntry = NULL;
 	MAC_TABLE_ENTRY *pEntry;
@@ -861,7 +861,7 @@ VOID BATableFreeOriEntry(
 
 VOID BATableFreeRecEntry(
 						IN  PRTMP_ADAPTER   pAd,
-						IN  ULONG           Idx)
+						IN  unsigned long           Idx)
 {
 	BA_REC_ENTRY    *pBAEntry = NULL;
 	MAC_TABLE_ENTRY *pEntry;
@@ -896,7 +896,7 @@ VOID BAOriSessionTearDown(
 						 IN      BOOLEAN         bPassive,
 						 IN      BOOLEAN         bForceSend)
 {
-	ULONG           Idx = 0;
+	unsigned long           Idx = 0;
 	BA_ORI_ENTRY    *pBAEntry;
 	BOOLEAN         Cancelled;
 
@@ -987,7 +987,7 @@ VOID BARecSessionTearDown(
 						 IN      UCHAR           TID,
 						 IN      BOOLEAN         bPassive)
 {
-	ULONG           Idx = 0;
+	unsigned long           Idx = 0;
 	BA_REC_ENTRY    *pBAEntry;
 
 	if (Wcid >= MAX_LEN_OF_MAC_TABLE)
@@ -1012,7 +1012,7 @@ VOID BARecSessionTearDown(
 	{
 		MLME_DELBA_REQ_STRUCT   DelbaReq;
 		BOOLEAN 				Cancelled;
-		/*ULONG   offset; */
+		/*unsigned long   offset; */
 		/*unsigned int  VALUE;*/
 				
 		RTMPCancelTimer(&pBAEntry->RECBATimer, &Cancelled);         
@@ -1169,7 +1169,7 @@ VOID BARecSessionIdleTimeout(
 	
 	BA_REC_ENTRY    *pBAEntry = (BA_REC_ENTRY *)FunctionContext;
 	PRTMP_ADAPTER   pAd;
-	ULONG           Now32;
+	unsigned long           Now32;
 	
 	if (pBAEntry == NULL)
 		return;
@@ -1195,7 +1195,7 @@ VOID PeerAddBAReqAction(
 
 {
 	/*	7.4.4.1*/
-	/*ULONG	Idx;*/
+	/*unsigned long	Idx;*/
 	UCHAR   Status = 1;
 	UCHAR   pAddr[6];
 	FRAME_ADDBA_RSP ADDframe;
@@ -1203,7 +1203,7 @@ VOID PeerAddBAReqAction(
 	NDIS_STATUS     NStatus;
 	PFRAME_ADDBA_REQ  pAddreqFrame = NULL;
 	/*UCHAR		BufSize;*/
-	ULONG       FrameLen;
+	unsigned long       FrameLen;
 	unsigned long *      ptemp;
 	PMAC_TABLE_ENTRY	pMacEntry;
 #ifdef CONFIG_AP_SUPPORT
@@ -1395,8 +1395,8 @@ VOID PeerDelBAAction(
 
 BOOLEAN CntlEnqueueForRecv(
 						  IN PRTMP_ADAPTER		pAd, 
-						  IN ULONG				Wcid, 
-						  IN ULONG				MsgLen, 
+						  IN unsigned long				Wcid, 
+						  IN unsigned long				MsgLen, 
 						  IN PFRAME_BA_REQ		pMsg) 
 {
 	PFRAME_BA_REQ   pFrame = pMsg;
@@ -1404,7 +1404,7 @@ BOOLEAN CntlEnqueueForRecv(
 	/*PRTMP_REORDERBUF	pDmaBuf;*/
 	PBA_REC_ENTRY pBAEntry;
 	/*BOOLEAN 	Result;*/
-	ULONG   Idx;
+	unsigned long   Idx;
 	/*UCHAR	NumRxPkt;*/
 	UCHAR	TID;/*, i;*/
 	
@@ -1463,7 +1463,7 @@ VOID SendPSMPAction(
 	unsigned char * pOutBuffer = NULL;
 	NDIS_STATUS NStatus;
 	FRAME_PSMP_ACTION Frame;
-	ULONG FrameLen;
+	unsigned long FrameLen;
 #ifdef CONFIG_AP_SUPPORT	
 	UCHAR apidx;
 #endif /* CONFIG_AP_SUPPORT */
@@ -1555,7 +1555,7 @@ VOID SendBeaconRequest(
 	unsigned char *          	pOutBuffer = NULL;
 	NDIS_STATUS     	NStatus;
 	FRAME_RM_REQ_ACTION   Frame;
-	ULONG           	FrameLen;
+	unsigned long           	FrameLen;
 	BEACON_REQUEST		BeaconReq;
 	MEASUREMENT_REQ		MeasureReg;
 	UCHAR				apidx;
@@ -1862,7 +1862,7 @@ VOID Indicate_AMPDU_Packet(
 	USHORT Idx;
 	PBA_REC_ENTRY pBAEntry = NULL;
 	unsigned short Sequence = pRxBlk->pHeader->Sequence;
-	ULONG Now32;
+	unsigned long Now32;
 	UCHAR Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
 	UCHAR TID = pRxBlk->pRxWI->RxWITID;
 
@@ -2008,7 +2008,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 	USHORT Idx;
 	PBA_REC_ENTRY pBAEntry = NULL;
 	unsigned short Sequence = pRxBlk->pHeader->Sequence;
-	ULONG Now32;
+	unsigned long Now32;
 	UCHAR Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
 	UCHAR TID = pRxBlk->pRxWI->RxWITID;
 
@@ -2144,7 +2144,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 VOID BaReOrderingBufferMaintain(
     IN PRTMP_ADAPTER pAd)
 {
-    ULONG Now32;
+    unsigned long Now32;
     UCHAR Wcid;
     USHORT Idx;
     UCHAR TID;

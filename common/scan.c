@@ -82,7 +82,7 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
 {
 	UCHAR *frm_buf = NULL;
 	HEADER_802_11 Hdr80211;
-	ULONG FrameLen = 0;
+	unsigned long FrameLen = 0;
 	UCHAR SsidLen = 0;
 
 
@@ -137,7 +137,7 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
 
 		if (pAd->CommonCfg.ExtRateLen)
 		{
-			ULONG Tmp;
+			unsigned long Tmp;
 			MakeOutgoingFrame(frm_buf + FrameLen,            &Tmp,
 							  1,                                &ExtRateIe,
 							  1,                                &pAd->CommonCfg.ExtRateLen,
@@ -149,7 +149,7 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
 #ifdef DOT11_N_SUPPORT
 	if (WMODE_CAP_N(pAd->CommonCfg.PhyMode))
 	{
-		ULONG	Tmp;
+		unsigned long	Tmp;
 		UCHAR	HtLen;
 		UCHAR	BROADCOM[4] = {0x0, 0x90, 0x4c, 0x33};
 #ifdef RT_BIG_ENDIAN
@@ -224,7 +224,7 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
 #ifdef DOT11N_DRAFT3
 		if ((pAd->MlmeAux.Channel <= 14) && (pAd->CommonCfg.bBssCoexEnable == TRUE))
 		{
-			ULONG Tmp;
+			unsigned long Tmp;
 			HtLen = 1;
 			MakeOutgoingFrame(frm_buf + FrameLen,            &Tmp,
 							  1,					&ExtHtCapIe,
@@ -266,7 +266,7 @@ static INT scan_active(RTMP_ADAPTER *pAd, UCHAR OpMode, UCHAR ScanType)
 		if (bHasWscIe)
 		{
 			UCHAR *pWscBuf = NULL, WscIeLen = 0;
-			ULONG WscTmpLen = 0;
+			unsigned long WscTmpLen = 0;
 
 			os_alloc_mem(NULL, (UCHAR **)&pWscBuf, 512);
 			if (pWscBuf != NULL)

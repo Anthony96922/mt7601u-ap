@@ -197,7 +197,7 @@ VOID APMlmePeriodicExec(
 
 	{
 		INT loop;
-		ULONG Now32;
+		unsigned long Now32;
 		NdisGetSystemUpTime(&Now32);
 		for (loop = 0; loop < MAX_APCLI_NUM; loop++)
 		{
@@ -424,7 +424,7 @@ BOOLEAN APMsgTypeSubst(
 VOID APAsicEvaluateRxAnt(
 	IN PRTMP_ADAPTER	pAd)
 {
-	ULONG	TxTotalCnt;
+	unsigned long	TxTotalCnt;
 
 #ifdef RALINK_ATE
 	if (ATE_ON(pAd))
@@ -569,7 +569,7 @@ VOID	APAsicAntennaAvg(
 {
 		    SHORT	realavgrssi;
 		    LONG         realavgrssi1;
-		    ULONG	recvPktNum = pAd->RxAnt.RcvPktNum[AntSelect];
+		    unsigned long	recvPktNum = pAd->RxAnt.RcvPktNum[AntSelect];
 
 		    realavgrssi1 = pAd->RxAnt.Pair1AvgRssiGroup1[AntSelect];
 

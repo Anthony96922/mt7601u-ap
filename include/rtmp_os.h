@@ -28,11 +28,11 @@
 
 /* Driver Operators */
 typedef int (*RTMP_PRINTK)(const char *ftm, ...);
-typedef int (*RTMP_SNPRINTF)(char *, ULONG, const char *ftm, ...);
+typedef int (*RTMP_SNPRINTF)(char *, unsigned long, const char *ftm, ...);
 
 typedef struct _RTMP_OS_ABL_OPS {
 	int (*ra_printk)(const char *ftm, ...);
-	int (*ra_snprintf)(char *, ULONG, const char *ftm, ...);
+	int (*ra_snprintf)(char *, unsigned long, const char *ftm, ...);
 } RTMP_OS_ABL_OPS;
 
 extern RTMP_OS_ABL_OPS *pRaOsOps;

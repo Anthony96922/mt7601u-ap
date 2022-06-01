@@ -58,7 +58,7 @@ NDIS_STATUS	 RtmpMgmtTaskInit(
 
 	pTask = &pAd->timerTask;
 	RTMP_OS_TASK_INIT(pTask, "rtmp-timer-task", pAd);
-	status = RtmpOSTaskAttach(pTask, RtmpTimerQThread, (ULONG)pTask);
+	status = RtmpOSTaskAttach(pTask, RtmpTimerQThread, (unsigned long)pTask);
 	if (status == NDIS_STATUS_FAILURE)
 	{
 #ifdef DBG
@@ -70,7 +70,7 @@ NDIS_STATUS	 RtmpMgmtTaskInit(
 	/* Creat MLME Thread */
 	pTask = &pAd->mlmeTask;
 	RTMP_OS_TASK_INIT(pTask, "rtmp-mlme-task", pAd);
-	status = RtmpOSTaskAttach(pTask, MlmeThread, (ULONG)pTask);
+	status = RtmpOSTaskAttach(pTask, MlmeThread, (unsigned long)pTask);
 	if (status == NDIS_STATUS_FAILURE)
 	{
 #ifdef DBG
@@ -82,7 +82,7 @@ NDIS_STATUS	 RtmpMgmtTaskInit(
 	/* Creat Command Thread */
 	pTask = &pAd->cmdQTask;
 	RTMP_OS_TASK_INIT(pTask, "rtmp-cmd-qtask", pAd);
-	status = RtmpOSTaskAttach(pTask, RTUSBCmdThread, (ULONG)pTask);
+	status = RtmpOSTaskAttach(pTask, RTUSBCmdThread, (unsigned long)pTask);
 	if (status == NDIS_STATUS_FAILURE)
 	{
 #ifdef DBG
@@ -954,8 +954,8 @@ static void rtusb_ate_ac0_dma_done_tasklet(unsigned long data)
 	PTX_CONTEXT pNullContext;
 	UCHAR BulkOutPipeId;
 	NTSTATUS Status;
-	ULONG IrqFlags;
-	ULONG OldValue;
+	unsigned long IrqFlags;
+	unsigned long OldValue;
 	purbb_t pURB;
 
 	pURB = (purbb_t)data;
@@ -1038,9 +1038,9 @@ static void rtusb_ate_ac0_dma_done_tasklet(unsigned long data)
 	}
 
 #ifdef RELASE_EXCLUDE
-	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->pAd = 0x%lx\n", (ULONG)&pNullContext->pAd));
-	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->pUrb = 0x%lx\n", (ULONG)&pNullContext->pUrb));
-	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->TransferBuffer = 0x%lx\n", (ULONG)&pNullContext->TransferBuffer));
+	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->pAd = 0x%lx\n", (unsigned long)&pNullContext->pAd));
+	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->pUrb = 0x%lx\n", (unsigned long)&pNullContext->pUrb));
+	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->TransferBuffer = 0x%lx\n", (unsigned long)&pNullContext->TransferBuffer));
 	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->BulkOutPipeId = %d\n", pNullContext->BulkOutPipeId));
 	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->BulkOutSize = %ld\n", pNullContext->BulkOutSize));
 	DBGPRINT(RT_DEBUG_INFO, ("pNullContext->InUse = %d\n", (pNullContext->InUse==TRUE)));
@@ -1100,9 +1100,9 @@ NDIS_STATUS RtmpNetTaskInit(
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	
 	/* Create receive tasklet */
-	RTMP_OS_TASKLET_INIT(pAd, &pObj->rx_done_task, rx_done_tasklet, (ULONG)pAd);
+	RTMP_OS_TASKLET_INIT(pAd, &pObj->rx_done_task, rx_done_tasklet, (unsigned long)pAd);
 #ifdef RLT_MAC
-	RTMP_OS_TASKLET_INIT(pAd, &pObj->cmd_rsp_event_task, cmd_rsp_event_tasklet, (ULONG)pAd);
+	RTMP_OS_TASKLET_INIT(pAd, &pObj->cmd_rsp_event_task, cmd_rsp_event_tasklet, (unsigned long)pAd);
 #endif /* RLT_MAC */
 	RTMP_OS_TASKLET_INIT(pAd, &pObj->mgmt_dma_done_task, rtusb_mgmt_dma_done_tasklet, (unsigned long)pAd);
 	RTMP_OS_TASKLET_INIT(pAd, &pObj->ac0_dma_done_task, rtusb_ac0_dma_done_tasklet, (unsigned long)pAd);
@@ -1169,7 +1169,7 @@ Note:
 ========================================================================
 */
 INT MlmeThread(
-	IN ULONG Context)
+	IN unsigned long Context)
 {
 	RTMP_ADAPTER *pAd;
 	RTMP_OS_TASK *pTask;
@@ -1235,7 +1235,7 @@ Note:
 ========================================================================
 */
 INT RTUSBCmdThread(
-	IN ULONG Context)
+	IN unsigned long Context)
 {
 	RTMP_ADAPTER *pAd;
 	RTMP_OS_TASK *pTask;

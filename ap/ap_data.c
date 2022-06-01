@@ -484,7 +484,7 @@ NDIS_STATUS APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 	if (pMacEntry && (IS_ENTRY_WDS(pMacEntry) || IS_ENTRY_APCLI(pMacEntry) || IS_ENTRY_MESH(pMacEntry)))
 	{
 #ifdef WDS_SUPPORT
-		ULONG Now32;
+		unsigned long Now32;
 		NdisGetSystemUpTime(&Now32);
 #endif /* WDS_SUPPORT */
 
@@ -1084,9 +1084,9 @@ static inline unsigned char * AP_Build_ARalink_Frame_Header(
 	}
 
 	/* padding at front of LLC header. LLC header should at 4-bytes aligment. */
-	pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
+	pTxBlk->HdrPadLen = (unsigned long)pHeaderBufPtr;
 	pHeaderBufPtr = (unsigned char *)ROUND_UP(pHeaderBufPtr, 4);
-	pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
+	pTxBlk->HdrPadLen = (unsigned long)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 
 	
 	/*
@@ -1264,9 +1264,9 @@ static inline unsigned char * AP_Build_AMSDU_Frame_Header(
 		LLC header should locate at 4-octets aligment
 		@@@ MpduHeaderLen excluding padding @@@
 	*/
-	pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
+	pTxBlk->HdrPadLen = (unsigned long)pHeaderBufPtr;
 	pHeaderBufPtr = (unsigned char *) ROUND_UP(pHeaderBufPtr, 4);
-	pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
+	pTxBlk->HdrPadLen = (unsigned long)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 		
 	return pHeaderBufPtr;
 
@@ -1545,9 +1545,9 @@ VOID AP_AMPDU_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 			The remaining content of MPDU header should locate at 4-octets aligment
 			@@@ MpduHeaderLen excluding padding @@@ 
 		*/
-		pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
+		pTxBlk->HdrPadLen = (unsigned long)pHeaderBufPtr;
 		pHeaderBufPtr = (unsigned char *) ROUND_UP(pHeaderBufPtr, 4);
-		pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
+		pTxBlk->HdrPadLen = (unsigned long)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 
 #ifdef VENDOR_FEATURE1_SUPPORT
 		pMacEntry->HdrPadLen = pTxBlk->HdrPadLen;
@@ -2336,9 +2336,9 @@ VOID AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	}
 
 	/* The remaining content of MPDU header should locate at 4-octets aligment	*/
-	pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
+	pTxBlk->HdrPadLen = (unsigned long)pHeaderBufPtr;
 	pHeaderBufPtr = (unsigned char *) ROUND_UP(pHeaderBufPtr, 4);
-	pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
+	pTxBlk->HdrPadLen = (unsigned long)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 
 #ifdef SOFT_ENCRYPT
 	if (TX_BLK_TEST_FLAG(pTxBlk, fTX_bSwEncrypt))
@@ -2772,9 +2772,9 @@ VOID AP_Fragment_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	}
 
 	/* The remaining content of MPDU header should locate at 4-octets aligment */
-	pTxBlk->HdrPadLen = (ULONG)pHeaderBufPtr;
+	pTxBlk->HdrPadLen = (unsigned long)pHeaderBufPtr;
 	pHeaderBufPtr = (unsigned char *) ROUND_UP(pHeaderBufPtr, 4);
-	pTxBlk->HdrPadLen = (ULONG)(pHeaderBufPtr - pTxBlk->HdrPadLen);
+	pTxBlk->HdrPadLen = (unsigned long)(pHeaderBufPtr - pTxBlk->HdrPadLen);
 
 #ifdef SOFT_ENCRYPT
 	if (TX_BLK_TEST_FLAG(pTxBlk, fTX_bSwEncrypt))
@@ -3415,7 +3415,7 @@ NDIS_STATUS APCheckRxError(
 */
 BOOLEAN APCheckClass2Class3Error(
 	IN	PRTMP_ADAPTER	pAd,
-	IN 	ULONG Wcid, 
+	IN 	unsigned long Wcid, 
 	IN	PHEADER_802_11	pHeader)
 {
 	/* software MAC table might be smaller than ASIC on-chip total size. */
@@ -3671,7 +3671,7 @@ VOID detect_wmm_traffic(
 				if ((pQueue == NULL) ||
 					((pQueue != NULL) && (pQueue->Head == NULL)))
 				{
-					ULONG	now;
+					unsigned long	now;
 					NdisGetSystemUpTime(&now);
 					if ((now - pAd->be_adjust_last_time) > TIME_ONE_SECOND)
 					{
@@ -3728,7 +3728,7 @@ VOID detect_wmm_traffic(
 	It is necessary to turn AC0 TX_OP dynamically.
 */
 
-VOID dynamic_tune_be_tx_op(RTMP_ADAPTER *pAd, ULONG nonBEpackets)
+VOID dynamic_tune_be_tx_op(RTMP_ADAPTER *pAd, unsigned long nonBEpackets)
 {
 	unsigned int RegValue;
 	AC_TXOP_CSR0_STRUC csr0;
@@ -4914,11 +4914,11 @@ if (0 /*!(pRxInfo->Mcast || pRxInfo->Bcast)*/){
 	if (pRxInfo->U2M)
 	{
 #ifdef RT65xx
-		pEntry->LastRxRate = (ULONG)((pRxWI->RxWIMCS) + (pRxWI->RxWIBW <<7) +
+		pEntry->LastRxRate = (unsigned long)((pRxWI->RxWIMCS) + (pRxWI->RxWIBW <<7) +
 									(pRxWI->RxWISGI <<9) + (pRxWI->RxWISTBC <<10) +
 									(pRxWI->RxWIPhyMode <<14));
 #else
-		pEntry->LastRxRate = (ULONG)((pRxWI->RxWIMCS) + (pRxWI->RxWIBW <<7) +
+		pEntry->LastRxRate = (unsigned long)((pRxWI->RxWIMCS) + (pRxWI->RxWIBW <<7) +
 									(pRxWI->RxWISGI <<8) + (pRxWI->RxWISTBC <<9) +
 									(pRxWI->RxWIPhyMode <<14));
 #endif
@@ -5412,7 +5412,7 @@ if (0 /*!(pRxInfo->Mcast || pRxInfo->Bcast)*/){
 
 	if (pRxInfo->U2M)
 	{
-		pEntry->LastRxRate = (ULONG)((pRxWI->RxWIMCS) + (pRxWI->RxWIBW <<7) +
+		pEntry->LastRxRate = (unsigned long)((pRxWI->RxWIMCS) + (pRxWI->RxWIBW <<7) +
 									(pRxWI->RxWISGI <<8) + (pRxWI->RxWISTBC <<9) +
 									(pRxWI->RxWIPhyMode <<14));
 
@@ -6177,7 +6177,7 @@ BOOLEAN APHandleRxDonePacket(
 BOOLEAN APFowardWirelessStaToWirelessSta(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	PNDIS_PACKET	pPacket,
-	IN	ULONG			FromWhichBSSID)
+	IN	unsigned long			FromWhichBSSID)
 {
     MAC_TABLE_ENTRY	*pEntry = NULL;
     BOOLEAN			bAnnounce, bDirectForward;
@@ -6334,7 +6334,7 @@ NDIS_STATUS APInsertPsQueue(
 	IN MAC_TABLE_ENTRY *pMacEntry,
 	IN UCHAR QueIdx)
 {
-	ULONG IrqFlags;
+	unsigned long IrqFlags;
 #ifdef UAPSD_SUPPORT
 	/* put the U-APSD packet to its U-APSD queue by AC ID */
 	unsigned int ac_id = QueIdx - QID_AC_BE; /* should be >= 0 */
@@ -6384,7 +6384,7 @@ VOID	ApCliRTMPSendNullFrame(
 	IN PMAC_TABLE_ENTRY pMacEntry)
 {
 	UCHAR	NullFrame[48];
-	ULONG	Length;
+	unsigned long	Length;
 	PHEADER_802_11	pHeader_802_11;
 	PAPCLI_STRUCT pApCliEntry = NULL;
 

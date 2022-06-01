@@ -143,7 +143,7 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 /* ----------------- Frimware Related MACRO ----------------- */
 #define RTMP_WRITE_FIRMWARE(_pAd, _pFwImage, _FwLen)		\
 	do{														\
-		ULONG	_i, _firm;									\
+		unsigned long	_i, _firm;									\
 		/* protect 8051 we will do firmware upload */		\
 		RTMP_IO_WRITE32(_pAd, PBF_SYS_CTRL, 0x10000);		\
 															\
@@ -171,7 +171,7 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 
 
 #define RTMP_HAS_ENOUGH_FREE_DESC(pAd, pTxBlk, freeNum, pPacket) \
-		((freeNum) >= (ULONG)(pTxBlk->TotalFragNum + RTMP_GET_PACKET_FRAGMENTS(pPacket) + 3)) /* rough estimate we will use 3 more descriptor. */
+		((freeNum) >= (unsigned long)(pTxBlk->TotalFragNum + RTMP_GET_PACKET_FRAGMENTS(pPacket) + 3)) /* rough estimate we will use 3 more descriptor. */
 #define RTMP_RELEASE_DESC_RESOURCE(pAd, QueIdx)	\
 		do{}while(0)
 

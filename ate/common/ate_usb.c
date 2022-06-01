@@ -65,7 +65,7 @@ VOID RtmpDmaEnable(
 	IN INT Enable)
 {
 	BOOLEAN value;
-	ULONG WaitCnt;
+	unsigned long WaitCnt;
 	USB_DMA_CFG_STRUC UsbCfg;
 	
 	value = Enable > 0 ? 1 : 0;
@@ -99,7 +99,7 @@ static VOID ATEWriteTxWI(
 	IN	BOOLEAN 		NSeq,		/* HW new a sequence. */
 	IN	UCHAR			BASize,
 	IN	UCHAR			WCID,
-	IN	ULONG			Length,
+	IN	unsigned long			Length,
 	IN	UCHAR 			PID,
 	IN	UCHAR			MIMOps,
 	IN	UCHAR			Txopmode,	
@@ -424,7 +424,7 @@ VOID ATE_RTUSBBulkOutDataPacket(
 	PTX_CONTEXT		pNullContext = &(pAd->NullContext[0]);
 	PURB			pUrb;
 	INT			ret = 0;
-	ULONG			IrqFlags;
+	unsigned long			IrqFlags;
 
 
 	ASSERT(BulkOutPipeId == 0);

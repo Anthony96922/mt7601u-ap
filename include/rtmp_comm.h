@@ -186,7 +186,7 @@ Ndis802_11InfrastructureMax	/* Not a real value, defined as upper bound */
 /* ======================== Memory ========================================== */ 
 #ifdef VENDOR_FEATURE2_SUPPORT
 
-extern ULONG OS_NumOfPktAlloc, OS_NumOfPktFree;
+extern unsigned long OS_NumOfPktAlloc, OS_NumOfPktFree;
 
 #define MEM_DBG_PKT_ALLOC_INC(__pPacket)	OS_NumOfPktAlloc ++;
 #define MEM_DBG_PKT_FREE_INC(__pPacket)		OS_NumOfPktFree ++;
@@ -213,7 +213,7 @@ extern ULONG OS_NumOfPktAlloc, OS_NumOfPktFree;
 #ifdef NO_CONSISTENT_MEM_SUPPORT
 /* current support RXD_SIZE = 16B and cache line = 16 or 32B */
 #define RTMP_DCACHE_FLUSH(__AddrStart, __Size)							\
-		RtmpOsDCacheFlush((ULONG)(__AddrStart), (ULONG)(__Size))
+		RtmpOsDCacheFlush((unsigned long)(__AddrStart), (unsigned long)(__Size))
 #else
 #define RTMP_DCACHE_FLUSH(__AddrStart, __Size)
 #endif /* NO_CONSISTENT_MEM_SUPPORT */

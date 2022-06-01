@@ -434,7 +434,7 @@ void construct_ctr_preload(
 BOOLEAN RTMPSoftDecryptAES(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *	pData,
-	IN ULONG	DataByteCnt, 
+	IN unsigned long	DataByteCnt, 
 	IN PCIPHER_KEY	pWpaKey)
 {
 	UINT			HeaderLen;

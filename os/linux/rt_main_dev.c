@@ -243,7 +243,7 @@ int rt28xx_open(VOID *dev)
 	struct net_device * net_dev = (struct net_device *)dev;
 	VOID *pAd = NULL;
 	int retval = 0;
-	ULONG OpMode;
+	unsigned long OpMode;
 
 
 
@@ -357,7 +357,7 @@ PNET_DEV RtmpPhyNetDevInit(
 	IN RTMP_OS_NETDEV_OP_HOOK	*pNetDevHook)
 {
 	struct net_device	*net_dev = NULL;
-	ULONG InfId, OpMode;
+	unsigned long InfId, OpMode;
 
 	RTMP_DRIVER_MAIN_INF_GET(pAd, &InfId);
 
@@ -580,7 +580,7 @@ INT rt28xx_ioctl(
 {
 	VOID *pAd = NULL;
 	INT ret = 0;
-	ULONG OpMode;
+	unsigned long OpMode;
 
 	GET_PAD_FROM_NET_DEV(pAd, net_dev);	
 
@@ -726,7 +726,7 @@ BOOLEAN RtmpPhyNetDevExit(
  *******************************************************************************/
 int RtmpOSIRQRequest(IN PNET_DEV pNetDev)
 {
-	ULONG infType;
+	unsigned long infType;
 	VOID *pAd = NULL;
 	int retval = 0;
 	

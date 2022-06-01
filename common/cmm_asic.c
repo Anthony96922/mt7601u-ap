@@ -880,15 +880,15 @@ VOID AsicSetBssid(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pBssid) 
 {
-	ULONG		  Addr4;
+	unsigned long		  Addr4;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("===> AsicSetBssid %x:%x:%x:%x:%x:%x\n",
 				PRINT_MAC(pBssid)));
 	
-	Addr4 = (ULONG)(pBssid[0]) | 
-			(ULONG)(pBssid[1] << 8)  | 
-			(ULONG)(pBssid[2] << 16) |
-			(ULONG)(pBssid[3] << 24);
+	Addr4 = (unsigned long)(pBssid[0]) | 
+			(unsigned long)(pBssid[1] << 8)  | 
+			(unsigned long)(pBssid[2] << 16) |
+			(unsigned long)(pBssid[3] << 24);
 	RTMP_IO_WRITE32(pAd, MAC_BSSID_DW0, Addr4);
 
 #ifdef HDR_TRANS_SUPPORT
@@ -897,7 +897,7 @@ VOID AsicSetBssid(
 
 	Addr4 = 0;
 	/* always one BSSID in STA mode*/
-	Addr4 = (ULONG)(pBssid[4]) | (ULONG)(pBssid[5] << 8);
+	Addr4 = (unsigned long)(pBssid[4]) | (unsigned long)(pBssid[5] << 8);
 
 
 	RTMP_IO_WRITE32(pAd, MAC_BSSID_DW1, Addr4);
@@ -1092,7 +1092,7 @@ VOID AsicEnableIbssSync(
 	BCN_TIME_CFG_STRUC csr9;
 	unsigned char *			ptr;
 	UINT i;
-	ULONG beaconBaseLocation = 0;
+	unsigned long beaconBaseLocation = 0;
 	USHORT			beaconLen = (USHORT) pAd->BeaconTxWI.TxWIMPDUByteCnt;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned int longptr;
@@ -1449,7 +1449,7 @@ VOID 	AsicSetSlotTime(
 	IN PRTMP_ADAPTER pAd,
 	IN BOOLEAN bUseShortSlotTime) 
 {
-	ULONG	SlotTime;
+	unsigned long	SlotTime;
 	unsigned int	RegValue = 0;
 
 
@@ -1494,7 +1494,7 @@ VOID AsicAddSharedKeyEntry(
 	IN UCHAR		 	KeyIdx,
 	IN PCIPHER_KEY		pCipherKey)
 {
-	ULONG offset; /*, csr0;*/
+	unsigned long offset; /*, csr0;*/
 	SHAREDKEY_MODE_STRUC csr1;
 
 	unsigned char *		pKey = pCipherKey->Key;
@@ -1579,7 +1579,7 @@ VOID AsicRemoveSharedKeyEntry(
 	IN UCHAR		 BssIndex,
 	IN UCHAR		 KeyIdx)
 {
-	/*ULONG SecCsr0;*/
+	/*unsigned long SecCsr0;*/
 	SHAREDKEY_MODE_STRUC csr1;
 
 	DBGPRINT(RT_DEBUG_TRACE,("AsicRemoveSharedKeyEntry: #%d \n", BssIndex*4 + KeyIdx));
@@ -1617,10 +1617,10 @@ VOID AsicRemoveSharedKeyEntry(
 VOID AsicUpdateWCIDIVEIV(
 	IN PRTMP_ADAPTER pAd,
 	IN USHORT		WCID,
-	IN ULONG        uIV,
-	IN ULONG        uEIV)
+	IN unsigned long        uIV,
+	IN unsigned long        uEIV)
 {
-	ULONG	offset;
+	unsigned long	offset;
 
 	offset = MAC_IVEIV_TABLE_BASE + (WCID * HW_IVEIV_ENTRY_SIZE);
 
@@ -1636,8 +1636,8 @@ VOID AsicUpdateRxWCIDTable(
 	IN USHORT		WCID,
 	IN unsigned char *        pAddr)
 {
-	ULONG offset;
-	ULONG Addr;
+	unsigned long offset;
+	unsigned long Addr;
 	
 	offset = MAC_WCID_BASE + (WCID * HW_WCID_ENTRY_SIZE);	
 	Addr = pAddr[0] + (pAddr[1] << 8) +(pAddr[2] << 16) +(pAddr[3] << 24);
@@ -1733,7 +1733,7 @@ VOID AsicAddPairwiseKeyEntry(
 	IN PCIPHER_KEY		pCipherKey)
 {
 	INT i;
-	ULONG 		offset;
+	unsigned long 		offset;
 	unsigned char *		 pTxMic = pCipherKey->TxMic;
 	unsigned char *		 pRxMic = pCipherKey->RxMic;
 #ifdef DBG
@@ -1948,12 +1948,12 @@ VOID AsicTurnOffRFClk(
 VOID AsicUpdateWAPIPN(
 	IN PRTMP_ADAPTER pAd,
 	IN USHORT		 WCID,
-	IN ULONG         pn_low,
-	IN ULONG         pn_high)
+	IN unsigned long         pn_low,
+	IN unsigned long         pn_high)
 {
 	if (IS_HW_WAPI_SUPPORT(pAd))
 	{
-		ULONG	offset;
+		unsigned long	offset;
 
 		offset = WAPI_PN_TABLE_BASE + (WCID * WAPI_PN_ENTRY_SIZE);
 
@@ -2345,7 +2345,7 @@ BOOLEAN AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us)
 #else
 #define MAX_AGG_CNT	8
 #endif
-INT AsicReadAggCnt(RTMP_ADAPTER *pAd, ULONG *aggCnt, int cnt_len)
+INT AsicReadAggCnt(RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len)
 {
 	unsigned int reg_addr;
 	TX_AGG_CNT_STRUC reg_val;
@@ -2361,7 +2361,7 @@ INT AsicReadAggCnt(RTMP_ADAPTER *pAd, ULONG *aggCnt, int cnt_len)
 	};
 
 
-	NdisZeroMemory(aggCnt, cnt_len * sizeof(ULONG));
+	NdisZeroMemory(aggCnt, cnt_len * sizeof(unsigned long));
 	seg = (sizeof(aggReg) /sizeof(USHORT));
 
 	cnt = 0;

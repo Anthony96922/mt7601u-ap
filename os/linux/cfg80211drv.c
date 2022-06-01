@@ -44,7 +44,7 @@ INT CFG80211DRV_IoctlHandle(
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
 	IN	VOID					*pData,
-	IN	ULONG					Data)
+	IN	unsigned long					Data)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 
@@ -204,7 +204,7 @@ INT CFG80211DRV_IoctlHandle(
 				if (pAd->StaCfg.WfdCfg.bSuppInsertWfdIe)
 				{
 					PP2P_PUBLIC_FRAME	pFrame = (PP2P_PUBLIC_FRAME)pData;
-					ULONG	WfdIeLen = 0, WfdIeBitmap = 0;
+					unsigned long	WfdIeLen = 0, WfdIeBitmap = 0;
 				
 					switch (pFrame->p80211Header.FC.SubType) 
 					{
@@ -612,7 +612,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 	BOOLEAN	bWmmCapable = FALSE;
 	UCHAR	BBPR1 = 0, BBPR3 = 0;
 	INT idx;
-	ULONG offset;
+	unsigned long offset;
 
 	CFG80211DBG(RT_DEBUG_TRACE, ("80211> CFG80211DRV_OpsBeaconSet ==> \n"));
 	pBeacon = (CMD_RTPRIV_IOCTL_80211_BEACON *)pData;
@@ -620,7 +620,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 #ifdef WFD_SUPPORT
 	if (pAd->StaCfg.WfdCfg.bSuppInsertWfdIe)
 	{
-		ULONG TmpLen, WfdIeBitmap;
+		unsigned long TmpLen, WfdIeBitmap;
 
 		ptr = pBeacon->beacon + pBeacon->beacon_len;
 		WfdIeBitmap = (0x1 << SUBID_WFD_DEVICE_INFO) | (0x1 << SUBID_WFD_ASSOCIATED_BSSID) |
@@ -844,19 +844,19 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 		//MlmeSetTxPreamble(pAd, (USHORT)pAd->CommonCfg.TxPreamble);	
 	
 		{
-			ULONG	Addr4;
+			unsigned long	Addr4;
 			unsigned int	regValue;
 			unsigned char * pP2PBssid = &pAd->CurrentAddress[0];
 		
-			Addr4 = (ULONG)(pP2PBssid[0])	    | 
-				(ULONG)(pP2PBssid[1] << 8)  | 
-				(ULONG)(pP2PBssid[2] << 16) |
-				(ULONG)(pP2PBssid[3] << 24);
+			Addr4 = (unsigned long)(pP2PBssid[0])	    | 
+				(unsigned long)(pP2PBssid[1] << 8)  | 
+				(unsigned long)(pP2PBssid[2] << 16) |
+				(unsigned long)(pP2PBssid[3] << 24);
 			RTMP_IO_WRITE32(pAd, MAC_BSSID_DW0, Addr4);
 	
 			Addr4 = 0;
 
-			Addr4 = (ULONG)(pP2PBssid[4]) | (ULONG)(pP2PBssid[5] << 8);
+			Addr4 = (unsigned long)(pP2PBssid[4]) | (unsigned long)(pP2PBssid[5] << 8);
 			RTMP_IO_WRITE32(pAd, MAC_BSSID_DW1, Addr4);
 	
 			RTMP_IO_READ32(pAd, MAC_BSSID_DW1, &regValue);
@@ -1015,7 +1015,7 @@ BOOLEAN CFG80211DRV_StaGet(
 #ifdef CONFIG_AP_SUPPORT
 {
 	MAC_TABLE_ENTRY *pEntry;
-	ULONG DataRate = 0;
+	unsigned long DataRate = 0;
 	unsigned int RSSI;
 
 
@@ -1220,7 +1220,7 @@ Note:
 VOID CFG80211_RegHint(
 	IN VOID						*pAdCB,
 	IN UCHAR					*pCountryIe,
-	IN ULONG					CountryIeLen)
+	IN unsigned long					CountryIeLen)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
 
@@ -1249,7 +1249,7 @@ Note:
 VOID CFG80211_RegHint11D(
 	IN VOID						*pAdCB,
 	IN UCHAR					*pCountryIe,
-	IN ULONG					CountryIeLen)
+	IN unsigned long					CountryIeLen)
 {
 	/* no regulatory_hint_11d() in 2.6.32 */
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdCB;
@@ -1289,7 +1289,7 @@ VOID CFG80211_RegRuleApply(
 	unsigned int IdBand, IdChan, IdPwr;
 	unsigned int ChanNum, ChanId, Power, RecId, DfsType;
 	BOOLEAN FlgIsRadar;
-	ULONG IrqFlags;
+	unsigned long IrqFlags;
 #ifdef DFS_SUPPORT	
 	RADAR_DETECT_STRUCT	*pRadarDetect;
 #endif /* DFS_SUPPORT */

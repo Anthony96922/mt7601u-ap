@@ -43,7 +43,7 @@ VOID RTMPWriteTxWI(
 	IN BOOLEAN NSeq,		/* HW new a sequence.*/
 	IN UCHAR BASize,
 	IN UCHAR WCID,
-	IN ULONG Length,
+	IN unsigned long Length,
 	IN UCHAR PID,
 	IN UCHAR TID,
 	IN UCHAR TxRate,

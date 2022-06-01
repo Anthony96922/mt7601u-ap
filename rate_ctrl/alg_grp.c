@@ -645,13 +645,13 @@ UCHAR MlmeSelectTxRateAdapt(
 		pCurrTxRate - pointer to Rate table entry for rate
 		TxErrorRatio - the PER
 */
-static ULONG MlmeRAEstimateThroughput(
+static unsigned long MlmeRAEstimateThroughput(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN RTMP_RA_GRP_TB *pCurrTxRate,
-	IN ULONG TxErrorRatio)
+	IN unsigned long TxErrorRatio)
 {
-	ULONG estTP = (100-TxErrorRatio)*pCurrTxRate->dataRate;
+	unsigned long estTP = (100-TxErrorRatio)*pCurrTxRate->dataRate;
 
 	/*  Adjust rates for MCS32-40MHz mapped to MCS0-20MHz and for non-CCK 40MHz */
 	if (pCurrTxRate->CurrMCS == MCS_32)
@@ -687,10 +687,10 @@ BOOLEAN MlmeRAHybridRule(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
 	IN RTMP_RA_GRP_TB *pCurrTxRate,
-	IN ULONG			NewTxOkCount,
-	IN ULONG			TxErrorRatio)
+	IN unsigned long			NewTxOkCount,
+	IN unsigned long			TxErrorRatio)
 {
-	ULONG newTP, oldTP;
+	unsigned long newTP, oldTP;
 
 	if (100*NewTxOkCount < pAd->CommonCfg.TrainUpLowThrd*pEntry->LastTxOkCount)
 		return TRUE;
@@ -721,9 +721,9 @@ VOID MlmeNewRateAdapt(
 	IN PMAC_TABLE_ENTRY	pEntry,
 	IN UCHAR			UpRateIdx,
 	IN UCHAR			DownRateIdx,
-	IN ULONG			TrainUp,
-	IN ULONG			TrainDown,
-	IN ULONG			TxErrorRatio)
+	IN unsigned long			TrainUp,
+	IN unsigned long			TrainDown,
+	IN unsigned long			TxErrorRatio)
 {
 	USHORT		phyRateLimit20 = 0;
 	BOOLEAN		bTrainUp = FALSE;
@@ -967,18 +967,18 @@ VOID MlmeNewRateAdapt(
 */
 VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
     IN PRTMP_ADAPTER pAd,
-    IN ULONG idx) 
+    IN unsigned long idx) 
 {
 	unsigned char *					pTable;
 	UCHAR					CurrRateIdx;
-	ULONG					AccuTxTotalCnt, TxTotalCnt, TxCnt;
-	ULONG					TxErrorRatio = 0;
+	unsigned long					AccuTxTotalCnt, TxTotalCnt, TxCnt;
+	unsigned long					TxErrorRatio = 0;
 	MAC_TABLE_ENTRY			*pEntry;
 	RTMP_RA_GRP_TB *pCurrTxRate;
 	UCHAR					TrainUp, TrainDown;
 	CHAR					Rssi, ratio;
-	ULONG					TxSuccess, TxRetransmit, TxFailCount;
-	ULONG					OneSecTxNoRetryOKRationCount;
+	unsigned long					TxSuccess, TxRetransmit, TxFailCount;
+	unsigned long					OneSecTxNoRetryOKRationCount;
 	BOOLEAN					rateChanged;
 #ifdef TXBF_SUPPORT
 	BOOLEAN					CurrPhyETxBf, CurrPhyITxBf;
@@ -1035,7 +1035,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
 #ifdef FIFO_EXT_SUPPORT
 		if ((pEntry->Aid >= 1) && (pEntry->Aid <= 8))
 		{
-			ULONG 	HwTxCnt, HwErrRatio;
+			unsigned long 	HwTxCnt, HwErrRatio;
 
 			NicGetMacFifoTxCnt(pAd, pEntry);
 			HwTxCnt = pEntry->fifoTxSucCnt + pEntry->fifoTxRtyCnt;
@@ -1288,11 +1288,11 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
         call this routine every second
     ==========================================================================
  */
-VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, ULONG i)
+VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 {
 	unsigned char * pTable;
 	UCHAR UpRateIdx, DownRateIdx, CurrRateIdx, TrainUp, TrainDown;
-	ULONG TxTotalCnt, TxSuccess, TxRetransmit, TxFailCount, TxErrorRatio;
+	unsigned long TxTotalCnt, TxSuccess, TxRetransmit, TxFailCount, TxErrorRatio;
 	MAC_TABLE_ENTRY *pEntry;
 	RTMP_RA_GRP_TB *pCurrTxRate;
 	CHAR Rssi;
@@ -1331,7 +1331,7 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, ULONG i)
 #ifdef FIFO_EXT_SUPPORT
 		if (pEntry->Aid >= 1 && pEntry->Aid <= 8)
 		{
-			ULONG HwTxCnt, HwErrRatio;
+			unsigned long HwTxCnt, HwErrRatio;
 
 			NicGetMacFifoTxCnt(pAd, pEntry);
 			HwTxCnt = pEntry->fifoTxSucCnt + pEntry->fifoTxRtyCnt;

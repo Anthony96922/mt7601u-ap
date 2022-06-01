@@ -46,7 +46,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 	MAC_TABLE_ENTRY *pEntry;
 	RTMP_RA_LEGACY_TB *pCurrTxRate, *pTmpTxRate = NULL;
 	CHAR Rssi, TmpIdx = 0;
-	ULONG TxTotalCnt, TxErrorRatio = 0, TxSuccess, TxRetransmit, TxFailCount;
+	unsigned long TxTotalCnt, TxErrorRatio = 0, TxSuccess, TxRetransmit, TxFailCount;
 
 
 #ifdef RALINK_ATE
@@ -135,7 +135,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 #ifdef FIFO_EXT_SUPPORT
 			if (pEntry->Aid >= 1 && pEntry->Aid <= 8)
 			{
-				ULONG 	HwTxCnt, HwErrRatio;
+				unsigned long 	HwTxCnt, HwErrRatio;
 
 				NicGetMacFifoTxCnt(pAd, pEntry);
 				HwTxCnt = pEntry->fifoTxSucCnt + pEntry->fifoTxRtyCnt;
@@ -419,17 +419,17 @@ VOID APQuickResponeForRateUpExec(
     IN void * SystemSpecific3)
 {
 	PRTMP_ADAPTER			pAd = (PRTMP_ADAPTER)FunctionContext;
-	ULONG					i;
+	unsigned long					i;
 	unsigned char *					pTable;
 	UCHAR					TableSize = 0;
 	UCHAR					CurrRateIdx;
-	ULONG					AccuTxTotalCnt, TxTotalCnt, TxCnt;
-	ULONG					TxErrorRatio = 0;
+	unsigned long					AccuTxTotalCnt, TxTotalCnt, TxCnt;
+	unsigned long					TxErrorRatio = 0;
 	MAC_TABLE_ENTRY			*pEntry;
 	RTMP_RA_LEGACY_TB *pCurrTxRate;
 	UCHAR					InitTxRateIdx, TrainUp, TrainDown;
 	CHAR					Rssi, ratio;
-	ULONG					TxSuccess, TxRetransmit, TxFailCount;
+	unsigned long					TxSuccess, TxRetransmit, TxFailCount;
 #ifdef TXBF_SUPPORT
 	BOOLEAN					CurrPhyETxBf, CurrPhyITxBf;
 #endif /* TXBF_SUPPORT */
@@ -524,7 +524,7 @@ VOID APQuickResponeForRateUpExec(
 #ifdef FIFO_EXT_SUPPORT
 			if ((pEntry->Aid >= 1) && (pEntry->Aid <= 8))
 			{
-				ULONG	HwTxCnt, HwErrRatio;
+				unsigned long	HwTxCnt, HwErrRatio;
 
 				NicGetMacFifoTxCnt(pAd, pEntry);
 				HwTxCnt = pEntry->fifoTxSucCnt + pEntry->fifoTxRtyCnt;
@@ -600,7 +600,7 @@ VOID APQuickResponeForRateUpExec(
        /* Compare throughput */
 		do
 		{
-			ULONG OneSecTxNoRetryOKRationCount;
+			unsigned long OneSecTxNoRetryOKRationCount;
 
 			/*
 				Compare throughput.
@@ -727,9 +727,9 @@ VOID MlmeOldRateAdapt(
 	IN UCHAR			CurrRateIdx,
 	IN UCHAR			UpRateIdx,
 	IN UCHAR			DownRateIdx,
-	IN ULONG			TrainUp,
-	IN ULONG			TrainDown,
-	IN ULONG			TxErrorRatio)
+	IN unsigned long			TrainUp,
+	IN unsigned long			TrainDown,
+	IN unsigned long			TxErrorRatio)
 {
 	BOOLEAN	bTrainUp = FALSE;
 #ifdef TXBF_SUPPORT

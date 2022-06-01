@@ -485,7 +485,7 @@ INT	Set_RadarSetTbl1_Proc(
 	IN	char *			arg)
 {
 	unsigned char * p2 = arg;
-	ULONG idx, value;
+	unsigned long idx, value;
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pAd->CommonCfg.RadarDetect.DfsProgramParam;
 	
 	while((*p2 != ':') && (*p2 != '\0'))
@@ -517,7 +517,7 @@ INT	Set_RadarSetTbl2_Proc(
 	IN	char *			arg)
 {
 	unsigned char * p2 = arg;
-	ULONG idx, value;
+	unsigned long idx, value;
 	
 	while((*p2 != ':') && (*p2 != '\0'))
 	{
@@ -552,7 +552,7 @@ INT	Set_ChBusyThrd_Proc(
 {
 	int i;
 	unsigned char * p1 = arg, p2;
-	ULONG value;
+	unsigned long value;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	
 	pRadarDetect->fdf_num = 0;
@@ -600,7 +600,7 @@ INT	Set_RssiThrd_Proc(
 {
 	int i;
 	unsigned char * p1 = arg, p2;
-	ULONG value;
+	unsigned long value;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	
 	pRadarDetect->fdf_num = 0;
@@ -1144,7 +1144,7 @@ int SWRadarCheck(
 {
 	int i, j, start_idx, end_idx;
 	pNewDFSDebugPort pCurrent, p1, pEnd;
-	ULONG period;
+	unsigned long period;
 	int radar_detected = 0;
 	USHORT	widthsum;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
@@ -1188,7 +1188,7 @@ int SWRadarCheck(
 
 	if (pAd->CommonCfg.RDDurRegion != CE)
 	{
-		ULONG minPeriod = (3000 << 1);
+		unsigned long minPeriod = (3000 << 1);
 		/* Calculate how many counters to check*/
 		/* if pRadarDetect->PollTime is 1ms, a round of timestamp is 107 for 20Mhz, 53 for 40Mhz*/
 		/* if pRadarDetect->PollTime is 2ms, a round of timestamp is 71 for 20Mhz, 35 for 40Mhz*/
@@ -1360,7 +1360,7 @@ int SWRadarCheck(
 				/*pNewDFSDebugPort	p2, p3, p4, p5, p6;*/
 				pNewDFSDebugPort	p2, p3;
 				pNewDFSMPeriod pCE_T;
-				ULONG idx[10], T[10];
+				unsigned long idx[10], T[10];
 
 				for (idx[0] = pCurrent->start_idx; idx[0] <= pCurrent->end_idx; idx[0]++)
 				{
@@ -1450,7 +1450,7 @@ int SWRadarCheck(
 
 										{
 											pNewDFSValidRadar pDFSValidRadar;
-											ULONG T1 = (pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_40)? (T[1]>>1) : T[1];
+											unsigned long T1 = (pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_40)? (T[1]>>1) : T[1];
 											
 											pDFSValidRadar = &NewDFSValidTable[0];
 											
@@ -1770,7 +1770,7 @@ int SWRadarCheck(
 		{
 			pNewDFSDebugPort	p2, p3;
 			pNewDFSMPeriod pCE_T;
-			ULONG idx[10], T[10];
+			unsigned long idx[10], T[10];
 			
 			/*printk("pCurrent=%d, idx=%d~%d\n", pCurrent->timestamp, pCurrent->start_idx, pCurrent->end_idx);*/
 
@@ -2196,7 +2196,7 @@ static BOOLEAN DfsChannelCheck(
 
 			if ( ((i == 3) || (i == 2)) && (pDFS2Table->entry[i].mode != 0) )
 			{
-				ULONG B, W2;
+				unsigned long B, W2;
 				RTMP_BBP_IO_READ32(pAd, DFS_R22, &B);
 				DBGPRINT(RT_DEBUG_TRACE, ("Burst = %lu(0x%lx)\n", B, B));
 				
@@ -2399,8 +2399,8 @@ BOOLEAN DfsSwCheckOnHwDetection(
 	 IN PRTMP_ADAPTER pAd,
 	 IN pNewDFSTable pDFS2Table,
 	 IN unsigned char DfsChannel,
-	 IN ULONG RadarPeriod,
-	 IN ULONG RadarWidth)
+	 IN unsigned long RadarPeriod,
+	 IN unsigned long RadarWidth)
 {
 	BOOLEAN bRadarCheck = TRUE;
 	if (!RadarPeriod || !RadarWidth)
@@ -2689,10 +2689,10 @@ static void dfs_sw_init(PRTMP_ADAPTER pAd)
 	NdisZeroMemory(pDfsSwParam->DFS_W, sizeof(pDfsSwParam->DFS_W));
 }
 
-void modify_table1(PRTMP_ADAPTER pAd, ULONG idx, ULONG value)
+void modify_table1(PRTMP_ADAPTER pAd, unsigned long idx, unsigned long value)
 {
 	pNewDFSTable pDFS2Table;
-	ULONG x, y;	
+	unsigned long x, y;	
 	unsigned char DfsEngineNum = pAd->chipCap.DfsEngineNum;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	PDFS_PROGRAM_PARAM pDfsProgramParam = &pRadarDetect->DfsProgramParam;
@@ -2753,11 +2753,11 @@ void modify_table1(PRTMP_ADAPTER pAd, ULONG idx, ULONG value)
 			break;
     	
 		case 8:
-			pDFS2Table->entry[x].TLow = (ULONG)value;
+			pDFS2Table->entry[x].TLow = (unsigned long)value;
 			break;
     	
 		case 9:
-			pDFS2Table->entry[x].THigh = (ULONG)value;
+			pDFS2Table->entry[x].THigh = (unsigned long)value;
 			break;
     	
 		case 0xa:
@@ -2778,19 +2778,19 @@ void modify_table1(PRTMP_ADAPTER pAd, ULONG idx, ULONG value)
 	}
 	else if (idx == (DfsEngineNum*16 +1))
 	{
-		pDfsProgramParam->Symmetric_Round = (ULONG)value;
+		pDfsProgramParam->Symmetric_Round = (unsigned long)value;
 	}
 	else if (idx == (DfsEngineNum*16 +2))
 	{
-		pDfsProgramParam->VGA_Mask = (ULONG)value;
+		pDfsProgramParam->VGA_Mask = (unsigned long)value;
 	}
 	else if (idx == (DfsEngineNum*16 +3))
 	{
-		pDfsProgramParam->Packet_End_Mask = (ULONG)value;
+		pDfsProgramParam->Packet_End_Mask = (unsigned long)value;
 	}
 	else if (idx == (DfsEngineNum*16 +4))
 	{
-		pDfsProgramParam->Rx_PE_Mask = (ULONG)value;
+		pDfsProgramParam->Rx_PE_Mask = (unsigned long)value;
 	}
 
 	printk("Delta_Delay(0) = %d\n", pDfsProgramParam->DeltaDelay);
@@ -2821,10 +2821,10 @@ void modify_table1(PRTMP_ADAPTER pAd, ULONG idx, ULONG value)
 }
 
 
-void modify_table2(PRTMP_ADAPTER pAd, ULONG idx, ULONG value)
+void modify_table2(PRTMP_ADAPTER pAd, unsigned long idx, unsigned long value)
 {
 	pNewDFSValidRadar pDFSValidRadar;
-	ULONG x, y;
+	unsigned long x, y;
 	PRADAR_DETECT_STRUCT pRadarDetect = &pAd->CommonCfg.RadarDetect;
 	
 	idx--;

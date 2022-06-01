@@ -296,7 +296,7 @@ MAC_TABLE_ENTRY *WdsTableLookupByWcid(
 	IN BOOLEAN bResetIdelCount)
 {
 	/*USHORT HashIdx; */
-	ULONG WdsIndex;
+	unsigned long WdsIndex;
 	PMAC_TABLE_ENTRY pCurEntry = NULL;
 	PMAC_TABLE_ENTRY pEntry = NULL;
 
@@ -605,7 +605,7 @@ VOID WdsPeerBeaconProc(
 	IN UCHAR MaxSupportedRateIn500Kbps,
 	IN UCHAR MaxSupportedRateLen,
 	IN BOOLEAN bWmmCapable,
-	IN ULONG ClientRalinkIe,
+	IN unsigned long ClientRalinkIe,
 	IN HT_CAPABILITY_IE *pHtCapability,
 	IN UCHAR HtCapabilityLen)
 {

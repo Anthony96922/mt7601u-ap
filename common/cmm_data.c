@@ -267,7 +267,7 @@ NDIS_STATUS MiniportMMRequest(
 {
 	PNDIS_PACKET pPacket;
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
-	ULONG FreeNum;
+	unsigned long FreeNum;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	UCHAR rtmpHwHdr[40];
 	BOOLEAN bUseDataQ = FALSE, FlgDataQForce = FALSE, FlgIsLocked = FALSE;
@@ -472,7 +472,7 @@ void AP_QueuePsActionPacket(
 		}
 		else
 		{
-			ULONG IrqFlags = 0;
+			unsigned long IrqFlags = 0;
 
 			DBGPRINT(RT_DEBUG_TRACE, ("ps> mgmt to legacy ps queue... (%d)\n", FlgIsDeltsFrame));
 
@@ -1190,7 +1190,7 @@ VOID RTMPDeQueuePacket(
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
 	UCHAR Count=0;
 	PQUEUE_HEADER   pQueue;
-	ULONG FreeNumber[NUM_OF_TX_RING];
+	unsigned long FreeNumber[NUM_OF_TX_RING];
 	UCHAR QueIdx, sQIdx, eQIdx;
 	unsigned long	IrqFlags = 0;
 	BOOLEAN hasTxDesc = FALSE;
@@ -1316,7 +1316,7 @@ VOID RTMPDeQueuePacket(
 				*/
 				if(IS_ENTRY_WDS(pMacEntry))
 				{
-					ULONG Now32;
+					unsigned long Now32;
 				    NdisGetSystemUpTime(&Now32);
 					if(pMacEntry->LockEntryTx && RTMP_TIME_BEFORE(Now32, pMacEntry->TimeStamp_toTxRing + WDS_ENTRY_RETRY_INTERVAL))
 					{
@@ -1351,7 +1351,7 @@ VOID RTMPDeQueuePacket(
 						will be cleared to 0.
 					*/
 #define ENTRY_RETRY_INTERVAL	(100 * OS_HZ / 1000)
-					ULONG Now32;
+					unsigned long Now32;
 				    NdisGetSystemUpTime(&Now32);
 					if(RTMP_TIME_BEFORE(Now32, pMacEntry->TimeStamp_toTxRing + ENTRY_RETRY_INTERVAL))
 					{
@@ -1497,9 +1497,9 @@ VOID RTMPDeQueuePacket(
 USHORT	RTMPCalcDuration(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	UCHAR			Rate,
-	IN	ULONG			Size)
+	IN	unsigned long			Size)
 {
-	ULONG	Duration = 0;
+	unsigned long	Duration = 0;
 
 	if (Rate < RATE_FIRST_OFDM_RATE) /* CCK*/
 	{
@@ -1636,7 +1636,7 @@ UINT deaggregate_AMSDU_announce(
 	IN	PRTMP_ADAPTER	pAd,
 	PNDIS_PACKET		pPacket,
 	IN	unsigned char *pData,
-	IN	ULONG			DataSize,
+	IN	unsigned long			DataSize,
 	IN	UCHAR			OpMode)
 {
 	USHORT 			PayloadSize;
@@ -1811,7 +1811,7 @@ VOID AssocParmFill(
 	IN OUT MLME_ASSOC_REQ_STRUCT *AssocReq,
 	IN unsigned char *                     pAddr,
 	IN USHORT                     CapabilityInfo,
-	IN ULONG                      Timeout,
+	IN unsigned long                      Timeout,
 	IN USHORT                     ListenIntv)
 {
 	COPY_MAC_ADDR(AssocReq->Addr, pAddr);
@@ -2246,7 +2246,7 @@ if (0) {
 	if (pAd->CommonCfg.bDisableReordering == 0)
 	{
 		PBA_REC_ENTRY		pBAEntry;
-		ULONG				Now32;
+		unsigned long				Now32;
 		UCHAR				Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
 		UCHAR				TID = pRxBlk->pRxWI->RxWITID;
 		USHORT				Idx;
@@ -2351,7 +2351,7 @@ if (0) {
 	if (pAd->CommonCfg.bDisableReordering == 0)
 	{
 		PBA_REC_ENTRY		pBAEntry;
-		ULONG				Now32;
+		unsigned long				Now32;
 		UCHAR				Wcid = pRxBlk->pRxWI->RxWIWirelessCliID;
 		UCHAR				TID = pRxBlk->pRxWI->RxWITID;
 		USHORT				Idx;
@@ -2858,7 +2858,7 @@ VOID RtmpEnqueueNullFrame(
 	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
 	unsigned char * pFrame;
-	ULONG		   Length;
+	unsigned long		   Length;
 
 	/* since TxRate may change, we have to change Duration each time */
 	NState = MlmeAllocateMemory(pAd, (unsigned char * *)&pFrame);

@@ -35,7 +35,7 @@
 #define CLIWDS_HASH_TAB_SIZE 64  /* the legth of hash table must be power of 2. */
 typedef struct _CLIWDS_PROXY_ENTRY {
 	struct _CLIWDS_PROXY_ENTRY * pNext;
-	ULONG LastRefTime;
+	unsigned long LastRefTime;
 	SHORT Aid;
 	UCHAR Addr[MAC_ADDR_LEN];
 } CLIWDS_PROXY_ENTRY, *PCLIWDS_PROXY_ENTRY;
