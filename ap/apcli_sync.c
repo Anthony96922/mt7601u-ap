@@ -55,7 +55,7 @@ static VOID ApCliInvalidStateWhenJoin(
 static VOID ApCliEnqueueProbeRequest(
 	IN PRTMP_ADAPTER pAd,
 	IN UCHAR SsidLen,
-	OUT PCHAR Ssid,
+	OUT char * Ssid,
 	IN USHORT ifIndex);
 
 DECLARE_TIMER_FUNCTION(ApCliProbeTimeout);
@@ -154,7 +154,7 @@ static VOID ApCliMlmeProbeReqAction(
 
 	RTMPSetTimer(&pAd->ApCliMlmeAux.ProbeTimer, PROBE_TIMEOUT);
 
-	ApCliEnqueueProbeRequest(pAd, Info->SsidLen, (PCHAR) Info->Ssid, ifIndex);
+	ApCliEnqueueProbeRequest(pAd, Info->SsidLen, (char *) Info->Ssid, ifIndex);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ApCli SYNC - Start Probe the SSID %s on channel =%d\n", pAd->ApCliMlmeAux.Ssid, pAd->ApCliMlmeAux.Channel));
 
@@ -508,7 +508,7 @@ static VOID ApCliInvalidStateWhenJoin(
 static VOID ApCliEnqueueProbeRequest(
 	IN PRTMP_ADAPTER pAd,
 	IN UCHAR SsidLen,
-	OUT PCHAR Ssid,
+	OUT char * Ssid,
 	IN USHORT ifIndex)
 {
 	NDIS_STATUS     NState;

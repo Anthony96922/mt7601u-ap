@@ -205,7 +205,7 @@ VOID DefaultATEAsicAdjustTxPower(
 	BOOLEAN		bAutoTxAgc = FALSE;
 	UCHAR		TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep;
 	UCHAR		BbpR49 = 0, idx;
-	PCHAR		pTxAgcCompensate;
+	char *		pTxAgcCompensate;
 	ULONG		TxPwr[9];	/* NOTE: the TxPwr array size should be the maxima value of all supported chipset!!!! */
 	CHAR		Value;
 #ifdef RTMP_INTERNAL_TX_ALC
@@ -1123,7 +1123,7 @@ static int CheckMCSValid(
 	IN UCHAR Mcs)
 {
 	int index;
-	PCHAR pRateTab = NULL;
+	char * pRateTab = NULL;
 
 	switch (Mode)
 	{

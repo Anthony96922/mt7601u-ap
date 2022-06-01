@@ -916,7 +916,7 @@ VOID APMlmeScanReqAction(
 	RTMPSuspendMsduTransmission(pAd);
 
 	/* first check the parameter sanity */
-	if (MlmeScanReqSanity(pAd, Elem->Msg, Elem->MsgLen, &BssType, (PCHAR)Ssid, &SsidLen, &ScanType)) {
+	if (MlmeScanReqSanity(pAd, Elem->Msg, Elem->MsgLen, &BssType, (char *)Ssid, &SsidLen, &ScanType)) {
 		DBGPRINT(RT_DEBUG_TRACE, ("AP SYNC - MlmeScanReqAction\n"));
 		NdisGetSystemUpTime(&pAd->ApCfg.LastScanTime);
 

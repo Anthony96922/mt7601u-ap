@@ -7616,7 +7616,7 @@ void    WscWriteConfToDatFile(
 	}
 	else 
 	{
-		offset = (PCHAR) rtstrstr((char *) cfgData, "Default\n");
+		offset = (char *) rtstrstr((char *) cfgData, "Default\n");
 		offset += strlen("Default\n");
 		RtmpOSFileWrite(file_w, (char *)cfgData, (int)(offset-cfgData));
 		os_alloc_mem(NULL, (UCHAR **)&pTempStr, 512);

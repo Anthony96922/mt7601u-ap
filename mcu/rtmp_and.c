@@ -692,7 +692,7 @@ INT USBKickOutCmd(PRTMP_ADAPTER pAd, UCHAR *Buf, UINT32 Len)
 	PURB pURB;
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
-	PCHAR DataBuffer;
+	char * DataBuffer;
 	ra_dma_addr_t DataDMA;
 	INT Ret;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;

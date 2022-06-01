@@ -2552,8 +2552,8 @@ INT RTMPAPSetInformation(
 #endif/*APCLI_WPA_SUPPLICANT_SUPPORT*/
 #endif/*APCLI_SUPPORT*/
 							{
-								NdisZeroMemory((PCHAR)pAd->ApCfg.MBSSID[pObj->ioctl_if].Ssid,MAX_LEN_OF_SSID);
-								strcpy((PCHAR)pAd->ApCfg.MBSSID[pObj->ioctl_if].Ssid,pSsidString);
+								NdisZeroMemory((char *)pAd->ApCfg.MBSSID[pObj->ioctl_if].Ssid,MAX_LEN_OF_SSID);
+								strcpy((char *)pAd->ApCfg.MBSSID[pObj->ioctl_if].Ssid,pSsidString);
 								pAd->ApCfg.MBSSID[pObj->ioctl_if].SsidLen=strlen(pSsidString);
 							}
 							os_free_mem(NULL, pSsidString);
@@ -11021,20 +11021,20 @@ INT RTMP_AP_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_AP_SIOCGIWAP:
 		{
 			UCHAR *pBssidDest = (UCHAR *)pData;
-			PCHAR pBssidStr;
+			char * pBssidStr;
 
 #ifdef APCLI_SUPPORT
 			if (Data == INT_APCLI)
 			{
 				if (pAd->ApCfg.ApCliTab[pObj->ioctl_if].Valid == TRUE)
-					pBssidStr = (PCHAR)&APCLI_ROOT_BSSID_GET(pAd, pAd->ApCfg.ApCliTab[pObj->ioctl_if].MacTabWCID);
+					pBssidStr = (char *)&APCLI_ROOT_BSSID_GET(pAd, pAd->ApCfg.ApCliTab[pObj->ioctl_if].MacTabWCID);
 				else
 					pBssidStr = NULL;
 			}
 			else
 #endif /* APCLI_SUPPORT */
 			{
-				pBssidStr = (PCHAR) &pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid[0];
+				pBssidStr = (char *) &pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid[0];
 			}
 
 			if (pBssidStr != NULL)

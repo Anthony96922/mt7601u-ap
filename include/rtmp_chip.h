@@ -742,10 +742,10 @@ struct _RTMP_CHIP_OP_ {
 
 	VOID (*AsicTxAlcGetAutoAgcOffset)(
 				IN struct _RTMP_ADAPTER	*pAd,
-				IN PCHAR				pDeltaPwr,
-				IN PCHAR				pTotalDeltaPwr,
-				IN PCHAR				pAgcCompensate,
-				IN PCHAR 				pDeltaPowerByBbpR1);
+				IN char *				pDeltaPwr,
+				IN char *				pTotalDeltaPwr,
+				IN char *				pAgcCompensate,
+				IN char * 				pDeltaPowerByBbpR1);
 
 
 	

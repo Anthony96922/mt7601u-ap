@@ -1837,7 +1837,7 @@ VOID	RTMPCommSiteSurveyData(
 
 		/*SSID*/
 	NdisZeroMemory(Ssid, (MAX_LEN_OF_SSID +1));
-	if (RTMPCheckStrPrintAble((PCHAR)pBss->Ssid, pBss->SsidLen))
+	if (RTMPCheckStrPrintAble((char *)pBss->Ssid, pBss->SsidLen))
 		NdisMoveMemory(Ssid, pBss->Ssid, pBss->SsidLen);
 	else
 	{
@@ -4358,7 +4358,7 @@ INT	Show_WepKey_Proc(
 	NdisMoveMemory(Key, pAd->SharedKey[index][KeyIdx].Key, KeyLength);		
 		
 	/*check key string is ASCII or not*/
-    if (RTMPCheckStrPrintAble((PCHAR)Key, KeyLength))
+    if (RTMPCheckStrPrintAble((char *)Key, KeyLength))
         sprintf(pBuf, "\t%s", Key);
     else
     {

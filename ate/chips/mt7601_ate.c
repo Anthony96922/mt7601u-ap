@@ -390,8 +390,8 @@ INT	MT7601_Set_ATE_TX_BW_Proc(
 
 BOOLEAN MT7601ATEGetTssiCompensationParam(
 	IN 		PRTMP_ADAPTER 		pAd,
-	OUT 	PCHAR 				TssiLinear0,
-	OUT 	PCHAR 				TssiLinear1,
+	OUT 	char * 				TssiLinear0,
+	OUT 	char * 				TssiLinear1,
 	OUT 	int * 				TargetPower)
 {
 #define MAX_TSSI_WAITING_COUNT	40

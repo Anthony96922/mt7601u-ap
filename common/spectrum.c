@@ -1134,7 +1134,7 @@ VOID EnqueueMeasurementRep(
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		return;
 	}
-	NdisMoveMemory(pOutBuffer, (PCHAR)&ActHdr, sizeof(HEADER_802_11));
+	NdisMoveMemory(pOutBuffer, (char *)&ActHdr, sizeof(HEADER_802_11));
 	FrameLen = sizeof(HEADER_802_11);
 
 	InsertActField(pAd, (pOutBuffer + FrameLen), &FrameLen, CATEGORY_SPECTRUM, SPEC_MRP);
@@ -1187,7 +1187,7 @@ VOID EnqueueTPCReq(
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		return;
 	}
-	NdisMoveMemory(pOutBuffer, (PCHAR)&ActHdr, sizeof(HEADER_802_11));
+	NdisMoveMemory(pOutBuffer, (char *)&ActHdr, sizeof(HEADER_802_11));
 	FrameLen = sizeof(HEADER_802_11);
 
 	InsertActField(pAd, (pOutBuffer + FrameLen), &FrameLen, CATEGORY_SPECTRUM, SPEC_TPCRQ);
@@ -1239,7 +1239,7 @@ VOID EnqueueTPCRep(
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		return;
 	}
-	NdisMoveMemory(pOutBuffer, (PCHAR)&ActHdr, sizeof(HEADER_802_11));
+	NdisMoveMemory(pOutBuffer, (char *)&ActHdr, sizeof(HEADER_802_11));
 	FrameLen = sizeof(HEADER_802_11);
 
 	InsertActField(pAd, (pOutBuffer + FrameLen), &FrameLen, CATEGORY_SPECTRUM, SPEC_TPCRP);
@@ -1337,7 +1337,7 @@ VOID EnqueueChSwAnn(
 		DBGPRINT(RT_DEBUG_TRACE, ("%s() allocate memory failed \n", __FUNCTION__));
 		return;
 	}
-	NdisMoveMemory(pOutBuffer, (PCHAR)&ActHdr, sizeof(HEADER_802_11));
+	NdisMoveMemory(pOutBuffer, (char *)&ActHdr, sizeof(HEADER_802_11));
 	FrameLen = sizeof(HEADER_802_11);
 
 	InsertActField(pAd, (pOutBuffer + FrameLen), &FrameLen, CATEGORY_SPECTRUM, SPEC_CHANNEL_SWITCH);
@@ -2154,7 +2154,7 @@ INT Set_MeasureReq_Proc(
 	MgtMacHeaderInit(pAd, &ActHdr, SUBTYPE_ACTION, 0, pAd->MacTab.Content[Aid].Addr,
 						pAd->CurrentAddress);
 
-	NdisMoveMemory(pOutBuffer, (PCHAR)&ActHdr, sizeof(HEADER_802_11));
+	NdisMoveMemory(pOutBuffer, (char *)&ActHdr, sizeof(HEADER_802_11));
 	FrameLen = sizeof(HEADER_802_11);
 
 	TotalLen = sizeof(MEASURE_REQ_INFO) + sizeof(MEASURE_REQ);

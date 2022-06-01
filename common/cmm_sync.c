@@ -410,7 +410,7 @@ CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, UCHAR rssi_idx, UCHAR AntSel, U
 	if ( IS_MT7601(pAd) )
 	{
 		CHAR LNA, RSSI;
-		PCHAR LNATable;
+		char * LNATable;
 /*
 		CHAR MainBW40LNA[] = { 1, 18, 35 };
 		CHAR MainBW20LNA[] = { 1, 18, 36 };

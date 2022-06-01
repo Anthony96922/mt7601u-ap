@@ -2427,8 +2427,8 @@ VOID MT7601_InitDesiredTSSITable(
 
 BOOLEAN MT7601_GetTssiCompensationParam(
 	IN 		PRTMP_ADAPTER 		pAd, 
-	OUT 	PCHAR 				TssiLinear0,
-	OUT 	PCHAR 				TssiLinear1, 
+	OUT 	char * 				TssiLinear0,
+	OUT 	char * 				TssiLinear1, 
 	OUT 	int * 				TargetPower)
 {
 	UCHAR BBPReg;
@@ -2671,10 +2671,10 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 
 VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 	IN PRTMP_ADAPTER 			pAd,
-	IN PCHAR					pDeltaPwr,
-	IN PCHAR					pTotalDeltaPwr,
-	IN PCHAR					pAgcCompensate,
-	IN PCHAR	 				pDeltaPowerByBbpR1)
+	IN char *					pDeltaPwr,
+	IN char *					pTotalDeltaPwr,
+	IN char *					pAgcCompensate,
+	IN char *	 				pDeltaPowerByBbpR1)
 {
 	INT32 TargetPower, CurrentPower, PowerDiff;
 	UCHAR TssiLinear0, TssiLinear1;

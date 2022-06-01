@@ -71,7 +71,6 @@ typedef unsigned char BOOLEAN;
 typedef void VOID;
 #endif /* LINUX */
 
-typedef CHAR *PCHAR;
 typedef LONG *PLONG;
 
 typedef unsigned int NDIS_MEDIA_STATE;

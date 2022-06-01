@@ -1725,7 +1725,7 @@ BOOLEAN PeerDlsReqSanity(
     *pDlsTimeout	= 0;
 	*pHtCapabilityLen = 0;
 
-    Ptr = (PCHAR)Fr->Octet;
+    Ptr = (char *)Fr->Octet;
 
 	/* offset to destination MAC address (Category and Action field)*/
     Ptr += 2;
@@ -1849,7 +1849,7 @@ BOOLEAN PeerDlsRspSanity(
     *pCapabilityInfo	= 0;
 	*pHtCapabilityLen = 0;
 
-    Ptr = (PCHAR)Fr->Octet;
+    Ptr = (char *)Fr->Octet;
 
 	/* offset to destination MAC address (Category and Action field)*/
     Ptr += 2;
@@ -1968,7 +1968,7 @@ BOOLEAN PeerDlsTearDownSanity(
     /* to prevent caller from using garbage output value*/
     *pReason	= 0;
 
-    Ptr = (PCHAR)Fr->Octet;
+    Ptr = (char *)Fr->Octet;
 
 	/* offset to destination MAC address (Category and Action field)*/
     Ptr += 2;

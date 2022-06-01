@@ -173,7 +173,7 @@ INT rt28xx_ap_ioctl(
 			{
 				RT_CMD_AP_IOCTL_SSID IoctlSSID, *pIoctlSSID = &IoctlSSID;
 				struct iw_point *erq = &wrqin->u.essid;
-				PCHAR pSsidStr = NULL;
+				char * pSsidStr = NULL;
 
 				erq->flags=1;
 				/*erq->length = pAd->ApCfg.MBSSID[pObj->ioctl_if].SsidLen; */
@@ -182,7 +182,7 @@ INT rt28xx_ap_ioctl(
 				pIoctlSSID->apidx = apidx;
 				RTMP_AP_IoctlHandle(pAd, wrq, CMD_RTPRIV_IOCTL_AP_SIOCGIWESSID, 0, pIoctlSSID, 0);
 
-				pSsidStr = (PCHAR)pIoctlSSID->pSsidStr;
+				pSsidStr = (char *)pIoctlSSID->pSsidStr;
 				erq->length = pIoctlSSID->length;
 
 
@@ -240,7 +240,7 @@ INT rt28xx_ap_ioctl(
 			break;
 		case SIOCGIWAP:  /*get access point MAC addresses */
 			{
-/*				PCHAR pBssidStr; */
+/*				char * pBssidStr; */
 
 				wrqin->u.ap_addr.sa_family = ARPHRD_ETHER;
 				/*memcpy(wrqin->u.ap_addr.sa_data, &pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid, ETH_ALEN); */

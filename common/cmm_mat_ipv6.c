@@ -188,7 +188,7 @@ NDIS_STATUS  dumpIPv6MacTb(
 static NDIS_STATUS IPv6MacTableUpdate(
 	IN MAT_STRUCT		*pMatCfg,
 	IN unsigned char *			pMacAddr,
-	IN PCHAR			pIPv6Addr)
+	IN char *			pIPv6Addr)
 {
 	UINT 				hashIdx;
 	IPv6MacMappingTable	*pIPv6MacTable;

@@ -1411,7 +1411,7 @@ BOOLEAN CntlEnqueueForRecv(
 	TID = (UCHAR)pFrame->BARControl.TID;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s(): BAR-Wcid(%ld), Tid (%d)\n", __FUNCTION__, Wcid, TID));
-	/*hex_dump("BAR", (PCHAR) pFrame, MsgLen);*/
+	/*hex_dump("BAR", (char *) pFrame, MsgLen);*/
 	/* Do nothing if the driver is starting halt state.*/
 	/* This might happen when timer already been fired before cancel timer with mlmehalt*/
 	if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_HALT_IN_PROGRESS | fRTMP_ADAPTER_NIC_NOT_EXIST))
