@@ -189,7 +189,7 @@ PUCHAR MATEngineTxHandle(
 	if (!pPktHdr)
 		return NULL;
 	
-	protoType_ori = get_unaligned((PUINT16)(pPktHdr + 12));
+	protoType_ori = get_unaligned((unsigned short *)(pPktHdr + 12));
 	
 	/* Get the upper layer protocol type of this 802.3 pkt. */
 	protoType = OS_NTOHS(protoType_ori);
@@ -197,7 +197,7 @@ PUCHAR MATEngineTxHandle(
 	/* handle 802.1q enabled packet. Skip the VLAN tag field to get the protocol type. */
 	if (protoType == 0x8100)
 	{
-		protoType_ori = get_unaligned((PUINT16)(pPktHdr + 12 + 4));
+		protoType_ori = get_unaligned((unsigned short *)(pPktHdr + 12 + 4));
 		protoType = OS_NTOHS(protoType_ori);
 		bVLANPkt = TRUE;
 	}
@@ -274,7 +274,7 @@ PUCHAR MATEngineRxHandle(
 		return NULL;
 
 	/* Get the upper layer protocol type of this 802.3 pkt and dispatch to specific handler */
-	protoType = OS_NTOHS(get_unaligned((PUINT16)(pPktHdr + 12)));
+	protoType = OS_NTOHS(get_unaligned((unsigned short *)(pPktHdr + 12)));
 	
 	for (i=0; i<MAX_MAT_SUPPORT_PROTO_NUM; i++)
 	{

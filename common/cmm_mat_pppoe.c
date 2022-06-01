@@ -692,7 +692,7 @@ static PUCHAR MATProto_PPPoEDis_Rx(
 	/* Ignore the Code field(length=1) */
 	pData ++;
 	if (needUpdateSesTb || isPADT)
-		sesID = OS_NTOHS(get_unaligned((PUINT16)(pData)));
+		sesID = OS_NTOHS(get_unaligned((unsigned short *)(pData)));
 
 	if (isPADT)
 	{
@@ -703,7 +703,7 @@ static PUCHAR MATProto_PPPoEDis_Rx(
 	pData += 2;
 
 	/* Get the payload length, ignore the payload length field.(length = 2) */
-	payloadLen = OS_NTOHS(get_unaligned((PUINT16)(pData)));
+	payloadLen = OS_NTOHS(get_unaligned((unsigned short *)(pData)));
 	pPayloadLen = pData;
 	pData += 2; 
 
@@ -712,8 +712,8 @@ static PUCHAR MATProto_PPPoEDis_Rx(
 	leftLen = payloadLen;
 	while (leftLen)
 	{
-		tagID = OS_NTOHS(get_unaligned((PUINT16)(pData)));
-		tagLen = OS_NTOHS(get_unaligned((PUINT16)(pData+2)));
+		tagID = OS_NTOHS(get_unaligned((unsigned short *)(pData)));
+		tagLen = OS_NTOHS(get_unaligned((unsigned short *)(pData+2)));
 		
 		if (tagID== findTag && tagLen>0)
 		{
@@ -847,13 +847,13 @@ static PUCHAR MATProto_PPPoEDis_Tx(
 	*/
 	pData ++;
 	if (needUpdateSesTb)
-		sesID = OS_NTOHS(get_unaligned((PUINT16)(pData)));
+		sesID = OS_NTOHS(get_unaligned((unsigned short *)(pData)));
 
 	/* Ignore the session ID field.(length = 2) */
 	pData += 2;
 
 	/* Get the payload length, and  shift the payload length field(length = 2) to next field. */
-	payloadLen = OS_NTOHS(get_unaligned((PUINT16)(pData)));
+	payloadLen = OS_NTOHS(get_unaligned((unsigned short *)(pData)));
 	pPayloadLen = pData;
 	offset = pPayloadLen - (PUCHAR)(GET_OS_PKT_DATAPTR(pSkb));
 	pData += 2; 
@@ -863,8 +863,8 @@ static PUCHAR MATProto_PPPoEDis_Tx(
 	leftLen = payloadLen;
 	while (leftLen)
 	{
-		tagID = OS_NTOHS(get_unaligned((PUINT16)(pData)));
-		tagLen = OS_NTOHS(get_unaligned((PUINT16)(pData+2)));
+		tagID = OS_NTOHS(get_unaligned((unsigned short *)(pData)));
+		tagLen = OS_NTOHS(get_unaligned((unsigned short *)(pData+2)));
 		
 		if (tagID== findTag && tagLen>0)
 		{
@@ -1020,7 +1020,7 @@ static PUCHAR MATProto_PPPoESes_Rx(
 	pData += 2;
 
 	/*get the session ID */
-	sesID = OS_NTOHS(get_unaligned((PUINT16)(pData)));
+	sesID = OS_NTOHS(get_unaligned((unsigned short *)(pData)));
 
 	/* Try to find the dstMac from SesMacHash table. */
 	dstMac = getInMacByOutMacFromSesMacTb(pMatCfg, srcMac, sesID);

@@ -588,8 +588,8 @@ static PUCHAR MATProto_IP_Tx(
 		UINT16 srcPort, dstPort;
 		
 		udpHdr = pLayerHdr + 20;
-		srcPort = OS_NTOHS(get_unaligned((PUINT16)(udpHdr)));
-		dstPort = OS_NTOHS(get_unaligned((PUINT16)(udpHdr+2)));
+		srcPort = OS_NTOHS(get_unaligned((unsigned short *)(udpHdr)));
+		dstPort = OS_NTOHS(get_unaligned((unsigned short *)(udpHdr+2)));
 		
 		if (srcPort==68 && dstPort==67) /*It's a DHCP packet */
 		{
@@ -597,7 +597,7 @@ static PUCHAR MATProto_IP_Tx(
 			UINT16 bootpFlag;	
 			
 			bootpHdr = udpHdr + 8;
-			bootpFlag = OS_NTOHS(get_unaligned((PUINT16)(bootpHdr+10)));
+			bootpFlag = OS_NTOHS(get_unaligned((unsigned short *)(bootpHdr+10)));
 			DBGPRINT(RT_DEBUG_TRACE, ("is bootp packet! bootpFlag=0x%x\n", bootpFlag));
 			if (bootpFlag != 0x8000) /*check if it's a broadcast request. */
 			{

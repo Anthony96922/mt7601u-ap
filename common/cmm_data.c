@@ -2038,8 +2038,8 @@ BOOLEAN RTMPCheckEtherType(
 					ASSERT((pktLen > 34));	/* 14 for ethernet header, 20 for IP header*/
 					
 					pSrcBuf += 20;	/* Skip the IP header*/
-					srcPort = OS_NTOHS(get_unaligned((PUINT16)(pSrcBuf)));
-					dstPort = OS_NTOHS(get_unaligned((PUINT16)(pSrcBuf+2)));
+					srcPort = OS_NTOHS(get_unaligned((unsigned short *)(pSrcBuf)));
+					dstPort = OS_NTOHS(get_unaligned((unsigned short *)(pSrcBuf+2)));
 		
 					if ((srcPort==0x44 && dstPort==0x43) || (srcPort==0x43 && dstPort==0x44))
 					{	/*It's a BOOTP/DHCP packet*/
