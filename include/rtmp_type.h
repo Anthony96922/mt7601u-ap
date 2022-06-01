@@ -46,7 +46,6 @@
 
 typedef signed int INT;
 typedef signed long LONG;
-typedef signed long long LONGLONG;
 
 #ifdef LINUX
 typedef void VOID;

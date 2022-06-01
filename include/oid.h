@@ -443,7 +443,7 @@ typedef unsigned long NDIS_802_11_TX_POWER_LEVEL;	/* in milliwatts */
 /* */
 /* Received Signal Strength Indication */
 /* */
-typedef LONG NDIS_802_11_RSSI;	/* in dBm */
+typedef long NDIS_802_11_RSSI;	/* in dBm */
 
 typedef struct _NDIS_802_11_CONFIGURATION_FH {
 	unsigned long Length;		/* Length of structure */
@@ -488,7 +488,7 @@ typedef struct _NDIS_802_11_STATISTICS {
 } NDIS_802_11_STATISTICS, *PNDIS_802_11_STATISTICS;
 
 typedef struct _MBSS_STATISTICS {
-	LONG TxCount;
+	long TxCount;
 	unsigned long RxCount;
 	unsigned long ReceivedByteCount;
 	unsigned long TransmittedByteCount;

@@ -1019,7 +1019,7 @@ VOID MlmeSetTxPreamble(
 	RTMP_IO_READ32(pAd, AUTO_RSP_CFG, &csr4.word);
 	if (TxPreamble == Rt802_11PreambleLong)
 	{
-		DBGPRINT(RT_DEBUG_TRACE, ("MlmeSetTxPreamble (= LONG PREAMBLE)\n"));
+		DBGPRINT(RT_DEBUG_TRACE, ("MlmeSetTxPreamble (= long PREAMBLE)\n"));
 		OPSTATUS_CLEAR_FLAG(pAd, fOP_STATUS_SHORT_PREAMBLE_INUSED); 
 		csr4.field.AutoResponderPreamble = 0;
 	}
@@ -2986,7 +2986,7 @@ bool MlmeEnqueueForRecv(
 bool MlmeEnqueueForWsc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN unsigned long eventID,
-	IN LONG senderID,
+	IN long senderID,
 	IN unsigned long Machine, 
 	IN unsigned long MsgType, 
 	IN unsigned long MsgLen, 

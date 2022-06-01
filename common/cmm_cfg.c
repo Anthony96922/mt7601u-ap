@@ -142,7 +142,7 @@ INT RT_CfgSetCountryRegion(
 	IN char *			arg,
 	IN INT				band)
 {
-	LONG region;
+	long region;
 	unsigned char *pCountryRegion;
 	
 	region = simple_strtol(arg, 0, 10);
@@ -326,7 +326,7 @@ bool wmode_band_equal(unsigned char smode, unsigned char tmode)
 */
 INT RT_CfgSetWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
-	LONG cfg_mode;
+	long cfg_mode;
 	unsigned char wmode, *mode_str;
 
 	cfg_mode = simple_strtol(arg, 0, 10);
@@ -400,7 +400,7 @@ static unsigned char RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
 */
 INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
-	LONG cfg_mode;
+	long cfg_mode;
 	unsigned char wmode;
 
 	cfg_mode = simple_strtol(arg, 0, 10);
@@ -475,7 +475,7 @@ INT RT_CfgSetShortSlot(
 	IN PRTMP_ADAPTER	pAd,
 	IN char *		arg)
 {
-	LONG ShortSlot;
+	long ShortSlot;
 
 	ShortSlot = simple_strtol(arg, 0, 10);
 

@@ -568,7 +568,7 @@ VOID	APAsicAntennaAvg(
 	IN	short*	              RssiAvg)  
 {
 		    short	realavgrssi;
-		    LONG         realavgrssi1;
+		    long         realavgrssi1;
 		    unsigned long	recvPktNum = pAd->RxAnt.RcvPktNum[AntSelect];
 
 		    realavgrssi1 = pAd->RxAnt.Pair1AvgRssiGroup1[AntSelect];

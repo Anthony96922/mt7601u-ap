@@ -510,7 +510,7 @@ VOID MlmeGetSupportedMcs(
 	IN unsigned char	*pTable,
 	OUT char 	mcs[])
 {
-	char	idx;
+	unsigned char idx;
 	RTMP_RA_LEGACY_TB *pCurrTxRate;
 
 	for (idx=0; idx<24; idx++)
@@ -1891,7 +1891,7 @@ VOID RTMPSetSupportMCS(
 	{
 		RT_PHY_INFO *pDesired_ht_phy = NULL;
 		unsigned char j, bitmask;
-		char i;
+		unsigned char i;
 
 
 #ifdef CONFIG_AP_SUPPORT

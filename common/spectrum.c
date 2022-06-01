@@ -2233,7 +2233,7 @@ typedef struct __PWR_CONSTRAIN_CFG
 	(sizeof(PwrConstrainTab)/sizeof(PWR_CONSTRAIN_CFG))
 
 	INT Idx;
-	LONG Value;
+	long Value;
 	char MaxTxPwr;
 	char CurTxPwr;
 	char DaltaPwr;

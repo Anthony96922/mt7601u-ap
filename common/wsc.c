@@ -7544,7 +7544,7 @@ void    WscWriteConfToDatFile(
 	char *			fileName = NULL;
 	RTMP_OS_FD		file_r, file_w;
 	RTMP_OS_FS_INFO		osFSInfo;
-	LONG			rv, fileLen = 0;
+	long			rv, fileLen = 0;
 	char			*offset = 0;
 	char *			pTempStr = 0;
 #ifdef CONFIG_AP_SUPPORT

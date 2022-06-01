@@ -67,12 +67,12 @@ bool ApWdsAllowToSendPacket(
 }
 
 
-LONG WdsEntryAlloc(
+long WdsEntryAlloc(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr)
 {
 	INT i;
-	LONG WdsTabIdx = -1;
+	long WdsTabIdx = -1;
 
 	NdisAcquireSpinLock(&pAd->WdsTabLock);
 	for (i = 0; i < MAX_WDS_ENTRY; i++)
@@ -387,7 +387,7 @@ MAC_TABLE_ENTRY *FindWdsEntry(
 	/* Only Lazy mode will auto learning, match with FrDs=1 and ToDs=1 */
 	if((pEntry == NULL) && (pAd->WdsTab.Mode >= WDS_LAZY_MODE))
 	{
-		LONG WdsIdx = WdsEntryAlloc(pAd, pAddr);
+		long WdsIdx = WdsEntryAlloc(pAd, pAddr);
 		if (WdsIdx >= 0)
 		{
 			/* user doesn't specific a phy mode for WDS link. */

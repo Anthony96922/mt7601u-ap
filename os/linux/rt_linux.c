@@ -4858,7 +4858,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpOsPktLenAssign(PNDIS_PACKET pNetPkt, LONG Len)
+VOID RtmpOsPktLenAssign(PNDIS_PACKET pNetPkt, long Len)
 {
 	SET_OS_PKT_LEN(pNetPkt, Len);
 }
@@ -5082,7 +5082,7 @@ Return Value:
 Note:
 ========================================================================
 */
-LONG RtmpOsAtomicRead(RTMP_OS_ATOMIC *pAtomicSrc)
+long RtmpOsAtomicRead(RTMP_OS_ATOMIC *pAtomicSrc)
 {
 	if (pAtomicSrc->pContent)
 		return atomic_read((atomic_t *) (pAtomicSrc->pContent));
@@ -5129,7 +5129,7 @@ Note:
 */
 VOID RtmpOsAtomicInterlockedExchange(
 	RTMP_OS_ATOMIC *pAtomicSrc,
-	LONG Value)
+	long Value)
 {
 	if (pAtomicSrc->pContent)
 		InterlockedExchange((atomic_t *) (pAtomicSrc->pContent), Value);

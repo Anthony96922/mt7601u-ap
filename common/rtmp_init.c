@@ -2635,7 +2635,7 @@ VOID UserCfgInit(RTMP_ADAPTER *pAd)
 
 	/* PHY specification*/
 	pAd->CommonCfg.PhyMode = (WMODE_B | WMODE_G);		/* default PHY mode*/
-	OPSTATUS_CLEAR_FLAG(pAd, fOP_STATUS_SHORT_PREAMBLE_INUSED);  /* CCK use LONG preamble*/
+	OPSTATUS_CLEAR_FLAG(pAd, fOP_STATUS_SHORT_PREAMBLE_INUSED);  /* CCK use long preamble*/
 
 
 	/* Default for extra information is not valid*/
