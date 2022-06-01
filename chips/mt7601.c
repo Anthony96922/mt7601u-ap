@@ -1128,7 +1128,7 @@ VOID MT7601_ChipAGCInit(
 	IN unsigned char			BandWidth)
 {
 	unsigned char R66 = 0x14;
-	CHAR lan_gain = GET_LNA_GAIN(pAd);
+	char lan_gain = GET_LNA_GAIN(pAd);
 	
 	if (pAd->LatchRfRegs.Channel <= 14) /* BG band */
 	{	
@@ -1149,16 +1149,16 @@ static VOID MT7601_ChipSwitchChannel(
 	bool	 bScan)
 {
 
-	CHAR TxPwer = 0;
-	CHAR CCK1MPwr, CCK11MPwr;
+	char TxPwer = 0;
+	char CCK1MPwr, CCK11MPwr;
 	unsigned char	index;
 	unsigned char RFValue = 0;
 	unsigned int Value = 0;
 	unsigned int	value;
 	unsigned int ret;
 #ifdef SINGLE_SKU_V2
-	CHAR SkuBasePwr;
-	CHAR ChannelPwrAdj;
+	char SkuBasePwr;
+	char ChannelPwrAdj;
 #endif /* SINGLE_SKU_V2 */
 
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1720,8 +1720,8 @@ INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 {
 	unsigned int i, idx, ss_offset_g, MacReg;
 	EEPROM_TX_PWR_STRUC Power;
-	CHAR tx_pwr1, tx_pwr2;
-	CHAR max_tx1_pwr;
+	char tx_pwr1, tx_pwr2;
+	char max_tx1_pwr;
 	unsigned short TargetPwr = 0;
 #ifdef RTMP_INTERNAL_TX_ALC
 	EEPROM_NIC_CONFIG2_STRUC NicConfig2;
@@ -1815,9 +1815,9 @@ VOID MT7601_ReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 {
 	unsigned int		data, Adata, Gdata;
 	unsigned short		i, value, value2;
-	CHAR		value_1, value_2;
-	CHAR		Apwrdelta, Gpwrdelta;
-	CHAR		t1,t2;
+	char		value_1, value_2;
+	char		Apwrdelta, Gpwrdelta;
+	char		t1,t2;
 
 	/* Get power delta for 20MHz and 40MHz.*/
 	DBGPRINT(RT_DEBUG_TRACE, ("Txpower per Rate\n"));
@@ -2404,7 +2404,7 @@ VOID MT7601_InitDesiredTSSITable(
 		pTxALCData->MT7601_TSSI_OFFSET[2], pTxALCData->TSSI_USE_HVGA));
 
 	RT28xx_EEPROM_READ16(pAd, EEPROM_TX0_TSSI_OFFSET, Value);
-	pTxALCData->MT7601_TSSI_T0_Delta_Offset = ((CHAR)(Value & 0xFF)) * 1024;
+	pTxALCData->MT7601_TSSI_T0_Delta_Offset = ((char)(Value & 0xFF)) * 1024;
 	DBGPRINT(RT_DEBUG_TRACE, ("TSSI T0 Delta offset = %d\n", pTxALCData->MT7601_TSSI_T0_Delta_Offset));
 
 	RTMP_IO_READ32(pAd, TX_ALC_CFG_1, &Value);
@@ -2678,7 +2678,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 {
 	int TargetPower, CurrentPower, PowerDiff;
 	unsigned char TssiLinear0, TssiLinear1;
-	CHAR tssi_offset;
+	char tssi_offset;
 	short tssi_db, tssi_m_dc;
 	unsigned int value;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
@@ -2805,7 +2805,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 
 INT MT7601_Bootup_Read_Temperature(
 	IN	PRTMP_ADAPTER	pAd,
-	OUT	CHAR*			Temperature)
+	OUT	char*			Temperature)
 {
 	unsigned int	MAC0504, MAC050C;
 	unsigned char	BBPReg;
@@ -2857,7 +2857,7 @@ INT MT7601_Bootup_Read_Temperature(
 
 INT MT7601_Read_Temperature(
 	IN	PRTMP_ADAPTER	pAd,
-	OUT	CHAR*			Temperature)
+	OUT	char*			Temperature)
 {
 	unsigned char	BBPReg;
 	int i;

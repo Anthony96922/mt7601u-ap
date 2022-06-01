@@ -72,48 +72,48 @@ struct _RTMP_ADAPTER;
 
 #define MT7601_E2_TEMPERATURE_SLOPE	39
 
-#define	BW20_MCS_POWER_CCK_1M			((pAd->Tx20MPwrCfgGBand[0] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[0] & 0xFF):(CHAR)((pAd->Tx20MPwrCfgGBand[0] & 0xFF) - 0x40)
-#define	BW20_MCS_POWER_CCK_2M			((pAd->Tx20MPwrCfgGBand[0] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[0] & 0xFF):(CHAR)((pAd->Tx20MPwrCfgGBand[0] & 0xFF) - 0x40)
-#define	BW20_MCS_POWER_CCK_5M			(((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8):(CHAR)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8)-0x40)
-#define	BW20_MCS_POWER_CCK_11M			(((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8):(CHAR)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8)-0x40)
-#define	BW40_MCS_POWER_CCK_1M			((pAd->Tx40MPwrCfgGBand[0] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[0] & 0xFF) :(CHAR)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF) < 0x20)-0x40)
-#define	BW40_MCS_POWER_CCK_2M			((pAd->Tx40MPwrCfgGBand[0] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[0] & 0xFF) :(CHAR)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF) < 0x20)-0x40)
-#define	BW40_MCS_POWER_CCK_5M			(((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8):(CHAR)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8)-0x40)
-#define	BW40_MCS_POWER_CCK_11M			(((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8):(CHAR)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8)-0x40)
+#define	BW20_MCS_POWER_CCK_1M			((pAd->Tx20MPwrCfgGBand[0] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[0] & 0xFF):(char)((pAd->Tx20MPwrCfgGBand[0] & 0xFF) - 0x40)
+#define	BW20_MCS_POWER_CCK_2M			((pAd->Tx20MPwrCfgGBand[0] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[0] & 0xFF):(char)((pAd->Tx20MPwrCfgGBand[0] & 0xFF) - 0x40)
+#define	BW20_MCS_POWER_CCK_5M			(((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8):(char)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8)-0x40)
+#define	BW20_MCS_POWER_CCK_11M			(((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8):(char)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF00) >> 8)-0x40)
+#define	BW40_MCS_POWER_CCK_1M			((pAd->Tx40MPwrCfgGBand[0] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[0] & 0xFF) :(char)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF) < 0x20)-0x40)
+#define	BW40_MCS_POWER_CCK_2M			((pAd->Tx40MPwrCfgGBand[0] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[0] & 0xFF) :(char)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF) < 0x20)-0x40)
+#define	BW40_MCS_POWER_CCK_5M			(((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8):(char)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8)-0x40)
+#define	BW40_MCS_POWER_CCK_11M			(((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8):(char)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF00) >> 8)-0x40)
 
-#define	BW20_MCS_POWER_OFDM_6M			(((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16):(CHAR)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16)-0x40)
-#define	BW20_MCS_POWER_OFDM_9M			(((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16):(CHAR)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16)-0x40)
-#define	BW20_MCS_POWER_OFDM_12M		(((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24):(CHAR)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24)-0x40)
-#define	BW20_MCS_POWER_OFDM_18M		(((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24):(CHAR)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24)-0x40)
-#define	BW20_MCS_POWER_OFDM_24M		((pAd->Tx20MPwrCfgGBand[1] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[1] & 0xFF):(CHAR)((pAd->Tx20MPwrCfgGBand[1] & 0xFF)-0x40)
-#define	BW20_MCS_POWER_OFDM_36M		((pAd->Tx20MPwrCfgGBand[1] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[1] & 0xFF):(CHAR)((pAd->Tx20MPwrCfgGBand[1] & 0xFF)-0x40)
-#define	BW20_MCS_POWER_OFDM_48M		(((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8):(CHAR)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8)-0x40)
-#define	BW20_MCS_POWER_OFDM_54M		(((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8):(CHAR)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8)-0x40)
-#define	BW40_MCS_POWER_OFDM_6M			(((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16):(CHAR)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16)-0x40)
-#define	BW40_MCS_POWER_OFDM_9M			(((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16):(CHAR)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16)-0x40)
-#define	BW40_MCS_POWER_OFDM_12M		(((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24):(CHAR)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24)-0x40)
-#define	BW40_MCS_POWER_OFDM_18M		(((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24):(CHAR)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24)-0x40)
-#define	BW40_MCS_POWER_OFDM_24M		((pAd->Tx40MPwrCfgGBand[1] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[1] & 0xFF):(CHAR)((pAd->Tx40MPwrCfgGBand[1] & 0xFF)-0x40)
-#define	BW40_MCS_POWER_OFDM_36M		((pAd->Tx40MPwrCfgGBand[1] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[1] & 0xFF):(CHAR)((pAd->Tx40MPwrCfgGBand[1] & 0xFF)-0x40)
-#define	BW40_MCS_POWER_OFDM_48M		(((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8):(CHAR)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8)-0x40)
-#define	BW40_MCS_POWER_OFDM_54M		(((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8):(CHAR)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8)-0x40)
+#define	BW20_MCS_POWER_OFDM_6M			(((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16):(char)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16)-0x40)
+#define	BW20_MCS_POWER_OFDM_9M			(((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16):(char)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF0000) >> 16)-0x40)
+#define	BW20_MCS_POWER_OFDM_12M		(((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24):(char)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24)-0x40)
+#define	BW20_MCS_POWER_OFDM_18M		(((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24):(char)(((pAd->Tx20MPwrCfgGBand[0] & 0xFF000000) >> 24)-0x40)
+#define	BW20_MCS_POWER_OFDM_24M		((pAd->Tx20MPwrCfgGBand[1] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[1] & 0xFF):(char)((pAd->Tx20MPwrCfgGBand[1] & 0xFF)-0x40)
+#define	BW20_MCS_POWER_OFDM_36M		((pAd->Tx20MPwrCfgGBand[1] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[1] & 0xFF):(char)((pAd->Tx20MPwrCfgGBand[1] & 0xFF)-0x40)
+#define	BW20_MCS_POWER_OFDM_48M		(((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8):(char)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8)-0x40)
+#define	BW20_MCS_POWER_OFDM_54M		(((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8):(char)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF00) >> 8)-0x40)
+#define	BW40_MCS_POWER_OFDM_6M			(((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16):(char)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16)-0x40)
+#define	BW40_MCS_POWER_OFDM_9M			(((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16):(char)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF0000) >> 16)-0x40)
+#define	BW40_MCS_POWER_OFDM_12M		(((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24):(char)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24)-0x40)
+#define	BW40_MCS_POWER_OFDM_18M		(((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24):(char)(((pAd->Tx40MPwrCfgGBand[0] & 0xFF000000) >> 24)-0x40)
+#define	BW40_MCS_POWER_OFDM_24M		((pAd->Tx40MPwrCfgGBand[1] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[1] & 0xFF):(char)((pAd->Tx40MPwrCfgGBand[1] & 0xFF)-0x40)
+#define	BW40_MCS_POWER_OFDM_36M		((pAd->Tx40MPwrCfgGBand[1] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[1] & 0xFF):(char)((pAd->Tx40MPwrCfgGBand[1] & 0xFF)-0x40)
+#define	BW40_MCS_POWER_OFDM_48M		(((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8):(char)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8)-0x40)
+#define	BW40_MCS_POWER_OFDM_54M		(((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8):(char)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF00) >> 8)-0x40)
 
-#define	BW20_MCS_POWER_HT_MCS0			(((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16):(CHAR)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16)-0x40)
-#define	BW20_MCS_POWER_HT_MCS1			(((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16):(CHAR)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16)-0x40)
-#define	BW20_MCS_POWER_HT_MCS2			(((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24):(CHAR)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24)-0x40)
-#define	BW20_MCS_POWER_HT_MCS3			(((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24):(CHAR)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24)-0x40)
-#define	BW20_MCS_POWER_HT_MCS4			((pAd->Tx20MPwrCfgGBand[2] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[2] & 0xFF):(CHAR)((pAd->Tx20MPwrCfgGBand[2] & 0xFF)-0x40)
-#define	BW20_MCS_POWER_HT_MCS5			((pAd->Tx20MPwrCfgGBand[2] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[2] & 0xFF):(CHAR)((pAd->Tx20MPwrCfgGBand[2] & 0xFF)-0x40)
-#define	BW20_MCS_POWER_HT_MCS6			(((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8):(CHAR)(((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8)-0x40)
-#define	BW20_MCS_POWER_HT_MCS7			(((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8):(CHAR)(((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8)-0x40)
-#define	BW40_MCS_POWER_HT_MCS0			(((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16):(CHAR)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16)-0x40)
-#define	BW40_MCS_POWER_HT_MCS1			(((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16):(CHAR)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16)-0x40)
-#define	BW40_MCS_POWER_HT_MCS2			(((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24):(CHAR)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24)-0x40)
-#define	BW40_MCS_POWER_HT_MCS3			(((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24):(CHAR)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24)-0x40)
-#define	BW40_MCS_POWER_HT_MCS4			((pAd->Tx40MPwrCfgGBand[2] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[2] & 0xFF):(CHAR)((pAd->Tx40MPwrCfgGBand[2] & 0xFF)-0x40)
-#define	BW40_MCS_POWER_HT_MCS5			((pAd->Tx40MPwrCfgGBand[2] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[2] & 0xFF):(CHAR)((pAd->Tx40MPwrCfgGBand[2] & 0xFF)-0x40)
-#define	BW40_MCS_POWER_HT_MCS6			(((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8):(CHAR)(((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8)-0x40)
-#define	BW40_MCS_POWER_HT_MCS7			(((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8):(CHAR)(((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8)-0x40)
+#define	BW20_MCS_POWER_HT_MCS0			(((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16):(char)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16)-0x40)
+#define	BW20_MCS_POWER_HT_MCS1			(((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16):(char)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF0000) >> 16)-0x40)
+#define	BW20_MCS_POWER_HT_MCS2			(((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24):(char)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24)-0x40)
+#define	BW20_MCS_POWER_HT_MCS3			(((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24):(char)(((pAd->Tx20MPwrCfgGBand[1] & 0xFF000000) >> 24)-0x40)
+#define	BW20_MCS_POWER_HT_MCS4			((pAd->Tx20MPwrCfgGBand[2] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[2] & 0xFF):(char)((pAd->Tx20MPwrCfgGBand[2] & 0xFF)-0x40)
+#define	BW20_MCS_POWER_HT_MCS5			((pAd->Tx20MPwrCfgGBand[2] & 0xFF) < 0x20)?(pAd->Tx20MPwrCfgGBand[2] & 0xFF):(char)((pAd->Tx20MPwrCfgGBand[2] & 0xFF)-0x40)
+#define	BW20_MCS_POWER_HT_MCS6			(((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8):(char)(((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8)-0x40)
+#define	BW20_MCS_POWER_HT_MCS7			(((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8) < 0x20)?((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8):(char)(((pAd->Tx20MPwrCfgGBand[2] & 0xFF00 ) >> 8)-0x40)
+#define	BW40_MCS_POWER_HT_MCS0			(((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16):(char)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16)-0x40)
+#define	BW40_MCS_POWER_HT_MCS1			(((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16):(char)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF0000) >> 16)-0x40)
+#define	BW40_MCS_POWER_HT_MCS2			(((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24):(char)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24)-0x40)
+#define	BW40_MCS_POWER_HT_MCS3			(((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24) < 0x20)?((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24):(char)(((pAd->Tx40MPwrCfgGBand[1] & 0xFF000000) >> 24)-0x40)
+#define	BW40_MCS_POWER_HT_MCS4			((pAd->Tx40MPwrCfgGBand[2] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[2] & 0xFF):(char)((pAd->Tx40MPwrCfgGBand[2] & 0xFF)-0x40)
+#define	BW40_MCS_POWER_HT_MCS5			((pAd->Tx40MPwrCfgGBand[2] & 0xFF) < 0x20)?(pAd->Tx40MPwrCfgGBand[2] & 0xFF):(char)((pAd->Tx40MPwrCfgGBand[2] & 0xFF)-0x40)
+#define	BW40_MCS_POWER_HT_MCS6			(((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8):(char)(((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8)-0x40)
+#define	BW40_MCS_POWER_HT_MCS7			(((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8) < 0x20)?((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8):(char)(((pAd->Tx40MPwrCfgGBand[2] & 0xFF00) >> 8)-0x40)
 
 #define	RF_PA_MODE_CCK_1M				(pAd->chipCap.PAModeCCK[0])
 #define	RF_PA_MODE_CCK_2M				(pAd->chipCap.PAModeCCK[1]) 
@@ -164,12 +164,12 @@ typedef struct _MT7601_TX_ALC_DATA {
 	short	TSSI_DBOFFSET_HVGA;
 	short	TSSI0_DB;
 	unsigned char	TssiSlope;
-	CHAR	TssiDC0;
-	CHAR	TssiDC0_HVGA;
+	char	TssiDC0;
+	char	TssiDC0_HVGA;
 	unsigned int	InitTxAlcCfg1;
 	bool	TSSI_USE_HVGA;
 	bool TssiTriggered;
-	CHAR	MT7601_TSSI_OFFSET[3];
+	char	MT7601_TSSI_OFFSET[3];
 } MT7601_TX_ALC_DATA, *PMT7601_TX_ALC_DATA;
 
 #endif /* RTMP_INTERNAL_TX_ALC */
@@ -255,11 +255,11 @@ VOID MT7601_AsicMeasureFalseCCA(
 
 INT MT7601_Read_Temperature(
 	struct _RTMP_ADAPTER *pAd, 
-	OUT	CHAR*			Temperature);
+	OUT	char*			Temperature);
 
 INT MT7601_Bootup_Read_Temperature(
 	struct _RTMP_ADAPTER *pAd, 
-	OUT	CHAR*			Temperature);
+	OUT	char*			Temperature);
 
 VOID MT7601SetRxAnt(
 	struct _RTMP_ADAPTER *pAd,

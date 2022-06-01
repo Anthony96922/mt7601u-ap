@@ -45,26 +45,26 @@ static unsigned int Default_TX_PIN_CFG;
 
 #define ATE_TASK_EXEC_INTV 100		// 1000 -> 100
 
-static CHAR CCKRateTable[] = {0, 1, 2, 3, 8, 9, 10, 11, -1}; /* CCK Mode. */
-static CHAR OFDMRateTable[] = {0, 1, 2, 3, 4, 5, 6, 7, -1}; /* OFDM Mode. */
+static char CCKRateTable[] = {0, 1, 2, 3, 8, 9, 10, 11, -1}; /* CCK Mode. */
+static char OFDMRateTable[] = {0, 1, 2, 3, 4, 5, 6, 7, -1}; /* OFDM Mode. */
 #ifdef DOT11N_SS3_SUPPORT
-static CHAR HTMIXRateTable3T3R[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, -1}; /* HT Mix Mode for 3*3. */
+static char HTMIXRateTable3T3R[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, -1}; /* HT Mix Mode for 3*3. */
 #endif /* DOT11N_SS3_SUPPORT */
-static CHAR HTMIXRateTable[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, -1}; /* HT Mix Mode. */
+static char HTMIXRateTable[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, -1}; /* HT Mix Mode. */
 
 #ifdef RTMP_INTERNAL_TX_ALC
 
 /* The desired TSSI over CCK */
-extern CHAR desiredTSSIOverCCK[4];
+extern char desiredTSSIOverCCK[4];
 
 /* The desired TSSI over OFDM */
-extern CHAR desiredTSSIOverOFDM[8];
+extern char desiredTSSIOverOFDM[8];
 
 /* The desired TSSI over HT */
-extern CHAR desiredTSSIOverHT[8];
+extern char desiredTSSIOverHT[8];
 
 /* The desired TSSI over HT using STBC */
-extern CHAR desiredTSSIOverHTUsingSTBC[8];
+extern char desiredTSSIOverHTUsingSTBC[8];
 
 /* The Tx power tuning entry*/
 extern TX_POWER_TUNING_ENTRY_STRUCT TxPowerTuningTable[];
@@ -82,7 +82,7 @@ extern TX_POWER_TUNING_ENTRY_STRUCT TxPowerTuningTable[];
 ==========================================================================
  */
  #ifdef MT7601
-CHAR ATEGetDesiredTSSI(
+char ATEGetDesiredTSSI(
 	IN PRTMP_ADAPTER		pAd)
 {
 	DBGPRINT(RT_DEBUG_ERROR, ("%s::Currently not support singledriver.\n", __FUNCTION__));
@@ -90,11 +90,11 @@ CHAR ATEGetDesiredTSSI(
 
  }
  #else
-CHAR ATEGetDesiredTSSI(
+char ATEGetDesiredTSSI(
 	IN PRTMP_ADAPTER		pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	CHAR desiredTSSI = 0;
+	char desiredTSSI = 0;
 	unsigned char MCS = 0;
 	unsigned char MaxMCS = 7;
 
@@ -201,16 +201,16 @@ VOID DefaultATEAsicAdjustTxPower(
 	PATE_INFO   pATEInfo = &(pAd->ate);
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 	INT			index = 0, inner_index = 0, maxTxPwrCnt;
-	CHAR		DeltaPwr = 0;
+	char		DeltaPwr = 0;
 	bool		bAutoTxAgc = FALSE;
 	unsigned char		TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep;
 	unsigned char		BbpR49 = 0, idx;
 	char *		pTxAgcCompensate;
 	unsigned long		TxPwr[9];	/* NOTE: the TxPwr array size should be the maxima value of all supported chipset!!!! */
-	CHAR		Value;
+	char		Value;
 #ifdef RTMP_INTERNAL_TX_ALC
 	/* (non-positive number) including the transmit power controlled by the MAC and the BBP R1 */    
-	CHAR TotalDeltaPower = 0; 
+	char TotalDeltaPower = 0; 
 	unsigned char desiredTSSI = 0, currentTSSI = 0;
 	const TX_POWER_TUNING_ENTRY_STRUCT *TxPowerTuningTable = pAd->chipCap.TxPowerTuningTable_2G;
 	PTX_POWER_TUNING_ENTRY_STRUCT pTxPowerTuningEntry = NULL;
@@ -451,7 +451,7 @@ VOID DefaultATEAsicAdjustTxPower(
 		{
 			for (inner_index=0; inner_index<8; inner_index++)
 			{
-				Value = (CHAR)((TxPwr[index] >> inner_index*4) & 0x0F); /* 0 ~ 15 */
+				Value = (char)((TxPwr[index] >> inner_index*4) & 0x0F); /* 0 ~ 15 */
 
 #ifdef RTMP_INTERNAL_TX_ALC
 				/*
@@ -703,9 +703,9 @@ VOID ATEAsicAdjustTxPower(
 }
 
 
-CHAR ATEConvertToRssi(
+char ATEConvertToRssi(
 	IN PRTMP_ADAPTER pAd,
-	IN	CHAR	Rssi,
+	IN	char	Rssi,
 	IN  unsigned char   RssiNumber)
 {
 	unsigned char	RssiOffset, LNAGain;
@@ -732,29 +732,29 @@ VOID ATESampleRssi(
 
 	if (pRxWI->RxWIRSSI0 != 0)
 	{
-		pATEInfo->LastRssi0	= ATEConvertToRssi(pAd, (CHAR) pRxWI->RxWIRSSI0, RSSI_0);
+		pATEInfo->LastRssi0	= ATEConvertToRssi(pAd, (char) pRxWI->RxWIRSSI0, RSSI_0);
 		pATEInfo->AvgRssi0X8 = (pATEInfo->AvgRssi0X8 - pATEInfo->AvgRssi0) + pATEInfo->LastRssi0;
 		pATEInfo->AvgRssi0 = pATEInfo->AvgRssi0X8 >> 3;
 	}
 
 	if (pRxWI->RxWIRSSI1 != 0)
 	{
-		pATEInfo->LastRssi1	= ATEConvertToRssi(pAd, (CHAR) pRxWI->RxWIRSSI1, RSSI_1);
+		pATEInfo->LastRssi1	= ATEConvertToRssi(pAd, (char) pRxWI->RxWIRSSI1, RSSI_1);
 		pATEInfo->AvgRssi1X8 = (pATEInfo->AvgRssi1X8 - pATEInfo->AvgRssi1) + pATEInfo->LastRssi1;
 		pATEInfo->AvgRssi1 = pATEInfo->AvgRssi1X8 >> 3;
 	}
 
 	if (pRxWI->RxWIRSSI2 != 0)
 	{
-		pATEInfo->LastRssi2	= ATEConvertToRssi(pAd, (CHAR) pRxWI->RxWIRSSI2, RSSI_2);
+		pATEInfo->LastRssi2	= ATEConvertToRssi(pAd, (char) pRxWI->RxWIRSSI2, RSSI_2);
 		pATEInfo->AvgRssi2X8 = (pATEInfo->AvgRssi2X8 - pATEInfo->AvgRssi2) + pATEInfo->LastRssi2;
 		pATEInfo->AvgRssi2 = pATEInfo->AvgRssi2X8 >> 3;
 	}
 
-	pATEInfo->LastSNR0 = (CHAR)(pRxWI->RxWIRSSI0);
-	pATEInfo->LastSNR1 = (CHAR)(pRxWI->RxWIRSSI1);
+	pATEInfo->LastSNR0 = (char)(pRxWI->RxWIRSSI0);
+	pATEInfo->LastSNR1 = (char)(pRxWI->RxWIRSSI1);
 #ifdef DOT11N_SS3_SUPPORT
-	pATEInfo->LastSNR2 = (CHAR)(pRxWI->RxWIRSSI2);
+	pATEInfo->LastSNR2 = (char)(pRxWI->RxWIRSSI2);
 #endif /* DOT11N_SS3_SUPPORT */
 
 	pATEInfo->NumOfAvgRssiSample ++;
@@ -923,7 +923,7 @@ VOID DefaultATEAsicSwitchChannel(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int Value = 0;
-	CHAR TxPwer = 0, TxPwer2 = 0;
+	char TxPwer = 0, TxPwer2 = 0;
 	unsigned char BbpValue = 0, R66 = 0x30, Channel = 0;
 
 	SYNC_CHANNEL_WITH_QA(pATEInfo, &Channel);
@@ -1167,7 +1167,7 @@ INT DefaultATETxPwrHandler(
 	IN char index)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	CHAR TxPower = 0;
+	char TxPower = 0;
 
 #ifdef RALINK_QA
 	if ((pATEInfo->bQATxStart == TRUE) || (pATEInfo->bQARxStart == TRUE))
@@ -2367,8 +2367,8 @@ static NDIS_STATUS TXFRAME(
 #ifdef RTMP_INTERNAL_TX_ALC
 #if defined(RT3350) || defined(RT3352)
 	unsigned char		RFValue, BBP49Value;
-	CHAR		ChannelPower = pATEInfo->TxPower0;
-	CHAR		*TssiRefPerChannel = pATEInfo->TssiRefPerChannel;
+	char		ChannelPower = pATEInfo->TxPower0;
+	char		*TssiRefPerChannel = pATEInfo->TssiRefPerChannel;
 	unsigned char		CurrentChannel = pATEInfo->Channel;
 #endif /* defined(RT3350) || defined(RT3352) */
 #endif /* RTMP_INTERNAL_TX_ALC */
@@ -3130,7 +3130,7 @@ static INT ATESetAntennaTxPower(
 
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	CHAR TxPower;
+	char TxPower;
 	INT  index, maximun_index;
 
 	pATEInfo = &(pAd->ate);
@@ -3149,7 +3149,7 @@ static INT ATESetAntennaTxPower(
 #ifdef MT7601
 		if (IS_MT7601(pAd))
 		{
-			CHAR MaxPower;
+			char MaxPower;
 			unsigned int RegValue = 0;
 
 			RTMP_IO_READ32(pAd, TX_ALC_CFG_0, &RegValue);
@@ -3288,7 +3288,7 @@ INT	Set_ATE_TX_Antenna_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	CHAR value;
+	char value;
 	INT maximun_index = pAd->Antenna.field.TxPath;
 	
 	value = simple_strtol(arg, 0, 10);
@@ -3330,7 +3330,7 @@ INT	Set_ATE_RX_Antenna_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	CHAR value;
+	char value;
 	INT maximun_index = pAd->Antenna.field.RxPath;
 	
 	value = simple_strtol(arg, 0, 10);
@@ -4334,7 +4334,7 @@ INT	Set_ATE_TXBF_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	CHAR value;
+	char value;
 	
 	value = simple_strtol(arg, 0, 10);
 
@@ -4390,7 +4390,7 @@ INT	Set_ATE_TXSOUNDING_Proc(
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	CHAR value;
+	char value;
 	
 	value = simple_strtol(arg, 0, 10);
 
@@ -4428,7 +4428,7 @@ INT	Set_ATE_TXBF_DIVCAL_Proc(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	int value;
 	ITXBF_DIV_PARAMS divParams;
-	CHAR initChanArg[] = "0";
+	char initChanArg[] = "0";
 
 	value = simple_strtol(arg, 0, 10);
 
@@ -4497,7 +4497,7 @@ INT	Set_ATE_TXBF_LNACAL_Proc(
 	PATE_INFO pATEInfo = &(pAd->ate);
 	int value;
 	int i;
-	CHAR initChanArg[] = "0";
+	char initChanArg[] = "0";
 
 	value = simple_strtol(arg, 0, 10);
 
@@ -5369,11 +5369,11 @@ INT RT335x2_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
 	}
 
 
-CHAR InsertTssi(unsigned char InChannel, unsigned char Channel0, unsigned char Channel1,CHAR Tssi0, CHAR Tssi1)
+char InsertTssi(unsigned char InChannel, unsigned char Channel0, unsigned char Channel1,char Tssi0, char Tssi1)
 {
-	CHAR     InTssi;
-	CHAR     ChannelDelta, InChannelDelta;
-	CHAR     TssiDelta;
+	char     InTssi;
+	char     ChannelDelta, InChannelDelta;
+	char     TssiDelta;
 
 	ChannelDelta = Channel1 - Channel0;
 	InChannelDelta = InChannel - Channel0;
@@ -5389,7 +5389,7 @@ INT RT335xATETssiCalibrationExtend(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {    
-	CHAR		TssiRefPerChannel[CFG80211_NUM_OF_CHAN_2GHZ], TssiDeltaPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
+	char		TssiRefPerChannel[CFG80211_NUM_OF_CHAN_2GHZ], TssiDeltaPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
 	unsigned char		CurrentChannel;
 	unsigned char		BbpData = 0;
 	unsigned short		EEPData;
@@ -5571,7 +5571,7 @@ INT Set_ATE_Read_Temperature_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	CHAR	Temperature;
+	char	Temperature;
 
 	DBGPRINT(RT_DEBUG_TRACE,("Set_MT7601ATE_Read_Temperature_Proc\n"));
 
@@ -5954,7 +5954,7 @@ VOID ReadQATxTypeFromBBP(
 NDIS_STATUS ATEBBPWriteWithRxChain(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char bbpId,
-	IN CHAR bbpVal,
+	IN char bbpVal,
 	IN RX_CHAIN_IDX rx_ch_idx)
 {
 	unsigned char idx = 0, val = 0;

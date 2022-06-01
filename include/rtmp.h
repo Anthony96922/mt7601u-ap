@@ -203,27 +203,27 @@ typedef union _CAPTURE_MODE_PACKET_BUFFER {
 }CAPTURE_MODE_PACKET_BUFFER, *PCAPTURE_MODE_PACKET_BUFFER;
 
 typedef struct _RSSI_SAMPLE {
-	CHAR LastRssi0;		/* last received RSSI */
-	CHAR LastRssi1;		/* last received RSSI */
-	CHAR LastRssi2;		/* last received RSSI */
-	CHAR AvgRssi0;
-	CHAR AvgRssi1;
-	CHAR AvgRssi2;
+	char LastRssi0;		/* last received RSSI */
+	char LastRssi1;		/* last received RSSI */
+	char LastRssi2;		/* last received RSSI */
+	char AvgRssi0;
+	char AvgRssi1;
+	char AvgRssi2;
 	SHORT AvgRssi0X8;
 	SHORT AvgRssi1X8;
 	SHORT AvgRssi2X8;
-	CHAR LastSnr0;
-	CHAR LastSnr1;
-	CHAR LastSnr2;
-	CHAR AvgSnr0;
-	CHAR AvgSnr1;
-	CHAR AvgSnr2;
+	char LastSnr0;
+	char LastSnr1;
+	char LastSnr2;
+	char AvgSnr0;
+	char AvgSnr1;
+	char AvgSnr2;
 	SHORT AvgSnr0X8;
 	SHORT AvgSnr1X8;
 	SHORT AvgSnr2X8;
-	CHAR LastNoiseLevel0;
-	CHAR LastNoiseLevel1;
-	CHAR LastNoiseLevel2;
+	char LastNoiseLevel0;
+	char LastNoiseLevel1;
+	char LastNoiseLevel2;
 } RSSI_SAMPLE;
 
 /* */
@@ -623,7 +623,7 @@ typedef struct _ANT_DIVERSITY
 	unsigned long		AntennaDiversityPER[2];  // 0 ->main 1->aux
 	unsigned long		AntennaDiversityTxPacketCount[2];  // 0 ->main 1->aux	
 	unsigned long		AntennaDiversityRxPacketCount[2];
-	CHAR		Rssi[2];
+	char		Rssi[2];
 	unsigned long		AntennaDiversityCount;
 	unsigned long		AntennaDiversityTrigger;	
 }ANT_DIVERSITY, *PANT_DIVERSITY;
@@ -879,10 +879,10 @@ typedef struct _CHANNEL_TX_POWER {
 #ifdef DOT11N_DRAFT3
 	bool bEffectedChannel;	/* For BW 40 operating in 2.4GHz , the "effected channel" is the channel that is covered in 40Mhz. */
 #endif /* DOT11N_DRAFT3 */
-	CHAR Power;
-	CHAR Power2;
+	char Power;
+	char Power2;
 #ifdef DOT11N_SS3_SUPPORT
-	CHAR Power3;
+	char Power3;
 #endif /* DOT11N_SS3_SUPPORT */
 	unsigned char MaxTxPwr;
 	unsigned char DfsReq;
@@ -1349,7 +1349,7 @@ typedef struct _MULTISSID_STRUCT {
 
 	unsigned char Bssid[MAC_ADDR_LEN];
 	unsigned char SsidLen;
-	CHAR Ssid[MAX_LEN_OF_SSID];
+	char Ssid[MAX_LEN_OF_SSID];
 	unsigned short CapabilityInfo;
 
 	unsigned char MaxStaNum;	/* Limit the STA connection number per BSS */
@@ -1440,7 +1440,7 @@ typedef struct _MULTISSID_STRUCT {
 
 	/* outgoing BEACON frame buffer and corresponding TXWI */
 	/* TXWI_STRUC *BeaconTxWI; */
-	CHAR BeaconBuf[MAX_BEACON_SIZE];	/* NOTE: BeaconBuf should be 4-byte aligned */
+	char BeaconBuf[MAX_BEACON_SIZE];	/* NOTE: BeaconBuf should be 4-byte aligned */
 
 	bool bHideSsid;
 	unsigned short StationKeepAliveTime;	/* unit: second */
@@ -1509,16 +1509,16 @@ typedef struct _MULTISSID_STRUCT {
 	unsigned int RcvdSpoofedUnknownMgmtCount;
 	unsigned int RcvdReplayAttackCount;
 
-	CHAR RssiOfRcvdConflictSsid;
-	CHAR RssiOfRcvdSpoofedAssocResp;
-	CHAR RssiOfRcvdSpoofedReassocResp;
-	CHAR RssiOfRcvdSpoofedProbeResp;
-	CHAR RssiOfRcvdSpoofedBeacon;
-	CHAR RssiOfRcvdSpoofedDisassoc;
-	CHAR RssiOfRcvdSpoofedAuth;
-	CHAR RssiOfRcvdSpoofedDeauth;
-	CHAR RssiOfRcvdSpoofedUnknownMgmt;
-	CHAR RssiOfRcvdReplayAttack;
+	char RssiOfRcvdConflictSsid;
+	char RssiOfRcvdSpoofedAssocResp;
+	char RssiOfRcvdSpoofedReassocResp;
+	char RssiOfRcvdSpoofedProbeResp;
+	char RssiOfRcvdSpoofedBeacon;
+	char RssiOfRcvdSpoofedDisassoc;
+	char RssiOfRcvdSpoofedAuth;
+	char RssiOfRcvdSpoofedDeauth;
+	char RssiOfRcvdSpoofedUnknownMgmt;
+	char RssiOfRcvdReplayAttack;
 #endif /* IDS_SUPPORT */
 
 	/* used in if beacon send or stop */
@@ -1557,10 +1557,10 @@ typedef struct _COMMON_CONFIG {
 	unsigned long PacketFilter;	/* Packet filter for receiving */
 	unsigned char RegulatoryClass[MAX_NUM_OF_REGULATORY_CLASS];
 
-	CHAR Ssid[MAX_LEN_OF_SSID];	/* NOT NULL-terminated */
+	char Ssid[MAX_LEN_OF_SSID];	/* NOT NULL-terminated */
 	unsigned char SsidLen;		/* the actual ssid length in used */
 	unsigned char LastSsidLen;	/* the actual ssid length in used */
-	CHAR LastSsid[MAX_LEN_OF_SSID];	/* NOT NULL-terminated */
+	char LastSsid[MAX_LEN_OF_SSID];	/* NOT NULL-terminated */
 	unsigned char LastBssid[MAC_ADDR_LEN];
 
 	unsigned char Bssid[MAC_ADDR_LEN];
@@ -1915,7 +1915,7 @@ typedef struct _COMMON_CONFIG {
 typedef struct _AP_MLME_AUX {
 	unsigned char Addr[MAC_ADDR_LEN];
 	unsigned short Alg;
-	CHAR Challenge[CIPHER_TEXT_LEN];
+	char Challenge[CIPHER_TEXT_LEN];
 } AP_MLME_AUX, *PAP_MLME_AUX;
 
 typedef enum _MAC_ENTRY_OP_MODE_ {
@@ -2141,7 +2141,7 @@ typedef struct _MAC_TABLE_ENTRY {
 
 	bool fLastSecAccordingRSSI;
 	unsigned char LastSecTxRateChangeAction;	/* 0: no change, 1:rate UP, 2:rate down */
-	CHAR LastTimeTxRateChangeAction;	/*Keep last time value of LastSecTxRateChangeAction */
+	char LastTimeTxRateChangeAction;	/*Keep last time value of LastSecTxRateChangeAction */
 	unsigned long LastTxOkCount; /* TxSuccess count in last Rate Adaptation interval */
 	unsigned char LastTxPER;	/* Tx PER in last Rate Adaptation interval */
 	unsigned char PER[MAX_TX_RATE_INDEX + 1];
@@ -2399,10 +2399,10 @@ typedef struct _APCLI_STRUCT {
 	bool Valid;		/* Set it as 1 if the apcli interface associated success to remote AP. */
 	unsigned char MacTabWCID;	/*WCID value, which point to the entry of ASIC Mac table. */
 	unsigned char SsidLen;
-	CHAR Ssid[MAX_LEN_OF_SSID];
+	char Ssid[MAX_LEN_OF_SSID];
 
 	unsigned char CfgSsidLen;
-	CHAR CfgSsid[MAX_LEN_OF_SSID];
+	char CfgSsid[MAX_LEN_OF_SSID];
 	unsigned char CfgApCliBssid[ETH_LENGTH_OF_ADDRESS];
 	unsigned char CurrentAddress[ETH_LENGTH_OF_ADDRESS];
 
@@ -2492,7 +2492,7 @@ typedef struct _APCLI_STRUCT {
 	unsigned short       ResVarIELen;                // Length of next VIE include EID & Length
 	unsigned char       ResVarIEs[MAX_VIE_LEN];
 	unsigned char       LastSsidLen;               // the actual ssid length in used
-	CHAR        LastSsid[MAX_LEN_OF_SSID]; // NOT NULL-terminated
+	char        LastSsid[MAX_LEN_OF_SSID]; // NOT NULL-terminated
 	unsigned char		LastBssid[MAC_ADDR_LEN];
 #endif/*APCLI_WPA_SUPPLICANT_SUPPORT*/
 
@@ -2741,13 +2741,13 @@ typedef struct _RtmpDiagStrcut_ {	/* Diagnosis Related element */
 typedef struct _TX_POWER_CONTROL {
 	bool bInternalTxALC; /* Internal Tx ALC */
 	bool bExtendedTssiMode; /* The extended TSSI mode (each channel has different Tx power if needed) */
-	CHAR PerChTxPwrOffset[NUM_OF_CH_FOR_PER_CH_TX_PWR_OFFSET + 1]; /* Per-channel Tx power offset */
-	CHAR idxTxPowerTable; /* The index of the Tx power table for ant0 */
-	CHAR idxTxPowerTable2; /* The index of the Tx power table for ant1 */
-	CHAR RF_TX_ALC; /* 3390: RF R12[4:0]: Tx0 ALC, 3352: RF R47[4:0]: Tx0 ALC, 5390: RF R49[5:0]: Tx0 ALC */
-	CHAR MAC_PowerDelta; /* Tx power control over MAC 0x1314~0x1324 */
-	CHAR MAC_PowerDelta2; /* Tx power control for Tx1 */
-	CHAR TotalDeltaPower2; /* Tx power control for Tx1 */
+	char PerChTxPwrOffset[NUM_OF_CH_FOR_PER_CH_TX_PWR_OFFSET + 1]; /* Per-channel Tx power offset */
+	char idxTxPowerTable; /* The index of the Tx power table for ant0 */
+	char idxTxPowerTable2; /* The index of the Tx power table for ant1 */
+	char RF_TX_ALC; /* 3390: RF R12[4:0]: Tx0 ALC, 3352: RF R47[4:0]: Tx0 ALC, 5390: RF R49[5:0]: Tx0 ALC */
+	char MAC_PowerDelta; /* Tx power control over MAC 0x1314~0x1324 */
+	char MAC_PowerDelta2; /* Tx power control for Tx1 */
+	char TotalDeltaPower2; /* Tx power control for Tx1 */
 #ifdef RTMP_TEMPERATURE_COMPENSATION
 	INT LookupTable[IEEE80211_BAND_NUMS][33];
 	INT RefTemp[IEEE80211_BAND_NUMS];
@@ -3192,7 +3192,7 @@ struct _RTMP_ADAPTER {
 	/* BBP Control */
 	/* --------------------------- */
 	unsigned char BbpWriteLatch[MAX_BBP_ID + 1];	/* record last BBP register value written via BBP_IO_WRITE/BBP_IO_WRITE_VY_REG_ID */
-	CHAR BbpRssiToDbmDelta;	/* change from unsigned char to CHAR for high power */
+	char BbpRssiToDbmDelta;	/* change from unsigned char to char for high power */
 	BBP_R66_TUNING BbpTuning;
 
 	/* ---------------------------- */
@@ -3240,14 +3240,14 @@ struct _RTMP_ADAPTER {
 	unsigned char TssiPlusBoundaryA[5];	/* Tssi boundary for increase Tx power to compensate. */
 	unsigned char TssiMinusBoundaryA[5];	/* Tssi boundary for decrease Tx power to compensate. */
 	unsigned char TxAgcStepA;	/* Store Tx TSSI delta increment / decrement value */
-	CHAR TxAgcCompensateA;	/* Store the compensation (TxAgcStep * (idx-1)) */
+	char TxAgcCompensateA;	/* Store the compensation (TxAgcStep * (idx-1)) */
 
 	bool bAutoTxAgcG;	/* Enable driver auto Tx Agc control */
 	unsigned char TssiRefG;		/* Store Tssi reference value as 25 temperature. */
 	unsigned char TssiPlusBoundaryG[5];	/* Tssi boundary for increase Tx power to compensate. */
 	unsigned char TssiMinusBoundaryG[5];	/* Tssi boundary for decrease Tx power to compensate. */
 	unsigned char TxAgcStepG;	/* Store Tx TSSI delta increment / decrement value */
-	CHAR TxAgcCompensateG;	/* Store the compensation (TxAgcStep * (idx-1)) */
+	char TxAgcCompensateG;	/* Store the compensation (TxAgcStep * (idx-1)) */
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) 
 	TX_POWER_CONTROL TxPowerCtrl;	/* The Tx power control using the internal ALC */
 #endif /* RTMP_INTERNAL_TX_ALC || RTMP_TEMPERATURE_COMPENSATION */
@@ -3256,10 +3256,10 @@ struct _RTMP_ADAPTER {
 	signed char BGRssiOffset[3]; /* Store B/G RSSI #0/1/2 Offset value on EEPROM 0x46h */
 	signed char ARssiOffset[3]; /* Store A RSSI 0/1/2 Offset value on EEPROM 0x4Ah */
 
-	CHAR BLNAGain;		/* Store B/G external LNA#0 value on EEPROM 0x44h */
-	CHAR ALNAGain0;		/* Store A external LNA#0 value for ch36~64 */
-	CHAR ALNAGain1;		/* Store A external LNA#1 value for ch100~128 */
-	CHAR ALNAGain2;		/* Store A external LNA#2 value for ch132~165 */
+	char BLNAGain;		/* Store B/G external LNA#0 value on EEPROM 0x44h */
+	char ALNAGain0;		/* Store A external LNA#0 value for ch36~64 */
+	char ALNAGain1;		/* Store A external LNA#1 value for ch100~128 */
+	char ALNAGain2;		/* Store A external LNA#2 value for ch132~165 */
 
 
 #ifdef LED_CONTROL_SUPPORT
@@ -3769,7 +3769,7 @@ struct _RTMP_ADAPTER {
 
 #ifdef CONFIG_MULTI_CHANNEL
 	unsigned short NullBufOffset[2];
-	CHAR NullFrBuf[100];
+	char NullFrBuf[100];
 	unsigned int NullFrLen;
 	unsigned int MultiChannelFlowCtl;
 	RTMP_OS_TASK MultiChannelTask;
@@ -3779,7 +3779,7 @@ struct _RTMP_ADAPTER {
 #ifdef SINGLE_SKU_V2
 	LIST_HEADER SingleSkuPwrList;
 	unsigned char DefaultTargetPwr;
-	CHAR SingleSkuRatePwrDiff[18];
+	char SingleSkuRatePwrDiff[18];
 #endif /* SINGLE_SKU_V2 */
 
 };
@@ -4450,7 +4450,7 @@ unsigned char GetSkuChannelBasePwr(
 
 unsigned char GetSkuRatePwr(
 	IN PRTMP_ADAPTER 	pAd,
-	IN CHAR 				phymode,
+	IN char 				phymode,
 	IN unsigned char 			channel,
 	IN unsigned char			bw);
 
@@ -4458,7 +4458,7 @@ VOID UpdateSkuRatePwr(
 	IN PRTMP_ADAPTER 	pAd,
 	IN unsigned char 			channel,
 	IN unsigned char			bw,
-	IN CHAR				base_pwr);
+	IN char				base_pwr);
 #endif /* SINGLE_SKU_V2 */
 
 VOID AP_WDS_KeyNameMakeUp(
@@ -5032,7 +5032,7 @@ VOID GetSingleSkuDeltaPower(
 
 VOID AsicPercentageDeltaPower(
 	IN 		PRTMP_ADAPTER 		pAd,
-	IN		CHAR				Rssi,
+	IN		char				Rssi,
 	INOUT	char *				pDeltaPwr,
 	INOUT	char *				pDeltaPowerByBbpR1);
 
@@ -5301,7 +5301,7 @@ unsigned long BssTableSetEntry(
 	IN PRTMP_ADAPTER pAd, 
 	OUT BSS_TABLE *Tab, 
 	IN BCN_IE_LIST *ie_list,
-	IN CHAR Rssi,
+	IN char Rssi,
 	IN unsigned short LengthVIE,	
 	IN PNDIS_802_11_VARIABLE_IEs pVIE);
 
@@ -5343,7 +5343,7 @@ INT TriEventTableSetEntry(
 VOID BssTableSsidSort(
 	IN  PRTMP_ADAPTER   pAd, 
 	OUT BSS_TABLE *OutTab, 
-	IN  CHAR Ssid[], 
+	IN  char Ssid[], 
 	IN  unsigned char SsidLen);
 
 VOID  BssTableSortByRssi(
@@ -5669,7 +5669,7 @@ bool PeerProbeReqSanity(
     IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2,
-    OUT CHAR Ssid[], 
+    OUT char Ssid[], 
     OUT unsigned char *SsidLen,
     OUT bool *bRequestRssi);
 
@@ -5828,7 +5828,7 @@ VOID DisassocParmFill(
 VOID StartParmFill(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  OUT MLME_START_REQ_STRUCT *StartReq, 
-	IN  CHAR Ssid[], 
+	IN  char Ssid[], 
 	IN  unsigned char SsidLen);
 
 VOID AuthParmFill(
@@ -5901,7 +5901,7 @@ bool MlmeScanReqSanity(
 	IN  VOID *Msg, 
 	IN  unsigned long MsgLen, 
 	OUT unsigned char *BssType, 
-	OUT CHAR ssid[], 
+	OUT char ssid[], 
 	OUT unsigned char *SsidLen, 
 	OUT unsigned char *ScanType);
 
@@ -5913,7 +5913,7 @@ bool PeerBeaconAndProbeRspSanity_Old(
 	IN  unsigned char MsgChannel,
 	OUT unsigned char * pAddr2, 
 	OUT unsigned char * pBssid, 
-	OUT CHAR Ssid[], 
+	OUT char Ssid[], 
 	OUT unsigned char *pSsidLen, 
 	OUT unsigned char *pBssType, 
 	OUT unsigned short *pBeaconPeriod, 
@@ -6007,7 +6007,7 @@ bool MlmeStartReqSanity(
 	IN  PRTMP_ADAPTER   pAd, 
 	IN  VOID *Msg, 
 	IN  unsigned long MsgLen, 
-	OUT CHAR Ssid[], 
+	OUT char Ssid[], 
 	OUT unsigned char *Ssidlen);
 
 bool PeerAuthSanity(
@@ -6018,7 +6018,7 @@ bool PeerAuthSanity(
 	OUT unsigned short *Alg, 
 	OUT unsigned short *Seq, 
 	OUT unsigned short *Status, 
-	OUT CHAR ChlgText[]);
+	OUT char ChlgText[]);
 
 bool PeerAssocRspSanity(
 	IN  PRTMP_ADAPTER   pAd, 
@@ -6059,7 +6059,7 @@ bool PeerDeauthSanity(
 	OUT unsigned short *Reason);
 
 bool GetTimBit(
-	IN  CHAR *Ptr, 
+	IN  char *Ptr, 
 	IN  unsigned short Aid, 
 	OUT unsigned char *TimLen, 
 	OUT unsigned char *BcastFlag, 
@@ -6218,21 +6218,21 @@ bool RTMPCheckVht(
 VOID RTMPUpdateMlmeRate(
 	IN PRTMP_ADAPTER	pAd);
 
-CHAR RTMPMaxRssi(
+char RTMPMaxRssi(
 	IN PRTMP_ADAPTER	pAd,
-	IN CHAR				Rssi0,
-	IN CHAR				Rssi1,
-	IN CHAR				Rssi2);
+	IN char				Rssi0,
+	IN char				Rssi1,
+	IN char				Rssi2);
 
-CHAR RTMPAvgRssi(
+char RTMPAvgRssi(
         IN PRTMP_ADAPTER	pAd,
         IN RSSI_SAMPLE		*pRssi);
 
 
-CHAR RTMPMinSnr(
+char RTMPMinSnr(
 	IN PRTMP_ADAPTER	pAd,
-	IN CHAR				Snr0,
-	IN CHAR				Snr1);
+	IN char				Snr0,
+	IN char				Snr1);
 
 VOID AsicSetRxAnt(
 	IN PRTMP_ADAPTER	pAd,
@@ -6460,7 +6460,7 @@ VOID    RTMPWPARemoveAllKeys(
 	IN  PRTMP_ADAPTER   pAd);
 
 bool RTMPCheckStrPrintAble(
-    IN  CHAR *pInPutStr, 
+    IN  char *pInPutStr, 
     IN  unsigned char strLen);
     
 VOID    RTMPSetPhyMode(
@@ -6481,10 +6481,10 @@ VOID	RTMPAddWcidAttributeEntry(
 	IN 	MAC_TABLE_ENTRY *pEntry);
 
 char * GetEncryptType(
-	CHAR enc);
+	char enc);
 
 char * GetAuthMode(
-	CHAR auth);
+	char auth);
 
 #ifdef DOT11_N_SUPPORT
 VOID	RTMPSetHT(
@@ -6515,19 +6515,19 @@ VOID RtmpDrvSendWirelessEvent(
 	IN	unsigned short			Event_flag,
 	IN	unsigned char * 			pAddr,
 	IN  unsigned char			BssIdx,
-	IN	CHAR			Rssi);
+	IN	char			Rssi);
 #else
 #define RtmpDrvSendWirelessEvent(_pAd, _Event_flag, _pAddr, _BssIdx, _Rssi)
 #endif /* SYSTEM_LOG_SUPPORT */
 	
-CHAR    ConvertToRssi(
+char    ConvertToRssi(
 	IN PRTMP_ADAPTER  pAd,
-	IN CHAR				Rssi,
+	IN char				Rssi,
 	IN unsigned char    RssiNumber,
 	IN unsigned char AntSel,
 	IN unsigned char BW);
 
-CHAR    ConvertToSnr(
+char    ConvertToSnr(
 	IN PRTMP_ADAPTER  pAd,
 	IN unsigned char				Snr);
 
@@ -8741,7 +8741,7 @@ VOID ieee80211_notify_michael_failure(
 	IN	unsigned int            keyix,
 	IN	INT              report);
 
-const CHAR* ether_sprintf(const unsigned char *mac);
+const char* ether_sprintf(const unsigned char *mac);
 #endif/*HOSTAPD_SUPPORT*/
 
 #ifdef VENDOR_FEATURE3_SUPPORT
@@ -8899,14 +8899,14 @@ VOID RtmpPrepareHwNullFrame(
 	IN unsigned char OpMode,
 	IN unsigned char PwrMgmt,
 	IN bool bWaitACK,
-	IN CHAR Index);
+	IN char Index);
 
 VOID RTMPHwSendNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char TxRate,
 	IN bool bQosNull,
 	IN unsigned short PwrMgmt,
-	IN CHAR Index);
+	IN char Index);
 
 VOID RtmpEnqueueLastNullFrame(
 	IN PRTMP_ADAPTER pAd,
@@ -8929,7 +8929,7 @@ VOID RtmpPrepareHwNullFrame(
 	IN unsigned char OpMode,
 	IN unsigned char PwrMgmt,
 	IN bool bWaitACK,
-	IN CHAR Index);
+	IN char Index);
 
 VOID MCC_ChangeAction(
 	IN void * SystemSpecific1, 

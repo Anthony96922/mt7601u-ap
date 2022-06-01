@@ -4369,7 +4369,7 @@ VOID InitSkuRateDiffTable(
 	IN PRTMP_ADAPTER 	pAd )
 {
 	unsigned short		i, value;
-	CHAR		BasePwr, Pwr;
+	char		BasePwr, Pwr;
 
 	RT28xx_EEPROM_READ16(pAd, EEPROM_TXPOWER_BYRATE_20MHZ_2_4G + 4, value);
 	BasePwr = (value >> 8) & 0xFF;
@@ -4451,7 +4451,7 @@ int GetSkuPAModePwr(
 
 unsigned char GetSkuRatePwr(
 	IN PRTMP_ADAPTER 	pAd,
-	IN CHAR 				phymode,
+	IN char 				phymode,
 	IN unsigned char 			channel,
 	IN unsigned char			bw)
 {
@@ -4571,7 +4571,7 @@ VOID UpdateSkuRatePwr(
 	IN PRTMP_ADAPTER 	pAd,
 	IN unsigned char 			channel,
 	IN unsigned char			bw,
-	IN CHAR				base_pwr)
+	IN char				base_pwr)
 {
 	int	sku_rate_pwr;
 	int	rate_pwr;
@@ -4579,7 +4579,7 @@ VOID UpdateSkuRatePwr(
 	unsigned int	data, Adata, Gdata;
 	unsigned char 	BBPR4, BBPR178;
 	unsigned char	i;
-	CHAR	rate_table[18];
+	char	rate_table[18];
 
 	//printk("channel = %d, bw = %d\n", channel, bw);
 

@@ -237,7 +237,7 @@ VOID RtmpDrvSendWirelessEvent(
 	IN	unsigned short					Event_flag,
 	IN	unsigned char *pAddr,
 	IN  unsigned char					BssIdx,
-	IN	CHAR					Rssi)
+	IN	char					Rssi)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	char *pBuf = NULL, *pBufPtr = NULL;

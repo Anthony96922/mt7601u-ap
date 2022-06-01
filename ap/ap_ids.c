@@ -91,7 +91,7 @@ VOID RTMPHandleIdsEvent(
 	for (i = 0; i < pAd->ApCfg.BssidNum; i++)
 	{	
 		unsigned int	SpoofedFrameCount[IW_SPOOF_EVENT_TYPE_NUM];
-		CHAR	RssiOfSpoofedFrame[IW_SPOOF_EVENT_TYPE_NUM];
+		char	RssiOfSpoofedFrame[IW_SPOOF_EVENT_TYPE_NUM];
 		INT		k;
 
 		SpoofedFrameCount[0] = pAd->ApCfg.MBSSID[i].RcvdConflictSsidCount;
@@ -217,9 +217,9 @@ VOID RTMPIdsPeriodicExec(
 bool RTMPSpoofedMgmtDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN PHEADER_802_11 	pHeader,
-	IN CHAR				Rssi0,
-	IN CHAR				Rssi1,
-	IN CHAR				Rssi2,
+	IN char				Rssi0,
+	IN char				Rssi1,
+	IN char				Rssi2,
 	IN unsigned char			AntSel)
 {
 	INT	i;	
@@ -229,7 +229,7 @@ bool RTMPSpoofedMgmtDetection(
 		/* Spoofed BSSID detection */
 		if (NdisEqualMemory(pHeader->Addr2, pAd->ApCfg.MBSSID[i].Bssid, MAC_ADDR_LEN))
 		{
-			CHAR RcvdRssi;
+			char RcvdRssi;
 		
 			RcvdRssi = RTMPMaxRssi(pAd, ConvertToRssi(pAd, Rssi0, RSSI_0, AntSel, BW_20), ConvertToRssi(pAd, Rssi1, RSSI_1, AntSel, BW_20), ConvertToRssi(pAd, Rssi2, RSSI_2, AntSel, BW_20));
 		
@@ -291,9 +291,9 @@ VOID RTMPConflictSsidDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pSsid,
 	IN unsigned char			SsidLen,
-	IN CHAR				Rssi0,
-	IN CHAR				Rssi1,
-	IN CHAR				Rssi2,
+	IN char				Rssi0,
+	IN char				Rssi1,
+	IN char				Rssi2,
 	IN unsigned char			AntSel)
 {
 	INT	i;
@@ -303,7 +303,7 @@ VOID RTMPConflictSsidDetection(
 		/* Conflict SSID detection */
 		if (SSID_EQUAL(pSsid, SsidLen, pAd->ApCfg.MBSSID[i].Ssid, pAd->ApCfg.MBSSID[i].SsidLen))
 		{
-			CHAR RcvdRssi;
+			char RcvdRssi;
 		
 			RcvdRssi = RTMPMaxRssi(pAd, ConvertToRssi(pAd, Rssi0, RSSI_0, AntSel, BW_20), ConvertToRssi(pAd, Rssi1, RSSI_1, AntSel, BW_20), ConvertToRssi(pAd, Rssi2, RSSI_2, AntSel, BW_20));
 
@@ -317,9 +317,9 @@ VOID RTMPConflictSsidDetection(
 bool RTMPReplayAttackDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pAddr2,
-	IN CHAR				Rssi0,
-	IN CHAR				Rssi1,
-	IN CHAR				Rssi2,
+	IN char				Rssi0,
+	IN char				Rssi1,
+	IN char				Rssi2,
 	IN unsigned char			AntSel,
 	IN unsigned char			BW)
 {
@@ -330,7 +330,7 @@ bool RTMPReplayAttackDetection(
 		/* Conflict SSID detection */
 		if (NdisEqualMemory(pAddr2, pAd->ApCfg.MBSSID[i].Bssid, MAC_ADDR_LEN))
 		{
-			CHAR RcvdRssi;
+			char RcvdRssi;
 		
 			RcvdRssi = RTMPMaxRssi(pAd, ConvertToRssi(pAd, Rssi0, RSSI_0, AntSel, BW), ConvertToRssi(pAd, Rssi1, RSSI_1, AntSel, BW), ConvertToRssi(pAd, Rssi2, RSSI_2, AntSel, BW));
 		

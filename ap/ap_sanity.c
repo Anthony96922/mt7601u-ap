@@ -55,7 +55,7 @@ bool PeerAssocReqCmmSanity(
 	INT MsgLen,
 	IE_LISTS *ie_lists)
 {
-    CHAR			*Ptr;
+    char			*Ptr;
     PFRAME_802_11	Fr = (PFRAME_802_11)Msg;
     PEID_STRUCT		eid_ptr;
     unsigned char			Sanity = 0;
@@ -426,7 +426,7 @@ bool APPeerAuthSanity(
     OUT unsigned short *Alg, 
     OUT unsigned short *Seq, 
     OUT unsigned short *Status, 
-    CHAR *ChlgText
+    char *ChlgText
     ) 
 {
     PFRAME_802_11 Fr = (PFRAME_802_11)Msg;

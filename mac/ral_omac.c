@@ -11,7 +11,7 @@ INT get_pkt_phymode_by_rxwi(RXWI_STRUC *rxwi)
 	return rxwi->RXWI_O.phy_mode;
 }
 
-INT get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, CHAR *rssi)
+INT get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, char *rssi)
 {
 	switch (size) {
 		case 3:

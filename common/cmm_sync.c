@@ -387,7 +387,7 @@ VOID ChangeToCellPowerLimit(
 }
 
 
-CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, unsigned char rssi_idx, unsigned char AntSel, unsigned char BW)
+char ConvertToRssi(RTMP_ADAPTER *pAd, char Rssi, unsigned char rssi_idx, unsigned char AntSel, unsigned char BW)
 {
 	unsigned char	RssiOffset, LNAGain;
 
@@ -409,18 +409,18 @@ CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, unsigned char rssi_idx, unsigne
 #ifdef MT7601
 	if ( IS_MT7601(pAd) )
 	{
-		CHAR LNA, RSSI;
+		char LNA, RSSI;
 		char * LNATable;
 /*
-		CHAR MainBW40LNA[] = { 1, 18, 35 };
-		CHAR MainBW20LNA[] = { 1, 18, 36 };
-		CHAR AuxBW40LNA[] = { 1, 23, 42 };
-		CHAR AuxBW20LNA[] = { 1, 23, 42 };
+		char MainBW40LNA[] = { 1, 18, 35 };
+		char MainBW20LNA[] = { 1, 18, 36 };
+		char AuxBW40LNA[] = { 1, 23, 42 };
+		char AuxBW20LNA[] = { 1, 23, 42 };
 */
-		CHAR MainBW40LNA[] = { 0, 16, 34 };
-		CHAR MainBW20LNA[] = { -2, 15, 33 };
-		CHAR AuxBW40LNA[] = { -2, 16, 34 };
-		CHAR AuxBW20LNA[] = { -2, 15, 33 };
+		char MainBW40LNA[] = { 0, 16, 34 };
+		char MainBW20LNA[] = { -2, 15, 33 };
+		char AuxBW40LNA[] = { -2, 16, 34 };
+		char AuxBW20LNA[] = { -2, 15, 33 };
 
 		LNA = (Rssi >> 6) & 0x3;
 		RSSI = Rssi & 0x3F;
@@ -455,7 +455,7 @@ CHAR ConvertToRssi(RTMP_ADAPTER *pAd, CHAR Rssi, unsigned char rssi_idx, unsigne
 }
 
 
-CHAR ConvertToSnr(RTMP_ADAPTER *pAd, unsigned char Snr)
+char ConvertToSnr(RTMP_ADAPTER *pAd, unsigned char Snr)
 {
 	if (pAd->chipCap.SnrFormula == SNR_FORMULA2)
 		return (Snr * 3 + 8) >> 4;

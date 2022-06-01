@@ -257,10 +257,10 @@ typedef struct __RTMP_IOCTL_INPUT_STRUCT
 {
 	union
 	{
-		CHAR *name;
+		char *name;
 		struct
 		{
-			CHAR *pointer;
+			char *pointer;
 			unsigned short length;
 			unsigned short flags;
 		} data;

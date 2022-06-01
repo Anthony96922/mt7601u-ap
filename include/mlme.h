@@ -1139,7 +1139,7 @@ typedef struct {
 	unsigned char			AddHtInfoLen;
 	EXT_CAP_INFO_ELEMENT ExtCapInfo;	/* this is the extened capibility IE appreed in MGMT frames. Doesn't need to update once set in Init. */
 	unsigned char			NewExtChanOffset;
-	CHAR    Rssi;
+	char    Rssi;
 
 #ifdef DOT11_VHT_AC
 	unsigned char vht_cap_len;
@@ -1149,7 +1149,7 @@ typedef struct {
 #endif /* DOT11_VHT_AC */
 
 
-	CHAR	MinSNR;	
+	char	MinSNR;	
     unsigned char   Privacy;			/* Indicate security function ON/OFF. Don't mess up with auth mode. */
 	unsigned char	Hidden;
 
@@ -1161,7 +1161,7 @@ typedef struct {
     unsigned short  CfpMaxDuration;
     unsigned short  CfpDurRemaining;
     unsigned char   SsidLen;
-    CHAR    Ssid[MAX_LEN_OF_SSID];
+    char    Ssid[MAX_LEN_OF_SSID];
     
 	unsigned char	SameRxTimeCount;
 	unsigned long   LastBeaconRxTimeA; /* OS's timestamp */
@@ -1391,11 +1391,11 @@ typedef struct _MLME_SCAN_REQ_STRUCT {
     unsigned char      BssType;
     unsigned char      ScanType;
     unsigned char      SsidLen;
-    CHAR       Ssid[MAX_LEN_OF_SSID];
+    char       Ssid[MAX_LEN_OF_SSID];
 } MLME_SCAN_REQ_STRUCT, *PMLME_SCAN_REQ_STRUCT;
 
 typedef struct _MLME_START_REQ_STRUCT {
-    CHAR        Ssid[MAX_LEN_OF_SSID];
+    char        Ssid[MAX_LEN_OF_SSID];
     unsigned char       SsidLen;
 } MLME_START_REQ_STRUCT, *PMLME_START_REQ_STRUCT;
 
@@ -1471,7 +1471,7 @@ typedef struct _IE_lists {
 typedef struct _bcn_ie_list {
 	unsigned char Addr2[MAC_ADDR_LEN]; 
 	unsigned char Bssid[MAC_ADDR_LEN];
-	CHAR Ssid[MAX_LEN_OF_SSID];
+	char Ssid[MAX_LEN_OF_SSID];
 	unsigned char SsidLen;
 	unsigned char BssType;
 	unsigned short BeaconPeriod;

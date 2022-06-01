@@ -336,7 +336,7 @@ static bool	WscProcessCredential(
 						break;
 				}
 				pProfile->Profile[CurrentIdx].SSID.SsidLength = Idx;
-				if (RTMPCheckStrPrintAble((CHAR *)pData, Idx) || (pWscControl->bCheckMultiByte == FALSE))
+				if (RTMPCheckStrPrintAble((char *)pData, Idx) || (pWscControl->bCheckMultiByte == FALSE))
 					NdisMoveMemory(pProfile->Profile[CurrentIdx].SSID.Ssid, pData, pProfile->Profile[CurrentIdx].SSID.SsidLength);
 				else
 					return FALSE;
@@ -361,7 +361,7 @@ static bool	WscProcessCredential(
 				if (WscLen == 0)
 					break;
 				
-				if (RTMPCheckStrPrintAble((CHAR *)pData, WscLen) || (pWscControl->bCheckMultiByte == FALSE))
+				if (RTMPCheckStrPrintAble((char *)pData, WscLen) || (pWscControl->bCheckMultiByte == FALSE))
 				{
 					pProfile->Profile[CurrentIdx].KeyLength = WscLen;
 					NdisMoveMemory(pProfile->Profile[CurrentIdx].Key, pData, pProfile->Profile[CurrentIdx].KeyLength);

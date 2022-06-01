@@ -257,7 +257,7 @@ INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
 NDIS_STATUS AsicBBPWriteWithRxChain(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char bbpId,
-	IN CHAR bbpVal,
+	IN char bbpVal,
 	IN RX_CHAIN_IDX rx_ch_idx)
 {
 	unsigned char idx = 0, val = 0;
@@ -302,7 +302,7 @@ NDIS_STATUS AsicBBPWriteWithRxChain(
 NDIS_STATUS AsicBBPReadWithRxChain(
 	IN RTMP_ADAPTER *pAd, 
 	IN unsigned char bbpId, 
-	IN CHAR *pBbpVal,
+	IN char *pBbpVal,
 	IN RX_CHAIN_IDX rx_ch_idx)
 {
 	unsigned char idx, val;
@@ -343,7 +343,7 @@ NDIS_STATUS AsicBBPReadWithRxChain(
 }
 
 
-INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, CHAR *agc, RX_CHAIN_IDX idx)
+INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX idx)
 {
 	return AsicBBPReadWithRxChain(pAd, BBP_R66, agc, idx);
 }

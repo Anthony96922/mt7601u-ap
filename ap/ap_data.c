@@ -4936,7 +4936,7 @@ if (0 /*!(pRxInfo->Mcast || pRxInfo->Bcast)*/){
 #ifdef DOT11N_SS3_SUPPORT
 	pAd->ApCfg.LastSNR2 = (unsigned char)(pRxWI->RxWISNR2);
 #endif /* DOT11N_SS3_SUPPORT */
-	pEntry->freqOffset = (CHAR)(pRxWI->RxWIFOFFSET);
+	pEntry->freqOffset = (char)(pRxWI->RxWIFOFFSET);
 	pEntry->freqOffsetValid = TRUE;
 
 
@@ -5429,7 +5429,7 @@ if (0 /*!(pRxInfo->Mcast || pRxInfo->Bcast)*/){
 #ifdef DOT11N_SS3_SUPPORT
 	pAd->ApCfg.LastSNR2 = (unsigned char)(pRxWI->RxWISNR2);
 #endif /* DOT11N_SS3_SUPPORT */
-	pEntry->freqOffset = (CHAR)(pRxWI->RxWIFOFFSET);
+	pEntry->freqOffset = (char)(pRxWI->RxWIFOFFSET);
 	pEntry->freqOffsetValid = TRUE;
 
 
@@ -5882,9 +5882,9 @@ if (0) {
 					/*printk("Receive sounding response\n"); */
 					if (pAd->ate.sounding == 1) {
 						int i, Nc = ((pRxBlk ->pData)[2] & 0x3) + 1;
-						pAd->ate.soundingSNR[0] = (CHAR)((pRxBlk ->pData)[8]);
-						pAd->ate.soundingSNR[1] = (Nc<2)? 0: (CHAR)((pRxBlk ->pData)[9]);
-						pAd->ate.soundingSNR[2] = (Nc<3)? 0: (CHAR)((pRxBlk ->pData)[10]);
+						pAd->ate.soundingSNR[0] = (char)((pRxBlk ->pData)[8]);
+						pAd->ate.soundingSNR[1] = (Nc<2)? 0: (char)((pRxBlk ->pData)[9]);
+						pAd->ate.soundingSNR[2] = (Nc<3)? 0: (char)((pRxBlk ->pData)[10]);
 						pAd->ate.sounding = 2;
 						pAd->ate.soundingRespSize = pRxBlk->DataSize;
 						for (i=0; i<pRxBlk->DataSize && i<MAX_SOUNDING_RESPONSE_SIZE; i++)
@@ -6079,9 +6079,9 @@ bool APHandleRxDonePacket(
 				{
 					int i, Nc = ((pRxBlk ->pData)[2] & 0x3) + 1;
 
-					pAd->ate.soundingSNR[0] = (CHAR)((pRxBlk ->pData)[8]);
-					pAd->ate.soundingSNR[1] = (Nc<2)? 0: (CHAR)((pRxBlk ->pData)[9]);
-					pAd->ate.soundingSNR[2] = (Nc<3)? 0: (CHAR)((pRxBlk ->pData)[10]);
+					pAd->ate.soundingSNR[0] = (char)((pRxBlk ->pData)[8]);
+					pAd->ate.soundingSNR[1] = (Nc<2)? 0: (char)((pRxBlk ->pData)[9]);
+					pAd->ate.soundingSNR[2] = (Nc<3)? 0: (char)((pRxBlk ->pData)[10]);
 					pAd->ate.sounding = 2;
 					pAd->ate.soundingRespSize = pRxBlk->DataSize;
 

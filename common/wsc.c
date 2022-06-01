@@ -6956,7 +6956,7 @@ void    WscWriteConfToApCliCfg(
 	            }
 	            else if (pCredential->EncrType == WSC_ENCRTYPE_WEP)
 	            {
-				CHAR   WepKeyId = 0;
+				char   WepKeyId = 0;
 				unsigned short  WepKeyLen = pCredential->KeyLength;
 				
 				WepKeyId = (pCredential->KeyIndex - 1); /* KeyIndex = 1 ~ 4 */
@@ -8363,7 +8363,7 @@ NDIS_STATUS WscThreadInit(RTMP_ADAPTER *pAd)
 	status = RtmpOSTaskAttach(pTask, wsc_write_dat_file_thread, (unsigned long)&pAd->wscTask);
 	if (status == NDIS_STATUS_SUCCESS)
 	{
-		os_alloc_mem(NULL, &pAd->pHmacData, sizeof(CHAR)*(2048));
+		os_alloc_mem(NULL, &pAd->pHmacData, sizeof(char)*(2048));
 		if (pAd->pHmacData == NULL)
 		{
 			DBGPRINT(RT_DEBUG_ERROR, ("Wsc HmacData memory alloc failed!\n"));

@@ -72,15 +72,15 @@ typedef struct _ATE_INFO {
 #ifdef RT3350
 	unsigned char   PABias;
 #endif /* RT3350 */
-	CHAR TxPower0;
-	CHAR TxPower1;
+	char TxPower0;
+	char TxPower1;
 #ifdef DOT11N_SS3_SUPPORT
-	CHAR TxPower2;
+	char TxPower2;
 #endif /* DOT11N_SS3_SUPPORT */
-	CHAR MinTxPowerBandA; /* Power range of early chipsets is -7~15 in A band */
-	CHAR MaxTxPowerBandA; /* Power range of early chipsets is -7~15 in A band */
-	CHAR TxAntennaSel;
-	CHAR RxAntennaSel;
+	char MinTxPowerBandA; /* Power range of early chipsets is -7~15 in A band */
+	char MaxTxPowerBandA; /* Power range of early chipsets is -7~15 in A band */
+	char TxAntennaSel;
+	char RxAntennaSel;
 	TXWI_STRUC TxWI;	/* TXWI */
 	unsigned short QID;
 	unsigned char Addr1[MAC_ADDR_LEN];
@@ -102,8 +102,8 @@ typedef struct _ATE_INFO {
 #ifdef RTMP_INTERNAL_TX_ALC
 #if defined(RT3350) || defined(RT3352)
 	bool bTSSICalbrEnableG; /* Enable TSSI calibration */
-	CHAR	TssiRefPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
-	CHAR	TssiDeltaPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
+	char	TssiRefPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
+	char	TssiDeltaPerChannel[CFG80211_NUM_OF_CHAN_2GHZ];
 #endif /* defined(RT3350) || defined(RT3352) */
 #endif /* RTMP_INTERNAL_TX_ALC */
 #ifdef TXBF_SUPPORT
@@ -115,17 +115,17 @@ typedef struct _ATE_INFO {
 	unsigned int RxCntPerSec;
 	unsigned char	forceBBPReg;	/* force to not update the specific BBP register, now used for ATE TxBF */
 
-	CHAR LastSNR0;		/* last received SNR */
-	CHAR LastSNR1;		/* last received SNR for 2nd  antenna */
+	char LastSNR0;		/* last received SNR */
+	char LastSNR1;		/* last received SNR for 2nd  antenna */
 #ifdef DOT11N_SS3_SUPPORT
-	CHAR LastSNR2;
+	char LastSNR2;
 #endif				/* DOT11N_SS3_SUPPORT */
-	CHAR LastRssi0;		/* last received RSSI */
-	CHAR LastRssi1;		/* last received RSSI for 2nd  antenna */
-	CHAR LastRssi2;		/* last received RSSI for 3rd  antenna */
-	CHAR AvgRssi0;		/* last 8 frames' average RSSI */
-	CHAR AvgRssi1;		/* last 8 frames' average RSSI */
-	CHAR AvgRssi2;		/* last 8 frames' average RSSI */
+	char LastRssi0;		/* last received RSSI */
+	char LastRssi1;		/* last received RSSI for 2nd  antenna */
+	char LastRssi2;		/* last received RSSI for 3rd  antenna */
+	char AvgRssi0;		/* last 8 frames' average RSSI */
+	char AvgRssi1;		/* last 8 frames' average RSSI */
+	char AvgRssi2;		/* last 8 frames' average RSSI */
 	SHORT AvgRssi0X8;	/* sum of last 8 frames' RSSI */
 	SHORT AvgRssi1X8;	/* sum of last 8 frames' RSSI */
 	SHORT AvgRssi2X8;	/* sum of last 8 frames' RSSI */
@@ -171,7 +171,7 @@ typedef struct _ATE_INFO {
 #define MAX_SOUNDING_RESPONSE_SIZE	(57*2*2*9+3+2+6)	/* Assume 114 carriers (40MHz), 3x3, 8bits/coeff, + SNR + HT HEADER + MIMO CONTROL FIELD */
 	unsigned char sounding;
 	unsigned int sounding_jiffies;
-	CHAR soundingSNR[3];
+	char soundingSNR[3];
 	unsigned int LastRxRate;
 	unsigned int LastTxRate;
 	unsigned int soundingRespSize;	/* Size of Sounding response */
@@ -492,19 +492,19 @@ INT RT335x_Set_ATE_TSSI_CALIBRATION_ENABLE_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-CHAR InsertTssi(
+char InsertTssi(
 	IN unsigned char InChannel,
 	IN unsigned char Channel0,
 	IN unsigned char Channel1,
-	IN CHAR Tssi0,
-	IN CHAR Tssi1);
+	IN char Tssi0,
+	IN char Tssi1);
 
 INT RT335xATETssiCalibrationExtend(
 	IN struct _RTMP_ADAPTER		*pAd,
 	IN char *					arg);
 #endif /* defined(RT3350) || defined(RT3352) */
 
-CHAR ATEGetDesiredTSSI(
+char ATEGetDesiredTSSI(
 	IN PRTMP_ADAPTER		pAd);
 
 #endif /* RTMP_INTERNAL_TX_ALC */
@@ -772,7 +772,7 @@ VOID ReadQATxTypeFromBBP(
 NDIS_STATUS ATEBBPWriteWithRxChain(
  IN RTMP_ADAPTER *pAd,
  IN unsigned char bbpId,
- IN CHAR bbpVal,
+ IN char bbpVal,
  IN RX_CHAIN_IDX rx_ch_idx);
 
 

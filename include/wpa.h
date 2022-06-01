@@ -410,7 +410,7 @@ VOID CalculateMIC(
 	OUT PEAPOL_PACKET pMsg);
 
 char * GetEapolMsgType(
-	CHAR msg);
+	char msg);
 
 
 /* 

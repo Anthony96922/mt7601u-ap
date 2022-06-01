@@ -45,7 +45,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 	unsigned char UpRateIdx, DownRateIdx, CurrRateIdx;
 	MAC_TABLE_ENTRY *pEntry;
 	RTMP_RA_LEGACY_TB *pCurrTxRate, *pTmpTxRate = NULL;
-	CHAR Rssi, TmpIdx = 0;
+	char Rssi, TmpIdx = 0;
 	unsigned long TxTotalCnt, TxErrorRatio = 0, TxSuccess, TxRetransmit, TxFailCount;
 
 
@@ -164,7 +164,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 		pEntry->LastTimeTxRateChangeAction = pEntry->LastSecTxRateChangeAction;
 
 		/* different calculation in APQuickResponeForRateUpExec() */
-		/* Rssi = RTMPMaxRssi(pAd, (CHAR)pEntry->RssiSample.AvgRssi0, (CHAR)pEntry->RssiSample.AvgRssi1, (CHAR)pEntry->RssiSample.AvgRssi2); */
+		/* Rssi = RTMPMaxRssi(pAd, (char)pEntry->RssiSample.AvgRssi0, (char)pEntry->RssiSample.AvgRssi1, (char)pEntry->RssiSample.AvgRssi2); */
 		Rssi = RTMPAvgRssi(pAd, &pEntry->RssiSample);
 
 		CurrRateIdx = UpRateIdx = DownRateIdx = pEntry->CurrTxRateIndex;
@@ -318,7 +318,7 @@ VOID APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
         if (TxTotalCnt <= 15)
         {
 			unsigned char	TxRateIdx;
-			CHAR	mcs[24];
+			char	mcs[24];
 
 			/* Check existence and get the index of each MCS */
 			MlmeGetSupportedMcs(pAd, pTable, mcs);
@@ -428,7 +428,7 @@ VOID APQuickResponeForRateUpExec(
 	MAC_TABLE_ENTRY			*pEntry;
 	RTMP_RA_LEGACY_TB *pCurrTxRate;
 	unsigned char					InitTxRateIdx, TrainUp, TrainDown;
-	CHAR					Rssi, ratio;
+	char					Rssi, ratio;
 	unsigned long					TxSuccess, TxRetransmit, TxFailCount;
 #ifdef TXBF_SUPPORT
 	bool					CurrPhyETxBf, CurrPhyITxBf;
@@ -478,7 +478,7 @@ VOID APQuickResponeForRateUpExec(
 		}
 #endif /* NEW_RATE_ADAPT_SUPPORT */
 
-    	/*Rssi = RTMPMaxRssi(pAd, (CHAR)pEntry->RssiSample.AvgRssi0, (CHAR)pEntry->RssiSample.AvgRssi1, (CHAR)pEntry->RssiSample.AvgRssi2); */
+    	/*Rssi = RTMPMaxRssi(pAd, (char)pEntry->RssiSample.AvgRssi0, (char)pEntry->RssiSample.AvgRssi1, (char)pEntry->RssiSample.AvgRssi2); */
 		Rssi = RTMPAvgRssi(pAd, &pEntry->RssiSample);
 
 

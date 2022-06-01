@@ -1828,7 +1828,7 @@ static unsigned char GetExtCh(
 	IN unsigned char Channel,
 	IN unsigned char Direction)
 {
-	CHAR ExtCh;
+	char ExtCh;
 
 	if (Direction == EXTCHA_ABOVE)
 		ExtCh = Channel + 4;

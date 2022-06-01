@@ -10,7 +10,7 @@ unsigned char GetRegulatoryMaxTxPwr(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char channel);
 
-CHAR RTMP_GetTxPwr(
+char RTMP_GetTxPwr(
 	IN PRTMP_ADAPTER pAd,
 	IN HTTRANSMIT_SETTING HTTxMode);
 

@@ -85,7 +85,7 @@ VOID APPeerProbeReqAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	unsigned char Addr2[MAC_ADDR_LEN];
-	CHAR Ssid[MAX_LEN_OF_SSID];
+	char Ssid[MAX_LEN_OF_SSID];
 	unsigned char SsidLen;
 	HEADER_802_11 ProbeRspHdr;
 	NDIS_STATUS NStatus;
@@ -627,7 +627,7 @@ VOID APPeerBeaconAction(
 	IN MLME_QUEUE_ELEM *Elem) {
 		unsigned char Rates[MAX_LEN_OF_SUPPORTED_RATES], *pRates = NULL, RatesLen;
 		bool LegacyBssExist;
-		CHAR RealRssi;
+		char RealRssi;
 		unsigned char *VarIE = NULL;
 		unsigned short LenVIE;
 		NDIS_802_11_VARIABLE_IEs *pVIE = NULL;
@@ -678,7 +678,7 @@ VOID APPeerBeaconAction(
 
 #ifdef IDS_SUPPORT
 		/* Conflict SSID detection */
-		RTMPConflictSsidDetection(pAd, (unsigned char *)ie_list->Ssid, ie_list->SsidLen, (CHAR)Elem->Rssi0, (CHAR)Elem->Rssi1, (CHAR)Elem->Rssi2, Elem->AntSel);
+		RTMPConflictSsidDetection(pAd, (unsigned char *)ie_list->Ssid, ie_list->SsidLen, (char)Elem->Rssi0, (char)Elem->Rssi1, (char)Elem->Rssi2, Elem->AntSel);
 #endif /* IDS_SUPPORT */
 
 #ifdef DOT11_N_SUPPORT
@@ -980,7 +980,7 @@ VOID APPeerBeaconAtScanAction(
 	unsigned char *VarIE = NULL;
 	unsigned short LenVIE;
 	NDIS_802_11_VARIABLE_IEs *pVIE = NULL;
-	CHAR RealRssi = -127;
+	char RealRssi = -127;
 
 	BCN_IE_LIST *ie_list = NULL;
 
@@ -1008,7 +1008,7 @@ VOID APPeerBeaconAtScanAction(
 					Elem->Msg, Elem->MsgLen, Elem->Channel,
 					ie_list, &LenVIE, pVIE)) {
 		unsigned long Idx;
-		CHAR  Rssi = -127;
+		char  Rssi = -127;
 
 		RealRssi = RTMPMaxRssi(pAd, ConvertToRssi(pAd, Elem->Rssi0, RSSI_0, Elem->AntSel, BW_20),
 								ConvertToRssi(pAd, Elem->Rssi1, RSSI_1, Elem->AntSel, BW_20),
@@ -1070,7 +1070,7 @@ IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		if (AutoChBssSearchWithSSID(pAd, ie_list->Bssid, (unsigned char *)ie_list->Ssid, ie_list->SsidLen, ie_list->Channel) == BSS_NOT_FOUND)
 			pAd->pChannelInfo->ApCnt[pAd->ApCfg.current_channel_index]++;
 
-		AutoChBssInsertEntry(pAd, ie_list->Bssid, (CHAR *)ie_list->Ssid, ie_list->SsidLen, ie_list->Channel, ie_list->NewExtChannelOffset, RealRssi);   
+		AutoChBssInsertEntry(pAd, ie_list->Bssid, (char *)ie_list->Ssid, ie_list->SsidLen, ie_list->Channel, ie_list->NewExtChannelOffset, RealRssi);   
 	}
 }
 #endif /* CONFIG_AP_SUPPORT */

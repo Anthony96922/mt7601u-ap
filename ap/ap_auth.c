@@ -220,7 +220,7 @@ static VOID APPeerAuthReqAtIdleAction(
 	unsigned short Seq, Alg, RspReason, Status;
 	unsigned char Addr1[MAC_ADDR_LEN];
 	unsigned char Addr2[MAC_ADDR_LEN];
-	CHAR Chtxt[CIPHER_TEXT_LEN];
+	char Chtxt[CIPHER_TEXT_LEN];
 	unsigned int apidx;
 
 	PHEADER_802_11 pRcvHdr;
@@ -406,7 +406,7 @@ static VOID APPeerAuthConfirmAction(
 	unsigned short          Seq, Alg, Status;
 	unsigned char           Addr2[MAC_ADDR_LEN];
 	PHEADER_802_11  pRcvHdr;
-	CHAR            Chtxt[CIPHER_TEXT_LEN];
+	char            Chtxt[CIPHER_TEXT_LEN];
 	MAC_TABLE_ENTRY *pEntry;
 	unsigned char			Addr1[MAC_ADDR_LEN];
 	unsigned int			apidx;

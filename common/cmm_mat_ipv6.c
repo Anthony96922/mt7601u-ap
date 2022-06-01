@@ -623,7 +623,7 @@ static unsigned char * MATProto_IPv6_Tx(
 	
 	needUpdate = needUpdateIPv6MacTB(pSrcMac, (RT_IPV6_ADDR *)(&pIPv6Hdr->srcAddr));
 	if (needUpdate)
-		IPv6MacTableUpdate(pMatCfg, pSrcMac, (CHAR *)(&pIPv6Hdr->srcAddr));
+		IPv6MacTableUpdate(pMatCfg, pSrcMac, (char *)(&pIPv6Hdr->srcAddr));
 
 
 	/* We need to traverse the whole IPv6 Header and extend headers to check about the ICMPv6 pacekt. */

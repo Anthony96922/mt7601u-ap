@@ -75,7 +75,7 @@ unsigned char ZERO_MAC_ADDR[MAC_ADDR_LEN]  = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 /*		this value, then it's quaranteed capable of operating in 36 mbps TX rate in*/
 /*		clean environment.*/
 /*								  TxRate: 1   2   5.5	11	 6	  9    12	18	 24   36   48	54	 72  100*/
-CHAR RssiSafeLevelForTxRate[] ={  -92, -91, -90, -87, -88, -86, -85, -83, -81, -78, -72, -71, -40, -40 };
+char RssiSafeLevelForTxRate[] ={  -92, -91, -90, -87, -88, -86, -85, -83, -81, -78, -72, -71, -40, -40 };
 
 unsigned char  RateIdToMbps[]	 = { 1, 2, 5, 11, 6, 9, 12, 18, 24, 36, 48, 54, 72, 100};
 unsigned short RateIdTo500Kbps[] = { 2, 4, 11, 22, 12, 18, 24, 36, 48, 72, 96, 108, 144, 200};
@@ -911,7 +911,7 @@ VOID MlmeCalculateChannelQuality(
 	unsigned long TxOkCnt, TxCnt, TxPER, TxPRR;
 	unsigned long RxCnt, RxPER;
 	unsigned char NorRssi;
-	CHAR  MaxRssi;
+	char  MaxRssi;
 	RSSI_SAMPLE *pRssiSample = NULL;
 	unsigned int OneSecTxNoRetryOkCount = 0;
 	unsigned int OneSecTxRetryOkCount = 0;
@@ -1889,7 +1889,7 @@ VOID BssEntrySet(
 	IN PRTMP_ADAPTER	pAd, 
 	OUT BSS_ENTRY *pBss, 
 	IN BCN_IE_LIST *ie_list,
-	IN CHAR Rssi,
+	IN char Rssi,
 	IN unsigned short LengthVIE,	
 	IN PNDIS_802_11_VARIABLE_IEs pVIE) 
 {
@@ -2102,7 +2102,7 @@ unsigned long BssTableSetEntry(
 	IN PRTMP_ADAPTER pAd,
 	OUT BSS_TABLE *Tab,
 	IN BCN_IE_LIST *ie_list,
-	IN CHAR Rssi,
+	IN char Rssi,
 	IN unsigned short LengthVIE,	
 	IN PNDIS_802_11_VARIABLE_IEs pVIE)
 {
@@ -3544,11 +3544,11 @@ VOID RTMPUpdateMlmeRate(
 }
 
 
-CHAR RTMPAvgRssi(
+char RTMPAvgRssi(
 	IN PRTMP_ADAPTER	pAd,
 	IN RSSI_SAMPLE 		*pRssi)
 {
-	CHAR Rssi;
+	char Rssi;
 
 	if(pAd->Antenna.field.RxPath == 3)
 	{
@@ -3567,13 +3567,13 @@ CHAR RTMPAvgRssi(
 }
 
 
-CHAR RTMPMaxRssi(
+char RTMPMaxRssi(
 	IN PRTMP_ADAPTER	pAd,
-	IN CHAR				Rssi0,
-	IN CHAR				Rssi1,
-	IN CHAR				Rssi2)
+	IN char				Rssi0,
+	IN char				Rssi1,
+	IN char				Rssi2)
 {
-	CHAR	larger = -127;
+	char	larger = -127;
 	
 	if ((pAd->Antenna.field.RxPath == 1) && (Rssi0 != 0))
 	{
@@ -3597,12 +3597,12 @@ CHAR RTMPMaxRssi(
 }
 
 
-CHAR RTMPMinSnr(
+char RTMPMinSnr(
 	IN PRTMP_ADAPTER	pAd,
-	IN CHAR				Snr0,
-	IN CHAR				Snr1)
+	IN char				Snr0,
+	IN char				Snr1)
 {
-	CHAR	smaller = Snr0;
+	char	smaller = Snr0;
 	
 	if (pAd->Antenna.field.RxPath == 1) 
 	{

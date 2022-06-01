@@ -71,11 +71,11 @@ unsigned long AutoChBssSearchWithSSID(
 static inline VOID AutoChBssEntrySet(
 	OUT BSSENTRY *pBss, 
 	IN unsigned char * pBssid, 
-	IN CHAR Ssid[], 
+	IN char Ssid[], 
 	IN unsigned char SsidLen, 
 	IN unsigned char Channel,
 	IN unsigned char ExtChOffset,
-	IN CHAR Rssi)
+	IN char Rssi)
 {
 	COPY_MAC_ADDR(pBss->Bssid, pBssid);
 	if (SsidLen > 0)
@@ -840,11 +840,11 @@ static inline unsigned char SelectClearChannelApCnt(
 unsigned long AutoChBssInsertEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pBssid,
-	IN CHAR Ssid[],
+	IN char Ssid[],
 	IN unsigned char SsidLen, 
 	IN unsigned char ChannelNo,
 	IN unsigned char ExtChOffset,
-	IN CHAR Rssi)
+	IN char Rssi)
 {
 	unsigned long	Idx;
 	PBSSINFO pBssInfoTab = pAd->pBssInfoTab;

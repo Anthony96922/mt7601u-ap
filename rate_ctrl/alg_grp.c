@@ -292,9 +292,9 @@ VOID MlmeGetSupportedMcsAdapt(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char mcs23GI,
-	OUT CHAR mcs[])
+	OUT char mcs[])
 {
-	CHAR idx;
+	char idx;
 	RTMP_RA_GRP_TB *pCurrTxRate;
 	unsigned char *pTable = pEntry->pTable;
 
@@ -425,9 +425,9 @@ VOID MlmeGetSupportedMcsAdapt(
 unsigned char MlmeSelectTxRateAdapt(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
-	IN CHAR		mcs[],
-	IN CHAR		Rssi,
-	IN CHAR		RssiOffset)
+	IN char		mcs[],
+	IN char		Rssi,
+	IN char		RssiOffset)
 {
 	unsigned char TxRateIdx = 0;
 	unsigned char *pTable = pEntry->pTable;
@@ -976,7 +976,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
 	MAC_TABLE_ENTRY			*pEntry;
 	RTMP_RA_GRP_TB *pCurrTxRate;
 	unsigned char					TrainUp, TrainDown;
-	CHAR					Rssi, ratio;
+	char					Rssi, ratio;
 	unsigned long					TxSuccess, TxRetransmit, TxFailCount;
 	unsigned long					OneSecTxNoRetryOKRationCount;
 	bool					rateChanged;
@@ -989,7 +989,7 @@ VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
 
 	pTable = pEntry->pTable;
 
-	/* Rssi = RTMPMaxRssi(pAd, (CHAR)pEntry->RssiSample.AvgRssi0, (CHAR)pEntry->RssiSample.AvgRssi1, (CHAR)pEntry->RssiSample.AvgRssi2); */
+	/* Rssi = RTMPMaxRssi(pAd, (char)pEntry->RssiSample.AvgRssi0, (char)pEntry->RssiSample.AvgRssi1, (char)pEntry->RssiSample.AvgRssi2); */
 	Rssi = RTMPAvgRssi(pAd, &pEntry->RssiSample);
 
 	if (pAd->MacTab.Size == 1)
@@ -1295,7 +1295,7 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 	unsigned long TxTotalCnt, TxSuccess, TxRetransmit, TxFailCount, TxErrorRatio;
 	MAC_TABLE_ENTRY *pEntry;
 	RTMP_RA_GRP_TB *pCurrTxRate;
-	CHAR Rssi;
+	char Rssi;
 
 
 	pEntry = &pAd->MacTab.Content[i]; /* point to information of the individual station */
@@ -1357,7 +1357,7 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 	pEntry->LastTimeTxRateChangeAction = pEntry->LastSecTxRateChangeAction;
 
 	/* different calculation in APQuickResponeForRateUpExec() */
-	/* Rssi = RTMPMaxRssi(pAd, (CHAR)pEntry->RssiSample.AvgRssi0, (CHAR)pEntry->RssiSample.AvgRssi1, (CHAR)pEntry->RssiSample.AvgRssi2); */
+	/* Rssi = RTMPMaxRssi(pAd, (char)pEntry->RssiSample.AvgRssi0, (char)pEntry->RssiSample.AvgRssi1, (char)pEntry->RssiSample.AvgRssi2); */
 	Rssi = RTMPAvgRssi(pAd, &pEntry->RssiSample);
 
 	/*  decide the next upgrade rate and downgrade rate, if any */
@@ -1422,8 +1422,8 @@ VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 		if (pEntry->lowTrafficCount >= pAd->CommonCfg.lowTrafficThrd)
 		{
 			unsigned char TxRateIdx;
-			CHAR mcs[24];
-			CHAR RssiOffset = 0;
+			char mcs[24];
+			char RssiOffset = 0;
 
 			pEntry->lowTrafficCount = 0;
 

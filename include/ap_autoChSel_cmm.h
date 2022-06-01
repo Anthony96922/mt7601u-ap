@@ -39,10 +39,10 @@ typedef struct {
 typedef struct {
 	unsigned char Bssid[MAC_ADDR_LEN];
 	unsigned char SsidLen;
-	CHAR Ssid[MAX_LEN_OF_SSID];
+	char Ssid[MAX_LEN_OF_SSID];
 	unsigned char Channel;
 	unsigned char ExtChOffset;
-	CHAR Rssi;
+	char Rssi;
 } BSSENTRY, *PBSSENTRY;
 
 typedef struct {

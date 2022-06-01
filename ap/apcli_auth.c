@@ -261,7 +261,7 @@ static VOID ApCliPeerAuthRspAtSeq2Action(
 		return;
 	}
 
-	if(PeerAuthSanity(pAd, Elem->Msg, Elem->MsgLen, Addr2, &Alg, &Seq, &Status, (CHAR *) ChlgText))
+	if(PeerAuthSanity(pAd, Elem->Msg, Elem->MsgLen, Addr2, &Alg, &Seq, &Status, (char *) ChlgText))
 	{
 		if(MAC_ADDR_EQUAL(pAd->ApCliMlmeAux.Bssid, Addr2) && Seq == 2)
 		{
@@ -390,7 +390,7 @@ static VOID ApCliPeerAuthRspAtSeq4Action(
 	bool     Cancelled;
 	unsigned char       Addr2[MAC_ADDR_LEN];
 	unsigned short      Alg, Seq, Status;
-	CHAR        ChlgText[CIPHER_TEXT_LEN];
+	char        ChlgText[CIPHER_TEXT_LEN];
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;

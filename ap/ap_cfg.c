@@ -3262,7 +3262,7 @@ INT RTMPAPQueryInformation(
 
 		case RT_OID_VERSION_INFO:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_VERSION_INFO \n"));
-			wrq->u.data.length = 8*sizeof(CHAR);
+			wrq->u.data.length = 8*sizeof(char);
 			snprintf(&driverVersion[0], sizeof(driverVersion), "%s", AP_DRIVER_VERSION);
 			driverVersion[7] = '\0';
 			if (copy_to_user(wrq->u.data.pointer, &driverVersion, wrq->u.data.length))
@@ -6462,7 +6462,7 @@ VOID RTMPAPIoctlBBP32(
 
 
 
-	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(CHAR)*(MAX_BBP_MSG_SIZE * 2 +256+12));
+	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(char)*(MAX_BBP_MSG_SIZE * 2 +256+12));
 	if (mpool == NULL) {
 		return;
 	}
@@ -6641,7 +6641,7 @@ VOID RTMPAPIoctlBBP(
 	}
 #endif /* RT65xx */
 
-	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(CHAR)*(MAX_BBP_MSG_SIZE+256+12));
+	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(char)*(MAX_BBP_MSG_SIZE+256+12));
 	if (mpool == NULL) {
 		return;
 	}
@@ -6848,7 +6848,7 @@ VOID RTMPAPIoctlMAC(
 
 
 
-	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(CHAR)*(4096+256+12));
+	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(char)*(4096+256+12));
 	if (!mpool)
 		return;
 
@@ -7068,7 +7068,7 @@ VOID RTMPAPIoctlRF(
 	INT				rfId, maxRFIdx, bank_Id;
 /*	LONG				rfValue;*/
 	bool				bIsPrintAllRF = TRUE, bFromUI;
-	INT				memLen = sizeof(CHAR) * (2048+256+12);
+	INT				memLen = sizeof(char) * (2048+256+12);
 	INT				argLen;
 	
 	maxRFIdx = pAdapter->chipCap.MaxNumOfRfId;
@@ -7156,8 +7156,8 @@ VOID RTMPAPIoctlE2PROM(
 	unsigned short				eepValue;
 	bool				bIsPrintAllE2PROM = FALSE;
 
-/*	mpool = (char *)kmalloc(sizeof(CHAR)*(4096+256+12), MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(CHAR)*(4096+256+12));
+/*	mpool = (char *)kmalloc(sizeof(char)*(4096+256+12), MEM_ALLOC_FLAG); */
+	os_alloc_mem(NULL, (unsigned char **)&mpool, sizeof(char)*(4096+256+12));
 
 	if (mpool == NULL) {
 		return;
@@ -7355,8 +7355,8 @@ VOID RTMPIoctlStatistics(
 	unsigned int efusefreenum=0;
 #endif /* RTMP_EFUSE_SUPPORT */
 
-/*	msg = (char *)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
-	os_alloc_mem(pAd, (unsigned char **)&msg, sizeof(CHAR)*(2048));
+/*	msg = (char *)kmalloc(sizeof(char)*(2048), MEM_ALLOC_FLAG); */
+	os_alloc_mem(pAd, (unsigned char **)&msg, sizeof(char)*(2048));
 	if (msg == NULL) {
 		return;
 	}
@@ -8993,8 +8993,8 @@ VOID RTMPIoctlWscProfile(
 		DBGPRINT(RT_DEBUG_TRACE, ("%s: copy_to_user() fail\n", __FUNCTION__));
 	}
 
-/*	msg = (char *)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
-	os_alloc_mem(pAd, (unsigned char **)&msg, sizeof(CHAR)*(2048));
+/*	msg = (char *)kmalloc(sizeof(char)*(2048), MEM_ALLOC_FLAG); */
+	os_alloc_mem(pAd, (unsigned char **)&msg, sizeof(char)*(2048));
 	if (msg == NULL) {
 		return;
 	}
@@ -9124,8 +9124,8 @@ VOID RTMPAR9IoctlWscProfile(
 	}
 
 
-/*	msg = (char *)kmalloc(sizeof(CHAR)*(2048), MEM_ALLOC_FLAG); */
-	os_alloc_mem(pAd, (unsigned char **)&msg, sizeof(CHAR)*(2048));
+/*	msg = (char *)kmalloc(sizeof(char)*(2048), MEM_ALLOC_FLAG); */
+	os_alloc_mem(pAd, (unsigned char **)&msg, sizeof(char)*(2048));
 	if (msg == NULL) {
 		return;
 	}
@@ -9192,8 +9192,8 @@ VOID RTMPIoctlWscPINCode(
 	unsigned char	    apidx = pObj->ioctl_if;
 	unsigned char        tempPIN[9]={0};
 
-/*	msg = (char *)kmalloc(sizeof(CHAR)*(128), MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(CHAR)*(128));
+/*	msg = (char *)kmalloc(sizeof(char)*(128), MEM_ALLOC_FLAG); */
+	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(char)*(128));
 	if (msg == NULL) {
 		return;
 	}
@@ -9226,8 +9226,8 @@ VOID RTMPIoctlWscStatus(
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	unsigned char	    apidx = pObj->ioctl_if;
 
-/*	msg = (char *)kmalloc(sizeof(CHAR)*(128), MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(CHAR)*(128));
+/*	msg = (char *)kmalloc(sizeof(char)*(128), MEM_ALLOC_FLAG); */
+	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(char)*(128));
 	if (msg == NULL) {
 		return;
 	}
@@ -9254,8 +9254,8 @@ VOID RTMPIoctlGetWscDynInfo(
 	INT apidx,configstate;
 
 
-/*	msg = kmalloc(sizeof(CHAR)*(pAd->ApCfg.BssidNum*(14*128)), MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(CHAR)*(pAd->ApCfg.BssidNum*(14*128)));
+/*	msg = kmalloc(sizeof(char)*(pAd->ApCfg.BssidNum*(14*128)), MEM_ALLOC_FLAG); */
+	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(char)*(pAd->ApCfg.BssidNum*(14*128)));
 	if (msg == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():Alloc memory failed\n", __FUNCTION__));
@@ -9301,8 +9301,8 @@ VOID RTMPIoctlGetWscRegsDynInfo(
 	INT apidx;
 
 
-/*	msg = kmalloc(sizeof(CHAR)*(pAd->ApCfg.BssidNum*(14*128)), MEM_ALLOC_FLAG); */
-	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(CHAR)*(pAd->ApCfg.BssidNum*(14*128)));
+/*	msg = kmalloc(sizeof(char)*(pAd->ApCfg.BssidNum*(14*128)), MEM_ALLOC_FLAG); */
+	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(char)*(pAd->ApCfg.BssidNum*(14*128)));
 	if (msg == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():Alloc memory failed\n", __FUNCTION__));
@@ -11172,7 +11172,7 @@ INT	Set_TestTxFrameProc(
 		if (pAd->CommonCfg.PhyMode >= PHY_11ABGN_MIXED)
 		{
 			unsigned char	j, bitmask; /*k,bitmask; */
-			CHAR    i;
+			char    i;
 
 			if ((pAd->CommonCfg.HtCapability.HtCapInfo.GF) && (pAd->CommonCfg.DesiredHtPhy.GF))
 			{
@@ -11387,7 +11387,7 @@ INT	Set_TestTxFrame1Proc(
 		if (pAd->CommonCfg.PhyMode >= PHY_11ABGN_MIXED)
 		{
 			unsigned char	j, bitmask; /*k,bitmask; */
-			CHAR    i;
+			char    i;
 
 			if ((pAd->CommonCfg.HtCapability.HtCapInfo.GF) && (pAd->CommonCfg.DesiredHtPhy.GF))
 			{

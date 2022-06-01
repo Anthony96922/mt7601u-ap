@@ -648,7 +648,7 @@ typedef struct GNU_PACKED _NDIS_WLAN_BSSID_EX {
 	unsigned long Length;		/* Length of this structure */
 	NDIS_802_11_MAC_ADDRESS MacAddress;	/* BSSID */
 	unsigned char WpsAP; /* 0x00: not support WPS, 0x01: support normal WPS, 0x02: support Ralink auto WPS, 0x04: support Samsung WAC */
-	CHAR MinSNR;
+	char MinSNR;
 	NDIS_802_11_SSID Ssid;	/* SSID */
 	unsigned int Privacy;		/* WEP encryption requirement */
 	NDIS_802_11_RSSI Rssi;	/* receive signal */
@@ -1076,9 +1076,9 @@ typedef struct _RT_802_11_MAC_ENTRY {
 	unsigned char Aid;
 	unsigned char Psm;		/* 0:PWR_ACTIVE, 1:PWR_SAVE */
 	unsigned char MimoPs;		/* 0:MMPS_STATIC, 1:MMPS_DYNAMIC, 3:MMPS_Enabled */
-	CHAR AvgRssi0;
-	CHAR AvgRssi1;
-	CHAR AvgRssi2;
+	char AvgRssi0;
+	char AvgRssi1;
+	char AvgRssi2;
 	unsigned int ConnectedTime;
 	MACHTTRANSMIT_SETTING TxRate;
 } RT_802_11_MAC_ENTRY, *PRT_802_11_MAC_ENTRY;
