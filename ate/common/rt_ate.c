@@ -1472,12 +1472,12 @@ void ATEAPStop(
 
 
 
-static NDIS_STATUS ATESTART(
+static unsigned int ATESTART(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0, atemode=0, temp=0;
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 #ifdef RTMP_MAC_USB
 	unsigned char LoopCount=0;
@@ -1797,12 +1797,12 @@ static NDIS_STATUS ATESTART(
 }
 
 
-static NDIS_STATUS ATESTOP(
+static unsigned int ATESTOP(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0, ring_index=0;
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 	bool Cancelled;
@@ -2003,12 +2003,12 @@ static NDIS_STATUS ATESTOP(
 }
 
 
-static NDIS_STATUS TXCARR(
+static unsigned int TXCARR(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 
@@ -2083,12 +2083,12 @@ static NDIS_STATUS TXCARR(
 }
 
 
-static NDIS_STATUS TXCONT(
+static unsigned int TXCONT(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 
@@ -2270,12 +2270,12 @@ static NDIS_STATUS TXCONT(
 }
 
 
-static NDIS_STATUS TXCARS(
+static unsigned int TXCARS(
         IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 	PATE_CHIP_STRUCT pChipStruct = pATEInfo->pChipStruct;
 
@@ -2353,7 +2353,7 @@ static NDIS_STATUS TXCARS(
 }
 
 
-static NDIS_STATUS TXFRAME(
+static unsigned int TXFRAME(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -2361,7 +2361,7 @@ static NDIS_STATUS TXFRAME(
 #ifdef RTMP_MAC_USB
 	unsigned long			IrqFlags = 0;
 #endif /* RTMP_MAC_USB */
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 	char			IPGStr[8] = {0};
 #ifdef RTMP_INTERNAL_TX_ALC
@@ -2600,12 +2600,12 @@ static NDIS_STATUS TXFRAME(
 }
 
 
-static NDIS_STATUS RXFRAME(
+static unsigned int RXFRAME(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 #ifdef RTMP_MAC_USB
 	unsigned int			ring_index=0;
@@ -2702,12 +2702,12 @@ static NDIS_STATUS RXFRAME(
         NDIS_STATUS_SUCCESS if all parameters are OK.
 ==========================================================================
 */
-static NDIS_STATUS	ATECmdHandler(
+static unsigned int	ATECmdHandler(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("===> %s\n", __FUNCTION__));
 
@@ -5677,7 +5677,7 @@ extern ATE_CHIP_STRUCT MT7601ATE;
 
 ==========================================================================
 */
-NDIS_STATUS ChipStructAssign(
+unsigned int ChipStructAssign(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -5733,7 +5733,7 @@ NDIS_STATUS ChipStructAssign(
 
 ==========================================================================
 */
-NDIS_STATUS ATEInit(
+unsigned int ATEInit(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -5951,7 +5951,7 @@ void ReadQATxTypeFromBBP(
 #endif /* RALINK_QA */
 
 
-NDIS_STATUS ATEBBPWriteWithRxChain(
+unsigned int ATEBBPWriteWithRxChain(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char bbpId,
 	IN char bbpVal,

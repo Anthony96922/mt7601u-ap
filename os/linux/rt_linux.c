@@ -203,7 +203,7 @@ void RTMP_GetCurrentSystemTick(unsigned long *pNow)
 
 /* pAd MUST allow to be NULL */
 
-NDIS_STATUS os_alloc_mem(
+unsigned int os_alloc_mem(
 	IN void *pReserved,
 	OUT unsigned char **mem,
 	IN unsigned long size)
@@ -219,7 +219,7 @@ NDIS_STATUS os_alloc_mem(
 		return NDIS_STATUS_FAILURE;
 }
 
-NDIS_STATUS os_alloc_mem_suspend(
+unsigned int os_alloc_mem_suspend(
 	IN void *pReserved,
 	OUT unsigned char **mem,
 	IN unsigned long size)
@@ -236,7 +236,7 @@ NDIS_STATUS os_alloc_mem_suspend(
 }
 
 /* pAd MUST allow to be NULL */
-NDIS_STATUS os_free_mem(
+unsigned int os_free_mem(
 	IN void *pReserved,
 	IN void * mem)
 {
@@ -349,7 +349,7 @@ PNDIS_PACKET RTMP_AllocateFragPacketBuffer(void *dummy, unsigned long len)
 /*
 	The allocated NDIS PACKET must be freed via RTMPFreeNdisPacket()
 */
-NDIS_STATUS RTMPAllocateNdisPacket(
+unsigned int RTMPAllocateNdisPacket(
 	IN void *pReserved,
 	OUT PNDIS_PACKET *ppPacket,
 	IN unsigned char *pHeader,
@@ -408,7 +408,7 @@ void RTMPFreeNdisPacket(
 /* NOTE: we do have an assumption here, that Byte0 and Byte1
  * always reasid at the same scatter gather buffer
  */
-NDIS_STATUS Sniff2BytesFromNdisBuffer(
+unsigned int Sniff2BytesFromNdisBuffer(
 	IN PNDIS_BUFFER pFirstBuffer,
 	IN unsigned char DesiredOffset,
 	OUT unsigned char * pByte0,
@@ -963,7 +963,7 @@ static inline void __RtmpOSFSInfoChange(OS_FS_INFO * pOSFSInfo, bool bSet)
 	Task create/management/kill related functions.
 
  *******************************************************************************/
-static inline NDIS_STATUS __RtmpOSTaskKill(OS_TASK *pTask)
+static inline unsigned int __RtmpOSTaskKill(OS_TASK *pTask)
 {
 	int ret = NDIS_STATUS_FAILURE;
 
@@ -1047,12 +1047,12 @@ static inline void __RtmpOSTaskCustomize(OS_TASK *pTask)
 #endif
 }
 
-static inline NDIS_STATUS __RtmpOSTaskAttach(
+static inline unsigned int __RtmpOSTaskAttach(
 	IN OS_TASK *pTask,
 	IN RTMP_OS_TASK_CALLBACK fn,
 	IN unsigned long arg)
 {
-	NDIS_STATUS status = NDIS_STATUS_SUCCESS;
+	unsigned int status = NDIS_STATUS_SUCCESS;
 #ifndef KTHREAD_SUPPORT
 	pid_t pid_number = -1;
 #endif /* KTHREAD_SUPPORT */
@@ -1080,7 +1080,7 @@ static inline NDIS_STATUS __RtmpOSTaskAttach(
 	return status;
 }
 
-static inline NDIS_STATUS __RtmpOSTaskInit(
+static inline unsigned int __RtmpOSTaskInit(
 	IN OS_TASK *pTask,
 	IN char * pTaskName,
 	IN void *pPriv,
@@ -1734,7 +1734,7 @@ Return Value:
 Note:
 ========================================================================
 */
-NDIS_STATUS AdapterBlockAllocateMemory(void *handle, void **ppAd, unsigned int SizeOfpAd)
+unsigned int AdapterBlockAllocateMemory(void *handle, void **ppAd, unsigned int SizeOfpAd)
 {
 #ifdef OS_ABL_FUNC_SUPPORT
 	/* get offset for sk_buff */
@@ -3768,10 +3768,10 @@ Return Value:
 Note:
 ========================================================================
 */
-NDIS_STATUS RtmpOSTaskKill(RTMP_OS_TASK *pTaskOrg)
+unsigned int RtmpOSTaskKill(RTMP_OS_TASK *pTaskOrg)
 {
 	OS_TASK *pTask;
-	NDIS_STATUS Status;
+	unsigned int Status;
 
 	pTask = (OS_TASK *) (pTaskOrg->pContent);
 	if (pTask != NULL) {
@@ -3849,7 +3849,7 @@ Return Value:
 Note:
 ========================================================================
 */
-NDIS_STATUS RtmpOSTaskAttach(
+unsigned int RtmpOSTaskAttach(
 	RTMP_OS_TASK *pTaskOrg,
 	RTMP_OS_TASK_CALLBACK fn,
 	unsigned long arg)
@@ -3879,7 +3879,7 @@ Return Value:
 Note:
 ========================================================================
 */
-NDIS_STATUS RtmpOSTaskInit(
+unsigned int RtmpOSTaskInit(
 	RTMP_OS_TASK *pTaskOrg,
 	char * pTaskName,
 	void *pPriv,
@@ -5208,7 +5208,7 @@ void RTMP_OS_Release_Timer(NDIS_MINIPORT_TIMER *pTimerOrg)
 }
 
 
-NDIS_STATUS RtmpOSTaskKill(RTMP_OS_TASK *pTask)
+unsigned int RtmpOSTaskKill(RTMP_OS_TASK *pTask)
 {
 	return __RtmpOSTaskKill(pTask);
 }
@@ -5226,7 +5226,7 @@ void RtmpOSTaskCustomize(RTMP_OS_TASK *pTask)
 }
 
 
-NDIS_STATUS RtmpOSTaskAttach(
+unsigned int RtmpOSTaskAttach(
 	RTMP_OS_TASK *pTask,
 	RTMP_OS_TASK_CALLBACK fn,
 	unsigned long arg)
@@ -5235,7 +5235,7 @@ NDIS_STATUS RtmpOSTaskAttach(
 }
 
 
-NDIS_STATUS RtmpOSTaskInit(
+unsigned int RtmpOSTaskInit(
 	RTMP_OS_TASK *pTask,
 	char * pTaskName,
 	void *pPriv,

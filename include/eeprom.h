@@ -282,7 +282,7 @@ NTSTATUS RTUSBWriteEEPROM16(
 
 
 #if defined(RTMP_RBUS_SUPPORT) || defined(RTMP_FLASH_SUPPORT)
-NDIS_STATUS rtmp_nv_init(struct _RTMP_ADAPTER *pAd);
+unsigned int rtmp_nv_init(struct _RTMP_ADAPTER *pAd);
 int rtmp_ee_flash_read(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pVal);
 int rtmp_ee_flash_write(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short data);
 void rtmp_ee_flash_read_all(struct _RTMP_ADAPTER *pAd, unsigned short *Data);

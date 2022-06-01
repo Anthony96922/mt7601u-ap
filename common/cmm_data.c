@@ -259,14 +259,14 @@ static void dumpTxBlk(TX_BLK *pTxBlk)
 	
 	========================================================================
 */
-NDIS_STATUS MiniportMMRequest(
+unsigned int MiniportMMRequest(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN unsigned char *pData,
 	IN unsigned int Length)
 {
 	PNDIS_PACKET pPacket;
-	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
+	unsigned int Status = NDIS_STATUS_SUCCESS;
 	unsigned long FreeNum;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned char rtmpHwHdr[40];
@@ -515,7 +515,7 @@ void AP_QueuePsActionPacket(
 	
 	========================================================================
 */
-NDIS_STATUS MlmeHardTransmit(
+unsigned int MlmeHardTransmit(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket,
@@ -633,7 +633,7 @@ NDIS_STATUS MlmeHardTransmit(
 }
 
 
-NDIS_STATUS MlmeHardTransmitMgmtRing(
+unsigned int MlmeHardTransmitMgmtRing(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket)
@@ -1187,7 +1187,7 @@ void RTMPDeQueuePacket(
 {
 	PQUEUE_ENTRY pEntry = NULL;
 	PNDIS_PACKET pPacket;
-	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
+	unsigned int Status = NDIS_STATUS_SUCCESS;
 	unsigned char Count=0;
 	PQUEUE_HEADER   pQueue;
 	unsigned long FreeNumber[NUM_OF_TX_RING];
@@ -1283,7 +1283,7 @@ void RTMPDeQueuePacket(
 			if (RTMP_GET_PACKET_MGMT_PKT(pPacket) == 1)
 			{
 				/* this is a management frame */
-				NDIS_STATUS status;
+				unsigned int status;
 
 				pEntry = RemoveHeadQueue(pQueue);
 
@@ -2855,7 +2855,7 @@ void RtmpEnqueueNullFrame(
     IN bool       bEOSP,
     IN unsigned char         OldUP)
 {
-	NDIS_STATUS    NState;
+	unsigned int    NState;
 	PHEADER_802_11 pNullFr;
 	unsigned char * pFrame;
 	unsigned long		   Length;

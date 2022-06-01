@@ -156,7 +156,7 @@ int Set_PwrConstraint(
 	IN	char *			arg);
 
 
-NDIS_STATUS	MeasureReqTabInit(
+unsigned int	MeasureReqTabInit(
 	IN PRTMP_ADAPTER pAd);
 
 void MeasureReqTabExit(
@@ -194,7 +194,7 @@ void InsertDialogToken(
 	OUT unsigned long * pFrameLen,
 	IN unsigned char DialogToken);
 
-NDIS_STATUS	TpcReqTabInit(
+unsigned int	TpcReqTabInit(
 	IN PRTMP_ADAPTER pAd);
 
 void TpcReqTabExit(

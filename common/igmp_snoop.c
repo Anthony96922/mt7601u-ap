@@ -973,7 +973,7 @@ void rtmp_read_igmp_snoop_from_file(
 	}
 }
 
-NDIS_STATUS IgmpPktInfoQuery(
+unsigned int IgmpPktInfoQuery(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pSrcBufVA,
 	IN PNDIS_PACKET pPacket,
@@ -1022,7 +1022,7 @@ NDIS_STATUS IgmpPktInfoQuery(
 	return NDIS_STATUS_SUCCESS;
 }
 
-NDIS_STATUS IgmpPktClone(
+unsigned int IgmpPktClone(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
 	IN int IgmpPktInGroup,

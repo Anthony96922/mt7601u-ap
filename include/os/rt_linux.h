@@ -151,7 +151,6 @@ extern	const struct iw_handler_def rt28xx_ap_iw_handler_def;
 #define IN
 #define OUT
 #define INOUT
-#define NDIS_STATUS		INT
 
 /***********************************************************************************
  *	OS Specific definitions and data structures

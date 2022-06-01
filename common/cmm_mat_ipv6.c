@@ -37,8 +37,8 @@
 
 const unsigned char IPV6_LOOPBACKADDR[] ={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
 
-static NDIS_STATUS MATProto_IPv6_Init(MAT_STRUCT *pMatCfg);
-static NDIS_STATUS MATProto_IPv6_Exit(MAT_STRUCT *pMatCfg);
+static unsigned int MATProto_IPv6_Init(MAT_STRUCT *pMatCfg);
+static unsigned int MATProto_IPv6_Exit(MAT_STRUCT *pMatCfg);
 static unsigned char * MATProto_IPv6_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 static unsigned char * MATProto_IPv6_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 
@@ -138,7 +138,7 @@ ICMPv6 Format:
 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 */
 
-NDIS_STATUS  dumpIPv6MacTb(
+unsigned int  dumpIPv6MacTb(
 	IN MAT_STRUCT *pMatCfg, 
 	IN int index)
 {
@@ -185,7 +185,7 @@ NDIS_STATUS  dumpIPv6MacTb(
 
 
 
-static NDIS_STATUS IPv6MacTableUpdate(
+static unsigned int IPv6MacTableUpdate(
 	IN MAT_STRUCT		*pMatCfg,
 	IN unsigned char *			pMacAddr,
 	IN char *			pIPv6Addr)
@@ -665,7 +665,7 @@ static unsigned char * MATProto_IPv6_Tx(
 
 
 
-static NDIS_STATUS IPv6MacTable_RemoveAll(
+static unsigned int IPv6MacTable_RemoveAll(
 	IN MAT_STRUCT *pMatCfg)
 {
 	IPv6MacMappingTable	*pIPv6MacTable;
@@ -699,7 +699,7 @@ static NDIS_STATUS IPv6MacTable_RemoveAll(
 }
 
 
-static NDIS_STATUS IPv6MacTable_init(
+static unsigned int IPv6MacTable_init(
 	IN MAT_STRUCT *pMatCfg)
 {
 	IPv6MacMappingEntry *pEntry = NULL;
@@ -752,7 +752,7 @@ static NDIS_STATUS IPv6MacTable_init(
 }
 
 
-static NDIS_STATUS MATProto_IPv6_Exit(
+static unsigned int MATProto_IPv6_Exit(
 	IN MAT_STRUCT 	*pMatCfg)
 {
 	int status;
@@ -763,7 +763,7 @@ static NDIS_STATUS MATProto_IPv6_Exit(
 }
 
 
-static NDIS_STATUS MATProto_IPv6_Init(
+static unsigned int MATProto_IPv6_Init(
 	IN MAT_STRUCT 	*pMatCfg)
 {
 

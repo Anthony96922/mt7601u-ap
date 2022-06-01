@@ -90,8 +90,6 @@ typedef void	pregs;
 #define IN
 #define OUT
 #define INOUT
-#define NDIS_STATUS		INT
-
 
 /***********************************************************************************
  *	OS Specific definitions and data structures

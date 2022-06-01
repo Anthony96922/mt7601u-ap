@@ -60,9 +60,9 @@ USBHST_STATUS USBUploadFWComplete(URBCompleteStatus Status, purbb_t pURB, pregs 
 }
 
 
-static NDIS_STATUS USBLoadIVB(RTMP_ADAPTER *pAd)
+static unsigned int USBLoadIVB(RTMP_ADAPTER *pAd)
 {
-	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
+	unsigned int Status = NDIS_STATUS_SUCCESS;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
 	Status = RTUSB_VendorRequest(pAd,
@@ -84,10 +84,10 @@ static NDIS_STATUS USBLoadIVB(RTMP_ADAPTER *pAd)
 }
 
 
-NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
+unsigned int USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
 {
 	PURB pURB;
-	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
+	unsigned int Status = NDIS_STATUS_SUCCESS;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	ra_dma_addr_t DataDMA;
 	unsigned char * DataBuffer;
@@ -690,7 +690,7 @@ USBHST_STATUS USBKickOutCmdComplete(URBCompleteStatus Status, purbb_t pURB, preg
 int USBKickOutCmd(PRTMP_ADAPTER pAd, unsigned char *Buf, unsigned int Len)
 {
 	PURB pURB;
-	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
+	unsigned int Status = NDIS_STATUS_SUCCESS;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	char * DataBuffer;
 	ra_dma_addr_t DataDMA;

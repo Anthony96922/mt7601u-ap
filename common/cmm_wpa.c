@@ -490,7 +490,7 @@ void RTMPToWirelessSta(
     IN	bool				bClearFrame)
 {
     PNDIS_PACKET    pPacket;
-    NDIS_STATUS     Status;
+    unsigned int     Status;
 
 	if ((!pEntry) || (!IS_ENTRY_CLIENT(pEntry) && !IS_ENTRY_APCLI(pEntry)
 	))
@@ -1775,7 +1775,7 @@ void MlmeDeAuthAction(
     unsigned char *          pOutBuffer = NULL;
     unsigned long           FrameLen = 0;
     HEADER_802_11   DeAuthHdr;
-    NDIS_STATUS     NStatus;
+    unsigned int     NStatus;
 
     if (pEntry)
     {
@@ -3977,7 +3977,7 @@ PCIPHER_KEY RTMPSwCipherKeySelection(
 		
 	========================================================================
 */
-NDIS_STATUS	RTMPSoftDecryptionAction(
+unsigned int	RTMPSoftDecryptionAction(
 	IN	PRTMP_ADAPTER		pAd,
 	IN 		unsigned char *			pHdr,
 	IN 		unsigned char    		UserPriority,

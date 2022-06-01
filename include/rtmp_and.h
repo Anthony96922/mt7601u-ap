@@ -110,8 +110,8 @@ enum EVENT_TYPE {
 #define ANDES_CALIBRATION_TXDCOC		9
 
 int AsicSendCommandToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT CmdUnit);
-NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd);
-NDIS_STATUS PCILoadFirmwareToAndes(RTMP_ADAPTER *pAd);
+unsigned int USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd);
+unsigned int PCILoadFirmwareToAndes(RTMP_ADAPTER *pAd);
 int AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit);
 int AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Count);
 int AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data);

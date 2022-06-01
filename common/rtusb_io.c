@@ -800,14 +800,14 @@ NTSTATUS RTUSBWakeUp(
 
 	========================================================================
 */
-NDIS_STATUS	RTUSBEnqueueCmdFromNdis(
+unsigned int	RTUSBEnqueueCmdFromNdis(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	NDIS_OID		Oid,
 	IN	bool			SetInformation,
 	IN	void *			pInformationBuffer,
 	IN	unsigned int			InformationBufferLength)
 {
-	NDIS_STATUS	status;
+	unsigned int	status;
 	PCmdQElmt	cmdqelmt = NULL;
 	RTMP_OS_TASK	*pTask = &pAd->cmdQTask;
 
@@ -1813,7 +1813,7 @@ void CMDHandler(
     IN PRTMP_ADAPTER pAd)
 {
 	PCmdQElmt		cmdqelmt;
-	NDIS_STATUS		NdisStatus = NDIS_STATUS_SUCCESS;
+	unsigned int		NdisStatus = NDIS_STATUS_SUCCESS;
 	NTSTATUS		ntStatus;
 /*	unsigned long	IrqFlags;*/
 

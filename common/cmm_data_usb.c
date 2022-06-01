@@ -9,7 +9,7 @@
 #include	"rt_config.h"
 
 
-NDIS_STATUS RTUSBFreeDescriptorRelease(RTMP_ADAPTER *pAd, unsigned char BulkOutPipeId)
+unsigned int RTUSBFreeDescriptorRelease(RTMP_ADAPTER *pAd, unsigned char BulkOutPipeId)
 {
 	HT_TX_CONTEXT *pHTTXContext;
 	unsigned long IrqFlags;
@@ -43,12 +43,12 @@ NDIS_STATUS RTUSBFreeDescriptorRelease(RTMP_ADAPTER *pAd, unsigned char BulkOutP
 	
 	========================================================================
 */
-NDIS_STATUS	RTUSBFreeDescRequest(
+unsigned int	RTUSBFreeDescRequest(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char BulkOutPipeId,
 	IN unsigned int req_cnt)
 {
-	NDIS_STATUS	 Status = NDIS_STATUS_FAILURE;
+	unsigned int	 Status = NDIS_STATUS_FAILURE;
 	unsigned long IrqFlags;
 	HT_TX_CONTEXT *pHTTXContext;
 
@@ -240,12 +240,12 @@ void ComposeNullFrame(RTMP_ADAPTER *pAd)
 		=>
 		=>
 */
-static inline NDIS_STATUS RtmpUSBCanDoWrite(
+static inline unsigned int RtmpUSBCanDoWrite(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN HT_TX_CONTEXT *pHTTXContext)
 {
-	NDIS_STATUS	canWrite = NDIS_STATUS_RESOURCES;
+	unsigned int	canWrite = NDIS_STATUS_RESOURCES;
 
 #ifdef USB_BULK_BUF_ALIGMENT
 	if( ((pHTTXContext->CurWriteIdx< pHTTXContext->NextBulkIdx  ) &&   (pHTTXContext->NextBulkIdx - pHTTXContext->CurWriteIdx == 1)) 
@@ -317,7 +317,7 @@ unsigned short	RtmpUSB_WriteFragTxResource(
 	TXWI_STRUC		*pTxWI;
 	unsigned char *			pWirelessPacket = NULL;
 	unsigned char			QueIdx;
-	NDIS_STATUS		Status;
+	unsigned int		Status;
 	unsigned long	IrqFlags;
 	unsigned int			USBDMApktLen = 0, DMAHdrLen, padding;
 #ifdef USB_BULK_BUF_ALIGMENT	
@@ -520,7 +520,7 @@ unsigned short RtmpUSB_WriteSingleTxResource(
 	unsigned char *pWirelessPacket, *buf;
 	unsigned char QueIdx;
 	unsigned long	IrqFlags;
-	NDIS_STATUS Status;
+	unsigned int Status;
 	unsigned int hdr_copy_len, hdr_len, dma_len = 0, padding;
 #ifndef USB_BULK_BUF_ALIGMENT
 	bool bTxQLastRound = FALSE;
@@ -705,7 +705,7 @@ unsigned short RtmpUSB_WriteMultiTxResource(
 	TXWI_STRUC *pTxWI;
 	unsigned char *pWirelessPacket = NULL;
 	unsigned char QueIdx;
-	NDIS_STATUS Status;
+	unsigned int Status;
 	unsigned long IrqFlags;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 

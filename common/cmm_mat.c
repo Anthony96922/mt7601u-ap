@@ -72,7 +72,7 @@ static MATProtoTable MATProtoTb[]=
 
 
 /* --------------------------------- Public Function-------------------------------- */
-NDIS_STATUS MATDBEntryFree(
+unsigned int MATDBEntryFree(
 	IN MAT_STRUCT 	*pMatStruct, 
 	IN unsigned char * 		NodeEntry)
 {
@@ -328,7 +328,7 @@ bool MATPktRxNeedConvert(
 }
 
 
-NDIS_STATUS MATEngineExit(
+unsigned int MATEngineExit(
 	IN RTMP_ADAPTER *pAd)
 {
 	struct _MATProtoOps		*pHandle = NULL;
@@ -361,7 +361,7 @@ NDIS_STATUS MATEngineExit(
 }
 
 
-NDIS_STATUS MATEngineInit(
+unsigned int MATEngineInit(
 	IN RTMP_ADAPTER *pAd)
 {
 	MATProtoOps 	*pHandle = NULL;

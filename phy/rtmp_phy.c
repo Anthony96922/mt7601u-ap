@@ -33,7 +33,7 @@ REG_PAIR   BBPRegTable[] = {
 #define	NUM_BBP_REG_PARMS	(sizeof(BBPRegTable) / sizeof(REG_PAIR))
 
 
-NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
+unsigned int NICInitBBP(RTMP_ADAPTER *pAd)
 {
 	int Index = 0;
 	
@@ -254,7 +254,7 @@ int rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
 }
 
 
-NDIS_STATUS AsicBBPWriteWithRxChain(
+unsigned int AsicBBPWriteWithRxChain(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char bbpId,
 	IN char bbpVal,
@@ -299,7 +299,7 @@ NDIS_STATUS AsicBBPWriteWithRxChain(
 }
 
 
-NDIS_STATUS AsicBBPReadWithRxChain(
+unsigned int AsicBBPReadWithRxChain(
 	IN RTMP_ADAPTER *pAd, 
 	IN unsigned char bbpId, 
 	IN char *pBbpVal,
@@ -465,14 +465,14 @@ int rtmp_cfo_track(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, int lastClient)
 
 
 #ifdef MT7601
-NDIS_STATUS MT7601_BBP_write(
+unsigned int MT7601_BBP_write(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char regID,
 	IN unsigned char value)
 {
 	BBP_CSR_CFG_STRUC  BbpCsr = { { 0 } };
 	unsigned int i = 0;
-	NDIS_STATUS	 ret;
+	unsigned int	 ret;
 
 #ifdef MT7601FPGA
 	return;
@@ -538,14 +538,14 @@ done:
 }
 
 
-NDIS_STATUS MT7601_BBP_read(
+unsigned int MT7601_BBP_read(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char regID,
 	IN unsigned char *pValue)
 {
 	BBP_CSR_CFG_STRUC  BbpCsr = { { 0 } };
 	unsigned int i=0, k=0;
-	NDIS_STATUS	 ret = STATUS_UNSUCCESSFUL;
+	unsigned int	 ret = STATUS_UNSUCCESSFUL;
 
 
 	if (pAd->WlanFunCtrl.field.WLAN_EN == 0)

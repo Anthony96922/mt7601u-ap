@@ -128,10 +128,10 @@ int RtmpAsicEraseFirmware(
 	return 0;
 }
 
-NDIS_STATUS isMCUNeedToLoadFIrmware(
+unsigned int isMCUNeedToLoadFIrmware(
 	IN PRTMP_ADAPTER pAd)
 {
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned long			Index;
 	unsigned int			MacReg;
 	
@@ -155,10 +155,10 @@ NDIS_STATUS isMCUNeedToLoadFIrmware(
 	return Status;
 }
 
-NDIS_STATUS isMCUnotReady(
+unsigned int isMCUnotReady(
 	IN PRTMP_ADAPTER pAd)
 {
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned long			Index;
 	unsigned int			MacReg;
 
@@ -213,7 +213,7 @@ NDIS_STATUS isMCUnotReady(
 		
 	========================================================================
 */
-NDIS_STATUS RtmpAsicLoadFirmware(
+unsigned int RtmpAsicLoadFirmware(
 	IN PRTMP_ADAPTER pAd)
 {
 #ifdef BIN_IN_FILE
@@ -221,7 +221,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	flg_default_firm_use = TRUE; \
 	DBGPRINT(RT_DEBUG_OFF, ("%s - Use default firmware!\n", __FUNCTION__));
 
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char *			src;
 	RTMP_OS_FD		srcf;
 	int 				retval, i;
@@ -393,7 +393,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	RtmpOSFSInfoChange(&osFSInfo, FALSE);
 #else
 
-	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
+	unsigned int		Status = NDIS_STATUS_SUCCESS;
 	unsigned char *			pFirmwareImage;
 	unsigned long			FileLength;
 	unsigned int			Version = (pAd->MACVersion >> 16);

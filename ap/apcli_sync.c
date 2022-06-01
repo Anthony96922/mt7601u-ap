@@ -511,7 +511,7 @@ static void ApCliEnqueueProbeRequest(
 	OUT char * Ssid,
 	IN unsigned short ifIndex)
 {
-	NDIS_STATUS     NState;
+	unsigned int     NState;
 	unsigned char *          pOutBuffer;
 	unsigned long           FrameLen = 0;
 	HEADER_802_11   Hdr80211;
