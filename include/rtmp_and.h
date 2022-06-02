@@ -110,8 +110,8 @@ enum EVENT_TYPE {
 #define ANDES_CALIBRATION_TXDCOC		9
 
 int AsicSendCommandToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT CmdUnit);
-int USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd);
-int PCILoadFirmwareToAndes(RTMP_ADAPTER *pAd);
+unsigned int USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd);
+unsigned int PCILoadFirmwareToAndes(RTMP_ADAPTER *pAd);
 int AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit);
 int AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Count);
 int AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data);
@@ -121,8 +121,8 @@ int AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num
 int AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned int Num);
 int AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
 int AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
-int AndesRandomWrite(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
-int AndesRFRandomWrite(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
+int AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
+int AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
 #ifdef MT7601
 int AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
 int AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
@@ -131,7 +131,7 @@ int AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param);
 int AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLevel, 
 					unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
 					unsigned char TIMByteOffset, unsigned char TIMBytePattern);
-void AndesCalibrationOP(PRTMP_ADAPTER, unsigned int CalibrationID, unsigned int Param);
+int AndesCalibrationOP(PRTMP_ADAPTER, unsigned int CalibrationID, unsigned int Param);
 bool IsInBandCmdProcessing(PRTMP_ADAPTER pAd);
 unsigned char GetCmdRspNum(PRTMP_ADAPTER pAd);
 #endif

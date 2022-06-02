@@ -757,7 +757,7 @@ static inline unsigned char SelectClearChannelApCnt(
 	/* RULE 3. if not available, then co-use a channel that has minimum interference (dirtyness=31,32) */
 	for (dirty = 30; dirty <= 32; dirty++)
 	{
-		unsigned char candidate[MAX_NUM_OF_CHANNELS+1], candidate_num=0;
+		bool candidate[MAX_NUM_OF_CHANNELS+1], candidate_num=0;
 		unsigned char min_ApCnt = 255;
 		final_channel = 0;	
 		

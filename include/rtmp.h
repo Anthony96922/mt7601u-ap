@@ -8255,7 +8255,7 @@ NTSTATUS RTUSBMultiWrite(
 NTSTATUS RTUSBMultiWrite_nBytes(
         IN      PRTMP_ADAPTER   pAd,
         IN      unsigned short                  Offset,
-        IN      unsigned int *                  pData,
+        IN      unsigned char *                  pData,
         IN      unsigned short                  length,
         IN      unsigned short                  batchLen);
 

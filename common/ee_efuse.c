@@ -1450,18 +1450,18 @@ int rtmp_ee_efuse_write16(
 	IN unsigned short Offset, 
 	IN unsigned short data)
 {
-	if (pAd->bFroceEEPROMBuffer
+    if (pAd->bFroceEEPROMBuffer
 #ifdef RALINK_ATE
-		||pAd->bEEPROMFile
+			||pAd->bEEPROMFile
 #endif /* RALINK_ATE */
-	) {
-		data = le2cpu16(data);
-		DBGPRINT(RT_DEBUG_TRACE,  ("Write to EEPROM Buffer\n"));
-		NdisMoveMemory(&(pAd->EEPROMImage[Offset]), &data, 2);
-	} else {
-		eFuseWrite(pAd, Offset, &data, 2);
-	}
-
+		)
+    {
+    	data = le2cpu16(data);
+        DBGPRINT(RT_DEBUG_TRACE,  ("Write to EEPROM Buffer\n"));
+        NdisMoveMemory(&(pAd->EEPROMImage[Offset]), &data, 2);
+    }
+    else
+        eFuseWrite(pAd,Offset ,&data, 2);
 	return 0;
 }
 
