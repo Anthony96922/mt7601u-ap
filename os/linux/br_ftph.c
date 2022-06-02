@@ -85,7 +85,7 @@ Note:
 	Used in module init.
 ========================================================================
 */
-void BG_FTPH_Init(void)
+VOID BG_FTPH_Init(VOID)
 {
 	RALINK_FP_Handle = BG_FTPH_PacketFromApHandle;
 }
@@ -106,7 +106,7 @@ Note:
 	Used in module remove.
 ========================================================================
 */
-void BG_FTPH_Remove(void)
+VOID BG_FTPH_Remove(VOID)
 {
 	RALINK_FP_Handle = NULL;
 } /* End of BG_FTPH_Init */

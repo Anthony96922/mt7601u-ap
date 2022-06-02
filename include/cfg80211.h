@@ -68,7 +68,7 @@ Note:
 ========================================================================
 */
 bool CFG80211_Register(
-	void						*pAd,
+	VOID						*pAd,
 	struct device				*pDev,
 	struct net_device			*pNetDev);
 

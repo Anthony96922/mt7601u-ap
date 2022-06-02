@@ -73,7 +73,7 @@ long WdsEntryAlloc(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr);
 
-void WdsEntryDel(
+VOID WdsEntryDel(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr);
 
@@ -110,24 +110,24 @@ MAC_TABLE_ENTRY *FindWdsEntry(
 	IN unsigned char *			pAddr,
 	IN unsigned int			PhyMode);
 
-void WdsTableMaintenance(
+VOID WdsTableMaintenance(
     IN PRTMP_ADAPTER    pAd);
 
-void RT28xx_WDS_Close(
+VOID RT28xx_WDS_Close(
 	IN PRTMP_ADAPTER pAd);
 
 
-void WdsDown(
+VOID WdsDown(
 	IN PRTMP_ADAPTER pAd);
 
-void AsicUpdateWdsRxWCIDTable(
+VOID AsicUpdateWdsRxWCIDTable(
 	IN PRTMP_ADAPTER pAd);
 
-void AsicUpdateWdsEncryption(
+VOID AsicUpdateWdsEncryption(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char wcid);
 
-void WdsPeerBeaconProc(
+VOID WdsPeerBeaconProc(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned short CapabilityInfo,
@@ -138,34 +138,34 @@ void WdsPeerBeaconProc(
 	IN HT_CAPABILITY_IE *pHtCapability,
 	IN unsigned char HtCapabilityLen);
 
-void APWdsInitialize(
+VOID APWdsInitialize(
 	IN PRTMP_ADAPTER pAd);
 
 INT	Show_WdsTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-void rtmp_read_wds_from_file(
+VOID rtmp_read_wds_from_file(
 			IN  PRTMP_ADAPTER pAd,
 			char * tmpbuf,
 			char * buffer);
 
-void WdsPrepareWepKeyFromMainBss(
+VOID WdsPrepareWepKeyFromMainBss(
 	IN  PRTMP_ADAPTER pAd);
 
 
-void WDS_Init(
+VOID WDS_Init(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	RTMP_OS_NETDEV_OP_HOOK		*pNetDevOps);
 
-void WDS_Remove(
+VOID WDS_Remove(
 	IN	PRTMP_ADAPTER				pAd);
 
 bool WDS_StatsGet(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	RT_CMD_STATS				*pStats);
 
-void AP_WDS_KeyNameMakeUp(
+VOID AP_WDS_KeyNameMakeUp(
 	IN	char						*pKey,
 	IN	unsigned int						KeyMaxSize,
 	IN	INT							KeyId);

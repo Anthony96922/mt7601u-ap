@@ -73,7 +73,7 @@ int wpi_sms4_ofb_engine(
 	unsigned char * pkey,
 	unsigned char * pcw_out);
 
-void RTMPInsertWapiIe(
+VOID RTMPInsertWapiIe(
 	IN	unsigned int			AuthMode,
 	IN	unsigned int			WepStatus,
 	OUT	unsigned char *			pWIe,
@@ -83,7 +83,7 @@ bool RTMPCheckWAIframe(
     IN unsigned char *           pData,
     IN unsigned long            DataByteCount);
 
-void RTMPConstructWPIIVHdr(
+VOID RTMPConstructWPIIVHdr(
 	IN	unsigned char			key_id,
 	IN	unsigned char			*tx_iv, 
 	OUT unsigned char 			*iv_hdr);
@@ -102,11 +102,11 @@ extern INT	RTMPSoftDecryptSMS4(
 		INOUT 	unsigned char *			pData,
 		INOUT 	unsigned short			*DataByteCnt);
 
-void RTMPDeriveWapiGTK(
+VOID RTMPDeriveWapiGTK(
 	IN	unsigned char *			nmk,
 	OUT	unsigned char *			gtk_ptr);
 
-void RT_SMS4_TEST(
+VOID RT_SMS4_TEST(
 	IN unsigned char			test);
 
 INT SMS4_TEST(void);
@@ -121,7 +121,7 @@ bool RTMPIsWapiCipher(
     IN PRTMP_ADAPTER    pAd,
     IN unsigned char           	apidx);
 
-void RTMPIoctlQueryWapiConf(
+VOID RTMPIoctlQueryWapiConf(
 	IN PRTMP_ADAPTER pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq);
 
@@ -130,41 +130,41 @@ void rtmp_read_wapi_parms_from_file(
 		char *tmpbuf, 
 		char *buffer);
 
-void RTMPWapiUskRekeyPeriodicExec(
+VOID RTMPWapiUskRekeyPeriodicExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3);
 
-void RTMPWapiMskRekeyPeriodicExec(
+VOID RTMPWapiMskRekeyPeriodicExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3);
 
-void RTMPInitWapiRekeyTimerAction(
+VOID RTMPInitWapiRekeyTimerAction(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry);
 
-void RTMPStartWapiRekeyTimerAction(
+VOID RTMPStartWapiRekeyTimerAction(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY pEntry);
 
-void RTMPCancelWapiRekeyTimerAction(
+VOID RTMPCancelWapiRekeyTimerAction(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY pEntry);
 
-void RTMPGetWapiTxTscFromAsic(
+VOID RTMPGetWapiTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	unsigned int			Wcid,
 	OUT	unsigned char			*tx_tsc);
 
-void WAPIInstallPairwiseKey(
+VOID WAPIInstallPairwiseKey(
 	PRTMP_ADAPTER		pAd,
 	PMAC_TABLE_ENTRY	pEntry,
 	bool				bAE);
 
-void WAPIInstallSharedKey(
+VOID WAPIInstallSharedKey(
 	PRTMP_ADAPTER		pAd,
 	unsigned char				GroupCipher,
 	unsigned char				BssIdx,

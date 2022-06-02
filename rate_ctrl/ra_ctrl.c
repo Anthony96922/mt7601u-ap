@@ -505,7 +505,7 @@ unsigned char RateTableVht2S[] =
 		pTable - pointer to the Rate Table. Assumed to be a table without mcsGroup values
 		mcs - table of MCS index into the Rate Table. -1 => not supported
 */
-void MlmeGetSupportedMcs(
+VOID MlmeGetSupportedMcs(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char	*pTable,
 	OUT char 	mcs[])
@@ -571,7 +571,7 @@ void MlmeGetSupportedMcs(
 
 
 /*  MlmeClearTxQuality - Clear TxQuality history only for the active BF state */
-void MlmeClearTxQuality(
+VOID MlmeClearTxQuality(
 	IN MAC_TABLE_ENTRY	*pEntry)
 {
 #ifdef TXBF_SUPPORT
@@ -586,7 +586,7 @@ void MlmeClearTxQuality(
 
 
 /*  MlmeClearAllTxQuality - Clear both BF and non-BF TxQuality history */
-void MlmeClearAllTxQuality(
+VOID MlmeClearAllTxQuality(
 	IN MAC_TABLE_ENTRY	*pEntry)
 {
 #ifdef TXBF_SUPPORT
@@ -599,7 +599,7 @@ void MlmeClearAllTxQuality(
 
 
 /*  MlmeDecTxQuality - Decrement TxQuality of specified rate table entry */
-void MlmeDecTxQuality(
+VOID MlmeDecTxQuality(
 	IN MAC_TABLE_ENTRY	*pEntry,
 	IN unsigned char			rateIndex)
 {
@@ -615,7 +615,7 @@ void MlmeDecTxQuality(
 }
 
 
-void MlmeSetTxQuality(
+VOID MlmeSetTxQuality(
 	IN MAC_TABLE_ENTRY	*pEntry,
 	IN unsigned char			rateIndex,
 	IN unsigned short			txQuality)
@@ -642,7 +642,7 @@ unsigned short MlmeGetTxQuality(
 
 
 #ifdef CONFIG_AP_SUPPORT
-void APMlmeSetTxRate(
+VOID APMlmeSetTxRate(
 	IN RTMP_ADAPTER *pAd,
 	IN MAC_TABLE_ENTRY *pEntry,
 	IN RTMP_RA_LEGACY_TB *pTxRate)
@@ -782,7 +782,7 @@ void APMlmeSetTxRate(
 
 
 
-void MlmeSelectTxRateTable(
+VOID MlmeSelectTxRateTable(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char **ppTable,
@@ -1356,7 +1356,7 @@ unsigned char MlmeSelectTxRate(
 
 
 /*  MlmeRAInit - Initialize Rate Adaptation for this entry */
-void MlmeRAInit(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
+VOID MlmeRAInit(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 {
 #ifdef NEW_RATE_ADAPT_SUPPORT
 	MlmeSetMcsGroup(pAd, pEntry);
@@ -1388,7 +1388,7 @@ void MlmeRAInit(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 	MlmeRALog - Prints concise Rate Adaptation log entry
 		The BF percentage counters are also updated
 */
-void MlmeRALog(
+VOID MlmeRALog(
 	IN PRTMP_ADAPTER	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
 	IN RA_LOG_TYPE		raLogType,
@@ -1525,7 +1525,7 @@ void MlmeRALog(
 
 
 /*  MlmeRestoreLastRate - restore last saved rate */
-void MlmeRestoreLastRate(
+VOID MlmeRestoreLastRate(
 	IN PMAC_TABLE_ENTRY	pEntry)
 {
 	pEntry->CurrTxRateIndex = pEntry->lastRateIdx;
@@ -1540,7 +1540,7 @@ void MlmeRestoreLastRate(
 
 #ifdef DOT11N_SS3_SUPPORT
 /*  MlmeCheckRDG - check if RDG should be enabled or disabled */
-void MlmeCheckRDG(
+VOID MlmeCheckRDG(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry)
 {
@@ -1602,7 +1602,7 @@ void MlmeCheckRDG(
 
 
 #ifdef TXBF_SUPPORT
-void txbf_rate_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
+VOID txbf_rate_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 {
 	RTMP_RA_LEGACY_TB *pNextTxRate;
 	unsigned char *pTable = pEntry->pTable;
@@ -1695,7 +1695,7 @@ INT rtmp_get_rate_from_rate_tb(unsigned char *table, INT idx, RTMP_TX_RATE *tx_r
 	MlmeNewTxRate - called when a new TX rate was selected. Sets TX PHY to
 		rate selected by pEntry->CurrTxRateIndex in pTable;
 */
-void MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
+VOID MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 {
 	RTMP_RA_LEGACY_TB *pNextTxRate;
 	unsigned char *pTable = pEntry->pTable;
@@ -1759,7 +1759,7 @@ void MlmeNewTxRate(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 }
 
 
-void RTMPSetSupportMCS(
+VOID RTMPSetSupportMCS(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char OpMode,
 	IN PMAC_TABLE_ENTRY	pEntry,

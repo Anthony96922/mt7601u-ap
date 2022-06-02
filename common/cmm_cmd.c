@@ -48,7 +48,7 @@
 
 	========================================================================
 */
-void	RTInitializeCmdQ(
+VOID	RTInitializeCmdQ(
 	IN	PCmdQ	cmdq)
 {
 	cmdq->head = NULL;
@@ -73,7 +73,7 @@ void	RTInitializeCmdQ(
 
 	========================================================================
 */
-void	RTThreadDequeueCmd(
+VOID	RTThreadDequeueCmd(
 	IN	PCmdQ		cmdq,
 	OUT	PCmdQElmt	*pcmdqelmt)
 {

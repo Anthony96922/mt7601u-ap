@@ -115,7 +115,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void RtmpMgmtTaskExit(
+VOID RtmpMgmtTaskExit(
 	IN RTMP_ADAPTER *pAd)
 {
 	INT			ret;

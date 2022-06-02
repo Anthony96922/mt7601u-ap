@@ -39,7 +39,7 @@ extern INT Set_P2p_OpMode_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg);
 
-void RtmpPrepareHwNullFrame(
+VOID RtmpPrepareHwNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN bool bQosNull,
@@ -152,7 +152,7 @@ void RtmpPrepareHwNullFrame(
 }
 
 
-void RTMPHwSendNullFrame(
+VOID RTMPHwSendNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char TxRate,
 	IN bool bQosNull,
@@ -236,7 +236,7 @@ void RTMPHwSendNullFrame(
 		rate.
 	==========================================================================
  */
-void RtmpEnqueueLastNullFrame(
+VOID RtmpEnqueueLastNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr,
 	IN unsigned char TxRate,
@@ -297,7 +297,7 @@ void RtmpEnqueueLastNullFrame(
 
 
 
-void MCC_ChangeAction(
+VOID MCC_ChangeAction(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -307,7 +307,7 @@ void MCC_ChangeAction(
 	RtmpOsTaskWakeUp(&(pAd->MultiChannelTask));
 }
 
-void ConcurrentP2PConnectTimeout(
+VOID ConcurrentP2PConnectTimeout(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -351,7 +351,7 @@ void ConcurrentP2PConnectTimeout(
 
 
 
-static void MACBuffer_Change(
+static VOID MACBuffer_Change(
     RTMP_ADAPTER *pAd,
     bool	hcca_to_edca,
     bool	edca_to_hcca)
@@ -551,7 +551,7 @@ static void MACBuffer_Change(
 }
 
 
-static void ProcessEDCAToHCCA(
+static VOID ProcessEDCAToHCCA(
     RTMP_ADAPTER *pAd) 
 {
 	PAPCLI_STRUCT pApCliEntry = NULL;
@@ -568,7 +568,7 @@ static void ProcessEDCAToHCCA(
 }
 
 
-static void ProcessHCCAToEDCA(
+static VOID ProcessHCCAToEDCA(
     PRTMP_ADAPTER pAd)
 {
 	unsigned int MacValue;
@@ -702,7 +702,7 @@ bool MultiChannelThreadExit(
 	return TRUE;
 }
 
-void MultiChannelTimerStop(
+VOID MultiChannelTimerStop(
 	IN  PRTMP_ADAPTER pAd)
 {
 
@@ -720,7 +720,7 @@ void MultiChannelTimerStop(
 	OS_WAIT(200);
 }
 
-void MultiChannelTimerStart(
+VOID MultiChannelTimerStart(
 	IN  PRTMP_ADAPTER pAd,
 	IN MAC_TABLE_ENTRY  *pEntry)
 {
@@ -748,7 +748,7 @@ void MultiChannelTimerStart(
 		pAd->Mlme.StaStayTick = 0;
 }
 
-void MultiChannelSwitchToRa(
+VOID MultiChannelSwitchToRa(
 	IN  PRTMP_ADAPTER pAd)
 {
 	PAPCLI_STRUCT pApCliEntry = NULL;
@@ -863,7 +863,7 @@ void MultiChannelSwitchToRa(
 
 }
 
-void MultiChannelSwitchToP2P(
+VOID MultiChannelSwitchToP2P(
 	IN  PRTMP_ADAPTER pAd)
 {
 	PAPCLI_STRUCT pApCliEntry = NULL;

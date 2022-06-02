@@ -30,7 +30,7 @@
 	MlmeSetMcsGroup - set initial mcsGroup based on supported MCSs
 		On exit pEntry->mcsGroup is set to the mcsGroup
 */
-void MlmeSetMcsGroup(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
+VOID MlmeSetMcsGroup(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 {
 #ifdef DOT11N_SS3_SUPPORT
 	if ((pEntry->HTCapability.MCSSet[2] == 0xff) && (pAd->CommonCfg.TxStream == 3))
@@ -288,7 +288,7 @@ unsigned char MlmeSelectDownRate(
 		mcs23GI - the MCS23 entry will have this guard interval
 		mcs - table of MCS index into the Rate Table. -1 => not supported
 */
-void MlmeGetSupportedMcsAdapt(
+VOID MlmeGetSupportedMcsAdapt(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned char mcs23GI,
@@ -716,7 +716,7 @@ bool MlmeRAHybridRule(
 			pEntry->CurrTxRateIndex = new rate index
 			pEntry->TxQuality is updated
 */
-void MlmeNewRateAdapt(
+VOID MlmeNewRateAdapt(
 	IN PRTMP_ADAPTER 	pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
 	IN unsigned char			UpRateIdx,
@@ -965,7 +965,7 @@ void MlmeNewRateAdapt(
         
     ========================================================================
 */
-void APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
+VOID APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
     IN PRTMP_ADAPTER pAd,
     IN unsigned long idx) 
 {
@@ -1288,7 +1288,7 @@ void APQuickResponeForRateUpExecAdapt(/* actually for both up and down */
         call this routine every second
     ==========================================================================
  */
-void APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
+VOID APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 {
 	unsigned char * pTable;
 	unsigned char UpRateIdx, DownRateIdx, CurrRateIdx, TrainUp, TrainDown;

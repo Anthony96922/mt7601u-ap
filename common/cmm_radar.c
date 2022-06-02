@@ -31,7 +31,7 @@
 
 /* Periodic Radar detection, switch channel will occur in RTMPHandleTBTTInterrupt()*/
 /* Before switch channel, driver needs doing channel switch announcement.*/
-void RadarDetectPeriodic(
+VOID RadarDetectPeriodic(
 	IN PRTMP_ADAPTER	pAd)
 {
 	/* need to check channel availability, after switch channel*/
@@ -122,7 +122,7 @@ unsigned long JapRadarType(
 
 	========================================================================
 */
-void ChannelSwitchingCountDownProc(
+VOID ChannelSwitchingCountDownProc(
 	IN PRTMP_ADAPTER	pAd)
 {
 	DBGPRINT(RT_DEBUG_TRACE, ("%s():Channel Switching...(%d/%d)\n",
@@ -307,7 +307,7 @@ INT	Set_RadarShow_Proc(
 
        ========================================================================
 */
-void CckMrcStatusCtrl(IN PRTMP_ADAPTER pAd)
+VOID CckMrcStatusCtrl(IN PRTMP_ADAPTER pAd)
 {
 }
 
@@ -322,7 +322,7 @@ void CckMrcStatusCtrl(IN PRTMP_ADAPTER pAd)
 
        ========================================================================
 */
-void RadarGLRTCompensate(IN PRTMP_ADAPTER pAd)
+VOID RadarGLRTCompensate(IN PRTMP_ADAPTER pAd)
 {
 }
 #endif /*defined(DFS_SUPPORT) || defined(CARRIER_DETECTION_SUPPORT) */

@@ -26,17 +26,17 @@
 
 #include "client_wds_cmm.h"
 
-void CliWds_ProxyTabInit(
+VOID CliWds_ProxyTabInit(
 	IN PRTMP_ADAPTER pAd);
 
-void CliWds_ProxyTabDestory(
+VOID CliWds_ProxyTabDestory(
 	IN PRTMP_ADAPTER pAd);
 
 PCLIWDS_PROXY_ENTRY CliWdsEntyAlloc(
 	IN PRTMP_ADAPTER pAd);
 
 
-void CliWdsEntyFree(
+VOID CliWdsEntyFree(
 	IN PRTMP_ADAPTER pAd,
 	IN PCLIWDS_PROXY_ENTRY pCliWdsEntry);
 
@@ -46,13 +46,13 @@ unsigned char * CliWds_ProxyLookup(
 	IN unsigned char * pMac);
 
 
-void CliWds_ProxyTabUpdate(
+VOID CliWds_ProxyTabUpdate(
 	IN PRTMP_ADAPTER pAd,
 	IN short Aid,
 	IN unsigned char * pMac);
 
 
-void CliWds_ProxyTabMaintain(
+VOID CliWds_ProxyTabMaintain(
 	IN PRTMP_ADAPTER pAd);
 
 #endif /* __CLIENT_WDS_H__ */

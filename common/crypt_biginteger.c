@@ -144,7 +144,7 @@ static PBIG_INTEGER pBI_U = NULL, pBI_S = NULL, pBI_O = NULL;
 static unsigned int Bits_Of_R = 0;
 
 
-void BigInteger_Print (
+VOID BigInteger_Print (
     IN PBIG_INTEGER pBI)
 {
     int i = 0, j = 0;
@@ -164,7 +164,7 @@ void BigInteger_Print (
 } /* End of BigInteger_Print */
 
    
-void BigInteger_Init (
+VOID BigInteger_Init (
     INOUT PBIG_INTEGER *pBI)
 {
     if (*pBI != NULL)
@@ -183,7 +183,7 @@ void BigInteger_Init (
 } /* End of BigInteger_Init */
 
 
-void BigInteger_Free_AllocSize (
+VOID BigInteger_Free_AllocSize (
     IN PBIG_INTEGER *pBI)
 {
     if ((*pBI != NULL) && ((*pBI)->pIntegerArray != NULL)) {
@@ -196,7 +196,7 @@ void BigInteger_Free_AllocSize (
 } /* End of BigInteger_Free_AllocSize */
 
 
-void BigInteger_Free (
+VOID BigInteger_Free (
     IN PBIG_INTEGER *pBI)
 {   
     if (*pBI != NULL) {
@@ -209,7 +209,7 @@ void BigInteger_Free (
 } /* End of BigInteger_Free */
 
 
-void BigInteger_AllocSize (
+VOID BigInteger_AllocSize (
     IN PBIG_INTEGER *pBI,
     IN INT Length)
 {
@@ -245,7 +245,7 @@ void BigInteger_AllocSize (
 } /* End of BigInteger_AllocSize */
 
 
-void BigInteger_ClearHighBits (
+VOID BigInteger_ClearHighBits (
     IN PBIG_INTEGER pBI)
 {
     INT BIArrayIndex, ShiftIndex = 0;
@@ -278,7 +278,7 @@ void BigInteger_ClearHighBits (
 } /* End of BigInteger_ClearHighBits */
 
 
-void BigInteger_BI2Bin (
+VOID BigInteger_BI2Bin (
     IN PBIG_INTEGER pBI, 
     OUT unsigned char *pValue,
     OUT unsigned int *Length)
@@ -323,7 +323,7 @@ void BigInteger_BI2Bin (
 } /* End of BigInteger_BI2Bin */
 
 
-void BigInteger_Bin2BI (
+VOID BigInteger_Bin2BI (
     IN unsigned char *pValue,
     IN unsigned int Length,
     OUT PBIG_INTEGER *pBI)
@@ -354,7 +354,7 @@ void BigInteger_Bin2BI (
 
 
 /* Calculate the bits of BigInteger, the highest bit is 1 */
-void BigInteger_BitsOfBI (
+VOID BigInteger_BitsOfBI (
     IN PBIG_INTEGER pBI,
     OUT unsigned int *Bits_Of_P)
 {
@@ -407,7 +407,7 @@ unsigned char BigInteger_GetByteValue (
 } /* End of BigInteger_GetByteValue */
 
 
-void BigInteger_Copy (
+VOID BigInteger_Copy (
     IN PBIG_INTEGER pBI_Copied,
     OUT PBIG_INTEGER *pBI_Result)
 {
@@ -445,7 +445,7 @@ INT BigInteger_UnsignedCompare (
 } /* End of BigInteger_Compare */ 
 
 
-void BigInteger_Add (
+VOID BigInteger_Add (
     IN PBIG_INTEGER pFirstOperand, 
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result)
@@ -519,7 +519,7 @@ void BigInteger_Add (
 } /* End of BigInteger_Add */
 
 
-void BigInteger_Sub (
+VOID BigInteger_Sub (
     IN PBIG_INTEGER pFirstOperand, 
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result)
@@ -610,7 +610,7 @@ void BigInteger_Sub (
 } /* End of BigInteger_Sub */
 
 
-void BigInteger_Mul (
+VOID BigInteger_Mul (
     IN PBIG_INTEGER pFirstOperand, 
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result)
@@ -675,7 +675,7 @@ output:
 } /* End of BigInteger_Mul */
 
 
-void BigInteger_Square (
+VOID BigInteger_Square (
     IN PBIG_INTEGER pBI, 
     OUT PBIG_INTEGER *pBI_Result)
 {
@@ -792,7 +792,7 @@ output:
 } /* End of BigInteger_Square */ 
 
 
-void BigInteger_Div (
+VOID BigInteger_Div (
     IN PBIG_INTEGER pFirstOperand, 
     IN PBIG_INTEGER pSecondOperand, 
     OUT PBIG_INTEGER *pBI_Result,
@@ -915,7 +915,7 @@ output:
 } /* End of BigInteger_Div */
 
 
-void BigInteger_Montgomery_Reduction (
+VOID BigInteger_Montgomery_Reduction (
     IN PBIG_INTEGER pBI_A,
     IN PBIG_INTEGER pBI_P,
      IN PBIG_INTEGER pBI_R,
@@ -973,7 +973,7 @@ void BigInteger_Montgomery_Reduction (
 } /* End of BigInteger_Montgomery_Reduction */ 
 
 
-void BigInteger_Montgomery_ExpMod (
+VOID BigInteger_Montgomery_ExpMod (
     IN PBIG_INTEGER pBI_G,
     IN PBIG_INTEGER pBI_E,
     IN PBIG_INTEGER pBI_P,

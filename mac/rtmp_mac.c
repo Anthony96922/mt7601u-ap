@@ -32,7 +32,7 @@
 	
 	========================================================================
 */
-void RTMPWriteTxWI(
+VOID RTMPWriteTxWI(
 	IN RTMP_ADAPTER *pAd,
 	IN TXWI_STRUC *pOutTxWI,
 	IN bool FRAG,
@@ -174,7 +174,7 @@ void RTMPWriteTxWI(
 }
 
 
-void RTMPWriteTxWI_Data(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI, TX_BLK *pTxBlk)
+VOID RTMPWriteTxWI_Data(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI, TX_BLK *pTxBlk)
 {
 	HTTRANSMIT_SETTING *pTransmit;
 	MAC_TABLE_ENTRY *pMacEntry;
@@ -374,7 +374,7 @@ void RTMPWriteTxWI_Data(RTMP_ADAPTER *pAd, TXWI_STRUC *pTxWI, TX_BLK *pTxBlk)
 }
 
 
-void RTMPWriteTxWI_Cache(
+VOID RTMPWriteTxWI_Cache(
 	IN RTMP_ADAPTER *pAd,
 	INOUT TXWI_STRUC *pTxWI,
 	IN TX_BLK *pTxBlk)

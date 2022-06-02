@@ -30,29 +30,29 @@
 
 #include "rt_config.h"
 
-static void ApCliProbeTimeout(
+static VOID ApCliProbeTimeout(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
 	IN void * SystemSpecific3);
 
-static void ApCliMlmeProbeReqAction(
+static VOID ApCliMlmeProbeReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliPeerProbeRspAtJoinAction(
+static VOID ApCliPeerProbeRspAtJoinAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliProbeTimeoutAtJoinAction(
+static VOID ApCliProbeTimeoutAtJoinAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliInvalidStateWhenJoin(
+static VOID ApCliInvalidStateWhenJoin(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliEnqueueProbeRequest(
+static VOID ApCliEnqueueProbeRequest(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char SsidLen,
 	OUT char * Ssid,
@@ -71,7 +71,7 @@ BUILD_TIMER_FUNCTION(ApCliProbeTimeout);
         the state machine looks like the following
     ==========================================================================
  */
-void ApCliSyncStateMachineInit(
+VOID ApCliSyncStateMachineInit(
 	IN PRTMP_ADAPTER pAd,
 	IN STATE_MACHINE *Sm,
 	OUT STATE_MACHINE_FUNC Trans[])
@@ -106,7 +106,7 @@ void ApCliSyncStateMachineInit(
         Becaon timeout handler, executed in timer thread
     ==========================================================================
  */
-static void ApCliProbeTimeout(
+static VOID ApCliProbeTimeout(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
@@ -128,7 +128,7 @@ static void ApCliProbeTimeout(
         MLME PROBE req state machine procedure
     ==========================================================================
  */
-static void ApCliMlmeProbeReqAction(
+static VOID ApCliMlmeProbeReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -169,7 +169,7 @@ static void ApCliMlmeProbeReqAction(
         When waiting joining the (I)BSS, beacon received from external
     ==========================================================================
  */
-static void ApCliPeerProbeRspAtJoinAction(
+static VOID ApCliPeerProbeRspAtJoinAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -449,7 +449,7 @@ LabelErr:
 	return;
 }
 
-static void ApCliProbeTimeoutAtJoinAction(
+static VOID ApCliProbeTimeoutAtJoinAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -482,7 +482,7 @@ static void ApCliProbeTimeoutAtJoinAction(
     Description:
     ==========================================================================
  */
-static void ApCliInvalidStateWhenJoin(
+static VOID ApCliInvalidStateWhenJoin(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -505,7 +505,7 @@ static void ApCliInvalidStateWhenJoin(
 	Description:
 	==========================================================================
  */
-static void ApCliEnqueueProbeRequest(
+static VOID ApCliEnqueueProbeRequest(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char SsidLen,
 	OUT char * Ssid,

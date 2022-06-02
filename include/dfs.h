@@ -378,10 +378,10 @@ typedef struct _NewDFSProgParam
 }NewDFSProgParam, *pNewDFSProgParam;
 
 #ifdef CONFIG_AP_SUPPORT
-void NewRadarDetectionStart(
+VOID NewRadarDetectionStart(
 	IN PRTMP_ADAPTER pAd);
 
-void NewRadarDetectionStop(
+VOID NewRadarDetectionStop(
 	IN PRTMP_ADAPTER pAd);
 
 void modify_table1(
@@ -400,7 +400,7 @@ void schedule_dfs_task(
 int SWRadarCheck(
 	 IN PRTMP_ADAPTER pAd, unsigned short id);
 
-void NewRadarDetectionProgram(
+VOID NewRadarDetectionProgram(
 	IN PRTMP_ADAPTER pAd,
 	IN pNewDFSTable pDFS2Table);
 
@@ -551,16 +551,16 @@ INT	Set_CEPrintDebug_Proc(
 
 void dfs_tasklet(unsigned long data);
 
-void DFSInit(
+VOID DFSInit(
 	IN PRTMP_ADAPTER pAd);
 
-void ApRadarDetectPeriodic(
+VOID ApRadarDetectPeriodic(
 	IN PRTMP_ADAPTER pAd);
 
 
 
 #ifdef RTMP_MAC_USB
- void NewUsbTimerCB_Radar(
+ VOID NewUsbTimerCB_Radar(
 	 IN PRTMP_ADAPTER pAd);
 #endif /* RTMP_MAC_USB */
 

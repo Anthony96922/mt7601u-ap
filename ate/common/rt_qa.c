@@ -192,7 +192,7 @@ NDIS_STATUS RXSTOP(
 }
 
 
-static void memcpy_exl(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src, unsigned long len)
+static VOID memcpy_exl(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src, unsigned long len)
 {
 	unsigned int i, Value = 0;
 	unsigned char *pDst = NULL, *pSrc = NULL;
@@ -219,7 +219,7 @@ static void memcpy_exl(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src
 }
 
 
-static void memcpy_exs(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src, unsigned long len)
+static VOID memcpy_exs(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src, unsigned long len)
 {
 	unsigned long i;
 	{
@@ -245,7 +245,7 @@ static void memcpy_exs(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned char *src
 }
 
 
-static void RTMP_IO_READ_BULK(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned int offset, unsigned int len)
+static VOID RTMP_IO_READ_BULK(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned int offset, unsigned int len)
 {
 	unsigned int i, Value = 0;
 	unsigned char *pDst;
@@ -262,7 +262,7 @@ static void RTMP_IO_READ_BULK(PRTMP_ADAPTER pAd, unsigned char *dst, unsigned in
 }
 
 
-void BubbleSort(int size, int array[])
+VOID BubbleSort(int size, int array[])
 { 
 	int outer, inner, temp;
 
@@ -282,7 +282,7 @@ void BubbleSort(int size, int array[])
 } 
 
 
-void CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, int RSSI[3][10])
+VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, int RSSI[3][10])
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	int		RSSI0, RSSI1, RSSI2;
@@ -421,7 +421,7 @@ void CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, int RSSI[3][10])
 }
 
 
-static void ATE_BBPRead(
+static VOID ATE_BBPRead(
 		IN	PRTMP_ADAPTER	pAd,
 		IN	unsigned char			offset,
 		IN  unsigned char			*pValue)
@@ -437,7 +437,7 @@ static void ATE_BBPRead(
 }
 
 
-static void ATE_BBPWrite(
+static VOID ATE_BBPWrite(
 		IN	PRTMP_ADAPTER	pAd,
 		IN	unsigned char			offset,
 		IN  unsigned char			value)
@@ -2263,7 +2263,7 @@ INT RtmpDoAte(
 }
 
 
-void ATE_QA_Statistics(
+VOID ATE_QA_Statistics(
 	IN RTMP_ADAPTER *pAd,
 	IN RXWI_STRUC *pRxWI,
 	IN RXINFO_STRUC *pRxInfo,

@@ -72,7 +72,7 @@ static NDIS_STATUS RTMPFreeUsbBulkBufStruct(
 
 
 #ifdef RESOURCE_PRE_ALLOC
-void RTMPResetTxRxRingMemory(
+VOID RTMPResetTxRxRingMemory(
 	IN RTMP_ADAPTER * pAd)
 {
 	unsigned int index, i, acidx;
@@ -199,7 +199,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void	RTMPFreeTxRxRingMemory(
+VOID	RTMPFreeTxRxRingMemory(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned int                i, acidx;
@@ -1147,7 +1147,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void	RTMPFreeTxRxRingMemory(
+VOID	RTMPFreeTxRxRingMemory(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned int                i, acidx;
@@ -1331,7 +1331,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void RT28XXDMADisable(
+VOID RT28XXDMADisable(
 	IN RTMP_ADAPTER 		*pAd)
 {
 	/* no use*/
@@ -1352,7 +1352,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void RT28XXDMAEnable(
+VOID RT28XXDMAEnable(
 	IN RTMP_ADAPTER *pAd)
 {
 	RTMP_IO_WRITE32(pAd, MAC_SYS_CTRL, 0x4);
@@ -1396,7 +1396,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void RT28xx_UpdateBeaconToAsic(
+VOID RT28xx_UpdateBeaconToAsic(
 	IN RTMP_ADAPTER		*pAd,
 	IN INT				apidx,
 	IN unsigned long			FrameLen,
@@ -1500,7 +1500,7 @@ void RT28xx_UpdateBeaconToAsic(
 }
 
 
-void RTUSBBssBeaconStop(
+VOID RTUSBBssBeaconStop(
 	IN RTMP_ADAPTER *pAd)
 {
 	BEACON_SYNC_STRUCT	*pBeaconSync;
@@ -1540,7 +1540,7 @@ void RTUSBBssBeaconStop(
 }
 
 
-void RTUSBBssBeaconStart(
+VOID RTUSBBssBeaconStart(
 	IN RTMP_ADAPTER *pAd)
 {
 	int apidx;
@@ -1596,7 +1596,7 @@ void RTUSBBssBeaconStart(
 }
 
 
-void RTUSBBssBeaconInit(
+VOID RTUSBBssBeaconInit(
 	IN RTMP_ADAPTER *pAd)
 {
 	BEACON_SYNC_STRUCT	*pBeaconSync;
@@ -1640,7 +1640,7 @@ error1:
 }
 
 
-void RTUSBBssBeaconExit(
+VOID RTUSBBssBeaconExit(
 	IN RTMP_ADAPTER *pAd)
 {
 	BEACON_SYNC_STRUCT	*pBeaconSync;
@@ -1686,7 +1686,7 @@ void RTUSBBssBeaconExit(
         
     ========================================================================
 */
-void BeaconUpdateExec(
+VOID BeaconUpdateExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -1809,7 +1809,7 @@ void BeaconUpdateExec(
   *	2870 Radio on/off Related functions.
   *
   ********************************************************************/
-void RT28xxUsbMlmeRadioOn(
+VOID RT28xxUsbMlmeRadioOn(
 	IN PRTMP_ADAPTER pAd)
 {
 	
@@ -1838,7 +1838,7 @@ void RT28xxUsbMlmeRadioOn(
 }
 
 
-void RT28xxUsbMlmeRadioOFF(
+VOID RT28xxUsbMlmeRadioOFF(
 	IN PRTMP_ADAPTER pAd)
 {
 #ifdef WSC_INCLUDED
@@ -1881,7 +1881,7 @@ void RT28xxUsbMlmeRadioOFF(
 }
 
 
-void RT28xxUsbAsicRadioOff(RTMP_ADAPTER *pAd)
+VOID RT28xxUsbAsicRadioOff(RTMP_ADAPTER *pAd)
 {
 	WPDMA_GLO_CFG_STRUC GloCfg;
 	unsigned int Value;
@@ -1926,7 +1926,7 @@ void RT28xxUsbAsicRadioOff(RTMP_ADAPTER *pAd)
 }
 
 
-void RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
+VOID RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
 {
 	unsigned int MACValue = 0;
 	bool brc;
@@ -2116,7 +2116,7 @@ bool AsicCheckCommandOk(
 
 
 #ifdef WOW_SUPPORT
-void RT28xxUsbAsicWOWEnable(
+VOID RT28xxUsbAsicWOWEnable(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int Value;
@@ -2137,7 +2137,7 @@ void RT28xxUsbAsicWOWEnable(
 	DBGPRINT(RT_DEBUG_OFF, ("Hold time: 0x7020 ==> %x\n", Value));
 }
 
-void RT28xxUsbAsicWOWDisable(
+VOID RT28xxUsbAsicWOWDisable(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int Value;

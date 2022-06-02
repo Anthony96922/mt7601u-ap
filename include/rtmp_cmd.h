@@ -352,12 +352,12 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_CONNECT {
 typedef struct __CMD_RTPRIV_IOCTL_80211_REG_NOTIFY {
 
 	unsigned char Alpha2[2];
-	void *pWiphy;
+	VOID *pWiphy;
 } CMD_RTPRIV_IOCTL_80211_REG_NOTIFY;
 
 typedef struct __CMD_RTPRIV_IOCTL_80211_SURVEY {
 
-	void *pCfg80211;
+	VOID *pCfg80211;
 /*	unsigned long long ChannelTime; */ /* idle + busy, not support */
 	unsigned long long ChannelTimeBusy;
 	unsigned long long ChannelTimeExtBusy;
@@ -407,16 +407,16 @@ typedef struct __RT_CMD_USB_DEV_CONFIG {
 	IN unsigned short BulkInMaxPacketSize;
 	IN unsigned char BulkOutEpAddr[6];
 	IN unsigned short BulkOutMaxPacketSize;
-	IN void *pConfig;
+	IN VOID *pConfig;
 } RT_CMD_USB_DEV_CONFIG;
 
 typedef struct __RT_CMD_CFG80211_CONFIG {
-	IN void *pCfgDev;
-	IN void(
+	IN VOID *pCfgDev;
+	IN VOID(
 	*CFG80211_Register) (
-	IN void * pAd,
-	IN void * pDev,
-	IN void * pNetDev);
+	IN VOID * pAd,
+	IN VOID * pDev,
+	IN VOID * pNetDev);
 } RT_CMD_CFG80211_CONFIG;
 
 typedef struct __RT_CMD_WAIT_QUEUE_LIST {
@@ -428,13 +428,13 @@ typedef struct __RT_CMD_WAIT_QUEUE_LIST {
 
 typedef struct __RT_CMD_INF_UP_DOWN {
 
-	IN	int (*rt28xx_open)(void *net_dev);
-	IN	int (*rt28xx_close)(void *net_dev);
+	IN	int (*rt28xx_open)(VOID *net_dev);
+	IN	int (*rt28xx_close)(VOID *net_dev);
 } RT_CMD_INF_UP_DOWN;
 
 typedef struct __RT_CMD_STATS {
-	IN void *pNetDev;
-	OUT void *pStats;	/* point to pAd->stats */
+	IN VOID *pNetDev;
+	OUT VOID *pStats;	/* point to pAd->stats */
 
 	OUT unsigned long rx_packets;	/* total packets received       */
 	OUT unsigned long tx_packets;	/* total packets transmitted */
@@ -456,7 +456,7 @@ typedef struct __RT_CMD_IW_STATS {
 	unsigned long priv_flags;
 	unsigned char *dev_addr;
 
-	void *pStats;		/* point to pAd->iw_stats */
+	VOID *pStats;		/* point to pAd->iw_stats */
 
 	unsigned char qual;
 	unsigned char level;
@@ -466,14 +466,14 @@ typedef struct __RT_CMD_IW_STATS {
 
 typedef struct __RT_CMD_PCIE_INIT {
 
-	IN void *pPciDev;
+	IN VOID *pPciDev;
 	IN unsigned int ConfigDeviceID;
 	IN unsigned int ConfigSubsystemVendorID;
 	IN unsigned int ConfigSubsystemID;
 } RT_CMD_PCIE_INIT;
 
 typedef struct __RT_CMD_AP_IOCTL_CONFIG {
-	IN void *net_dev;
+	IN VOID *net_dev;
 	IN unsigned long priv_flags;
 	IN char *pCmdData;
 	IN int CmdId_RTPRIV_IOCTL_SET;

@@ -719,7 +719,7 @@ Note:
 */
 INT RtmpIoctl_rt_ioctl_giwname(
 	IN	RTMP_ADAPTER	*pAd,
-	IN	void		*pData,
+	IN	VOID		*pData,
 	IN	unsigned long		Data)
 {
 	strcpy(pData, "IEEE 802.11");
@@ -775,11 +775,11 @@ INT RtmpIoctl_rt_ioctl_giwname(
 
 
 INT RTMP_COM_IoctlHandle(
-	IN	void			*pAdSrc,
+	IN	VOID			*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT			cmd,
 	IN	unsigned short			subcmd,
-	IN	void			*pData,
+	IN	VOID			*pData,
 	IN	unsigned long			Data)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
@@ -796,8 +796,8 @@ INT RTMP_COM_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_NETDEV_GET:
 		/* get main net_dev */
 			{
-				void **ppNetDev = (void **)pData;
-				*ppNetDev = (void *)(pAd->net_dev);
+				VOID **ppNetDev = (VOID **)pData;
+				*ppNetDev = (VOID *)(pAd->net_dev);
 			}
 			break;
 
@@ -1060,8 +1060,8 @@ INT RTMP_COM_IoctlHandle(
 #ifdef CONFIG_AP_SUPPORT
 				else
 				{
-					extern void APMakeAllBssBeacon(IN PRTMP_ADAPTER pAd);
-					extern void  APUpdateAllBeaconFrame(IN PRTMP_ADAPTER pAd);
+					extern VOID APMakeAllBssBeacon(IN PRTMP_ADAPTER pAd);
+					extern VOID  APUpdateAllBeaconFrame(IN PRTMP_ADAPTER pAd);
 					APMakeAllBssBeacon(pAd);
 					APUpdateAllBeaconFrame(pAd);
 #endif /* CONFIG_AP_SUPPORT */
@@ -1233,7 +1233,7 @@ INT RTMP_COM_IoctlHandle(
 			break;
 
 		case CMD_RTPRIV_IOCTL_INF_MAIN_CREATE:
-			*(void **)pData = RtmpPhyNetDevMainCreate(pAd);
+			*(VOID **)pData = RtmpPhyNetDevMainCreate(pAd);
 			break;
 
 		case CMD_RTPRIV_IOCTL_INF_MAIN_ID_GET:

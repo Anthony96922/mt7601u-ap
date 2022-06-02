@@ -60,7 +60,7 @@ INT RxDmaBusy(
 }
 
 
-void RtmpDmaEnable(
+VOID RtmpDmaEnable(
 	IN PRTMP_ADAPTER pAd,
 	IN INT Enable)
 {
@@ -89,7 +89,7 @@ void RtmpDmaEnable(
 }
 
 
-static void ATEWriteTxWI(
+static VOID ATEWriteTxWI(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TXWI_STRUC *pTxWI,
 	IN	bool			FRAG,	
@@ -145,7 +145,7 @@ static void ATEWriteTxWI(
 		None
 ========================================================================
 */
-static void ATEWriteTxInfo(
+static VOID ATEWriteTxInfo(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TXINFO_STRUC *pTxInfo,
 	IN	unsigned short		USBDMApktLen,
@@ -417,7 +417,7 @@ INT ATESetUpFrame(
 	
 ========================================================================
 */
-void ATE_RTUSBBulkOutDataPacket(
+VOID ATE_RTUSBBulkOutDataPacket(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char			BulkOutPipeId)
 {
@@ -480,7 +480,7 @@ void ATE_RTUSBBulkOutDataPacket(
 	
 ========================================================================
 */
-void ATE_RTUSBCancelPendingBulkInIRP(
+VOID ATE_RTUSBCancelPendingBulkInIRP(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PRX_CONTEXT		pRxContext = NULL;
@@ -520,7 +520,7 @@ void ATE_RTUSBCancelPendingBulkInIRP(
 	
 ========================================================================
 */
-void ATEResetBulkIn(
+VOID ATEResetBulkIn(
 	IN PRTMP_ADAPTER	pAd)
 {
 	if ((pAd->PendingRx > 0) && (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST)))
@@ -598,7 +598,7 @@ INT ATEResetBulkOut(
 	
 ========================================================================
 */
-void RTUSBRejectPendingPackets(
+VOID RTUSBRejectPendingPackets(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned char			Index;

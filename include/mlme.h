@@ -1242,7 +1242,7 @@ typedef struct _MLME_QUEUE {
     MLME_QUEUE_ELEM  Entry[MAX_LEN_OF_MLME_QUEUE];
 } MLME_QUEUE, *PMLME_QUEUE;
 
-typedef void (*STATE_MACHINE_FUNC)(void *pAd, MLME_QUEUE_ELEM *Elem);
+typedef VOID (*STATE_MACHINE_FUNC)(VOID *pAd, MLME_QUEUE_ELEM *Elem);
 
 typedef struct _STATE_MACHINE {
     unsigned long				Base;
@@ -1254,7 +1254,7 @@ typedef struct _STATE_MACHINE {
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef APCLI_SUPPORT
-typedef void (*APCLI_STATE_MACHINE_FUNC)(void *pAd, MLME_QUEUE_ELEM *Elem, unsigned long * pCurrState, unsigned short ifIndex);
+typedef VOID (*APCLI_STATE_MACHINE_FUNC)(VOID *pAd, MLME_QUEUE_ELEM *Elem, unsigned long * pCurrState, unsigned short ifIndex);
 
 typedef struct _STA_STATE_MACHINE {
 	unsigned long                           Base;

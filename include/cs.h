@@ -93,7 +93,7 @@ INT isCarrierDetectExist(
 INT CarrierDetectReset(
 	IN PRTMP_ADAPTER pAd);
 
-extern void RtmpOsMsDelay(
+extern VOID RtmpOsMsDelay(
 	IN	unsigned long	msec);
 
 INT Set_CarrierCriteria_Proc(
@@ -137,28 +137,28 @@ INT Set_CarrierMask_Proc(
     IN PRTMP_ADAPTER   pAd,
     IN char *         arg);
 
-void CSInit(
+VOID CSInit(
 	IN PRTMP_ADAPTER pAd);
 
-void CarrierDetectionStart(
+VOID CarrierDetectionStart(
 	IN PRTMP_ADAPTER pAd);
 
-void RTMPHandleRadarInterrupt(
+VOID RTMPHandleRadarInterrupt(
 	IN PRTMP_ADAPTER  pAd);
 
-void CarrierDetectionStop(
+VOID CarrierDetectionStop(
 	IN PRTMP_ADAPTER	pAd);
 
-void ToneRadarProgram_v1(
+VOID ToneRadarProgram_v1(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned long threshold);
 
-void ToneRadarProgram_v2(
+VOID ToneRadarProgram_v2(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned long threshold);
 
 #ifdef CARRIER_DETECTION_FIRMWARE_SUPPORT
-void CarrierDetectionPeriodicStateCtrl(
+VOID CarrierDetectionPeriodicStateCtrl(
 	IN PRTMP_ADAPTER pAd);
 #endif /* CARRIER_DETECTION_FIRMWARE_SUPPORT */
 

@@ -42,7 +42,7 @@ bool blockNetIf(
 	return TRUE;
 }
 
-void releaseNetIf(
+VOID releaseNetIf(
 	IN PBLOCK_QUEUE_ENTRY pBlockQueueEntry)
 {
 	PNETIF_ENTRY pNetIfEntry = NULL;
@@ -61,7 +61,7 @@ void releaseNetIf(
 }
 
 
-void StopNetIfQueue(
+VOID StopNetIfQueue(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char QueIdx,
 	IN PNDIS_PACKET pPacket)

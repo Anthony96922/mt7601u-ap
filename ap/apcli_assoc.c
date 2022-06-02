@@ -31,41 +31,41 @@
 
 #include "rt_config.h"
 
-static void ApCliAssocTimeout(
+static VOID ApCliAssocTimeout(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
 	IN void * SystemSpecific3);
 
-static void ApCliMlmeAssocReqAction(
+static VOID ApCliMlmeAssocReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliMlmeDisassocReqAction(
+static VOID ApCliMlmeDisassocReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliPeerAssocRspAction(
+static VOID ApCliPeerAssocRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliPeerDisassocAction(
+static VOID ApCliPeerDisassocAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliAssocTimeoutAction(
+static VOID ApCliAssocTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliInvalidStateWhenAssoc(
+static VOID ApCliInvalidStateWhenAssoc(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliInvalidStateWhenDisassociate(
+static VOID ApCliInvalidStateWhenDisassociate(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliAssocPostProc(
+static VOID ApCliAssocPostProc(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr2, 
 	IN unsigned short CapabilityInfo, 
@@ -92,7 +92,7 @@ BUILD_TIMER_FUNCTION(ApCliAssocTimeout);
         The state machine looks like the following 
     ==========================================================================
  */
-void ApCliAssocStateMachineInit(
+VOID ApCliAssocStateMachineInit(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  STATE_MACHINE *S, 
 	OUT STATE_MACHINE_FUNC Trans[]) 
@@ -134,7 +134,7 @@ void ApCliAssocStateMachineInit(
         Standard timer parameters
     ==========================================================================
  */
-static void ApCliAssocTimeout(
+static VOID ApCliAssocTimeout(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
@@ -168,7 +168,7 @@ static void ApCliAssocTimeout(
         
     ==========================================================================
  */
-static void ApCliMlmeAssocReqAction(
+static VOID ApCliMlmeAssocReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -517,7 +517,7 @@ static void ApCliMlmeAssocReqAction(
         Elem -
     ==========================================================================
  */
-static void ApCliMlmeDisassocReqAction(
+static VOID ApCliMlmeDisassocReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -586,7 +586,7 @@ static void ApCliMlmeDisassocReqAction(
         Elme - MLME message containing the received frame
     ==========================================================================
  */
-static void ApCliPeerAssocRspAction(
+static VOID ApCliPeerAssocRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -651,7 +651,7 @@ static void ApCliPeerAssocRspAction(
         Elem - MLME message containing the received frame
     ==========================================================================
  */
-static void ApCliPeerDisassocAction(
+static VOID ApCliPeerDisassocAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -683,7 +683,7 @@ static void ApCliPeerDisassocAction(
         what the state machine will do after assoc timeout
     ==========================================================================
  */
-static void ApCliAssocTimeoutAction(
+static VOID ApCliAssocTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -698,7 +698,7 @@ static void ApCliAssocTimeoutAction(
 	return;
 }
 
-static void ApCliInvalidStateWhenAssoc(
+static VOID ApCliInvalidStateWhenAssoc(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -716,7 +716,7 @@ static void ApCliInvalidStateWhenAssoc(
 	return;
 }
 
-static void ApCliInvalidStateWhenDisassociate(
+static VOID ApCliInvalidStateWhenDisassociate(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
@@ -741,7 +741,7 @@ static void ApCliInvalidStateWhenDisassociate(
     Parametrs:
     ==========================================================================
  */
-static void ApCliAssocPostProc(
+static VOID ApCliAssocPostProc(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pAddr2, 
 	IN unsigned short CapabilityInfo, 
@@ -782,7 +782,7 @@ static void ApCliAssocPostProc(
 }
 
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
-void    ApcliSendAssocIEsToWpaSupplicant( 
+VOID    ApcliSendAssocIEsToWpaSupplicant( 
     IN  PRTMP_ADAPTER pAd,
     IN unsigned int ifIndex)
 {

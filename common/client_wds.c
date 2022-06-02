@@ -26,7 +26,7 @@
 
 #include "rt_config.h"
 
-void CliWds_ProxyTabInit(
+VOID CliWds_ProxyTabInit(
 	IN PRTMP_ADAPTER pAd)
 {
 	INT idx;
@@ -55,7 +55,7 @@ void CliWds_ProxyTabInit(
 }
 
 
-void CliWds_ProxyTabDestory(
+VOID CliWds_ProxyTabDestory(
 	IN PRTMP_ADAPTER pAd)
 {
 	INT idx;
@@ -99,7 +99,7 @@ PCLIWDS_PROXY_ENTRY CliWdsEntyAlloc(
 }
 
 
-void CliWdsEntyFree(
+VOID CliWdsEntyFree(
 	IN PRTMP_ADAPTER pAd,
 	IN PCLIWDS_PROXY_ENTRY pCliWdsEntry)
 {
@@ -141,7 +141,7 @@ unsigned char * CliWds_ProxyLookup(
 }
 
 
-void CliWds_ProxyTabUpdate(
+VOID CliWds_ProxyTabUpdate(
 	IN PRTMP_ADAPTER pAd,
 	IN short Aid,
 	IN unsigned char * pMac)
@@ -168,7 +168,7 @@ void CliWds_ProxyTabUpdate(
 }
 
 
-void CliWds_ProxyTabMaintain(
+VOID CliWds_ProxyTabMaintain(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned long idx;

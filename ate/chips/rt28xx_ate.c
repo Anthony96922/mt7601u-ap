@@ -45,7 +45,7 @@ extern unsigned char NUM_OF_2850_CHNL;
     
 ==========================================================================
 */
-void RT28xxATEAsicSwitchChannel(
+VOID RT28xxATEAsicSwitchChannel(
     IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -521,7 +521,7 @@ INT RT28xxATETxPwrHandler(
 }
 
 
-void RT28xxATERxVGAInit(
+VOID RT28xxATERxVGAInit(
 	IN PRTMP_ADAPTER		pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);

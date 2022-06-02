@@ -305,7 +305,7 @@ static INT scan_active(RTMP_ADAPTER *pAd, unsigned char OpMode, unsigned char Sc
 		Scan next channel
 	==========================================================================
  */
-void ScanNextChannel(
+VOID ScanNextChannel(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char OpMode) 
 {

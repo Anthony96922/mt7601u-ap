@@ -142,7 +142,7 @@ unsigned char get_cent_ch_by_htinfo(
 
 	========================================================================
 */
-void RTMPSetHT(
+VOID RTMPSetHT(
 	IN RTMP_ADAPTER *pAd,
 	IN OID_SET_HT_PHYMODE *pHTPhyMode)
 {
@@ -439,7 +439,7 @@ void RTMPSetHT(
 
 	========================================================================
 */
-void RTMPSetIndividualHT(
+VOID RTMPSetIndividualHT(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char apidx)
 {
@@ -626,7 +626,7 @@ void RTMPSetIndividualHT(
 
 	========================================================================
 */
-void RTMPDisableDesiredHtInfo(
+VOID RTMPDisableDesiredHtInfo(
 	IN	PRTMP_ADAPTER		pAd)
 {
 #ifdef CONFIG_AP_SUPPORT
@@ -703,7 +703,7 @@ INT	SetCommonHT(RTMP_ADAPTER *pAd)
 
 	========================================================================
 */
-void RTMPUpdateHTIE(
+VOID RTMPUpdateHTIE(
 	IN RT_HT_CAPABILITY	*pRtHt,
 	IN unsigned char *pMcsSet,
 	OUT HT_CAPABILITY_IE *pHtCapability,

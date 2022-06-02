@@ -83,8 +83,8 @@ struct CMD_RSP_EVENT {
 	unsigned short *RspPayloadLen;
 };
 
-void ChipOpsMCUHook(struct _RTMP_ADAPTER *pAd, enum MCU_TYPE MCUType);
-void MCUCtrlInit(struct _RTMP_ADAPTER *pAd);
-void MCUCtrlExit(struct _RTMP_ADAPTER *pAd);
+VOID ChipOpsMCUHook(struct _RTMP_ADAPTER *pAd, enum MCU_TYPE MCUType);
+VOID MCUCtrlInit(struct _RTMP_ADAPTER *pAd);
+VOID MCUCtrlExit(struct _RTMP_ADAPTER *pAd);
 
 #endif 

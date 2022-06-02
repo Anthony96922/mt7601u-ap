@@ -250,7 +250,7 @@ Note:
        end while
 ========================================================================
 */
-void RT_AES_KeyExpansion (
+VOID RT_AES_KeyExpansion (
     IN unsigned char Key[],
     IN unsigned int KeyLength,
     INOUT AES_CTX_STRUC *paes_ctx)
@@ -341,7 +341,7 @@ Note:
        cipher block = state block;
 ========================================================================
 */
-void RT_AES_Encrypt (
+VOID RT_AES_Encrypt (
     IN unsigned char PlainBlock[],
     IN unsigned int PlainBlockSize,
     IN unsigned char Key[],
@@ -527,7 +527,7 @@ Note:
        plain block = state block;
 ========================================================================
 */
-void RT_AES_Decrypt (
+VOID RT_AES_Decrypt (
     IN unsigned char CipherBlock[],
     IN unsigned int CipherBlockSize,
     IN unsigned char Key[],
@@ -696,7 +696,7 @@ Note:
     Reference to RFC 3601, and NIST 800-38C.
 ========================================================================
 */
-void AES_CCM_MAC (
+VOID AES_CCM_MAC (
     IN unsigned char Payload[],
     IN unsigned int  PayloadLength,
     IN unsigned char Key[],
@@ -1077,7 +1077,7 @@ Note:
     Step 4.  return K1, K2;
 ========================================================================
 */
-void AES_CMAC_GenerateSubKey (
+VOID AES_CMAC_GenerateSubKey (
     IN unsigned char Key[],
     IN unsigned int KeyLength,
     OUT unsigned char SubKey1[],
@@ -1153,7 +1153,7 @@ Note:
     Reference to RFC 4493
 ========================================================================
 */
-void AES_CMAC (
+VOID AES_CMAC (
     IN unsigned char PlainText[],
     IN unsigned int PlainTextLength,
     IN unsigned char Key[],
@@ -1243,7 +1243,7 @@ Note:
     Reference to RFC 3602 and NIST 800-38A
 ========================================================================
 */
-void AES_CBC_Encrypt (
+VOID AES_CBC_Encrypt (
     IN unsigned char PlainText[],
     IN unsigned int PlainTextLength,
     IN unsigned char Key[],
@@ -1347,7 +1347,7 @@ Note:
     Reference to RFC 3602 and NIST 800-38A
 ========================================================================
 */
-void AES_CBC_Decrypt (
+VOID AES_CBC_Decrypt (
     IN unsigned char CipherText[],
     IN unsigned int CipherTextLength,
     IN unsigned char Key[],

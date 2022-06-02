@@ -556,7 +556,7 @@ unsigned int	APValidateRSNIE(
     Return:
     ==========================================================================
 */
-void HandleCounterMeasure(
+VOID HandleCounterMeasure(
     IN PRTMP_ADAPTER    pAd, 
     IN MAC_TABLE_ENTRY  *pEntry) 
 {
@@ -629,7 +629,7 @@ void HandleCounterMeasure(
     Return:
     ==========================================================================
 */
-void CMTimerExec(
+VOID CMTimerExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -654,7 +654,7 @@ void CMTimerExec(
     pAd->ApCfg.CMTimerRunning = FALSE;
 }
    
-void WPARetryExec(
+VOID WPARetryExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -751,7 +751,7 @@ void WPARetryExec(
     Return:
     ==========================================================================
 */  
-void GREKEYPeriodicExec(
+VOID GREKEYPeriodicExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -876,7 +876,7 @@ void GREKEYPeriodicExec(
         None
     ========================================================================
 */
-void WpaSend(
+VOID WpaSend(
     IN  PRTMP_ADAPTER   pAdapter,
     IN  unsigned char *          pPacket,
     IN  unsigned long           Len)
@@ -964,7 +964,7 @@ void WpaSend(
     }
 }    
 
-void RTMPAddPMKIDCache(
+VOID RTMPAddPMKIDCache(
 	IN  PRTMP_ADAPTER   		pAd,
 	IN	INT						apidx,
 	IN	unsigned char *				pAddr,
@@ -1054,7 +1054,7 @@ INT RTMPSearchPMKIDCache(
 	return i;
 }
 
-void RTMPDeletePMKIDCache(
+VOID RTMPDeletePMKIDCache(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	INT				apidx,
 	IN  INT				idx)
@@ -1068,7 +1068,7 @@ void RTMPDeletePMKIDCache(
 	}
 }
 
-void RTMPMaintainPMKIDCache(
+VOID RTMPMaintainPMKIDCache(
 	IN  PRTMP_ADAPTER   pAd)
 {
 	INT	i, j;
@@ -1094,7 +1094,7 @@ void RTMPMaintainPMKIDCache(
 }
 #endif /* DOT1X_SUPPORT */
 
-void RTMPGetTxTscFromAsic(
+VOID RTMPGetTxTscFromAsic(
 	IN  PRTMP_ADAPTER   pAd,
 	IN	unsigned char			apidx,
 	OUT	unsigned char *			pTxTsc)
@@ -1180,7 +1180,7 @@ void RTMPGetTxTscFromAsic(
 		
     ==========================================================================
 */
-void	WPA_APSetGroupRekeyAction(
+VOID	WPA_APSetGroupRekeyAction(
 	IN  PRTMP_ADAPTER   pAd)
 {
 	unsigned char	apidx = 0;
@@ -1217,7 +1217,7 @@ void	WPA_APSetGroupRekeyAction(
 }
 
 #ifdef QOS_DLS_SUPPORT
-void RTMPHandleSTAKey(
+VOID RTMPHandleSTAKey(
     IN PRTMP_ADAPTER    pAd, 
     IN PMAC_TABLE_ENTRY	pEntry,
     IN MLME_QUEUE_ELEM  *Elem) 
@@ -1515,7 +1515,7 @@ void RTMPHandleSTAKey(
 
 #ifdef HOSTAPD_SUPPORT
 /*for sending an event to notify hostapd about michael failure. */
-void ieee80211_notify_michael_failure(
+VOID ieee80211_notify_michael_failure(
 	IN	PRTMP_ADAPTER    pAd,
 	IN	PHEADER_802_11   pHeader,
 	IN	unsigned int            keyix,
@@ -1558,7 +1558,7 @@ const char* ether_sprintf(const unsigned char *mac)
 
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT 
-void    ApcliWpaSendEapolStart(
+VOID    ApcliWpaSendEapolStart(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  unsigned char *          pBssid,
 	IN  PMAC_TABLE_ENTRY pMacEntry,

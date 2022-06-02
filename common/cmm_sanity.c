@@ -59,7 +59,7 @@ typedef struct wsc_ie_probreq_data
  */
 bool MlmeAddBAReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2) 
 {
@@ -109,7 +109,7 @@ bool MlmeAddBAReqSanity(
  */
 bool MlmeDelBAReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen) 
 {
 	MLME_DELBA_REQ_STRUCT *pInfo;
@@ -144,7 +144,7 @@ bool MlmeDelBAReqSanity(
 
 bool PeerAddBAReqActionSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *pMsg, 
+    IN VOID *pMsg, 
     IN unsigned long MsgLen,
 	OUT unsigned char * pAddr2)
 {
@@ -185,7 +185,7 @@ bool PeerAddBAReqActionSanity(
 
 bool PeerAddBARspActionSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *pMsg, 
+    IN VOID *pMsg, 
     IN unsigned long MsgLen)
 {
 	/*PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;*/
@@ -225,7 +225,7 @@ bool PeerAddBARspActionSanity(
 bool PeerDelBAActionSanity(
     IN PRTMP_ADAPTER pAd, 
     IN unsigned char Wcid, 
-    IN void *pMsg, 
+    IN VOID *pMsg, 
     IN unsigned long MsgLen )
 {
 	/*PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;*/
@@ -247,7 +247,7 @@ bool PeerDelBAActionSanity(
 
 bool PeerBeaconAndProbeRspSanity_Old(
     IN PRTMP_ADAPTER pAd,
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen, 
     IN unsigned char  MsgChannel,
     OUT unsigned char * pAddr2, 
@@ -799,7 +799,7 @@ SanityCheck:
  */
 bool PeerBeaconAndProbeRspSanity(
 	IN PRTMP_ADAPTER pAd,
-	IN void *Msg, 
+	IN VOID *Msg, 
 	IN unsigned long MsgLen, 
 	IN unsigned char  MsgChannel,
 	OUT BCN_IE_LIST *ie_list,
@@ -1302,7 +1302,7 @@ SanityCheck:
  */
 bool PeerBeaconAndProbeRspSanity2(
 	IN PRTMP_ADAPTER pAd, 
-	IN void *Msg, 
+	IN VOID *Msg, 
 	IN unsigned long MsgLen, 
 	IN OVERLAP_BSS_SCAN_IE *BssScan,
 	OUT unsigned char 	*RegClass)
@@ -1388,7 +1388,7 @@ bool PeerBeaconAndProbeRspSanity2(
  */
 bool MlmeScanReqSanity(
 	IN PRTMP_ADAPTER pAd, 
-	IN void *Msg, 
+	IN VOID *Msg, 
 	IN unsigned long MsgLen, 
 	OUT unsigned char *pBssType, 
 	OUT char Ssid[], 
@@ -1445,7 +1445,7 @@ unsigned char ChannelSanity(
  */
 bool PeerDeauthSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr1, 
     OUT unsigned char * pAddr2, 
@@ -1475,7 +1475,7 @@ bool PeerDeauthSanity(
  */
 bool PeerAuthSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr, 
     OUT unsigned short *pAlg, 
@@ -1536,7 +1536,7 @@ bool PeerAuthSanity(
  */
 bool MlmeAuthReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr, 
     OUT unsigned long *pTimeout, 
@@ -1575,7 +1575,7 @@ bool MlmeAuthReqSanity(
  */
 bool MlmeAssocReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pApAddr, 
     OUT unsigned short *pCapabilityInfo, 
@@ -1606,7 +1606,7 @@ bool MlmeAssocReqSanity(
  */
 bool PeerDisassocSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2, 
     OUT unsigned short *pReason) 
@@ -1705,7 +1705,7 @@ NDIS_802_11_NETWORK_TYPE NetworkTypeInUseSanity(
 #ifdef QOS_DLS_SUPPORT
 bool PeerDlsReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen,
     OUT unsigned char * pDA,
     OUT unsigned char * pSA,
@@ -1828,7 +1828,7 @@ bool PeerDlsReqSanity(
 
 bool PeerDlsRspSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen,
     OUT unsigned char * pDA,
     OUT unsigned char * pSA,
@@ -1956,7 +1956,7 @@ bool PeerDlsRspSanity(
 
 bool PeerDlsTearDownSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen,
     OUT unsigned char * pDA,
     OUT unsigned char * pSA,
@@ -1999,7 +1999,7 @@ bool PeerDlsTearDownSanity(
  */
 bool PeerProbeReqSanity(
     IN PRTMP_ADAPTER pAd, 
-    IN void *Msg, 
+    IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2,
     OUT char Ssid[], 

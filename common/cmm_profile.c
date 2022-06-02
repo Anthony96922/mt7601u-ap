@@ -3857,7 +3857,7 @@ void rtmp_read_wsc_user_parms_from_file(IN PRTMP_ADAPTER pAd, char *tmpbuf, char
 #endif/*WSC_INCLUDED*/
 
 
-void rtmp_read_multest_from_file(
+VOID rtmp_read_multest_from_file(
 	IN PRTMP_ADAPTER pAd,
 	IN char *tmpbuf,
 	IN char *buffer)
@@ -4365,7 +4365,7 @@ unsigned char GetSkuChannelBasePwr(
 #define	SKU_PHYMODE_STBC_MCS6_MCS7			17
 
 
-void InitSkuRateDiffTable(
+VOID InitSkuRateDiffTable(
 	IN PRTMP_ADAPTER 	pAd )
 {
 	unsigned short		i, value;
@@ -4567,7 +4567,7 @@ unsigned char GetSkuRatePwr(
 }
 
 
-void UpdateSkuRatePwr(
+VOID UpdateSkuRatePwr(
 	IN PRTMP_ADAPTER 	pAd,
 	IN unsigned char 			channel,
 	IN unsigned char			bw,

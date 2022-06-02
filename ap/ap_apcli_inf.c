@@ -73,8 +73,8 @@ Note:
 	2. No main network interface here.
 ========================================================================
 */
-void RT28xx_ApCli_Init(
-	IN void 				*pAd,
+VOID RT28xx_ApCli_Init(
+	IN VOID 				*pAd,
 	IN PNET_DEV				main_dev_p)
 {
 
@@ -109,7 +109,7 @@ INT ApCli_VirtualIF_Open(
 	IN PNET_DEV		dev_p)
 {
 /*	unsigned char ifIndex; */
-	void *pAd;
+	VOID *pAd;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(dev_p);
 	ASSERT(pAd);
@@ -148,7 +148,7 @@ INT ApCli_VirtualIF_Close(
 	IN	PNET_DEV	dev_p)
 {
 /*	unsigned char ifIndex; */
-	void *pAd;
+	VOID *pAd;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(dev_p);
 	ASSERT(pAd);
@@ -221,10 +221,10 @@ Note:
 */
 INT ApCli_VirtualIF_Ioctl(
 	IN PNET_DEV				dev_p, 
-	IN OUT void 			*rq_p, 
+	IN OUT VOID 			*rq_p, 
 	IN INT 					cmd)
 {
-	void *pAd;
+	VOID *pAd;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(dev_p);
 	ASSERT(pAd);
@@ -252,8 +252,8 @@ Return Value:
 Note:
 ========================================================================
 */
-void RT28xx_ApCli_Remove(
-	IN void *pAd)
+VOID RT28xx_ApCli_Remove(
+	IN VOID *pAd)
 {
 /*	unsigned int index; */
 

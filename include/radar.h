@@ -54,11 +54,11 @@ unsigned long JapRadarType(
 	IN PRTMP_ADAPTER pAd);
 
 #ifdef CONFIG_AP_SUPPORT
-void ChannelSwitchingCountDownProc(
+VOID ChannelSwitchingCountDownProc(
 	IN PRTMP_ADAPTER	pAd);
 #endif /* CONFIG_AP_SUPPORT */
 
-void RadarDetectPeriodic(
+VOID RadarDetectPeriodic(
 	IN PRTMP_ADAPTER	pAd);
 
 INT	Set_CSPeriod_Proc(
@@ -78,10 +78,10 @@ INT	Set_RadarShow_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-void CckMrcStatusCtrl(
+VOID CckMrcStatusCtrl(
 	IN PRTMP_ADAPTER pAd);
 
-void RadarGLRTCompensate(
+VOID RadarGLRTCompensate(
 	IN PRTMP_ADAPTER pAd);
 
 #endif /*defined(DFS_SUPPORT) || defined(CARRIER_DETECTION_SUPPORT)*/

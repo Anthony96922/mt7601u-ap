@@ -232,8 +232,8 @@ NDIS_STATUS	RTMPReadParametersHook(
 
 	========================================================================
 */
-void RtmpDrvSendWirelessEvent(
-	IN	void					*pAdSrc,
+VOID RtmpDrvSendWirelessEvent(
+	IN	VOID					*pAdSrc,
 	IN	unsigned short					Event_flag,
 	IN	unsigned char *pAddr,
 	IN  unsigned char					BssIdx,
@@ -428,7 +428,7 @@ void tbtt_tasklet(unsigned long data)
 
 
 void announce_802_3_packet(
-	IN void *pAdSrc,
+	IN VOID *pAdSrc,
 	IN PNDIS_PACKET pPacket,
 	IN unsigned char OpMode)
 {
@@ -505,8 +505,8 @@ if (0) {
 
 extern NDIS_SPIN_LOCK TimerSemLock;
 
-void	RTMPFreeAdapter(
-	IN	void		*pAdSrc)
+VOID	RTMPFreeAdapter(
+	IN	VOID		*pAdSrc)
 {
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 	POS_COOKIE os_cookie;
@@ -696,7 +696,7 @@ Note:
 */
 INT RTMP_AP_IoctlPrepare(
 	IN	RTMP_ADAPTER			*pAd,
-	IN	void					*pCB)
+	IN	VOID					*pCB)
 {
 	RT_CMD_AP_IOCTL_CONFIG *pConfig = (RT_CMD_AP_IOCTL_CONFIG *)pCB;
 	POS_COOKIE pObj;
@@ -825,7 +825,7 @@ INT RTMP_AP_IoctlPrepare(
 }
 
 
-void AP_E2PROM_IOCTL_PostCtrl(
+VOID AP_E2PROM_IOCTL_PostCtrl(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	char *					msg)
 {
@@ -837,7 +837,7 @@ void AP_E2PROM_IOCTL_PostCtrl(
 }
 
 
-void IAPP_L2_UpdatePostCtrl(
+VOID IAPP_L2_UpdatePostCtrl(
 	IN PRTMP_ADAPTER	pAd,
     IN unsigned char *mac_p,
     IN INT  bssid)
@@ -847,7 +847,7 @@ void IAPP_L2_UpdatePostCtrl(
 
 
 //#ifdef WDS_SUPPORT
-void AP_WDS_KeyNameMakeUp(
+VOID AP_WDS_KeyNameMakeUp(
 	IN	char						*pKey,
 	IN	unsigned int						KeyMaxSize,
 	IN	INT							KeyId)

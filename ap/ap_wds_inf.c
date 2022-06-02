@@ -41,8 +41,8 @@ NET_DEV_STATS *RT28xx_get_wds_ether_stats(
 
 
 /* Register WDS interface */
-void RT28xx_WDS_Init(
-	IN void				*pAd,
+VOID RT28xx_WDS_Init(
+	IN VOID				*pAd,
 	IN PNET_DEV			net_dev)
 {
 
@@ -86,7 +86,7 @@ INT WdsVirtualIFSendPackets(
 INT WdsVirtualIF_open(
 	IN	PNET_DEV dev)
 {
-	void			*pAd;
+	VOID			*pAd;
 #ifdef RTL865X_SOC
 	INT				index;
 	unsigned int 	linkid;
@@ -110,7 +110,7 @@ INT WdsVirtualIF_open(
 INT WdsVirtualIF_close(
 	IN PNET_DEV dev)
 {
-	void		*pAd;
+	VOID		*pAd;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s: ===> VirtualIF_close\n", RTMP_OS_NETDEV_GET_DEVNAME(dev)));
 
@@ -130,10 +130,10 @@ INT WdsVirtualIF_close(
 
 INT WdsVirtualIF_ioctl(
 	IN PNET_DEV net_dev, 
-	IN OUT void *rq, 
+	IN OUT VOID *rq, 
 	IN INT cmd)
 {
-	void *pAd = RTMP_OS_NETDEV_GET_PRIV(net_dev); /*RTMP_OS_NETDEV_GET_PRIV(pVirtualAd->RtmpDev); */
+	VOID *pAd = RTMP_OS_NETDEV_GET_PRIV(net_dev); /*RTMP_OS_NETDEV_GET_PRIV(pVirtualAd->RtmpDev); */
 	
 /*	if(!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE)) */
 	if (RTMP_DRIVER_IOCTL_SANITY_CHECK(pAd, NULL) != NDIS_STATUS_SUCCESS)
@@ -146,8 +146,8 @@ INT WdsVirtualIF_ioctl(
 }
 
 
-void RT28xx_WDS_Remove(
-	IN void				*pAd)
+VOID RT28xx_WDS_Remove(
+	IN VOID				*pAd)
 {
 
 	RTMP_AP_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_WDS_REMOVE, 0, NULL, 0);

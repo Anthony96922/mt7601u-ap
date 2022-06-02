@@ -98,7 +98,7 @@ NDIS_STATUS APInitialize(
 		Shutdown AP and free AP specific resources
 	==========================================================================
  */
-void APShutdown(
+VOID APShutdown(
 	IN PRTMP_ADAPTER pAd)
 {
 	DBGPRINT(RT_DEBUG_TRACE, ("---> APShutdown\n"));
@@ -137,7 +137,7 @@ void APShutdown(
 
 	==========================================================================
  */
-void APStartUp(
+VOID APStartUp(
 	IN PRTMP_ADAPTER pAd) 
 {
 	unsigned int		/*offset,*/ i;
@@ -728,7 +728,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 	Note:
 	==========================================================================
  */
-void APStop(
+VOID APStop(
 	IN PRTMP_ADAPTER pAd) {
 	bool     Cancelled;
 	unsigned int		Value;
@@ -825,7 +825,7 @@ void APStop(
 		used whenever a wireless client is deleted.
 	==========================================================================
  */
-void APCleanupPsQueue(
+VOID APCleanupPsQueue(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  PQUEUE_HEADER   pQueue)
 {
@@ -854,7 +854,7 @@ void APCleanupPsQueue(
 		3. garbage collect PSQ
 	==========================================================================
 */
-void MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
+VOID MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 	int i;
 #ifdef DOT11_N_SUPPORT
 	unsigned long MinimumAMPDUSize = pAd->CommonCfg.DesiredHtPhy.MaxRAmpduFactor; /*Default set minimum AMPDU Size to 2, i.e. 32K */
@@ -1421,7 +1421,7 @@ bool APPsIndicate(
 		The table is a QUERY-n-CLEAR array that stop at full.
 	==========================================================================
  */
-void ApLogEvent(
+VOID ApLogEvent(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *   pAddr,
 	IN unsigned short   Event)
@@ -1455,7 +1455,7 @@ void ApLogEvent(
 		As AP, update protection when setting ADDHT IE and after new STA joined.
 	==========================================================================
 */
-void APUpdateOperationMode(
+VOID APUpdateOperationMode(
 	IN PRTMP_ADAPTER pAd)
 {
 	pAd->CommonCfg.AddHTInfo.AddHtInfo2.OperaionMode = 0;
@@ -1489,7 +1489,7 @@ void APUpdateOperationMode(
 		TBTT interrupt service routine
 	==========================================================================
  */
-void APUpdateCapabilityAndErpIe(
+VOID APUpdateCapabilityAndErpIe(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned char  i, ErpIeContent = 0;
@@ -1676,7 +1676,7 @@ bool ApCheckAccessControlList(
 		will be kicked out immediately.
 	==========================================================================
 */
-void ApUpdateAccessControlList(
+VOID ApUpdateAccessControlList(
     IN PRTMP_ADAPTER pAd,
     IN unsigned char         Apidx)
 {
@@ -1792,7 +1792,7 @@ void ApUpdateAccessControlList(
 		rate.
 	==========================================================================
  */
-void ApEnqueueNullFrame(
+VOID ApEnqueueNullFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char *        pAddr,
 	IN unsigned char         TxRate,
@@ -2010,7 +2010,7 @@ INT GetBssCoexEffectedChRange(
 }
 
 
-void APOverlappingBSSScan(
+VOID APOverlappingBSSScan(
 	IN RTMP_ADAPTER *pAd)
 {
 	bool needFallBack = FALSE;

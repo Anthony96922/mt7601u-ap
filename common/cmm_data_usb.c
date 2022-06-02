@@ -152,7 +152,7 @@ bool	RTUSBNeedQueueBackForAgg(RTMP_ADAPTER *pAd, unsigned char BulkOutPipeId)
 	
 	========================================================================
 */
-static void rlt_usb_write_txinfo(
+static VOID rlt_usb_write_txinfo(
 	IN RTMP_ADAPTER *pAd,
 	IN TXINFO_STRUC *pTxInfo,
 	IN unsigned short USBDMApktLen,
@@ -199,7 +199,7 @@ static void rlt_usb_write_txinfo(
 
 
 /* IRQL = DISPATCH_LEVEL */
-void ComposeNullFrame(RTMP_ADAPTER *pAd)
+VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 {
 	TXINFO_STRUC *pTxInfo;
 	TXWI_STRUC *pTxWI;
@@ -228,7 +228,7 @@ void ComposeNullFrame(RTMP_ADAPTER *pAd)
 		      BSSID_WCID, data_len, 0, 0,
 		      (unsigned char)pAd->CommonCfg.MlmeTransmit.field.MCS,
 		      IFS_BACKOFF, FALSE, &pAd->CommonCfg.MlmeTransmit);
-	RTMPMoveMemory((void *)&buf[TXWISize + TXINFO_SIZE], (void *)&pAd->NullFrame, data_len);
+	RTMPMoveMemory((VOID *)&buf[TXWISize + TXINFO_SIZE], (VOID *)&pAd->NullFrame, data_len);
 	pNullContext->BulkOutSize = TXINFO_SIZE + TXWISize + TSO_SIZE + data_len + 4;
 
 }
@@ -831,7 +831,7 @@ done:
 }
 
 
-void RtmpUSB_FinalWriteTxResource(
+VOID RtmpUSB_FinalWriteTxResource(
 	IN RTMP_ADAPTER	*pAd,
 	IN TX_BLK *pTxBlk,
 	IN unsigned short totalMPDUSize,
@@ -939,7 +939,7 @@ void RtmpUSB_FinalWriteTxResource(
 }
 
 
-void RtmpUSBDataLastTxIdx(
+VOID RtmpUSBDataLastTxIdx(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN unsigned short TxIdx)
@@ -956,7 +956,7 @@ void RtmpUSBDataLastTxIdx(
 			Check if the CurWriting flag is FALSE, if it's FALSE, we can do kick out.
 
 */
-void RtmpUSBDataKickOut(
+VOID RtmpUSBDataKickOut(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_BLK *pTxBlk,
 	IN unsigned char QueIdx)
@@ -1079,7 +1079,7 @@ if (0) {
 }
 
 
-void RtmpUSBNullFrameKickOut(
+VOID RtmpUSBNullFrameKickOut(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN unsigned char *pNullFrame,
@@ -1276,7 +1276,7 @@ if (0) {
 #endif /* RT_BIG_ENDIAN */	
 
 #ifdef RLT_MAC
-	NdisMoveMemory((void *)&pRxBlk->hw_rx_info[0], (void *)pRxFceInfo, sizeof(RXFCE_INFO));
+	NdisMoveMemory((VOID *)&pRxBlk->hw_rx_info[0], (VOID *)pRxFceInfo, sizeof(RXFCE_INFO));
 	pRxBlk->pRxFceInfo = (RXFCE_INFO *)&pRxBlk->hw_rx_info[0];
 #endif /* RLT_MAC */
 

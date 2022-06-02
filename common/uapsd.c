@@ -90,7 +90,7 @@ unsigned int gUAPSD_TimingSumTxqueue2Air;
 
 
 #ifdef VENDOR_FEATURE3_SUPPORT
-static void UAPSD_InsertTailQueueAc(
+static VOID UAPSD_InsertTailQueueAc(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	MAC_TABLE_ENTRY	*pEntry,
 	IN	QUEUE_HEADER	*pQueueHeader,
@@ -114,7 +114,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void UAPSD_Init(
+VOID UAPSD_Init(
 	IN	PRTMP_ADAPTER		pAd)
 {
     /* allocate a lock resource for SMP environment */
@@ -155,7 +155,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void UAPSD_Release(
+VOID UAPSD_Release(
     IN  PRTMP_ADAPTER       pAd)
 {
     /* free the lock resource for SMP environment */
@@ -180,7 +180,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void RtmpAsicSleepHandle(
+VOID RtmpAsicSleepHandle(
     IN  PRTMP_ADAPTER       pAd)
 {
 
@@ -205,7 +205,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void UAPSD_SP_Close(
+VOID UAPSD_SP_Close(
     IN  PRTMP_ADAPTER       pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry)
 {
@@ -306,7 +306,7 @@ Note:
 	SMP protection by caller for packet enqueue.
 ========================================================================
 */
-void UAPSD_AllPacketDeliver(
+VOID UAPSD_AllPacketDeliver(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry)
 {
@@ -386,7 +386,7 @@ Note:
 		backup static UAPSD settings in Reassociation
 ========================================================================
 */
-void UAPSD_AssocParse(
+VOID UAPSD_AssocParse(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
 	IN	unsigned char				*pElm,
@@ -481,7 +481,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void UAPSD_PacketEnqueue(
+VOID UAPSD_PacketEnqueue(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
 	IN	PNDIS_PACKET		pPacket,
@@ -560,7 +560,7 @@ Note:
 	If in RT2870, pEntry can not be removed during UAPSD_QueueMaintenance()
 ========================================================================
 */
-void UAPSD_QueueMaintenance(
+VOID UAPSD_QueueMaintenance(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry)
 {
@@ -707,7 +707,7 @@ Note:
 	use UAPSD_SP_AUE_Handle().
 ========================================================================
 */
-void UAPSD_SP_AUE_Handle(
+VOID UAPSD_SP_AUE_Handle(
 	IN RTMP_ADAPTER		*pAd,
     IN MAC_TABLE_ENTRY	*pEntry,
 	IN unsigned char			FlgSuccess)
@@ -897,7 +897,7 @@ Note:
     So we must close the old SP in receive done ISR to avoid the problem.
 ========================================================================
 */
-void UAPSD_SP_CloseInRVDone(
+VOID UAPSD_SP_CloseInRVDone(
 	IN	PRTMP_ADAPTER		pAd)
 {
 	unsigned int IdEntry;
@@ -964,7 +964,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void UAPSD_TimingRecordCtrl(
+VOID UAPSD_TimingRecordCtrl(
 	IN	unsigned int				Flag)
 {
 	if (gUAPSD_TimingFlag == UAPSD_TIMING_CTRL_SUSPEND)
@@ -995,7 +995,7 @@ Note:
 	UAPSD_TIMING_RECORD_TX2AIR
 ========================================================================
 */
-void UAPSD_TimingRecord(
+VOID UAPSD_TimingRecord(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	unsigned int				Type)
 {
@@ -1110,7 +1110,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void UAPSD_TimeingRecordLoopIndex(
+VOID UAPSD_TimeingRecordLoopIndex(
 	IN	unsigned int				LoopIndex)
 {
 	gUAPSD_TimingLoopIndex = LoopIndex;
@@ -1297,7 +1297,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void UAPSD_QueueStatusGet(
+VOID UAPSD_QueueStatusGet(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
 	OUT	bool				*pFlgIsAnyPktForBK,
@@ -1344,7 +1344,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void UAPSD_TriggerFrameHandle(
+VOID UAPSD_TriggerFrameHandle(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	MAC_TABLE_ENTRY		*pEntry,
 	IN	unsigned char				UpOfFrame)
@@ -1848,7 +1848,7 @@ Note:
 	Only for RT2870.
 ========================================================================
 */
-void UAPSD_TagFrame(
+VOID UAPSD_TagFrame(
 	IN	RTMP_ADAPTER		*pAd,
 	IN	NDIS_PACKET			*pPkt,
 	IN	unsigned char				Wcid,
@@ -1903,7 +1903,7 @@ Note:
 	Only for RT2870.
 ========================================================================
 */
-void UAPSD_UnTagFrame(
+VOID UAPSD_UnTagFrame(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	unsigned char			AcQueId,
 	IN	unsigned int			bulkStartPos,
@@ -2058,7 +2058,7 @@ Note:
 	Only for code size reduce purpose.
 ========================================================================
 */
-static void UAPSD_InsertTailQueueAc(
+static VOID UAPSD_InsertTailQueueAc(
 	IN	RTMP_ADAPTER	*pAd,
 	IN	MAC_TABLE_ENTRY	*pEntry,
 	IN	QUEUE_HEADER	*pQueueHeader,

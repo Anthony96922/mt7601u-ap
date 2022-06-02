@@ -185,7 +185,7 @@ NDIS_SPIN_LOCK TimerSemLock;
 */
 NDIS_STATUS	RTMPAllocAdapterBlock(
 	IN  void *	handle,
-	OUT	void	**ppAdapter)
+	OUT	VOID	**ppAdapter)
 {
 	PRTMP_ADAPTER	pAd = NULL;
 	NDIS_STATUS		Status;
@@ -315,7 +315,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 	}
 
 	if (pAd != NULL) /* compile warning: avoid use NULL pointer when pAd == NULL */
-		*ppAdapter = (void *)pAd;
+		*ppAdapter = (VOID *)pAd;
 
 
 	/*
@@ -352,7 +352,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 		
 	========================================================================
 */
-void NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
+VOID NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 {
 	unsigned short i, value, value2;
 	EEPROM_TX_PWR_STRUC Power;
@@ -994,7 +994,7 @@ void NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 		
 	========================================================================
 */
-void	NICInitAsicFromEEPROM(
+VOID	NICInitAsicFromEEPROM(
 	IN	PRTMP_ADAPTER	pAd)
 {
 #ifdef RALINK_ATE
@@ -1129,7 +1129,7 @@ void	NICInitAsicFromEEPROM(
 
 
 #ifdef DBG
-void dump_pdma_reg(RTMP_ADAPTER *pAd)
+VOID dump_pdma_reg(RTMP_ADAPTER *pAd)
 {
 	
 
@@ -1139,7 +1139,7 @@ void dump_pdma_reg(RTMP_ADAPTER *pAd)
 
 
 
-void AsicInitBcnBuf(IN RTMP_ADAPTER *pAd)
+VOID AsicInitBcnBuf(IN RTMP_ADAPTER *pAd)
 {
 	int idx;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1565,7 +1565,7 @@ NDIS_STATUS	NICInitializeAsic(
 #ifdef CONFIG_AP_SUPPORT
 #endif /* CONFIG_AP_SUPPORT */
 
-void NICUpdateFifoStaCounters(
+VOID NICUpdateFifoStaCounters(
 	IN PRTMP_ADAPTER pAd)
 {
 	TX_STA_FIFO_STRUC	StaFifo;
@@ -1814,7 +1814,7 @@ bool NicGetMacFifoTxCnt(
 }
 
 
-void AsicFifoExtSet(IN RTMP_ADAPTER *pAd)
+VOID AsicFifoExtSet(IN RTMP_ADAPTER *pAd)
 {
 	if (pAd->chipCap.FlgHwFifoExtCap)
 	{
@@ -1824,7 +1824,7 @@ void AsicFifoExtSet(IN RTMP_ADAPTER *pAd)
 }
 
 
-void AsicFifoExtEntryClean(
+VOID AsicFifoExtEntryClean(
 	IN RTMP_ADAPTER * pAd, 
 	IN MAC_TABLE_ENTRY *pEntry)
 {
@@ -1861,7 +1861,7 @@ void AsicFifoExtEntryClean(
 
 	========================================================================
 */
-void NicGetTxRawCounters(
+VOID NicGetTxRawCounters(
 	IN RTMP_ADAPTER *pAd,
 	IN TX_STA_CNT0_STRUC *pStaTxCnt0,
 	IN TX_STA_CNT1_STRUC *pStaTxCnt1)
@@ -1900,7 +1900,7 @@ void NicGetTxRawCounters(
 
 	========================================================================
 */
-void NicResetRawCounters(RTMP_ADAPTER *pAd)
+VOID NicResetRawCounters(RTMP_ADAPTER *pAd)
 {
 	unsigned int Counter;
 	
@@ -1930,7 +1930,7 @@ void NicResetRawCounters(RTMP_ADAPTER *pAd)
 	
 	========================================================================
 */
-void NICUpdateRawCounters(
+VOID NICUpdateRawCounters(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int	OldValue;/*, Value2;*/
@@ -2203,7 +2203,7 @@ NDIS_STATUS NICLoadFirmware(
 		
 	========================================================================
 */
-void NICEraseFirmware(
+VOID NICEraseFirmware(
 	IN PRTMP_ADAPTER pAd)
 {
 	if (pAd->chipOps.eraseFirmware)
@@ -2278,7 +2278,7 @@ unsigned long	RTMPCompareMemory(
 		
 	========================================================================
 */
-void	RTMPZeroMemory(
+VOID	RTMPZeroMemory(
 	IN	void *	pSrc,
 	IN	unsigned long	Length)
 {
@@ -2315,7 +2315,7 @@ void	RTMPZeroMemory(
 		
 	========================================================================
 */
-void RTMPMoveMemory(
+VOID RTMPMoveMemory(
 	OUT	void *	pDest,
 	IN	void *	pSrc,
 	IN	unsigned long	Length)
@@ -2335,7 +2335,7 @@ void RTMPMoveMemory(
 	}
 }
 
-void UserCfgExit(
+VOID UserCfgExit(
 	IN RTMP_ADAPTER *pAd)
 {
 #ifdef DOT11_N_SUPPORT
@@ -2364,7 +2364,7 @@ void UserCfgExit(
 		
 	========================================================================
 */
-void UserCfgInit(RTMP_ADAPTER *pAd)
+VOID UserCfgInit(RTMP_ADAPTER *pAd)
 {
 	unsigned int i;
 #ifdef CONFIG_AP_SUPPORT
@@ -3026,9 +3026,9 @@ Return Value:
 Note:
 ========================================================================
 */
-void	RTMP_TimerListAdd(
+VOID	RTMP_TimerListAdd(
 	IN	PRTMP_ADAPTER			pAd,
-	IN	void					*pRsc)
+	IN	VOID					*pRsc)
 {
 	LIST_HEADER *pRscList = &pAd->RscTimerCreateList;
 	LIST_RESOURCE_OBJ_ENTRY *pObj;
@@ -3075,7 +3075,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void	RTMP_TimerListRelease(
+VOID	RTMP_TimerListRelease(
 	IN	PRTMP_ADAPTER			pAd)
 {
 	LIST_HEADER *pRscList = &pAd->RscTimerCreateList;
@@ -3101,7 +3101,7 @@ void	RTMP_TimerListRelease(
 }
 
 
-void RTMP_AllTimerListRelease(RTMP_ADAPTER *pAd)
+VOID RTMP_AllTimerListRelease(RTMP_ADAPTER *pAd)
 {
    LIST_HEADER *pRscList = &pAd->RscTimerCreateList;
    LIST_RESOURCE_OBJ_ENTRY *pObj, *pObjOld;
@@ -3144,7 +3144,7 @@ void RTMP_AllTimerListRelease(RTMP_ADAPTER *pAd)
 		
 	========================================================================
 */
-void	RTMPInitTimer(
+VOID	RTMPInitTimer(
 	IN	PRTMP_ADAPTER			pAd,
 	IN	PRALINK_TIMER_STRUCT	pTimer,
 	IN	void *					pTimerFunc,
@@ -3192,7 +3192,7 @@ void	RTMPInitTimer(
 		
 	========================================================================
 */
-void	RTMPSetTimer(
+VOID	RTMPSetTimer(
 	IN	PRALINK_TIMER_STRUCT	pTimer,
 	IN	unsigned long					Value)
 {
@@ -3251,7 +3251,7 @@ void	RTMPSetTimer(
 		
 	========================================================================
 */
-void	RTMPModTimer(
+VOID	RTMPModTimer(
 	IN	PRALINK_TIMER_STRUCT	pTimer,
 	IN	unsigned long					Value)
 {
@@ -3306,7 +3306,7 @@ void	RTMPModTimer(
 		
 	========================================================================
 */
-void RTMPCancelTimer(
+VOID RTMPCancelTimer(
 	IN PRALINK_TIMER_STRUCT	pTimer,
 	OUT bool		*pCancelled)
 {
@@ -3339,7 +3339,7 @@ void RTMPCancelTimer(
 }
 
 
-void	RTMPReleaseTimer(
+VOID	RTMPReleaseTimer(
 	IN	PRALINK_TIMER_STRUCT	pTimer,
 	OUT	bool					*pCancelled)
 {
@@ -3395,7 +3395,7 @@ void	RTMPReleaseTimer(
 		Before Enable RX, make sure you have enabled Interrupt.
 	========================================================================
 */
-void RTMPEnableRxTx(
+VOID RTMPEnableRxTx(
 	IN PRTMP_ADAPTER	pAd)
 {
 	unsigned int rx_filter_flag;
@@ -3510,7 +3510,7 @@ bool PairEP(RTMP_ADAPTER *pAd, unsigned char EP, unsigned char Index, unsigned c
 #endif /* RTMP_MAC_USB */
 
 
-INT RtmpRaDevCtrlInit(void *pAdSrc, RTMP_INF_TYPE infType)
+INT RtmpRaDevCtrlInit(VOID *pAdSrc, RTMP_INF_TYPE infType)
 {
 	RTMP_ADAPTER *pAd = (PRTMP_ADAPTER)pAdSrc;
 	unsigned char i;
@@ -3581,7 +3581,7 @@ INT RtmpRaDevCtrlInit(void *pAdSrc, RTMP_INF_TYPE infType)
 }
 
 
-bool RtmpRaDevCtrlExit(IN void *pAdSrc)
+bool RtmpRaDevCtrlExit(IN VOID *pAdSrc)
 {
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
 	INT index;
@@ -3635,7 +3635,7 @@ extern unsigned char  MC_CardUsed[MAX_NUM_OF_MULTIPLE_CARD];
 #ifdef CONFIG_AP_SUPPORT
 #ifdef DOT11_N_SUPPORT
 #ifdef DOT11N_DRAFT3
-void RTMP_11N_D3_TimerInit(
+VOID RTMP_11N_D3_TimerInit(
 	IN PRTMP_ADAPTER pAd)
 {
 	RTMPInitTimer(pAd, &pAd->CommonCfg.Bss2040CoexistTimer, GET_TIMER_FUNCTION(Bss2040CoexistTimeOut), pAd, FALSE);
@@ -3646,7 +3646,7 @@ void RTMP_11N_D3_TimerInit(
 
 
 #ifdef VENDOR_FEATURE3_SUPPORT
-void RTMP_IO_WRITE32(
+VOID RTMP_IO_WRITE32(
 	PRTMP_ADAPTER pAd,
 	unsigned int Offset,
 	unsigned int Value)
@@ -3654,7 +3654,7 @@ void RTMP_IO_WRITE32(
 	_RTMP_IO_WRITE32(pAd, Offset, Value);
 }
 
-void RTMP_BBP_IO_READ8_BY_REG_ID(
+VOID RTMP_BBP_IO_READ8_BY_REG_ID(
 	PRTMP_ADAPTER pAd,
 	unsigned int Offset,
 	unsigned char *pValue)
@@ -3676,7 +3676,7 @@ void RTMP_BBP_IO_READ8_BY_REG_ID(
 	_RTMP_BBP_IO_READ8_BY_REG_ID(pAd, Offset, pValue);
 }
 
-void RTMP_BBP_IO_READ8(
+VOID RTMP_BBP_IO_READ8(
 	PRTMP_ADAPTER pAd,
 	unsigned char Offset,
 	unsigned char *pValue,
@@ -3700,7 +3700,7 @@ void RTMP_BBP_IO_READ8(
 	_RTMP_BBP_IO_READ8(pAd, Offset, pValue, FlgValidMCR);
 }
 
-void RTMP_BBP_IO_WRITE8_BY_REG_ID(
+VOID RTMP_BBP_IO_WRITE8_BY_REG_ID(
 	PRTMP_ADAPTER pAd,
 	unsigned int Offset,
 	unsigned char Value)
@@ -3723,7 +3723,7 @@ void RTMP_BBP_IO_WRITE8_BY_REG_ID(
 	_RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, Offset, Value);
 }
 
-void RTMP_BBP_IO_WRITE8(
+VOID RTMP_BBP_IO_WRITE8(
 	PRTMP_ADAPTER pAd,
 	unsigned char Offset,
 	unsigned char Value,
@@ -3750,7 +3750,7 @@ void RTMP_BBP_IO_WRITE8(
 
 
 
-void AntCfgInit(
+VOID AntCfgInit(
 IN  PRTMP_ADAPTER   pAd)
 {
 
@@ -3798,7 +3798,7 @@ IN  PRTMP_ADAPTER   pAd)
 }
 
 #ifdef MICROWAVE_OVEN_SUPPORT
-void NICUpdateRxStatusCnt1(
+VOID NICUpdateRxStatusCnt1(
 IN  PRTMP_ADAPTER   pAd,
 IN  unsigned char	Idx)
 {

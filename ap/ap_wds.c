@@ -103,7 +103,7 @@ long WdsEntryAlloc(
 	return WdsTabIdx;
 }
 
-void WdsEntryDel(
+VOID WdsEntryDel(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr)
 {
@@ -426,7 +426,7 @@ MAC_TABLE_ENTRY *FindWdsEntry(
 		3. garbage collect PSQ
 	==========================================================================
 */
-void WdsTableMaintenance(
+VOID WdsTableMaintenance(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned char idx;
@@ -462,7 +462,7 @@ void WdsTableMaintenance(
 }
 
 
-void RT28xx_WDS_Close(
+VOID RT28xx_WDS_Close(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int index;
@@ -477,7 +477,7 @@ void RT28xx_WDS_Close(
 
 
 
-void WdsDown(
+VOID WdsDown(
 	IN PRTMP_ADAPTER pAd)
 {
 	int i;
@@ -490,7 +490,7 @@ void WdsDown(
 	}
 }
 
-void AsicUpdateWdsRxWCIDTable(
+VOID AsicUpdateWdsRxWCIDTable(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int index;
@@ -543,7 +543,7 @@ void AsicUpdateWdsRxWCIDTable(
 	return;
 }
 
-void AsicUpdateWdsEncryption(
+VOID AsicUpdateWdsEncryption(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char wcid)
 {
@@ -598,7 +598,7 @@ void AsicUpdateWdsEncryption(
 	return;
 }
 
-void WdsPeerBeaconProc(
+VOID WdsPeerBeaconProc(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY pEntry,
 	IN unsigned short CapabilityInfo,
@@ -752,7 +752,7 @@ void WdsPeerBeaconProc(
 	}
 }
 
-void APWdsInitialize(
+VOID APWdsInitialize(
 	IN PRTMP_ADAPTER pAd)
 {
 	INT i;
@@ -819,7 +819,7 @@ INT	Show_WdsTable_Proc(
 	return TRUE;
 }
 
-void rtmp_read_wds_from_file(
+VOID rtmp_read_wds_from_file(
 			IN  PRTMP_ADAPTER pAd,
 			char * tmpbuf,
 			char * buffer)
@@ -1143,7 +1143,7 @@ void rtmp_read_wds_from_file(
 #endif /* WDS_VLAN_SUPPORT */
 }
 
-void WdsPrepareWepKeyFromMainBss(
+VOID WdsPrepareWepKeyFromMainBss(
 	IN  PRTMP_ADAPTER pAd)
 {
 	INT	i;
@@ -1177,7 +1177,7 @@ void WdsPrepareWepKeyFromMainBss(
 }
 
 
-void WDS_Init(
+VOID WDS_Init(
 	IN	PRTMP_ADAPTER				pAd,
 	IN	RTMP_OS_NETDEV_OP_HOOK		*pNetDevOps)
 {
@@ -1290,7 +1290,7 @@ int WDS_PacketSend(
 }
 
 
-void WDS_Remove(
+VOID WDS_Remove(
 	IN	PRTMP_ADAPTER		pAd)
 {
 	unsigned int index;

@@ -147,10 +147,10 @@ typedef struct _NET_PRO_IP_HDR{
 /* The MAT_TABLE used for MacAddress <-> UpperLayer Address Translation. */
 typedef struct _MAT_TABLE_
 {
-	void	*IPMacTable;		/* IPv4 Address, Used for IP, ARP protocol */
-	void	*IPv6MacTable;		/* IPv6 Address, Used for IPv6 related protocols */
-	void	*SesMacTable;		/* PPPoE Session */
-	void	*UidMacTable;		/* PPPoE Discovery */
+	VOID	*IPMacTable;		/* IPv4 Address, Used for IP, ARP protocol */
+	VOID	*IPv6MacTable;		/* IPv6 Address, Used for IPv6 related protocols */
+	VOID	*SesMacTable;		/* PPPoE Session */
+	VOID	*UidMacTable;		/* PPPoE Discovery */
 }MAT_TABLE, *PMAT_TABLE;
 
 
@@ -171,7 +171,7 @@ typedef struct _MAT_STRUCT_
 	unsigned char 				*pMATNodeEntryPoll;
 #endif
 	unsigned int				nodeCount;		/* the number of nodes which connect to Internet via us. */
-	void				*pPriv;
+	VOID				*pPriv;
 }MAT_STRUCT;
 
 
@@ -191,7 +191,7 @@ typedef struct _MATProtoTable
 }MATProtoTable, *PMATProtoTable;
 
 
-void dumpPkt(unsigned char * pHeader, int len);
+VOID dumpPkt(unsigned char * pHeader, int len);
 
 /*#define KMALLOC_BATCH */
 

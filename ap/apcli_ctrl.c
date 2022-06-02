@@ -30,59 +30,59 @@
 #include "rt_config.h"
 
 
-static void ApCliCtrlJoinReqAction(
+static VOID ApCliCtrlJoinReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlJoinReqTimeoutAction(
+static VOID ApCliCtrlJoinReqTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlProbeRspAction(
+static VOID ApCliCtrlProbeRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlAuthRspAction(
+static VOID ApCliCtrlAuthRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlAuth2RspAction(
+static VOID ApCliCtrlAuth2RspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlAuthReqTimeoutAction(
+static VOID ApCliCtrlAuthReqTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlAuth2ReqTimeoutAction(
+static VOID ApCliCtrlAuth2ReqTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlAssocRspAction(
+static VOID ApCliCtrlAssocRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlDeAssocRspAction(
+static VOID ApCliCtrlDeAssocRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlAssocReqTimeoutAction(
+static VOID ApCliCtrlAssocReqTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlDisconnectReqAction(
+static VOID ApCliCtrlDisconnectReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlPeerDeAssocReqAction(
+static VOID ApCliCtrlPeerDeAssocReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlDeAssocAction(
+static VOID ApCliCtrlDeAssocAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
-static void ApCliCtrlDeAuthAction(
+static VOID ApCliCtrlDeAuthAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem);
 
@@ -96,7 +96,7 @@ static void ApCliCtrlDeAuthAction(
         the state machine looks like the following
     ==========================================================================
  */
-void ApCliCtrlStateMachineInit(
+VOID ApCliCtrlStateMachineInit(
 	IN PRTMP_ADAPTER pAd,
 	IN STATE_MACHINE *Sm,
 	OUT STATE_MACHINE_FUNC Trans[])
@@ -154,7 +154,7 @@ void ApCliCtrlStateMachineInit(
         APCLI MLME JOIN req state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlJoinReqAction(
+static VOID ApCliCtrlJoinReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -262,7 +262,7 @@ static void ApCliCtrlJoinReqAction(
         APCLI MLME JOIN req timeout state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlJoinReqTimeoutAction(
+static VOID ApCliCtrlJoinReqTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -329,7 +329,7 @@ static void ApCliCtrlJoinReqTimeoutAction(
         APCLI MLME Probe Rsp state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlProbeRspAction(
+static VOID ApCliCtrlProbeRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -393,7 +393,7 @@ static void ApCliCtrlProbeRspAction(
         APCLI MLME AUTH Rsp state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlAuthRspAction(
+static VOID ApCliCtrlAuthRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -455,7 +455,7 @@ static void ApCliCtrlAuthRspAction(
         APCLI MLME AUTH2 Rsp state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlAuth2RspAction(
+static VOID ApCliCtrlAuth2RspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -498,7 +498,7 @@ static void ApCliCtrlAuth2RspAction(
         APCLI MLME Auth Req timeout state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlAuthReqTimeoutAction(
+static VOID ApCliCtrlAuthReqTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -546,7 +546,7 @@ static void ApCliCtrlAuthReqTimeoutAction(
         APCLI MLME Auth2 Req timeout state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlAuth2ReqTimeoutAction(
+static VOID ApCliCtrlAuth2ReqTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -559,7 +559,7 @@ static void ApCliCtrlAuth2ReqTimeoutAction(
         APCLI MLME ASSOC RSP state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlAssocRspAction(
+static VOID ApCliCtrlAssocRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -621,7 +621,7 @@ static void ApCliCtrlAssocRspAction(
         APCLI MLME DeASSOC RSP state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlDeAssocRspAction(
+static VOID ApCliCtrlDeAssocRspAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -658,7 +658,7 @@ static void ApCliCtrlDeAssocRspAction(
         APCLI MLME Assoc Req timeout state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlAssocReqTimeoutAction(
+static VOID ApCliCtrlAssocReqTimeoutAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -705,7 +705,7 @@ static void ApCliCtrlAssocReqTimeoutAction(
         APCLI MLME Disconnect Rsp state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlDisconnectReqAction(
+static VOID ApCliCtrlDisconnectReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -743,7 +743,7 @@ static void ApCliCtrlDisconnectReqAction(
         APCLI MLME Peer DeAssoc Req state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlPeerDeAssocReqAction(
+static VOID ApCliCtrlPeerDeAssocReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -781,7 +781,7 @@ static void ApCliCtrlPeerDeAssocReqAction(
         APCLI MLME Disconnect Req state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlDeAssocAction(
+static VOID ApCliCtrlDeAssocAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {
@@ -826,7 +826,7 @@ static void ApCliCtrlDeAssocAction(
         APCLI MLME Disconnect Req state machine procedure
     ==========================================================================
  */
-static void ApCliCtrlDeAuthAction(
+static VOID ApCliCtrlDeAuthAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem)
 {

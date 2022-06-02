@@ -71,7 +71,7 @@ Note:
 extern void RtmpOSNetDevProtect(
 	IN bool lock_it);
 
-void MBSS_Init(
+VOID MBSS_Init(
 	IN PRTMP_ADAPTER 		pAd,
 	IN RTMP_OS_NETDEV_OP_HOOK	*pNetDevOps)
 {
@@ -156,7 +156,7 @@ Note:
     Main BSS is not removed here.
 ========================================================================
 */
-void MBSS_Remove(
+VOID MBSS_Remove(
 	IN PRTMP_ADAPTER 	pAd)
 {
 	MULTISSID_STRUCT *pMbss;

@@ -43,7 +43,7 @@ INT MCURandomWrite(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 	return NDIS_STATUS_SUCCESS;
 }
 
-void ChipOpsMCUHook(PRTMP_ADAPTER pAd, enum MCU_TYPE MCUType)
+VOID ChipOpsMCUHook(PRTMP_ADAPTER pAd, enum MCU_TYPE MCUType)
 {
 
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;

@@ -151,7 +151,7 @@ extern unsigned char RateTableVht2S[];
 
 
 /* FUNCTION */
-void MlmeGetSupportedMcs(
+VOID MlmeGetSupportedMcs(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN unsigned char	*pTable,
 	OUT char 	mcs[]);
@@ -163,18 +163,18 @@ unsigned char MlmeSelectTxRate(
 	IN char		Rssi,
 	IN char		RssiOffset);
 
-void MlmeClearTxQuality(struct _MAC_TABLE_ENTRY *pEntry);
-void MlmeClearAllTxQuality(struct _MAC_TABLE_ENTRY *pEntry);
-void MlmeDecTxQuality(struct _MAC_TABLE_ENTRY *pEntry, unsigned char rateIndex);
+VOID MlmeClearTxQuality(struct _MAC_TABLE_ENTRY *pEntry);
+VOID MlmeClearAllTxQuality(struct _MAC_TABLE_ENTRY *pEntry);
+VOID MlmeDecTxQuality(struct _MAC_TABLE_ENTRY *pEntry, unsigned char rateIndex);
 unsigned short MlmeGetTxQuality(struct _MAC_TABLE_ENTRY *pEntry, unsigned char rateIndex);
-void MlmeSetTxQuality(
+VOID MlmeSetTxQuality(
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN unsigned char rateIndex,
 	IN unsigned short txQuality);
 
 
 
-void MlmeOldRateAdapt(
+VOID MlmeOldRateAdapt(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN unsigned char			CurrRateIdx,
@@ -184,14 +184,14 @@ void MlmeOldRateAdapt(
 	IN unsigned long			TrainDown,
 	IN unsigned long			TxErrorRatio);
 
-void MlmeRestoreLastRate(
+VOID MlmeRestoreLastRate(
 	IN struct _MAC_TABLE_ENTRY *pEntry);
 
-void MlmeCheckRDG(
+VOID MlmeCheckRDG(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry);
 
-void RTMPSetSupportMCS(
+VOID RTMPSetSupportMCS(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN unsigned char OpMode,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
@@ -207,7 +207,7 @@ void RTMPSetSupportMCS(
 	IN unsigned char HtCapabilityLen);
 
 #ifdef NEW_RATE_ADAPT_SUPPORT
-void MlmeSetMcsGroup(struct _RTMP_ADAPTER *pAd, struct _MAC_TABLE_ENTRY *pEnt);
+VOID MlmeSetMcsGroup(struct _RTMP_ADAPTER *pAd, struct _MAC_TABLE_ENTRY *pEnt);
 
 unsigned char MlmeSelectUpRate(
 	IN struct _RTMP_ADAPTER *pAd,
@@ -219,7 +219,7 @@ unsigned char MlmeSelectDownRate(
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN unsigned char			CurrRateIdx);
 
-void MlmeGetSupportedMcsAdapt(
+VOID MlmeGetSupportedMcsAdapt(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN unsigned char	mcs23GI,
@@ -239,7 +239,7 @@ bool MlmeRAHybridRule(
 	IN unsigned long			NewTxOkCount,
 	IN unsigned long			TxErrorRatio);
 
-void MlmeNewRateAdapt(
+VOID MlmeNewRateAdapt(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN unsigned char			UpRateIdx,
@@ -277,40 +277,40 @@ INT Set_RateTable_Proc(
 	IN  char * arg);
 
 #ifdef CONFIG_AP_SUPPORT
-void APMlmeDynamicTxRateSwitchingAdapt(struct _RTMP_ADAPTER *pAd, unsigned long idx);
-void APQuickResponeForRateUpExecAdapt(struct _RTMP_ADAPTER *pAd, unsigned long idx);
+VOID APMlmeDynamicTxRateSwitchingAdapt(struct _RTMP_ADAPTER *pAd, unsigned long idx);
+VOID APQuickResponeForRateUpExecAdapt(struct _RTMP_ADAPTER *pAd, unsigned long idx);
 #endif /* CONFIG_AP_SUPPORT */
 
 #endif /* NEW_RATE_ADAPT_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT
-void APMlmeDynamicTxRateSwitching(
+VOID APMlmeDynamicTxRateSwitching(
     IN struct _RTMP_ADAPTER *pAd);
 
-void APQuickResponeForRateUpExec(
+VOID APQuickResponeForRateUpExec(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3);
 
-void APMlmeSetTxRate(
+VOID APMlmeSetTxRate(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN RTMP_RA_LEGACY_TB *pTxRate);
 #endif /* CONFIG_AP_SUPPORT */
 
 
-void MlmeRAInit(struct _RTMP_ADAPTER *pAd, struct _MAC_TABLE_ENTRY *pEntry);
-void MlmeNewTxRate(struct _RTMP_ADAPTER *pAd, struct _MAC_TABLE_ENTRY *pEntry);
+VOID MlmeRAInit(struct _RTMP_ADAPTER *pAd, struct _MAC_TABLE_ENTRY *pEntry);
+VOID MlmeNewTxRate(struct _RTMP_ADAPTER *pAd, struct _MAC_TABLE_ENTRY *pEntry);
 
-void MlmeRALog(
+VOID MlmeRALog(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN RA_LOG_TYPE raLogType,
 	IN unsigned long TxErrorRatio,
 	IN unsigned long TxTotalCnt);
 
-void MlmeSelectTxRateTable(
+VOID MlmeSelectTxRateTable(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN unsigned char **ppTable,

@@ -156,7 +156,7 @@ enum TEMPERATURE_MODE {
 #define DEFAULT_BO              4
 #define LIN2DB_ERROR_CODE       (-10000)
 
-void MT7601_TssiDcGainCalibration(struct _RTMP_ADAPTER *pAd);
+VOID MT7601_TssiDcGainCalibration(struct _RTMP_ADAPTER *pAd);
 
 typedef struct _MT7601_TX_ALC_DATA {
 	int	PowerDiffPre;
@@ -228,28 +228,28 @@ typedef struct _RT6590_RF_SWITCH_ITEM {
 	unsigned char Value;
 } RT6590_RF_SWITCH_ITEM, *PRT6590_RF_SWITCH_ITEM;
 
-void MT7601_Init(struct _RTMP_ADAPTER *pAd);
-void MT7601_RXDC_CAL(struct _RTMP_ADAPTER *pAd);
+VOID MT7601_Init(struct _RTMP_ADAPTER *pAd);
+VOID MT7601_RXDC_CAL(struct _RTMP_ADAPTER *pAd);
 INT MT7601_ReadChannelPwr(struct _RTMP_ADAPTER *pAd);
-void MT7601_ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
-void MT7601_INIT_CAL(struct _RTMP_ADAPTER *pAd);
+VOID MT7601_ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
+VOID MT7601_INIT_CAL(struct _RTMP_ADAPTER *pAd);
 NTSTATUS MT7601DisableTxRx(struct _RTMP_ADAPTER *pAd, unsigned char Level);
-void dump_bw_info(struct _RTMP_ADAPTER *pAd);
-void MT7601AsicTemperatureCompensation(IN struct _RTMP_ADAPTER *pAd, IN bool bPowerOn);
+VOID dump_bw_info(struct _RTMP_ADAPTER *pAd);
+VOID MT7601AsicTemperatureCompensation(IN struct _RTMP_ADAPTER *pAd, IN bool bPowerOn);
 #ifdef RTMP_INTERNAL_TX_ALC
 short lin2dBd(unsigned short linearValue);
-void MT7601_EnableTSSI(struct _RTMP_ADAPTER *pAd);
+VOID MT7601_EnableTSSI(struct _RTMP_ADAPTER *pAd);
 #endif /* RTMP_INTERNAL_TX_ALC */
 
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(SINGLE_SKU_V2)
-void MT7601_InitPAModeTable(struct _RTMP_ADAPTER *pAd);
+VOID MT7601_InitPAModeTable(struct _RTMP_ADAPTER *pAd);
 #endif /* defined(RTMP_INTERNAL_TX_ALC) || defined(SINGLE_SKU_V2) */
 
 #ifdef MICROWAVE_OVEN_SUPPORT
-void MT7601_AsicMitigateMicrowave(
+VOID MT7601_AsicMitigateMicrowave(
 	IN struct _RTMP_ADAPTER *pAd);
 
-void MT7601_AsicMeasureFalseCCA(
+VOID MT7601_AsicMeasureFalseCCA(
 	IN struct _RTMP_ADAPTER *pAd);
 #endif /* MICROWAVE_OVEN_SUPPORT */
 
@@ -261,7 +261,7 @@ INT MT7601_Bootup_Read_Temperature(
 	struct _RTMP_ADAPTER *pAd, 
 	OUT	char*			Temperature);
 
-void MT7601SetRxAnt(
+VOID MT7601SetRxAnt(
 	struct _RTMP_ADAPTER *pAd,
 	IN unsigned char			Ant);
 #endif /* __MT7601_H__ */

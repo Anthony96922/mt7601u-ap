@@ -97,12 +97,12 @@ unsigned char	STA_Wsc_Pri_Dev_Type[8] = {0x00, 0x01, 0x00, 0x50, 0xf2, 0x04, 0x0
 #ifdef CONFIG_AP_SUPPORT
 unsigned char	AP_Wsc_Pri_Dev_Type[8] = {0x00, 0x06, 0x00, 0x50, 0xf2, 0x04, 0x00, 0x01};
 
-void    WscDelWPARetryTimer(
+VOID    WscDelWPARetryTimer(
     IN  PRTMP_ADAPTER pAd);
 
 #ifdef APCLI_SUPPORT
 
-void 	WscApCliLinkDown(
+VOID 	WscApCliLinkDown(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL       pWscControl);
 #endif /* APCLI_SUPPORT */
@@ -114,11 +114,11 @@ bool WscCheckNonce(
 	IN  bool         bFlag,
 	IN  PWSC_CTRL       pWscControl);
 
-void    WscEapActionDisabled(
+VOID    WscEapActionDisabled(
     IN  PRTMP_ADAPTER       pAdapter,
     IN  PWSC_CTRL           pWscControl);
 
-void    WscGetConfigErrFromNack(
+VOID    WscGetConfigErrFromNack(
     IN  PRTMP_ADAPTER       pAdapter,
     IN	MLME_QUEUE_ELEM	    *pElem,
     OUT unsigned short				*pConfigError);
@@ -135,7 +135,7 @@ INT	    WscSetEncrypType(
 	IN  unsigned char			apidx,
 	IN	char *			arg);
 
-void WscSendNACK(
+VOID WscSendNACK(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl);
@@ -143,7 +143,7 @@ void WscSendNACK(
 static INT wsc_write_dat_file_thread(IN unsigned long data);
 
 
-void	WscDelListEntryByMAC(
+VOID	WscDelListEntryByMAC(
 	PLIST_HEADER		pWscEnList,
 	IN  unsigned char *			pMacAddr);
 
@@ -256,7 +256,7 @@ INT WscGenerateUUID(
 	return 0;
 }
 
-void	WscInitCommonTimers(
+VOID	WscInitCommonTimers(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN  PWSC_CTRL		pWscControl)
 {
@@ -272,7 +272,7 @@ void	WscInitCommonTimers(
 #endif /* WSC_LED_SUPPORT */
 }
 
-void	WscInitClientTimers(
+VOID	WscInitClientTimers(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN  PWSC_CTRL		pWScControl)
 {
@@ -289,7 +289,7 @@ void	WscInitClientTimers(
 		S - pointer to the association state machine
 	==========================================================================
  */
-void    WscStateMachineInit(
+VOID    WscStateMachineInit(
 	IN	PRTMP_ADAPTER		pAd, 
 	IN	STATE_MACHINE		*S, 
 	OUT	STATE_MACHINE_FUNC	Trans[])	
@@ -411,7 +411,7 @@ done:
 }
 
 
-void WscUPnPMsgTimeOutAction(
+VOID WscUPnPMsgTimeOutAction(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -480,7 +480,7 @@ void WscUPnPMsgTimeOutAction(
 		None
 	==========================================================================
 */
-void WscEAPOLStartAction(
+VOID WscEAPOLStartAction(
     IN PRTMP_ADAPTER    pAd, 
     IN MLME_QUEUE_ELEM  *Elem) 
 {
@@ -624,7 +624,7 @@ void WscEAPOLStartAction(
 		None
 	==========================================================================
 */
-void WscEAPAction(
+VOID WscEAPAction(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem) 
 {		
@@ -1292,7 +1292,7 @@ out:
 	Enrollee			Enrollee			Enrollee	
 	============================================================================	
 */
-void WscEapEnrolleeAction(
+VOID WscEapEnrolleeAction(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem,
 	IN  unsigned char	        MsgType,
@@ -1866,7 +1866,7 @@ Done:
 	Proxy			Proxy			Proxy			
 	============================================================================	
 */	
-void WscEapApProxyAction(
+VOID WscEapApProxyAction(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem,
 	IN  unsigned char	        MsgType,
@@ -2055,7 +2055,7 @@ Fail:
 	Registrar			Registrar			Registrar			
 	============================================================================	
 */	
-void WscEapRegistrarAction(
+VOID WscEapRegistrarAction(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	MLME_QUEUE_ELEM	*Elem,
 	IN  unsigned char	        MsgType,
@@ -2472,7 +2472,7 @@ Fail:
 	}	
 }
 
-void WscTimeOutProcess(
+VOID WscTimeOutProcess(
     IN  PRTMP_ADAPTER       pAd,
     IN  PMAC_TABLE_ENTRY    pEntry,
     IN  INT                 nWscState,
@@ -2596,7 +2596,7 @@ void WscTimeOutProcess(
     DBGPRINT(RT_DEBUG_TRACE, ("WscTimeOutProcess\n"));
 }
 
-void WscEAPOLTimeOutAction(
+VOID WscEAPOLTimeOutAction(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -2959,7 +2959,7 @@ out:
     DBGPRINT(RT_DEBUG_TRACE, ("<----- WscEAPOLTimeOutAction\n"));
 }
 
-void Wsc2MinsTimeOutAction(
+VOID Wsc2MinsTimeOutAction(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -3273,7 +3273,7 @@ bool	WscMsgTypeSubst(
 	return TRUE;
 }
 
-void	WscInitRegistrarPair(
+VOID	WscInitRegistrarPair(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN  unsigned char				apidx)
@@ -3433,7 +3433,7 @@ void	WscInitRegistrarPair(
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscInitRegistrarPair\n"));	
 }
 
-void	WscSendEapReqId(
+VOID	WscSendEapReqId(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	PMAC_TABLE_ENTRY	pEntry,
 	IN  unsigned char				CurOpMode)
@@ -3539,7 +3539,7 @@ void	WscSendEapReqId(
 		
 	========================================================================
 */
-void    WscSendEapolStart(
+VOID    WscSendEapolStart(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN  unsigned char *          pBssid,
 	IN  unsigned char			CurOpMode)
@@ -3598,7 +3598,7 @@ void    WscSendEapolStart(
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscSendEapolStart\n"));
 }
 
-void	WscSendEapRspId(
+VOID	WscSendEapRspId(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PMAC_TABLE_ENTRY    pEntry,
 	IN  PWSC_CTRL           pWscControl)
@@ -3708,7 +3708,7 @@ out:
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscSendEapRspId\n"));	
 }
 
-void WscUPnPErrHandle(
+VOID WscUPnPErrHandle(
 	IN PRTMP_ADAPTER pAd,
 	IN  PWSC_CTRL	pWscControl,
 	IN unsigned int eventID)
@@ -3961,7 +3961,7 @@ int WscSendUPnPMessage(
 }
 
 
-void	WscSendMessage(
+VOID	WscSendMessage(
 	IN	PRTMP_ADAPTER		pAdapter, 
 	IN  unsigned char               OpCode,
 	IN  unsigned char *				pData,
@@ -4123,7 +4123,7 @@ void	WscSendMessage(
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscSendMessage\n"));	
 }
 
-void WscBuildBeaconIE(
+VOID WscBuildBeaconIE(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	unsigned char b_configured,
 	IN	bool b_selRegistrar,
@@ -4282,7 +4282,7 @@ void WscBuildBeaconIE(
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscBuildBeaconIE\n"));
 }
 
-void WscBuildProbeRespIE(
+VOID WscBuildProbeRespIE(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	unsigned char respType,
 	IN	unsigned char scState,
@@ -4524,7 +4524,7 @@ void WscBuildProbeRespIE(
 		
 	========================================================================
 */
-void	WscSendEapFail(
+VOID	WscSendEapFail(
 	IN	PRTMP_ADAPTER		pAd,
 	IN  PWSC_CTRL           pWscControl,
 	IN  bool				bSendDeAuth)
@@ -4618,7 +4618,7 @@ void	WscSendEapFail(
 }
 
 #ifdef CONFIG_AP_SUPPORT
-void WscBuildAssocRespIE(
+VOID WscBuildAssocRespIE(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  unsigned char 			ApIdx,
 	IN  unsigned char			Reason,
@@ -4689,7 +4689,7 @@ void WscBuildAssocRespIE(
 }
 
 
-void WscSelectedRegistrar(
+VOID WscSelectedRegistrar(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char *	pReginfo,
 	IN	unsigned int	Length,
@@ -4817,7 +4817,7 @@ void WscSelectedRegistrar(
 #endif /* CONFIG_AP_SUPPORT */
 
 
-void WscProfileRetryTimeout(
+VOID WscProfileRetryTimeout(
 	IN void * SystemSpecific1,
 	IN void * FunctionContext,
 	IN void * SystemSpecific2,
@@ -4909,7 +4909,7 @@ void WscProfileRetryTimeout(
 	}
 }
 
-void WscPBCTimeOutAction(
+VOID WscPBCTimeOutAction(
     IN void * SystemSpecific1, 
     IN void * FunctionContext, 
     IN void * SystemSpecific2, 
@@ -4959,7 +4959,7 @@ void WscPBCTimeOutAction(
 		
 	========================================================================
 */
-void WscScanTimeOutAction(
+VOID WscScanTimeOutAction(
     IN void * SystemSpecific1,
     IN void * FunctionContext,
     IN void * SystemSpecific2,
@@ -5051,7 +5051,7 @@ unsigned int WscRandomGeneratePinCode(
 
 
 #ifdef CONFIG_AP_SUPPORT
-void  WscInformFromWPA(
+VOID  WscInformFromWPA(
 	IN  PMAC_TABLE_ENTRY    pEntry)
 {
 	/* WPA_STATE_MACHINE informs this Entry is already WPA_802_1X_PORT_SECURED. */
@@ -5077,7 +5077,7 @@ void  WscInformFromWPA(
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscInformFromWPA\n"));
 }
 
-void WscDelWPARetryTimer(
+VOID WscDelWPARetryTimer(
 	IN  PRTMP_ADAPTER pAd)
 {
 	PMAC_TABLE_ENTRY    pEntry;
@@ -5098,7 +5098,7 @@ void WscDelWPARetryTimer(
 }
 #endif /* CONFIG_AP_SUPPORT */
 
-void WscStop(
+VOID WscStop(
 	IN	PRTMP_ADAPTER	pAd,
 #ifdef CONFIG_AP_SUPPORT
 	IN  bool         bFromApCli,
@@ -5217,7 +5217,7 @@ void WscStop(
 //sync by 7610
 }
 
-void WscInit(
+VOID WscInit(
 	IN	PRTMP_ADAPTER	pAd,
     IN  bool         bFromApCli,
 	IN  unsigned char       	BssIndex)
@@ -5630,7 +5630,7 @@ void    WscWriteConfToPortCfg(
 }
 
 
-void	WscWriteSsidToDatFile(
+VOID	WscWriteSsidToDatFile(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  char *		 	pTempStr,
 	IN	bool			bNewFormat,
@@ -5689,7 +5689,7 @@ void	WscWriteSsidToDatFile(
 }
 
 
-void	WscWriteWpaPskToDatFile(
+VOID	WscWriteWpaPskToDatFile(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  char *		 	pTempStr,
 	IN	bool			bNewFormat)
@@ -5818,7 +5818,7 @@ bool WscCheckNonce(
     return FALSE;
 }
 
-void    WscGetRegDataPIN(
+VOID    WscGetRegDataPIN(
     IN  PRTMP_ADAPTER   pAdapter,
     IN  unsigned int            PinCode,
     IN  PWSC_CTRL       pWscControl)
@@ -5858,7 +5858,7 @@ void    WscGetRegDataPIN(
 	hex_dump("WscGetRegDataPIN - PIN", pWscControl->RegData.PIN, 8);
 }
 
-void    WscEapActionDisabled(
+VOID    WscEapActionDisabled(
     IN  PRTMP_ADAPTER       pAdapter,
     IN  PWSC_CTRL           pWscControl)
 {
@@ -5891,7 +5891,7 @@ void    WscEapActionDisabled(
 	/* pWscControl->EapolTimerRunning = FALSE; */
 }
 
-void    WscGetConfigErrFromNack(
+VOID    WscGetConfigErrFromNack(
     IN  PRTMP_ADAPTER       pAdapter,
     IN	MLME_QUEUE_ELEM	    *pElem,
     OUT unsigned short				*pConfigError)
@@ -6045,7 +6045,7 @@ INT	WscSetEncrypType(
 	========================================================================
 */
 
-void	WscPushPBCAction(
+VOID	WscPushPBCAction(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL   	pWscControl)
 {
@@ -6118,7 +6118,7 @@ void	WscPushPBCAction(
 		
 	========================================================================
 */
-void	WscScanExec(
+VOID	WscScanExec(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL   	pWscControl) 
 {
@@ -6552,7 +6552,7 @@ bool WscBssWpsIESearchForPBC(
 		
 	========================================================================
 */
-void WscPBCBssTableSort(
+VOID WscPBCBssTableSort(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL       pWscControl)
 {
@@ -6637,7 +6637,7 @@ if (CurOpMode == AP_MODE)
 	DBGPRINT(RT_DEBUG_OFF, ("WscPBCBssTableSort : Total %d PBC Registrar Found\n", pWscControl->WscPBCBssCount));
 }
 
-void	WscGenRandomKey(
+VOID	WscGenRandomKey(
 	IN  	PRTMP_ADAPTER	pAd,
 	IN  	PWSC_CTRL       pWscControl,
 	INOUT	unsigned char *			pKey,
@@ -6694,7 +6694,7 @@ void	WscGenRandomKey(
 	}
 }
 
-void	WscCreateProfileFromCfg(
+VOID	WscCreateProfileFromCfg(
 	IN	PRTMP_ADAPTER		pAd,
 	IN  unsigned char               OpMode,
 	IN  PWSC_CTRL           pWscControl,
@@ -7010,7 +7010,7 @@ void    WscWriteConfToApCliCfg(
     DBGPRINT(RT_DEBUG_TRACE, ("<----- WscWriteConfToApCliCfg\n"));
 }
 
-void 	WscApCliLinkDown(
+VOID 	WscApCliLinkDown(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL       pWscControl)
 {
@@ -7036,7 +7036,7 @@ void 	WscApCliLinkDown(
 #endif /* APCLI_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 
-void   WpsSmProcess(
+VOID   WpsSmProcess(
     IN PRTMP_ADAPTER        pAd,
     IN MLME_QUEUE_ELEM 	   *Elem)
 {
@@ -7351,7 +7351,7 @@ INT	WscGetConfWithoutTrigger(
 }
 #endif /* CONFIG_AP_SUPPORT */
 
-void WscSendNACK(
+VOID WscSendNACK(
     IN	PRTMP_ADAPTER	pAdapter,
     IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl)
@@ -7394,7 +7394,7 @@ void WscSendNACK(
 }
 
 #ifdef WSC_INCLUDED
-void WscCheckWpsIeFromWpsAP(
+VOID WscCheckWpsIeFromWpsAP(
     IN  PRTMP_ADAPTER 	pAd, 
     IN  PEID_STRUCT		pEid,
     OUT unsigned short *			pDPIDFromAP)
@@ -7449,7 +7449,7 @@ void WscCheckWpsIeFromWpsAP(
 #endif /* WSC_INCLUDED */
 
 
-void WscPBCSessionOverlapCheck(
+VOID WscPBCSessionOverlapCheck(
 	IN  PRTMP_ADAPTER 	pAd)
 {
 	unsigned long	now;
@@ -7482,7 +7482,7 @@ void WscPBCSessionOverlapCheck(
 	return;
 }
 
-void WscPBC_DPID_FromSTA(
+VOID WscPBC_DPID_FromSTA(
 	IN  PRTMP_ADAPTER		pAd,	
 	IN	unsigned char *				pMacAddr)
 {
@@ -8393,7 +8393,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void WSC_HDR_BTN_Init(
+VOID WSC_HDR_BTN_Init(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	pAd->CommonCfg.WscHdrPshBtnCheckCount = 0;
@@ -8414,7 +8414,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void WSC_HDR_BTN_Stop(
+VOID WSC_HDR_BTN_Stop(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	pAd->CommonCfg.WscHdrPshBtnCheckCount = 0;
@@ -8446,7 +8446,7 @@ extern INT	Set_AP_WscGetConf_Proc(
 
 /*#ifdef CONFIG_STA_SUPPORT */
 
-void WSC_HDR_BTN_CheckHandler(
+VOID WSC_HDR_BTN_CheckHandler(
 	IN	PRTMP_ADAPTER	pAd)
 {
  	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
@@ -8591,7 +8591,7 @@ bool WscAPHasSecuritySetting(
 /* After the NIC connects with a WPS AP or not, */
 /* the WscLEDTimer timer controls the LED behavior according to LED mode. */
 /* */
-void WscLEDTimer(
+VOID WscLEDTimer(
 	IN void *	SystemSpecific1, 
 	IN void *	FunctionContext, 
 	IN void *	SystemSpecific2, 
@@ -8682,7 +8682,7 @@ void WscLEDTimer(
 }
 
 
-void WscSkipTurnOffLEDTimer(
+VOID WscSkipTurnOffLEDTimer(
 	IN void *	SystemSpecific1, 
 	IN void *	FunctionContext, 
 	IN void *	SystemSpecific2, 
@@ -8699,7 +8699,7 @@ void WscSkipTurnOffLEDTimer(
 #endif /* WSC_LED_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT
-void WscUpdatePortCfgTimeout(
+VOID WscUpdatePortCfgTimeout(
 	IN void * SystemSpecific1,
 	IN void * FunctionContext,
 	IN void * SystemSpecific2,
@@ -8753,7 +8753,7 @@ void WscUpdatePortCfgTimeout(
 }
 #endif /* CONFIG_AP_SUPPORT */
 
-void WscCheckPeerDPID(
+VOID WscCheckPeerDPID(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PFRAME_802_11 	Fr,
 	IN  unsigned char *			eid_data,
@@ -8833,7 +8833,7 @@ void WscCheckPeerDPID(
 	}
 }
 
-void	WscClearPeerList(
+VOID	WscClearPeerList(
 	IN  PLIST_HEADER	pWscEnList)
 {
 	PLIST_ENTRY		pEntry = NULL;
@@ -8870,7 +8870,7 @@ PWSC_PEER_ENTRY	WscFindPeerEntry(
 	return NULL;
 }
 
-void	WscInsertPeerEntryByMAC(
+VOID	WscInsertPeerEntryByMAC(
 	PLIST_HEADER		pWscEnList,
 	IN	unsigned char *			pMacAddr)
 {
@@ -8941,7 +8941,7 @@ INT WscApShowPeerList(
 #endif // CONFIG_AP_SUPPORT //
 
 
-void	WscMaintainPeerList(
+VOID	WscMaintainPeerList(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL		pWpsCtrl)
 {
@@ -8976,7 +8976,7 @@ void	WscMaintainPeerList(
 	return;
 }
 
-void	WscDelListEntryByMAC(
+VOID	WscDelListEntryByMAC(
 	PLIST_HEADER		pWscEnList,
 	IN  unsigned char *			pMacAddr)
 {
@@ -8990,7 +8990,7 @@ void	WscDelListEntryByMAC(
 	}
 }
 
-void	WscAssignEntryMAC(
+VOID	WscAssignEntryMAC(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL		pWpsCtrl)
 {

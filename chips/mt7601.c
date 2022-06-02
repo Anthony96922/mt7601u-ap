@@ -703,7 +703,7 @@ unsigned int NUM_OF_MT7601_CHNL = (sizeof(MT7601_Frequency_Plan) / sizeof(MT7601
 		Before Enable RX, make sure you have enabled Interrupt.
 	========================================================================
 */
-void MT7601_WLAN_ChipOnOff(
+VOID MT7601_WLAN_ChipOnOff(
 	IN RTMP_ADAPTER *pAd,
 	IN bool bOn,
 	IN bool bResetWLAN)
@@ -827,7 +827,7 @@ void MT7601_WLAN_ChipOnOff(
 }
 
 
-void MT7601_RXDC_CAL(RTMP_ADAPTER *pAd)
+VOID MT7601_RXDC_CAL(RTMP_ADAPTER *pAd)
 {
 #define MAX_RXDCOC_RETRY_CNT	20
 	unsigned int count;
@@ -868,7 +868,7 @@ void MT7601_RXDC_CAL(RTMP_ADAPTER *pAd)
 }
 
 
-void MT7601_INIT_CAL(RTMP_ADAPTER *pAd)
+VOID MT7601_INIT_CAL(RTMP_ADAPTER *pAd)
 {
 	unsigned char RfValue;
 	unsigned int Mac_R1004;
@@ -936,7 +936,7 @@ void MT7601_INIT_CAL(RTMP_ADAPTER *pAd)
 }
 
 
-void dump_bw_info(RTMP_ADAPTER *pAd)
+VOID dump_bw_info(RTMP_ADAPTER *pAd)
 {
 }
 
@@ -955,7 +955,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void InitFce(
+VOID InitFce(
 	PRTMP_ADAPTER pAd)
 {
 	L2_STUFFING_STRUC L2Stuffing = { {0} };
@@ -984,7 +984,7 @@ Return Value:
 Note:
 ========================================================================
 */
-static void NICInitMT7601RFRegisters(RTMP_ADAPTER *pAd)
+static VOID NICInitMT7601RFRegisters(RTMP_ADAPTER *pAd)
 {
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s\n", __FUNCTION__));
@@ -1021,7 +1021,7 @@ Return Value:
 Note:
 ========================================================================
 */
-static void NICInitMT7601MacRegisters(RTMP_ADAPTER *pAd)
+static VOID NICInitMT7601MacRegisters(RTMP_ADAPTER *pAd)
 {
 	unsigned int MacReg = 0;
 
@@ -1061,7 +1061,7 @@ Return Value:
 Note:
 ========================================================================
 */
-static void NICInitMT7601BbpRegisters(
+static VOID NICInitMT7601BbpRegisters(
 	IN	PRTMP_ADAPTER pAd)
 {
 	DBGPRINT(RT_DEBUG_TRACE, ("%s\n", __FUNCTION__));
@@ -1076,7 +1076,7 @@ static void NICInitMT7601BbpRegisters(
 }
 
 
-static void MT7601_AsicAntennaDefaultReset(
+static VOID MT7601_AsicAntennaDefaultReset(
 	IN struct _RTMP_ADAPTER	*pAd,
 	IN EEPROM_ANTENNA_STRUC *pAntenna)
 {
@@ -1088,7 +1088,7 @@ static void MT7601_AsicAntennaDefaultReset(
 }
 
 
-static void MT7601_ChipBBPAdjust(RTMP_ADAPTER *pAd)
+static VOID MT7601_ChipBBPAdjust(RTMP_ADAPTER *pAd)
 {
 #if defined(DOT11_N_SUPPORT) && defined(DBG)
 	static char *ext_str[]={"extNone", "extAbove", "", "extBelow"};
@@ -1123,7 +1123,7 @@ static void MT7601_ChipBBPAdjust(RTMP_ADAPTER *pAd)
 
 
 
-void MT7601_ChipAGCInit(
+VOID MT7601_ChipAGCInit(
 	IN PRTMP_ADAPTER		pAd,
 	IN unsigned char			BandWidth)
 {
@@ -1143,7 +1143,7 @@ void MT7601_ChipAGCInit(
 }
 
 
-static void MT7601_ChipSwitchChannel(
+static VOID MT7601_ChipSwitchChannel(
 	struct _RTMP_ADAPTER *pAd,
 	unsigned char Channel,
 	bool	 bScan)
@@ -1578,7 +1578,7 @@ NTSTATUS MT7601DisableTxRx(
 
 
 #ifdef RTMP_USB_SUPPORT
-void MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, unsigned char Stage)
+VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, unsigned char Stage)
 {
 #ifdef RTMP_MAC_USB
 	unsigned int ret;
@@ -1632,7 +1632,7 @@ void MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, unsigned char Stage)
 }
 
 
-void MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, unsigned char Stage)
+VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, unsigned char Stage)
 {
 	unsigned int MACValue = 0;
 	unsigned int rx_filter_flag;
@@ -1709,7 +1709,7 @@ void MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, unsigned char Stage)
 
 
 
-void MT7601_NICInitAsicFromEEPROM(
+VOID MT7601_NICInitAsicFromEEPROM(
 	IN PRTMP_ADAPTER		pAd)
 {
 	// TODO: wait TC6008 EEPROM format
@@ -1811,7 +1811,7 @@ INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 }
 
 
-void MT7601_ReadTxPwrPerRate(RTMP_ADAPTER *pAd)
+VOID MT7601_ReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 {
 	unsigned int		data, Adata, Gdata;
 	unsigned short		i, value, value2;
@@ -1966,7 +1966,7 @@ void MT7601_ReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 }
 
 
-void MT7601_AsicExtraPowerOverMAC(
+VOID MT7601_AsicExtraPowerOverMAC(
 	IN	PRTMP_ADAPTER 		pAd)
 {
 	unsigned long	ExtraPwrOverMAC = 0;
@@ -1991,7 +1991,7 @@ void MT7601_AsicExtraPowerOverMAC(
 
 
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(SINGLE_SKU_V2)
-void MT7601_InitPAModeTable(
+VOID MT7601_InitPAModeTable(
 	IN PRTMP_ADAPTER			pAd)
 {
 	int PAMode;
@@ -2044,7 +2044,7 @@ void MT7601_InitPAModeTable(
 #endif /* defined(RTMP_INTERNAL_TX_ALC) || defined(SINGLE_SKU_V2) */
 
 
-void MT7601_InitTemperatureCompensation(
+VOID MT7601_InitTemperatureCompensation(
 	IN PRTMP_ADAPTER			pAd)
 {
 	unsigned int Value = 0;
@@ -2059,7 +2059,7 @@ void MT7601_InitTemperatureCompensation(
 }
 
 
-void MT7601_TemperatureCompensation(
+VOID MT7601_TemperatureCompensation(
 	IN PRTMP_ADAPTER			pAd)
 {
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -2075,7 +2075,7 @@ void MT7601_TemperatureCompensation(
 }
 
 
-void MT7601AsicTemperatureCompensation(
+VOID MT7601AsicTemperatureCompensation(
 	IN PRTMP_ADAPTER			pAd,
 	IN bool				bPowerOn)
 {
@@ -2241,7 +2241,7 @@ short lin2dBd(unsigned short linearValue)
 }
 
 
-void MT7601_EnableTSSI(IN PRTMP_ADAPTER pAd)
+VOID MT7601_EnableTSSI(IN PRTMP_ADAPTER pAd)
 {
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
@@ -2250,7 +2250,7 @@ void MT7601_EnableTSSI(IN PRTMP_ADAPTER pAd)
 }
 
 
-void MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
+VOID MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 {
 	unsigned char Rf_B5_R03, Rf_B4_R39, bbp_r47;
 	INT i, count;
@@ -2363,7 +2363,7 @@ void MT7601_TssiDcGainCalibration(RTMP_ADAPTER *pAd)
 }
 
 
-void MT7601_InitDesiredTSSITable(
+VOID MT7601_InitDesiredTSSITable(
 	IN PRTMP_ADAPTER			pAd)
 {
 	unsigned int Value = 0;
@@ -2669,7 +2669,7 @@ bool MT7601_GetTssiCompensationParam(
 
 }
 
-void MT7601_AsicTxAlcGetAutoAgcOffset(
+VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 	IN PRTMP_ADAPTER 			pAd,
 	IN char *					pDeltaPwr,
 	IN char *					pTotalDeltaPwr,
@@ -2893,7 +2893,7 @@ INT MT7601_Read_Temperature(
 }
 
 
-void MT7601SetRxAnt(
+VOID MT7601SetRxAnt(
 	IN PRTMP_ADAPTER    pAd,
 	IN unsigned char            Ant)
 {
@@ -2938,7 +2938,7 @@ Return Value:
 Note:
 ========================================================================
 */
-void MT7601_Init(RTMP_ADAPTER *pAd)
+VOID MT7601_Init(RTMP_ADAPTER *pAd)
 {
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -3167,7 +3167,7 @@ void MT7601_Init(RTMP_ADAPTER *pAd)
 
 
 #ifdef MICROWAVE_OVEN_SUPPORT
-void MT7601_AsicMeasureFalseCCA(
+VOID MT7601_AsicMeasureFalseCCA(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int reg;
@@ -3186,7 +3186,7 @@ void MT7601_AsicMeasureFalseCCA(
 }
 
 
-void MT7601_AsicMitigateMicrowave(
+VOID MT7601_AsicMitigateMicrowave(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned char	RegValue;

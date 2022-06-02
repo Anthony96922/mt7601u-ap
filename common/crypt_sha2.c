@@ -101,7 +101,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA1_Init (
+VOID RT_SHA1_Init (
     IN  SHA1_CTX_STRUC *pSHA_CTX)
 {
     NdisMoveMemory(pSHA_CTX->HashValue, SHA1_DefaultHashValue, 
@@ -127,7 +127,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA1_Hash (
+VOID RT_SHA1_Hash (
     IN  SHA1_CTX_STRUC *pSHA_CTX)
 {
     unsigned int W_i,t;
@@ -222,7 +222,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA1_Append (
+VOID RT_SHA1_Append (
     IN  SHA1_CTX_STRUC *pSHA_CTX, 
     IN  const unsigned char Message[], 
     IN  unsigned int MessageLen)
@@ -268,7 +268,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA1_End (
+VOID RT_SHA1_End (
     IN  SHA1_CTX_STRUC *pSHA_CTX, 
     OUT unsigned char DigestMessage[])
 {
@@ -313,7 +313,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA1 (
+VOID RT_SHA1 (
     IN  const unsigned char Message[], 
     IN  unsigned int MessageLen, 
     OUT unsigned char DigestMessage[])
@@ -345,7 +345,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA256_Init (
+VOID RT_SHA256_Init (
     IN  SHA256_CTX_STRUC *pSHA_CTX)
 {
     NdisMoveMemory(pSHA_CTX->HashValue, SHA256_DefaultHashValue, 
@@ -371,7 +371,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA256_Hash (
+VOID RT_SHA256_Hash (
     IN  SHA256_CTX_STRUC *pSHA_CTX)
 {
     unsigned int W_i,t;
@@ -445,7 +445,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA256_Append (
+VOID RT_SHA256_Append (
     IN  SHA256_CTX_STRUC *pSHA_CTX, 
     IN  const unsigned char Message[], 
     IN  unsigned int MessageLen)
@@ -491,7 +491,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA256_End (
+VOID RT_SHA256_End (
     IN  SHA256_CTX_STRUC *pSHA_CTX, 
     OUT unsigned char DigestMessage[])
 {
@@ -536,7 +536,7 @@ Note:
     None
 ========================================================================
 */
-void RT_SHA256 (
+VOID RT_SHA256 (
     IN  const unsigned char Message[], 
     IN  unsigned int MessageLen, 
     OUT unsigned char DigestMessage[])

@@ -35,7 +35,7 @@ int DetectOverlappingPeriodicRound;
 
 
 #ifdef DOT11N_DRAFT3
-void Bss2040CoexistTimeOut(
+VOID Bss2040CoexistTimeOut(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
@@ -67,7 +67,7 @@ void Bss2040CoexistTimeOut(
 #endif /* DOT11_N_SUPPORT */
 
 
-void APDetectOverlappingExec(
+VOID APDetectOverlappingExec(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
@@ -113,7 +113,7 @@ void APDetectOverlappingExec(
            and release packet buffer in PSQ is fail to TX in time.
     ==========================================================================
  */
-void APMlmePeriodicExec(
+VOID APMlmePeriodicExec(
     PRTMP_ADAPTER pAd)
 {
     /* 
@@ -421,7 +421,7 @@ bool APMsgTypeSubst(
         
     ========================================================================
 */
-void APAsicEvaluateRxAnt(
+VOID APAsicEvaluateRxAnt(
 	IN PRTMP_ADAPTER	pAd)
 {
 	unsigned long	TxTotalCnt;
@@ -496,7 +496,7 @@ void APAsicEvaluateRxAnt(
         
     ========================================================================
 */
-void APAsicRxAntEvalTimeout(
+VOID APAsicRxAntEvalTimeout(
 	PRTMP_ADAPTER	pAd) 
 {
 	char			larger = -127, rssi0, rssi1, rssi2;
@@ -562,7 +562,7 @@ void APAsicRxAntEvalTimeout(
         
     ========================================================================
 */
-void	APAsicAntennaAvg(
+VOID	APAsicAntennaAvg(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned char	              AntSelect,
 	IN	short*	              RssiAvg)  

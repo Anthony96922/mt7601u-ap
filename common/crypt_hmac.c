@@ -48,7 +48,7 @@ Note:
     None
 ========================================================================
 */
-void RT_HMAC_SHA1 (
+VOID RT_HMAC_SHA1 (
     IN  const unsigned char Key[], 
     IN  unsigned int KeyLen, 
     IN  const unsigned char Message[], 
@@ -131,7 +131,7 @@ Note:
     None
 ========================================================================
 */
-void RT_HMAC_SHA256 (
+VOID RT_HMAC_SHA256 (
     IN  const unsigned char Key[], 
     IN  unsigned int KeyLen, 
     IN  const unsigned char Message[], 
@@ -215,7 +215,7 @@ Note:
     None
 ========================================================================
 */
-void RT_HMAC_MD5(
+VOID RT_HMAC_MD5(
     IN  const unsigned char Key[], 
     IN  unsigned int KeyLen, 
     IN  const unsigned char Message[], 

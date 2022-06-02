@@ -47,7 +47,7 @@ Note:
 	The function name must be replace_upper_layer_packet_destination.
 ========================================================================
 */
-void replace_upper_layer_packet_destination(void *pXiDestination)
+VOID replace_upper_layer_packet_destination(VOID *pXiDestination)
 {
 	DBGPRINT(RT_DEBUG_TRACE, ("ralink broad light> replace_upper_layer_packet_destination\n"));
 	pToUpperLayerPktSent = pXiDestination ;

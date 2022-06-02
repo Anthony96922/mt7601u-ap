@@ -24,7 +24,7 @@
      --------    ----------    ----------------------------------------------
  */
 
-void RTMPIdsPeriodicExec(
+VOID RTMPIdsPeriodicExec(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
@@ -38,7 +38,7 @@ bool RTMPSpoofedMgmtDetection(
 	IN char				Rssi2,
 	IN unsigned char			AntSel);
 
-void RTMPConflictSsidDetection(
+VOID RTMPConflictSsidDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pSsid,
 	IN unsigned char			SsidLen,
@@ -56,20 +56,20 @@ bool RTMPReplayAttackDetection(
 	IN unsigned char			AntSel,
 	IN unsigned char			BW);
 
-void RTMPUpdateStaMgmtCounter(
+VOID RTMPUpdateStaMgmtCounter(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned short			type);
 
-void RTMPClearAllIdsCounter(
+VOID RTMPClearAllIdsCounter(
 	IN PRTMP_ADAPTER	pAd);
 
-void RTMPIdsStart(
+VOID RTMPIdsStart(
 	IN PRTMP_ADAPTER	pAd);
 
-void RTMPIdsStop(
+VOID RTMPIdsStop(
 	IN PRTMP_ADAPTER	pAd);
 
-void rtmp_read_ids_from_file(
+VOID rtmp_read_ids_from_file(
 			IN  PRTMP_ADAPTER pAd,
 			char *tmpbuf,
 			char *buffer);

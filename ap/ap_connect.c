@@ -91,7 +91,7 @@ bool BeaconTransmitRequired(
 		Pre-build a BEACON frame in the shared memory
 	==========================================================================
 */
-void APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
+VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 {
 	unsigned char DsLen = 1, SsidLen;
 	HEADER_802_11 BcnHdr;
@@ -272,7 +272,7 @@ void APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 		pAd->ApCfg.ErpIeContent
 	==========================================================================
 */
-void APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
+VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 {
 	unsigned char *pBeaconFrame = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	unsigned char *ptr;
@@ -779,7 +779,7 @@ static unsigned char GetBcnNum(
 	return NumBcn;
 }
 
-void APMakeAllBssBeacon(
+VOID APMakeAllBssBeacon(
 	IN PRTMP_ADAPTER pAd)
 {
 	INT i, j;
@@ -880,7 +880,7 @@ void APMakeAllBssBeacon(
         Pre-build All BEACON frame in the shared memory
     ==========================================================================
 */
-void APUpdateAllBeaconFrame(
+VOID APUpdateAllBeaconFrame(
 	IN PRTMP_ADAPTER pAd)
 {
 	INT i;

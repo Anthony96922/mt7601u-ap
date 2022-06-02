@@ -45,8 +45,10 @@
 /* modified for fixing compile warning on Sigma 8634 platform */
 
 typedef signed int INT;
+typedef signed long LONG;
 
 #ifdef LINUX
+typedef void VOID;
 #endif /* LINUX */
 
 typedef unsigned int NDIS_MEDIA_STATE;

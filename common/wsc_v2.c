@@ -32,7 +32,7 @@ bool	WscAppendV2SubItem(
 	OUT	unsigned char *			pOutBufLen);
 
 #ifdef CONFIG_AP_SUPPORT
-void 	WscOnOff(
+VOID 	WscOnOff(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  INT				ApIdx,
 	IN  bool			bOff)
@@ -63,7 +63,7 @@ void 	WscOnOff(
 	DBGPRINT(RT_DEBUG_TRACE, ("WscOnOff - bWpsEnable = %d\n", pWpsV2Info->bWpsEnable));
 }
 
-void	WscAddEntryToAclList(
+VOID	WscAddEntryToAclList(
 	IN  PRTMP_ADAPTER	pAd,
 	IN	INT				ApIdx,
 	IN  unsigned char *			pMacAddr)
@@ -96,7 +96,7 @@ void	WscAddEntryToAclList(
 	}
 }
 
-void WscSetupLockTimeout(
+VOID WscSetupLockTimeout(
 	IN void * SystemSpecific1,
 	IN void * FunctionContext,
 	IN void * SystemSpecific2,
@@ -144,7 +144,7 @@ void WscSetupLockTimeout(
 }
 
 
-void	WscCheckPinAttackCount(
+VOID	WscCheckPinAttackCount(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL		pWscControl)
 {
@@ -336,7 +336,7 @@ bool	WscParseV2SubItem(
 	return FALSE;
 }
 
-void	WscSendEapFragAck(
+VOID	WscSendEapFragAck(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL			pWscControl,
 	IN	PMAC_TABLE_ENTRY	pEntry)
@@ -363,7 +363,7 @@ void	WscSendEapFragAck(
 		WscSendMessage(pAdapter, WSC_OPCODE_FRAG_ACK, NULL, 0, pWscControl, AP_CLIENT_MODE, EAP_CODE_REQ);
 }
 
-void	WscSendEapFragData(
+VOID	WscSendEapFragData(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL			pWscControl,
 	IN	PMAC_TABLE_ENTRY	pEntry)

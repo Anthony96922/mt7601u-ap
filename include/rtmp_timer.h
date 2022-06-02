@@ -46,7 +46,7 @@
 /*  submit to ctrl pipe). So we need a wrapper function to take care it. */
 
 #ifdef RTMP_TIMER_TASK_SUPPORT
-typedef void(
+typedef VOID(
 	*RTMP_TIMER_TASK_HANDLE) (
 	IN void * SystemSpecific1,
 	IN void * FunctionContext,

@@ -216,7 +216,7 @@ INT Show_AGS_Proc(
 	Return Value:
 	None
 */
-void ApMlmeDynamicTxRateSwitchingAGS(
+VOID ApMlmeDynamicTxRateSwitchingAGS(
 	IN RTMP_ADAPTER *pAd,
 	IN INT idx)
 {
@@ -902,7 +902,7 @@ void ApMlmeDynamicTxRateSwitchingAGS(
 	Return Value:
 		None
 */
-void ApQuickResponeForRateUpExecAGS(
+VOID ApQuickResponeForRateUpExecAGS(
 	IN RTMP_ADAPTER *pAd,
 	IN INT idx)
 {

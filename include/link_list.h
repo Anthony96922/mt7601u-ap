@@ -14,7 +14,7 @@ typedef struct _LIST_HEADR
 	unsigned char size;
 } LIST_HEADER, *PLIST_HEADER;
 
-static inline void initList(
+static inline VOID initList(
 	IN PLIST_HEADER pList)
 {
 	pList->pHead = pList->pTail = NULL;
@@ -22,7 +22,7 @@ static inline void initList(
 	return;
 }
 
-static inline void insertTailList(
+static inline VOID insertTailList(
 	IN PLIST_HEADER pList,
 	IN PLIST_ENTRY pEntry)
 {

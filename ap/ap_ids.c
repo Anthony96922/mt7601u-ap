@@ -30,7 +30,7 @@
 #define IDS_EXEC_INTV          1000				/* 1 sec */
 
 
-void RTMPIdsStart(
+VOID RTMPIdsStart(
 	IN PRTMP_ADAPTER	pAd)
 {
 
@@ -41,7 +41,7 @@ void RTMPIdsStart(
 	}
 }
 
-void RTMPIdsStop(
+VOID RTMPIdsStop(
 	IN PRTMP_ADAPTER	pAd)
 {
 	bool     Cancelled;
@@ -54,7 +54,7 @@ void RTMPIdsStop(
 }
 
 #ifdef SYSTEM_LOG_SUPPORT
-void RTMPHandleIdsEvent(
+VOID RTMPHandleIdsEvent(
 	IN PRTMP_ADAPTER	pAd)
 {
 	INT i, j;
@@ -130,7 +130,7 @@ void RTMPHandleIdsEvent(
 }
 #endif /* SYSTEM_LOG_SUPPORT */
 
-void RTMPClearAllIdsCounter(
+VOID RTMPClearAllIdsCounter(
 	IN PRTMP_ADAPTER	pAd)
 {
 	INT	i;
@@ -170,7 +170,7 @@ void RTMPClearAllIdsCounter(
 	}
 }
 
-void RTMPIdsPeriodicExec(
+VOID RTMPIdsPeriodicExec(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
@@ -287,7 +287,7 @@ bool RTMPSpoofedMgmtDetection(
 }
 
 
-void RTMPConflictSsidDetection(
+VOID RTMPConflictSsidDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pSsid,
 	IN unsigned char			SsidLen,
@@ -342,7 +342,7 @@ bool RTMPReplayAttackDetection(
 	return FALSE;
 }
 
-void RTMPUpdateStaMgmtCounter(
+VOID RTMPUpdateStaMgmtCounter(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned short			type)
 {
@@ -383,7 +383,7 @@ void RTMPUpdateStaMgmtCounter(
 	
 }
 
-void rtmp_read_ids_from_file(
+VOID rtmp_read_ids_from_file(
 			IN  PRTMP_ADAPTER pAd,
 			char * tmpbuf,
 			char * buffer)

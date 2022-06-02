@@ -51,7 +51,7 @@ BUILD_TIMER_FUNCTION(BeaconUpdateExec);
 #endif /* RTMP_MAC_USB */
 
 #ifdef CONFIG_AP_SUPPORT
-extern void APDetectOverlappingExec(
+extern VOID APDetectOverlappingExec(
 				IN void * SystemSpecific1, 
 				IN void * FunctionContext, 
 				IN void * SystemSpecific2, 

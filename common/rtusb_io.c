@@ -738,7 +738,7 @@ NTSTATUS RTUSBWriteEEPROM16(
 
 	========================================================================
 */
-void RTUSBPutToSleep(
+VOID RTUSBPutToSleep(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned int		value;
@@ -1809,7 +1809,7 @@ static inline bool ValidCMD(IN PCmdQElmt CMDQelmt)
 }
 
 
-void CMDHandler(
+VOID CMDHandler(
     IN PRTMP_ADAPTER pAd)
 {
 	PCmdQElmt		cmdqelmt;
@@ -1851,7 +1851,7 @@ void CMDHandler(
 }
 
 
-void RTUSBWatchDog(IN RTMP_ADAPTER *pAd)
+VOID RTUSBWatchDog(IN RTMP_ADAPTER *pAd)
 {
 	PHT_TX_CONTEXT		pHTTXContext;
 	int 					idx;

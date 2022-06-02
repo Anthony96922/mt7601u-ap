@@ -195,7 +195,7 @@ char ATEGetDesiredTSSI(
 
 ==========================================================================
 */
-void DefaultATEAsicAdjustTxPower(
+VOID DefaultATEAsicAdjustTxPower(
 	IN PRTMP_ADAPTER pAd) 
 {
 	PATE_INFO   pATEInfo = &(pAd->ate);
@@ -689,7 +689,7 @@ void DefaultATEAsicAdjustTxPower(
 
 ==========================================================================
 */
-void ATEAsicAdjustTxPower(
+VOID ATEAsicAdjustTxPower(
 	IN PRTMP_ADAPTER pAd) 
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -724,7 +724,7 @@ char ATEConvertToRssi(
 }
 
 
-void ATESampleRssi(
+VOID ATESampleRssi(
 	IN RTMP_ADAPTER *pAd,
 	IN RXWI_STRUC *pRxWI)
 {
@@ -763,7 +763,7 @@ void ATESampleRssi(
 }
 
 
-void rt_ee_read_all(PRTMP_ADAPTER pAd, unsigned short *Data)
+VOID rt_ee_read_all(PRTMP_ADAPTER pAd, unsigned short *Data)
 {
 	unsigned short offset = 0;
 	unsigned short value;
@@ -780,7 +780,7 @@ void rt_ee_read_all(PRTMP_ADAPTER pAd, unsigned short *Data)
 }
 
 
-void rt_ee_write_all(PRTMP_ADAPTER pAd, unsigned short *Data)
+VOID rt_ee_write_all(PRTMP_ADAPTER pAd, unsigned short *Data)
 {
 	unsigned short offset = 0;
 	unsigned short value;
@@ -844,7 +844,7 @@ void rt_ee_write_all(PRTMP_ADAPTER pAd, unsigned short *Data)
 }
 
 
-void rt_ee_write_bulk(PRTMP_ADAPTER pAd, unsigned short *Data, unsigned short offset, unsigned short length)
+VOID rt_ee_write_bulk(PRTMP_ADAPTER pAd, unsigned short *Data, unsigned short offset, unsigned short length)
 {
 	unsigned short pos;
 	unsigned short value;
@@ -862,7 +862,7 @@ void rt_ee_write_bulk(PRTMP_ADAPTER pAd, unsigned short *Data, unsigned short of
 }
 
 
-void RtmpRfIoWrite(
+VOID RtmpRfIoWrite(
 	IN PRTMP_ADAPTER pAd)
 {
 	/* Set RF value 1's set R3[bit2] = [0] */
@@ -891,14 +891,14 @@ void RtmpRfIoWrite(
 }
 
 
-void DefaultATEAsicSetTxRxPath(
+VOID DefaultATEAsicSetTxRxPath(
     IN PRTMP_ADAPTER pAd)
 {
 
 }
 
 
-void ATEAsicSetTxRxPath(
+VOID ATEAsicSetTxRxPath(
     IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -918,7 +918,7 @@ void ATEAsicSetTxRxPath(
     
 ==========================================================================
 */
-void DefaultATEAsicSwitchChannel(
+VOID DefaultATEAsicSwitchChannel(
     IN PRTMP_ADAPTER pAd) 
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -1067,7 +1067,7 @@ void DefaultATEAsicSwitchChannel(
     
 ==========================================================================
 */
-void ATEAsicSwitchChannel(
+VOID ATEAsicSwitchChannel(
     IN PRTMP_ADAPTER pAd) 
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -1079,7 +1079,7 @@ void ATEAsicSwitchChannel(
 }
 
 
-void BbpSoftReset(
+VOID BbpSoftReset(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned char BbpData = 0;
@@ -1097,7 +1097,7 @@ void BbpSoftReset(
 }
 
 
-static void BbpHardReset(
+static VOID BbpHardReset(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int MacData = 0;
@@ -1227,7 +1227,7 @@ INT ATETxPwrHandler(
 				
 ========================================================================
 */
-static void SetJapanFilter(
+static VOID SetJapanFilter(
 	IN		PRTMP_ADAPTER	pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -1263,7 +1263,7 @@ static void SetJapanFilter(
 		Disable protection for ATE.
 ========================================================================
 */
-void ATEDisableAsicProtect(
+VOID ATEDisableAsicProtect(
 	IN		PRTMP_ADAPTER	pAd)
 {
 	PROT_CFG_STRUC	ProtCfg, ProtCfg4;
@@ -1364,7 +1364,7 @@ void ATEDisableAsicProtect(
 	Note:
 ==========================================================================
 */
-void ATEAPStop(
+VOID ATEAPStop(
 	IN PRTMP_ADAPTER pAd) 
 {
 	bool     Cancelled;
@@ -3358,7 +3358,7 @@ INT	Set_ATE_RX_Antenna_Proc(
 }
 
 
-void DefaultATEAsicExtraPowerOverMAC(
+VOID DefaultATEAsicExtraPowerOverMAC(
 	IN	PRTMP_ADAPTER 		pAd)
 {
 	unsigned long	ExtraPwrOverMAC = 0;
@@ -3392,7 +3392,7 @@ void DefaultATEAsicExtraPowerOverMAC(
 }
 
 
-void ATEAsicExtraPowerOverMAC(
+VOID ATEAsicExtraPowerOverMAC(
 	IN	PRTMP_ADAPTER 		pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -3404,7 +3404,7 @@ void ATEAsicExtraPowerOverMAC(
 }
 
 
-void ATEAsicTemperCompensation(
+VOID ATEAsicTemperCompensation(
 	IN	PRTMP_ADAPTER 		pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -5866,10 +5866,10 @@ NDIS_STATUS ATEInit(
 		notify ATE driver what the tx subtype is.
 
     Return:
-        void
+        VOID
 ==========================================================================
 */
-void ReadQATxTypeFromBBP(
+VOID ReadQATxTypeFromBBP(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
@@ -6233,7 +6233,7 @@ INT Set_ADCDump_Proc(
 
 
 /* one-second periodic execution */
-void ATEPeriodicExec(
+VOID ATEPeriodicExec(
 	IN void * SystemSpecific1, 
 	IN void * FunctionContext, 
 	IN void * SystemSpecific2, 
