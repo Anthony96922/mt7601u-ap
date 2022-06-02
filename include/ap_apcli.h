@@ -122,19 +122,19 @@ void RT28xx_ApCli_Close(
 
 
 
-int ApCliIfLookUp(
+INT ApCliIfLookUp(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr);
 
 
-int ApCli_VirtualIF_PacketSend(
+INT ApCli_VirtualIF_PacketSend(
 	IN PNDIS_PACKET		skb_p, 
 	IN PNET_DEV			dev_p);
 
-int ApCli_VirtualIF_Ioctl(
+INT ApCli_VirtualIF_Ioctl(
 	IN PNET_DEV				dev_p,
 	IN OUT void 			*rq_p,
-	IN int cmd);
+	IN INT cmd);
 
 	
 void ApCliMgtMacHeaderInit(
@@ -174,14 +174,14 @@ void ApCliIfMonitor(
 bool ApCliMsgTypeSubst(
 	IN PRTMP_ADAPTER  pAd,
 	IN PFRAME_802_11 pFrame, 
-	OUT int *Machine, 
-	OUT int *MsgType);
+	OUT INT *Machine, 
+	OUT INT *MsgType);
 
 bool preCheckMsgTypeSubset(
 	IN PRTMP_ADAPTER  pAd,
 	IN PFRAME_802_11 pFrame, 
-	OUT int *Machine, 
-	OUT int *MsgType);
+	OUT INT *Machine, 
+	OUT INT *MsgType);
 
 bool ApCliPeerAssocRspSanity(
     IN PRTMP_ADAPTER pAd, 

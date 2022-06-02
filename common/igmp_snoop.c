@@ -494,8 +494,8 @@ void IGMPSnooping(
 	IN unsigned char * pIpHeader,
 	IN PNET_DEV pDev)
 {
-	int i;
-	int IpHeaderLen;
+	INT i;
+	INT IpHeaderLen;
 	unsigned char GroupType;
 	unsigned short numOfGroup;
 	unsigned char IgmpVerType;
@@ -735,7 +735,7 @@ void IgmpGroupDelMembers(
 	IN unsigned char * pMemberAddr,
 	IN PNET_DEV pDev)
 {
-	int i;
+	INT i;
 	MULTICAST_FILTER_TABLE_ENTRY *pEntry = NULL;
 	PMULTICAST_FILTER_TABLE pMulticastFilterTable = pAd->pMulticastFilterTable;
 
@@ -759,7 +759,7 @@ void IgmpGroupDelMembers(
 	}
 }
 
-int Set_IgmpSn_Enable_Proc(
+INT Set_IgmpSn_Enable_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg)
 {
@@ -773,11 +773,11 @@ int Set_IgmpSn_Enable_Proc(
 	return TRUE;
 }
 
-int Set_IgmpSn_AddEntry_Proc(
+INT Set_IgmpSn_AddEntry_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
-	int i;
+	INT i;
 	bool bGroupId = 1;
 	char * value;
 	char * thisChar;
@@ -862,11 +862,11 @@ int Set_IgmpSn_AddEntry_Proc(
 	return TRUE;
 }
 
-int Set_IgmpSn_DelEntry_Proc(
+INT Set_IgmpSn_DelEntry_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
-	int i, memberCnt = 0;
+	INT i, memberCnt = 0;
 	bool bGroupId = 1;
 	char * value;
 	char * thisChar;
@@ -946,7 +946,7 @@ int Set_IgmpSn_DelEntry_Proc(
 	return TRUE;
 }
 
-int Set_IgmpSn_TabDisplay_Proc(
+INT Set_IgmpSn_TabDisplay_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
@@ -978,7 +978,7 @@ NDIS_STATUS IgmpPktInfoQuery(
 	IN unsigned char * pSrcBufVA,
 	IN PNDIS_PACKET pPacket,
 	IN unsigned char FromWhichBSSID,
-	OUT int *pInIgmpGroup,
+	OUT INT *pInIgmpGroup,
 	OUT PMULTICAST_FILTER_TABLE_ENTRY *ppGroupEntry)
 {
 	if(IS_MULTICAST_MAC_ADDR(pSrcBufVA))
@@ -1025,7 +1025,7 @@ NDIS_STATUS IgmpPktInfoQuery(
 NDIS_STATUS IgmpPktClone(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
-	IN int IgmpPktInGroup,
+	IN INT IgmpPktInGroup,
 	IN PMULTICAST_FILTER_TABLE_ENTRY pGroupEntry,
 	IN unsigned char QueIdx,
 	IN unsigned char UserPriority,
@@ -1039,7 +1039,7 @@ NDIS_STATUS IgmpPktClone(
 	unsigned char PsMode = PWR_ACTIVE;
 	unsigned char Rate;
 	unsigned long IrqFlags;
-	int MacEntryIdx;
+	INT MacEntryIdx;
 	bool bContinue;
 	unsigned char * pMemberAddr = NULL;
 
@@ -1278,7 +1278,7 @@ bool IPv6MulticastFilterExcluded(
 {
 	bool result = FALSE;
 	unsigned short IpProtocol = ntohs(*((unsigned short *)(pIpHeader)));
-	int idx;
+	INT idx;
 	unsigned char nextProtocol;
 
 	if(!IS_IPV6_MULTICAST_MAC_ADDR(pDstMacAddr))
@@ -1419,7 +1419,7 @@ void MLDSnooping(
 	IN unsigned char * pIpHeader,
 	IN PNET_DEV pDev)
 {
-	int i;
+	INT i;
 	unsigned char GroupType;
 	unsigned short numOfGroup;
 	unsigned char * pGroup;

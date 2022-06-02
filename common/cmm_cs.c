@@ -48,7 +48,7 @@ static void ToneRadarProgram(PRTMP_ADAPTER pAd);
     Note:
     ==========================================================================
 */
-int isCarrierDetectExist(
+INT isCarrierDetectExist(
 	IN PRTMP_ADAPTER pAd)
 {
 	if (pAd->CommonCfg.CarrierDetect.CD_State == CD_SILENCE)
@@ -73,7 +73,7 @@ int isCarrierDetectExist(
                1.) iwpriv ra0 set CarrierDetect=[1/0]
     ==========================================================================
 */
-int Set_CarrierDetect_Proc(
+INT Set_CarrierDetect_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
@@ -300,7 +300,7 @@ void RTMPHandleRadarInterrupt(PRTMP_ADAPTER  pAd)
     Note:
     ==========================================================================
 */
-int CarrierDetectReset(
+INT CarrierDetectReset(
 	IN PRTMP_ADAPTER pAd)
 {
 	pAd->CommonCfg.CarrierDetect.CD_State = CD_NORMAL;
@@ -323,7 +323,7 @@ int CarrierDetectReset(
     Note:
     ==========================================================================
 */
-int Set_CarrierCriteria_Proc(
+INT Set_CarrierCriteria_Proc(
 	IN PRTMP_ADAPTER 	pAd, 
 	IN char *			arg)
 {
@@ -359,7 +359,7 @@ int Set_CarrierCriteria_Proc(
     Note:
     ==========================================================================
 */
-int Set_CarrierReCheck_Proc(
+INT Set_CarrierReCheck_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
@@ -391,7 +391,7 @@ int Set_CarrierReCheck_Proc(
     Note:
     ==========================================================================
 */
-int Set_CarrierGoneThreshold_Proc(
+INT Set_CarrierGoneThreshold_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
@@ -415,7 +415,7 @@ int Set_CarrierGoneThreshold_Proc(
     Note:
     ==========================================================================
 */
-int	Set_CarrierDebug_Proc(
+INT	Set_CarrierDebug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -440,7 +440,7 @@ int	Set_CarrierDebug_Proc(
     Note:
     ==========================================================================
 */
-int	Set_CarrierDelta_Proc(
+INT	Set_CarrierDelta_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -466,7 +466,7 @@ int	Set_CarrierDelta_Proc(
 	Note:
 	==========================================================================
 */
-int	Set_CarrierDivFlag_Proc(
+INT	Set_CarrierDivFlag_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -493,7 +493,7 @@ int	Set_CarrierDivFlag_Proc(
     Note:
     ==========================================================================
 */
-int	Set_CarrierThrd_Proc(
+INT	Set_CarrierThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -520,7 +520,7 @@ int	Set_CarrierThrd_Proc(
 	Note:
 	==========================================================================
 */
-int	Set_CarrierSymRund_Proc(
+INT	Set_CarrierSymRund_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -547,7 +547,7 @@ int	Set_CarrierSymRund_Proc(
 	Note:
 	==========================================================================
 */
-int Set_CarrierMask_Proc(
+INT Set_CarrierMask_Proc(
         IN      PRTMP_ADAPTER   pAd,
         IN      char *                 arg)
 {

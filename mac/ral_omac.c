@@ -6,12 +6,12 @@
 #include "rt_config.h"
 
 
-int get_pkt_phymode_by_rxwi(RXWI_STRUC *rxwi)
+INT get_pkt_phymode_by_rxwi(RXWI_STRUC *rxwi)
 {
 	return rxwi->RXWI_O.phy_mode;
 }
 
-int get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, int size, char *rssi)
+INT get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, char *rssi)
 {
 	switch (size) {
 		case 3:
@@ -33,7 +33,7 @@ int get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, int size, 
 }
 
 
-int get_pkt_snr_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, int size, unsigned char *snr)
+INT get_pkt_snr_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, unsigned char *snr)
 {
 
 #ifdef MT7601

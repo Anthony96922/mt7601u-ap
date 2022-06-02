@@ -28,13 +28,13 @@
 
 #include	"rt_config.h"
 
-int MCUBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Cnt)
+INT MCUBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Cnt)
 {
 	RTUSBMultiWrite_nBytes(pAd, Offset, Data, Cnt * 4, 64); 
 	return NDIS_STATUS_SUCCESS;
 }
 
-int MCURandomWrite(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
+INT MCURandomWrite(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 {
 	unsigned int Index;
 	

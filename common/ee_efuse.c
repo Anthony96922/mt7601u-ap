@@ -922,7 +922,7 @@ NTSTATUS eFuseWrite(
 	
 ========================================================================
 */
-int set_eFuseGetFreeBlockCount_Proc(  
+INT set_eFuseGetFreeBlockCount_Proc(  
    	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -937,12 +937,12 @@ int set_eFuseGetFreeBlockCount_Proc(
 }
 
 
-int set_eFusedump_Proc(
+INT set_eFusedump_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	unsigned short InBuf[3];
-	int i=0;
+	INT i=0;
 	
 	if (pAd->bUseEfuse == FALSE && pAd->bFroceEEPROMBuffer == FALSE)
 		return FALSE;
@@ -964,16 +964,16 @@ int set_eFusedump_Proc(
 }
 
 
-int	set_eFuseLoadFromBin_Proc(
+INT	set_eFuseLoadFromBin_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *arg)
 {
 	char *src;
 	RTMP_OS_FD				srcf;
 	RTMP_OS_FS_INFO			osfsInfo;
-	int 						retval, memSize;
+	INT 						retval, memSize;
 	char *buffer, *memPtr;
-	int						TotalByte= 0,ReadedByte=0,CompareBuf=1;
+	INT						TotalByte= 0,ReadedByte=0,CompareBuf=1;
 	unsigned short					*PDATA;
 	unsigned short					DATA;
 	
@@ -1481,7 +1481,7 @@ int RtmpEfuseSupportCheck(
 
 
 #ifdef RALINK_ATE
-int set_eFuseBufferModeWriteBack_Proc(
+INT set_eFuseBufferModeWriteBack_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -1523,11 +1523,11 @@ int set_eFuseBufferModeWriteBack_Proc(
 		
 	========================================================================
 */
-int eFuseLoadEEPROM(
+INT eFuseLoadEEPROM(
 	IN PRTMP_ADAPTER pAd)
 {
 	char *					src = NULL;
-	int 						retval;			
+	INT 						retval;			
 	RTMP_OS_FD				srcf;
 	RTMP_OS_FS_INFO			osFSInfo;
 
@@ -1585,12 +1585,12 @@ int eFuseLoadEEPROM(
 	return TRUE;	
 }
 
-int eFuseWriteEeeppromBuf(
+INT eFuseWriteEeeppromBuf(
 	IN PRTMP_ADAPTER pAd)
 {
 
 	char *					src = NULL;
-	int 						retval;			
+	INT 						retval;			
 	RTMP_OS_FD				srcf;
 	RTMP_OS_FS_INFO			osFSInfo;
 						
@@ -1749,7 +1749,7 @@ void eFuseGetFreeBlockCount(IN PRTMP_ADAPTER pAd,
 }
 
 
-int eFuse_init(RTMP_ADAPTER *pAd)
+INT eFuse_init(RTMP_ADAPTER *pAd)
 {
 	unsigned int EfuseFreeBlock=0;
 
@@ -1828,7 +1828,7 @@ int eFuse_init(RTMP_ADAPTER *pAd)
 }
 
 
-int efuse_probe(RTMP_ADAPTER *pAd)
+INT efuse_probe(RTMP_ADAPTER *pAd)
 {
 	unsigned int eFuseCtrl, ctrl_reg;
 
@@ -1865,7 +1865,7 @@ int efuse_probe(RTMP_ADAPTER *pAd)
 
 
 #ifdef RALINK_ATE
-int Set_LoadEepromBufferFromEfuse_Proc(
+INT Set_LoadEepromBufferFromEfuse_Proc(
 	IN PRTMP_ADAPTER	pAd,
 	IN char *			arg)
 {

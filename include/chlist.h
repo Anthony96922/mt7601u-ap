@@ -96,7 +96,7 @@ extern int CH_HZ_ID_MAP_NUM;
 #define     MAP_CHANNEL_ID_TO_KHZ(_ch, _khz)                 \
 			RTMP_MapChannelID2KHZ(_ch, (unsigned int *)&(_khz))
 #define     MAP_KHZ_TO_CHANNEL_ID(_khz, _ch)                 \
-			RTMP_MapKHZ2ChannelID(_khz, (int *)&(_ch))
+			RTMP_MapKHZ2ChannelID(_khz, (INT *)&(_ch))
 
 /* Check if it is Japan W53(ch52,56,60,64) channel. */
 #define JapanChannelCheck(_ch)  ((_ch == 52) || (_ch == 56) || (_ch == 60) || (_ch == 64))
@@ -129,7 +129,7 @@ void RTMP_MapChannelID2KHZ(
 
 void RTMP_MapKHZ2ChannelID(
 	IN unsigned long Freq,
-	OUT int *pCh);
+	OUT INT *pCh);
 
 unsigned char GetChannel_5GHZ(
 	IN PCH_DESC pChDesc, 

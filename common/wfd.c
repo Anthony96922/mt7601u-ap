@@ -32,7 +32,7 @@
 
 unsigned char WIFIDISPLAY_OUI[] = {0x50, 0x6f, 0x9a, 0x0a};
 
-int Set_WfdEnable_Proc(
+INT Set_WfdEnable_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
@@ -55,7 +55,7 @@ int Set_WfdEnable_Proc(
 }
 
 #ifdef RT_CFG80211_SUPPORT
-int Set_WfdInsertIe_Proc(
+INT Set_WfdInsertIe_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
@@ -100,7 +100,7 @@ int Set_WfdInsertIe_Proc(
 }
 #endif /* RT_CFG80211_SUPPORT */
 
-int Set_WfdDeviceType_Proc(
+INT Set_WfdDeviceType_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
@@ -124,7 +124,7 @@ int Set_WfdDeviceType_Proc(
 }
 
 
-int Set_WfdCouple_Proc(
+INT Set_WfdCouple_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
@@ -161,7 +161,7 @@ int Set_WfdCouple_Proc(
 	return TRUE;
 }
 
-int Set_WfdSessionAvailable_Proc(
+INT Set_WfdSessionAvailable_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
@@ -180,7 +180,7 @@ int Set_WfdSessionAvailable_Proc(
 	return TRUE;
 }
 
-int Set_WfdCP_Proc(
+INT Set_WfdCP_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
@@ -200,7 +200,7 @@ int Set_WfdCP_Proc(
 }
 
 
-int	Set_WfdRtspPort_Proc(
+INT	Set_WfdRtspPort_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
@@ -222,7 +222,7 @@ int	Set_WfdRtspPort_Proc(
 }
 
 
-int	Set_WfdMaxThroughput_Proc(
+INT	Set_WfdMaxThroughput_Proc(
     IN  PRTMP_ADAPTER		pAd, 
     IN  char *			arg)
 {
@@ -243,7 +243,7 @@ int	Set_WfdMaxThroughput_Proc(
 	return TRUE;
 }
 
-int Set_WfdLocalIp_Proc(
+INT Set_WfdLocalIp_Proc(
 	IN	PRTMP_ADAPTER		pAd, 
 	IN	char * 		arg)
 {
@@ -263,7 +263,7 @@ int Set_WfdLocalIp_Proc(
 	return TRUE;
 }
 
-int Set_PeerRtspPort_Proc(
+INT Set_PeerRtspPort_Proc(
 	IN	PRTMP_ADAPTER		pAd, 
 	IN	char * 		arg)
 {
@@ -274,7 +274,7 @@ int Set_PeerRtspPort_Proc(
 	unsigned short RtspPort = WFD_RTSP_DEFAULT_PORT;
 	unsigned char P2pIdx = P2P_NOT_FOUND;
 	PRT_P2P_CONFIG pP2PCtrl = &pAd->P2pCfg;
-	int i;
+	INT i;
 
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("%s - P2P peer rtsp port get...\n", __FUNCTION__));
@@ -320,7 +320,7 @@ void WfdMakeWfdIE(
 	unsigned char *			pData, pBuf;
 	unsigned long			TempLen;
 	unsigned long			Len = 0;
-	int 			index, i = 0;
+	INT 			index, i = 0;
 
 	pData = pOutBuf;
 	*pIeLen = 0;
@@ -529,7 +529,7 @@ unsigned long InsertWfdSubelmtTlv(
 		}
 		case SUBID_WFD_SESSION_INFO:
 		{
-			int i = 0, NumOfDev = 0; 
+			INT i = 0, NumOfDev = 0; 
 			unsigned char P2pIdx = P2P_NOT_FOUND;
 			PRT_P2P_TABLE Tab = &pAd->P2pTable;
 
@@ -561,7 +561,7 @@ unsigned long InsertWfdSubelmtTlv(
 
 					if ((P2pIdx < MAX_P2P_GROUP_SIZE) && (Tab->Client[P2pIdx].WfdEntryInfo.bWfdClient == TRUE))
 					{
-						int j = 0;
+						INT j = 0;
 						WFD_SESSION_INFO SessionInfo;
 
 						RTMPZeroMemory(&SessionInfo, sizeof(WFD_SESSION_INFO));

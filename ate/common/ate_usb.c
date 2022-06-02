@@ -34,10 +34,10 @@ extern unsigned char EpToQueue[];
 /* 802.11 MAC Header, Type:Data, Length:24bytes + 6 bytes QOS/HTC + 2 bytes padding */
 extern unsigned char TemplateFrame[32];
 
-int TxDmaBusy(
+INT TxDmaBusy(
 	IN PRTMP_ADAPTER pAd)
 {
-	int result;
+	INT result;
 	USB_DMA_CFG_STRUC UsbCfg;
 
 	RTMP_IO_READ32(pAd, USB_DMA_CFG, &UsbCfg.word);	/* disable DMA */
@@ -47,10 +47,10 @@ int TxDmaBusy(
 }
 
 
-int RxDmaBusy(
+INT RxDmaBusy(
 	IN PRTMP_ADAPTER pAd)
 {
-	int result;
+	INT result;
 	USB_DMA_CFG_STRUC UsbCfg;
 
 	RTMP_IO_READ32(pAd, USB_DMA_CFG, &UsbCfg.word);	/* disable DMA */
@@ -62,7 +62,7 @@ int RxDmaBusy(
 
 void RtmpDmaEnable(
 	IN PRTMP_ADAPTER pAd,
-	IN int Enable)
+	IN INT Enable)
 {
 	bool value;
 	unsigned long WaitCnt;
@@ -192,7 +192,7 @@ static void ATEWriteTxInfo(
 }
 
 
-int ATESetUpFrame(
+INT ATESetUpFrame(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned int TxIdx)
 {
@@ -423,7 +423,7 @@ void ATE_RTUSBBulkOutDataPacket(
 {
 	PTX_CONTEXT		pNullContext = &(pAd->NullContext[0]);
 	PURB			pUrb;
-	int			ret = 0;
+	INT			ret = 0;
 	unsigned long			IrqFlags;
 
 
@@ -548,12 +548,12 @@ void ATEResetBulkIn(
 	
 ========================================================================
 */
-int ATEResetBulkOut(
+INT ATEResetBulkOut(
 	IN PRTMP_ADAPTER	pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	PTX_CONTEXT	pNullContext = &(pAd->NullContext);
-	int ret=0;
+	INT ret=0;
 
 	pNullContext->IRPPending = TRUE;
 

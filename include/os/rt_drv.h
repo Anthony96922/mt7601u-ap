@@ -212,7 +212,7 @@ typedef void * 			RTMP_OS_FD;
 #define CHECK_TASK_LEGALITY(_task)		RtmpOsCheckTaskLegality(_task)
 #define ATE_KILL_THREAD_PID			RtmpThreadPidKill
 
-typedef int (*RTMP_OS_TASK_CALLBACK)(unsigned long);
+typedef INT (*RTMP_OS_TASK_CALLBACK)(unsigned long);
 
 
 /***********************************************************************************
@@ -332,8 +332,8 @@ struct os_cookie {
 	RTMP_OS_PID		wapi_pid; /*wapi daemon pid */
 	unsigned long		wapi_pid_nr;
 #endif /* WAPI_SUPPORT */
-	int			ioctl_if_type;
-	int 			ioctl_if;
+	INT			ioctl_if_type;
+	INT 			ioctl_if;
 };
 
 typedef struct os_cookie	* POS_COOKIE;
@@ -998,7 +998,7 @@ extern int rausb_control_msg(void *dev,
 
 ******************************************************************************/
 #define ate_print printk
-#define ATEDBGPRint DBGPRINT
+#define ATEDBGPRINT DBGPRINT
 
 #ifdef RTMP_MAC_USB
 #ifdef CONFIG_AP_SUPPORT

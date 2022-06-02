@@ -206,7 +206,7 @@ char RTMP_GetTxPwr(
 	IN HTTRANSMIT_SETTING HTTxMode)
 {
 	unsigned int Value;
-	int Idx;
+	INT Idx;
 	unsigned char PhyMode;
 	char CurTxPwr;
 	unsigned char TxPwrRef = 0;
@@ -396,7 +396,7 @@ PMEASURE_REQ_ENTRY MeasureReqInsert(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			DialogToken)
 {
-	int i;
+	INT i;
 	unsigned long HashIdx;
 	PMEASURE_REQ_TAB pTab = pAd->CommonCfg.pMeasureReqTab;
 	PMEASURE_REQ_ENTRY pEntry = NULL, pCurrEntry;
@@ -612,7 +612,7 @@ static PTPC_REQ_ENTRY TpcReqInsert(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			DialogToken)
 {
-	int i;
+	INT i;
 	unsigned long HashIdx;
 	PTPC_REQ_TAB pTab = pAd->CommonCfg.pTpcReqTab;
 	PTPC_REQ_ENTRY pEntry = NULL, pCurrEntry;
@@ -1356,7 +1356,7 @@ static bool DfsRequirementCheck(
 	IN unsigned char Channel)
 {
 	bool Result = FALSE;
-	int i;
+	INT i;
 
 	do
 	{
@@ -1395,7 +1395,7 @@ void NotifyChSwAnnToPeerAPs(
 #ifdef WDS_SUPPORT
 	if (!((pRA[0] & 0xff) == 0xff)) /* is pRA a broadcase address.*/
 	{
-		int i;
+		INT i;
 		/* info neighbor APs that Radar signal found throgh WDS link.*/
 		for (i = 0; i < MAX_WDS_ENTRY; i++)
 		{
@@ -2085,7 +2085,7 @@ void PeerSpectrumAction(
 	Return	: None.
 	==========================================================================
  */
-int Set_MeasureReq_Proc(
+INT Set_MeasureReq_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2184,7 +2184,7 @@ END_OF_MEASURE_REQ:
 	return TRUE;
 }
 
-int Set_TpcReq_Proc(
+INT Set_TpcReq_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2209,7 +2209,7 @@ int Set_TpcReq_Proc(
 }
 
 #ifdef CONFIG_AP_SUPPORT
-int Set_PwrConstraint(
+INT Set_PwrConstraint(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -2232,7 +2232,7 @@ typedef struct __PWR_CONSTRAIN_CFG
 #define PWR_CONSTRAION_TAB_SIZE \
 	(sizeof(PwrConstrainTab)/sizeof(PWR_CONSTRAIN_CFG))
 
-	int Idx;
+	INT Idx;
 	long Value;
 	char MaxTxPwr;
 	char CurTxPwr;
@@ -2315,7 +2315,7 @@ void RguClass_BuildBcnChList(
 	OUT unsigned char * pBuf,
 	OUT	unsigned long * pBufLen)
 {
-	int loop;
+	INT loop;
 	unsigned long TmpLen;
 	PDOT11_REGULATORY_INFORMATION pRguClassRegion;
 	PDOT11_CHANNEL_SET pChList;

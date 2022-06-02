@@ -67,7 +67,7 @@ bool RadarChannelCheck(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			Ch)
 {
-	int 	i;
+	INT 	i;
 	bool result = FALSE;
 
 	for (i=0; i<pAd->ChannelListNum; i++)
@@ -150,7 +150,7 @@ void ChannelSwitchingCountDownProc(
         TRUE if all parameters are OK, FALSE otherwise
     ==========================================================================
 */
-int	Set_CSPeriod_Proc(
+INT	Set_CSPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -178,7 +178,7 @@ int	Set_CSPeriod_Proc(
                1.) iwpriv ra0 set ChMovTime=[value]
     ==========================================================================
 */
-int Set_ChMovingTime_Proc(
+INT Set_ChMovingTime_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
@@ -211,11 +211,11 @@ int Set_ChMovingTime_Proc(
                1.) iwpriv ra0 set ChMovTime=[value]
     ==========================================================================
 */
-int Set_BlockChReset_Proc(
+INT Set_BlockChReset_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg)
 {
-	int i;
+	INT i;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s: Reset channel block status.\n", __FUNCTION__));	
 	
@@ -228,7 +228,7 @@ int Set_BlockChReset_Proc(
 
 #if defined(DFS_SUPPORT) || defined(CARRIER_DETECTION_SUPPORT)
 
-int	Set_RadarShow_Proc(
+INT	Set_RadarShow_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {

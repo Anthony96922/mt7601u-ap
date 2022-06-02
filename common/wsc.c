@@ -123,13 +123,13 @@ void    WscGetConfigErrFromNack(
     IN	MLME_QUEUE_ELEM	    *pElem,
     OUT unsigned short				*pConfigError);
 
-int	    WscSetAuthMode(
+INT	    WscSetAuthMode(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  unsigned char			CurOpMode,
 	IN  unsigned char			apidx,
 	IN	char *			arg);
 
-int	    WscSetEncrypType(
+INT	    WscSetEncrypType(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  unsigned char			CurOpMode,
 	IN  unsigned char			apidx,
@@ -140,7 +140,7 @@ void WscSendNACK(
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl);
 
-static int wsc_write_dat_file_thread(IN unsigned long data);
+static INT wsc_write_dat_file_thread(IN unsigned long data);
 
 
 void	WscDelListEntryByMAC(
@@ -178,7 +178,7 @@ NDIS_802_11_WEP_STATUS   WscGetWepStatus(
 	Note:
 		Actually, to IOT with JumpStart, we fix the first 10 bytes of UUID string!!!!
 */
-int WscGenerateUUID(
+INT WscGenerateUUID(
 	RTMP_ADAPTER	*pAd, 
 	unsigned char 			*uuidHexStr, 
 	unsigned char 			*uuidAscStr, 
@@ -1299,7 +1299,7 @@ void WscEapEnrolleeAction(
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl)
 {
-    int     DataLen = 0, rv = 0, DH_Len = 0;
+    INT     DataLen = 0, rv = 0, DH_Len = 0;
 	unsigned char   OpCode, bssIdx;
     unsigned char *  WscData = NULL;
     bool bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
@@ -1399,7 +1399,7 @@ void WscEapEnrolleeAction(
 			
 			if (pWscControl->RegData.ReComputePke == 1)
 			{
-				int idx;
+				INT idx;
                 DH_Len = sizeof(pWscControl->RegData.Pke);
 				/* Enrollee 192 random bytes for DH key generation */
 				for (idx = 0; idx < 192; idx++)
@@ -1823,7 +1823,7 @@ Done:
 				if (!bUPnPMsg && pEntry && IS_ENTRY_APCLI(pEntry))
 				{
 					POS_COOKIE 	pObj = (POS_COOKIE) pAdapter->OS_Cookie;
-					int			old_if_type = pObj->ioctl_if_type;
+					INT			old_if_type = pObj->ioctl_if_type;
 					pObj->ioctl_if_type = INT_APCLI;
 					WscWriteConfToApCliCfg(pAdapter, pWscControl, &pWscControl->WscProfile.Profile[0], TRUE);
 					pObj->ioctl_if_type = old_if_type;
@@ -2062,7 +2062,7 @@ void WscEapRegistrarAction(
 	IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl)
 {
-	int     DataLen = 0, rv = 0;
+	INT     DataLen = 0, rv = 0;
 	unsigned char   OpCode = 0;
 	unsigned char   *WscData = NULL;    
 	bool bUPnPMsg, bUPnPStatus = FALSE, Cancelled;
@@ -2475,10 +2475,10 @@ Fail:
 void WscTimeOutProcess(
     IN  PRTMP_ADAPTER       pAd,
     IN  PMAC_TABLE_ENTRY    pEntry,
-    IN  int                 nWscState,
+    IN  INT                 nWscState,
     IN  PWSC_CTRL           pWscControl)
 {
-    int         WscMode;
+    INT         WscMode;
 	unsigned char	CurOpMode = 0xFF;
 
 #ifdef CONFIG_AP_SUPPORT
@@ -2968,7 +2968,7 @@ void Wsc2MinsTimeOutAction(
 	PWSC_CTRL       pWscControl = (PWSC_CTRL)FunctionContext;
 	PRTMP_ADAPTER 	pAd = NULL;
 #ifdef CONFIG_AP_SUPPORT
-	int	IsAPConfigured = 0;
+	INT	IsAPConfigured = 0;
 #endif /* CONFIG_AP_SUPPORT */
 	bool         Cancelled;
 	unsigned char			CurOpMode = 0xFF;
@@ -3255,7 +3255,7 @@ out:
 bool	WscMsgTypeSubst(
 	IN	unsigned char	EAPType,
 	IN	unsigned char	EAPCode,
-	OUT	int		*MsgType)	
+	OUT	INT		*MsgType)	
 {
 	switch (EAPType)
 	{
@@ -3765,7 +3765,7 @@ int WscSendUPnPConfReqMsg(
 	IN unsigned char apIdx,
 	IN unsigned char * ssidStr,
 	IN unsigned char * macAddr,
-	IN int	  Status,
+	IN INT	  Status,
 	IN unsigned int   eventID,
 	IN unsigned char  CurOpMode)
 {
@@ -3815,7 +3815,7 @@ int WscSendUPnPMessage(
 	IN unsigned short			msgType,
 	IN unsigned short			msgSubType,
 	IN unsigned char *			pData,
-	IN int				dataLen,
+	IN INT				dataLen,
 	IN unsigned int				eventID,
 	IN unsigned int				toIPAddr,
 	IN unsigned char *			pMACAddr,
@@ -3965,7 +3965,7 @@ void	WscSendMessage(
 	IN	PRTMP_ADAPTER		pAdapter, 
 	IN  unsigned char               OpCode,
 	IN  unsigned char *				pData,
-	IN  int					Len,
+	IN  INT					Len,
 	IN  PWSC_CTRL           pWscControl,
 	IN  unsigned char               OpMode,
 	IN  unsigned char               EapType)
@@ -4138,7 +4138,7 @@ void WscBuildBeaconIE(
 /*	unsigned char 			Data[256]; */
 	unsigned char 			*Data = NULL;
 	unsigned char *			pData;
-	int				Len = 0, templen = 0;
+	INT				Len = 0, templen = 0;
 	unsigned short          tempVal = 0;
 	PWSC_CTRL		pWpsCtrl = NULL;
 	PWSC_REG_DATA	pReg = NULL;
@@ -4291,14 +4291,14 @@ void WscBuildProbeRespIE(
 	IN	unsigned short selRegCfgMethods,
 	IN  unsigned char apidx,
 	IN  unsigned char *pAuthorizedMACs,
-	IN  int   AuthorizedMACsLen,
+	IN  INT   AuthorizedMACsLen,
 	IN  unsigned char	CurOpMode)
 {
 	WSC_IE_HEADER 	ieHdr;
 /*	unsigned char 			Data[512]; */
 	unsigned char			*Data = NULL;
 	unsigned char *			pData;
-	int				Len = 0, templen = 0;
+	INT				Len = 0, templen = 0;
 	unsigned short			tempVal = 0;
 	PWSC_CTRL		pWpsCtrl = NULL;
     PWSC_REG_DATA	pReg = NULL;
@@ -4629,7 +4629,7 @@ void WscBuildAssocRespIE(
 /*	unsigned char 			Data[512] = {0}; */
 	unsigned char 			*Data = NULL;
 	unsigned char *			pData;
-	int				Len = 0, templen = 0;
+	INT				Len = 0, templen = 0;
 	unsigned char			tempVal = 0;
     PWSC_REG_DATA	pReg = (PWSC_REG_DATA) &pAd->ApCfg.MBSSID[ApIdx].WscControl.RegData;
 
@@ -4696,7 +4696,7 @@ void WscSelectedRegistrar(
 	IN  unsigned char	apidx)
 {
 	unsigned char *	pData;
-	int		IsAPConfigured;
+	INT		IsAPConfigured;
 	unsigned char   wsc_version, wsc_sel_reg = 0;
 	unsigned short	wsc_dev_pass_id = 0, wsc_sel_reg_conf_mthd = 0;
 	unsigned short	WscType, WscLen;
@@ -4846,7 +4846,7 @@ void WscProfileRetryTimeout(
 			&& (pAdapter->ApCfg.ApCliTab[BSS0].CtrlCurrState == APCLI_CTRL_CONNECTED)
 			&& (pAdapter->ApCfg.ApCliTab[BSS0].SsidLen != 0))
 		{
-			int i;
+			INT i;
 			for (i=0; i<MAX_LEN_OF_MAC_TABLE; i++)
 			{
 				PMAC_TABLE_ENTRY pEntry = &pAdapter->MacTab.Content[i];
@@ -5226,7 +5226,7 @@ void WscInit(
 	unsigned char		CurOpMode = AP_MODE;
 
 #ifdef CONFIG_AP_SUPPORT	
-	int IsAPConfigured;
+	INT IsAPConfigured;
 
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
@@ -5511,7 +5511,7 @@ void    WscWriteConfToPortCfg(
 				if (pCredential->KeyLength >= 8 && pCredential->KeyLength <= 64)
 				{
 					unsigned char  *pPMKBuf = NULL, *pSSIDStr = NULL;
-					int		ssidLen = 0;
+					INT		ssidLen = 0;
 					char	PassphraseStr[65] = {0};
 					
 					pWscControl->WpaPskLen = pCredential->KeyLength;
@@ -5639,7 +5639,7 @@ void	WscWriteSsidToDatFile(
 #ifdef CONFIG_AP_SUPPORT
 	unsigned char	apidx;
 #endif /* CONFIG_AP_SUPPORT */
-	int		offset = 0;
+	INT		offset = 0;
 
 	if (bNewFormat == FALSE)
 	{		
@@ -5698,7 +5698,7 @@ void	WscWriteWpaPskToDatFile(
 	unsigned char			apidx;
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL		pWscControl;
-	int				offset = 0;
+	INT				offset = 0;
 
 	if (bNewFormat == FALSE)
 	{		
@@ -5862,7 +5862,7 @@ void    WscEapActionDisabled(
     IN  PRTMP_ADAPTER       pAdapter,
     IN  PWSC_CTRL           pWscControl)
 {
-	int     DataLen = 0;
+	INT     DataLen = 0;
 	unsigned char   *WscData = NULL;
 	/*bool Cancelled;*/
 
@@ -5927,7 +5927,7 @@ void    WscGetConfigErrFromNack(
     DBGPRINT(RT_DEBUG_TRACE, ("WSC_ID_CONFIG_ERROR is missing\n"));
 }
 
-int	WscSetAuthMode(
+INT	WscSetAuthMode(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  unsigned char			CurOpMode,
 	IN  unsigned char			apidx,
@@ -5985,7 +5985,7 @@ int	WscSetAuthMode(
 	return TRUE;
 }
 
-int	WscSetEncrypType(
+INT	WscSetEncrypType(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN  unsigned char			CurOpMode,
 	IN  unsigned char			apidx,
@@ -6308,10 +6308,10 @@ bool WscBssWpsIESearchForPBC(
 	PWSC_CTRL			pWscControl,	
 	PBSS_ENTRY			pInBss,
 	UUID_BSSID_CH_INFO	ApUuidBssid[],
-	int					VarIeLen,
+	INT					VarIeLen,
 	unsigned char *				pVar)
 {
-	int					j = 0, Len = 0, idx = 0;
+	INT					j = 0, Len = 0, idx = 0;
 	bool				bFound, bSameAP, bSelReg;
 	unsigned char *				pData = NULL;
 	PBEACON_EID_STRUCT	pEid;
@@ -6464,7 +6464,7 @@ bool WscBssWpsIESearchForPBC(
 							if ((RTMPCompareMemory(&ApUuidBssid[j].Bssid[0], &TmpInfo.Bssid[0], 5) == 0) &&
 								(ApUuidBssid[j].Band != TmpInfo.Band))
 							{
-								int tmpDiff = (INT)(ApUuidBssid[j].Bssid[5] - TmpInfo.Bssid[5]);
+								INT tmpDiff = (INT)(ApUuidBssid[j].Bssid[5] - TmpInfo.Bssid[5]);
 								/*
 									Zero UUID and Non-zero UUID at different band, and two BSSIDs are very close.
 									Indicate concurrent AP, we can indicate 1 AP only.
@@ -6556,7 +6556,7 @@ void WscPBCBssTableSort(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL       pWscControl)
 {
-	int					i;
+	INT					i;
 	PBSS_ENTRY			pInBss;		
 /*	UUID_BSSID_CH_INFO	ApUuidBssid[8]; */
 	UUID_BSSID_CH_INFO	*ApUuidBssid = NULL;
@@ -6817,7 +6817,7 @@ void	WscCreateProfileFromCfg(
 				pCredential->KeyIndex = (WepKeyId + 1);
 				if (((OpMode & 0x0F) == AP_MODE || (OpMode & 0x0F) == STA_MODE) && pAd->SharedKey[apidx][WepKeyId].KeyLen)
 				{
-					int i;
+					INT i;
 					for (i=0; i<pAd->SharedKey[apidx][WepKeyId].KeyLen; i++)
 					{
 						snprintf((char *) pCredential->Key, 64, "%s%02x", pCredential->Key, pAd->SharedKey[apidx][WepKeyId].Key[i]);
@@ -6829,7 +6829,7 @@ void	WscCreateProfileFromCfg(
 				else if ((OpMode == AP_CLIENT_MODE) && (pAd->ApCfg.ApCliTab[apidx].SharedKey[WepKeyId].KeyLen) && 
 												(CurOpMode == AP_MODE))
 				{
-					int i;
+					INT i;
 					for (i=0; i<pAd->ApCfg.ApCliTab[apidx].SharedKey[WepKeyId].KeyLen; i++)
 					{
 						snprintf((char *) pCredential->Key, 64, "%s%02x", pCredential->Key, pAd->ApCfg.ApCliTab[apidx].SharedKey[WepKeyId].Key[i]);
@@ -7296,13 +7296,13 @@ void   WpsSmProcess(
 }
 
 #ifdef CONFIG_AP_SUPPORT
-int	WscGetConfWithoutTrigger(
+INT	WscGetConfWithoutTrigger(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL       pWscControl,
 	IN  bool         bFromUPnP)
 {
-	int                 WscMode;
-	int                 IsAPConfigured;
+	INT                 WscMode;
+	INT                 IsAPConfigured;
 	PWSC_UPNP_NODE_INFO pWscUPnPNodeInfo;
 	unsigned char		apIdx;
 
@@ -7356,7 +7356,7 @@ void WscSendNACK(
     IN  MAC_TABLE_ENTRY *pEntry,
 	IN  PWSC_CTRL       pWscControl)
 {
-    int     DataLen = 0;
+    INT     DataLen = 0;
     unsigned char *  pWscData = NULL;
     bool Cancelled;
 	unsigned char CurOpMode = AP_MODE;
@@ -7486,7 +7486,7 @@ void WscPBC_DPID_FromSTA(
 	IN  PRTMP_ADAPTER		pAd,	
 	IN	unsigned char *				pMacAddr)
 {
-	int		Index = 0;
+	INT		Index = 0;
 	unsigned char	tab_idx;
 	bool bAddEntry = FALSE;
 	unsigned long	now;
@@ -7548,14 +7548,14 @@ void    WscWriteConfToDatFile(
 	char			*offset = 0;
 	char *			pTempStr = 0;
 #ifdef CONFIG_AP_SUPPORT
-	int				index = 0;
+	INT				index = 0;
 	unsigned char			apidx = (pAd->WriteWscCfgToDatFile & 0x0F);
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL		pWscControl = NULL;
 	PWSC_CREDENTIAL	pCredentail = NULL;
 	char			WepKeyName[MAX_WEPKEYNAME_LEN] = {0};
 	char			WepKeyFormatName[MAX_WEPKEYNAME_LEN] = {0};
-	int				tempStrLen = 0;
+	INT				tempStrLen = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscWriteConfToDatFile(CurOpMode = %d)\n", CurOpMode));
 
@@ -7853,19 +7853,19 @@ void    WscWriteConfToAR9File(
 	char *			fileName = NULL;
 	RTMP_OS_FD		file_w;
 	RTMP_OS_FS_INFO		osFSInfo;
-	int			offset = 0;
-	int			datoffset = 0;
+	INT			offset = 0;
+	INT			datoffset = 0;
 	char *			pTempStr = 0;
 	char *			pDatStr = 0;
 #ifdef CONFIG_AP_SUPPORT
-	int				index = 0;
+	INT				index = 0;
 	unsigned char			apidx = MAIN_MBSSID;
 #endif /* CONFIG_AP_SUPPORT */
 	PWSC_CTRL		pWscControl = NULL;
 	PWSC_CREDENTIAL	pCredentail = NULL;
 	char			WepKeyName[MAX_WEPKEYNAME_LEN] = {0};
 	char			WepKeyFormatName[MAX_WEPKEYTYPE_LEN] = {0};
-	int				tempStrLen = 0;
+	INT				tempStrLen = 0;
 	char	item_str[10] = {0};
 
 	DBGPRINT(RT_DEBUG_TRACE, ("-----> WscWriteConfToAR9File\n"));
@@ -8165,7 +8165,7 @@ WriteFileOpenErr:
 }
 #endif/*CONFIG_AP_SUPPORT*/
 
-static int wsc_write_dat_file_thread (
+static INT wsc_write_dat_file_thread (
     IN unsigned long Context)
 {
 	RTMP_OS_TASK *pTask;
@@ -8251,7 +8251,7 @@ static int wsc_write_dat_file_thread (
   */
 bool WscThreadExit(RTMP_ADAPTER *pAd)
 {	
-	int ret;
+	INT ret;
 	
 	/* 
 		This kernel thread init in the probe fucntion, so kill it when do remove module. 
@@ -8277,7 +8277,7 @@ bool WscThreadExit(RTMP_ADAPTER *pAd)
 	if ((pAd->OpMode == OPMODE_AP)
 		)
 	{
-		int ap_idx;
+		INT ap_idx;
 		unsigned char MaxBssidNum = MAX_MBSSID_NUM(pAd);
 
 		for (ap_idx = 0; ap_idx < MaxBssidNum; ap_idx++)
@@ -8318,7 +8318,7 @@ bool WscThreadExit(RTMP_ADAPTER *pAd)
 		}		
 #ifdef APCLI_SUPPORT
 		{
-			int index;
+			INT index;
 			WscStop(pAd, TRUE, &pAd->ApCfg.ApCliTab[BSS0].WscControl);
 
 			for(index = 0; index < MAX_APCLI_NUM; index++)
@@ -8436,10 +8436,10 @@ Note:
 ========================================================================
 */
 #ifdef CONFIG_AP_SUPPORT
-extern int	Set_AP_WscMode_Proc(
+extern INT	Set_AP_WscMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	unsigned char *			arg);
-extern int	Set_AP_WscGetConf_Proc(
+extern INT	Set_AP_WscGetConf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	unsigned char *			arg);
 #endif /* CONFIG_AP_SUPPORT */
@@ -8757,11 +8757,11 @@ void WscCheckPeerDPID(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PFRAME_802_11 	Fr,
 	IN  unsigned char *			eid_data,
-	IN  int				eid_len)
+	IN  INT				eid_len)
 {	
 	WSC_IE		*pWscIE;
 	unsigned char *		pData = NULL;
-	int			Len = 0;
+	INT			Len = 0;
 	unsigned short		DevicePasswordID;
 	PWSC_CTRL	pWscCtrl = NULL;
 
@@ -8897,7 +8897,7 @@ void	WscInsertPeerEntryByMAC(
 }
 
 #ifdef CONFIG_AP_SUPPORT
-int WscApShowPeerList(
+INT WscApShowPeerList(
 	IN  PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -9016,13 +9016,13 @@ void	WscAssignEntryMAC(
 bool WscGetDataFromPeerByTag(
     IN  PRTMP_ADAPTER 	pAd, 
     IN  unsigned char *			pIeData,
-    IN  int				IeDataLen,
+    IN  INT				IeDataLen,
     IN  unsigned short			WscTag,
     OUT unsigned char *			pWscBuf,
     OUT unsigned short *			pWscBufLen)
 {
 	unsigned char *				pData = pIeData;
-	int					Len = 0;
+	INT					Len = 0;
 	unsigned short				DataLen = 0;
 	PWSC_IE				pWscIE;
 

@@ -830,7 +830,7 @@ Note:
     Here, the implement of AES_CCM is suitable for WI_FI.
 ========================================================================
 */
-int AES_CCM_Encrypt (
+INT AES_CCM_Encrypt (
     IN unsigned char PlainText[],
     IN unsigned int PlainTextLength,
     IN unsigned char Key[],
@@ -953,7 +953,7 @@ Note:
     Here, the implement of AES_CCM is suitable for WI_FI.
 ========================================================================
 */
-int AES_CCM_Decrypt (
+INT AES_CCM_Decrypt (
     IN unsigned char CipherText[],
     IN unsigned int  CipherTextLength,
     IN unsigned char Key[],
@@ -1085,7 +1085,7 @@ void AES_CMAC_GenerateSubKey (
 {
     unsigned char MSB_L = 0, MSB_K1 = 0, Top_Bit = 0;
     unsigned int  SubKey1_Length = 0;
-    int   Index = 0;
+    INT   Index = 0;
 
     if (KeyLength != AES_KEY128_LENGTH) {
     	DBGPRINT(RT_DEBUG_ERROR, ("AES_CMAC_GenerateSubKey: key length is %d bytes, it must be %d bytes(128 bits).\n", 
@@ -1165,7 +1165,7 @@ void AES_CMAC (
     unsigned char X[AES_BLOCK_SIZES], Y[AES_BLOCK_SIZES];
     unsigned char SubKey1[16];
     unsigned char SubKey2[16];
-    int Index;
+    INT Index;
     unsigned int X_Length;
 
     if (*MACTextLength < AES_MAC_LENGTH) {
@@ -1438,7 +1438,7 @@ Note:
     Reference to RFC 3394
 ========================================================================
 */
-int AES_Key_Wrap (
+INT AES_Key_Wrap (
     IN unsigned char PlainText[],
     IN unsigned int  PlainTextLength,
     IN unsigned char Key[],
@@ -1449,7 +1449,7 @@ int AES_Key_Wrap (
     unsigned char IV[8], Block_B[16], Block_Input[16];
     unsigned char *pResult;
     unsigned int  Temp_Length = 0, Number_Of_Block = 0;
-    int   Index_i = 0, Index_j = 0;
+    INT   Index_i = 0, Index_j = 0;
     
     /*   
      * 0. Check input parameter
@@ -1532,7 +1532,7 @@ Note:
     Reference to RFC 3394
 ========================================================================
 */
-int AES_Key_Unwrap (
+INT AES_Key_Unwrap (
     IN unsigned char CipherText[],
     IN unsigned int  CipherTextLength,
     IN unsigned char Key[],
@@ -1543,7 +1543,7 @@ int AES_Key_Unwrap (
     unsigned char IV[8], Block_B[16], Block_Input[16];
     unsigned char *pResult;
     unsigned int  Temp_Length = 0, Number_Of_Block = 0, PlainLength;
-    int   Index_i = 0, Index_j = 0;
+    INT   Index_i = 0, Index_j = 0;
     
     /*   
      * 0. Check input parameter

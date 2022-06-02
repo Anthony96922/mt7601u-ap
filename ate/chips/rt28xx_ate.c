@@ -376,7 +376,7 @@ void RT28xxATEAsicSwitchChannel(
 }
 
 
-int RT28xxATETxPwrHandler(
+INT RT28xxATETxPwrHandler(
 	IN PRTMP_ADAPTER pAd,
 	IN char index)
 {
@@ -564,12 +564,12 @@ void RT28xxATERxVGAInit(
         TRUE if all parameters are OK, FALSE otherwise
 ==========================================================================
 */
-int	RT28xx_Set_ATE_TX_BW_Proc(
+INT	RT28xx_Set_ATE_TX_BW_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	int powerIndex;
+	INT powerIndex;
 	unsigned char value = 0;
 	unsigned char BBPCurrentBW;
 	
@@ -650,7 +650,7 @@ int	RT28xx_Set_ATE_TX_BW_Proc(
 
 		if (pATEInfo->Channel == 14)
 		{
-			int TxMode = pATEInfo->TxWI.TxWIPHYMODE;
+			INT TxMode = pATEInfo->TxWI.TxWIPHYMODE;
 
 			if (TxMode == MODE_CCK)
 			{
@@ -730,7 +730,7 @@ int	RT28xx_Set_ATE_TX_BW_Proc(
 }	
 
 
-int	RT28xx_Set_ATE_TX_FREQ_OFFSET_Proc(
+INT	RT28xx_Set_ATE_TX_FREQ_OFFSET_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {

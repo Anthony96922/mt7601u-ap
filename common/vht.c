@@ -136,7 +136,7 @@ void dump_vht_op(RTMP_ADAPTER *pAd, VHT_OP_IE *vht_ie)
 */
 unsigned char vht_cent_ch_freq(RTMP_ADAPTER *pAd, unsigned char prim_ch)
 {
-	int idx = 0;
+	INT idx = 0;
 
 
 	if (pAd->CommonCfg.vht_bw < VHT_BW_80 || prim_ch < 36)
@@ -161,7 +161,7 @@ unsigned char vht_cent_ch_freq(RTMP_ADAPTER *pAd, unsigned char prim_ch)
 }
 
 
-int vht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, VHT_CAP_IE *cap, VHT_OP_IE *op)
+INT vht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, VHT_CAP_IE *cap, VHT_OP_IE *op)
 {
 	pEntry->MaxHTPhyMode.field.MODE = MODE_VHT;
 	pAd->CommonCfg.AddHTInfo.AddHtInfo2.NonGfPresent = 1;
@@ -178,7 +178,7 @@ int vht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, VHT_CAP_IE *cap,
 }
 
 
-int get_vht_op_ch_width(RTMP_ADAPTER *pAd)
+INT get_vht_op_ch_width(RTMP_ADAPTER *pAd)
 {
 	
 	return TRUE;
@@ -193,9 +193,9 @@ int get_vht_op_ch_width(RTMP_ADAPTER *pAd)
 
 	Appeared in Beacon, ProbResp frames
 */
-int build_quiet_channel(RTMP_ADAPTER *pAd, unsigned char *buf)
+INT build_quiet_channel(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
-	int len = 0;
+	INT len = 0;
 
 
 	return len;
@@ -207,9 +207,9 @@ int build_quiet_channel(RTMP_ADAPTER *pAd, unsigned char *buf)
 
 	Appeared in Beacon, ProbResp frames
 */
-int build_ext_bss_load(RTMP_ADAPTER *pAd, unsigned char *buf)
+INT build_ext_bss_load(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
-	int len = 0;
+	INT len = 0;
 
 
 	return len;
@@ -221,9 +221,9 @@ int build_ext_bss_load(RTMP_ADAPTER *pAd, unsigned char *buf)
 
 	Appeared in Beacon, ProbResp frames
 */
-int build_ext_pwr_constraint(RTMP_ADAPTER *pAd, unsigned char *buf)
+INT build_ext_pwr_constraint(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
-	int len = 0;
+	INT len = 0;
 
 
 	return len;
@@ -235,9 +235,9 @@ int build_ext_pwr_constraint(RTMP_ADAPTER *pAd, unsigned char *buf)
 
 	Appeared in Beacon, ProbResp frames
 */
-int build_vht_pwr_envelope(RTMP_ADAPTER *pAd, unsigned char *buf)
+INT build_vht_pwr_envelope(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
-	int len = 0;
+	INT len = 0;
 
 	
 	return len;
@@ -249,7 +249,7 @@ int build_vht_pwr_envelope(RTMP_ADAPTER *pAd, unsigned char *buf)
 
 	Appeared in Beacon, (Re)AssocResp, ProbResp frames
 */	
-int build_vht_op_ie(RTMP_ADAPTER *pAd, unsigned char *buf)
+INT build_vht_op_ie(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
 	VHT_OP_IE vht_op;
 
@@ -300,7 +300,7 @@ int build_vht_op_ie(RTMP_ADAPTER *pAd, unsigned char *buf)
 
 	Appeared in Beacon, (Re)AssocReq, (Re)AssocResp, ProbReq/Resp frames
 */
-int build_vht_cap_ie(RTMP_ADAPTER *pAd, unsigned char *buf)
+INT build_vht_cap_ie(RTMP_ADAPTER *pAd, unsigned char *buf)
 {
 	VHT_CAP_IE vht_cap_ie;
 
@@ -372,9 +372,9 @@ int build_vht_cap_ie(RTMP_ADAPTER *pAd, unsigned char *buf)
 }
 
 
-int build_vht_ies(RTMP_ADAPTER *pAd, unsigned char *buf, unsigned char frm)
+INT build_vht_ies(RTMP_ADAPTER *pAd, unsigned char *buf, unsigned char frm)
 {
-	int len = 0;
+	INT len = 0;
 	EID_STRUCT eid_hdr;
 
 

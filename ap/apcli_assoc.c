@@ -399,7 +399,7 @@ static void ApCliMlmeAssocReqAction(
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 			if (pAd->ApCfg.ApCliTab[ifIndex].AuthMode == Ndis802_11AuthModeWPA2)
 			{
-			int idx;
+			INT idx;
                 bool FoundPMK = FALSE;
 			/* Search chched PMKID, append it if existed */
 				for (idx = 0; idx < PMKID_NO; idx++)

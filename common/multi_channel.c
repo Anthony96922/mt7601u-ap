@@ -31,11 +31,11 @@
 unsigned int SwitchTime1, SwitchTime2, SwitchTime3, SwitchTime4, SwitchTime5, SwitchTime6, SwitchTime7, SwitchTime8;
 unsigned int TempTimeLo, TempTimeHi;
 
-extern int Set_P2pCli_Enable_Proc(
+extern INT Set_P2pCli_Enable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-extern int Set_P2p_OpMode_Proc(
+extern INT Set_P2p_OpMode_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg);
 
@@ -360,12 +360,12 @@ static void MACBuffer_Change(
 	PAPCLI_STRUCT pApCliEntry = NULL;
 	unsigned int i = 0;
 	unsigned int MacValue, Data, Data2;
-	int ret;
+	INT ret;
 	unsigned int MTxCycle;
 	unsigned int TimeStamp;
 	bool bBlockIn2Out=FALSE;
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
-	int ext_ch;
+	INT ext_ch;
 
 //	RTMP_SEM_EVENT_WAIT(&pAd->reg_atomic2, ret);
 	if (edca_to_hcca)
@@ -573,7 +573,7 @@ static void ProcessHCCAToEDCA(
 {
 	unsigned int MacValue;
 	unsigned int i = 0;
-	int ret;
+	INT ret;
 	bool bBlockIn2Out=FALSE;
 	unsigned int Data;
 	
@@ -591,12 +591,12 @@ static void ProcessHCCAToEDCA(
 	}
 }
 
-static int MultiChannelTaskThread(
+static INT MultiChannelTaskThread(
     IN  unsigned long Context)
 {
 	RTMP_OS_TASK *pTask;
 	RTMP_ADAPTER *pAd;
-	int	Status = 0;
+	INT	Status = 0;
 
 	pTask = (RTMP_OS_TASK *)Context;
 	pAd = (PRTMP_ADAPTER)RTMP_OS_TASK_DATA_GET(pTask);
@@ -690,7 +690,7 @@ NDIS_STATUS MultiChannelThreadInit(
 bool MultiChannelThreadExit(
 	IN  PRTMP_ADAPTER pAd)
 {	
-	int ret;
+	INT ret;
 
 	MultiChannelTimerStop(pAd);
 	
@@ -753,13 +753,13 @@ void MultiChannelSwitchToRa(
 {
 	PAPCLI_STRUCT pApCliEntry = NULL;
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
-	int ext_ch;
+	INT ext_ch;
 
 
 //	MACBuffer_Change(pAd,TRUE, FALSE);
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	unsigned int MacValue, Data, Data2;
-	int ret,i;
+	INT ret,i;
 	unsigned int MTxCycle;
 	bool bBlockIn2Out=FALSE;
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
@@ -868,12 +868,12 @@ void MultiChannelSwitchToP2P(
 {
 	PAPCLI_STRUCT pApCliEntry = NULL;
 	pApCliEntry = &pAd->ApCfg.ApCliTab[BSS0];
-	int ext_ch;
+	INT ext_ch;
 
 	MAC_TABLE_ENTRY *pEntry = NULL;
 	unsigned int i = 0;
 	unsigned int MacValue, Data, Data2;
-	int ret;
+	INT ret;
 	unsigned int MTxCycle;
 	bool bBlockIn2Out=FALSE;
 

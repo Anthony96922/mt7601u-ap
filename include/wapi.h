@@ -88,14 +88,14 @@ void RTMPConstructWPIIVHdr(
 	IN	unsigned char			*tx_iv, 
 	OUT unsigned char 			*iv_hdr);
 
-extern int	RTMPSoftEncryptSMS4(
+extern INT	RTMPSoftEncryptSMS4(
 		IN	unsigned char *			pHeader,
 		IN  unsigned char *			pData,
 		IN	unsigned int			data_len,				
 		IN	unsigned char			key_id,
 		IN	unsigned char * 			pKey,
 		IN	unsigned char *			pIv);
-extern int	RTMPSoftDecryptSMS4(
+extern INT	RTMPSoftDecryptSMS4(
 		IN		unsigned char *			pHdr,
 		IN		bool			bSanityIV,
 		IN 		PCIPHER_KEY		pKey,
@@ -109,7 +109,7 @@ void RTMPDeriveWapiGTK(
 void RT_SMS4_TEST(
 	IN unsigned char			test);
 
-int SMS4_TEST(void);
+INT SMS4_TEST(void);
 
 /* 
  =====================================	

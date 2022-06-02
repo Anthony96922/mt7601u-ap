@@ -189,7 +189,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 {
 	PRTMP_ADAPTER	pAd = NULL;
 	NDIS_STATUS		Status;
-	int 			index;
+	INT 			index;
 	unsigned char			*pBeaconBuf = NULL;
 
 
@@ -415,7 +415,7 @@ void NICReadEEPROMParameters(RTMP_ADAPTER *pAd, char * mac_addr)
 			 strlen((char *)mac_addr) == 17 &&
 			 (strcmp(mac_addr, "00:00:00:00:00:00") != 0))
 	{
-		int j;
+		INT j;
 		char *	macptr;
 
 		macptr = (char *) mac_addr;
@@ -1511,7 +1511,7 @@ NDIS_STATUS	NICInitializeAsic(
 	{
 		/* clear all on-chip BEACON frame space */
 #ifdef CONFIG_AP_SUPPORT
-		int	i, apidx;
+		INT	i, apidx;
 		for (apidx = 0; apidx < HW_BEACON_MAX_COUNT(pAd); apidx++)
 		{
 			if (pAd->BeaconOffset[apidx] > 0) {
@@ -2689,7 +2689,7 @@ void UserCfgInit(RTMP_ADAPTER *pAd)
 			pAd->ApCfg.MBSSID[j].WscSecurityMode = 0xff;
 			{
 				PWSC_CTRL pWscControl;
-				int idx;
+				INT idx;
 #ifdef WSC_V2_SUPPORT
 				PWSC_V2_INFO	pWscV2Info;
 #endif /* WSC_V2_SUPPORT */
@@ -3443,9 +3443,9 @@ void CfgInitHook(PRTMP_ADAPTER pAd)
 }
 
 
-static int RtmpChipOpsRegister(
+static INT RtmpChipOpsRegister(
 	IN RTMP_ADAPTER *pAd,
-	IN int			infType)
+	IN INT			infType)
 {
 	RTMP_CHIP_OP	*pChipOps = &pAd->chipOps;
 	int status;
@@ -3510,7 +3510,7 @@ bool PairEP(RTMP_ADAPTER *pAd, unsigned char EP, unsigned char Index, unsigned c
 #endif /* RTMP_MAC_USB */
 
 
-int RtmpRaDevCtrlInit(void *pAdSrc, RTMP_INF_TYPE infType)
+INT RtmpRaDevCtrlInit(void *pAdSrc, RTMP_INF_TYPE infType)
 {
 	RTMP_ADAPTER *pAd = (PRTMP_ADAPTER)pAdSrc;
 	unsigned char i;
@@ -3584,7 +3584,7 @@ int RtmpRaDevCtrlInit(void *pAdSrc, RTMP_INF_TYPE infType)
 bool RtmpRaDevCtrlExit(IN void *pAdSrc)
 {
 	PRTMP_ADAPTER	pAd = (PRTMP_ADAPTER)pAdSrc;
-	int index;
+	INT index;
 	
 #ifdef MULTIPLE_CARD_SUPPORT
 extern unsigned char  MC_CardUsed[MAX_NUM_OF_MULTIPLE_CARD];

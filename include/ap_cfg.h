@@ -4,17 +4,17 @@
 
 #include "rt_config.h"
 
-int RTMPAPPrivIoctlSet(
+INT RTMPAPPrivIoctlSet(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *pIoctlCmdStr);
 
-int RTMPAPPrivIoctlShow(
+INT RTMPAPPrivIoctlShow(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *pIoctlCmdStr);
 
 #ifdef INF_AR9
 #ifdef AR9_MAPI_SUPPORT
-int RTMPAPPrivIoctlAR9Show(
+INT RTMPAPPrivIoctlAR9Show(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *pIoctlCmdStr);
 
@@ -32,15 +32,15 @@ void RTMPIoctlGetRadioDynInfo(
 #endif /*AR9_MAPI_SUPPORT*/
 #endif/* INF_AR9 */
 
-int RTMPAPSetInformation(
+INT RTMPAPSetInformation(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	OUT	RTMP_IOCTL_INPUT_STRUCT	*rq,
-	IN	int				cmd);
+	IN	INT				cmd);
 
-int RTMPAPQueryInformation(
+INT RTMPAPQueryInformation(
 	IN	PRTMP_ADAPTER       pAd,
 	IN	OUT	RTMP_IOCTL_INPUT_STRUCT    *rq,
-	IN	int                 cmd);
+	IN	INT                 cmd);
 	
 void RTMPIoctlStatistics(
 	IN PRTMP_ADAPTER pAd, 
@@ -140,17 +140,17 @@ void RTMPIoctlSetIdleTimeout(
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq);
 #endif /* DOT1X_SUPPORT */
 
-int	ApCfg_Set_AuthMode_Proc(
+INT	ApCfg_Set_AuthMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
-	IN	int				apidx,
+	IN	INT				apidx,
 	IN	char *			arg);
 
-int	ApCfg_Set_MaxStaNum_Proc(
+INT	ApCfg_Set_MaxStaNum_Proc(
 	IN PRTMP_ADAPTER 	pAd,
-	IN int				apidx,
+	IN INT				apidx,
 	IN char * 			arg);
 
-int	ApCfg_Set_IdleTimeout_Proc(
+INT	ApCfg_Set_IdleTimeout_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
@@ -159,7 +159,7 @@ int	ApCfg_Set_IdleTimeout_Proc(
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 void RTMPApCliAddKey(
 	IN	PRTMP_ADAPTER	    pAd, 
-	IN 	int				apidx,
+	IN 	INT				apidx,
 	IN	PNDIS_APCLI_802_11_KEY    pApcliKey);
 #endif /* APCLI_WPA_SUPPLICANT_SUPPORT */
 #endif /* APCLI_SUPPORT */

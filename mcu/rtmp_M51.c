@@ -117,7 +117,7 @@ unsigned char BitReverse(unsigned char x)
 		
 	========================================================================
 */
-int RtmpAsicEraseFirmware(
+INT RtmpAsicEraseFirmware(
 	IN PRTMP_ADAPTER pAd)
 {
 	unsigned int i;
@@ -224,9 +224,9 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	unsigned char *			src;
 	RTMP_OS_FD		srcf;
-	int 				retval, i;
+	INT 				retval, i;
 	unsigned char *			pFirmwareImage;
-	int				FileLength = 0;
+	INT				FileLength = 0;
 	unsigned int			MacReg;
 	unsigned long			Index;
 	unsigned long			firm;
@@ -631,7 +631,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 }
 
 
-int RtmpAsicSendCommandToMcu(
+INT RtmpAsicSendCommandToMcu(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char			Command,
 	IN unsigned char			Token,
@@ -641,7 +641,7 @@ int RtmpAsicSendCommandToMcu(
 {
 	HOST_CMD_CSR_STRUC	H2MCmd;
 	H2M_MAILBOX_STRUC	H2MMailbox;
-	int i = 0;
+	INT i = 0;
 	int ret;
 
 

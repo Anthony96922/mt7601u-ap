@@ -96,7 +96,7 @@ NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
 	unsigned int CurLen;
 	unsigned int MACValue, Loop = 0;
 	unsigned short Value;
-	int Ret;
+	INT Ret;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	//struct completion SentToMCUDone;
 	void *SentToMCUDone;
@@ -687,14 +687,14 @@ USBHST_STATUS USBKickOutCmdComplete(URBCompleteStatus Status, purbb_t pURB, preg
 }
 
 
-int USBKickOutCmd(PRTMP_ADAPTER pAd, unsigned char *Buf, unsigned int Len)
+INT USBKickOutCmd(PRTMP_ADAPTER pAd, unsigned char *Buf, unsigned int Len)
 {
 	PURB pURB;
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 	char * DataBuffer;
 	ra_dma_addr_t DataDMA;
-	int Ret;
+	INT Ret;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	//struct completion SentToMCUDone;
 	void	*SentToMCUDone;
@@ -775,7 +775,7 @@ error0:
 #endif /* RTMP_MAC_USB */
 
 
-int AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
+INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit)
 {
 	unsigned int VarLen;
 	unsigned char *Pos, *Buf;
@@ -948,7 +948,7 @@ CMD_RSP_HANDLER CmdRspHandlerTable[] =
 };
 
 
-int AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Cnt)
+INT AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Cnt)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1019,7 +1019,7 @@ error:
 }
 
 
-int AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data)
+INT AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data)
 {
 	struct CMD_UNIT CmdUnit;
 	unsigned int CurLen = 0, CmdLen, RspLen, OffsetNum, ReceiveLen;
@@ -1112,7 +1112,7 @@ error:
 }
 
 
-int AndesRandomRead(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
+INT AndesRandomRead(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	unsigned int VarLen = Num * 8, CurLen = 0, ReceiveLen;
@@ -1190,7 +1190,7 @@ error:
 }
 
 
-int AndesRFRandomRead(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num)
+INT AndesRFRandomRead(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	unsigned int VarLen = Num * 8, CurLen = 0, ReceiveLen;
@@ -1278,7 +1278,7 @@ error:
 }
 
 
-int AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num)
+INT AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1349,7 +1349,7 @@ error:
 }
 
 
-int AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned int Num)
+INT AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1435,7 +1435,7 @@ error:
 }
 
 
-int AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
+INT AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1501,7 +1501,7 @@ error:
 }
 
 
-int AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
+INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1571,7 +1571,7 @@ error:
 }
 
 
-int AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num)
+INT AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1652,7 +1652,7 @@ error:
 }
 
 
-int AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
+INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1738,7 +1738,7 @@ error:
 
 
 #ifdef MT7601
-int AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
+INT AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1813,7 +1813,7 @@ error:
 }
 
 
-int AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
+INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf, *CurHeader;
@@ -1894,7 +1894,7 @@ error:
 #endif
 
 
-int AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLevel, 
+INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLevel, 
 					unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
 					unsigned char TIMByteOffset, unsigned char TIMBytePattern)
 {
@@ -1970,7 +1970,7 @@ int AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLeve
 }
 
 
-int AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param)
+INT AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param)
 {
 	struct CMD_UNIT CmdUnit;
 	char *Pos, *Buf;
@@ -2016,7 +2016,7 @@ int AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param)
 }
 
 
-int AndesCalibrationOP(PRTMP_ADAPTER pAd, unsigned int CalibrationID, unsigned int Param)
+INT AndesCalibrationOP(PRTMP_ADAPTER pAd, unsigned int CalibrationID, unsigned int Param)
 {
 
 	struct CMD_UNIT CmdUnit;

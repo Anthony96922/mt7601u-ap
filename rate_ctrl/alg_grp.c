@@ -1530,7 +1530,7 @@ void APMlmeDynamicTxRateSwitchingAdapt(RTMP_ADAPTER *pAd, unsigned long i)
 	Set_RateTable_Proc - Display or replace byte for item in RateSwitchTableAdapt11N3S
 		usage: iwpriv ra0 set RateTable=<item>[:<offset>:<value>]
 */
-int Set_RateTable_Proc(RTMP_ADAPTER *pAd, char * arg)
+INT Set_RateTable_Proc(RTMP_ADAPTER *pAd, char * arg)
 {
 	unsigned char *pTable, TableSize, InitTxRateIdx;
 	int i;
@@ -1596,7 +1596,7 @@ int Set_RateTable_Proc(RTMP_ADAPTER *pAd, char * arg)
 }
 
 
-int	Set_PerThrdAdj_Proc(
+INT	Set_PerThrdAdj_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
@@ -1608,7 +1608,7 @@ int	Set_PerThrdAdj_Proc(
 }
 
 /* Set_LowTrafficThrd_Proc - set threshold for reverting to default MCS based on RSSI */
-int	Set_LowTrafficThrd_Proc(
+INT	Set_LowTrafficThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -1618,7 +1618,7 @@ int	Set_LowTrafficThrd_Proc(
 }
 
 /* Set_TrainUpRule_Proc - set rule for Quick DRS train up */
-int	Set_TrainUpRule_Proc(
+INT	Set_TrainUpRule_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -1628,7 +1628,7 @@ int	Set_TrainUpRule_Proc(
 }
 
 /* Set_TrainUpRuleRSSI_Proc - set RSSI threshold for Quick DRS Hybrid train up */
-int	Set_TrainUpRuleRSSI_Proc(
+INT	Set_TrainUpRuleRSSI_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -1638,7 +1638,7 @@ int	Set_TrainUpRuleRSSI_Proc(
 }
 
 /* Set_TrainUpLowThrd_Proc - set low threshold for Quick DRS Hybrid train up */
-int	Set_TrainUpLowThrd_Proc(
+INT	Set_TrainUpLowThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
@@ -1648,7 +1648,7 @@ int	Set_TrainUpLowThrd_Proc(
 }
 
 /* Set_TrainUpHighThrd_Proc - set high threshold for Quick DRS Hybrid train up */
-int	Set_TrainUpHighThrd_Proc(
+INT	Set_TrainUpHighThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {

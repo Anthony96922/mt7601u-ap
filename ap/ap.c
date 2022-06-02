@@ -50,7 +50,7 @@ NDIS_STATUS APInitialize(
 	IN PRTMP_ADAPTER   pAd)
 {
 	NDIS_STATUS	Status = NDIS_STATUS_SUCCESS;
-	int		i;
+	INT		i;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("---> APInitialize\n"));
 
@@ -546,7 +546,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 #ifdef WAPI_SUPPORT
 		else if (pMbss->WepStatus == Ndis802_11EncryptionSMS4Enabled)
 		{
-			int cnt;
+			INT cnt;
 
 			/* Initial the related variables */
 			pMbss->DefaultKeyId = 0;
@@ -732,7 +732,7 @@ void APStop(
 	IN PRTMP_ADAPTER pAd) {
 	bool     Cancelled;
 	unsigned int		Value;
-	int			apidx;
+	INT			apidx;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("!!! APStop !!!\n"));
 
@@ -1906,11 +1906,11 @@ and secondary channel setting.
 */
 
 
-int GetBssCoexEffectedChRange(
+INT GetBssCoexEffectedChRange(
 	IN RTMP_ADAPTER *pAd,
 	IN BSS_COEX_CH_RANGE *pCoexChRange)
 {
-	int index, cntrCh = 0;
+	INT index, cntrCh = 0;
 
 	memset(pCoexChRange, 0, sizeof(BSS_COEX_CH_RANGE));
 
@@ -2015,7 +2015,7 @@ void APOverlappingBSSScan(
 {
 	bool needFallBack = FALSE;
 	unsigned char Channel = pAd->CommonCfg.Channel;
-	int chStartIdx, chEndIdx, index,curPriChIdx, curSecChIdx;
+	INT chStartIdx, chEndIdx, index,curPriChIdx, curSecChIdx;
 
 
 	/* We just care BSS who operating in 40MHz N Mode. */
@@ -2209,7 +2209,7 @@ bool DOT1X_InternalCmdAction(
     IN  MAC_TABLE_ENTRY *pEntry,
     IN	unsigned char			cmd)
 {
-	int			apidx = MAIN_MBSSID;	
+	INT			apidx = MAIN_MBSSID;	
 	unsigned char 			RalinkIe[9] = {221, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
 	unsigned char			s_addr[MAC_ADDR_LEN];
 	unsigned char			EAPOL_IE[] = {0x88, 0x8e};
@@ -2272,7 +2272,7 @@ bool DOT1X_EapTriggerAction(
     IN  PRTMP_ADAPTER	pAd,
     IN  MAC_TABLE_ENTRY *pEntry)
 {
-	int			apidx = MAIN_MBSSID;
+	INT			apidx = MAIN_MBSSID;
 	unsigned char 			eapol_start_1x_hdr[4] = {0x01, 0x01, 0x00, 0x00};
 	unsigned char			frame_len = LENGTH_802_3 + sizeof(eapol_start_1x_hdr);
 	unsigned char			FrameBuf[frame_len];

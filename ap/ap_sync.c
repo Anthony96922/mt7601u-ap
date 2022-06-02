@@ -757,7 +757,7 @@ void APPeerBeaconAction(
 #ifdef DOT11_N_SUPPORT
 #ifdef DOT11N_DRAFT3
 		if (pAd->CommonCfg.bOverlapScanning == TRUE) {
-			int		index,secChIdx;
+			INT		index,secChIdx;
 			bool		found = FALSE;
 			ADD_HTINFO *pAdd_HtInfo;
 
@@ -1155,7 +1155,7 @@ void SupportRate(
 	OUT unsigned char * RatesLen,
 	OUT unsigned char * pMaxSupportRate)
 {
-	int i;
+	INT i;
 
 	*pMaxSupportRate = 0;
 

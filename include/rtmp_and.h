@@ -109,29 +109,29 @@ enum EVENT_TYPE {
 #define ANDES_CALIBRATION_RXIQ		8
 #define ANDES_CALIBRATION_TXDCOC		9
 
-int AsicSendCommandToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT CmdUnit);
+INT AsicSendCommandToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT CmdUnit);
 NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd);
 NDIS_STATUS PCILoadFirmwareToAndes(RTMP_ADAPTER *pAd);
-int AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit);
-int AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Count);
-int AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data);
-int AndesRandomRead(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
-int AndesRFRandomRead(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
-int AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num);
-int AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned int Num);
-int AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
-int AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
-int AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
-int AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
+INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit);
+INT AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Count);
+INT AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data);
+INT AndesRandomRead(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
+INT AndesRFRandomRead(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
+INT AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num);
+INT AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned int Num);
+INT AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
+INT AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
+INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
+INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
 #ifdef MT7601
-int AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
-int AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
+INT AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
+INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
 #endif /* MT7601 */
-int AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param);
-int AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLevel, 
+INT AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param);
+INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLevel, 
 					unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
 					unsigned char TIMByteOffset, unsigned char TIMBytePattern);
-int AndesCalibrationOP(PRTMP_ADAPTER, unsigned int CalibrationID, unsigned int Param);
+INT AndesCalibrationOP(PRTMP_ADAPTER, unsigned int CalibrationID, unsigned int Param);
 bool IsInBandCmdProcessing(PRTMP_ADAPTER pAd);
 unsigned char GetCmdRspNum(PRTMP_ADAPTER pAd);
 #endif

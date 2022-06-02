@@ -313,7 +313,7 @@ bool RTMPCheckUcast(
          FALSE otherwise
     ==========================================================================
 */
-bool RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, int iswpa2)
+bool RTMPCheckAKM(unsigned char * sta_akm, unsigned char * ap_rsn_ie, INT iswpa2)
 {
 	unsigned char * pTmp;
 	unsigned short Count;
@@ -484,7 +484,7 @@ unsigned int	APValidateRSNIE(
 {
 	unsigned int StatusCode = MLME_SUCCESS;
 	PEID_STRUCT  eid_ptr;
-	int	apidx;
+	INT	apidx;
 	PMULTISSID_STRUCT pMbss;
 
 	if (rsnie_len == 0)
@@ -560,7 +560,7 @@ void HandleCounterMeasure(
     IN PRTMP_ADAPTER    pAd, 
     IN MAC_TABLE_ENTRY  *pEntry) 
 {
-    int         i;
+    INT         i;
     bool     Cancelled;
 
     if (!pEntry)
@@ -966,12 +966,12 @@ void WpaSend(
 
 void RTMPAddPMKIDCache(
 	IN  PRTMP_ADAPTER   		pAd,
-	IN	int						apidx,
+	IN	INT						apidx,
 	IN	unsigned char *				pAddr,
 	IN	unsigned char					*PMKID,
 	IN	unsigned char					*PMK)
 {
-	int	i, CacheIdx;
+	INT	i, CacheIdx;
 
 	/* Update PMKID status */
 	if ((CacheIdx = RTMPSearchPMKIDCache(pAd, apidx, pAddr)) != -1)
@@ -1027,12 +1027,12 @@ void RTMPAddPMKIDCache(
 	}
 }
 
-int RTMPSearchPMKIDCache(
+INT RTMPSearchPMKIDCache(
 	IN  PRTMP_ADAPTER   pAd,
-	IN	int				apidx,
+	IN	INT				apidx,
 	IN	unsigned char *		pAddr)
 {
-	int	i = 0;
+	INT	i = 0;
 	
 	for (i = 0; i < MAX_PMKID_COUNT; i++)
 	{
@@ -1056,8 +1056,8 @@ int RTMPSearchPMKIDCache(
 
 void RTMPDeletePMKIDCache(
 	IN  PRTMP_ADAPTER   pAd,
-	IN	int				apidx,
-	IN  int				idx)
+	IN	INT				apidx,
+	IN  INT				idx)
 {
 	PAP_BSSID_INFO pInfo = &pAd->ApCfg.MBSSID[apidx].PMKIDCache.BSSIDInfo[idx];
 
@@ -1071,7 +1071,7 @@ void RTMPDeletePMKIDCache(
 void RTMPMaintainPMKIDCache(
 	IN  PRTMP_ADAPTER   pAd)
 {
-	int	i, j;
+	INT	i, j;
 	unsigned long Now;
 	for (i = 0; i < MAX_MBSSID_NUM(pAd); i++)
 	{
@@ -1519,7 +1519,7 @@ void ieee80211_notify_michael_failure(
 	IN	PRTMP_ADAPTER    pAd,
 	IN	PHEADER_802_11   pHeader,
 	IN	unsigned int            keyix,
-	IN	int              report)
+	IN	INT              report)
 {
 	static const char *tag = "MLME-MICHAELMICFAILURE.indication";
 /*	struct net_device *dev = pAd->net_dev; */
@@ -1588,7 +1588,7 @@ void    ApcliWpaSendEapolStart(
 
 #define	LENGTH_EAP_H    4
 // If the received frame is EAP-Packet ,find out its EAP-Code (Request(0x01), Response(0x02), Success(0x03), Failure(0x04)).
-int	    ApcliWpaCheckEapCode(
+INT	    ApcliWpaCheckEapCode(
 	IN  PRTMP_ADAPTER   		pAd,
 	IN  unsigned char *				pFrame,
 	IN  unsigned short				FrameLen,
@@ -1596,7 +1596,7 @@ int	    ApcliWpaCheckEapCode(
 {
 	
 	unsigned char *	pData;
-	int	result = 0;
+	INT	result = 0;
 		
 	if( FrameLen < OffSet + LENGTH_EAPOL_H + LENGTH_EAP_H ) 
 		return result;

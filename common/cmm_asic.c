@@ -707,10 +707,10 @@ void AsicGetAutoAgcOffsetForTemperatureSensor(
 	char *			pTxAgcCompensate = NULL;
 	unsigned char 			RFValue = 0;
 	char			TuningTableUpperBound = 0, TuningTableIndex0 = 0, TuningTableIndex1 = 0;
-	int 				CurrentTemp = 0;
-	int RefTemp;
-	int *LookupTable;
-	int	LookupTableIndex = pAd->TxPowerCtrl.LookupTableIndex + TEMPERATURE_COMPENSATION_LOOKUP_TABLE_OFFSET;
+	INT 				CurrentTemp = 0;
+	INT RefTemp;
+	INT *LookupTable;
+	INT	LookupTableIndex = pAd->TxPowerCtrl.LookupTableIndex + TEMPERATURE_COMPENSATION_LOOKUP_TABLE_OFFSET;
 
 	DBGPRINT(RT_DEBUG_INFO, ("-->%s\n", __FUNCTION__));
 	
@@ -1732,7 +1732,7 @@ void AsicAddPairwiseKeyEntry(
 	IN unsigned char			WCID,
 	IN PCIPHER_KEY		pCipherKey)
 {
-	int i;
+	INT i;
 	unsigned long 		offset;
 	unsigned char *		 pTxMic = pCipherKey->TxMic;
 	unsigned char *		 pRxMic = pCipherKey->RxMic;
@@ -2043,7 +2043,7 @@ void AsicVCORecalibration(
 
 		if (pAd->CommonCfg.ETxBfEnCond)
 		{
-			int idx;
+			INT idx;
 			
 			for (idx = 1; idx < MAX_LEN_OF_MAC_TABLE; idx++)
 			{
@@ -2110,7 +2110,7 @@ unsigned int StreamModeRegVal(
 void AsicSetStreamMode(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char * pMacAddr,
-	IN int chainIdx,
+	IN INT chainIdx,
 	IN bool bEnabled)
 {
 	unsigned int streamWord;
@@ -2297,7 +2297,7 @@ void AsicWOWSendNullFrame(
 #endif /* WOW_SUPPORT */
 
 
-int AsicSetPreTbttInt(RTMP_ADAPTER *pAd, bool enable)
+INT AsicSetPreTbttInt(RTMP_ADAPTER *pAd, bool enable)
 {
 	unsigned int val;
 	
@@ -2314,9 +2314,9 @@ int AsicSetPreTbttInt(RTMP_ADAPTER *pAd, bool enable)
 }
 
 
-bool AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, int round, int wait_us)
+bool AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us)
 {
-	int i = 0;
+	INT i = 0;
 	WPDMA_GLO_CFG_STRUC GloCfg;
 
 
@@ -2345,7 +2345,7 @@ bool AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, int round, int wait_us)
 #else
 #define MAX_AGG_CNT	8
 #endif
-int AsicReadAggCnt(RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len)
+INT AsicReadAggCnt(RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len)
 {
 	unsigned int reg_addr;
 	TX_AGG_CNT_STRUC reg_val;
@@ -2389,7 +2389,7 @@ int AsicReadAggCnt(RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len)
 #endif /* DOT11_N_SUPPORT */
 
 
-int AsicSetChannel(RTMP_ADAPTER *pAd, unsigned char ch, unsigned char bw, unsigned char ext_ch, bool bScan)
+INT AsicSetChannel(RTMP_ADAPTER *pAd, unsigned char ch, unsigned char bw, unsigned char ext_ch, bool bScan)
 {
 	rtmp_bbp_set_bw(pAd, bw);
 

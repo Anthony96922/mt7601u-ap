@@ -633,7 +633,7 @@ void PeerPublicAction(
 					{
 						int i;
 						unsigned char *ptr;
-						int retVal;
+						INT retVal;
 						BSS_COEX_CH_RANGE coexChRange;
 
 						ptr = pIntolerantReport->ChList;
@@ -761,7 +761,7 @@ static void respond_ht_information_exchange_action(
 	NDIS_STATUS		NStatus;
 	unsigned long			FrameLen;
 #ifdef CONFIG_AP_SUPPORT
-	int         	apidx;
+	INT         	apidx;
 #endif /* CONFIG_AP_SUPPORT */
 	FRAME_HT_INFO	HTINFOframe, *pFrame;
 	unsigned char   		*pAddr;
@@ -954,7 +954,7 @@ void ORIBATimerTimeout(
 	IN	PRTMP_ADAPTER	pAd) 
 {
 	MAC_TABLE_ENTRY	*pEntry;
-	int			i, total;
+	INT			i, total;
 /*	FRAME_BAR			FrameBar;*/
 /*	unsigned long			FrameLen;*/
 /*	NDIS_STATUS 	NStatus;*/

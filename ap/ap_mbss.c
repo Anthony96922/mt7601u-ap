@@ -78,7 +78,7 @@ void MBSS_Init(
 #define MBSS_MAX_DEV_NUM	32
 	PNET_DEV pDevNew;
 	int IdBss, MaxNumBss;
-	int status;
+	INT status;
 	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
 
 	/* sanity check to avoid redundant virtual interfaces are created */
@@ -234,11 +234,11 @@ Return Value:
 Note:
 ========================================================================
 */
-int MBSS_Open(
+INT MBSS_Open(
 	IN	PNET_DEV		pDev)
 {
 	PRTMP_ADAPTER pAd;
-	int BssId;
+	INT BssId;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(pDev);
 	BssId = RT28xx_MBSS_IdxGet(pAd, pDev);
@@ -264,11 +264,11 @@ Return Value:
 Note:
 ========================================================================
 */
-int MBSS_Close(
+INT MBSS_Close(
 	IN	PNET_DEV		pDev)
 {
 	PRTMP_ADAPTER pAd;
-	int BssId;
+	INT BssId;
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(pDev);
 	BssId = RT28xx_MBSS_IdxGet(pAd, pDev);
@@ -313,7 +313,7 @@ int MBSS_PacketSend(
 	RTMP_ADAPTER     *pAd;
 	MULTISSID_STRUCT *pMbss;
 	PNDIS_PACKET     pPkt = (PNDIS_PACKET)pPktSrc;
-	int              IdBss;
+	INT              IdBss;
 
 
 	pAd = RTMP_OS_NETDEV_GET_PRIV(pDev);

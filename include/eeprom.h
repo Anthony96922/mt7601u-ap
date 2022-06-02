@@ -291,8 +291,8 @@ void rtmp_ee_flash_write_all(struct _RTMP_ADAPTER *pAd, unsigned short *Data);
 
 
 #ifdef RTMP_EFUSE_SUPPORT
-int eFuseLoadEEPROM(struct _RTMP_ADAPTER *pAd);
-int eFuseWriteEeeppromBuf(struct _RTMP_ADAPTER *pAd);
+INT eFuseLoadEEPROM(struct _RTMP_ADAPTER *pAd);
+INT eFuseWriteEeeppromBuf(struct _RTMP_ADAPTER *pAd);
 void eFuseGetFreeBlockCount(struct _RTMP_ADAPTER *pAd, unsigned int *EfuseFreeBlock);
 
 int rtmp_ee_efuse_read16(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pVal);
@@ -302,11 +302,11 @@ int rtmp_ee_efuse_write16(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsi
 NTSTATUS eFuseRead(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pData, unsigned short len);
 NTSTATUS eFuseWrite(struct _RTMP_ADAPTER *pAd, unsigned short Offset, unsigned short *pData, unsigned short len);
 
-int eFuse_init(struct _RTMP_ADAPTER *pAd);
-int efuse_probe(struct _RTMP_ADAPTER *pAd);
+INT eFuse_init(struct _RTMP_ADAPTER *pAd);
+INT efuse_probe(struct _RTMP_ADAPTER *pAd);
 
 #ifdef RALINK_ATE
-int Set_LoadEepromBufferFromEfuse_Proc(
+INT Set_LoadEepromBufferFromEfuse_Proc(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN char *			arg);
 #endif /* RALINK_ATE */
@@ -316,6 +316,6 @@ int Set_LoadEepromBufferFromEfuse_Proc(
 /*************************************************************************
   *	Public function declarations for prom operation callback functions setting
   ************************************************************************/
-int RtmpChipOpsEepromHook(struct _RTMP_ADAPTER *pAd, int infType);
+INT RtmpChipOpsEepromHook(struct _RTMP_ADAPTER *pAd, INT infType);
 
 #endif /* __EEPROM_H__ */

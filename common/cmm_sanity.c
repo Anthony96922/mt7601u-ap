@@ -295,7 +295,7 @@ bool PeerBeaconAndProbeRspSanity_Old(
     /*MAC_CSR9_STRUC		Csr9;*/
     unsigned long				Length = 0;
 	unsigned char				*pPeerWscIe = NULL;
-	int					PeerWscIeLen = 0;
+	INT					PeerWscIeLen = 0;
     unsigned char				LatchRfChannel = 0;
 
 
@@ -813,7 +813,7 @@ bool PeerBeaconAndProbeRspSanity(
 	unsigned char Sanity;
 	unsigned long Length = 0;
 	unsigned char *pPeerWscIe = NULL;
-	int PeerWscIeLen = 0;
+	INT PeerWscIeLen = 0;
 	unsigned char LatchRfChannel = 0;
 	
 

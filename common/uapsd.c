@@ -701,7 +701,7 @@ Note:
 	For RT28xx series, for packetID=0 or multicast frame, no statistics
 	count can be got, ex: ARP response or DHCP packets, we will use
 	low rate to set (CCK, MCS=0=packetID).
-	So SP will not be close until UAPSD_EPT_SP_int timeout.
+	So SP will not be close until UAPSD_EPT_SP_INT timeout.
 
 	So if the tx rate is 1Mbps for a entry, we will use DMA done, not
 	use UAPSD_SP_AUE_Handle().

@@ -782,21 +782,21 @@ struct _RTMP_CHIP_OP_ {
 	
 	void (*Calibration)(struct _RTMP_ADAPTER *pAd, unsigned int CalibrationID, unsigned int Parameter);
 
-	int (*BurstWrite)(struct _RTMP_ADAPTER *pAd, unsigned int Offset, unsigned int *Data, unsigned int Cnt);
+	INT (*BurstWrite)(struct _RTMP_ADAPTER *pAd, unsigned int Offset, unsigned int *Data, unsigned int Cnt);
 
-	int (*BurstRead)(struct _RTMP_ADAPTER *pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data);
+	INT (*BurstRead)(struct _RTMP_ADAPTER *pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data);
 
-	int (*RandomRead)(struct _RTMP_ADAPTER *pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
+	INT (*RandomRead)(struct _RTMP_ADAPTER *pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
 
-	int (*RFRandomRead)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
+	INT (*RFRandomRead)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
 
-	int (*ReadModifyWrite)(struct _RTMP_ADAPTER *pAd, R_M_W_REG *RegPair, unsigned int Num);
+	INT (*ReadModifyWrite)(struct _RTMP_ADAPTER *pAd, R_M_W_REG *RegPair, unsigned int Num);
 
-	int (*RFReadModifyWrite)(struct _RTMP_ADAPTER *pAd, RF_R_M_W_REG *RegPair, unsigned int Num);
+	INT (*RFReadModifyWrite)(struct _RTMP_ADAPTER *pAd, RF_R_M_W_REG *RegPair, unsigned int Num);
 
-	int (*RandomWrite)(struct _RTMP_ADAPTER *pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
+	INT (*RandomWrite)(struct _RTMP_ADAPTER *pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
 
-	int (*RFRandomWrite)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
+	INT (*RFRandomWrite)(struct _RTMP_ADAPTER *pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
 
 	void (*DisableTxRx)(struct _RTMP_ADAPTER *pAd, unsigned char Level);
 
@@ -804,7 +804,7 @@ struct _RTMP_CHIP_OP_ {
 
 	void (*AsicRadioOff)(struct _RTMP_ADAPTER *pAd, unsigned char Stage);
 
-	int (*PwrSavingOP)(struct _RTMP_ADAPTER *pAd, unsigned int PwrOP, unsigned int PwrLevel, 
+	INT (*PwrSavingOP)(struct _RTMP_ADAPTER *pAd, unsigned int PwrOP, unsigned int PwrLevel, 
 							unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
 							unsigned char TIMByteOffset, unsigned char TIMBytePattern);
 
@@ -1088,8 +1088,8 @@ extern FREQUENCY_ITEM *FreqItems3020;
 extern RTMP_RF_REGS RF2850RegTable[];
 extern unsigned char NUM_OF_2850_CHNL;
 
-bool AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, int round, int wait_us);
-int AsicSetPreTbttInt(struct _RTMP_ADAPTER *pAd, bool enable);
-int AsicReadAggCnt(struct _RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len);
+bool AsicWaitPDMAIdle(struct _RTMP_ADAPTER *pAd, INT round, INT wait_us);
+INT AsicSetPreTbttInt(struct _RTMP_ADAPTER *pAd, bool enable);
+INT AsicReadAggCnt(struct _RTMP_ADAPTER *pAd, unsigned long *aggCnt, int cnt_len);
 
 #endif /* __RTMP_CHIP_H__ */

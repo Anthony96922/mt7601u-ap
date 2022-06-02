@@ -247,7 +247,7 @@ NDIS_STATUS APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 	MAC_TABLE_ENTRY *pMacEntry = NULL;
 	unsigned long	IrqFlags;
 #ifdef IGMP_SNOOP_SUPPORT
-	int InIgmpGroup = IGMP_NONE;
+	INT InIgmpGroup = IGMP_NONE;
 	MULTICAST_FILTER_TABLE_ENTRY *pGroupEntry = NULL;
 #endif /* IGMP_SNOOP_SUPPORT */
 	MULTISSID_STRUCT *pMbss = NULL;
@@ -2192,7 +2192,7 @@ void AP_Legacy_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 	/* record these MCAST_TX frames for group key rekey */
 	if (pTxBlk->TxFrameType == TX_MCAST_FRAME)
 	{				
-		int	idx;
+		INT	idx;
 
 		for (idx = 0; idx < pAd->ApCfg.BssidNum; idx++)
 		{
@@ -4267,7 +4267,7 @@ void APRxEAPOLFrameIndicate(
 	unsigned char			*pTmpBuf;
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
-	int eapcode;
+	INT eapcode;
 #endif /* APCLI_WPA_SUPPLICANT_SUPPORT */
 #endif /* APCLI_SUPPORT */
 	do

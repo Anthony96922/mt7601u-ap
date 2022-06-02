@@ -134,7 +134,7 @@ NDIS_STATUS	RTMPReadParametersHook(
 	char *			src = NULL;
 	RTMP_OS_FD		srcf;
 	RTMP_OS_FS_INFO		osFSInfo;
-	int			retval = NDIS_STATUS_FAILURE;
+	INT			retval = NDIS_STATUS_FAILURE;
 	char *			buffer;
 
 #ifdef HOSTAPD_SUPPORT
@@ -694,16 +694,16 @@ Return Value:
 Note:
 ========================================================================
 */
-int RTMP_AP_IoctlPrepare(
+INT RTMP_AP_IoctlPrepare(
 	IN	RTMP_ADAPTER			*pAd,
 	IN	void					*pCB)
 {
 	RT_CMD_AP_IOCTL_CONFIG *pConfig = (RT_CMD_AP_IOCTL_CONFIG *)pCB;
 	POS_COOKIE pObj;
 	unsigned short index;
-	int	Status = NDIS_STATUS_SUCCESS;
+	INT	Status = NDIS_STATUS_SUCCESS;
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
-	int cmd = 0xff;
+	INT cmd = 0xff;
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 
@@ -840,7 +840,7 @@ void AP_E2PROM_IOCTL_PostCtrl(
 void IAPP_L2_UpdatePostCtrl(
 	IN PRTMP_ADAPTER	pAd,
     IN unsigned char *mac_p,
-    IN int  bssid)
+    IN INT  bssid)
 {
 }
 #endif /* CONFIG_AP_SUPPORT */
@@ -850,7 +850,7 @@ void IAPP_L2_UpdatePostCtrl(
 void AP_WDS_KeyNameMakeUp(
 	IN	char						*pKey,
 	IN	unsigned int						KeyMaxSize,
-	IN	int							KeyId)
+	IN	INT							KeyId)
 {
 	snprintf(pKey, KeyMaxSize, "Wds%dKey", KeyId);
 }

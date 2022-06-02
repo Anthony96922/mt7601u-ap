@@ -31,12 +31,12 @@ typedef struct _RTMP_DRV_ABL_OPS {
 NDIS_STATUS	(*RTMPAllocAdapterBlock)(void * handle, void **ppAdapter);
 void (*RTMPFreeAdapter)(void *pAd);
 bool (*RtmpRaDevCtrlExit)(void *pAd);
-int (*RtmpRaDevCtrlInit)(void *pAd, RTMP_INF_TYPE infType);
+INT (*RtmpRaDevCtrlInit)(void *pAd, RTMP_INF_TYPE infType);
 void (*RTMPHandleInterrupt)(void *pAd);
-int (*RTMP_COM_IoctlHandle)(
+INT (*RTMP_COM_IoctlHandle)(
 	IN	void *pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT *wrq,
-	IN	int cmd,
+	IN	INT cmd,
 	IN	unsigned short subcmd,
 	IN	void *pData,
 	IN	unsigned long Data);
@@ -73,18 +73,18 @@ int (*P2P_PacketSend)(
 	IN	PNET_DEV					pDev,
 	IN	RTMP_NET_PACKET_TRANSMIT	Func);
 
-int (*RTMP_AP_IoctlHandle)(
+INT (*RTMP_AP_IoctlHandle)(
 	IN	void					*pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	int						cmd,
+	IN	INT						cmd,
 	IN	unsigned short					subcmd,
 	IN	void					*pData,
 	IN	unsigned long					Data);
 
-int (*RTMP_STA_IoctlHandle)(
+INT (*RTMP_STA_IoctlHandle)(
 	IN	void					*pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	int						cmd,
+	IN	INT						cmd,
 	IN	unsigned short					subcmd,
 	IN	void					*pData,
 	IN	unsigned long					Data,
@@ -186,13 +186,13 @@ void RtmpNetOpsSet(void *pNetOpsOrg);
 NDIS_STATUS RTMPAllocAdapterBlock(void * handle, void **ppAdapter);
 void RTMPFreeAdapter(void *pAd);
 bool RtmpRaDevCtrlExit(void *pAd);
-int RtmpRaDevCtrlInit(void *pAd, RTMP_INF_TYPE infType);
+INT RtmpRaDevCtrlInit(void *pAd, RTMP_INF_TYPE infType);
 void RTMPHandleInterrupt(void *pAd);
 
-int RTMP_COM_IoctlHandle(
+INT RTMP_COM_IoctlHandle(
 	IN	void					*pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	int						cmd,
+	IN	INT						cmd,
 	IN	unsigned short					subcmd,
 	IN	void					*pData,
 	IN	unsigned long					Data);
@@ -230,10 +230,10 @@ int P2P_PacketSend(
 	IN	RTMP_NET_PACKET_TRANSMIT	Func);
 
 #ifdef CONFIG_AP_SUPPORT
-int RTMP_AP_IoctlHandle(
+INT RTMP_AP_IoctlHandle(
 	IN	void					*pAd, 
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	int						cmd,
+	IN	INT						cmd,
 	IN	unsigned short					subcmd,
 	IN	void					*pData,
 	IN	unsigned long					Data);
@@ -259,7 +259,7 @@ PNET_DEV RtmpPhyNetDevMainCreate(void *pAd);
 int rt28xx_close(void *dev);
 int rt28xx_open(void *dev);
 
-static inline int VIRTUAL_IF_UP(void *pAd)
+static inline INT VIRTUAL_IF_UP(void *pAd)
 {
 	RT_CMD_INF_UP_DOWN InfConf = { rt28xx_open, rt28xx_close };
 	if (RTMP_COM_IoctlHandle(pAd, NULL, CMD_RTPRIV_IOCTL_VIRTUAL_INF_UP,
@@ -279,10 +279,10 @@ static inline void VIRTUAL_IF_DOWN(void *pAd)
 #ifdef RTMP_MODULE_OS
 
 #ifdef CONFIG_AP_SUPPORT
-int rt28xx_ap_ioctl(
+INT rt28xx_ap_ioctl(
 	IN	PNET_DEV		net_dev, 
 	IN	OUT	struct ifreq	*rq, 
-	IN	int			cmd);
+	IN	INT			cmd);
 #endif /* CONFIG_AP_SUPPORT */
 
 
@@ -302,49 +302,49 @@ void RT28xx_MBSS_Init(
 	IN PNET_DEV main_dev_p);
 void RT28xx_MBSS_Remove(
 	IN void *pAd);
-int MBSS_VirtualIF_Open(
+INT MBSS_VirtualIF_Open(
 	IN	PNET_DEV			dev_p);
-int MBSS_VirtualIF_Close(
+INT MBSS_VirtualIF_Close(
 	IN	PNET_DEV			dev_p);
-int MBSS_VirtualIF_PacketSend(
+INT MBSS_VirtualIF_PacketSend(
 	IN PNDIS_PACKET			skb_p,
 	IN PNET_DEV				dev_p);
-int MBSS_VirtualIF_Ioctl(
+INT MBSS_VirtualIF_Ioctl(
 	IN PNET_DEV				dev_p, 
 	IN OUT void 			*rq_p, 
-	IN int cmd);
+	IN INT cmd);
 
 void RT28xx_WDS_Init(
 	IN void					*pAd,
 	IN PNET_DEV				net_dev);
-int WdsVirtualIFSendPackets(
+INT WdsVirtualIFSendPackets(
 	IN PNDIS_PACKET			pSkb,
 	IN PNET_DEV				dev);
-int WdsVirtualIF_open(
+INT WdsVirtualIF_open(
 	IN	PNET_DEV			dev);
-int WdsVirtualIF_close(
+INT WdsVirtualIF_close(
 	IN PNET_DEV				dev);
-int WdsVirtualIF_ioctl(
+INT WdsVirtualIF_ioctl(
 	IN PNET_DEV				net_dev, 
 	IN OUT void				*rq, 
-	IN int					cmd);
+	IN INT					cmd);
 void RT28xx_WDS_Remove(
 	IN void					*pAd);
 
 void RT28xx_ApCli_Init(
 	IN void 				*pAd,
 	IN PNET_DEV				main_dev_p);
-int ApCli_VirtualIF_Open(
+INT ApCli_VirtualIF_Open(
 	IN PNET_DEV				dev_p);
-int ApCli_VirtualIF_Close(
+INT ApCli_VirtualIF_Close(
 	IN	PNET_DEV			dev_p);
-int ApCli_VirtualIF_PacketSend(
+INT ApCli_VirtualIF_PacketSend(
 	IN PNDIS_PACKET 		pPktSrc, 
 	IN PNET_DEV				pDev);
-int ApCli_VirtualIF_Ioctl(
+INT ApCli_VirtualIF_Ioctl(
 	IN PNET_DEV				dev_p, 
 	IN OUT void 			*rq_p, 
-	IN int 					cmd);
+	IN INT 					cmd);
 void RT28xx_ApCli_Remove(
 	IN void 				*pAd);
 
@@ -354,36 +354,36 @@ void RTMP_Mesh_Init(
 	IN char *				pHostName);
 void RTMP_Mesh_Remove(
 	IN void 				*pAd);
-int Mesh_VirtualIF_Open(
+INT Mesh_VirtualIF_Open(
 	IN PNET_DEV				pDev);
-int Mesh_VirtualIF_Close(
+INT Mesh_VirtualIF_Close(
 	IN	PNET_DEV			pDev);
-int Mesh_VirtualIF_PacketSend(
+INT Mesh_VirtualIF_PacketSend(
 	IN PNDIS_PACKET 		pPktSrc, 
 	IN PNET_DEV				pDev);
-int Mesh_VirtualIF_Ioctl(
+INT Mesh_VirtualIF_Ioctl(
 	IN PNET_DEV				dev_p, 
 	IN OUT void				*rq_p, 
-	IN int 					cmd);
+	IN INT 					cmd);
 
 void RTMP_P2P_Init(
 		 IN void			 *pAd,
 		 IN PNET_DEV main_dev_p);
  
- int P2P_VirtualIF_Open(
+ INT P2P_VirtualIF_Open(
 	 IN  PNET_DEV	 dev_p);
  
- int P2P_VirtualIF_Close(
+ INT P2P_VirtualIF_Close(
 	 IN  PNET_DEV	 dev_p);
  
- int P2P_VirtualIF_PacketSend(
+ INT P2P_VirtualIF_PacketSend(
 	 IN PNDIS_PACKET	 skb_p, 
 	 IN PNET_DEV		 dev_p);
  
- int P2P_VirtualIF_Ioctl(
+ INT P2P_VirtualIF_Ioctl(
 	 IN PNET_DEV			 dev_p,
 	 IN OUT void	 *rq_p,
-	 IN int cmd);
+	 IN INT cmd);
 
 void RTMP_P2P_Remove(
 	IN void				*pAd);

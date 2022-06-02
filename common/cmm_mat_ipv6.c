@@ -755,7 +755,7 @@ static NDIS_STATUS IPv6MacTable_init(
 static NDIS_STATUS MATProto_IPv6_Exit(
 	IN MAT_STRUCT 	*pMatCfg)
 {
-	int status;
+	INT status;
 		
 	status = IPv6MacTable_RemoveAll(pMatCfg);
 

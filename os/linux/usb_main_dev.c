@@ -32,7 +32,7 @@ MODULE_VERSION(AP_DRIVER_VERSION);
 #endif
 
 extern USB_DEVICE_ID rtusb_dev_id[];
-extern int const rtusb_usb_id_len;
+extern INT const rtusb_usb_id_len;
 
 static void rt2870_disconnect(
 	IN struct usb_device *dev,
@@ -493,7 +493,7 @@ static int rt2870_resume(
 
 
 /* Init driver module */
-int __init rtusb_init(void)
+INT __init rtusb_init(void)
 {
 	printk(RTMP_DRV_NAME ": init\n");
 	return usb_register(&rtusb_driver);
@@ -602,14 +602,14 @@ static int rt2870_probe(
 {
 	struct  net_device		*net_dev = NULL;
 	void       				*pAd = (void *) NULL;
-	int                 	status, rv;
+	INT                 	status, rv;
 	void *					handle;
 	RTMP_OS_NETDEV_OP_HOOK	netDevHook;
 	unsigned long					OpMode;
 #ifdef CONFIG_PM
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
-/*	int 		pm_usage_cnt; */
-	int		 res =1 ; 
+/*	INT 		pm_usage_cnt; */
+	INT		 res =1 ; 
 #endif /* USB_SUPPORT_SELECTIVE_SUSPEND */
 #endif /* CONFIG_PM */	
 

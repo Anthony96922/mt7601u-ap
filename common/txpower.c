@@ -252,7 +252,7 @@ void AsicGetAutoAgcOffsetForExternalTxAlc(
 void AsicAdjustTxPower(
 	IN PRTMP_ADAPTER pAd) 
 {
-	int i, j;
+	INT i, j;
 	char Value;
 	//char Rssi = -127;
 	char DeltaPwr = 0;
@@ -414,7 +414,7 @@ void GetSingleSkuDeltaPower(
 	INOUT unsigned long * pSingleSKUTotalDeltaPwr,
 	INOUT unsigned char * pSingleSKUBbpR1Offset) 
 {
-	int i, j;
+	INT i, j;
 	char Value;
 	char MinValue = 127;
 	unsigned char BbpR1 = 0;
@@ -701,7 +701,7 @@ void RTMPReadTxPwrPerRate(RTMP_ADAPTER *pAd)
 	unsigned long data, Adata, Gdata;
 	unsigned short i, value, value2;
 	unsigned short value_1, value_2, value_3, value_4;
-	int Apwrdelta, Gpwrdelta;
+	INT Apwrdelta, Gpwrdelta;
 	unsigned char t1, t2, t3, t4;
 	bool bApwrdeltaMinus = TRUE, bGpwrdeltaMinus = TRUE;
 

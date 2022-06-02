@@ -52,7 +52,7 @@ bool PeerAssocReqCmmSanity(
 	RTMP_ADAPTER *pAd, 
 	bool isReassoc,
 	void *Msg,
-	int MsgLen,
+	INT MsgLen,
 	IE_LISTS *ie_lists)
 {
     char			*Ptr;

@@ -534,7 +534,7 @@ void RTMPWriteTxWI_Cache(
 }
 
 
-int rtmp_mac_set_band(RTMP_ADAPTER *pAd, int  band)
+INT rtmp_mac_set_band(RTMP_ADAPTER *pAd, int  band)
 {
 	unsigned int val, band_cfg;
 
@@ -559,7 +559,7 @@ int rtmp_mac_set_band(RTMP_ADAPTER *pAd, int  band)
 }
 
 
-int rtmp_mac_set_ctrlch(RTMP_ADAPTER *pAd, int extch)
+INT rtmp_mac_set_ctrlch(RTMP_ADAPTER *pAd, INT extch)
 {
 	unsigned int val, band_cfg;
 
@@ -586,7 +586,7 @@ int rtmp_mac_set_ctrlch(RTMP_ADAPTER *pAd, int extch)
 }
 
 
-int rtmp_mac_set_mmps(RTMP_ADAPTER *pAd, int ReduceCorePower)
+INT rtmp_mac_set_mmps(RTMP_ADAPTER *pAd, INT ReduceCorePower)
 {
 	unsigned int mac_val, org_val;
 

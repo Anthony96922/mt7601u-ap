@@ -1974,7 +1974,7 @@ typedef struct _MAC_TABLE_ENTRY {
 	NDIS_802_11_PRIVACY_FILTER PrivacyFilter;	/* PrivacyFilter enum for 802.1X */
 	CIPHER_KEY PairwiseKey;
 	void * pAd;
-	int PMKID_CacheIdx;
+	INT PMKID_CacheIdx;
 	unsigned char PMKID[LEN_PMKID];
 	unsigned char NegotiatedAKM[LEN_OUI_SUITE];	/* It indicate the negotiated AKM suite */
 
@@ -2104,14 +2104,14 @@ typedef struct _MAC_TABLE_ENTRY {
 	unsigned char		bfState;
 	unsigned char		sndgMcs;
 	unsigned char		sndgBW;
-	int			sndg0Snr0, sndg0Snr1, sndg0Snr2;
+	INT			sndg0Snr0, sndg0Snr1, sndg0Snr2;
 	unsigned char		sndg0Mcs;
 #ifdef ETXBF_EN_COND3_SUPPORT
 	unsigned char		bestMethod;
 	unsigned char		sndgRateIdx;
 	unsigned char		bf0Mcs, sndg0RateIdx, bf0RateIdx;
 	unsigned char		sndg1Mcs, bf1Mcs, sndg1RateIdx, bf1RateIdx;
-	int			sndg1Snr0, sndg1Snr1, sndg1Snr2;
+	INT			sndg1Snr0, sndg1Snr1, sndg1Snr2;
 #endif /* ETXBF_EN_COND3_SUPPORT */
 	unsigned char		noSndgCnt;
 	unsigned char		eTxBfEnCond;
@@ -2749,11 +2749,11 @@ typedef struct _TX_POWER_CONTROL {
 	char MAC_PowerDelta2; /* Tx power control for Tx1 */
 	char TotalDeltaPower2; /* Tx power control for Tx1 */
 #ifdef RTMP_TEMPERATURE_COMPENSATION
-	int LookupTable[IEEE80211_BAND_NUMS][33];
-	int RefTemp[IEEE80211_BAND_NUMS];
+	INT LookupTable[IEEE80211_BAND_NUMS][33];
+	INT RefTemp[IEEE80211_BAND_NUMS];
 	unsigned char TssiGain[IEEE80211_BAND_NUMS];
 	/* Index offset, -7....25. */
-	int LookupTableIndex;
+	INT LookupTableIndex;
 #endif /* RTMP_TEMPERATURE_COMPENSATION */
 
 } TX_POWER_CONTROL, *PTX_POWER_CONTROL;
@@ -3716,7 +3716,7 @@ struct _RTMP_ADAPTER {
 	unsigned int ContinueMemAllocFailCount;
 
 	struct {
-		int IeLen;
+		INT IeLen;
 		unsigned char *pIe;
 	} ProbeRespIE[MAX_LEN_OF_BSS_TABLE];
 
@@ -3747,9 +3747,9 @@ struct _RTMP_ADAPTER {
 #endif /* WLAN_SKB_RECYCLE */
 
 #ifdef FPGA_MODE
-	int tx_kick_cnt;
-	int phy_rates;
-	int data_phy;
+	INT tx_kick_cnt;
+	INT phy_rates;
+	INT data_phy;
 	unsigned char data_bw;
 	unsigned char data_mcs;
 	unsigned char data_gi;
@@ -4418,7 +4418,7 @@ NDIS_STATUS	RTMPSetProfileParameters(
 	IN RTMP_ADAPTER *pAd,
 	IN char *		pBuffer);
 
-int RTMPGetKeyParameter(
+INT RTMPGetKeyParameter(
     IN char * key,
     OUT char * dest,
     IN int destsize,
@@ -4464,7 +4464,7 @@ void UpdateSkuRatePwr(
 void AP_WDS_KeyNameMakeUp(
 	IN	char	*pKey,
 	IN	unsigned int	KeyMaxSize,
-	IN	int	KeyId);
+	IN	INT	KeyId);
 
 void AsicUpdateMulTestRxWCIDTable(
 	IN PRTMP_ADAPTER pAd);
@@ -4878,7 +4878,7 @@ void RTMPDeQueuePacket(
 	IN RTMP_ADAPTER *pAd,
    	IN bool bIntContext,
 	IN unsigned char QueIdx,
-	IN int Max_Tx_Packets);
+	IN INT Max_Tx_Packets);
 
 NDIS_STATUS	RTMPHardTransmit(
 	IN PRTMP_ADAPTER	pAd,
@@ -5058,7 +5058,7 @@ void AsicSwitchChannel(
 	IN	unsigned char			Channel,
 	IN	bool			bScan);
 
-int AsicSetChannel(
+INT AsicSetChannel(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char ch,
 	IN unsigned char bw,
@@ -5191,7 +5191,7 @@ unsigned int StreamModeRegVal(
 void AsicSetStreamMode(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char * pMacAddr,
-	IN int chainIdx,
+	IN INT chainIdx,
 	IN bool bEnabled);
 
 void RtmpStreamModeInit(
@@ -5210,15 +5210,15 @@ void AsicUpdateTxChainAddress(
 	IN PRTMP_ADAPTER pAd, 
 	IN unsigned char * pMacAddress);
 
-int Set_StreamMode_Proc(
+INT Set_StreamMode_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg);
 
-int Set_StreamModeMac_Proc(
+INT Set_StreamModeMac_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
-int Set_StreamModeMCS_Proc(
+INT Set_StreamModeMCS_Proc(
     IN  PRTMP_ADAPTER   pAd,
     IN  char *         arg);
 #endif /* STREAM_MODE_SUPPORT */
@@ -5328,7 +5328,7 @@ void Bss2040CoexistTimeOut(
 void  TriEventInit(
 	IN	PRTMP_ADAPTER	pAd);
 
-int TriEventTableSetEntry(
+INT TriEventTableSetEntry(
 	IN	PRTMP_ADAPTER	pAd, 
 	OUT TRIGGER_EVENT_TAB *Tab, 
 	IN unsigned char * pBssid, 
@@ -5409,8 +5409,8 @@ bool  MlmeQueueFull(
 bool  MsgTypeSubst(
 	IN PRTMP_ADAPTER pAd, 
 	IN PFRAME_802_11 pFrame, 
-	OUT int *Machine, 
-	OUT int *MsgType);
+	OUT INT *Machine, 
+	OUT INT *MsgType);
 
 void StateMachineInit(
 	IN STATE_MACHINE *Sm, 
@@ -6147,7 +6147,7 @@ bool MlmeTxBfAllowed(
 #endif /* TXBF_SUPPORT */
 
 #ifdef AGS_SUPPORT
-int Show_AGS_Proc(
+INT Show_AGS_Proc(
     IN  PRTMP_ADAPTER	pAd, 
     IN  char *			arg);
 
@@ -6155,11 +6155,11 @@ int Show_AGS_Proc(
 #ifdef CONFIG_AP_SUPPORT
 void ApMlmeDynamicTxRateSwitchingAGS(
 	IN RTMP_ADAPTER *pAd,
-	IN int idx);
+	IN INT idx);
 
 void ApQuickResponeForRateUpExecAGS(
 	IN RTMP_ADAPTER *pAd,
-	IN int idx);
+	IN INT idx);
 
 #endif /* CONFIG_AP_SUPPORT */
 #endif /* AGS_SUPPORT */
@@ -6239,15 +6239,15 @@ void AsicSetRxAnt(
 	IN unsigned char			Ant);
 
 #ifdef RTMP_EFUSE_SUPPORT
-int set_eFuseGetFreeBlockCount_Proc(  
+INT set_eFuseGetFreeBlockCount_Proc(  
    	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-int set_eFusedump_Proc(
+INT set_eFusedump_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-int set_eFuseLoadFromBin_Proc(
+INT set_eFuseLoadFromBin_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
@@ -6261,7 +6261,7 @@ int RtmpEfuseSupportCheck(
 	IN RTMP_ADAPTER *pAd);
 
 #ifdef RALINK_ATE
-int set_eFuseBufferModeWriteBack_Proc(
+INT set_eFuseBufferModeWriteBack_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 #endif /* RALINK_ATE */
@@ -6376,12 +6376,12 @@ void    RTMPTkipGetMIC(
 /* */
 /* Prototypes of function definition in cmm_cfg.c */
 /* */
-int RT_CfgSetCountryRegion(
+INT RT_CfgSetCountryRegion(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg,
-	IN int				band);
+	IN INT				band);
 
-int RT_CfgSetWirelessMode(
+INT RT_CfgSetWirelessMode(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
@@ -6391,60 +6391,60 @@ unsigned char *wmode_2_str(unsigned char wmode);
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef MBSS_SUPPORT
-int RT_CfgSetMbssWirelessMode(
+INT RT_CfgSetMbssWirelessMode(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* MBSS_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 
-int RT_CfgSetShortSlot(
+INT RT_CfgSetShortSlot(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	RT_CfgSetWepKey(
+INT	RT_CfgSetWepKey(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			keyString,
 	IN	CIPHER_KEY		*pSharedKey,
-	IN	int				keyIdx);
+	IN	INT				keyIdx);
 
-int RT_CfgSetWPAPSKKey(
+INT RT_CfgSetWPAPSKKey(
 	IN RTMP_ADAPTER	*pAd, 
 	IN char *		keyString,
-	IN int			keyStringLen,
+	IN INT			keyStringLen,
 	IN unsigned char		*pHashStr,
-	IN int			hashStrLen,
+	IN INT			hashStrLen,
 	OUT unsigned char *		pPMKBuf);
 
-int	RT_CfgSetFixedTxPhyMode(
+INT	RT_CfgSetFixedTxPhyMode(
 	IN	char *			arg);
 
-int	RT_CfgSetMacAddress(
+INT	RT_CfgSetMacAddress(
 	IN 	PRTMP_ADAPTER 	pAd,
 	IN	char *			arg);
 
-int	RT_CfgSetTxMCSProc(
+INT	RT_CfgSetTxMCSProc(
 	IN	char *			arg,
 	OUT	bool			*pAutoRate);
 
-int	RT_CfgSetAutoFallBack(
+INT	RT_CfgSetAutoFallBack(
 	IN 	PRTMP_ADAPTER 	pAd,
 	IN	char *			arg);
 
 #ifdef WSC_INCLUDED
-int	RT_CfgSetWscPinCode(
+INT	RT_CfgSetWscPinCode(
 	IN RTMP_ADAPTER *pAd,
 	IN char *		pPinCodeStr,
 	OUT PWSC_CTRL   pWscControl);
 #endif /* WSC_INCLUDED */
 
-int	Set_Antenna_Proc(
+INT	Set_Antenna_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 
 
 #ifdef MICROWAVE_OVEN_SUPPORT
-int Set_MO_FalseCCATh_Proc(
+INT Set_MO_FalseCCATh_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* MICROWAVE_OVEN_SUPPORT */
@@ -6500,10 +6500,10 @@ unsigned char get_cent_ch_by_htinfo(
 	ADD_HT_INFO_IE *ht_op,
 	HT_CAPABILITY_IE *ht_cap);
 
-int get_ht_cent_ch(RTMP_ADAPTER *pAd, unsigned char *rf_bw, unsigned char *ext_ch);
-int ht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, HT_CAPABILITY_IE *peer, RT_HT_CAPABILITY *my);
-int set_ht_fixed_mcs(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, unsigned char fixed_mcs, unsigned char mcs_bound);
-int get_ht_max_mcs(RTMP_ADAPTER *pAd, unsigned char *desire_mcs, unsigned char *cap_mcs);
+INT get_ht_cent_ch(RTMP_ADAPTER *pAd, unsigned char *rf_bw, unsigned char *ext_ch);
+INT ht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, HT_CAPABILITY_IE *peer, RT_HT_CAPABILITY *my);
+INT set_ht_fixed_mcs(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, unsigned char fixed_mcs, unsigned char mcs_bound);
+INT get_ht_max_mcs(RTMP_ADAPTER *pAd, unsigned char *desire_mcs, unsigned char *cap_mcs);
 #endif /* DOT11_N_SUPPORT */
 
 void RTMPDisableDesiredHtInfo(
@@ -6666,7 +6666,7 @@ void GREKEYPeriodicExec(
 void AES_128_CMAC(
 	IN	unsigned char *	key,
 	IN	unsigned char *	input,
-	IN	int		len,
+	IN	INT		len,
 	OUT	unsigned char *	mac);
 
 #ifdef DOT1X_SUPPORT
@@ -6677,20 +6677,20 @@ void    WpaSend(
 
 void RTMPAddPMKIDCache(
 	IN  PRTMP_ADAPTER   		pAd,
-	IN	int						apidx,
+	IN	INT						apidx,
 	IN	unsigned char *				pAddr,
 	IN	unsigned char					*PMKID,
 	IN	unsigned char					*PMK);
 
-int RTMPSearchPMKIDCache(
+INT RTMPSearchPMKIDCache(
 	IN  PRTMP_ADAPTER   pAd,
-	IN	int				apidx,
+	IN	INT				apidx,
 	IN	unsigned char *		pAddr);
 
 void RTMPDeletePMKIDCache(
 	IN  PRTMP_ADAPTER   pAd,
-	IN	int				apidx,
-	IN  int				idx);
+	IN	INT				apidx,
+	IN  INT				idx);
 
 void RTMPMaintainPMKIDCache(
 	IN  PRTMP_ADAPTER   pAd);
@@ -6763,7 +6763,7 @@ void BARecSessionTearDown(
 bool ba_reordering_resource_init(PRTMP_ADAPTER pAd, int num);
 void ba_reordering_resource_release(PRTMP_ADAPTER pAd);
 
-int ComputeChecksum(
+INT ComputeChecksum(
 	IN unsigned int PIN);
 
 unsigned int GenerateWpsPinCode(
@@ -6772,11 +6772,11 @@ unsigned int GenerateWpsPinCode(
 	IN	unsigned char	apidx);
 
 #ifdef WSC_INCLUDED
-int	Set_WscGenPinCode_Proc(
+INT	Set_WscGenPinCode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_WscVendorPinCode_Proc(
+INT Set_WscVendorPinCode_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
@@ -6800,7 +6800,7 @@ unsigned short WscGetEncrypTypeFromStr(
 bool	WscMsgTypeSubst(
 	IN	unsigned char	EAPType,
 	IN	unsigned char	EAPCode,
-	OUT	int	    *MsgType);
+	OUT	INT	    *MsgType);
 
 void    WscStateMachineInit(
 	IN	PRTMP_ADAPTER		pAd, 
@@ -6886,7 +6886,7 @@ void	WscSendMessage(
 	IN	PRTMP_ADAPTER		pAdapter, 
 	IN  unsigned char               OpCode,
 	IN  unsigned char *				pData,
-	IN  int					Len,
+	IN  INT					Len,
 	IN  PWSC_CTRL           pWscControl,
     IN  unsigned char               OpMode,	/* 0: AP Mode, 1: AP Client Mode, 2: STA Mode */
     IN  unsigned char               EapType);
@@ -6921,7 +6921,7 @@ int WscSendUPnPConfReqMsg(
 	IN unsigned char apIdx,
 	IN unsigned char * ssidStr,
 	IN unsigned char * macAddr,
-	IN int	  Status,
+	IN INT	  Status,
 	IN unsigned int   eventID,
 	IN unsigned char  CurOpMode);
 
@@ -6932,7 +6932,7 @@ int WscSendUPnPMessage(
 	IN	unsigned short				msgType,
 	IN	unsigned short				msgSubType,
 	IN	unsigned char *				pData,
-	IN	int					dataLen,
+	IN	INT					dataLen,
 	IN	unsigned int				eventID,
 	IN	unsigned int				toIPAddr,
 	IN	unsigned char *				pMACAddr,
@@ -6963,7 +6963,7 @@ void    WscBuildProbeRespIE(
 	IN	unsigned short selRegCfgMethods,
 	IN  unsigned char apidx,
 	IN  unsigned char *pAuthorizedMACs,
-	IN  int   AuthorizedMACsLen,
+	IN  INT   AuthorizedMACsLen,
 	IN  unsigned char	CurOpMode);
 
 
@@ -7005,7 +7005,7 @@ void    WscScanTimeOutAction(
     IN  void * SystemSpecific3);
 
 
-int WscGenerateUUID(
+INT WscGenerateUUID(
 	RTMP_ADAPTER	*pAd, 
 	unsigned char 			*uuidHexStr, 
 	unsigned char 			*uuidAscStr, 
@@ -7098,61 +7098,61 @@ int ProcessMessageM1(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg);
 
 int ProcessMessageM2(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL		pWscControl,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	IN  unsigned char			apidx,
 	OUT	PWSC_REG_DATA pReg);
 
 int ProcessMessageM2D(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg);
 
 int ProcessMessageM3(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg);
 
 int ProcessMessageM4(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg);
 
 int ProcessMessageM5(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg);
 
 int ProcessMessageM6(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg);
 
 int ProcessMessageM7(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN  PWSC_CTRL           pWscControl,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	OUT	PWSC_REG_DATA pReg);
 
 int ProcessMessageM8(
 	IN	PRTMP_ADAPTER		pAdapter,
 	IN	void *precv,
-	IN	int Length,
+	IN	INT Length,
 	IN  PWSC_CTRL       pWscControl);
 
 unsigned short  WscGetAuthType(
@@ -7233,7 +7233,7 @@ void WscPBC_DPID_FromSTA(
 	IN	unsigned char *				pMacAddr);
 
 #ifdef CONFIG_AP_SUPPORT
-int	WscGetConfWithoutTrigger(
+INT	WscGetConfWithoutTrigger(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  PWSC_CTRL       pWscControl,
 	IN  bool         bFromUPnP);
@@ -7302,7 +7302,7 @@ void	WscCheckPeerDPID(
 	IN  PRTMP_ADAPTER	pAd,
 	IN  PFRAME_802_11 	Fr,
 	IN  unsigned char *			eid_data,
-	IN  int				eid_len);
+	IN  INT				eid_len);
 
 void	WscClearPeerList(
 	IN  PLIST_HEADER	pWscEnList);
@@ -7320,7 +7320,7 @@ void	WscInsertPeerEntryByMAC(
 	IN	unsigned char *			pMacAddr);
 
 #ifdef CONFIG_AP_SUPPORT
-int WscApShowPeerList(
+INT WscApShowPeerList(
 	IN  PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 #endif /* CONFIG_AP_SUPPORT */
@@ -7338,12 +7338,12 @@ void	WscAssignEntryMAC(
 #ifdef CONFIG_AP_SUPPORT
 void 	WscOnOff(
 	IN  PRTMP_ADAPTER	pAd,
-	IN  int				ApIdx,
+	IN  INT				ApIdx,
 	IN  bool			bOff);
 
 void	WscAddEntryToAclList(
 	IN  PRTMP_ADAPTER	pAd,
-	IN	int				ApIdx,
+	IN	INT				ApIdx,
 	IN  unsigned char *			pMacAddr);
 
 void WscSetupLockTimeout(
@@ -7361,9 +7361,9 @@ bool	WscGenV2Msg(
 	IN  PWSC_CTRL		pWpsCtrl,
 	IN  bool			bSelRegistrar,
 	IN	unsigned char *			pAuthorizedMACs,
-	IN  int   			AuthorizedMACsLen,
+	IN  INT   			AuthorizedMACsLen,
 	OUT	unsigned char			**pOutBuf,
-	OUT	int				*pOutBufLen);
+	OUT	INT				*pOutBufLen);
 
 bool	WscParseV2SubItem(
 	IN	unsigned char			SubID,
@@ -7386,7 +7386,7 @@ void	WscSendEapFragData(
 bool WscGetDataFromPeerByTag(
     IN  PRTMP_ADAPTER 	pAd, 
     IN  unsigned char *			pIeData,
-    IN  int				IeDataLen,
+    IN  INT				IeDataLen,
     IN  unsigned short			WscTag,
     OUT unsigned char *			pWscBuf,
     OUT unsigned short *			pWscBufLen);
@@ -7421,221 +7421,221 @@ int rtinet_aton(
 	unsigned int *addr);
 
 /*//////// common ioctl functions ////////*/
-int Set_DriverVersion_Proc(
+INT Set_DriverVersion_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_CountryRegion_Proc(
+INT Set_CountryRegion_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_CountryRegionABand_Proc(
+INT Set_CountryRegionABand_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_WirelessMode_Proc(
+INT Set_WirelessMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_MBSS_WirelessMode_Proc(
+INT Set_MBSS_WirelessMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_Channel_Proc(
+INT Set_Channel_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
-int	Set_ShortSlot_Proc(
+INT	Set_ShortSlot_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-int	Set_TxPower_Proc(
+INT	Set_TxPower_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-int Set_BGProtection_Proc(
+INT Set_BGProtection_Proc(
 	IN  PRTMP_ADAPTER		pAd, 
 	IN  char *			arg);
 
-int Set_TxPreamble_Proc(
+INT Set_TxPreamble_Proc(
 	IN  PRTMP_ADAPTER		pAd,
 	IN  char *			arg);
 
-int Set_RTSThreshold_Proc(
+INT Set_RTSThreshold_Proc(
 	IN  PRTMP_ADAPTER		pAd,
 	IN  char *			arg);
 
-int Set_FragThreshold_Proc(
+INT Set_FragThreshold_Proc(
 	IN  PRTMP_ADAPTER		pAd,
 	IN  char *			arg);
 
-int Set_TxBurst_Proc(
+INT Set_TxBurst_Proc(
 	IN  PRTMP_ADAPTER		pAd,
 	IN  char *			arg);
 
 
 #ifdef AGGREGATION_SUPPORT
-int	Set_PktAggregate_Proc(
+INT	Set_PktAggregate_Proc(
 	IN  PRTMP_ADAPTER		pAd,
 	IN  char *			arg);
 #endif /* AGGREGATION_SUPPORT */
 
 #ifdef INF_PPA_SUPPORT
-int	Set_INF_AMAZON_SE_PPA_Proc(
+INT	Set_INF_AMAZON_SE_PPA_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	unsigned char *			arg);
 
-int ifx_ra_start_xmit (
+INT ifx_ra_start_xmit (
 	IN	struct net_device *rx_dev, 
 	IN	struct net_device *tx_dev,
 	IN	struct sk_buff *skb,
 	IN	int len);
 #endif /* INF_PPA_SUPPORT */
 
-int	Set_IEEE80211H_Proc(
+INT	Set_IEEE80211H_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 #ifdef EXT_BUILD_CHANNEL_LIST
-int Set_ExtCountryCode_Proc(
+INT Set_ExtCountryCode_Proc(
     IN  PRTMP_ADAPTER   pAdapter,
     IN  char *          arg);
 
-int Set_ExtDfsType_Proc(
+INT Set_ExtDfsType_Proc(
     IN      PRTMP_ADAPTER   pAd,
     IN      char *         arg);
 
-int Set_ChannelListAdd_Proc(
+INT Set_ChannelListAdd_Proc(
     IN      PRTMP_ADAPTER   pAd,
     IN      char *         arg);
 
-int Set_ChannelListShow_Proc(
+INT Set_ChannelListShow_Proc(
     IN      PRTMP_ADAPTER	pAd,
     IN      char *			arg);
-int Set_ChannelListDel_Proc(
+INT Set_ChannelListDel_Proc(
     IN      PRTMP_ADAPTER	pAd,
     IN      char *			arg);
 #endif /* EXT_BUILD_CHANNEL_LIST */
 
 #ifdef DBG
-int	Set_Debug_Proc(
+INT	Set_Debug_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_DebugFunc_Proc(
+INT	Set_DebugFunc_Proc(
 	IN RTMP_ADAPTER *pAd, 
 	IN char * arg);
 #endif
 
 #ifdef TXBF_SUPPORT
-int	Set_ReadITxBf_Proc(
+INT	Set_ReadITxBf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_ReadETxBf_Proc(
+INT	Set_ReadETxBf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_WriteITxBf_Proc(
+INT	Set_WriteITxBf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_WriteETxBf_Proc(
+INT	Set_WriteETxBf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_StatITxBf_Proc(
+INT	Set_StatITxBf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_StatETxBf_Proc(
+INT	Set_StatETxBf_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_TxBfTag_Proc(
+INT	Set_TxBfTag_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_ITxBfTimeout_Proc(
+INT Set_ITxBfTimeout_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
-int Set_ETxBfTimeout_Proc(
+INT Set_ETxBfTimeout_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
-int	Set_InvTxBfTag_Proc(
+INT	Set_InvTxBfTag_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_ITxBfCal_Proc(
+INT	Set_ITxBfCal_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_ITxBfDivCal_Proc(
+INT	Set_ITxBfDivCal_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_ITxBfLnaCal_Proc(
+INT	Set_ITxBfLnaCal_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-int	Set_ETxBfEnCond_Proc(
+INT	Set_ETxBfEnCond_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_ETxBfCodebook_Proc(
+INT Set_ETxBfCodebook_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
-int Set_ETxBfCoefficient_Proc(
+INT Set_ETxBfCoefficient_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
-int Set_ETxBfGrouping_Proc(
+INT Set_ETxBfGrouping_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
-int Set_ETxBfNoncompress_Proc(
+INT Set_ETxBfNoncompress_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
-int Set_ETxBfIncapable_Proc(
+INT Set_ETxBfIncapable_Proc(
     IN  PRTMP_ADAPTER   pAd,
     IN  char *          arg);
 
-int	Set_NoSndgCntThrd_Proc(
+INT	Set_NoSndgCntThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_NdpSndgStreams_Proc(
+INT	Set_NdpSndgStreams_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_Trigger_Sounding_Proc(
+INT	Set_Trigger_Sounding_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_ITxBfEn_Proc(
+INT	Set_ITxBfEn_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 #endif /* TXBF_SUPPORT */
 
-int Set_RateAdaptInterval(
+INT Set_RateAdaptInterval(
 	IN RTMP_ADAPTER *pAd,
 	IN char * arg);
 
 
 #ifdef PRE_ANT_SWITCH
-int Set_PreAntSwitch_Proc(
+INT Set_PreAntSwitch_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg);
 
-int Set_PreAntSwitchRSSI_Proc(
+INT Set_PreAntSwitchRSSI_Proc(
     IN  PRTMP_ADAPTER   pAd,
     IN  char *         arg);
 
-int Set_PreAntSwitchTimeout_Proc(
+INT Set_PreAntSwitchTimeout_Proc(
     IN  PRTMP_ADAPTER   pAd,
     IN  char *         arg);
 
@@ -7643,25 +7643,25 @@ int Set_PreAntSwitchTimeout_Proc(
 
 
 #ifdef CFO_TRACK
-int Set_CFOTrack_Proc(
+INT Set_CFOTrack_Proc(
     IN  PRTMP_ADAPTER   pAd,
     IN  char *         arg);
 
 #ifdef CFO_TRACK
 #ifdef CONFIG_AP_SUPPORT
-int rtmp_cfo_track(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, int lastClient);
+INT rtmp_cfo_track(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, INT lastClient);
 #endif /* CONFIG_AP_SUPPORT */
 #endif /* CFO_TRACK */
 
 #endif // CFO_TRACK //
 
 #ifdef DBG_CTRL_SUPPORT
-int Set_DebugFlags_Proc(
+INT Set_DebugFlags_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *          arg);
 
 #ifdef INCLUDE_DEBUG_QUEUE
-int Set_DebugQueue_Proc(
+INT Set_DebugQueue_Proc(
     IN  PRTMP_ADAPTER   pAd, 
     IN  char *         arg);
 
@@ -7680,137 +7680,137 @@ void dbQueueEnqueueRxFrame(
 #endif /* INCLUDE_DEBUG_QUEUE */
 #endif /* DBG_CTRL_SUPPORT */
 
-int	Show_DescInfo_Proc(
+INT	Show_DescInfo_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Show_MacTable_Proc(
+INT	Show_MacTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int show_devinfo_proc(RTMP_ADAPTER *pAd, char * arg);
+INT show_devinfo_proc(RTMP_ADAPTER *pAd, char * arg);
 
 
-int	Set_ResetStatCounter_Proc(
+INT	Set_ResetStatCounter_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 #ifdef DOT11_N_SUPPORT
-int	Set_BASetup_Proc(
+INT	Set_BASetup_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_BADecline_Proc(
+INT	Set_BADecline_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_BAOriTearDown_Proc(
+INT	Set_BAOriTearDown_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_BARecTearDown_Proc(
+INT	Set_BARecTearDown_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtBw_Proc(
+INT	Set_HtBw_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtMcs_Proc(
+INT	Set_HtMcs_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtGi_Proc(
+INT	Set_HtGi_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtOpMode_Proc(
+INT	Set_HtOpMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtStbc_Proc(
+INT	Set_HtStbc_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtHtc_Proc(
+INT	Set_HtHtc_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtExtcha_Proc(
+INT	Set_HtExtcha_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtMpduDensity_Proc(
+INT	Set_HtMpduDensity_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtBaWinSize_Proc(
+INT	Set_HtBaWinSize_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtRdg_Proc(
+INT	Set_HtRdg_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtLinkAdapt_Proc(																																																																																																																																																																																																																																									
+INT	Set_HtLinkAdapt_Proc(																																																																																																																																																																																																																																									
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtAmsdu_Proc(																																																																																																																																																																																																																																																																																																																			
+INT	Set_HtAmsdu_Proc(																																																																																																																																																																																																																																																																																																																			
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 	
-int	Set_HtAutoBa_Proc(																																																																																																																																																																																																																																																																																																																			
+INT	Set_HtAutoBa_Proc(																																																																																																																																																																																																																																																																																																																			
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 					
-int	Set_HtProtect_Proc(
+INT	Set_HtProtect_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-int	Set_HtMimoPs_Proc(
+INT	Set_HtMimoPs_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
 #ifdef DOT11N_DRAFT3
-int Set_HT_BssCoex_Proc(
+INT Set_HT_BssCoex_Proc(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	char *				pParam);
 
-int Set_HT_BssCoexApCntThr_Proc(
+INT Set_HT_BssCoexApCntThr_Proc(
 	IN	PRTMP_ADAPTER		pAd,
 	IN	char *				pParam);
 #endif /* DOT11N_DRAFT3 */
 
 
 #ifdef CONFIG_AP_SUPPORT
-int	Set_HtTxStream_Proc(
+INT	Set_HtTxStream_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtRxStream_Proc(
+INT	Set_HtRxStream_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #ifdef DOT11_N_SUPPORT
 #ifdef GREENAP_SUPPORT
-int	Set_GreenAP_Proc(
+INT	Set_GreenAP_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* GREENAP_SUPPORT */
 #endif /* DOT11_N_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */
 
-int	Set_ForceShortGI_Proc(
+INT	Set_ForceShortGI_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-int	Set_ForceGF_Proc(
+INT	Set_ForceGF_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 
-int	SetCommonHT(RTMP_ADAPTER *pAd);
+INT	SetCommonHT(RTMP_ADAPTER *pAd);
 
-int	Set_SendPSMPAction_Proc(
+INT	Set_SendPSMPAction_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
@@ -7819,38 +7819,38 @@ void convert_reordering_packet_to_preAMSDU_or_802_3_packet(
 	IN	RX_BLK			*pRxBlk,
 	IN  unsigned char			FromWhichBSSID);
 
-int	Set_HtMIMOPSmode_Proc(
+INT	Set_HtMIMOPSmode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 
-int	Set_HtTxBASize_Proc(
+INT	Set_HtTxBASize_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_HtDisallowTKIP_Proc(
+INT	Set_HtDisallowTKIP_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_BurstMode_Proc(
+INT	Set_BurstMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* DOT11_N_SUPPORT */
 
 
 #ifdef DOT11_VHT_AC
-int	Set_VhtBw_Proc(
+INT	Set_VhtBw_Proc(
 	IN RTMP_ADAPTER *pAd, 
 	IN char * arg);
 
-int	Set_VhtStbc_Proc(
+INT	Set_VhtStbc_Proc(
 	IN RTMP_ADAPTER *pAd, 
 	IN char * arg);
 #endif /* DOT11_VHT_AC */
 
 
 #ifdef APCLI_SUPPORT
-int RTMPIoctlConnStatus(
+INT RTMPIoctlConnStatus(
     IN  PRTMP_ADAPTER   pAdapter, 
     IN  char *          arg);
 
@@ -8084,11 +8084,11 @@ void RTMPIoctlGetSiteSurvey(
 
 #ifdef CONFIG_AP_SUPPORT
 #ifdef APCLI_SUPPORT
-int Set_ApCli_AuthMode_Proc(
+INT Set_ApCli_AuthMode_Proc(
     IN PRTMP_ADAPTER pAd, 
     IN char * arg);
 
-int Set_ApCli_EncrypType_Proc(
+INT Set_ApCli_EncrypType_Proc(
     IN PRTMP_ADAPTER pAd, 
     IN char * arg);
 #endif /* APCLI_SUPPORT */
@@ -8154,25 +8154,25 @@ typedef struct _DefaultKeyIdxValue
 
 
 
-int	Set_FixedTxMode_Proc(
+INT	Set_FixedTxMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
-int	Set_OpMode_Proc(
+INT	Set_OpMode_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
-int Set_LongRetryLimit_Proc(
+INT Set_LongRetryLimit_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	char *			arg);
 
-int Set_ShortRetryLimit_Proc(
+INT Set_ShortRetryLimit_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	char *			arg);
 
-int Set_AutoFallBack_Proc(
+INT Set_AutoFallBack_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	char *			arg);
 
@@ -8185,7 +8185,7 @@ void RT28XXDMAEnable(
 	
 void RT28xx_UpdateBeaconToAsic(
 	IN RTMP_ADAPTER * pAd, 
-	IN int apidx,
+	IN INT apidx,
 	IN unsigned long BeaconLen,
 	IN unsigned long UpdatePos);
 
@@ -8218,7 +8218,7 @@ void AsicTurnOffRFClk(
 
 
 #ifdef RTMP_TIMER_TASK_SUPPORT
-int RtmpTimerQThread(
+INT RtmpTimerQThread(
 	IN unsigned long Context);
 
 RTMP_TIMER_TASK_ENTRY *RtmpTimerQInsert(
@@ -8317,7 +8317,7 @@ void RTUSBDequeueCmd(
 	IN	PCmdQ		cmdq,
 	OUT	PCmdQElmt	*pcmdqelmt);
 
-int RTUSBCmdThread(
+INT RTUSBCmdThread(
 	IN unsigned long Context);
 
 void RTUSBBssBeaconExit(
@@ -8398,7 +8398,7 @@ void RTUSBMlmeHardTransmit(
 	IN RTMP_ADAPTER *pAd,
 	IN MGMT_STRUC *pMgmt);
 
-int MlmeThread(unsigned long Context);
+INT MlmeThread(unsigned long Context);
 
 
 /*
@@ -8568,13 +8568,13 @@ void QBSS_LoadUpdate(
 void QBSS_LoadStatusClear(
  	IN		RTMP_ADAPTER	*pAd);
 
-int	Show_QoSLoad_Proc(
+INT	Show_QoSLoad_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg);
 #endif /* AP_QLOAD_SUPPORT */
 
 /*///////////////////////////////////*/
-int RTMPShowCfgValue(
+INT RTMPShowCfgValue(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			pName,
 	IN	char *			pBuf,
@@ -8718,7 +8718,7 @@ void RTMPUpdateSwCacheCipherInfo(
 void RTInitializeCmdQ(
 	IN	PCmdQ	cmdq);
 
-int RTPCICmdThread(
+INT RTPCICmdThread(
 	IN unsigned long Context);
 
 void CMDHandler(
@@ -8739,7 +8739,7 @@ void ieee80211_notify_michael_failure(
 	IN	PRTMP_ADAPTER    pAd,
 	IN	PHEADER_802_11   pHeader,
 	IN	unsigned int            keyix,
-	IN	int              report);
+	IN	INT              report);
 
 const char* ether_sprintf(const unsigned char *mac);
 #endif/*HOSTAPD_SUPPORT*/
@@ -8774,10 +8774,10 @@ void RTMP_BBP_IO_WRITE8(
 #endif /* VENDOR_FEATURE3_SUPPORT */
 
 
-int AsicGetMacVersion(
+INT AsicGetMacVersion(
 	IN RTMP_ADAPTER *pAd);
 
-int WaitForAsicReady(
+INT WaitForAsicReady(
 	IN RTMP_ADAPTER *pAd);
 
 bool CHAN_PropertyCheck(
@@ -8797,7 +8797,7 @@ void    ApcliSendAssocIEsToWpaSupplicant(
     IN  PRTMP_ADAPTER pAd,
     IN unsigned int ifIndex);
 
-int	    ApcliWpaCheckEapCode(
+INT	    ApcliWpaCheckEapCode(
 	IN  PRTMP_ADAPTER   		pAd,
 	IN  unsigned char *				pFrame,
 	IN  unsigned short				FrameLen,
@@ -8829,15 +8829,15 @@ void RTMP_TxEvmCalibration(
 	IN PRTMP_ADAPTER pAd);
 #endif /* defined(RT3350) || defined(RT33xx) */
 
-int RTMPSetInformation(
+INT RTMPSetInformation(
     IN RTMP_ADAPTER *pAd,
     IN OUT RTMP_IOCTL_INPUT_STRUCT *rq,
-    IN int cmd);
+    IN INT cmd);
 
-int RTMPQueryInformation(
+INT RTMPQueryInformation(
     IN RTMP_ADAPTER *pAd,
     INOUT RTMP_IOCTL_INPUT_STRUCT *rq,
-    IN int cmd);
+    IN INT cmd);
 
 void RTMPIoctlShow(
 	IN RTMP_ADAPTER *pAd,
@@ -8846,31 +8846,31 @@ void RTMPIoctlShow(
 	IN void *pData,
 	IN unsigned long Data);
 
-int RTMP_COM_IoctlHandle(
+INT RTMP_COM_IoctlHandle(
 	IN void *pAdSrc,
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq,
-	IN int cmd,
+	IN INT cmd,
 	IN unsigned short subcmd,
 	IN void *pData,
 	IN unsigned long Data);
 
 #ifdef CONFIG_AP_SUPPORT
-int RTMP_AP_IoctlPrepare(
+INT RTMP_AP_IoctlPrepare(
 	IN RTMP_ADAPTER *pAd,
 	IN void *pCB);
 #endif /* CONFIG_AP_SUPPORT */
 
 
-int Set_VcoPeriod_Proc(
+INT Set_VcoPeriod_Proc(
 	IN RTMP_ADAPTER *pAd,
 	IN char * arg);
 
-int	Set_RateAlg_Proc(
+INT	Set_RateAlg_Proc(
 	IN RTMP_ADAPTER *pAd,
 	IN char * arg);
 
 #ifdef SINGLE_SKU
-int Set_ModuleTxpower_Proc(
+INT Set_ModuleTxpower_Proc(
 	IN RTMP_ADAPTER *pAd, 
 	IN char * arg);
 #endif /* SINGLE_SKU */
@@ -8965,7 +8965,7 @@ void MultiChannelSwitchToP2P(
 
 
 unsigned char dot11_2_ra_rate(unsigned char MaxSupportedRateIn500Kbps);
-unsigned char dot11_max_sup_rate(int SupRateLen, unsigned char *SupRate, int ExtRateLen, unsigned char *ExtRate);
+unsigned char dot11_max_sup_rate(INT SupRateLen, unsigned char *SupRate, INT ExtRateLen, unsigned char *ExtRate);
 
 void set_entry_phy_cfg(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry);
 void MacTableReset(RTMP_ADAPTER *pAd);
@@ -8991,23 +8991,23 @@ void dumpRxFCEInfo(RTMP_ADAPTER *pAd, RXFCE_INFO *pRxFceInfo);
 
 
 #ifdef FPGA_MODE
-int set_tx_kickcnt(RTMP_ADAPTER *pAd, char * arg);
-int set_data_phy_mode(RTMP_ADAPTER *pAd, char * arg);
-int set_data_bw(RTMP_ADAPTER *pAd, char * arg);
-int set_data_mcs(RTMP_ADAPTER *pAd, char * arg);
-int set_data_gi(RTMP_ADAPTER *pAd, char * arg);
-int set_data_basize(RTMP_ADAPTER *pAd, char * arg);
-int set_fpga_mode(RTMP_ADAPTER *pAd, char * arg);
+INT set_tx_kickcnt(RTMP_ADAPTER *pAd, char * arg);
+INT set_data_phy_mode(RTMP_ADAPTER *pAd, char * arg);
+INT set_data_bw(RTMP_ADAPTER *pAd, char * arg);
+INT set_data_mcs(RTMP_ADAPTER *pAd, char * arg);
+INT set_data_gi(RTMP_ADAPTER *pAd, char * arg);
+INT set_data_basize(RTMP_ADAPTER *pAd, char * arg);
+INT set_fpga_mode(RTMP_ADAPTER *pAd, char * arg);
 #endif /* FPGA_MODE */
 
 #ifdef WFA_VHT_PF
-int set_force_amsdu(RTMP_ADAPTER *pAd, char * arg);
+INT set_force_amsdu(RTMP_ADAPTER *pAd, char * arg);
 #endif /* WFA_VHT_PF */
 
 
 
 #ifdef RLT_RF
-int set_rf(RTMP_ADAPTER *pAd, char * arg);
+INT set_rf(RTMP_ADAPTER *pAd, char * arg);
 #endif /* RLT_RF */
 
 bool CmdRspEventHandle(RTMP_ADAPTER *pAd);

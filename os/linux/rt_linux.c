@@ -847,7 +847,7 @@ void RtmpOsSendWirelessEvent(
 
 #ifdef CONFIG_AP_SUPPORT
 void SendSignalToDaemon(
-	IN int sig,
+	IN INT sig,
 	RTMP_OS_PID pid,
 	unsigned long pid_no)
 {
@@ -1000,7 +1000,7 @@ static inline NDIS_STATUS __RtmpOSTaskKill(OS_TASK *pTask)
 
 }
 
-static inline int __RtmpOSTaskNotifyToExit(OS_TASK *pTask)
+static inline INT __RtmpOSTaskNotifyToExit(OS_TASK *pTask)
 {
 #ifndef KTHREAD_SUPPORT
 	pTask->taskPID = THREAD_PID_INIT_VALUE;
@@ -1144,7 +1144,7 @@ struct net_device *alloc_netdev(
 	void (*setup) (struct net_device *))
 {
 	struct net_device *dev;
-	int alloc_size;
+	INT alloc_size;
 
 	/* ensure 32-byte alignment of the private area */
 	alloc_size = sizeof (*dev) + sizeof_priv + 31;
@@ -1209,7 +1209,7 @@ static unsigned int RtmpOSWirelessEventTranslate(IN unsigned int eventType)
 int RtmpOSWrielessEventSend(
 	IN PNET_DEV pNetDev,
 	IN unsigned int eventType,
-	IN int flags,
+	IN INT flags,
 	IN unsigned char * pSrcMac,
 	IN unsigned char * pData,
 	IN unsigned int dataLen)
@@ -1239,7 +1239,7 @@ int RtmpOSWrielessEventSend(
 int RtmpOSWrielessEventSendExt(
 	IN PNET_DEV pNetDev,
 	IN unsigned int eventType,
-	IN int flags,
+	IN INT flags,
 	IN unsigned char * pSrcMac,
 	IN unsigned char * pData,
 	IN unsigned int dataLen,
@@ -1293,7 +1293,7 @@ static int RtmpOSNetDevRequestName(
 	IN unsigned int *pIoctlIF,
 	IN PNET_DEV dev,
 	IN char * pPrefixStr,
-	IN int devIdx)
+	IN INT devIdx)
 {
 	PNET_DEV existNetDev;
 	char suffixName[IFNAMSIZ];
@@ -1376,7 +1376,7 @@ void RtmpOSNetDevFree(PNET_DEV pNetDev)
 #endif /* VENDOR_FEATURE2_SUPPORT */
 }
 
-int RtmpOSNetDevAlloc(
+INT RtmpOSNetDevAlloc(
 	IN PNET_DEV *new_dev_p,
 	IN unsigned int privDataSize)
 {
@@ -1399,7 +1399,7 @@ int RtmpOSNetDevAlloc(
 
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,31)
-int RtmpOSNetDevOpsAlloc(void * *pNetDevOps)
+INT RtmpOSNetDevOpsAlloc(void * *pNetDevOps)
 {
 	*pNetDevOps = (void *) vmalloc(sizeof (struct net_device_ops));
 	if (*pNetDevOps) {
@@ -1460,7 +1460,7 @@ void RtmpOSNetDeviceRefPut(PNET_DEV pNetDev)
 }
 
 
-int RtmpOSNetDevDestory(void *pReserved, PNET_DEV pNetDev)
+INT RtmpOSNetDevDestory(void *pReserved, PNET_DEV pNetDev)
 {
 
 	/* TODO: Need to fix this */
@@ -1616,9 +1616,9 @@ int RtmpOSNetDevAttach(
 PNET_DEV RtmpOSNetDevCreate(
 	IN int MC_RowID,
 	IN unsigned int *pIoctlIF,
-	IN int devType,
-	IN int devNum,
-	IN int privMemSize,
+	IN INT devType,
+	IN INT devNum,
+	IN INT privMemSize,
 	IN char * pNamePrefix)
 {
 	struct net_device *pNetDev = NULL;
@@ -2231,7 +2231,7 @@ PNDIS_PACKET RtmpOsPktIappMakeUp(
 	IN unsigned char *pMac)
 {
 	RT_IAPP_L2_UPDATE_FRAME frame_body;
-	int size = sizeof (RT_IAPP_L2_UPDATE_FRAME);
+	INT size = sizeof (RT_IAPP_L2_UPDATE_FRAME);
 	PNDIS_PACKET pNetBuf;
 
 	if (pNetDev == NULL)
@@ -3798,7 +3798,7 @@ Return Value:
 Note:
 ========================================================================
 */
-int RtmpOSTaskNotifyToExit(RTMP_OS_TASK *pTaskOrg)
+INT RtmpOSTaskNotifyToExit(RTMP_OS_TASK *pTaskOrg)
 {
 	OS_TASK *pTask;
 
@@ -4678,7 +4678,7 @@ Note:
 int RtmpOsSemaWaitInterruptible(RTMP_OS_SEM *pSemOrg)
 {
 	OS_SEM *pSem;
-	int Status = -1;
+	INT Status = -1;
 
 	pSem = (OS_SEM *) (pSemOrg->pContent);
 	if (pSem != NULL)
@@ -4776,7 +4776,7 @@ Return Value:
 Note:
 ========================================================================
 */
-int RtmpOsIsPktCloned(PNDIS_PACKET pNetPkt)
+INT RtmpOsIsPktCloned(PNDIS_PACKET pNetPkt)
 {
 	return OS_PKT_CLONED(pNetPkt);
 }
@@ -5214,7 +5214,7 @@ NDIS_STATUS RtmpOSTaskKill(RTMP_OS_TASK *pTask)
 }
 
 
-int RtmpOSTaskNotifyToExit(RTMP_OS_TASK *pTask)
+INT RtmpOSTaskNotifyToExit(RTMP_OS_TASK *pTask)
 {
 	return __RtmpOSTaskNotifyToExit(pTask);
 }

@@ -225,11 +225,11 @@ static void ApCliPeerProbeRspAtJoinAction(
 			A. Should be not. There's no back-door recover to previous AP. It still need
 				a new JOIN-AUTH-ASSOC sequence.
 		*/
-		int ssidEqualFlag = FALSE;
-		int ssidEmptyFlag = FALSE;
-		int bssidEqualFlag = FALSE;
-		int bssidEmptyFlag = FALSE;
-		int matchFlag = FALSE;
+		INT ssidEqualFlag = FALSE;
+		INT ssidEmptyFlag = FALSE;
+		INT bssidEqualFlag = FALSE;
+		INT bssidEmptyFlag = FALSE;
+		INT matchFlag = FALSE;
 
 		pApCliEntry = &pAd->ApCfg.ApCliTab[ifIndex];
 

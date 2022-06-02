@@ -38,10 +38,10 @@
 
 
 
-int CFG80211DRV_IoctlHandle(
+INT CFG80211DRV_IoctlHandle(
 	IN	void					*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	int						cmd,
+	IN	INT						cmd,
 	IN	unsigned short					subcmd,
 	IN	void					*pData,
 	IN	unsigned long					Data)
@@ -611,7 +611,7 @@ bool CFG80211DRV_OpsBeaconSet(
 	bool TxPreamble, SpectrumMgmt = FALSE;
 	bool	bWmmCapable = FALSE;
 	unsigned char	BBPR1 = 0, BBPR3 = 0;
-	int idx;
+	INT idx;
 	unsigned long offset;
 
 	CFG80211DBG(RT_DEBUG_TRACE, ("80211> CFG80211DRV_OpsBeaconSet ==> \n"));
@@ -1580,7 +1580,7 @@ bool CFG80211_SupBandReInit(
 } /* End of CFG80211_SupBandReInit */
 
 
-int CFG80211_StaPortSecured(
+INT CFG80211_StaPortSecured(
 	IN void                                         *pAdCB,
 	IN unsigned char 					*pMac,
 	IN unsigned int						flag)
@@ -1613,7 +1613,7 @@ int CFG80211_StaPortSecured(
 	return 0;
 }
 
-int CFG80211_ApStaDel(
+INT CFG80211_ApStaDel(
 	IN void                                         *pAdCB,
 	IN unsigned char                                        *pMac)
 {
@@ -1637,7 +1637,7 @@ int CFG80211_ApStaDel(
 }
 
 //CMD_RTPRIV_IOCTL_80211_KEY_DEFAULT_SET:
-int CFG80211_setDefaultKey(
+INT CFG80211_setDefaultKey(
 	IN void                                         *pAdCB,
 	IN unsigned int 					Data
 )
@@ -1657,7 +1657,7 @@ int CFG80211_setDefaultKey(
 }
 
 #ifdef RT_P2P_SPECIFIC_WIRELESS_EVENT
-int CFG80211_SendWirelessEvent(
+INT CFG80211_SendWirelessEvent(
 	IN void                                         *pAdCB,
 	IN unsigned char 					*pMacAddr)
 {

@@ -56,7 +56,7 @@ void VideoTurbineUpdate(
 void TxSwQDepthAdjust(IN RTMP_ADAPTER *pAd, IN unsigned int qLen)
 {
 	unsigned long IrqFlags;
-	int qIdx;
+	INT qIdx;
 	QUEUE_HEADER *pTxQ, *pEntry;
 	PNDIS_PACKET pPacket;
 	

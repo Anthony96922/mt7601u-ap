@@ -575,7 +575,7 @@ static void DisableAPMIMOPSv1(
 
 	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth == BW_40) && (pAd->CommonCfg.Channel != 14))
 	{
-		int ext_ch = EXTCHA_NONE;
+		INT ext_ch = EXTCHA_NONE;
 
 		DBGPRINT(RT_DEBUG_INFO, ("Run with BW_40\n"));
 		/* Set CentralChannel to work for BW40 */
@@ -826,7 +826,7 @@ unsigned int SetHWAntennaDivsersity(
 }
 #endif // HW_ANTENNA_DIVERSITY_SUPPORT // 
 
-int WaitForAsicReady(
+INT WaitForAsicReady(
 	IN RTMP_ADAPTER *pAd)
 {
 	unsigned int mac_val = 0, reg = MAC_CSR0;
@@ -855,7 +855,7 @@ int WaitForAsicReady(
 	return TRUE;
 }
 
-int AsicGetMacVersion(
+INT AsicGetMacVersion(
 	IN RTMP_ADAPTER *pAd)
 {
 	unsigned int reg = MAC_CSR0;

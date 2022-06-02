@@ -12,7 +12,7 @@
 
 NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 {
-	int idx;
+	INT idx;
 	
 	/* Read BBP register, make sure BBP is up and running before write new data*/
 	if (rlt_bbp_is_ready(pAd) == FALSE)
@@ -41,7 +41,7 @@ NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 }
 
 
-int rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, int tx_dac)
+INT rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, INT tx_dac)
 {
 	unsigned int txbe, txbe_r5 = 0;
 	
@@ -66,7 +66,7 @@ int rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, int tx_dac)
 }
 
 
-int rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, int rxpath)
+INT rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, INT rxpath)
 {
 	unsigned int agc, agc_r0 = 0;
 
@@ -116,7 +116,7 @@ static unsigned char vht_prim_ch_val[] = {
 };
 
 	
-int rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, int ext_ch)
+INT rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT ext_ch)
 {
 	unsigned int agc, agc_r0 = 0;
 	unsigned int be, be_r0 = 0;
@@ -208,7 +208,7 @@ int rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, int ext_ch)
 	4. Wait 0.5 us for BBP clocks to settle
 	5. Release BBP from reset by clearing CORE_R4[0]
 */
-int rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, int bw)
+INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw)
 {
 	unsigned int core, core_r1 = 0, core_r4 = 0;
 	unsigned int agc, agc_r0 = 0;
@@ -290,7 +290,7 @@ int rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, int bw)
 }
 
 
-int rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
+INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
 {
 	unsigned int bbp_val, org_val;
 
@@ -308,7 +308,7 @@ int rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
 }
 
 
-int rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX chain)
+INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX chain)
 {
 	unsigned char idx, val;
 	unsigned int bbp_val, bbp_reg = AGC1_R8;
@@ -343,7 +343,7 @@ int rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX chain)
 }
 
 
-int rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX chain)
+INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX chain)
 {
 	unsigned char idx = 0;
 	unsigned int bbp_val, bbp_reg = AGC1_R8;
@@ -378,7 +378,7 @@ int rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX 
 }
 
 
-int rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, unsigned char Channel)
+INT rtmp_bbp_set_filter_coefficient_ctrl(RTMP_ADAPTER *pAd, unsigned char Channel)
 {
 	unsigned int bbp_val = 0, org_val = 0;
 
@@ -414,9 +414,9 @@ unsigned char rtmp_bbp_get_random_seed(RTMP_ADAPTER *pAd)
 }
 
 
-int rlt_bbp_is_ready(struct _RTMP_ADAPTER *pAd)
+INT rlt_bbp_is_ready(struct _RTMP_ADAPTER *pAd)
 {
-	int idx = 0;
+	INT idx = 0;
 	unsigned int val;
 	
 	do 

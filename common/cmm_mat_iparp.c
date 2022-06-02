@@ -317,7 +317,7 @@ static NDIS_STATUS IPMacTable_RemoveAll(
 {
 	IPMacMappingEntry *pEntry;
 	IPMacMappingTable *pIPMacTable;
-	int		i;
+	INT		i;
 
 
 	pIPMacTable = (IPMacMappingTable *)pMatCfg->MatTableSet.IPMacTable;
@@ -405,7 +405,7 @@ static NDIS_STATUS IPMacTable_init(
 static NDIS_STATUS MATProto_ARP_Exit(
 	IN MAT_STRUCT *pMatCfg)
 {
-	int status;
+	INT status;
 		
 	status = IPMacTable_RemoveAll(pMatCfg);
 
@@ -535,7 +535,7 @@ static NDIS_STATUS MATProto_ARP_Init(
 static NDIS_STATUS MATProto_IP_Exit(
 	IN MAT_STRUCT	*pMatCfg)
 {
-	int status;
+	INT status;
 		
 	status = IPMacTable_RemoveAll(pMatCfg);
 

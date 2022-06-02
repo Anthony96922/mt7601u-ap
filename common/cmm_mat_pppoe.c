@@ -265,7 +265,7 @@ static NDIS_STATUS UidMacTable_RemoveAll(
 {
 	UidMacMappingTable *pUidMacTable;
 	UidMacMappingEntry *pEntry;
-	int             i;
+	INT             i;
 
 	pUidMacTable = (UidMacMappingTable *)pMatCfg->MatTableSet.UidMacTable;
 
@@ -298,7 +298,7 @@ static NDIS_STATUS SesMacTable_RemoveAll(
 {
 	SesMacMappingTable *pSesMacTable;
 	SesMacMappingEntry *pEntry;
-	int             i;
+	INT             i;
 
 	pSesMacTable = (SesMacMappingTable *)pMatCfg->MatTableSet.SesMacTable;
 	if (!pSesMacTable)

@@ -34,7 +34,7 @@
 /*#define IKANOS_DEBUG */
 
 
-extern int rt28xx_send_packets(
+extern INT rt28xx_send_packets(
 	IN struct sk_buff		*skb_p,
 	IN struct net_device	*net_dev);
 
@@ -233,7 +233,7 @@ static int GetSpecInfoIdxFromBssid(
 #ifdef WDS_SUPPORT
 		if(FromWhichBSSID >= MIN_NET_DEVICE_FOR_WDS)
 		{
-			int WdsIndex = FromWhichBSSID - MIN_NET_DEVICE_FOR_WDS;
+			INT WdsIndex = FromWhichBSSID - MIN_NET_DEVICE_FOR_WDS;
 			IfIdx = MAX_MBSSID_NUM(pAd) + WdsIndex;
 		}
 		else
@@ -282,7 +282,7 @@ static int GetSpecInfoIdxFromBssid(
 #ifdef WDS_SUPPORT
 		if(FromWhichBSSID >= MIN_NET_DEVICE_FOR_WDS)
 		{
-			int WdsIndex = FromWhichBSSID - MIN_NET_DEVICE_FOR_WDS;
+			INT WdsIndex = FromWhichBSSID - MIN_NET_DEVICE_FOR_WDS;
 			IfIdx = MAX_MBSSID_NUM(pAd) + WdsIndex;
 		}
 		else

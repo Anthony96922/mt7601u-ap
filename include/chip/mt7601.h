@@ -230,7 +230,7 @@ typedef struct _RT6590_RF_SWITCH_ITEM {
 
 void MT7601_Init(struct _RTMP_ADAPTER *pAd);
 void MT7601_RXDC_CAL(struct _RTMP_ADAPTER *pAd);
-int MT7601_ReadChannelPwr(struct _RTMP_ADAPTER *pAd);
+INT MT7601_ReadChannelPwr(struct _RTMP_ADAPTER *pAd);
 void MT7601_ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
 void MT7601_INIT_CAL(struct _RTMP_ADAPTER *pAd);
 NTSTATUS MT7601DisableTxRx(struct _RTMP_ADAPTER *pAd, unsigned char Level);
@@ -253,11 +253,11 @@ void MT7601_AsicMeasureFalseCCA(
 	IN struct _RTMP_ADAPTER *pAd);
 #endif /* MICROWAVE_OVEN_SUPPORT */
 
-int MT7601_Read_Temperature(
+INT MT7601_Read_Temperature(
 	struct _RTMP_ADAPTER *pAd, 
 	OUT	char*			Temperature);
 
-int MT7601_Bootup_Read_Temperature(
+INT MT7601_Bootup_Read_Temperature(
 	struct _RTMP_ADAPTER *pAd, 
 	OUT	char*			Temperature);
 

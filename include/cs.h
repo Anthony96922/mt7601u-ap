@@ -87,53 +87,53 @@ typedef struct _CARRIER_DETECT_DEBUG {
 } CARRIER_DETECT_DEBUG, *PCARRIER_DETECT_DEBUG;
 #endif /*CARRIER_DETECTION_FIRMWARE_SUPPORT*/
 
-int isCarrierDetectExist(
+INT isCarrierDetectExist(
 	IN PRTMP_ADAPTER pAd);
 
-int CarrierDetectReset(
+INT CarrierDetectReset(
 	IN PRTMP_ADAPTER pAd);
 
 extern void RtmpOsMsDelay(
 	IN	unsigned long	msec);
 
-int Set_CarrierCriteria_Proc(
+INT Set_CarrierCriteria_Proc(
 	IN PRTMP_ADAPTER 	pAd,
 	IN char * 			arg);
 
-int Set_CarrierReCheck_Proc(
+INT Set_CarrierReCheck_Proc(
 	IN PRTMP_ADAPTER	pAd,
 	IN char * 			arg);
 
-int Set_CarrierGoneThreshold_Proc(
+INT Set_CarrierGoneThreshold_Proc(
 	IN PRTMP_ADAPTER	pAd,
 	IN char *			arg);
 
-int Set_CarrierStopCheck_Proc(
+INT Set_CarrierStopCheck_Proc(
 	IN PRTMP_ADAPTER 	pAd,
 	IN char * 			arg);
 
-int	Set_CarrierDebug_Proc(
+INT	Set_CarrierDebug_Proc(
 	IN PRTMP_ADAPTER	pAd,
 	IN	char * 		arg);
 
-int	Set_CarrierDelta_Proc(
+INT	Set_CarrierDelta_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_CarrierDivFlag_Proc(
+INT	Set_CarrierDivFlag_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int	Set_CarrierThrd_Proc(
+INT	Set_CarrierThrd_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
 /* v2 functions */
-int	Set_CarrierSymRund_Proc(
+INT	Set_CarrierSymRund_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
-int Set_CarrierMask_Proc(
+INT Set_CarrierMask_Proc(
     IN PRTMP_ADAPTER   pAd,
     IN char *         arg);
 
@@ -163,7 +163,7 @@ void CarrierDetectionPeriodicStateCtrl(
 #endif /* CARRIER_DETECTION_FIRMWARE_SUPPORT */
 
 #ifdef CONFIG_AP_SUPPORT
-int Set_CarrierDetect_Proc(
+INT Set_CarrierDetect_Proc(
 	IN PRTMP_ADAPTER pAd,
 	IN char * arg);
 #endif /*CONFIG_AP_SUPPORT*/

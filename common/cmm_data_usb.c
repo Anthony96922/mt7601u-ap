@@ -616,7 +616,7 @@ unsigned short RtmpUSB_WriteSingleTxResource(
 
 #ifdef TX_PKT_SG
 		if (pTxBlk->pkt_info.BufferCount > 1) {
-			int i, len;
+			INT i, len;
 			void *data;
 			PKT_SG_T *sg = &pTxBlk->pkt_info.sg_list[0];
 			

@@ -61,20 +61,20 @@ void ChannelSwitchingCountDownProc(
 void RadarDetectPeriodic(
 	IN PRTMP_ADAPTER	pAd);
 
-int	Set_CSPeriod_Proc(
+INT	Set_CSPeriod_Proc(
 	IN	PRTMP_ADAPTER	pAdapter, 
 	IN	char *			arg);
 
-int Set_ChMovingTime_Proc(
+INT Set_ChMovingTime_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg);
 
-int Set_BlockChReset_Proc(
+INT Set_BlockChReset_Proc(
 	IN PRTMP_ADAPTER pAd, 
 	IN char * arg);
 
 #if defined(DFS_SUPPORT) || defined(CARRIER_DETECTION_SUPPORT)
-int	Set_RadarShow_Proc(
+INT	Set_RadarShow_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 

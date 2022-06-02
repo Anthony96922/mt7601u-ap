@@ -105,7 +105,7 @@ Return Value:
 Note:
 ========================================================================
 */
-int ApCli_VirtualIF_Open(
+INT ApCli_VirtualIF_Open(
 	IN PNET_DEV		dev_p)
 {
 /*	unsigned char ifIndex; */
@@ -144,7 +144,7 @@ Return Value:
 Note:
 ========================================================================
 */
-int ApCli_VirtualIF_Close(
+INT ApCli_VirtualIF_Close(
 	IN	PNET_DEV	dev_p)
 {
 /*	unsigned char ifIndex; */
@@ -182,7 +182,7 @@ Return Value:
 Note:
 ========================================================================
 */
-int ApCli_VirtualIF_PacketSend(
+INT ApCli_VirtualIF_PacketSend(
 	IN PNDIS_PACKET 	pPktSrc, 
 	IN PNET_DEV			pDev)
 {
@@ -219,10 +219,10 @@ Note:
                             report link failure activity.
 ========================================================================
 */
-int ApCli_VirtualIF_Ioctl(
+INT ApCli_VirtualIF_Ioctl(
 	IN PNET_DEV				dev_p, 
 	IN OUT void 			*rq_p, 
-	IN int 					cmd)
+	IN INT 					cmd)
 {
 	void *pAd;
 

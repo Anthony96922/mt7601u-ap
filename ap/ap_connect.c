@@ -40,7 +40,7 @@ unsigned char PowerConstraintIE[3] = {IE_POWER_CONSTRAINT, 1, 3};
 */
 bool BeaconTransmitRequired(
 	IN RTMP_ADAPTER *pAd,
-	IN int apidx,
+	IN INT apidx,
 	IN MULTISSID_STRUCT *pMbss)
 {
 #ifdef WDS_SUPPORT
@@ -91,7 +91,7 @@ bool BeaconTransmitRequired(
 		Pre-build a BEACON frame in the shared memory
 	==========================================================================
 */
-void APMakeBssBeacon(RTMP_ADAPTER *pAd, int apidx)
+void APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 {
 	unsigned char DsLen = 1, SsidLen;
 	HEADER_802_11 BcnHdr;
@@ -272,7 +272,7 @@ void APMakeBssBeacon(RTMP_ADAPTER *pAd, int apidx)
 		pAd->ApCfg.ErpIeContent
 	==========================================================================
 */
-void APUpdateBeaconFrame(RTMP_ADAPTER *pAd, int apidx)
+void APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 {
 	unsigned char *pBeaconFrame = (unsigned char *)pAd->ApCfg.MBSSID[apidx].BeaconBuf;
 	unsigned char *ptr;
@@ -782,7 +782,7 @@ static unsigned char GetBcnNum(
 void APMakeAllBssBeacon(
 	IN PRTMP_ADAPTER pAd)
 {
-	int i, j;
+	INT i, j;
 	unsigned int regValue;
 	unsigned char NumOfMacs;
 	unsigned char NumOfBcns;
@@ -883,7 +883,7 @@ void APMakeAllBssBeacon(
 void APUpdateAllBeaconFrame(
 	IN PRTMP_ADAPTER pAd)
 {
-	int i;
+	INT i;
 #ifdef DOT11_N_SUPPORT
 #ifdef DOT11N_DRAFT3
 	bool FlgQloadIsAlarmIssued = FALSE;

@@ -216,7 +216,7 @@ static void APPeerAuthReqAtIdleAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)
 {
-	int i;
+	INT i;
 	unsigned short Seq, Alg, RspReason, Status;
 	unsigned char Addr1[MAC_ADDR_LEN];
 	unsigned char Addr2[MAC_ADDR_LEN];

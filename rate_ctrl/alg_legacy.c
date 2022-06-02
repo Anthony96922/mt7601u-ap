@@ -39,7 +39,7 @@
  */
 void APMlmeDynamicTxRateSwitching(RTMP_ADAPTER *pAd)
 {
-	int i;
+	INT i;
 	unsigned char * pTable;
 	unsigned char TableSize = 0, InitTxRateIdx, TrainUp, TrainDown;
 	unsigned char UpRateIdx, DownRateIdx, CurrRateIdx;

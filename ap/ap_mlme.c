@@ -196,7 +196,7 @@ void APMlmePeriodicExec(
 		ApCliIfUp(pAd);
 
 	{
-		int loop;
+		INT loop;
 		unsigned long Now32;
 		NdisGetSystemUpTime(&Now32);
 		for (loop = 0; loop < MAX_APCLI_NUM; loop++)
@@ -261,8 +261,8 @@ void APMlmePeriodicExec(
 bool APMsgTypeSubst(
     IN PRTMP_ADAPTER pAd,
     IN PFRAME_802_11 pFrame, 
-    OUT int *Machine, 
-    OUT int *MsgType) 
+    OUT INT *Machine, 
+    OUT INT *MsgType) 
 {
     unsigned short Seq;
     unsigned char  EAPType;
@@ -304,7 +304,7 @@ bool APMsgTypeSubst(
         {
 	        *Machine = WPA_STATE_MACHINE;
         	EAPType = *((unsigned char*)pFrame + LENGTH_802_11 + LENGTH_802_1_H + 1);
-	        Return = WpaMsgTypeSubst(EAPType, (int *) MsgType);
+	        Return = WpaMsgTypeSubst(EAPType, (INT *) MsgType);
         }
         return Return;
     }

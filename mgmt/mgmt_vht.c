@@ -18,7 +18,7 @@ void rtmp_set_vht(RTMP_ADAPTER *pAd, RT_PHY_INFO *phy_info)
 }
 
 
-int SetCommonVHT(RTMP_ADAPTER *pAd)
+INT SetCommonVHT(RTMP_ADAPTER *pAd)
 {
 	unsigned char cent_ch = 0;
 

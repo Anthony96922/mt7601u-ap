@@ -25,8 +25,8 @@
 
 extern unsigned char ZeroSsid[32];
 
-static inline int GetABandChOffset(
-	IN int Channel)
+static inline INT GetABandChOffset(
+	IN INT Channel)
 {
 #ifdef A_BAND_SUPPORT
 	if ((Channel == 36) || (Channel == 44) || (Channel == 52) || (Channel == 60) || (Channel == 100) || (Channel == 108) ||
@@ -156,11 +156,11 @@ void UpdateChannelInfo(
 	return;
 }
 
-static inline int GetChIdx(
+static inline INT GetChIdx(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char Channel)
 {
-	int Idx;
+	INT Idx;
 
 	Idx = -1;
 	for (Idx = 0; Idx < pAd->ChannelListNum; Idx++)
@@ -203,7 +203,7 @@ static inline bool AutoChannelSkipListCheck(
 static inline bool BW40_ChannelCheck(
 	IN unsigned char ch)
 {
-	int i;
+	INT i;
 	bool result = TRUE;
 	unsigned char NorBW40_CH[] = {140, 165};
 	unsigned char NorBW40ChNum = sizeof(NorBW40_CH) / sizeof(unsigned char);
@@ -294,7 +294,7 @@ static inline unsigned char SelectClearChannelCCA(
 
 	PBSSINFO pBssInfoTab = pAd->pBssInfoTab;
 	PCHANNELINFO pChannelInfo = pAd->pChannelInfo;
-	int ch = 1, channel_idx, BssTab_idx;
+	INT ch = 1, channel_idx, BssTab_idx;
 	BSSENTRY *pBss;
 	unsigned int min_dirty, min_falsecca;
 	int candidate_ch;
@@ -340,9 +340,9 @@ static inline unsigned char SelectClearChannelCCA(
 		pChannelInfo->dirtyness[channel_idx] += 40;
 
 		{
-			int BelowBound;
-			int AboveBound;
-			int loop;
+			INT BelowBound;
+			INT AboveBound;
+			INT loop;
 
 			switch(pBss->ExtChOffset)
 			{
@@ -460,7 +460,7 @@ static inline unsigned char SelectClearChannelCCA(
 					if (((channel_idx + GetABandChOffset(ch)) >=0)
 						&& ((channel_idx + GetABandChOffset(ch)) < pAd->ChannelListNum))
 					{
-						int ChOffsetIdx = channel_idx + GetABandChOffset(ch);
+						INT ChOffsetIdx = channel_idx + GetABandChOffset(ch);
 						dirtyness += pChannelInfo->dirtyness[ChOffsetIdx];
 					}
 				}
@@ -535,7 +535,7 @@ static inline unsigned char SelectClearChannelCCA(
 					&& ((channel_idx + GetABandChOffset(ch)) >=0)
 					&& ((channel_idx + GetABandChOffset(ch)) < pAd->ChannelListNum))
 			{
-				int ChOffsetIdx = channel_idx + GetABandChOffset(ch);
+				INT ChOffsetIdx = channel_idx + GetABandChOffset(ch);
 				falsecca += (pChannelInfo->FalseCCA[ChOffsetIdx] +
 							pChannelInfo->dirtyness[ChOffsetIdx]);
 			}
@@ -621,7 +621,7 @@ static inline unsigned char SelectClearChannelApCnt(
 	{
 		if (pChannelInfo->ApCnt[channel_index] > 0)
 		{
-			int ll;
+			INT ll;
 			pChannelInfo->dirtyness[channel_index] += 30;
 			/* 5G */
 			if (pChannelInfo->IsABand)

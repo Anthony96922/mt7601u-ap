@@ -795,7 +795,7 @@ void MlmeSelectTxRateTable(
 		if (WMODE_CAP_AC(pAd->CommonCfg.PhyMode) &&
 			(pEntry->SupportRateMode & SUPPORT_VHT_MODE))
 		{
-			int mcs_idx, ss = 0;
+			INT mcs_idx, ss = 0;
 			for (mcs_idx = 0; mcs_idx < MAX_LEN_OF_VHT_RATES; mcs_idx++)
 			{
 				if (pEntry->SupportVHTMCS[mcs_idx])
@@ -1654,7 +1654,7 @@ void txbf_rate_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry)
 #endif /* TXBF_SUPPORT */
 
 
-int rtmp_get_rate_from_rate_tb(unsigned char *table, int idx, RTMP_TX_RATE *tx_rate)
+INT rtmp_get_rate_from_rate_tb(unsigned char *table, INT idx, RTMP_TX_RATE *tx_rate)
 {
 #ifdef NEW_RATE_ADAPT_SUPPORT
 	if (ADAPT_RATE_TABLE(table)) {
@@ -1956,7 +1956,7 @@ void RTMPSetSupportMCS(
 	}
 }
 
-int	Set_RateAlg_Proc(
+INT	Set_RateAlg_Proc(
 	IN	PRTMP_ADAPTER			pAd,
 	IN	char *					arg)
 {

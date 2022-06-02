@@ -200,7 +200,7 @@ static void ApCliCtrlJoinReqAction(
 			}
 			else
 			{
-				int old_conf_mode = pWpsCtrl->WscConfMode;
+				INT old_conf_mode = pWpsCtrl->WscConfMode;
 				ADD_HTINFO	RootApHtInfo, ApHtInfo;
 				unsigned char channel = pAd->CommonCfg.Channel, RootApChannel = pAd->ScanTab.BssEntry[bss_idx].Channel;
 				unsigned char RootApCentralChannel = pAd->ScanTab.BssEntry[bss_idx].CentralChannel;

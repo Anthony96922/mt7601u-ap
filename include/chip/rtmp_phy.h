@@ -676,15 +676,15 @@ NDIS_STATUS MT7601_BBP_read(
 
 struct _RMTP_ADAPTER;
 
-int rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, int bw);
-int rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, int ext_ch);
-int rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, int rxpath);
-int rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, int tx_dac);
-int rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
-int rtmp_bbp_is_ready(struct _RTMP_ADAPTER *pAd);
-int rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX idx);
-int rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX idx);
-int rtmp_bbp_set_filter_coefficient_ctrl(struct _RTMP_ADAPTER *pAd, unsigned char Channel);
+INT rtmp_bbp_set_bw(struct _RTMP_ADAPTER *pAd, INT bw);
+INT rtmp_bbp_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT ext_ch);
+INT rtmp_bbp_set_rxpath(struct _RTMP_ADAPTER *pAd, INT rxpath);
+INT rtmp_bbp_set_txdac(struct _RTMP_ADAPTER *pAd, INT tx_dac);
+INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
+INT rtmp_bbp_is_ready(struct _RTMP_ADAPTER *pAd);
+INT rtmp_bbp_set_agc(struct _RTMP_ADAPTER *pAd, unsigned char agc, RX_CHAIN_IDX idx);
+INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX idx);
+INT rtmp_bbp_set_filter_coefficient_ctrl(struct _RTMP_ADAPTER *pAd, unsigned char Channel);
 unsigned char rtmp_bbp_get_random_seed(struct _RTMP_ADAPTER *pAd);
 
 NDIS_STATUS NICInitBBP(struct _RTMP_ADAPTER *pAd);

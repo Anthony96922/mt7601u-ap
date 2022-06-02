@@ -96,10 +96,10 @@
 
 
 /* utilities used in DRV module */
-int CFG80211DRV_IoctlHandle(
+INT CFG80211DRV_IoctlHandle(
 	IN	void					*pAdSrc,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
-	IN	int						cmd,
+	IN	INT						cmd,
 	IN	unsigned short					subcmd,
 	IN	void					*pData,
 	IN	unsigned long					Data);

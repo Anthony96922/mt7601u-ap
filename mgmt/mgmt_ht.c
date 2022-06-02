@@ -10,7 +10,7 @@
 #ifdef DOT11_N_SUPPORT
 
 
-int ht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, HT_CAPABILITY_IE *peer, RT_HT_CAPABILITY *my)
+INT ht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, HT_CAPABILITY_IE *peer, RT_HT_CAPABILITY *my)
 {
 	if ((peer->HtCapInfo.GF) && (my->GF))
 		pEntry->MaxHTPhyMode.field.MODE = MODE_HTGREENFIELD;
@@ -37,7 +37,7 @@ int ht_mode_adjust(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, HT_CAPABILITY_IE 
 }
 
 
-int set_ht_fixed_mcs(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, unsigned char fixed_mcs, unsigned char mcs_bound)
+INT set_ht_fixed_mcs(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, unsigned char fixed_mcs, unsigned char mcs_bound)
 {
 	if (fixed_mcs == 32)
 	{
@@ -58,9 +58,9 @@ int set_ht_fixed_mcs(RTMP_ADAPTER *pAd, MAC_TABLE_ENTRY *pEntry, unsigned char f
 }
 
 
-int get_ht_max_mcs(RTMP_ADAPTER *pAd, unsigned char *desire_mcs, unsigned char *cap_mcs)
+INT get_ht_max_mcs(RTMP_ADAPTER *pAd, unsigned char *desire_mcs, unsigned char *cap_mcs)
 {
-	int i, j;
+	INT i, j;
 	unsigned char bitmask;
 
 
@@ -82,7 +82,7 @@ int get_ht_max_mcs(RTMP_ADAPTER *pAd, unsigned char *desire_mcs, unsigned char *
 }
 
 
-int get_ht_cent_ch(RTMP_ADAPTER *pAd, unsigned char *rf_bw, unsigned char *ext_ch)
+INT get_ht_cent_ch(RTMP_ADAPTER *pAd, unsigned char *rf_bw, unsigned char *ext_ch)
 {
 	if ((pAd->CommonCfg.HtCapability.HtCapInfo.ChannelWidth  == BW_40) &&
 		(pAd->CommonCfg.RegTransmitSetting.field.EXTCHA == EXTCHA_ABOVE)
@@ -653,7 +653,7 @@ void RTMPDisableDesiredHtInfo(
 }
 
 
-int	SetCommonHT(RTMP_ADAPTER *pAd)
+INT	SetCommonHT(RTMP_ADAPTER *pAd)
 {
 	OID_SET_HT_PHYMODE SetHT;
 

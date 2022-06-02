@@ -179,7 +179,7 @@ static void RtmpTimerQHandle(RTMP_ADAPTER *pAd)
 }
 
 
-int RtmpTimerQThread(
+INT RtmpTimerQThread(
 	IN unsigned long Context)
 {
 	RTMP_OS_TASK	*pTask;

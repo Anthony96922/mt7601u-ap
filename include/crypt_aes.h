@@ -90,7 +90,7 @@ void AES_CCM_MAC (
     IN unsigned int  MACLength,
     OUT unsigned char MACText[]);
 
-int AES_CCM_Encrypt (
+INT AES_CCM_Encrypt (
     IN unsigned char PlainText[],
     IN unsigned int  PlainTextLength,
     IN unsigned char Key[],
@@ -103,7 +103,7 @@ int AES_CCM_Encrypt (
     OUT unsigned char CipherText[],
     INOUT unsigned int *CipherTextLength);
 
-int AES_CCM_Decrypt (
+INT AES_CCM_Decrypt (
     IN unsigned char CipherText[],
     IN unsigned int  CipherTextLength,
     IN unsigned char Key[],
@@ -155,7 +155,7 @@ void AES_CBC_Decrypt (
     INOUT unsigned int *PlainTextLength);
 
 /* AES key wrap operations */
-int AES_Key_Wrap (
+INT AES_Key_Wrap (
     IN unsigned char PlainText[],
     IN unsigned int  PlainTextLength,
     IN unsigned char Key[],
@@ -163,7 +163,7 @@ int AES_Key_Wrap (
     OUT unsigned char CipherText[],
     OUT unsigned int *CipherTextLength);
         
-int AES_Key_Unwrap (
+INT AES_Key_Unwrap (
     IN unsigned char CipherText[],
     IN unsigned int  CipherTextLength,
     IN unsigned char Key[],

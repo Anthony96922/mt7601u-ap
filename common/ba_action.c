@@ -1207,7 +1207,7 @@ void PeerAddBAReqAction(
 	unsigned long *      ptemp;
 	PMAC_TABLE_ENTRY	pMacEntry;
 #ifdef CONFIG_AP_SUPPORT
-	int         apidx;
+	INT         apidx;
 #endif /* CONFIG_AP_SUPPORT */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s ==> (Wcid = %d)\n", __FUNCTION__, Elem->Wcid));

@@ -348,7 +348,7 @@ typedef struct _LIST_RESOURCE_OBJ_ENTRY
 #endif
 typedef struct _PTK_SG_T{
 	void *data;
-	int len;
+	INT len;
 }PKT_SG_T;
 #endif /* TX_PKT_SG */
 /*

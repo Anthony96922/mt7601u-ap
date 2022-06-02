@@ -141,7 +141,7 @@ void WdsPeerBeaconProc(
 void APWdsInitialize(
 	IN PRTMP_ADAPTER pAd);
 
-int	Show_WdsTable_Proc(
+INT	Show_WdsTable_Proc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg);
 
@@ -168,7 +168,7 @@ bool WDS_StatsGet(
 void AP_WDS_KeyNameMakeUp(
 	IN	char						*pKey,
 	IN	unsigned int						KeyMaxSize,
-	IN	int							KeyId);
+	IN	INT							KeyId);
 
 /*
 	==========================================================================

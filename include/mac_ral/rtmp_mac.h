@@ -2367,13 +2367,13 @@ typedef	union _QOS_CSR1_STRUC {
 
 struct _RTMP_ADAPTER;
 
-int get_pkt_phymode_by_rxwi(RXWI_STRUC *rxwi);
-int get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, int size, char *rssi);
-int get_pkt_snr_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, int size, unsigned char *snr);
+INT get_pkt_phymode_by_rxwi(RXWI_STRUC *rxwi);
+INT get_pkt_rssi_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, char *rssi);
+INT get_pkt_snr_by_rxwi(struct _RTMP_ADAPTER *pAd, RXWI_STRUC *rxwi, INT size, unsigned char *snr);
 
-int rtmp_mac_set_band(struct _RTMP_ADAPTER *pAd, int  band);
-int rtmp_mac_set_ctrlch(struct _RTMP_ADAPTER *pAd, int extch);
-int rtmp_mac_set_mmps(struct  _RTMP_ADAPTER *pAd, int ReduceCorePower);
+INT rtmp_mac_set_band(struct _RTMP_ADAPTER *pAd, int  band);
+INT rtmp_mac_set_ctrlch(struct _RTMP_ADAPTER *pAd, INT extch);
+INT rtmp_mac_set_mmps(struct  _RTMP_ADAPTER *pAd, INT ReduceCorePower);
 
 #endif /* __RTMP_MAC_H__ */
 

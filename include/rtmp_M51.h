@@ -31,7 +31,7 @@
 
 struct _RTMP_ADAPTER;
 
-int RtmpAsicEraseFirmware(
+INT RtmpAsicEraseFirmware(
 	struct _RTMP_ADAPTER *pAd);
 
 NDIS_STATUS RtmpAsicLoadFirmware(
@@ -43,7 +43,7 @@ NDIS_STATUS isMCUnotReady(
 NDIS_STATUS isMCUNeedToLoadFIrmware(
 	struct _RTMP_ADAPTER *pAd);
 
-int RtmpAsicSendCommandToMcu(
+INT RtmpAsicSendCommandToMcu(
 	struct _RTMP_ADAPTER *pAd,
 	unsigned char Command,
 	unsigned char Token,
