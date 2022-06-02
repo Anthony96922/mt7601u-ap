@@ -48,7 +48,7 @@ unsigned char * CliWds_ProxyLookup(
 
 VOID CliWds_ProxyTabUpdate(
 	IN PRTMP_ADAPTER pAd,
-	IN short Aid,
+	IN SHORT Aid,
 	IN unsigned char * pMac);
 
 

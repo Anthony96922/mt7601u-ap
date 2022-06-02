@@ -44,6 +44,7 @@
 
 /* modified for fixing compile warning on Sigma 8634 platform */
 
+typedef signed short SHORT;
 typedef signed int INT;
 typedef signed long LONG;
 typedef signed long long LONGLONG;

@@ -294,7 +294,7 @@ VOID MlmeGetSupportedMcsAdapt(
 	IN unsigned char mcs23GI,
 	OUT char mcs[])
 {
-	unsigned char idx;
+	char idx;
 	RTMP_RA_GRP_TB *pCurrTxRate;
 	unsigned char *pTable = pEntry->pTable;
 

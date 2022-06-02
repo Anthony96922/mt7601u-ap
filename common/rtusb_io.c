@@ -1788,7 +1788,7 @@ static CMDHdlr CMDHdlrTable[] = {
 
 static inline bool ValidCMD(IN PCmdQElmt CMDQelmt)
 {
-	short CMDIndex = CMDQelmt->command - CMDTHREAD_FIRST_CMD_ID;
+	SHORT CMDIndex = CMDQelmt->command - CMDTHREAD_FIRST_CMD_ID;
 	unsigned short CMDHdlrTableLength= sizeof(CMDHdlrTable) / sizeof(CMDHdlr);
 
 	if ( (CMDIndex >= 0) && (CMDIndex < CMDHdlrTableLength))

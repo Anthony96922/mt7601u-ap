@@ -1045,7 +1045,7 @@ VOID APPeerBeaconAtScanAction(
 		if (Idx != BSS_NOT_FOUND)
 		Rssi = pAd->ScanTab.BssEntry[Idx].Rssi;
 
-		/* TODO: 2005-03-04 dirty patch. we should change all RSSI related variables to SIGNED short for easy/efficient reading and calaulation */
+		/* TODO: 2005-03-04 dirty patch. we should change all RSSI related variables to SIGNED SHORT for easy/efficient reading and calaulation */
 		RealRssi = RTMPMaxRssi(pAd, ConvertToRssi(pAd, Elem->Rssi0, RSSI_0, Elem->AntSel, BW_20), 
 								ConvertToRssi(pAd, Elem->Rssi1, RSSI_1, Elem->AntSel, BW_20),
 								ConvertToRssi(pAd, Elem->Rssi2, RSSI_2, Elem->AntSel, BW_20));

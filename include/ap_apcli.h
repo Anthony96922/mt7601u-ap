@@ -62,7 +62,7 @@ typedef struct _STA_CTRL_JOIN_REQ_STRUCT {
 } APCLI_CTRL_MSG_STRUCT, *PSTA_CTRL_MSG_STRUCT;
 
 bool isValidApCliIf(
-	short ifIndex);
+	SHORT ifIndex);
 
 /* */
 /* Private routines in apcli_ctrl.c */
