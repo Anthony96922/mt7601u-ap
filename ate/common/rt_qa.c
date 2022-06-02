@@ -286,7 +286,7 @@ VOID CalNoiseLevel(PRTMP_ADAPTER pAd, unsigned char channel, int RSSI[3][10])
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	int		RSSI0, RSSI1, RSSI2;
- 	char		Rssi0Offset, Rssi1Offset, Rssi2Offset;
+ 	CHAR		Rssi0Offset, Rssi1Offset, Rssi2Offset;
 	unsigned char		BbpR50Rssi0 = 0, BbpR51Rssi1 = 0, BbpR52Rssi2 = 0;
 	unsigned char		Org_BBP66value = 0, Org_BBP69value = 0, Org_BBP70value = 0, data = 0;
 	unsigned short		LNA_Gain = 0;
@@ -1784,7 +1784,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_LNA_CAL(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	unsigned short band;
-	char bandStr[32] = {0};
+	CHAR bandStr[32] = {0};
 	
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_LNA_CAL\n"));
 
@@ -1806,7 +1806,7 @@ static  INT DO_RACFG_CMD_ATE_TXBF_DIV_CAL(
 	IN  struct ate_racfghdr *pRaCfg)
 {
 	unsigned short band;
-	char bandStr[32] = {0};
+	CHAR bandStr[32] = {0};
 	
 	DBGPRINT(RT_DEBUG_TRACE,("DO_RACFG_CMD_ATE_TXBF_DIV_CAL\n"));
 

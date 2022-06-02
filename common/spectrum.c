@@ -201,16 +201,16 @@ TX_PWR_CFG TxPwrCfg[] = {
 };
 #define MAX_TXPWR_TAB_SIZE (sizeof(TxPwrCfg) / sizeof(TX_PWR_CFG))
 
-char RTMP_GetTxPwr(
+CHAR RTMP_GetTxPwr(
 	IN PRTMP_ADAPTER pAd,
 	IN HTTRANSMIT_SETTING HTTxMode)
 {
 	unsigned int Value;
 	INT Idx;
 	unsigned char PhyMode;
-	char CurTxPwr;
+	CHAR CurTxPwr;
 	unsigned char TxPwrRef = 0;
-	char DaltaPwr;
+	CHAR DaltaPwr;
 	unsigned long TxPwr[5];
 
 
@@ -313,7 +313,7 @@ char RTMP_GetTxPwr(
 			&& (TxPwrCfg[Idx].MCS == HTTxMode.field.MCS))
 		{
 			Value = TxPwr[TxPwrCfg[Idx].req];
-			DaltaPwr = TxPwrRef - (char)((Value & TxPwrCfg[Idx].BitMask) >> TxPwrCfg[Idx].shift);
+			DaltaPwr = TxPwrRef - (CHAR)((Value & TxPwrCfg[Idx].BitMask) >> TxPwrCfg[Idx].shift);
 			CurTxPwr -= DaltaPwr;
 			break;
 		}
@@ -1950,7 +1950,7 @@ static VOID PeerTpcReqAction(
 	unsigned char DialogToken;
 	unsigned char TxPwr = GetCurTxPwr(pAd, Elem->Wcid);
 	unsigned char LinkMargin = 0;
-	char RealRssi;
+	CHAR RealRssi;
 
 	/* link margin: Ratio of the received signal power to the minimum desired by the station (STA). The*/
 	/*				STA may incorporate rate information and channel conditions, including interference, into its computation*/
@@ -2216,7 +2216,7 @@ INT Set_PwrConstraint(
 
 typedef struct __PWR_CONSTRAIN_CFG
 {
-	char Attenuation;
+	CHAR Attenuation;
 	unsigned long TxPowerPercentage;	
 } PWR_CONSTRAIN_CFG;
 
@@ -2234,9 +2234,9 @@ typedef struct __PWR_CONSTRAIN_CFG
 
 	INT Idx;
 	LONG Value;
-	char MaxTxPwr;
-	char CurTxPwr;
-	char DaltaPwr;
+	CHAR MaxTxPwr;
+	CHAR CurTxPwr;
+	CHAR DaltaPwr;
 
 	Value = (unsigned int) simple_strtol(arg, 0, 10);
 	MaxTxPwr = GetRegulatoryMaxTxPwr(pAd, pAd->CommonCfg.Channel) - Value;

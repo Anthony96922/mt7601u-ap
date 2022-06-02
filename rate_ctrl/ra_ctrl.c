@@ -508,9 +508,9 @@ unsigned char RateTableVht2S[] =
 VOID MlmeGetSupportedMcs(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char	*pTable,
-	OUT char 	mcs[])
+	OUT CHAR 	mcs[])
 {
-	char	idx;
+	CHAR	idx;
 	RTMP_RA_LEGACY_TB *pCurrTxRate;
 
 	for (idx=0; idx<24; idx++)
@@ -1154,9 +1154,9 @@ VOID MlmeSelectTxRateTable(
 unsigned char MlmeSelectTxRate(
 	IN PRTMP_ADAPTER pAd,
 	IN PMAC_TABLE_ENTRY	pEntry,
-	IN char		mcs[],
-	IN char		Rssi,
-	IN char		RssiOffset)
+	IN CHAR		mcs[],
+	IN CHAR		Rssi,
+	IN CHAR		RssiOffset)
 {
 	unsigned char TxRateIdx = 0;
 	unsigned char *pTable = pEntry->pTable;
@@ -1891,7 +1891,7 @@ VOID RTMPSetSupportMCS(
 	{
 		RT_PHY_INFO *pDesired_ht_phy = NULL;
 		unsigned char j, bitmask;
-		char i;
+		CHAR i;
 
 
 #ifdef CONFIG_AP_SUPPORT

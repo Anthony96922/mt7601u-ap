@@ -227,7 +227,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 	RTMP_RA_LEGACY_TB *pNextTxRate = NULL;
 	bool bTxRateChanged = TRUE, bUpgradeQuality = FALSE;
 	unsigned char TrainUp = 0, TrainDown = 0, next_grp;
-	char RssiOffset = 0;
+	CHAR RssiOffset = 0;
 	unsigned long TxTotalCnt, TxErrorRatio = 0;
 	unsigned long TxSuccess, TxRetransmit, TxFailCount;
 	AGS_STATISTICS_INFO AGSStatisticsInfo = {0};
@@ -568,7 +568,7 @@ VOID ApMlmeDynamicTxRateSwitchingAGS(
 	/* MCS selection based on the RSSI information when the Tx samples are fewer than 15. */
 	if (AGSStatisticsInfo.AccuTxTotalCnt <= 15)
 	{
-		char idx = 0;
+		CHAR idx = 0;
 		unsigned char TxRateIdx;
 		unsigned char MCS[24] = {0};
 		/* Check the existence and index of each needed MCS */
@@ -912,7 +912,7 @@ VOID ApQuickResponeForRateUpExecAGS(
 	RTMP_RA_LEGACY_TB *pNextTxRate = NULL;
 	bool bTxRateChanged = TRUE;
 	unsigned char TrainUp = 0, TrainDown = 0;
-	char ratio = 0;
+	CHAR ratio = 0;
 	unsigned long OneSecTxNoRetryOKRationCount = 0;
 	MAC_TABLE_ENTRY *pEntry;
 	AGS_STATISTICS_INFO AGSStatisticsInfo = {0};

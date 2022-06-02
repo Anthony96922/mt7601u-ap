@@ -69,7 +69,7 @@ typedef struct _AGS_CONTROL {
 
 /* The statistics information for AGS */
 typedef struct _AGS_STATISTICS_INFO {
-	char	RSSI;
+	CHAR	RSSI;
 	unsigned long	TxErrorRatio;
 	unsigned long	AccuTxTotalCnt;
 	unsigned long	TxTotalCnt;

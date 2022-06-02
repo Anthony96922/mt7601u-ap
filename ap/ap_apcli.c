@@ -965,7 +965,7 @@ bool ApCliPeerAssocRspSanity(
     OUT PEDCA_PARM pEdcaParm,
     OUT unsigned char *pCkipFlag) 
 {
-	char          IeType, *Ptr;
+	CHAR          IeType, *Ptr;
 	PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;
 	PEID_STRUCT   pEid;
 	unsigned long         Length = 0;
@@ -974,7 +974,7 @@ bool ApCliPeerAssocRspSanity(
 	*pHtCapabilityLen = 0;
 	*pAddHtInfoLen = 0;
 	COPY_MAC_ADDR(pAddr2, pFrame->Hdr.Addr2);
-	Ptr = (char *) pFrame->Octet;
+	Ptr = (CHAR *) pFrame->Octet;
 	Length += LENGTH_802_11;
         
 	NdisMoveMemory(pCapabilityInfo, &pFrame->Octet[0], 2);

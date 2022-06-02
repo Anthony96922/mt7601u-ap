@@ -51,7 +51,7 @@ VOID MT7601ATEAsicSwitchChannel(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int Value = 0;
-	char TxPwer = 0;
+	CHAR TxPwer = 0;
 	unsigned char index = 0, Channel = 0;
 	/* added to prevent RF register reading error */
 	unsigned char RFValue = 0;
@@ -167,7 +167,7 @@ INT MT7601ATETxPwrHandler(
 	IN char index)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
-	char TxPower = 0;
+	CHAR TxPower = 0;
 	unsigned char MaxPower;
 	unsigned int RegValue = 0;
 	unsigned char Channel = pATEInfo->Channel;
@@ -649,7 +649,7 @@ VOID MT7601ATEAsicTxAlcGetAutoAgcOffset(
 {
 	int TargetPower, CurrentPower, PowerDiff;
 	unsigned char TssiLinear0, TssiLinear1;
-	char tssi_offset;
+	CHAR tssi_offset;
 	short tssi_db, tssi_m_dc;
 	unsigned int value;
 	unsigned char ch = 0;

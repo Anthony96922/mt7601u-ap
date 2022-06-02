@@ -48,7 +48,7 @@ VOID RtmpPrepareHwNullFrame(
 	IN unsigned char OpMode,
 	IN unsigned char PwrMgmt,
 	IN bool bWaitACK,
-	IN char Index)
+	IN CHAR Index)
 {
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	TXWI_STRUC *pTxWI;
@@ -157,7 +157,7 @@ VOID RTMPHwSendNullFrame(
 	IN unsigned char TxRate,
 	IN bool bQosNull,
 	IN unsigned short PwrMgmt,
-	IN char Index)
+	IN CHAR Index)
 {
 
 	unsigned char TXWISize = pAd->chipCap.TXWISize;

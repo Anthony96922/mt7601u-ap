@@ -521,7 +521,7 @@ VOID InitLookupTable(
 	DBGPRINT(RT_DEBUG_TRACE, ("[temp. compensation 2.4G] EEPROM 76 = %x\n", WordStruct.word));
 	pAd->TxPowerCtrl.TssiGain[IEEE80211_BAND_2G] = (WordStruct.field.Byte0 & 0x0F);
 	Step[IEEE80211_BAND_2G] = (WordStruct.field.Byte0 >> 4);
-	pAd->TxPowerCtrl.RefTemp[IEEE80211_BAND_2G] = (char)WordStruct.field.Byte1;
+	pAd->TxPowerCtrl.RefTemp[IEEE80211_BAND_2G] = (CHAR)WordStruct.field.Byte1;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("[temp. compensation 2.4G] Plus = %u %u %u %u %u %u %u %u\n",
 		PlusStepNum[IEEE80211_BAND_2G][0],
@@ -583,7 +583,7 @@ VOID InitLookupTable(
 		DBGPRINT(RT_DEBUG_TRACE, ("[temp. compensation 5G] EEPROM dc = %x\n", WordStruct.word));
 		pAd->TxPowerCtrl.TssiGain[IEEE80211_BAND_5G] = (WordStruct.field.Byte0 & 0x0F);
 		Step[IEEE80211_BAND_5G] = (WordStruct.field.Byte0 >> 4);
-		pAd->TxPowerCtrl.RefTemp[IEEE80211_BAND_5G] = (char)WordStruct.field.Byte1;
+		pAd->TxPowerCtrl.RefTemp[IEEE80211_BAND_5G] = (CHAR)WordStruct.field.Byte1;
 
 		DBGPRINT(RT_DEBUG_TRACE, ("[temp. compensation 5G] Plus = %u %u %u %u %u %u %u %u\n",
 			PlusStepNum[IEEE80211_BAND_5G][0],
@@ -706,7 +706,7 @@ VOID AsicGetAutoAgcOffsetForTemperatureSensor(
 	bool			bAutoTxAgc = FALSE;
 	char *			pTxAgcCompensate = NULL;
 	unsigned char 			RFValue = 0;
-	char			TuningTableUpperBound = 0, TuningTableIndex0 = 0, TuningTableIndex1 = 0;
+	CHAR			TuningTableUpperBound = 0, TuningTableIndex0 = 0, TuningTableIndex1 = 0;
 	INT 				CurrentTemp = 0;
 	INT RefTemp;
 	INT *LookupTable;
@@ -755,7 +755,7 @@ VOID AsicGetAutoAgcOffsetForTemperatureSensor(
 #endif /* RT65xx */
 		{
 			RTMP_BBP_IO_READ8_BY_REG_ID(pAd, BBP_R49, &BbpR49.byte);
-			CurrentTemp = (char)BbpR49.byte;
+			CurrentTemp = (CHAR)BbpR49.byte;
 		}
 		DBGPRINT(RT_DEBUG_INFO, ("[temp. compensation] BBP_R49 = %02x, current temp = %d\n", BbpR49.byte, CurrentTemp));
 		DBGPRINT(RT_DEBUG_INFO, ("[temp. compensation] RefTemp = %d\n", RefTemp));

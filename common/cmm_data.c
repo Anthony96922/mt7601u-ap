@@ -2115,10 +2115,10 @@ VOID Update_Rssi_Sample(
 	IN RSSI_SAMPLE *pRssi,
 	IN RXWI_STRUC *pRxWI)
 {
-	char rssi[3];
+	CHAR rssi[3];
 	unsigned char snr[3];
 	bool bInitial = FALSE;
-	char Phymode = get_pkt_phymode_by_rxwi(pRxWI);
+	CHAR Phymode = get_pkt_phymode_by_rxwi(pRxWI);
 
  
 	if (!(pRssi->AvgRssi0 | pRssi->AvgRssi0X8 | pRssi->LastRssi0))
@@ -2130,7 +2130,7 @@ VOID Update_Rssi_Sample(
 	get_pkt_snr_by_rxwi(pAd, pRxWI, 3, &snr[0]);
 	if (rssi[0] != 0)
 	{
-		pRssi->LastRssi0 = ConvertToRssi(pAd, (char)rssi[0], RSSI_0, pRxWI->RxWISNR1, pRxWI->RxWIBW);
+		pRssi->LastRssi0 = ConvertToRssi(pAd, (CHAR)rssi[0], RSSI_0, pRxWI->RxWISNR1, pRxWI->RxWIBW);
 		if (bInitial)
 		{
 			pRssi->AvgRssi0X8 = pRssi->LastRssi0 << 3;
@@ -2158,7 +2158,7 @@ VOID Update_Rssi_Sample(
  
 	if (rssi[1] != 0)
 	{   
-		pRssi->LastRssi1 = ConvertToRssi(pAd, (char)rssi[1], RSSI_1, pRxWI->RxWISNR1, pRxWI->RxWIBW);
+		pRssi->LastRssi1 = ConvertToRssi(pAd, (CHAR)rssi[1], RSSI_1, pRxWI->RxWISNR1, pRxWI->RxWIBW);
 		if (bInitial)
 		{
 			pRssi->AvgRssi1X8 = pRssi->LastRssi1 << 3;
@@ -2186,7 +2186,7 @@ VOID Update_Rssi_Sample(
 
 	if (rssi[2] != 0)
 	{
-		pRssi->LastRssi2 = ConvertToRssi(pAd, (char)rssi[2], RSSI_2, pRxWI->RxWISNR1, pRxWI->RxWIBW);
+		pRssi->LastRssi2 = ConvertToRssi(pAd, (CHAR)rssi[2], RSSI_2, pRxWI->RxWISNR1, pRxWI->RxWIBW);
 
 		if (bInitial)
 		{
@@ -3117,7 +3117,7 @@ MAC_TABLE_ENTRY *MacTableInsertMulTestEntry(
 				if (pAd->CommonCfg.PhyMode >= PHY_11ABGN_MIXED)
 				{
 					unsigned char	j, bitmask; /*k,bitmask; */
-					char	i;
+					CHAR	i;
 			
 					if ((pAd->CommonCfg.HtCapability.HtCapInfo.GF) && (pAd->CommonCfg.DesiredHtPhy.GF))
 					{

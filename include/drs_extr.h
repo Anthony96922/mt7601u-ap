@@ -154,14 +154,14 @@ extern unsigned char RateTableVht2S[];
 VOID MlmeGetSupportedMcs(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN unsigned char	*pTable,
-	OUT char 	mcs[]);
+	OUT CHAR 	mcs[]);
 
 unsigned char MlmeSelectTxRate(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
-	IN char	mcs[],
-	IN char		Rssi,
-	IN char		RssiOffset);
+	IN CHAR	mcs[],
+	IN CHAR		Rssi,
+	IN CHAR		RssiOffset);
 
 VOID MlmeClearTxQuality(struct _MAC_TABLE_ENTRY *pEntry);
 VOID MlmeClearAllTxQuality(struct _MAC_TABLE_ENTRY *pEntry);
@@ -223,14 +223,14 @@ VOID MlmeGetSupportedMcsAdapt(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
 	IN unsigned char	mcs23GI,
-	OUT char 	mcs[]);
+	OUT CHAR 	mcs[]);
 
 unsigned char MlmeSelectTxRateAdapt(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN struct _MAC_TABLE_ENTRY *pEntry,
-	IN char		mcs[],
-	IN char		Rssi,
-	IN char		RssiOffset);
+	IN CHAR		mcs[],
+	IN CHAR		Rssi,
+	IN CHAR		RssiOffset);
 
 bool MlmeRAHybridRule(
 	IN struct _RTMP_ADAPTER *pAd,

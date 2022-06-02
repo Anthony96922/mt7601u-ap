@@ -604,14 +604,14 @@ typedef VOID (*RTMP_OS_SEND_WLAN_EVENT)(
 	IN	unsigned short					Event_flag,
 	IN	unsigned char * 					pAddr,
 	IN  unsigned char					BssIdx,
-	IN	char					Rssi);
+	IN	CHAR					Rssi);
 
 VOID RtmpOsSendWirelessEvent(
 	IN	VOID			*pAd,
 	IN	unsigned short			Event_flag,
 	IN	unsigned char * 			pAddr,
 	IN	unsigned char			BssIdx,
-	IN	char			Rssi,
+	IN	CHAR			Rssi,
 	IN	RTMP_OS_SEND_WLAN_EVENT pFunc);
 
 #ifdef CONFIG_AP_SUPPORT

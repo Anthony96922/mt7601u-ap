@@ -113,7 +113,7 @@ VOID AsicGetAutoAgcOffsetForExternalTxAlc(
 	bool			bAutoTxAgc = FALSE;
 	unsigned char			TssiRef, *pTssiMinusBoundary, *pTssiPlusBoundary, TxAgcStep, idx;
 	char *			pTxAgcCompensate = NULL;
-	char    			DeltaPwr = 0;
+	CHAR    			DeltaPwr = 0;
 
 	DBGPRINT(RT_DEBUG_INFO, ("-->%s\n", __FUNCTION__));
 
@@ -253,15 +253,15 @@ VOID AsicAdjustTxPower(
 	IN PRTMP_ADAPTER pAd) 
 {
 	INT i, j;
-	char Value;
-	//char Rssi = -127;
-	char DeltaPwr = 0;
-	char TxAgcCompensate = 0;
-	char DeltaPowerByBbpR1 = 0; 
-	char TotalDeltaPower = 0; /* (non-positive number) including the transmit power controlled by the MAC and the BBP R1 */
+	CHAR Value;
+	//CHAR Rssi = -127;
+	CHAR DeltaPwr = 0;
+	CHAR TxAgcCompensate = 0;
+	CHAR DeltaPowerByBbpR1 = 0; 
+	CHAR TotalDeltaPower = 0; /* (non-positive number) including the transmit power controlled by the MAC and the BBP R1 */
 	CONFIGURATION_OF_TX_POWER_CONTROL_OVER_MAC CfgOfTxPwrCtrlOverMAC = {0};	
 #ifdef SINGLE_SKU
-	char TotalDeltaPowerOri = 0;
+	CHAR TotalDeltaPowerOri = 0;
 	unsigned char SingleSKUBbpR1Offset = 0;
 	unsigned long SingleSKUTotalDeltaPwr[MAX_TXPOWER_ARRAY_SIZE] = {0};
 #endif /* SINGLE_SKU */
@@ -320,22 +320,22 @@ VOID AsicAdjustTxPower(
 			{	
 				for (j = 0; j < 8; j++)
 				{
-					char _upbound, _lowbound, t_pwr;
+					CHAR _upbound, _lowbound, t_pwr;
 					bool _bValid;
 
 					_lowbound = 0;
 					_bValid = TRUE;
 											
-					Value = (char)((reg_val >> j*4) & 0x0F);
+					Value = (CHAR)((reg_val >> j*4) & 0x0F);
 #ifdef SINGLE_SKU
 					if (pAd->CommonCfg.bSKUMode == TRUE)
 					{
-						TotalDeltaPower = SingleSKUBbpR1Offset + TotalDeltaPowerOri - (char)((SingleSKUTotalDeltaPwr[i] >> j*4) & 0x0F);	
+						TotalDeltaPower = SingleSKUBbpR1Offset + TotalDeltaPowerOri - (CHAR)((SingleSKUTotalDeltaPwr[i] >> j*4) & 0x0F);	
 
 						DBGPRINT(RT_DEBUG_INFO, ("%s: BbpR1Offset(%d) + TX ALC(%d) - SingleSKU[%d/%d](%d) = TotalDeltaPower(%d)\n",
 							__FUNCTION__, SingleSKUBbpR1Offset,
 							TotalDeltaPowerOri, i, j,
-							(char)((SingleSKUTotalDeltaPwr[i] >> j*4) & 0x0F),
+							(CHAR)((SingleSKUTotalDeltaPwr[i] >> j*4) & 0x0F),
 							TotalDeltaPower));
 					}
 #endif /* SINGLE_SKU */
@@ -415,8 +415,8 @@ VOID GetSingleSkuDeltaPower(
 	INOUT unsigned char * pSingleSKUBbpR1Offset) 
 {
 	INT i, j;
-	char Value;
-	char MinValue = 127;
+	CHAR Value;
+	CHAR MinValue = 127;
 	unsigned char BbpR1 = 0;
 	unsigned char TxPwrInEEPROM = 0xFF, CountryTxPwr = 0xFF, criterion;
 	unsigned char AdjustMaxTxPwr[(MAX_TX_PWR_CONTROL_OVER_MAC_REGISTERS * 8)]; 
@@ -446,7 +446,7 @@ VOID GetSingleSkuDeltaPower(
 		{
 			for (j = 0; j < 8; j++)
 			{
-				Value = (char)((CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i].RegisterValue >> j*4) & 0x0F); 
+				Value = (CHAR)((CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i].RegisterValue >> j*4) & 0x0F); 
 
 				if (j < 4)
 					AdjustMaxTxPwr[i * 8 + j] = TxPwrInEEPROM + (Value - criterion) + 4; /* CCK has 4dBm larger than OFDM */
@@ -466,7 +466,7 @@ VOID GetSingleSkuDeltaPower(
 		{
 			for (j = 0; j < 8; j++)
 			{
-				Value = (char)((CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i].RegisterValue >> j*4) & 0x0F);
+				Value = (CHAR)((CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i].RegisterValue >> j*4) & 0x0F);
 
 				AdjustMaxTxPwr[i*8+j] = TxPwrInEEPROM + (Value - criterion);
 
@@ -488,7 +488,7 @@ VOID GetSingleSkuDeltaPower(
 		{
 			for (j=0; j<8; j++)
 			{
-				Value = (char)((CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i].RegisterValue >> j*4) & 0x0F);
+				Value = (CHAR)((CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i].RegisterValue >> j*4) & 0x0F);
 
 				/* The TX power is larger than the regulatory, the power should be restrained */
 				if (AdjustMaxTxPwr[i*8+j] > CountryTxPwr)
@@ -532,7 +532,7 @@ VOID GetSingleSkuDeltaPower(
 		{
 			for (j = 0; j < 8; j++)
 			{
-				char PwrChange;
+				CHAR PwrChange;
 				/* 
 				   After Single SKU, each data rate offset power value is saved in TotalDeltaPwr[].
 				   PwrChange will add SingleSKUDeltaPwr and TotalDeltaPwr[] for each data rate to calculate
@@ -543,14 +543,14 @@ VOID GetSingleSkuDeltaPower(
 				   Value / TxPwr[] is get from eeprom 0xDEh ~ 0xEFh and increase or decrease the  
 				   20/40 Bandwidth Delta Value in eeprom 0x50h. 
 				*/
-				Value = (char)((CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i].RegisterValue >> j*4) & 0x0F); /* 0 ~ 15 */
+				Value = (CHAR)((CfgOfTxPwrCtrlOverMAC.TxPwrCtrlOverMAC[i].RegisterValue >> j*4) & 0x0F); /* 0 ~ 15 */
 
 				/* Fix the corner case of Single SKU read eeprom offset 0xF0h ~ 0xFEh which for BBP Instruction configuration */
 				if (Value == 0xF)
 					continue;
 
 				/* Value_offset is current Pwr comapre with Country Regulation and need adjust delta value */
-				PwrChange = (char)((*(pSingleSKUTotalDeltaPwr+i) >> j*4) & 0x0F); /* 0 ~ 15 */
+				PwrChange = (CHAR)((*(pSingleSKUTotalDeltaPwr+i) >> j*4) & 0x0F); /* 0 ~ 15 */
 				PwrChange -= *pTotalDeltaPower;
 
 				Value -= PwrChange;
@@ -589,7 +589,7 @@ VOID GetSingleSkuDeltaPower(
 
 VOID AsicPercentageDeltaPower(
 	IN 		PRTMP_ADAPTER 		pAd,
-	IN		char				Rssi,
+	IN		CHAR				Rssi,
 	INOUT	char *				pDeltaPwr,
 	INOUT	char *				pDeltaPowerByBbpR1) 
 {

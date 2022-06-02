@@ -43,11 +43,11 @@ VOID UpdateChannelInfo(
 unsigned long AutoChBssInsertEntry(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pBssid,
-	IN char Ssid[],
+	IN CHAR Ssid[],
 	IN unsigned char SsidLen, 
 	IN unsigned char ChannelNo,
 	IN unsigned char ExtChOffset,
-	IN char Rssi);
+	IN CHAR Rssi);
 
 VOID AutoChBssTableInit(
 	IN PRTMP_ADAPTER pAd);

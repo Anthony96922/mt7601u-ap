@@ -111,7 +111,7 @@ static INT x##Read(char *page, char **start, off_t off,	\
 #define IMPLEMENT_PROC_ENTRY_WRITE(x,y,z)		\
 static INT x##Write(struct file *file, const char *buffer, \
 			 unsigned long count, void *data){ \
-	char tmp[32];INT tmp_val;			\
+	CHAR tmp[32];INT tmp_val;			\
 	if (count > 32)	count = 32;			\
 	memset(tmp, 0, 32);				\
 	if (copy_from_user(tmp, buffer, count))		\

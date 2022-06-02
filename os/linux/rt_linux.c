@@ -832,7 +832,7 @@ VOID RtmpOsSendWirelessEvent(
 	IN unsigned short Event_flag,
 	IN unsigned char * pAddr,
 	IN unsigned char BssIdx,
-	IN char Rssi,
+	IN CHAR Rssi,
 	IN RTMP_OS_SEND_WLAN_EVENT pFunc)
 {
 #if WIRELESS_EXT >= 15

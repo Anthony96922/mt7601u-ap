@@ -951,7 +951,7 @@ CMD_RSP_HANDLER CmdRspHandlerTable[] =
 INT AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Cnt)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen, OffsetNum, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1023,7 +1023,7 @@ INT AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, uns
 {
 	struct CMD_UNIT CmdUnit;
 	unsigned int CurLen = 0, CmdLen, RspLen, OffsetNum, ReceiveLen;
-	char *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
+	CHAR *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
 	unsigned int i, Value, Status = NDIS_STATUS_SUCCESS, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
@@ -1116,7 +1116,7 @@ INT AndesRandomRead(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	unsigned int VarLen = Num * 8, CurLen = 0, ReceiveLen;
-	char *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
+	CHAR *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
 	unsigned int i, Value, Status = NDIS_STATUS_SUCCESS, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
@@ -1194,7 +1194,7 @@ INT AndesRFRandomRead(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int
 {
 	struct CMD_UNIT CmdUnit;
 	unsigned int VarLen = Num * 8, CurLen = 0, ReceiveLen;
-	char *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
+	CHAR *Pos, *Pos1, *CmdBuf, *RspBuf, *CurCmdHeader, *CurRspHeader;
 	unsigned int i, Value, Status = NDIS_STATUS_SUCCESS, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
@@ -1281,7 +1281,7 @@ error:
 INT AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen = Num * 12, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1352,7 +1352,7 @@ error:
 INT AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen = Num * 12, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1438,7 +1438,7 @@ error:
 INT AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1504,7 +1504,7 @@ error:
 INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1574,7 +1574,7 @@ error:
 INT AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1655,7 +1655,7 @@ error:
 INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1741,7 +1741,7 @@ error:
 INT AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1816,7 +1816,7 @@ error:
 INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf, *CurHeader;
+	CHAR *Pos, *Buf, *CurHeader;
 	unsigned int VarLen = Num * 8, CurLen = 0, SentLen;
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
@@ -1899,7 +1899,7 @@ INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLeve
 					unsigned char TIMByteOffset, unsigned char TIMBytePattern)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf;
+	CHAR *Pos, *Buf;
 	unsigned int VarLen;
 	unsigned int Value;
 	int Ret;
@@ -1973,7 +1973,7 @@ INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLeve
 INT AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param)
 {
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf;
+	CHAR *Pos, *Buf;
 	unsigned int VarLen;
 	unsigned int Value;
 	int Ret;
@@ -2020,7 +2020,7 @@ INT AndesCalibrationOP(PRTMP_ADAPTER pAd, unsigned int CalibrationID, unsigned i
 {
 
 	struct CMD_UNIT CmdUnit;
-	char *Pos, *Buf;
+	CHAR *Pos, *Buf;
 	unsigned int VarLen;
 	unsigned int Value;
 	int Ret;

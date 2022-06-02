@@ -50,7 +50,7 @@ VOID RT28xxATEAsicSwitchChannel(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int Value = 0;
-	char TxPwer = 0, TxPwer2 = 0;
+	CHAR TxPwer = 0, TxPwer2 = 0;
 	unsigned char index = 0, BbpValue = 0, Channel = 0;
 	unsigned int R2 = 0, R3 = DEFAULT_RF_TX_POWER, R4 = 0;
 	RTMP_RF_REGS *RFRegTable = NULL;
@@ -382,7 +382,7 @@ INT RT28xxATETxPwrHandler(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned long R;
-	char TxPower = 0;
+	CHAR TxPower = 0;
 	unsigned char Bbp94 = 0;
 	bool bPowerReduce = FALSE;
 
@@ -526,7 +526,7 @@ VOID RT28xxATERxVGAInit(
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned char R66;
-	char LNAGain = GET_LNA_GAIN(pAd);
+	CHAR LNAGain = GET_LNA_GAIN(pAd);
 	
 	if (pATEInfo->Channel <= 14)
 	{

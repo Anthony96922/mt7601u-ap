@@ -306,9 +306,9 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 			if (bssidEqualFlag == FALSE)
 			{
 				/* caculate real rssi value. */
-				char Rssi0 = ConvertToRssi(pAd, Elem->Rssi0, RSSI_0, Elem->AntSel, BW_20);
-				char Rssi1 = ConvertToRssi(pAd, Elem->Rssi1, RSSI_1, Elem->AntSel, BW_20);
-				char Rssi2 = ConvertToRssi(pAd, Elem->Rssi2, RSSI_2, Elem->AntSel, BW_20);
+				CHAR Rssi0 = ConvertToRssi(pAd, Elem->Rssi0, RSSI_0, Elem->AntSel, BW_20);
+				CHAR Rssi1 = ConvertToRssi(pAd, Elem->Rssi1, RSSI_1, Elem->AntSel, BW_20);
+				CHAR Rssi2 = ConvertToRssi(pAd, Elem->Rssi2, RSSI_2, Elem->AntSel, BW_20);
 				LONG RealRssi = (LONG)(RTMPMaxRssi(pAd, Rssi0, Rssi1, Rssi2));
 
 				DBGPRINT(RT_DEBUG_TRACE, ("SYNC - previous Rssi = %ld current Rssi=%ld\n", pAd->ApCliMlmeAux.Rssi, (LONG)RealRssi));
@@ -518,7 +518,7 @@ static VOID ApCliEnqueueProbeRequest(
 	unsigned char           SsidIe    = IE_SSID;
 	unsigned char           SupRateIe = IE_SUPP_RATES;
 	unsigned char ssidLen;
-	char ssid[MAX_LEN_OF_SSID];
+	CHAR ssid[MAX_LEN_OF_SSID];
 
 	DBGPRINT(RT_DEBUG_TRACE, ("force out a ProbeRequest ...\n"));
 

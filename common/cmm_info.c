@@ -1303,7 +1303,7 @@ INT	Set_ResetStatCounter_Proc(
 
 
 bool RTMPCheckStrPrintAble(
-	IN  char *pInPutStr,
+	IN  CHAR *pInPutStr,
 	IN  unsigned char strLen)
 {
 	unsigned char i = 0;
@@ -1745,7 +1745,7 @@ Arguments:
     Note:
     ==========================================================================
 */
-char * GetEncryptType(char enc)
+char * GetEncryptType(CHAR enc)
 {
     if(enc == Ndis802_11WEPDisabled)
         return "NONE";
@@ -1765,7 +1765,7 @@ char * GetEncryptType(char enc)
     	return "UNKNOW";
 }
 
-char * GetAuthMode(char auth)
+char * GetAuthMode(CHAR auth)
 {
     if(auth == Ndis802_11AuthModeOpen)
     	return "OPEN";
@@ -1826,7 +1826,7 @@ VOID	RTMPCommSiteSurveyData(
 	INT         Rssi = 0;
 	unsigned int        Rssi_Quality = 0;
 	NDIS_802_11_NETWORK_TYPE    wireless_mode;
-	char		Ssid[MAX_LEN_OF_SSID +1];
+	CHAR		Ssid[MAX_LEN_OF_SSID +1];
 	char		SecurityStr[32] = {0};
 	NDIS_802_11_ENCRYPTION_STATUS	ap_cipher = Ndis802_11EncryptionDisabled;
 	NDIS_802_11_AUTHENTICATION_MODE	ap_auth_mode = Ndis802_11AuthModeOpen;
@@ -1934,7 +1934,7 @@ VOID	RTMPCommSiteSurveyData(
 				ap_cipher = pBss->WPA.PairCipher;
 		}
 
-		sprintf(SecurityStr, "%s/%s", GetAuthMode((char)ap_auth_mode), GetEncryptType((char)ap_cipher));		
+		sprintf(SecurityStr, "%s/%s", GetAuthMode((CHAR)ap_auth_mode), GetEncryptType((CHAR)ap_cipher));		
 	}			
 	else
 	{
@@ -1945,7 +1945,7 @@ VOID	RTMPCommSiteSurveyData(
 		else if (ap_cipher == Ndis802_11WEPEnabled)
 			sprintf(SecurityStr, "WEP");
 		else
-			sprintf(SecurityStr, "%s/%s", GetAuthMode((char)ap_auth_mode), GetEncryptType((char)ap_cipher));		
+			sprintf(SecurityStr, "%s/%s", GetAuthMode((CHAR)ap_auth_mode), GetEncryptType((CHAR)ap_cipher));		
 	}
 	
 	sprintf(msg+strlen(msg), "%-23s", SecurityStr);
@@ -2018,7 +2018,7 @@ VOID RTMPIoctlGetSiteSurvey(
 	unsigned int TotalLen, BufLen = IW_SCAN_MAX_DATA;
 
 
-	TotalLen = sizeof(char)*((MAX_LEN_OF_BSS_TABLE)*max_len) + 100;
+	TotalLen = sizeof(CHAR)*((MAX_LEN_OF_BSS_TABLE)*max_len) + 100;
 
 	if (wrq->u.data.length == 0)
 		BufLen = IW_SCAN_MAX_DATA;	
@@ -2150,8 +2150,8 @@ VOID RTMPIoctlGetMacTable(
 	}
 
 
-/*	msg = kmalloc(sizeof(char)*(MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN), MEM_ALLOC_FLAG);*/
-	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(char)*(MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN));
+/*	msg = kmalloc(sizeof(CHAR)*(MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN), MEM_ALLOC_FLAG);*/
+	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(CHAR)*(MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN));
 	if (msg == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():Alloc memory failed\n", __FUNCTION__));
@@ -2206,8 +2206,8 @@ VOID RTMPAR9IoctlGetMacTable(
 	INT i;
 	char *msg;
 
-/*	msg = kmalloc(sizeof(char)*(MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN), MEM_ALLOC_FLAG);*/
-	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(char)*(MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN));
+/*	msg = kmalloc(sizeof(CHAR)*(MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN), MEM_ALLOC_FLAG);*/
+	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(CHAR)*(MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN));
 	if (msg == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():Alloc memory failed\n", __FUNCTION__));
@@ -2260,8 +2260,8 @@ VOID RTMPIoctlGetSTAT2(
 	INT apidx;
 
 
-/*	msg = kmalloc(sizeof(char)*(pAd->ApCfg.BssidNum*(14*128)), MEM_ALLOC_FLAG);*/
-	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(char)*(pAd->ApCfg.BssidNum*(14*128)));
+/*	msg = kmalloc(sizeof(CHAR)*(pAd->ApCfg.BssidNum*(14*128)), MEM_ALLOC_FLAG);*/
+	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(CHAR)*(pAd->ApCfg.BssidNum*(14*128)));
 	if (msg == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():Alloc memory failed\n", __FUNCTION__));
@@ -2312,8 +2312,8 @@ VOID RTMPIoctlGetRadioDynInfo(
 	INT status,bandwidth,ShortGI;
 	
 
-/*	msg = kmalloc(sizeof(char)*(4096), MEM_ALLOC_FLAG);*/
-	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(char)*(4096));
+/*	msg = kmalloc(sizeof(CHAR)*(4096), MEM_ALLOC_FLAG);*/
+	os_alloc_mem(NULL, (unsigned char **)&msg, sizeof(CHAR)*(4096));
 	if (msg == NULL)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():Alloc memory failed\n", __FUNCTION__));
@@ -3439,7 +3439,7 @@ void dbQueueEnqueueRxFrame(unsigned char *pRxWI, unsigned char *pHeader_802_11, 
 /* dbQueueDisplayPhy - Display PHY rate */
 static void dbQueueDisplayPHY(unsigned short phyRate)
 {
-	static char *mode[4] = {" C", "oM","mM", "gM"};
+	static CHAR *mode[4] = {" C", "oM","mM", "gM"};
 
 	DBGPRINT(RT_DEBUG_OFF, ("%2s%02d %c%c%c%c",
 		//(phyRate>>8) & 0xFF, phyRate & 0xFF,
@@ -3510,9 +3510,9 @@ static void dbQueueDump(
 		case 0x79:	/* RXWI - next 2 longs, MSB to LSB */
 			if (decode) {
 				DBGPRINT(RT_DEBUG_OFF, ("Rx2  %2d %2d %2d S:%d %d %d ",
-						ConvertToRssi(pAd, (char)oldTail->data[0], RSSI_0),
-						ConvertToRssi(pAd, (char)oldTail->data[1], RSSI_1),
-						ConvertToRssi(pAd, (char)oldTail->data[2], RSSI_2),
+						ConvertToRssi(pAd, (CHAR)oldTail->data[0], RSSI_0),
+						ConvertToRssi(pAd, (CHAR)oldTail->data[1], RSSI_1),
+						ConvertToRssi(pAd, (CHAR)oldTail->data[2], RSSI_2),
 						(oldTail->data[4]*3 + 8)/16,
 						(oldTail->data[5]*3 + 8)/16,
 						(oldTail->data[6]*3 + 8)/16) );
@@ -3538,7 +3538,7 @@ static void dbQueueDump(
 			unsigned char tCode;
 			struct _typeTableEntry {
 				unsigned char code;	/* Type/subtype*/
-				char  str[4];
+				CHAR  str[4];
 			} *pTab;
 			static struct _typeTableEntry typeTable[] = {
 				{0x00, "mARq"}, {0x01, "mARp"}, {0x02, "mRRq"}, {0x03, "mRRp"},
@@ -4845,20 +4845,20 @@ INT	Set_ReadETxBf_Proc(
 
 	for (scIndex=0; scIndex<maxCarriers; scIndex++) {
 		for (i=0; i<profData.rows; i++) {
-			DBGPRINT(RT_DEBUG_OFF, ("%d %d\t", (char)(profData.data[scIndex][6*i]), (char)(profData.data[scIndex][6*i+1]) ));
+			DBGPRINT(RT_DEBUG_OFF, ("%d %d\t", (CHAR)(profData.data[scIndex][6*i]), (CHAR)(profData.data[scIndex][6*i+1]) ));
 		}
 		DBGPRINT(RT_DEBUG_OFF, ("\n"));
 
 		if (profData.columns>1) {
 			for (i=0; i<profData.rows; i++) {
-				DBGPRINT(RT_DEBUG_OFF, ("%d %d    ", (char)(profData.data[scIndex][6*i+2]), (char)(profData.data[scIndex][6*i+3]) ));
+				DBGPRINT(RT_DEBUG_OFF, ("%d %d    ", (CHAR)(profData.data[scIndex][6*i+2]), (CHAR)(profData.data[scIndex][6*i+3]) ));
 			}
 			DBGPRINT(RT_DEBUG_OFF, ("\n"));
 		}
 
 		if (profData.columns>2) {
 			for (i=0; i<profData.rows; i++) {
-				DBGPRINT(RT_DEBUG_OFF, ("%d %d    ", (char)(profData.data[scIndex][6*i+4]), (char)(profData.data[scIndex][6*i+5]) ));
+				DBGPRINT(RT_DEBUG_OFF, ("%d %d    ", (CHAR)(profData.data[scIndex][6*i+4]), (CHAR)(profData.data[scIndex][6*i+5]) ));
 			}
 			DBGPRINT(RT_DEBUG_OFF, ("\n"));
 		}
@@ -4994,19 +4994,19 @@ INT	Set_StatETxBf_Proc(
 
 	for (scIndex=0; scIndex<maxCarriers; scIndex++) {
 		for (i=0; i<pProfData->rows; i++) {
-			int ival = (char)(pProfData->data[scIndex][6*i]);
-			int qval = (char)(pProfData->data[scIndex][6*i+1]);
+			int ival = (CHAR)(pProfData->data[scIndex][6*i]);
+			int qval = (CHAR)(pProfData->data[scIndex][6*i+1]);
 			col1Power[i] += ival*ival+qval*qval;
 
 			if (pProfData->columns>1) {
-				ival = (char)(pProfData->data[scIndex][6*i+2]);
-				qval = (char)(pProfData->data[scIndex][6*i+3]);
+				ival = (CHAR)(pProfData->data[scIndex][6*i+2]);
+				qval = (CHAR)(pProfData->data[scIndex][6*i+3]);
 				col2Power[i] += ival*ival+qval*qval;
 			}
 
 			if (pProfData->columns>2) {
-				ival = (char)(pProfData->data[scIndex][6*i+4]);
-				qval = (char)(pProfData->data[scIndex][6*i+5]);
+				ival = (CHAR)(pProfData->data[scIndex][6*i+4]);
+				qval = (CHAR)(pProfData->data[scIndex][6*i+5]);
 				col3Power[i] += ival*ival+qval*qval;
 			}
 		}
@@ -5565,7 +5565,7 @@ INT	Set_Trigger_Sounding_Proc(
 	IN	char *			arg)
 {
 	unsigned char			macAddr[MAC_ADDR_LEN];
-	char			*value;
+	CHAR			*value;
 	INT				i;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 

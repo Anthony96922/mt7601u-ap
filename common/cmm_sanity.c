@@ -252,7 +252,7 @@ bool PeerBeaconAndProbeRspSanity_Old(
     IN unsigned char  MsgChannel,
     OUT unsigned char * pAddr2, 
     OUT unsigned char * pBssid, 
-    OUT char Ssid[], 
+    OUT CHAR Ssid[], 
     OUT unsigned char *pSsidLen, 
     OUT unsigned char *pBssType, 
     OUT unsigned short *pBeaconPeriod, 
@@ -1307,7 +1307,7 @@ bool PeerBeaconAndProbeRspSanity2(
 	IN OVERLAP_BSS_SCAN_IE *BssScan,
 	OUT unsigned char 	*RegClass)
 {
-	char				*Ptr;
+	CHAR				*Ptr;
 	PFRAME_802_11		pFrame;
 	PEID_STRUCT			pEid;
 	unsigned long				Length = 0;	
@@ -1391,7 +1391,7 @@ bool MlmeScanReqSanity(
 	IN VOID *Msg, 
 	IN unsigned long MsgLen, 
 	OUT unsigned char *pBssType, 
-	OUT char Ssid[], 
+	OUT CHAR Ssid[], 
 	OUT unsigned char *pSsidLen, 
 	OUT unsigned char *pScanType) 
 {
@@ -1481,7 +1481,7 @@ bool PeerAuthSanity(
     OUT unsigned short *pAlg, 
     OUT unsigned short *pSeq, 
     OUT unsigned short *pStatus, 
-    char *pChlgText) 
+    CHAR *pChlgText) 
 {
     PFRAME_802_11 pFrame = (PFRAME_802_11)Msg;
 
@@ -1716,7 +1716,7 @@ bool PeerDlsReqSanity(
 	OUT unsigned char *pHtCapabilityLen,
     OUT HT_CAPABILITY_IE *pHtCapability)
 {
-	char            *Ptr;
+	CHAR            *Ptr;
     PFRAME_802_11	Fr = (PFRAME_802_11)Msg;
 	PEID_STRUCT  eid_ptr;
 
@@ -1839,7 +1839,7 @@ bool PeerDlsRspSanity(
     OUT unsigned char *pHtCapabilityLen,
     OUT HT_CAPABILITY_IE *pHtCapability) 
 {
-    char            *Ptr;
+    CHAR            *Ptr;
     PFRAME_802_11	Fr = (PFRAME_802_11)Msg;
 	PEID_STRUCT  eid_ptr;
 
@@ -1962,7 +1962,7 @@ bool PeerDlsTearDownSanity(
     OUT unsigned char * pSA,
     OUT unsigned short *pReason) 
 {
-    char            *Ptr;
+    CHAR            *Ptr;
     PFRAME_802_11	Fr = (PFRAME_802_11)Msg;
 
     /* to prevent caller from using garbage output value*/
@@ -2002,7 +2002,7 @@ bool PeerProbeReqSanity(
     IN VOID *Msg, 
     IN unsigned long MsgLen, 
     OUT unsigned char * pAddr2,
-    OUT char Ssid[], 
+    OUT CHAR Ssid[], 
     OUT unsigned char *SsidLen, 
     OUT bool *bRssiRequested)
 {

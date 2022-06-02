@@ -33,26 +33,26 @@ VOID RTMPIdsPeriodicExec(
 bool RTMPSpoofedMgmtDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN PHEADER_802_11 	pHeader,
-	IN char				Rssi0,
-	IN char				Rssi1,
-	IN char				Rssi2,
+	IN CHAR				Rssi0,
+	IN CHAR				Rssi1,
+	IN CHAR				Rssi2,
 	IN unsigned char			AntSel);
 
 VOID RTMPConflictSsidDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pSsid,
 	IN unsigned char			SsidLen,
-	IN char				Rssi0,
-	IN char				Rssi1,
-	IN char				Rssi2,
+	IN CHAR				Rssi0,
+	IN CHAR				Rssi1,
+	IN CHAR				Rssi2,
 	IN unsigned char			AntSel);
 
 bool RTMPReplayAttackDetection(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned char *			pAddr2,
-	IN char				Rssi0,
-	IN char				Rssi1,
-	IN char				Rssi2,
+	IN CHAR				Rssi0,
+	IN CHAR				Rssi1,
+	IN CHAR				Rssi2,
 	IN unsigned char			AntSel,
 	IN unsigned char			BW);
 

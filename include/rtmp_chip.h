@@ -474,8 +474,8 @@ typedef union _EEPROM_ANTENNA_STRUC {
 #if defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) 
 /* The Tx power tuning entry */
 typedef struct _TX_POWER_TUNING_ENTRY_STRUCT {
-	char	RF_TX_ALC; 		/* 3390: RF R12[4:0]: Tx0 ALC, 5390: RF R49[5:0]: Tx0 ALC */
-	char 	MAC_PowerDelta;	/* Tx power control over MAC 0x1314~0x1324 */
+	CHAR	RF_TX_ALC; 		/* 3390: RF R12[4:0]: Tx0 ALC, 5390: RF R49[5:0]: Tx0 ALC */
+	CHAR 	MAC_PowerDelta;	/* Tx power control over MAC 0x1314~0x1324 */
 } TX_POWER_TUNING_ENTRY_STRUCT, *PTX_POWER_TUNING_ENTRY_STRUCT;
 #endif /* defined(RTMP_INTERNAL_TX_ALC) || defined(RTMP_TEMPERATURE_COMPENSATION) */
 
@@ -598,10 +598,10 @@ struct _RTMP_CHIP_CAP_ {
 #endif /* defined(RTMP_INTERNAL_TX_ALC) || defined(SINGLE_SKU_V2) */
 
 #ifdef MT7601
-	char	TemperatureRef25C;
+	CHAR	TemperatureRef25C;
 	unsigned char	TemperatureMode;
 	bool	bPllLockProtect;
-	char	CurrentTemperBbpR49;
+	CHAR	CurrentTemperBbpR49;
 	int	TemperatureDPD;					// temperature when do DPD calibration
 	int	CurrentTemperature;					// (BBP_R49 - Ref25C) * offset
 #endif /* MT7601 */
@@ -660,8 +660,8 @@ struct _RTMP_CHIP_CAP_ {
 #endif
 
 #ifdef SINGLE_SKU_V2
-	char	Apwrdelta;
-	char	Gpwrdelta;
+	CHAR	Apwrdelta;
+	CHAR	Gpwrdelta;
 #endif /* SINGLE_SKU_V2 */
 
 #ifdef RTMP_USB_SUPPORT
@@ -725,7 +725,7 @@ struct _RTMP_CHIP_OP_ {
 
 	/* AGC */
 	VOID (*ChipAGCInit)(struct _RTMP_ADAPTER *pAd, unsigned char bw);
-	unsigned char (*ChipAGCAdjust)(struct _RTMP_ADAPTER *pAd, char Rssi, unsigned char OrigR66Value);
+	unsigned char (*ChipAGCAdjust)(struct _RTMP_ADAPTER *pAd, CHAR Rssi, unsigned char OrigR66Value);
 	
 	/* Channel */
 	VOID (*ChipSwitchChannel)(struct _RTMP_ADAPTER *pAd, unsigned char ch, bool bScan);

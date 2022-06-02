@@ -308,7 +308,7 @@ INT rtmp_bbp_set_mmps(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower)
 }
 
 
-INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX chain)
+INT rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, CHAR *agc, RX_CHAIN_IDX chain)
 {
 	unsigned char idx, val;
 	unsigned int bbp_val, bbp_reg = AGC1_R8;
