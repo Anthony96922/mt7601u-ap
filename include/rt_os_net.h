@@ -28,7 +28,7 @@ typedef int (*RTMP_NET_PACKET_TRANSMIT)(void *pPacket);
 /* Note: No need to put any compile option here */
 typedef struct _RTMP_DRV_ABL_OPS {
 
-unsigned int	(*RTMPAllocAdapterBlock)(void * handle, void **ppAdapter);
+NDIS_STATUS	(*RTMPAllocAdapterBlock)(void * handle, void **ppAdapter);
 void (*RTMPFreeAdapter)(void *pAd);
 bool (*RtmpRaDevCtrlExit)(void *pAd);
 int (*RtmpRaDevCtrlInit)(void *pAd, RTMP_INF_TYPE infType);
@@ -183,7 +183,7 @@ void RtmpNetOpsSet(void *pNetOpsOrg);
 
 #else /* RTMP_MODULE_OS && OS_ABL_FUNC_SUPPORT */
 
-unsigned int RTMPAllocAdapterBlock(void * handle, void **ppAdapter);
+NDIS_STATUS RTMPAllocAdapterBlock(void * handle, void **ppAdapter);
 void RTMPFreeAdapter(void *pAd);
 bool RtmpRaDevCtrlExit(void *pAd);
 int RtmpRaDevCtrlInit(void *pAd, RTMP_INF_TYPE infType);

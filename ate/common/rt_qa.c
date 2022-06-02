@@ -28,12 +28,12 @@
 #include "rt_config.h"
  
 #ifdef RALINK_QA
-unsigned int TXSTOP(
+NDIS_STATUS TXSTOP(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0, atemode=0;
-	unsigned int		Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	unsigned char			BbpData = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
@@ -136,12 +136,12 @@ unsigned int TXSTOP(
 }
 
 
-unsigned int RXSTOP(
+NDIS_STATUS RXSTOP(
 	IN PRTMP_ADAPTER pAd)
 {
 	PATE_INFO pATEInfo = &(pAd->ate);
 	unsigned int			MacData=0;
-	unsigned int		Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("ATE : ===> %s\n", __FUNCTION__));
 

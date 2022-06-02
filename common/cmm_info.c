@@ -1339,13 +1339,13 @@ bool RTMPCheckStrPrintAble(
 */
 
 #if defined(CONFIG_STA_SUPPORT) || defined(APCLI_WPA_SUPPLICANT_SUPPORT)
-unsigned int RTMPWPARemoveKeyProc(
+NDIS_STATUS RTMPWPARemoveKeyProc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	void *			pBuf)
 {
 	PNDIS_802_11_REMOVE_KEY pKey;
 	unsigned long					KeyIdx;
-	unsigned int 			Status = NDIS_STATUS_FAILURE;
+	NDIS_STATUS 			Status = NDIS_STATUS_FAILURE;
 	bool 	bTxKey; 		/* Set the key as transmit key*/
 	bool 	bPairwise;		/* Indicate the key is pairwise key*/
 	bool 	bKeyRSC;		/* indicate the receive  SC set by KeyRSC value.*/

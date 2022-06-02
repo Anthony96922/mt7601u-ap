@@ -170,10 +170,10 @@ typedef struct __ATE_EX_PARAM
 	short AvgRssi2X8;
 }ATE_EX_PARAM, *pATE_EX_PARAM;
 
-unsigned int TXSTOP(
+NDIS_STATUS TXSTOP(
 	IN PRTMP_ADAPTER pAd);
 
-unsigned int RXSTOP(
+NDIS_STATUS RXSTOP(
 	IN PRTMP_ADAPTER pAd);
 
 #endif /* RALINK_QA */

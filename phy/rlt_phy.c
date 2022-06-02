@@ -10,7 +10,7 @@
 
 #ifndef MT7601
 
-unsigned int NICInitBBP(RTMP_ADAPTER *pAd)
+NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 {
 	int idx;
 	

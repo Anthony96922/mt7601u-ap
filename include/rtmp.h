@@ -4403,18 +4403,18 @@ bool RTMPCheckForHang(
 /*
 	Private routines in rtmp_init.c
 */
-unsigned int RTMPAllocTxRxRingMemory(
+NDIS_STATUS RTMPAllocTxRxRingMemory(
 	IN  PRTMP_ADAPTER   pAd);
 
 #ifdef RESOURCE_PRE_ALLOC
-unsigned int RTMPInitTxRxRingMemory(
+NDIS_STATUS RTMPInitTxRxRingMemory(
 	IN RTMP_ADAPTER *pAd);
 #endif /* RESOURCE_PRE_ALLOC */
 
-unsigned int	RTMPReadParametersHook(
+NDIS_STATUS	RTMPReadParametersHook(
 	IN	PRTMP_ADAPTER pAd);
 
-unsigned int	RTMPSetProfileParameters(
+NDIS_STATUS	RTMPSetProfileParameters(
 	IN RTMP_ADAPTER *pAd,
 	IN char *		pBuffer);
 
@@ -4438,7 +4438,7 @@ void rtmp_read_multest_from_file(
 	IN char * buffer);
 
 #ifdef SINGLE_SKU_V2
-unsigned int	RTMPSetSingleSKUParameters(
+NDIS_STATUS	RTMPSetSingleSKUParameters(
 	IN RTMP_ADAPTER *pAd);
 
 void InitSkuRateDiffTable(
@@ -4486,13 +4486,13 @@ MAC_TABLE_ENTRY *MacTableInsertMulTestEntry(
 
 
 #ifdef RLT_RF
-unsigned int rlt_rf_write(
+NDIS_STATUS rlt_rf_write(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char bank,
 	IN unsigned char regID,
 	IN unsigned char value);
 
-unsigned int rlt_rf_read(
+NDIS_STATUS rlt_rf_read(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char bank,
 	IN unsigned char regID,
@@ -4506,11 +4506,11 @@ void NICReadEEPROMParameters(
 void NICInitAsicFromEEPROM(
 	IN  PRTMP_ADAPTER       pAd);
 
-unsigned int NICInitializeAdapter(
+NDIS_STATUS NICInitializeAdapter(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  bool    bHardReset);
 
-unsigned int NICInitializeAsic(
+NDIS_STATUS NICInitializeAsic(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  bool		bHardReset);
 
@@ -4525,7 +4525,7 @@ void UserCfgExit(
 void UserCfgInit(
 	IN  PRTMP_ADAPTER   pAd);
 
-unsigned int NICLoadFirmware(
+NDIS_STATUS NICLoadFirmware(
 	IN  PRTMP_ADAPTER   pAd);
 
 void NICEraseFirmware(
@@ -4865,7 +4865,7 @@ void RTMPHandleMcuInterrupt(
 #endif /* CONFIG_AP_SUPPORT */
 
 
-unsigned int STASendPacket(
+NDIS_STATUS STASendPacket(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  PNDIS_PACKET    pPacket);
 
@@ -4880,13 +4880,13 @@ void RTMPDeQueuePacket(
 	IN unsigned char QueIdx,
 	IN int Max_Tx_Packets);
 
-unsigned int	RTMPHardTransmit(
+NDIS_STATUS	RTMPHardTransmit(
 	IN PRTMP_ADAPTER	pAd,
 	IN PNDIS_PACKET		pPacket,
 	IN  unsigned char			QueIdx,
 	OUT	unsigned long *pFreeTXDLeft);
 
-unsigned int	STAHardTransmit(
+NDIS_STATUS	STAHardTransmit(
 	IN PRTMP_ADAPTER	pAd,
 	IN TX_BLK			*pTxBlk,
 	IN  unsigned char			QueIdx);
@@ -4897,20 +4897,20 @@ void STARxEAPOLFrameIndicate(
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID);
 
-unsigned int RTMPFreeTXDRequest(
+NDIS_STATUS RTMPFreeTXDRequest(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char           RingType,
 	IN  unsigned char           NumberRequired,
 	IN 	unsigned char *          FreeNumberIs);
 
-unsigned int MlmeHardTransmit(
+NDIS_STATUS MlmeHardTransmit(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char	QueIdx,
 	IN  PNDIS_PACKET    pPacket,
 	IN	bool			FlgDataQForce,
 	IN	bool			FlgIsLocked);
 
-unsigned int MlmeHardTransmitMgmtRing(
+NDIS_STATUS MlmeHardTransmitMgmtRing(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  unsigned char	QueIdx,
 	IN  PNDIS_PACKET    pPacket);
@@ -4958,7 +4958,7 @@ void RTMPSuspendMsduTransmission(
 void RTMPResumeMsduTransmission(
 	IN RTMP_ADAPTER *pAd);
 
-unsigned int MiniportMMRequest(
+NDIS_STATUS MiniportMMRequest(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char QueIdx,
 	IN unsigned char *pData,
@@ -5352,7 +5352,7 @@ void  BssTableSortByRssi(
 void BssCipherParse(
 	IN OUT  PBSS_ENTRY  pBss);
 
-unsigned int  MlmeQueueInit(
+NDIS_STATUS  MlmeQueueInit(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE *Queue);
 
@@ -6301,7 +6301,7 @@ void RTMPUpdateLegacyTxSetting(
 bool RTMPAutoRateSwitchCheck(
 	IN PRTMP_ADAPTER    pAd);
 
-unsigned int MlmeInit(
+NDIS_STATUS MlmeInit(
 	IN  PRTMP_ADAPTER   pAd);
 
 
@@ -6452,7 +6452,7 @@ int Set_MO_FalseCCATh_Proc(
 /* */
 /* Prototypes of function definition in cmm_info.c */
 /* */
-unsigned int RTMPWPARemoveKeyProc(
+NDIS_STATUS RTMPWPARemoveKeyProc(
 	IN  PRTMP_ADAPTER   pAd,
 	IN  void *           pBuf);
 
@@ -7161,7 +7161,7 @@ unsigned short  WscGetAuthType(
 unsigned short  WscGetEncryType(
     IN  NDIS_802_11_WEP_STATUS encryType);
 
-unsigned int WscThreadInit(
+NDIS_STATUS WscThreadInit(
 	IN RTMP_ADAPTER *pAd);
 
 bool WscThreadExit(
@@ -8104,10 +8104,10 @@ void getIPMacTbInfo(
 	IN char *pOutBuf,
 	IN unsigned long BufLen);
 
-unsigned int MATEngineInit(
+NDIS_STATUS MATEngineInit(
 	IN RTMP_ADAPTER *pAd);
 
-unsigned int MATEngineExit(
+NDIS_STATUS MATEngineExit(
 	IN RTMP_ADAPTER *pAd);
 
 unsigned char * MATEngineRxHandle(
@@ -8192,13 +8192,13 @@ void RT28xx_UpdateBeaconToAsic(
 void CfgInitHook(PRTMP_ADAPTER pAd);
 
 
-unsigned int RtmpNetTaskInit(
+NDIS_STATUS RtmpNetTaskInit(
 	IN RTMP_ADAPTER *pAd);
 
 void RtmpNetTaskExit(
 	IN PRTMP_ADAPTER pAd);
 
-unsigned int RtmpMgmtTaskInit(
+NDIS_STATUS RtmpMgmtTaskInit(
 	IN RTMP_ADAPTER *pAd);
 	
 void RtmpMgmtTaskExit(
@@ -8306,7 +8306,7 @@ void RTUSBPutToSleep(
 NTSTATUS RTUSBWakeUp(
 	IN	PRTMP_ADAPTER	pAd);
 
-unsigned int	RTUSBEnqueueCmdFromNdis(
+NDIS_STATUS	RTUSBEnqueueCmdFromNdis(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	NDIS_OID		Oid,
 	IN	bool			SetInformation,
@@ -8360,25 +8360,25 @@ NTSTATUS RTUSBFirmwareWrite(
 NTSTATUS	RTUSBVenderReset(
 	IN	PRTMP_ADAPTER	pAd);
 
-unsigned int RTUSBSetHardWareRegister(
+NDIS_STATUS RTUSBSetHardWareRegister(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN	void *			pBuf);
 
-unsigned int RTUSBQueryHardWareRegister(
+NDIS_STATUS RTUSBQueryHardWareRegister(
 	IN	PRTMP_ADAPTER	pAdapter,
 	IN	void *			pBuf);
 
 /*void CMDHandler( */
 /*    IN PRTMP_ADAPTER pAd); */
 
-unsigned int	RTUSBWriteHWMACAddress(
+NDIS_STATUS	RTUSBWriteHWMACAddress(
 	IN RTMP_ADAPTER *pAd);
 
 void MlmeSetPsm(
 	IN RTMP_ADAPTER *pAd, 
 	IN unsigned short psm);
 
-unsigned int RTMPWPAAddKeyProc(
+NDIS_STATUS RTMPWPAAddKeyProc(
 	IN RTMP_ADAPTER *pAd,
 	IN void *pBuf);
 
@@ -8404,7 +8404,7 @@ int MlmeThread(unsigned long Context);
 /*
 	Function Prototype in rtusb_data.c
 */
-unsigned int	RTUSBFreeDescRequest(
+NDIS_STATUS	RTUSBFreeDescRequest(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char BulkOutPipeId,
 	IN unsigned int req_cnt);
@@ -8521,7 +8521,7 @@ void RT28xxAsicWOWDisable(
     IN PRTMP_ADAPTER pAd);
 #endif /* (defined(WOW_SUPPORT) && defined(RTMP_MAC_USB)) || defined(NEW_WOW_SUPPORT) */
 
-unsigned int RTMPCheckRxError(
+NDIS_STATUS RTMPCheckRxError(
 	IN RTMP_ADAPTER *pAd, 
 	IN PHEADER_802_11 pHeader,
 	IN RXWI_STRUC *pRxWI,
@@ -8728,7 +8728,7 @@ void RTThreadDequeueCmd(
 	IN	PCmdQ		cmdq,
 	OUT	PCmdQElmt	*pcmdqelmt);
 
-unsigned int RTEnqueueInternalCmd(
+NDIS_STATUS RTEnqueueInternalCmd(
 	IN PRTMP_ADAPTER	pAd,
 	IN NDIS_OID			Oid,
 	IN void *			pInformationBuffer,
@@ -8943,7 +8943,7 @@ void ConcurrentP2PConnectTimeout(
     IN void * SystemSpecific2, 
     IN void * SystemSpecific3);
 
-unsigned int MultiChannelThreadInit(
+NDIS_STATUS MultiChannelThreadInit(
 	IN  PRTMP_ADAPTER pAd);
 
 bool MultiChannelThreadExit(

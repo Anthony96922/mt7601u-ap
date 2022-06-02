@@ -168,10 +168,10 @@ unsigned char dot11_2_ra_rate(unsigned char MaxSupportedRateIn500Kbps)
 
 	==========================================================================
 */
-unsigned int MlmeInit(
+NDIS_STATUS MlmeInit(
 	IN PRTMP_ADAPTER pAd) 
 {
-	unsigned int Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> MLME Initialize\n"));
 
@@ -2729,7 +2729,7 @@ unsigned long MakeOutgoingFrame(
  IRQL = PASSIVE_LEVEL
  
  */
-unsigned int MlmeQueueInit(
+NDIS_STATUS MlmeQueueInit(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE *Queue) 
 {

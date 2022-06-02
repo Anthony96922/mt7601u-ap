@@ -100,7 +100,7 @@ void MlmeADDBAAction(
 	MLME_ADDBA_REQ_STRUCT *pInfo;
 	unsigned char           Addr[6];
 	unsigned char *         pOutBuffer = NULL;
-	unsigned int     NStatus;
+	NDIS_STATUS     NStatus;
 	unsigned long		Idx;
 	FRAME_ADDBA_REQ  Frame;
 	unsigned long		FrameLen;
@@ -208,7 +208,7 @@ void MlmeDELBAAction(
 	MLME_DELBA_REQ_STRUCT *pInfo;
 	unsigned char *         pOutBuffer = NULL;
 	unsigned char *		   pOutBuffer2 = NULL;
-	unsigned int     NStatus;
+	NDIS_STATUS     NStatus;
 	unsigned long		Idx;
 	FRAME_DELBA_REQ  Frame;
 	unsigned long		FrameLen;
@@ -422,7 +422,7 @@ void SendBSS2040CoexistMgmtAction(
 	IN	unsigned char	InfoReq)
 {
 	unsigned char *			pOutBuffer = NULL;
-	unsigned int 	NStatus;
+	NDIS_STATUS 	NStatus;
 	FRAME_ACTION_HDR	Frame;
 	unsigned long			FrameLen;
 	BSS_2040_COEXIST_ELEMENT		BssCoexistInfo;
@@ -758,7 +758,7 @@ static void respond_ht_information_exchange_action(
 	IN MLME_QUEUE_ELEM *Elem) 
 {
 	unsigned char *			pOutBuffer = NULL;
-	unsigned int		NStatus;
+	NDIS_STATUS		NStatus;
 	unsigned long			FrameLen;
 #ifdef CONFIG_AP_SUPPORT
 	int         	apidx;
@@ -823,7 +823,7 @@ void SendNotifyBWActionFrame(
 	IN unsigned char apidx)
 {
 	unsigned char *			pOutBuffer = NULL;
-	unsigned int 	NStatus;
+	NDIS_STATUS 	NStatus;
 	FRAME_ACTION_HDR	Frame;
 	unsigned long			FrameLen;
 	unsigned char *			pAddr1;
@@ -957,7 +957,7 @@ void ORIBATimerTimeout(
 	int			i, total;
 /*	FRAME_BAR			FrameBar;*/
 /*	unsigned long			FrameLen;*/
-/*	unsigned int 	NStatus;*/
+/*	NDIS_STATUS 	NStatus;*/
 /*	unsigned char *			pOutBuffer = NULL;*/
 /*	unsigned short			Sequence;*/
 	unsigned char			TID;
@@ -989,7 +989,7 @@ void SendRefreshBAR(
 {
 	FRAME_BAR		FrameBar;
 	unsigned long			FrameLen;
-	unsigned int 	NStatus;
+	NDIS_STATUS 	NStatus;
 	unsigned char *			pOutBuffer = NULL;
 	unsigned short			Sequence;
 	unsigned char			i, TID;

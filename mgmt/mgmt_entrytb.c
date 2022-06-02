@@ -631,7 +631,7 @@ void MacTableReset(
 	bool     Cancelled;    
 #ifdef CONFIG_AP_SUPPORT
 	unsigned char *      pOutBuffer = NULL;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	unsigned long       FrameLen = 0;
 	HEADER_802_11 DeAuthHdr;
 	unsigned short      Reason;

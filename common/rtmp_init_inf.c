@@ -112,7 +112,7 @@ int rt28xx_init(void *pAdSrc, char * pDefaultMac, char * pHostName)
 {
 	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
 	unsigned int index;
-	unsigned int Status;
+	NDIS_STATUS Status;
 	
 	if (pAd == NULL)
 		return FALSE;

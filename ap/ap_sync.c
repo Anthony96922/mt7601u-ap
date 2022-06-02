@@ -88,7 +88,7 @@ void APPeerProbeReqAction(
 	char Ssid[MAX_LEN_OF_SSID];
 	unsigned char SsidLen;
 	HEADER_802_11 ProbeRspHdr;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	unsigned char * pOutBuffer = NULL;
 	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
 	LARGE_INTEGER FakeTimestamp;

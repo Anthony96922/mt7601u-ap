@@ -177,10 +177,10 @@ typedef struct _MAT_STRUCT_
 
 typedef struct _MATProtoOps
 {
-	unsigned int 	(*init)(MAT_STRUCT *pMatCfg);
+	NDIS_STATUS 	(*init)(MAT_STRUCT *pMatCfg);
 	unsigned char *			(*tx)(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
 	unsigned char *			(*rx)(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
-	unsigned int		(*exit)(MAT_STRUCT *pMatCfg);
+	NDIS_STATUS		(*exit)(MAT_STRUCT *pMatCfg);
 }MATProtoOps, *PMATProtoOps;
 
 
@@ -199,7 +199,7 @@ unsigned char * MATDBEntryAlloc(
 	IN MAT_STRUCT 	*pMatStruct, 
 	IN unsigned int 		size);
 
-unsigned int MATDBEntryFree(
+NDIS_STATUS MATDBEntryFree(
 	IN MAT_STRUCT 	*pMatStruct, 
 	IN unsigned char * 		NodeEntry);
 

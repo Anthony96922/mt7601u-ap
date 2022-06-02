@@ -46,10 +46,10 @@ char const *pEventText[EVENT_MAX_EVENT_TYPE] = {
 		used for wireless client bridging.
 	==========================================================================
  */
-unsigned int APInitialize(
+NDIS_STATUS APInitialize(
 	IN PRTMP_ADAPTER   pAd)
 {
-	unsigned int	Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS	Status = NDIS_STATUS_SUCCESS;
 	int		i;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("---> APInitialize\n"));
@@ -1089,7 +1089,7 @@ void MacTableMaintenance(IN PRTMP_ADAPTER pAd) {
 
 			if (pEntry->Sst == SST_ASSOC) {
 				unsigned char *      pOutBuffer = NULL;
-				unsigned int NStatus;
+				NDIS_STATUS NStatus;
 				unsigned long       FrameLen = 0;
 				HEADER_802_11 DeAuthHdr;
 				unsigned short      Reason;
@@ -1684,7 +1684,7 @@ void ApUpdateAccessControlList(
 	bool  Matched;
 
 	unsigned char *      pOutBuffer = NULL;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	unsigned long       FrameLen = 0;
 	HEADER_802_11 DisassocHdr;
 	unsigned short      Reason;
@@ -1802,7 +1802,7 @@ void ApEnqueueNullFrame(
 	IN bool       bEOSP,
 	IN unsigned char         OldUP)
 {
-	unsigned int    NState;
+	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
 	unsigned char * pFrame;
 	unsigned long		   Length;

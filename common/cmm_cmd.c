@@ -104,13 +104,13 @@ void	RTThreadDequeueCmd(
 
 	========================================================================
 */
-unsigned int RTEnqueueInternalCmd(
+NDIS_STATUS RTEnqueueInternalCmd(
 	IN PRTMP_ADAPTER	pAd,
 	IN NDIS_OID			Oid,
 	IN void *			pInformationBuffer,
 	IN unsigned int			InformationBufferLength)
 {
-	unsigned int	status;
+	NDIS_STATUS	status;
 	PCmdQElmt	cmdqelmt = NULL;
 
 

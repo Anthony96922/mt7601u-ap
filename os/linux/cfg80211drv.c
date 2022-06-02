@@ -255,7 +255,7 @@ int CFG80211DRV_IoctlHandle(
 					if (WfdIeBitmap > 0)
 					{
 						unsigned char *		pOutBuffer;
-						unsigned int   NStatus;
+						NDIS_STATUS   NStatus;
 						
 						NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);  /* Get an unused nonpaged memory */
 						if (NStatus != NDIS_STATUS_SUCCESS)

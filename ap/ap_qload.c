@@ -154,7 +154,7 @@ static void QBSS_LoadAlarm(
 
 				{
 					unsigned char *      pOutBuffer = NULL;
-					unsigned int NStatus;
+					NDIS_STATUS NStatus;
 					unsigned long       FrameLen = 0;
 					HEADER_802_11 DeAuthHdr;
 					unsigned short      Reason;

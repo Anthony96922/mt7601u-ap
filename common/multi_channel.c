@@ -63,7 +63,7 @@ void RtmpPrepareHwNullFrame(
 	unsigned char MlmeRate;
 
 #ifdef RT_BIG_ENDIAN
-	unsigned int    NState;
+	NDIS_STATUS    NState;
 	unsigned char * pNullFrBuf;
 #endif /* RT_BIG_ENDIAN */
 
@@ -161,7 +161,7 @@ void RTMPHwSendNullFrame(
 {
 
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
-	unsigned int    NState;
+	NDIS_STATUS    NState;
 	PHEADER_802_11 pNullFr;
 	unsigned char *ptr;
 	unsigned int longValue;
@@ -662,10 +662,10 @@ static int MultiChannelTaskThread(
 	return 0;
 }
 
-unsigned int MultiChannelThreadInit(
+NDIS_STATUS MultiChannelThreadInit(
 	IN  PRTMP_ADAPTER pAd)
 {
-	unsigned int status = NDIS_STATUS_FAILURE;
+	NDIS_STATUS status = NDIS_STATUS_FAILURE;
 	RTMP_OS_TASK *pTask;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("--> %s\n", __FUNCTION__));

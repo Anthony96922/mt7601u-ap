@@ -349,7 +349,7 @@ PCIPHER_KEY RTMPSwCipherKeySelection(
 	IN RX_BLK *pRxBlk,
 	IN PMAC_TABLE_ENTRY pEntry);
 
-unsigned int RTMPSoftDecryptionAction(
+NDIS_STATUS RTMPSoftDecryptionAction(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pHdr,
 	IN unsigned char UserPriority,

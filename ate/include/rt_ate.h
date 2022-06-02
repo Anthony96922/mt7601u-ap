@@ -758,10 +758,10 @@ void RTUSBRejectPendingPackets(
 #endif /* RTMP_MAC_USB */
 
 
-unsigned int ChipStructAssign(
+NDIS_STATUS ChipStructAssign(
  IN	PRTMP_ADAPTER pAd);
 
-unsigned int ATEInit(
+NDIS_STATUS ATEInit(
  IN PRTMP_ADAPTER pAd);
 
 #ifdef RALINK_QA
@@ -769,7 +769,7 @@ void ReadQATxTypeFromBBP(
  IN	PRTMP_ADAPTER	pAd);
 #endif /* RALINK_QA */
 
-unsigned int ATEBBPWriteWithRxChain(
+NDIS_STATUS ATEBBPWriteWithRxChain(
  IN RTMP_ADAPTER *pAd,
  IN unsigned char bbpId,
  IN char bbpVal,

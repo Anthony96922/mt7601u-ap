@@ -8348,9 +8348,9 @@ bool WscThreadExit(RTMP_ADAPTER *pAd)
 /*
   * This kernel thread init in the probe function.
   */
-unsigned int WscThreadInit(RTMP_ADAPTER *pAd)
+NDIS_STATUS WscThreadInit(RTMP_ADAPTER *pAd)
 {
-	unsigned int status = NDIS_STATUS_FAILURE;
+	NDIS_STATUS status = NDIS_STATUS_FAILURE;
 	RTMP_OS_TASK *pTask;
 
 	

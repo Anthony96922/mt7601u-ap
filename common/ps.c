@@ -39,7 +39,7 @@
 		NDIS_STATUS_FAILURE: If failed to do en-queue.
 ========================================================================
 */
-unsigned int RtmpInsertPsQueue(
+NDIS_STATUS RtmpInsertPsQueue(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
 	IN MAC_TABLE_ENTRY *pMacEntry,

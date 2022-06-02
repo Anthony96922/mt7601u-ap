@@ -19,7 +19,7 @@
 #include	"rt_config.h"
 
 
-static unsigned int RTMPAllocUsbBulkBufStruct(
+static NDIS_STATUS RTMPAllocUsbBulkBufStruct(
 	IN RTMP_ADAPTER *pAd,
 	IN PURB *ppUrb,
 	IN void * *ppXBuffer,
@@ -47,7 +47,7 @@ static unsigned int RTMPAllocUsbBulkBufStruct(
 }
 
 
-static unsigned int RTMPFreeUsbBulkBufStruct(
+static NDIS_STATUS RTMPFreeUsbBulkBufStruct(
 	IN RTMP_ADAPTER *pAd,
 	IN PURB *ppUrb,
 	IN unsigned char * *ppXBuffer,
@@ -310,7 +310,7 @@ Note:
 	NDIS packet descriptor.
 ========================================================================
 */
-unsigned int	NICInitRecv(
+NDIS_STATUS	NICInitRecv(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned char				i;
@@ -368,11 +368,11 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned int	NICInitTransmit(
+NDIS_STATUS	NICInitTransmit(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned char			i, acidx;
-	unsigned int     Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
 	PTX_CONTEXT		pNullContext   = &(pAd->NullContext[0]);
 	PTX_CONTEXT		pPsPollContext = &(pAd->PsPollContext);
 	PTX_CONTEXT		pMLMEContext = NULL;
@@ -543,10 +543,10 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned int	RTMPAllocTxRxRingMemory(
+NDIS_STATUS	RTMPAllocTxRxRingMemory(
 	IN	PRTMP_ADAPTER	pAd)
 {	
-	unsigned int Status = NDIS_STATUS_FAILURE;
+	NDIS_STATUS Status = NDIS_STATUS_FAILURE;
 	PTX_CONTEXT pNullContext   = &(pAd->NullContext);
 	PTX_CONTEXT pPsPollContext = &(pAd->PsPollContext);
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &(pAd->CmdRspEventContext);
@@ -672,11 +672,11 @@ err:
 }
 
 
-unsigned int RTMPInitTxRxRingMemory
+NDIS_STATUS RTMPInitTxRxRingMemory
 	(IN RTMP_ADAPTER *pAd)
 {
 	int				num;
-	unsigned int		Status;
+	NDIS_STATUS		Status;
 
 	/* Init the CmdQ and CmdQLock*/
 	NdisAllocateSpinLock(pAd, &pAd->CmdQLock);	
@@ -734,11 +734,11 @@ Note:
 	NDIS packet descriptor.
 ========================================================================
 */
-unsigned int	NICInitRecv(
+NDIS_STATUS	NICInitRecv(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned char				i;
-	unsigned int			Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS			Status = NDIS_STATUS_SUCCESS;
 	POS_COOKIE			pObj = (POS_COOKIE) pAd->OS_Cookie;
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &pAd->CmdRspEventContext;
 
@@ -830,11 +830,11 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned int	NICInitTransmit(
+NDIS_STATUS	NICInitTransmit(
 	IN	PRTMP_ADAPTER	pAd)
 {
 	unsigned char			i, acidx;
-	unsigned int     Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
 	PTX_CONTEXT		pNullContext   = &(pAd->NullContext[0]);
 	PTX_CONTEXT		pPsPollContext = &(pAd->PsPollContext);
 	PTX_CONTEXT		pMLMEContext = NULL;
@@ -1065,11 +1065,11 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned int	RTMPAllocTxRxRingMemory(
+NDIS_STATUS	RTMPAllocTxRxRingMemory(
 	IN	PRTMP_ADAPTER	pAd)
 {
 /*	COUNTER_802_11	pCounter = &pAd->WlanCounters;*/
-	unsigned int		Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	int				num;
 
 	
@@ -1281,12 +1281,12 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned int	RTUSBWriteHWMACAddress(
+NDIS_STATUS	RTUSBWriteHWMACAddress(
 	IN	PRTMP_ADAPTER		pAd)
 {
 	MAC_DW0_STRUC	StaMacReg0;
 	MAC_DW1_STRUC	StaMacReg1;
-	unsigned int		Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	LARGE_INTEGER	NOW;
 
 

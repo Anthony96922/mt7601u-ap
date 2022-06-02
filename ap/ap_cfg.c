@@ -5992,9 +5992,9 @@ int	Show_MATTable_Proc(
 	IN	char *			arg)
 {
 	extern void dumpIPMacTb(MAT_STRUCT *pMatCfg, int index);
-	extern unsigned int dumpSesMacTb(MAT_STRUCT *pMatCfg, int hashIdx);
-	extern unsigned int dumpUidMacTb(MAT_STRUCT *pMatCfg, int hashIdx);
-	extern unsigned int dumpIPv6MacTb(MAT_STRUCT *pMatCfg, int hashIdx);
+	extern NDIS_STATUS dumpSesMacTb(MAT_STRUCT *pMatCfg, int hashIdx);
+	extern NDIS_STATUS dumpUidMacTb(MAT_STRUCT *pMatCfg, int hashIdx);
+	extern NDIS_STATUS dumpIPv6MacTb(MAT_STRUCT *pMatCfg, int hashIdx);
 
 	dumpIPMacTb(&pAd->MatCfg, -1);
 	dumpSesMacTb(&pAd->MatCfg, -1);
@@ -11281,7 +11281,7 @@ int	Set_TestTxFrameProc(
 		unsigned char	idxCount;
 		unsigned long TmpLen1 = 0;
 		unsigned char RalinkIe[10] = {0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf, 0xaf};
-		unsigned int	NStatus = NDIS_STATUS_SUCCESS;
+		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
 		MAKE_802_3_HEADER(Header802_3, tempMAC, pAd->CurrentAddress, TDLS_ETHERTYPE);
 
@@ -11494,7 +11494,7 @@ int	Set_TestTxFrame1Proc(
 		unsigned long	FrameLen = 0;
 		unsigned long	TempLen;
 		unsigned char	RemoteFrameType = 0xaf;
-		unsigned int	NStatus = NDIS_STATUS_SUCCESS;
+		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
 		MAKE_802_3_HEADER(Header802_3, tempMAC, pAd->CurrentAddress, TDLS_ETHERTYPE);
 
@@ -11563,7 +11563,7 @@ int	Set_TestTxFrame2Proc(
 		unsigned long	FrameLen = 0;
 		unsigned long	TempLen;
 		unsigned char	RemoteFrameType = 0xaf;
-		unsigned int	NStatus = NDIS_STATUS_SUCCESS;
+		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
 		MAKE_802_3_HEADER(Header802_3, tempMAC, pAd->CurrentAddress, TDLS_ETHERTYPE);
 
@@ -11633,7 +11633,7 @@ int	Set_TestTxFrame3Proc(
 		unsigned long	FrameLen = 0;
 		unsigned long	TempLen;
 		unsigned char	RemoteFrameType = 0xaf;
-		unsigned int	NStatus = NDIS_STATUS_SUCCESS;
+		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
 		MAKE_802_3_HEADER(Header802_3, tempMAC, CurrentAddress, TDLS_ETHERTYPE);
 
@@ -11703,7 +11703,7 @@ int	Set_TestTxFrame4Proc(
 		unsigned long	FrameLen = 0;
 		unsigned long	TempLen;
 		unsigned char	RemoteFrameType = 0xaf;
-		unsigned int	NStatus = NDIS_STATUS_SUCCESS;
+		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
 		MAKE_802_3_HEADER(Header802_3, tempMAC, CurrentAddress, TDLS_ETHERTYPE);
 
@@ -11801,7 +11801,7 @@ int	Set_TestWAPIFrameProc(
 		unsigned long	FrameLen = 0;
 		unsigned long	TempLen;
 		unsigned char	RemoteFrameType = 0xaf;
-		unsigned int	NStatus = NDIS_STATUS_SUCCESS;
+		NDIS_STATUS	NStatus = NDIS_STATUS_SUCCESS;
 
 		MAKE_802_3_HEADER(Header802_3, tempMAC, pAd->CurrentAddress, TDLS_ETHERTYPE);
 

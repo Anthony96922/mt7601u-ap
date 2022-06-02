@@ -73,17 +73,17 @@ void	APSendPackets(
 	IN	PPNDIS_PACKET	ppPacketArray,
 	IN	unsigned int			NumberOfPackets);
 
-unsigned int APSendPacket(
+NDIS_STATUS APSendPacket(
     IN  PRTMP_ADAPTER   pAd,
     IN  PNDIS_PACKET    pPacket);
 
-unsigned int APInsertPsQueue(
+NDIS_STATUS APInsertPsQueue(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
 	IN MAC_TABLE_ENTRY *pMacEntry,
 	IN unsigned char QueIdx);
 
-unsigned int APHardTransmit(
+NDIS_STATUS APHardTransmit(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TX_BLK			*pTxBlk,
 	IN	unsigned char			QueIdx);
@@ -94,7 +94,7 @@ void APRxEAPOLFrameIndicate(
 	IN	RX_BLK			*pRxBlk,
 	IN	unsigned char			FromWhichBSSID);
 
-unsigned int APCheckRxError(
+NDIS_STATUS APCheckRxError(
 	IN RTMP_ADAPTER *pAd,
 	IN RXINFO_STRUC *pRxInfo,
 	IN unsigned char Wcid);
@@ -305,7 +305,7 @@ void APAsicRxAntEvalTimeout(
 	IN PRTMP_ADAPTER	pAd);
 
 /* ap.c */
-unsigned int APInitialize(
+NDIS_STATUS APInitialize(
     IN  PRTMP_ADAPTER   pAd);
 
 void APShutdown(

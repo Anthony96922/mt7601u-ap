@@ -621,12 +621,12 @@ typedef union _BBP_R182_STRUC {
 #endif /* RTMP_MAC_USB */
 
 #ifdef MT7601
-unsigned int MT7601_BBP_write(
+NDIS_STATUS MT7601_BBP_write(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN unsigned char regID,
 	IN unsigned char value);
 
-unsigned int MT7601_BBP_read(
+NDIS_STATUS MT7601_BBP_read(
 	IN struct _RTMP_ADAPTER *pAd,
 	IN unsigned char regID,
 	IN unsigned char *pValue);
@@ -687,7 +687,7 @@ int rtmp_bbp_get_agc(struct _RTMP_ADAPTER *pAd, char *agc, RX_CHAIN_IDX idx);
 int rtmp_bbp_set_filter_coefficient_ctrl(struct _RTMP_ADAPTER *pAd, unsigned char Channel);
 unsigned char rtmp_bbp_get_random_seed(struct _RTMP_ADAPTER *pAd);
 
-unsigned int NICInitBBP(struct _RTMP_ADAPTER *pAd);
+NDIS_STATUS NICInitBBP(struct _RTMP_ADAPTER *pAd);
 
 #endif /* __RTMP_PHY_H__ */
 

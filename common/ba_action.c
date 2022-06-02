@@ -567,7 +567,7 @@ void BAOriSessionAdd(
 	unsigned char		TID;
 	unsigned short		Idx;
 	unsigned char *		pOutBuffer2 = NULL;
-	unsigned int	NStatus;
+	NDIS_STATUS	NStatus;
 	unsigned long		FrameLen;
 	FRAME_BAR	FrameBar;
 	unsigned char		MaxPeerBufSize;
@@ -1200,7 +1200,7 @@ void PeerAddBAReqAction(
 	unsigned char   pAddr[6];
 	FRAME_ADDBA_RSP ADDframe;
 	unsigned char *         pOutBuffer = NULL;
-	unsigned int     NStatus;
+	NDIS_STATUS     NStatus;
 	PFRAME_ADDBA_REQ  pAddreqFrame = NULL;
 	/*unsigned char		BufSize;*/
 	unsigned long       FrameLen;
@@ -1461,7 +1461,7 @@ void SendPSMPAction(
 				   IN unsigned char				Psmp) 
 {
 	unsigned char * pOutBuffer = NULL;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	FRAME_PSMP_ACTION Frame;
 	unsigned long FrameLen;
 #ifdef CONFIG_AP_SUPPORT	
@@ -1553,7 +1553,7 @@ void SendBeaconRequest(
 				   IN unsigned char				Wcid)
 {
 	unsigned char *          	pOutBuffer = NULL;
-	unsigned int     	NStatus;
+	NDIS_STATUS     	NStatus;
 	FRAME_RM_REQ_ACTION   Frame;
 	unsigned long           	FrameLen;
 	BEACON_REQUEST		BeaconReq;

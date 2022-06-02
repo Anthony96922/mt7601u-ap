@@ -7,7 +7,7 @@
 #include "rt_config.h"
 
 
-unsigned int rlt_rf_write(
+NDIS_STATUS rlt_rf_write(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char bank,
 	IN unsigned char regID,
@@ -15,7 +15,7 @@ unsigned int rlt_rf_write(
 {
 	RLT_RF_CSR_CFG rfcsr = { { 0 } };
 	unsigned int i = 0;
-	unsigned int	 ret;
+	NDIS_STATUS	 ret;
 
 #ifdef MT7601FPGA
 	return;
@@ -95,7 +95,7 @@ done:
 	
 	========================================================================
 */
-unsigned int rlt_rf_read(
+NDIS_STATUS rlt_rf_read(
 	IN RTMP_ADAPTER *pAd,
 	IN unsigned char bank,
 	IN unsigned char regID,
@@ -103,7 +103,7 @@ unsigned int rlt_rf_read(
 {
 	RLT_RF_CSR_CFG rfcsr = { { 0 } };
 	unsigned int i=0, k=0;
-	unsigned int	 ret = STATUS_UNSUCCESSFUL;
+	NDIS_STATUS	 ret = STATUS_UNSUCCESSFUL;
 
 
 	if (pAd->WlanFunCtrl.field.WLAN_EN == 0)

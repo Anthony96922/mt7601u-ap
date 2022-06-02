@@ -172,7 +172,7 @@ static void ApCliMlmeAssocReqAction(
 	IN PRTMP_ADAPTER pAd, 
 	IN MLME_QUEUE_ELEM *Elem) 
 {
-	unsigned int		 NStatus;
+	NDIS_STATUS		 NStatus;
 	bool          Cancelled;
 	unsigned char            ApAddr[6];
 	HEADER_802_11    AssocHdr;
@@ -525,7 +525,7 @@ static void ApCliMlmeDisassocReqAction(
 	HEADER_802_11         DisassocHdr;
 	unsigned char *                 pOutBuffer = NULL;
 	unsigned long                 FrameLen = 0;
-	unsigned int           NStatus;
+	NDIS_STATUS           NStatus;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
 	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AssocCurrState;

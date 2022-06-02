@@ -128,7 +128,7 @@ char const *pWirelessWscEventText[IW_WSC_EVENT_TYPE_NUM] = {
 #endif /* SYSTEM_LOG_SUPPORT */
 
 
-unsigned int	RTMPReadParametersHook(
+NDIS_STATUS	RTMPReadParametersHook(
 	IN	PRTMP_ADAPTER pAd)
 {
 	char *			src = NULL;

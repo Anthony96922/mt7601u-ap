@@ -33,13 +33,13 @@
 
 #include "rt_config.h"
 
-static unsigned int MATProto_PPPoEDis_Init(MAT_STRUCT *pMatStruct);
-static unsigned int MATProto_PPPoEDis_Exit(MAT_STRUCT *pMatStruct);
+static NDIS_STATUS MATProto_PPPoEDis_Init(MAT_STRUCT *pMatStruct);
+static NDIS_STATUS MATProto_PPPoEDis_Exit(MAT_STRUCT *pMatStruct);
 static unsigned char * MATProto_PPPoEDis_Rx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 static unsigned char * MATProto_PPPoEDis_Tx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 
-static unsigned int MATProto_PPPoESes_Init(MAT_STRUCT *pMatStruct);
-static unsigned int MATProto_PPPoESes_Exit(MAT_STRUCT *pMatStruct);
+static NDIS_STATUS MATProto_PPPoESes_Init(MAT_STRUCT *pMatStruct);
+static NDIS_STATUS MATProto_PPPoESes_Exit(MAT_STRUCT *pMatStruct);
 static unsigned char * MATProto_PPPoESes_Rx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 static unsigned char * MATProto_PPPoESes_Tx(MAT_STRUCT *pMatStruct, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pDevMacAdr);
 
@@ -168,7 +168,7 @@ struct _MATProtoOps MATProtoPPPoESesHandle =
 };
 
 
-unsigned int dumpSesMacTb(
+NDIS_STATUS dumpSesMacTb(
 	IN MAT_STRUCT *pMatCfg, 
 	IN int hashIdx)
 {
@@ -213,7 +213,7 @@ unsigned int dumpSesMacTb(
 }
 
 
-unsigned int dumpUidMacTb(MAT_STRUCT *pMatCfg, int hashIdx)
+NDIS_STATUS dumpUidMacTb(MAT_STRUCT *pMatCfg, int hashIdx)
 {
 	UidMacMappingTable *pUidMacTable;
 	UidMacMappingEntry *pHead;
@@ -260,7 +260,7 @@ unsigned int dumpUidMacTb(MAT_STRUCT *pMatCfg, int hashIdx)
 }
 
 
-static unsigned int UidMacTable_RemoveAll(
+static NDIS_STATUS UidMacTable_RemoveAll(
 	IN MAT_STRUCT *pMatCfg)
 {
 	UidMacMappingTable *pUidMacTable;
@@ -293,7 +293,7 @@ static unsigned int UidMacTable_RemoveAll(
 }
 
 
-static unsigned int SesMacTable_RemoveAll(
+static NDIS_STATUS SesMacTable_RemoveAll(
 	IN MAT_STRUCT *pMatCfg)
 {
 	SesMacMappingTable *pSesMacTable;
@@ -542,7 +542,7 @@ static unsigned char * getInMacByOutMacFromSesMacTb(
 /* This function used to maintain the pppoe convert table which incoming node 
 	is a pppoe client and want to connect to use inner pppoe server.
 */
-static unsigned int SesMacTableUpdate(
+static NDIS_STATUS SesMacTableUpdate(
 	IN MAT_STRUCT 	*pMatCfg,
 	IN unsigned char * 		inMacAddr,
 	IN unsigned short 		sesID,
@@ -939,7 +939,7 @@ static unsigned char * MATProto_PPPoEDis_Tx(
 
 
 /* PPPoE discovery stage init function */
-static unsigned int MATProto_PPPoEDis_Init(
+static NDIS_STATUS MATProto_PPPoEDis_Init(
 	IN MAT_STRUCT	*pMatCfg)
 {
 	UidMacMappingTable *pUidMacTable;
@@ -987,7 +987,7 @@ static unsigned int MATProto_PPPoEDis_Init(
 
 
 /* PPPoE discovery stage exit function */
-static unsigned int MATProto_PPPoEDis_Exit(
+static NDIS_STATUS MATProto_PPPoEDis_Exit(
 	IN MAT_STRUCT *pMatCfg)
 {
 	UidMacTable_RemoveAll(pMatCfg);
@@ -1044,14 +1044,14 @@ static unsigned char * MATProto_PPPoESes_Tx(
 
 
 /* PPPoE session stage init function */
-static unsigned int MATProto_PPPoESes_Init(
+static NDIS_STATUS MATProto_PPPoESes_Init(
 	IN MAT_STRUCT	*pMatStruct)
 {	
 	return TRUE;
 }
 
 /* PPPoE session stage exit function */
-static unsigned int MATProto_PPPoESes_Exit(
+static NDIS_STATUS MATProto_PPPoESes_Exit(
 	IN MAT_STRUCT	*pMatStruct)
 {
 

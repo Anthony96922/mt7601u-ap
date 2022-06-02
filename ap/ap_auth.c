@@ -97,7 +97,7 @@ static void APMlmeDeauthReqAction(
 	MLME_DEAUTH_REQ_STRUCT	*pInfo;
 	HEADER_802_11	Hdr;
 	unsigned char *		pOutBuffer = NULL;
-	unsigned int	NStatus;
+	NDIS_STATUS	NStatus;
 	unsigned long		FrameLen = 0;
 	MAC_TABLE_ENTRY	*pEntry;
 	unsigned char		apidx;
@@ -226,7 +226,7 @@ static void APPeerAuthReqAtIdleAction(
 	PHEADER_802_11 pRcvHdr;
 	HEADER_802_11 AuthHdr;
 	unsigned char * pOutBuffer = NULL;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	unsigned long FrameLen = 0;
 	MAC_TABLE_ENTRY *pEntry;
 	unsigned char ChTxtIe = 16, ChTxtLen = CIPHER_TEXT_LEN;
@@ -532,7 +532,7 @@ void APCls2errAction(
 {
     HEADER_802_11 Hdr;
     unsigned char *        pOutBuffer = NULL;
-    unsigned int   NStatus;
+    NDIS_STATUS   NStatus;
     unsigned long         FrameLen = 0;
     unsigned short        Reason = REASON_CLS2ERR;
     MAC_TABLE_ENTRY *pEntry = NULL;
@@ -594,7 +594,7 @@ void APPeerAuthSimpleRspGenAndSend(
     HEADER_802_11     AuthHdr;
     unsigned long             FrameLen = 0;
     unsigned char *            pOutBuffer = NULL;
-    unsigned int       NStatus;
+    NDIS_STATUS       NStatus;
 
 
     NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);

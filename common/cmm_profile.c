@@ -1980,7 +1980,7 @@ void RTMPSetCountryCode(RTMP_ADAPTER *pAd, char *CountryCode)
 }
 
 
-unsigned int RTMPSetProfileParameters(
+NDIS_STATUS RTMPSetProfileParameters(
 	IN RTMP_ADAPTER *pAd,
 	IN char *	pBuffer)
 {
@@ -4092,7 +4092,7 @@ void rtmp_read_multest_from_file(
 
 
 #ifdef SINGLE_SKU_V2
-unsigned int RTMPSetSingleSKUParameters(
+NDIS_STATUS RTMPSetSingleSKUParameters(
 	IN RTMP_ADAPTER *pAd)
 {
 	char *buffer, *readline, *token;

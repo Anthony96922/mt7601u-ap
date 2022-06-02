@@ -183,12 +183,12 @@ NDIS_SPIN_LOCK TimerSemLock;
 	
 	========================================================================
 */
-unsigned int	RTMPAllocAdapterBlock(
+NDIS_STATUS	RTMPAllocAdapterBlock(
 	IN  void *	handle,
 	OUT	void	**ppAdapter)
 {
 	PRTMP_ADAPTER	pAd = NULL;
-	unsigned int		Status;
+	NDIS_STATUS		Status;
 	int 			index;
 	unsigned char			*pBeaconBuf = NULL;
 
@@ -1197,11 +1197,11 @@ void AsicInitBcnBuf(IN RTMP_ADAPTER *pAd)
 		
 	========================================================================
 */
-unsigned int	NICInitializeAdapter(
+NDIS_STATUS	NICInitializeAdapter(
 	IN	PRTMP_ADAPTER	pAd,
 	IN   bool    bHardReset)
 {
-	unsigned int     Status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
 	unsigned long j=0;
 
 
@@ -1258,7 +1258,7 @@ retry:
 		
 	========================================================================
 */
-unsigned int	NICInitializeAsic(
+NDIS_STATUS	NICInitializeAsic(
 	IN	PRTMP_ADAPTER	pAd,
 	IN  bool		bHardReset)
 {
@@ -2179,10 +2179,10 @@ void NICUpdateRawCounters(
 
 }
 
-unsigned int NICLoadFirmware(
+NDIS_STATUS NICLoadFirmware(
 	IN PRTMP_ADAPTER pAd)
 {
-	unsigned int	 status = NDIS_STATUS_SUCCESS;
+	NDIS_STATUS	 status = NDIS_STATUS_SUCCESS;
 
 	if (pAd->chipOps.loadFirmware)
 		status = pAd->chipOps.loadFirmware(pAd);

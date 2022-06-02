@@ -589,7 +589,7 @@ void ap_cmm_peer_assoc_req_action(
 	unsigned short StatusCode = MLME_SUCCESS;
 	unsigned short Aid;
 	unsigned char * pOutBuffer = NULL;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	unsigned long FrameLen = 0;
 	unsigned char MaxSupportedRate = 0;
 	unsigned char SupRateLen, PhyMode, FlgIs11bSta;
@@ -1452,7 +1452,7 @@ void APMlmeKickOutSta(
 	HEADER_802_11 DisassocHdr;
 	unsigned char * pOutBuffer = NULL;
 	unsigned long FrameLen = 0;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	MAC_TABLE_ENTRY *pEntry;
 	unsigned char Aid;
 	unsigned char ApIdx;
@@ -1536,7 +1536,7 @@ void APCls3errAction(
 	HEADER_802_11 DisassocHdr;
 	unsigned char * pOutBuffer = NULL;
 	unsigned long FrameLen = 0;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	unsigned short Reason = REASON_CLS3ERR;
 	MAC_TABLE_ENTRY *pEntry = NULL;
 

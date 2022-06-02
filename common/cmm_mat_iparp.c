@@ -31,13 +31,13 @@
 
 #include "rt_config.h"
 
-static unsigned int MATProto_IP_Init(MAT_STRUCT *pMatCfg);
-static unsigned int MATProto_IP_Exit(MAT_STRUCT *pMatCfg);
+static NDIS_STATUS MATProto_IP_Init(MAT_STRUCT *pMatCfg);
+static NDIS_STATUS MATProto_IP_Exit(MAT_STRUCT *pMatCfg);
 static unsigned char * MATProto_IP_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
 static unsigned char * MATProto_IP_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
 
-static unsigned int MATProto_ARP_Init(MAT_STRUCT *pMatCfg);
-static unsigned int MATProto_ARP_Exit(MAT_STRUCT *pMatCfg);
+static NDIS_STATUS MATProto_ARP_Init(MAT_STRUCT *pMatCfg);
+static NDIS_STATUS MATProto_ARP_Exit(MAT_STRUCT *pMatCfg);
 static unsigned char * MATProto_ARP_Rx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb, unsigned char * pLayerHdr, unsigned char * pMacAddr);
 static unsigned char * MATProto_ARP_Tx(MAT_STRUCT *pMatCfg, PNDIS_PACKET pSkb,unsigned char * pLayerHdr, unsigned char * pMacAddr);
 
@@ -128,7 +128,7 @@ void dumpIPMacTb(
 }
 
 
-static inline unsigned int getDstIPFromIpPkt(
+static inline NDIS_STATUS getDstIPFromIpPkt(
 	IN unsigned char * pIpHdr, 
 	IN unsigned int *dstIP)
 {
@@ -142,7 +142,7 @@ static inline unsigned int getDstIPFromIpPkt(
 	return TRUE;
 }
 
-static inline unsigned int getSrcIPFromIpPkt(
+static inline NDIS_STATUS getSrcIPFromIpPkt(
 	IN unsigned char * pIpHdr,
 	IN unsigned int   *pSrcIP)
 {
@@ -157,7 +157,7 @@ static inline unsigned int getSrcIPFromIpPkt(
 	
 }
 
-static unsigned int IPMacTableUpdate(
+static NDIS_STATUS IPMacTableUpdate(
 	IN MAT_STRUCT		*pMatCfg,
 	IN unsigned char *			pMacAddr,
 	IN unsigned int				ipAddr)
@@ -312,7 +312,7 @@ static unsigned char * IPMacTableLookUp(
 }
 
 
-static unsigned int IPMacTable_RemoveAll(
+static NDIS_STATUS IPMacTable_RemoveAll(
 	IN MAT_STRUCT *pMatCfg)
 {
 	IPMacMappingEntry *pEntry;
@@ -347,7 +347,7 @@ static unsigned int IPMacTable_RemoveAll(
 }
 
 
-static unsigned int IPMacTable_init(
+static NDIS_STATUS IPMacTable_init(
 	IN MAT_STRUCT *pMatCfg)
 {
 	IPMacMappingTable *pIPMacTable;
@@ -402,7 +402,7 @@ static unsigned int IPMacTable_init(
 }
 
 
-static unsigned int MATProto_ARP_Exit(
+static NDIS_STATUS MATProto_ARP_Exit(
 	IN MAT_STRUCT *pMatCfg)
 {
 	int status;
@@ -521,7 +521,7 @@ static unsigned char * MATProto_ARP_Tx(
 }
 
 
-static unsigned int MATProto_ARP_Init(
+static NDIS_STATUS MATProto_ARP_Init(
 	IN MAT_STRUCT 	*pMatCfg)
 {
 	bool status = FALSE;
@@ -532,7 +532,7 @@ static unsigned int MATProto_ARP_Init(
 }
 
 
-static unsigned int MATProto_IP_Exit(
+static NDIS_STATUS MATProto_IP_Exit(
 	IN MAT_STRUCT	*pMatCfg)
 {
 	int status;
@@ -622,7 +622,7 @@ static unsigned char * MATProto_IP_Tx(
 }
 
 
-static unsigned int MATProto_IP_Init(
+static NDIS_STATUS MATProto_IP_Init(
 	IN MAT_STRUCT *pMatCfg)
 {
 	bool status;

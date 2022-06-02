@@ -134,7 +134,7 @@ void rtmp_read_igmp_snoop_from_file(
 	char * tmpbuf,
 	char * buffer);
 
-unsigned int IgmpPktInfoQuery(
+NDIS_STATUS IgmpPktInfoQuery(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pSrcBufVA,
 	IN PNDIS_PACKET pPacket,
@@ -142,7 +142,7 @@ unsigned int IgmpPktInfoQuery(
 	OUT int *pInIgmpGroup,
 	OUT PMULTICAST_FILTER_TABLE_ENTRY *ppGroupEntry);
 
-unsigned int IgmpPktClone(
+NDIS_STATUS IgmpPktClone(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
 	IN int IgmpPktInGroup,

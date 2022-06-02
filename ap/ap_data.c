@@ -232,7 +232,7 @@ void APSendPackets(NDIS_HANDLE dev_hnd, PPNDIS_PACKET pkt_list, unsigned int pkt
 
 ========================================================================
 */
-unsigned int APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
+NDIS_STATUS APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 {
 	PACKET_INFO PacketInfo;
 	unsigned char *pSrcBufVA;
@@ -563,7 +563,7 @@ unsigned int APSendPacket(RTMP_ADAPTER *pAd, PNDIS_PACKET pPacket)
 				&&  (IgmpMemberCnt(&pGroupEntry->MemberList) > 0))
 			|| (InIgmpGroup == IGMP_PKT))
 		{
-			unsigned int PktCloneResult = IgmpPktClone(pAd, pPacket, InIgmpGroup, 	pGroupEntry,
+			NDIS_STATUS PktCloneResult = IgmpPktClone(pAd, pPacket, InIgmpGroup, 	pGroupEntry,
 												QueIdx, UserPriority, GET_OS_PKT_NETDEV(pPacket));
 			RELEASE_NDIS_PACKET(pAd, pPacket, NDIS_STATUS_SUCCESS);
 			if (PktCloneResult != NDIS_STATUS_SUCCESS)
@@ -3268,7 +3268,7 @@ void AP_ARalink_Frame_Tx(RTMP_ADAPTER *pAd, TX_BLK *pTxBlk)
 		None
 	========================================================================
 */
-unsigned int APHardTransmit(	
+NDIS_STATUS APHardTransmit(	
 	IN	PRTMP_ADAPTER	pAd,
 	IN	TX_BLK			*pTxBlk,
 	IN	unsigned char			QueIdx)
@@ -3369,7 +3369,7 @@ unsigned int APHardTransmit(
 		Check Rx descriptor, return NDIS_STATUS_FAILURE if any error found
 	========================================================================
 */
-unsigned int APCheckRxError(
+NDIS_STATUS APCheckRxError(
 	IN RTMP_ADAPTER *pAd,
 	IN RXINFO_STRUC *pRxInfo,
 	IN unsigned char Wcid)
@@ -6328,7 +6328,7 @@ bool APFowardWirelessStaToWirelessSta(
 		NDIS_STATUS_FAILURE: If failed to do en-queue.
 ========================================================================
 */
-unsigned int APInsertPsQueue(
+NDIS_STATUS APInsertPsQueue(
 	IN PRTMP_ADAPTER pAd,
 	IN PNDIS_PACKET pPacket,
 	IN MAC_TABLE_ENTRY *pMacEntry,

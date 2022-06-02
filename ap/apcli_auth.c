@@ -151,7 +151,7 @@ static void ApCliMlmeAuthReqAction(
 	IN MLME_QUEUE_ELEM *Elem)
 {
 	bool             Cancelled;
-	unsigned int         NState;
+	NDIS_STATUS         NState;
 	unsigned char               Addr[MAC_ADDR_LEN];
 	unsigned short              Alg, Seq, Status;
 	unsigned long               Timeout;
@@ -241,7 +241,7 @@ static void ApCliPeerAuthRspAtSeq2Action(
 	unsigned char           CyperChlgText[CIPHER_TEXT_LEN + 8 + 8];
 	unsigned long			c_len = 0;	
 	HEADER_802_11   AuthHdr;
-	unsigned int     NState;
+	NDIS_STATUS     NState;
 	unsigned char *          pOutBuffer = NULL;
 	unsigned long           FrameLen = 0;
 	APCLI_CTRL_MSG_STRUCT ApCliCtrlMsg;
@@ -537,7 +537,7 @@ static void ApCliMlmeDeauthReqAction(
 	HEADER_802_11 DeauthHdr;
 	unsigned char * pOutBuffer = NULL;
 	unsigned long FrameLen = 0;
-	unsigned int NStatus;
+	NDIS_STATUS NStatus;
 	unsigned short ifIndex = (unsigned short)(Elem->Priv);
 	unsigned long * pCurrState = &pAd->ApCfg.ApCliTab[ifIndex].AuthCurrState;
 

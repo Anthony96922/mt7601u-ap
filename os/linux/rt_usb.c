@@ -45,11 +45,11 @@ Return Value:
 Note:
 ========================================================================
 */
-unsigned int	 RtmpMgmtTaskInit(
+NDIS_STATUS	 RtmpMgmtTaskInit(
 	IN RTMP_ADAPTER *pAd)
 {
 	RTMP_OS_TASK *pTask;
-	unsigned int status;
+	NDIS_STATUS status;
 
 	/*
 		Creat TimerQ Thread, We need init timerQ related structure before create the timer thread.
@@ -1094,7 +1094,7 @@ static void rtusb_ate_ac0_dma_done_tasklet(unsigned long data)
 #endif /* RALINK_ATE */
 
 
-unsigned int RtmpNetTaskInit(
+NDIS_STATUS RtmpNetTaskInit(
 	IN RTMP_ADAPTER *pAd)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
