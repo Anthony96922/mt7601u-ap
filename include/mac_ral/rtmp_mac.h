@@ -1517,7 +1517,7 @@ typedef	union _RX_STA_CNT0_STRUC {
 #endif
 
 
-/* RX_STA_CNT1_STRUC: RX False CCA count & RX long frame count */
+/* RX_STA_CNT1_STRUC: RX False CCA count & RX LONG frame count */
 #define RX_STA_CNT1		0x1704
 #ifdef RT_BIG_ENDIAN
 typedef	union _RX_STA_CNT1_STRUC {

@@ -1332,7 +1332,7 @@ typedef struct _MLME_AUX {
 #ifdef APCLI_SUPPORT
 	unsigned short              VarIELen;           /* Length of next VIE include EID & Length */
     unsigned char               VarIEs[MAX_VIE_LEN];
-    long				Rssi; /* Record the rssi value when receive Probe Rsp. */
+    LONG				Rssi; /* Record the rssi value when receive Probe Rsp. */
 	RALINK_TIMER_STRUCT ProbeTimer, ApCliAssocTimer, ApCliAuthTimer;
 #endif /* APCLI_SUPPORT */
 #endif /* CONFIG_AP_SUPPORT */

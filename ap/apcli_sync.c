@@ -309,10 +309,10 @@ static VOID ApCliPeerProbeRspAtJoinAction(
 				char Rssi0 = ConvertToRssi(pAd, Elem->Rssi0, RSSI_0, Elem->AntSel, BW_20);
 				char Rssi1 = ConvertToRssi(pAd, Elem->Rssi1, RSSI_1, Elem->AntSel, BW_20);
 				char Rssi2 = ConvertToRssi(pAd, Elem->Rssi2, RSSI_2, Elem->AntSel, BW_20);
-				long RealRssi = (long)(RTMPMaxRssi(pAd, Rssi0, Rssi1, Rssi2));
+				LONG RealRssi = (LONG)(RTMPMaxRssi(pAd, Rssi0, Rssi1, Rssi2));
 
-				DBGPRINT(RT_DEBUG_TRACE, ("SYNC - previous Rssi = %ld current Rssi=%ld\n", pAd->ApCliMlmeAux.Rssi, (long)RealRssi));
-				if (pAd->ApCliMlmeAux.Rssi > (long)RealRssi)
+				DBGPRINT(RT_DEBUG_TRACE, ("SYNC - previous Rssi = %ld current Rssi=%ld\n", pAd->ApCliMlmeAux.Rssi, (LONG)RealRssi));
+				if (pAd->ApCliMlmeAux.Rssi > (LONG)RealRssi)
 					goto LabelErr;
 				else
 					pAd->ApCliMlmeAux.Rssi = RealRssi;

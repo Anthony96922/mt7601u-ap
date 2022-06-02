@@ -929,8 +929,8 @@ typedef struct _SOFT_RX_ANT_DIVERSITY_STRUCT {
 	unsigned long RcvPktNumWhenEvaluate;
 	bool FirstPktArrivedWhenEvaluate;
 #ifdef CONFIG_AP_SUPPORT
-	long Pair1AvgRssiGroup1[2];
-	long Pair1AvgRssiGroup2[2];
+	LONG Pair1AvgRssiGroup1[2];
+	LONG Pair1AvgRssiGroup2[2];
 	unsigned long RcvPktNum[2];
 #endif /* CONFIG_AP_SUPPORT */
 } SOFT_RX_ANT_DIVERSITY, *PSOFT_RX_ANT_DIVERSITY;
@@ -5385,7 +5385,7 @@ bool MlmeEnqueueForRecv(
 bool MlmeEnqueueForWsc(
 	IN PRTMP_ADAPTER	pAd,
 	IN unsigned long eventID,
-	IN long senderID,
+	IN LONG senderID,
 	IN unsigned long Machine,
 	IN unsigned long MsgType,
 	IN unsigned long MsgLen,

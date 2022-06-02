@@ -3907,7 +3907,7 @@ VOID rtmp_read_multest_from_file(
 
 			{
 				INT iii;
-				long WdsTabIdx = -1;
+				LONG WdsTabIdx = -1;
 
 				for (iii = 0; iii < MAX_WDS_ENTRY; iii++) {
 					if (pAd->MulTestTab.WdsEntry[iii].Valid == FALSE) {

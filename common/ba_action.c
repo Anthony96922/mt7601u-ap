@@ -1974,7 +1974,7 @@ VOID Indicate_AMPDU_Packet(
 	/* V. Receive seq surpasses Win(lastseq + nMSDU). So refresh all reorder buffer*/
 	else
 	{
-		long WinStartSeq, TmpSeq;
+		LONG WinStartSeq, TmpSeq;
 
 
 		TmpSeq = Sequence - (pBAEntry->BAWinSize) -1;
@@ -2116,7 +2116,7 @@ VOID Indicate_AMPDU_Packet_Hdr_Trns(
 	/* V. Receive seq surpasses Win(lastseq + nMSDU). So refresh all reorder buffer*/
 	else
 	{
-		long WinStartSeq, TmpSeq;
+		LONG WinStartSeq, TmpSeq;
 
 		TmpSeq = Sequence - (pBAEntry->BAWinSize) -1;
 		if (TmpSeq < 0)

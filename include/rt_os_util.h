@@ -251,7 +251,7 @@ VOID RtmpOsPktDataPtrAssign(
 
 VOID RtmpOsPktLenAssign(
 	IN	PNDIS_PACKET			pNetPkt,
-	IN	long					Len);
+	IN	LONG					Len);
 
 VOID RtmpOsPktTailAdjust(
 	IN	PNDIS_PACKET			pNetPkt,
@@ -592,9 +592,9 @@ unsigned long RtmpOsUsbUrbLenGet(VOID *pUrb);
 /* OS Atomic */
 bool RtmpOsAtomicInit(RTMP_OS_ATOMIC *pAtomic, LIST_HEADER *pAtomicList);
 VOID RtmpOsAtomicDestroy(RTMP_OS_ATOMIC *pAtomic);
-long RtmpOsAtomicRead(RTMP_OS_ATOMIC *pAtomic);
+LONG RtmpOsAtomicRead(RTMP_OS_ATOMIC *pAtomic);
 VOID RtmpOsAtomicDec(RTMP_OS_ATOMIC *pAtomic);
-VOID RtmpOsAtomicInterlockedExchange(RTMP_OS_ATOMIC *pAtomicSrc, long Value);
+VOID RtmpOsAtomicInterlockedExchange(RTMP_OS_ATOMIC *pAtomicSrc, LONG Value);
 
 /* OS Utility */
 void hex_dump(char *str, unsigned char * pSrcBufVA, unsigned int SrcBufLen);

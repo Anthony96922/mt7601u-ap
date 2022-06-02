@@ -69,7 +69,7 @@ if ((pAd->WdsTab.WdsEntry[ifidx].dev != NULL) && (RTMP_OS_NETDEV_STATE_RUNNING(p
 	return FALSE;
 }
 
-long WdsEntryAlloc(
+LONG WdsEntryAlloc(
 	IN PRTMP_ADAPTER pAd,
 	IN unsigned char * pAddr);
 

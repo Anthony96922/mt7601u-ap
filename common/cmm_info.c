@@ -124,7 +124,7 @@ INT	Set_Cmm_WirelessMode_Proc(
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
 
 	if (FlgIsDiffMbssModeUsed) {
-		long cfg_mode = simple_strtol(arg, 0, 10);
+		LONG cfg_mode = simple_strtol(arg, 0, 10);
 
 		/* assign wireless mode for the BSS */
 		pAd->ApCfg.MBSSID[pObj->ioctl_if].PhyMode =
@@ -362,7 +362,7 @@ INT	Set_TxPower_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	long TxPower;
+	LONG TxPower;
 	INT   success = FALSE;
 
 	TxPower = simple_strtol(arg, 0, 10);
@@ -536,7 +536,7 @@ INT	Set_TxBurst_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	long TxBurst;
+	LONG TxBurst;
 
 	TxBurst = simple_strtol(arg, 0, 10);
 	if (TxBurst == 1)
@@ -567,7 +567,7 @@ INT	Set_PktAggregate_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-	long aggre;
+	LONG aggre;
 
 	aggre = simple_strtol(arg, 0, 10);
 
@@ -709,7 +709,7 @@ INT	Set_IEEE80211H_Proc(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
-    long ieee80211h;
+    LONG ieee80211h;
 
 	ieee80211h = simple_strtol(arg, 0, 10);
 

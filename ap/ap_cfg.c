@@ -6456,7 +6456,7 @@ VOID RTMPAPIoctlBBP32(
 	char *				arg; /*arg[255]; */
 	char *				ptr;
 	INT					bbpId;
-	long				bbpValue;
+	LONG				bbpValue;
 	bool				bIsPrintAllBBP = FALSE, bAllowDump, bCopyMsg;
 	INT					argLen;
 
@@ -6628,7 +6628,7 @@ VOID RTMPAPIoctlBBP(
 	char *				arg; /*arg[255]; */
 	char *				ptr;
 	INT					bbpId;
-	long				bbpValue;
+	LONG				bbpValue;
 	bool				bIsPrintAllBBP = FALSE, bAllowDump, bCopyMsg;
 	INT					argLen;
 
@@ -7066,7 +7066,7 @@ VOID RTMPAPIoctlRF(
 	char *				arg;
 /*	char *				ptr;*/
 	INT				rfId, maxRFIdx, bank_Id;
-/*	long				rfValue;*/
+/*	LONG				rfValue;*/
 	bool				bIsPrintAllRF = TRUE, bFromUI;
 	INT				memLen = sizeof(char) * (2048+256+12);
 	INT				argLen;
@@ -7413,13 +7413,13 @@ VOID RTMPIoctlStatistics(
 	{
 		if (pAd->ate.RxAntennaSel == 0)
 		{
-    		sprintf(msg+strlen(msg), "RSSI-A                          = %ld\n", (long)(pAd->ate.LastRssi0 - pAd->BbpRssiToDbmDelta));
-			sprintf(msg+strlen(msg), "RSSI-B (if available)           = %ld\n", (long)(pAd->ate.LastRssi1 - pAd->BbpRssiToDbmDelta));
-			sprintf(msg+strlen(msg), "RSSI-C (if available)           = %ld\n\n", (long)(pAd->ate.LastRssi2 - pAd->BbpRssiToDbmDelta));
+    		sprintf(msg+strlen(msg), "RSSI-A                          = %ld\n", (LONG)(pAd->ate.LastRssi0 - pAd->BbpRssiToDbmDelta));
+			sprintf(msg+strlen(msg), "RSSI-B (if available)           = %ld\n", (LONG)(pAd->ate.LastRssi1 - pAd->BbpRssiToDbmDelta));
+			sprintf(msg+strlen(msg), "RSSI-C (if available)           = %ld\n\n", (LONG)(pAd->ate.LastRssi2 - pAd->BbpRssiToDbmDelta));
 		}
 		else
 		{
-    		sprintf(msg+strlen(msg), "RSSI                            = %ld\n", (long)(pAd->ate.LastRssi0 - pAd->BbpRssiToDbmDelta));
+    		sprintf(msg+strlen(msg), "RSSI                            = %ld\n", (LONG)(pAd->ate.LastRssi0 - pAd->BbpRssiToDbmDelta));
 		}
 	}
 	else
@@ -7427,9 +7427,9 @@ VOID RTMPIoctlStatistics(
 	{
 #ifdef ENHANCED_STAT_DISPLAY
 	sprintf(msg+strlen(msg), "RSSI                            = %ld %ld %ld\n",
-    			(long)(pAd->ApCfg.RssiSample.LastRssi0 - pAd->BbpRssiToDbmDelta),
-    			(long)(pAd->ApCfg.RssiSample.LastRssi1 - pAd->BbpRssiToDbmDelta),
-    			(long)(pAd->ApCfg.RssiSample.LastRssi2 - pAd->BbpRssiToDbmDelta));
+    			(LONG)(pAd->ApCfg.RssiSample.LastRssi0 - pAd->BbpRssiToDbmDelta),
+    			(LONG)(pAd->ApCfg.RssiSample.LastRssi1 - pAd->BbpRssiToDbmDelta),
+    			(LONG)(pAd->ApCfg.RssiSample.LastRssi2 - pAd->BbpRssiToDbmDelta));
 
     	/* Display Last Rx Rate and BF SNR of first Associated entry in MAC table */
     	if (pAd->MacTab.Size > 0)
@@ -7465,9 +7465,9 @@ VOID RTMPIoctlStatistics(
 			}
     	}
 #else
-    	sprintf(msg+strlen(msg), "RSSI-A                          = %ld\n", (long)(pAd->ApCfg.RssiSample.LastRssi0 - pAd->BbpRssiToDbmDelta));
-		sprintf(msg+strlen(msg), "RSSI-B (if available)           = %ld\n", (long)(pAd->ApCfg.RssiSample.LastRssi1 - pAd->BbpRssiToDbmDelta));
-		sprintf(msg+strlen(msg), "RSSI-C (if available)           = %ld\n\n", (long)(pAd->ApCfg.RssiSample.LastRssi2 - pAd->BbpRssiToDbmDelta));
+    	sprintf(msg+strlen(msg), "RSSI-A                          = %ld\n", (LONG)(pAd->ApCfg.RssiSample.LastRssi0 - pAd->BbpRssiToDbmDelta));
+		sprintf(msg+strlen(msg), "RSSI-B (if available)           = %ld\n", (LONG)(pAd->ApCfg.RssiSample.LastRssi1 - pAd->BbpRssiToDbmDelta));
+		sprintf(msg+strlen(msg), "RSSI-C (if available)           = %ld\n\n", (LONG)(pAd->ApCfg.RssiSample.LastRssi2 - pAd->BbpRssiToDbmDelta));
 #endif /* ENHANCED_STAT_DISPLAY */
 	}
 
@@ -10328,7 +10328,7 @@ INT	ApCfg_Set_IdleTimeout_Proc(
 	IN PRTMP_ADAPTER 	pAd, 
 	IN char * 			arg)
 {
-	long idle_time;
+	LONG idle_time;
 
 	idle_time = simple_strtol(arg, 0, 10);
 
@@ -11111,7 +11111,7 @@ INT	Set_TestTxFrameProc(
 	IN	PRTMP_ADAPTER	pAd, 
 	IN	char *			arg)
 {
-	long	WirelessMode;
+	LONG	WirelessMode;
 	PMAC_TABLE_ENTRY	pMacEntry = NULL;
 	unsigned int 	Value1 = 0;
 	unsigned char	tempMAC[MAC_ADDR_LEN] = {0x00,0x11,0x22,0x33,0x44,0x55};
@@ -11740,7 +11740,7 @@ INT Set_DumpBeaconBuffer_Proc(
 	IN RTMP_ADAPTER		*pAd,
 	IN char *			arg)
 {
-	long count;
+	LONG count;
 	unsigned int IdMac;
 	unsigned int macValue;
 

@@ -5756,7 +5756,7 @@ NDIS_STATUS ATEInit(
 	pATEInfo->Payload = 0xA5;/* to be backward compatible */	
 	pATEInfo->IPG = 200;/* 200 : sync with QA */	
 	pATEInfo->TxLength = 1024;
-	pATEInfo->TxWI.TxWIShortGI = 0;/* long GI : 800 ns*/
+	pATEInfo->TxWI.TxWIShortGI = 0;/* LONG GI : 800 ns*/
 	pATEInfo->TxWI.TxWIPHYMODE = MODE_CCK;
 	pATEInfo->TxWI.TxWIMCS = 3;
 	pATEInfo->TxWI.TxWIBW = BW_20;
