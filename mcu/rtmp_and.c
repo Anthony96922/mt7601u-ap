@@ -84,7 +84,7 @@ static NDIS_STATUS USBLoadIVB(RTMP_ADAPTER *pAd)
 }
 
 
-NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
+int USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
 {
 	PURB pURB;
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
@@ -1501,7 +1501,7 @@ error:
 }
 
 
-INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
+int AndesRandomWrite(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	CHAR *Pos, *Buf, *CurHeader;
@@ -1509,10 +1509,7 @@ INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
-	va_list argptr;
 	bool LastPacket = FALSE;
-
-	va_start(argptr, Num);
 
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
@@ -1531,12 +1528,12 @@ INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 		for (i = 0; i < (SentLen / 8); i++)
 		{
 			/* Address */
-			Value = cpu2le32( va_arg(argptr, unsigned int) +pChipCap->WlanMemmapOffset);
+			Value = cpu2le32( Num +pChipCap->WlanMemmapOffset);
 			NdisMoveMemory(Pos, &Value, 4);
 			Pos += 4;
 
 			/* UpdateData */
-			Value = cpu2le32(va_arg(argptr, unsigned int));
+			Value = cpu2le32(Num);
 			NdisMoveMemory(Pos, &Value, 4);
 			Pos += 4;
 		};
@@ -1565,7 +1562,6 @@ INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 
 error:
 	os_free_mem(NULL, Buf);
-	va_end(argptr);
 
 	return NDIS_STATUS_SUCCESS;
 }
@@ -1652,7 +1648,7 @@ error:
 }
 
 
-INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
+int AndesRFRandomWrite(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num)
 {
 	struct CMD_UNIT CmdUnit;
 	CHAR *Pos, *Buf, *CurHeader;
@@ -1660,10 +1656,7 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 	unsigned int Value, i, CurIndex = 0;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	int Ret;
-	va_list argptr;
 	bool LastPacket = FALSE;
-
-	va_start(argptr, Num);
 
 	os_alloc_mem(pAd, (unsigned char **)&Buf, VarLen);
 	
@@ -1686,10 +1679,10 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 			Value = (Value & ~0x80000000) | 0x80000000;
 
 			/* RF bank */
-			Value = (Value & ~0x00ff0000) | (va_arg(argptr,  unsigned int) << 16);
+			Value = (Value & ~0x00ff0000) | (Num << 16);
 
 			/* RF Index */
-			Value = (Value & ~0x000000ff) | va_arg(argptr,  unsigned int);
+			Value = (Value & ~0x000000ff) | Num;
 			
 			//printk("Value = %x RF Bank = %d and Index = %d\n", Value, RegPair[i + CurIndex].Bank, RegPair[i + CurIndex].Register);
 
@@ -1699,7 +1692,7 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 
 			Value = 0;
 			/* UpdateData */
-			Value = (Value & ~0x000000ff) | va_arg(argptr,  unsigned int);
+			Value = (Value & ~0x000000ff) | Num;
 
 			Value = cpu2le32(Value);
 			NdisMoveMemory(Pos, &Value, 4);
@@ -1731,7 +1724,6 @@ INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...)
 
 error:
 	os_free_mem(NULL, Buf);
-	va_end(argptr);
 
 	return NDIS_STATUS_SUCCESS;
 }
@@ -2016,7 +2008,7 @@ INT AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param)
 }
 
 
-INT AndesCalibrationOP(PRTMP_ADAPTER pAd, unsigned int CalibrationID, unsigned int Param)
+void AndesCalibrationOP(PRTMP_ADAPTER pAd, unsigned int CalibrationID, unsigned int Param)
 {
 
 	struct CMD_UNIT CmdUnit;
@@ -2055,7 +2047,5 @@ INT AndesCalibrationOP(PRTMP_ADAPTER pAd, unsigned int CalibrationID, unsigned i
 	Ret = AsicSendCmdToAndes(pAd, &CmdUnit);
 
 	os_free_mem(NULL, Buf);
-
-	return NDIS_STATUS_SUCCESS;
 }
 

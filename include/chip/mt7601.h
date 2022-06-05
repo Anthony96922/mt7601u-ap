@@ -233,7 +233,7 @@ VOID MT7601_RXDC_CAL(struct _RTMP_ADAPTER *pAd);
 INT MT7601_ReadChannelPwr(struct _RTMP_ADAPTER *pAd);
 VOID MT7601_ReadTxPwrPerRate(struct _RTMP_ADAPTER *pAd);
 VOID MT7601_INIT_CAL(struct _RTMP_ADAPTER *pAd);
-NTSTATUS MT7601DisableTxRx(struct _RTMP_ADAPTER *pAd, unsigned char Level);
+void MT7601DisableTxRx(struct _RTMP_ADAPTER *pAd, unsigned char Level);
 VOID dump_bw_info(struct _RTMP_ADAPTER *pAd);
 VOID MT7601AsicTemperatureCompensation(IN struct _RTMP_ADAPTER *pAd, IN bool bPowerOn);
 #ifdef RTMP_INTERNAL_TX_ALC

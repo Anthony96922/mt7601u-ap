@@ -557,14 +557,14 @@ unsigned int	APValidateRSNIE(
     ==========================================================================
 */
 VOID HandleCounterMeasure(
-    IN PRTMP_ADAPTER    pAd, 
-    IN MAC_TABLE_ENTRY  *pEntry) 
+    IN PRTMP_ADAPTER    pAd,
+    IN MAC_TABLE_ENTRY  *pEntry)
 {
-    INT         i;
-    bool     Cancelled;
+	int         i;
+	bool     Cancelled;
 
-    if (!pEntry)
-        return;
+	if (!pEntry)
+		return;
 
 	/* Todo by AlbertY - Not support currently in ApClient-link */
 	if (IS_ENTRY_APCLI(pEntry))
@@ -576,49 +576,46 @@ VOID HandleCounterMeasure(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("HandleCounterMeasure ===> \n"));
 
-    /* record which entry causes this MIC error, if this entry sends disauth/disassoc, AP doesn't need to log the CM */
-    pEntry->CMTimerRunning = TRUE;
-    pAd->ApCfg.MICFailureCounter++;
-    
+	/* record which entry causes this MIC error, if this entry sends disauth/disassoc, AP doesn't need to log the CM */
+	pEntry->CMTimerRunning = TRUE;
+	pAd->ApCfg.MICFailureCounter++;
+
 	/* send wireless event - for MIC error */
-	RTMPSendWirelessEvent(pAd, IW_MIC_ERROR_EVENT_FLAG, pEntry->Addr, 0, 0); 
-	
-    if (pAd->ApCfg.CMTimerRunning == TRUE)
-    {
-        DBGPRINT(RT_DEBUG_ERROR, ("Receive CM Attack Twice within 60 seconds ====>>> \n"));
-        
+	RTMPSendWirelessEvent(pAd, IW_MIC_ERROR_EVENT_FLAG, pEntry->Addr, 0, 0);
+
+	if (pAd->ApCfg.CMTimerRunning == TRUE) {
+		DBGPRINT(RT_DEBUG_ERROR, ("Receive CM Attack Twice within 60 seconds ====>>> \n"));
+
 		/* send wireless event - for counter measures */
-		RTMPSendWirelessEvent(pAd, IW_COUNTER_MEASURES_EVENT_FLAG, pEntry->Addr, 0, 0); 
+		RTMPSendWirelessEvent(pAd, IW_COUNTER_MEASURES_EVENT_FLAG, pEntry->Addr, 0, 0);
 		ApLogEvent(pAd, pEntry->Addr, EVENT_COUNTER_M);
-		
-        /* renew GTK */
+
+		/* renew GTK */
 		GenRandom(pAd, pAd->ApCfg.MBSSID[pEntry->apidx].Bssid, pAd->ApCfg.MBSSID[pEntry->apidx].GNonce);
 
 		/* Cancel CounterMeasure Timer */
 		RTMPCancelTimer(&pAd->ApCfg.CounterMeasureTimer, &Cancelled);
 		pAd->ApCfg.CMTimerRunning = FALSE;
 
-        for (i = 0; i < MAX_LEN_OF_MAC_TABLE; i++)
-        {
-            /* happened twice within 60 sec,  AP SENDS disaccociate all associated STAs.  All STA's transition to State 2 */
-            if (IS_ENTRY_CLIENT(&pAd->MacTab.Content[i]))
-            {
-                MlmeDeAuthAction(pAd, &pAd->MacTab.Content[i], REASON_MIC_FAILURE, FALSE);
-            }
-        }
-        
-        /* Further,  ban all Class 3 DATA transportation for  a period 0f 60 sec */
-        /* disallow new association , too */
-        pAd->ApCfg.BANClass3Data = TRUE;        
+		for (i = 0; i < MAX_LEN_OF_MAC_TABLE; i++) {
+			/* happened twice within 60 sec,  AP SENDS disaccociate all associated STAs.  All STA's transition to State 2 */
+			if (IS_ENTRY_CLIENT(&pAd->MacTab.Content[i])) {
+				MlmeDeAuthAction(pAd, &pAd->MacTab.Content[i], REASON_MIC_FAILURE, FALSE);
+			}
+		}
 
-        /* check how many entry left...  should be zero */
-        /*pAd->ApCfg.MBSSID[pEntry->apidx].GKeyDoneStations = pAd->MacTab.Size; */
-        /*DBGPRINT(RT_DEBUG_TRACE, ("GKeyDoneStations=%d \n", pAd->ApCfg.MBSSID[pEntry->apidx].GKeyDoneStations)); */
-    }
+		/* Further,  ban all Class 3 DATA transportation for  a period 0f 60 sec */
+		/* disallow new association , too */
+		pAd->ApCfg.BANClass3Data = TRUE;
+
+		/* check how many entry left...  should be zero */
+		/*pAd->ApCfg.MBSSID[pEntry->apidx].GKeyDoneStations = pAd->MacTab.Size; */
+		/*DBGPRINT(RT_DEBUG_TRACE, ("GKeyDoneStations=%d \n", pAd->ApCfg.MBSSID[pEntry->apidx].GKeyDoneStations)); */
+	}
 
 	RTMPSetTimer(&pAd->ApCfg.CounterMeasureTimer, 60 * MLME_TASK_EXEC_INTV * MLME_TASK_EXEC_MULTIPLE);
-    pAd->ApCfg.CMTimerRunning = TRUE;
-    pAd->ApCfg.PrevaMICFailTime = pAd->ApCfg.aMICFailTime;
+	pAd->ApCfg.CMTimerRunning = TRUE;
+	pAd->ApCfg.PrevaMICFailTime = pAd->ApCfg.aMICFailTime;
 	RTMP_GetCurrentSystemTime(&pAd->ApCfg.aMICFailTime);
 }
 
@@ -1244,64 +1241,60 @@ VOID RTMPHandleSTAKey(
 	/*Benson add for big-endian 20081016--> */
 	KEY_INFO			peerKeyInfo;
 	/*Benson add 20081016 <-- */
-	
+
 	DBGPRINT(RT_DEBUG_TRACE, ("==> RTMPHandleSTAKey\n"));
 
 	if (!pEntry)
 		return;
-	
+
 	if ((pEntry->WpaState != AS_PTKINITDONE))
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("Not expect calling STAKey hand shaking here"));
 		return;
 	}
 
-    pHeader = (PHEADER_802_11) Elem->Msg;
+	pHeader = (PHEADER_802_11) Elem->Msg;
 
 	/* QoS control field (2B) is took off */
-/*    if (pHeader->FC.SubType & 0x08) */
-/*        Offset += 2; */
-    
-	pSTAKey = (PEAPOL_PACKET)&Elem->Msg[LENGTH_802_11 + LENGTH_802_1_H + Offset];	
+/*	if (pHeader->FC.SubType & 0x08) */
+/*		Offset += 2; */
+
+	pSTAKey = (PEAPOL_PACKET)&Elem->Msg[LENGTH_802_11 + LENGTH_802_1_H + Offset];
 	/*Benson add for big-endian 20081016--> */
 	NdisZeroMemory((unsigned char *)&peerKeyInfo, sizeof(peerKeyInfo));
 	NdisMoveMemory((unsigned char *)&peerKeyInfo, (unsigned char *)&pSTAKey->KeyDesc.KeyInfo, sizeof(KEY_INFO));
 	*((unsigned short *)&peerKeyInfo) = cpu2le16(*((unsigned short *)&peerKeyInfo));
 	/*Benson add 20081016 <-- */
-	
-    /* Check Replay Counter */
-    if (!RTMPEqualMemory(pSTAKey->KeyDesc.ReplayCounter, pEntry->R_Counter, LEN_KEY_DESC_REPLAY))
-    {
-        DBGPRINT(RT_DEBUG_ERROR, ("Replay Counter Different in STAKey handshake!! \n"));
-        DBGPRINT(RT_DEBUG_ERROR, ("Receive : %d %d %d %d  \n",
+
+	/* Check Replay Counter */
+	if (!RTMPEqualMemory(pSTAKey->KeyDesc.ReplayCounter, pEntry->R_Counter, LEN_KEY_DESC_REPLAY)) {
+		DBGPRINT(RT_DEBUG_ERROR, ("Replay Counter Different in STAKey handshake!! \n"));
+		DBGPRINT(RT_DEBUG_ERROR, ("Receive : %d %d %d %d  \n",
 				pSTAKey->KeyDesc.ReplayCounter[0],
 				pSTAKey->KeyDesc.ReplayCounter[1],
 				pSTAKey->KeyDesc.ReplayCounter[2],
 				pSTAKey->KeyDesc.ReplayCounter[3]));
-        DBGPRINT(RT_DEBUG_ERROR, ("Current : %d %d %d %d  \n",
+		DBGPRINT(RT_DEBUG_ERROR, ("Current : %d %d %d %d  \n",
 				pEntry->R_Counter[4],pEntry->R_Counter[5],
 				pEntry->R_Counter[6],pEntry->R_Counter[7]));
-        return;
-    }
+		return;
+	}
 
-    /* Check MIC, if not valid, discard silently */
-    NdisMoveMemory(DA, &pSTAKey->KeyDesc.KeyData[6], MAC_ADDR_LEN);
+	/* Check MIC, if not valid, discard silently */
+	NdisMoveMemory(DA, &pSTAKey->KeyDesc.KeyData[6], MAC_ADDR_LEN);
 
-	if (peerKeyInfo.KeyMic && peerKeyInfo.Secure && peerKeyInfo.Request)/*Benson add for big-endian 20081016 --> */
-	{
+	if (peerKeyInfo.KeyMic && peerKeyInfo.Secure && peerKeyInfo.Request)/*Benson add for big-endian 20081016 --> */ {
 		pEntry->bDlsInit = TRUE;
 		DBGPRINT(RT_DEBUG_TRACE, ("STAKey Initiator: %02x:%02x:%02x:%02x:%02x:%02x\n",
 			pEntry->Addr[0], pEntry->Addr[1], pEntry->Addr[2], pEntry->Addr[3], pEntry->Addr[4], pEntry->Addr[5]));
 	}
 
-
-    MICMsgLen = pSTAKey->Body_Len[1] | ((pSTAKey->Body_Len[0]<<8) && 0xff00);
-    MICMsgLen += LENGTH_EAPOL_H;
-    if (MICMsgLen > (Elem->MsgLen - LENGTH_802_11 - LENGTH_802_1_H))
-    {
-        DBGPRINT(RT_DEBUG_ERROR, ("Receive wrong format EAPOL packets \n"));
-        return;        
-    }
+	MICMsgLen = pSTAKey->Body_Len[1] | ((pSTAKey->Body_Len[0] << 8) & 0xff00);
+	MICMsgLen += LENGTH_EAPOL_H;
+	if (MICMsgLen > (Elem->MsgLen - LENGTH_802_11 - LENGTH_802_1_H)) {
+		DBGPRINT(RT_DEBUG_ERROR, ("Receive wrong format EAPOL packets \n"));
+		return;
+	}
 
 	/* This is proprietary DLS protocol, it will be adhered when spec. is finished. */
 	NdisZeroMemory(temp, 64);
@@ -1324,140 +1317,124 @@ VOID RTMPHandleSTAKey(
 	/* Record the received MIC for check later */
 	NdisMoveMemory(rcv_mic, pSTAKey->KeyDesc.KeyMic, LEN_KEY_DESC_MIC);
 	NdisZeroMemory(pSTAKey->KeyDesc.KeyMic, LEN_KEY_DESC_MIC);
-    if (pEntry->WepStatus == Ndis802_11Encryption2Enabled)
-    {
-        RT_HMAC_MD5(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, (unsigned char *)pSTAKey, MICMsgLen, mic, MD5_DIGEST_SIZE);
-    }
-    else
-    {
-        RT_HMAC_SHA1(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, (unsigned char *)pSTAKey,  MICMsgLen, digest, SHA1_DIGEST_SIZE);
-        NdisMoveMemory(mic, digest, LEN_KEY_DESC_MIC);
-    }
+	if (pEntry->WepStatus == Ndis802_11Encryption2Enabled) {
+		RT_HMAC_MD5(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, (unsigned char *)pSTAKey, MICMsgLen, mic, MD5_DIGEST_SIZE);
+	} else {
+		RT_HMAC_SHA1(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, (unsigned char *)pSTAKey,  MICMsgLen, digest, SHA1_DIGEST_SIZE);
+		NdisMoveMemory(mic, digest, LEN_KEY_DESC_MIC);
+	}
 
-    if (!RTMPEqualMemory(rcv_mic, mic, LEN_KEY_DESC_MIC))
-    {
-        DBGPRINT(RT_DEBUG_ERROR, ("MIC Different in STAKey handshake!! \n"));
-        return;
-    }
-    else
-        DBGPRINT(RT_DEBUG_TRACE, ("MIC VALID in STAKey handshake!! \n"));
+	if (!RTMPEqualMemory(rcv_mic, mic, LEN_KEY_DESC_MIC)) {
+		DBGPRINT(RT_DEBUG_ERROR, ("MIC Different in STAKey handshake!! \n"));
+		return;
+	} else {
+		DBGPRINT(RT_DEBUG_TRACE, ("MIC VALID in STAKey handshake!! \n"));
+	}
 
 	/* Receive init STA's STAKey Message-2, and terminate the handshake */
 	/*if (pEntry->bDlsInit && !pSTAKey->KeyDesc.KeyInfo.Request) */
-	if (pEntry->bDlsInit && !peerKeyInfo.Request) /*Benson add for big-endian 20081016 --> */
-	{
+	if (pEntry->bDlsInit && !peerKeyInfo.Request) /*Benson add for big-endian 20081016 --> */ {
 		pEntry->bDlsInit = FALSE;
 		DBGPRINT(RT_DEBUG_TRACE, ("Receive init STA's STAKey Message-2, STAKey handshake finished \n"));
 		return;
 	}
 
 	/* Receive init STA's STAKey Message-2, and terminate the handshake */
-	if (RTMPEqualMemory(&pSTAKey->KeyDesc.KeyData[2], OUI_WPA2_WEP40, 3))
-	{
+	if (RTMPEqualMemory(&pSTAKey->KeyDesc.KeyData[2], OUI_WPA2_WEP40, 3)) {
 		DBGPRINT(RT_DEBUG_WARN, ("Receive a STAKey message which not support currently, just drop it \n"));
 		return;
 	}
-	
-    do
-    {
-    	pDaEntry = MacTableLookup(pAd, DA);
-    	if (!pDaEntry)
-    		break;
 
-    	if ((pDaEntry->WpaState != AS_PTKINITDONE))
-	    {
-	        DBGPRINT(RT_DEBUG_ERROR, ("Not expect calling STAKey hand shaking here \n"));
-	        break;
-	    }
-    	
+	do {
+		pDaEntry = MacTableLookup(pAd, DA);
+		if (!pDaEntry)
+			break;
+
+		if (pDaEntry->WpaState != AS_PTKINITDONE) {
+			DBGPRINT(RT_DEBUG_ERROR, ("Not expect calling STAKey hand shaking here \n"));
+			break;
+		}
+
 		MlmeAllocateMemory(pAd, (unsigned char * *)&pOutBuffer);  /* allocate memory */
-        if(pOutBuffer == NULL)
-            break;
+		if(pOutBuffer == NULL)
+			break;
 
-        MAKE_802_3_HEADER(Header802_3, pDaEntry->Addr, pAd->ApCfg.MBSSID[pDaEntry->apidx].Bssid, EAPOL);
+		MAKE_802_3_HEADER(Header802_3, pDaEntry->Addr, pAd->ApCfg.MBSSID[pDaEntry->apidx].Bssid, EAPOL);
 
-        /* Increment replay counter by 1 */
-        ADD_ONE_To_64BIT_VAR(pDaEntry->R_Counter);
+		/* Increment replay counter by 1 */
+		ADD_ONE_To_64BIT_VAR(pDaEntry->R_Counter);
 
 		/* Allocate memory for output */
 		os_alloc_mem(NULL, (unsigned char * *)&mpool, TX_EAPOL_BUFFER);
-		if (mpool == NULL)
-	    {
+		if (mpool == NULL) {
 			MlmeFreeMemory(pAd, (unsigned char *)pOutBuffer);
-	        DBGPRINT(RT_DEBUG_ERROR, ("!!!%s : no memory!!!\n", __FUNCTION__));
-	        return;
-	    }
+			DBGPRINT(RT_DEBUG_ERROR, ("!!!%s : no memory!!!\n", __FUNCTION__));
+			return;
+		}
 
 		pOutPacket = (PEAPOL_PACKET)mpool;
 		NdisZeroMemory(pOutPacket, TX_EAPOL_BUFFER);
 
-        /* 0. init Packet and Fill header */
-        pOutPacket->ProVer = EAPOL_VER;
-        pOutPacket->ProType = EAPOLKey;
-        pOutPacket->Body_Len[1] = 0x5f;
-        
-        /* 1. Fill replay counter */
-/*        NdisMoveMemory(pDaEntry->R_Counter, pAd->ApCfg.R_Counter, sizeof(pDaEntry->R_Counter)); */
-        NdisMoveMemory(pOutPacket->KeyDesc.ReplayCounter, pDaEntry->R_Counter, LEN_KEY_DESC_REPLAY);
-        
-        /* 2. Fill key version, keyinfo, key len */
-        pOutPacket->KeyDesc.KeyInfo.KeyDescVer= GROUP_KEY;
-        pOutPacket->KeyDesc.KeyInfo.KeyType	= GROUPKEY;
-        pOutPacket->KeyDesc.KeyInfo.Install	= 1;
-        pOutPacket->KeyDesc.KeyInfo.KeyAck	= 1;
-        pOutPacket->KeyDesc.KeyInfo.KeyMic	= 1;
-        pOutPacket->KeyDesc.KeyInfo.Secure	= 1;
-        pOutPacket->KeyDesc.KeyInfo.EKD_DL	= 1;
+		/* 0. init Packet and Fill header */
+		pOutPacket->ProVer = EAPOL_VER;
+		pOutPacket->ProType = EAPOLKey;
+		pOutPacket->Body_Len[1] = 0x5f;
+
+		/* 1. Fill replay counter */
+/*		NdisMoveMemory(pDaEntry->R_Counter, pAd->ApCfg.R_Counter, sizeof(pDaEntry->R_Counter)); */
+		NdisMoveMemory(pOutPacket->KeyDesc.ReplayCounter, pDaEntry->R_Counter, LEN_KEY_DESC_REPLAY);
+
+		/* 2. Fill key version, keyinfo, key len */
+		pOutPacket->KeyDesc.KeyInfo.KeyDescVer= GROUP_KEY;
+		pOutPacket->KeyDesc.KeyInfo.KeyType	= GROUPKEY;
+		pOutPacket->KeyDesc.KeyInfo.Install	= 1;
+		pOutPacket->KeyDesc.KeyInfo.KeyAck	= 1;
+		pOutPacket->KeyDesc.KeyInfo.KeyMic	= 1;
+		pOutPacket->KeyDesc.KeyInfo.Secure	= 1;
+		pOutPacket->KeyDesc.KeyInfo.EKD_DL	= 1;
 		DBGPRINT(RT_DEBUG_TRACE, ("STAKey handshake for peer STA %02x:%02x:%02x:%02x:%02x:%02x\n",
 			DA[0], DA[1], DA[2], DA[3], DA[4], DA[5]));
-        
-        if ((pDaEntry->AuthMode == Ndis802_11AuthModeWPA) || (pDaEntry->AuthMode == Ndis802_11AuthModeWPAPSK))
-        {
-        	pOutPacket->KeyDesc.Type = WPA1_KEY_DESC;
 
-        	DBGPRINT(RT_DEBUG_TRACE, ("pDaEntry->AuthMode == Ndis802_11AuthModeWPA/WPAPSK\n"));
-        }
-        else if ((pDaEntry->AuthMode == Ndis802_11AuthModeWPA2) || (pDaEntry->AuthMode == Ndis802_11AuthModeWPA2PSK))
-        {
-        	pOutPacket->KeyDesc.Type = WPA2_KEY_DESC;
-        	pOutPacket->KeyDesc.KeyDataLen[1] = 0;
+		if ((pDaEntry->AuthMode == Ndis802_11AuthModeWPA) || (pDaEntry->AuthMode == Ndis802_11AuthModeWPAPSK)) {
+			pOutPacket->KeyDesc.Type = WPA1_KEY_DESC;
 
-        	DBGPRINT(RT_DEBUG_TRACE, ("pDaEntry->AuthMode == Ndis802_11AuthModeWPA2/WPA2PSK\n"));
-        }
+			DBGPRINT(RT_DEBUG_TRACE, ("pDaEntry->AuthMode == Ndis802_11AuthModeWPA/WPAPSK\n"));
+		} else if ((pDaEntry->AuthMode == Ndis802_11AuthModeWPA2) || (pDaEntry->AuthMode == Ndis802_11AuthModeWPA2PSK)) {
+			pOutPacket->KeyDesc.Type = WPA2_KEY_DESC;
+			pOutPacket->KeyDesc.KeyDataLen[1] = 0;
 
-        pOutPacket->KeyDesc.KeyLength[1] = LEN_TKIP_TK;
-        pOutPacket->KeyDesc.KeyDataLen[1] = LEN_TKIP_TK;
-        pOutPacket->KeyDesc.KeyInfo.KeyDescVer = KEY_DESC_TKIP;
-        if (pDaEntry->WepStatus == Ndis802_11Encryption3Enabled)
-        {
-            pOutPacket->KeyDesc.KeyLength[1] = LEN_AES_TK;
-            pOutPacket->KeyDesc.KeyDataLen[1] = LEN_AES_TK;
-            pOutPacket->KeyDesc.KeyInfo.KeyDescVer = KEY_DESC_AES;
-        }
+			DBGPRINT(RT_DEBUG_TRACE, ("pDaEntry->AuthMode == Ndis802_11AuthModeWPA2/WPA2PSK\n"));
+		}
+
+		pOutPacket->KeyDesc.KeyLength[1] = LEN_TKIP_TK;
+		pOutPacket->KeyDesc.KeyDataLen[1] = LEN_TKIP_TK;
+		pOutPacket->KeyDesc.KeyInfo.KeyDescVer = KEY_DESC_TKIP;
+		if (pDaEntry->WepStatus == Ndis802_11Encryption3Enabled) {
+			pOutPacket->KeyDesc.KeyLength[1] = LEN_AES_TK;
+			pOutPacket->KeyDesc.KeyDataLen[1] = LEN_AES_TK;
+			pOutPacket->KeyDesc.KeyInfo.KeyDescVer = KEY_DESC_AES;
+		}
 
 		/* Key Data Encapsulation format, use Ralink OUI to distinguish proprietary and standard. */
-    	Key_Data[0] = 0xDD;
+		Key_Data[0] = 0xDD;
 		Key_Data[1] = 0x00;		/* Length (This field will be filled later) */
-    	Key_Data[2] = 0x00;		/* OUI */
-    	Key_Data[3] = 0x0C;		/* OUI */
-    	Key_Data[4] = 0x43;		/* OUI */
-    	Key_Data[5] = 0x02;		/* Data Type (STAKey Key Data Encryption) */
+		Key_Data[2] = 0x00;		/* OUI */
+		Key_Data[3] = 0x0C;		/* OUI */
+		Key_Data[4] = 0x43;		/* OUI */
+		Key_Data[5] = 0x02;		/* Data Type (STAKey Key Data Encryption) */
 
 		/* STAKey Data Encapsulation format */
-    	Key_Data[6] = 0x00;		/*Reserved */
+		Key_Data[6] = 0x00;		/*Reserved */
 		Key_Data[7] = 0x00;		/*Reserved */
 
 		/* STAKey MAC address */
 		NdisMoveMemory(&Key_Data[8], pEntry->Addr, MAC_ADDR_LEN);		/* initiator MAC address */
 
 		/* STAKey (Handle the difference between TKIP and AES-CCMP) */
-		if (pDaEntry->WepStatus == Ndis802_11Encryption3Enabled)
-        {
-        	Key_Data[1] = 0x1E;	/* 4+2+6+16(OUI+Reserved+STAKey_MAC_Addr+STAKey) */
-        	NdisMoveMemory(&Key_Data[14], pEntry->PairwiseKey.Key, LEN_AES_TK);
-		}
-		else
-		{
+		if (pDaEntry->WepStatus == Ndis802_11Encryption3Enabled) {
+			Key_Data[1] = 0x1E;	/* 4+2+6+16(OUI+Reserved+STAKey_MAC_Addr+STAKey) */
+			NdisMoveMemory(&Key_Data[14], pEntry->PairwiseKey.Key, LEN_AES_TK);
+		} else {
 			Key_Data[1] = 0x2E;	/* 4+2+6+32(OUI+Reserved+STAKey_MAC_Addr+STAKey) */
 			NdisMoveMemory(&Key_Data[14], pEntry->PairwiseKey.Key, LEN_TK);
 			NdisMoveMemory(&Key_Data[14+LEN_TK], pEntry->PairwiseKey.TxMic, LEN_TKIP_MIC);
@@ -1471,7 +1448,7 @@ VOID RTMPHandleSTAKey(
 		NdisZeroMemory(temp, 64);
 		NdisMoveMemory(temp, "IEEE802.11 WIRELESS ACCESS POINT", 32);
 		WpaDerivePTK(pAd, temp, temp, pAd->ApCfg.MBSSID[pEntry->apidx].Bssid, temp, DA, pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK);
-		
+
 		DBGPRINT(RT_DEBUG_TRACE, ("PTK-0-%x %x %x %x %x %x %x %x \n",
 				pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK[0],
 				pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK[1],
@@ -1482,34 +1459,31 @@ VOID RTMPHandleSTAKey(
 				pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK[6],
 				pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK[7]));
 
-       	NdisMoveMemory(pOutPacket->KeyDesc.KeyData, Key_Data, key_length);
+		NdisMoveMemory(pOutPacket->KeyDesc.KeyData, Key_Data, key_length);
 		NdisZeroMemory(mic, sizeof(mic));
 
 		*(unsigned short *)(&pOutPacket->KeyDesc.KeyInfo) = cpu2le16(*(unsigned short *)(&pOutPacket->KeyDesc.KeyInfo));
 
 		MakeOutgoingFrame(pOutBuffer,			&FrameLen,
-                        pOutPacket->Body_Len[1] + 4,	pOutPacket,
-                        END_OF_ARGS);
-	    
+				pOutPacket->Body_Len[1] + 4,	pOutPacket,
+				END_OF_ARGS);
+
 		/* Calculate MIC */
-        if (pDaEntry->WepStatus == Ndis802_11Encryption3Enabled)
-        {
-            RT_HMAC_SHA1(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, pOutBuffer, FrameLen, digest, SHA1_DIGEST_SIZE);
-            NdisMoveMemory(pOutPacket->KeyDesc.KeyMic, digest, LEN_KEY_DESC_MIC);
-	    }
-        else
-        {
-            RT_HMAC_MD5(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, pOutBuffer, FrameLen, mic, MD5_DIGEST_SIZE);
-            NdisMoveMemory(pOutPacket->KeyDesc.KeyMic, mic, LEN_KEY_DESC_MIC);
-        }
+		if (pDaEntry->WepStatus == Ndis802_11Encryption3Enabled) {
+			RT_HMAC_SHA1(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, pOutBuffer, FrameLen, digest, SHA1_DIGEST_SIZE);
+			NdisMoveMemory(pOutPacket->KeyDesc.KeyMic, digest, LEN_KEY_DESC_MIC);
+		} else {
+			RT_HMAC_MD5(pAd->ApCfg.MBSSID[pEntry->apidx].DlsPTK, LEN_PTK_KCK, pOutBuffer, FrameLen, mic, MD5_DIGEST_SIZE);
+			NdisMoveMemory(pOutPacket->KeyDesc.KeyMic, mic, LEN_KEY_DESC_MIC);
+		}
 
-        RTMPToWirelessSta(pAd, pDaEntry, Header802_3, LENGTH_802_3, (unsigned char *)pOutPacket, pOutPacket->Body_Len[1] + 4, FALSE);
+		RTMPToWirelessSta(pAd, pDaEntry, Header802_3, LENGTH_802_3, (unsigned char *)pOutPacket, pOutPacket->Body_Len[1] + 4, FALSE);
 
-        MlmeFreeMemory(pAd, (unsigned char *)pOutBuffer);
+		MlmeFreeMemory(pAd, (unsigned char *)pOutBuffer);
 		os_free_mem(NULL, mpool);
-    }while(FALSE);
-    
-    DBGPRINT(RT_DEBUG_TRACE, ("<== RTMPHandleSTAKey: FrameLen=%ld\n", FrameLen));
+	} while(FALSE);
+
+	DBGPRINT(RT_DEBUG_TRACE, ("<== RTMPHandleSTAKey: FrameLen=%ld\n", FrameLen));
 }
 #endif /* QOS_DLS_SUPPORT */
 

@@ -2324,7 +2324,7 @@ VOID Indicate_Legacy_Packet_Hdr_Trns(
 //+++Add by shiang for debug
 if (0) {
 	hex_dump("Indicate_Legacy_Packet", pRxBlk->pTransData, pRxBlk->TransDataSize);
-	hex_dump("802_11_hdr", pRxBlk->pHeader, LENGTH_802_11);
+	hex_dump("802_11_hdr", (unsigned char *)pRxBlk->pHeader, LENGTH_802_11);
 }
 //---Add by shiang for debug
 

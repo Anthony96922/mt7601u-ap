@@ -6481,10 +6481,10 @@ VOID	RTMPAddWcidAttributeEntry(
 	IN 	MAC_TABLE_ENTRY *pEntry);
 
 char * GetEncryptType(
-	CHAR enc);
+	char enc);
 
 char * GetAuthMode(
-	CHAR auth);
+	char auth);
 
 #ifdef DOT11_N_SUPPORT
 VOID	RTMPSetHT(
@@ -8255,7 +8255,7 @@ NTSTATUS RTUSBMultiWrite(
 NTSTATUS RTUSBMultiWrite_nBytes(
         IN      PRTMP_ADAPTER   pAd,
         IN      unsigned short                  Offset,
-        IN      unsigned char *                  pData,
+        IN      unsigned int *                  pData,
         IN      unsigned short                  length,
         IN      unsigned short                  batchLen);
 

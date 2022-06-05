@@ -71,10 +71,11 @@ VOID MT7601ATEAsicSwitchChannel(
 		return;
 	}
 
+#if 0
 	for (index = 0; index < NUM_OF_MT7601_CHNL; index++)
 	{
 		if (Channel == MT7601_Frequency_Plan[index].Channel)
-		{		
+		{
 			/* Frequeny plan setting */
 			AndesRFRandomWrite(pAd, 4,
 				RF_BANK0, RF_R17, MT7601_Frequency_Plan[index].K_R17,
@@ -83,6 +84,7 @@ VOID MT7601ATEAsicSwitchChannel(
 				RF_BANK0, RF_R20, MT7601_Frequency_Plan[index].N_R20);
 		}
 	}
+#endif
 
 	RTMP_IO_READ32(pAd, TX_ALC_CFG_0, &Value);
 	Value = Value & (~0x3F3F);

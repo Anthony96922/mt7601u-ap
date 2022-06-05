@@ -233,13 +233,13 @@ NTSTATUS	RTUSBMultiRead(
 NTSTATUS RTUSBMultiWrite_nBytes(
 	IN	PRTMP_ADAPTER	pAd,
 	IN	unsigned short			Offset,
-	IN	unsigned char *pData,
+	IN	unsigned int *pData,
 	IN	unsigned short			length,
 	IN	unsigned short			batchLen)
 {
 	NTSTATUS Status = STATUS_SUCCESS;
 	unsigned short index = Offset, actLen = batchLen, leftLen = length;
-	unsigned char *pSrc = pData;
+	unsigned int *pSrc = pData;
 
 
 	do
@@ -821,24 +821,20 @@ NDIS_STATUS	RTUSBEnqueueCmdFromNdis(
 	if ((status != NDIS_STATUS_SUCCESS) || (cmdqelmt == NULL))
 		return (NDIS_STATUS_RESOURCES);
 
-		cmdqelmt->buffer = NULL;
-		if (pInformationBuffer != NULL)
-		{
-			status = os_alloc_mem(pAd, (unsigned char * *)&cmdqelmt->buffer, InformationBufferLength);
-			if ((status != NDIS_STATUS_SUCCESS) || (cmdqelmt->buffer == NULL))
-			{
-/*				kfree(cmdqelmt);*/
-				os_free_mem(NULL, cmdqelmt);
-				return (NDIS_STATUS_RESOURCES);
-			}
-			else
-			{
-				NdisMoveMemory(cmdqelmt->buffer, pInformationBuffer, InformationBufferLength);
-				cmdqelmt->bufferlength = InformationBufferLength;
-			}
+	cmdqelmt->buffer = NULL;
+	if (pInformationBuffer != NULL) {
+		status = os_alloc_mem(pAd, (unsigned char * *)&cmdqelmt->buffer, InformationBufferLength);
+		if ((status != NDIS_STATUS_SUCCESS) || (cmdqelmt->buffer == NULL)) {
+/*			kfree(cmdqelmt);*/
+			os_free_mem(NULL, cmdqelmt);
+			return (NDIS_STATUS_RESOURCES);
+		} else {
+			NdisMoveMemory(cmdqelmt->buffer, pInformationBuffer, InformationBufferLength);
+			cmdqelmt->bufferlength = InformationBufferLength;
 		}
-		else
-			cmdqelmt->bufferlength = 0;
+	} else {
+		cmdqelmt->bufferlength = 0;
+	}
 
 	cmdqelmt->command = Oid;
 	cmdqelmt->CmdFromNdis = TRUE;

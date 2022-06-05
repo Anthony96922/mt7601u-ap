@@ -609,8 +609,10 @@ INT	RT_CfgSetFixedTxPhyMode(char * arg)
 			case FIXED_TXMODE_HT:
 			case FIXED_TXMODE_VHT:
 				fix_tx_mode = value;
+				break;
 			default:
 				fix_tx_mode = FIXED_TXMODE_HT;
+				break;
 		}
 	}
 

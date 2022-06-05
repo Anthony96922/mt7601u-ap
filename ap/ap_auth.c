@@ -156,21 +156,20 @@ static VOID APPeerDeauthReqAction(
     IN PRTMP_ADAPTER pAd, 
     IN PMLME_QUEUE_ELEM Elem) 
 {
-    unsigned char			Addr2[MAC_ADDR_LEN];
-    unsigned short			Reason;
+	unsigned char			Addr2[MAC_ADDR_LEN];
+	unsigned short			Reason;
 	unsigned short			SeqNum;
-    MAC_TABLE_ENTRY	*pEntry;
+	MAC_TABLE_ENTRY	*pEntry;
 
 
 
-    if (!PeerDeauthReqSanity(pAd, Elem->Msg, Elem->MsgLen, Addr2, &SeqNum, &Reason)) 
-        return;
+	if (!PeerDeauthReqSanity(pAd, Elem->Msg, Elem->MsgLen, Addr2, &SeqNum, &Reason))
+		return;
 
 	pEntry = NULL;
 
 	/*pEntry = MacTableLookup(pAd, Addr2); */
-	if (Elem->Wcid < MAX_LEN_OF_MAC_TABLE)
-    {
+	if (Elem->Wcid < MAX_LEN_OF_MAC_TABLE) {
 		pEntry = &pAd->MacTab.Content[Elem->Wcid];
 
 #ifdef DOT1X_SUPPORT    
@@ -192,23 +191,22 @@ static VOID APPeerDeauthReqAction(
 		/* send wireless event - for deauthentication */
 		RTMPSendWirelessEvent(pAd, IW_DEAUTH_EVENT_FLAG, Addr2, 0, 0);  
 		ApLogEvent(pAd, Addr2, EVENT_DISASSOCIATED);
-		
-        if (pEntry->CMTimerRunning == TRUE)
-        {
+
+		if (pEntry->CMTimerRunning == TRUE) {
             /*
 				If one who initilized Counter Measure deauth itself,
 				AP doesn't log the MICFailTime
 			*/
-            pAd->ApCfg.aMICFailTime = pAd->ApCfg.PrevaMICFailTime;
-        }
+			pAd->ApCfg.aMICFailTime = pAd->ApCfg.PrevaMICFailTime;
+		}
 
 		MacTableDeleteEntry(pAd, Elem->Wcid, Addr2);
 
-        DBGPRINT(RT_DEBUG_TRACE,
+		DBGPRINT(RT_DEBUG_TRACE,
 				("AUTH - receive DE-AUTH(seq-%d) from "
 				 "%02x:%02x:%02x:%02x:%02x:%02x, reason=%d\n", SeqNum,
 				Addr2[0], Addr2[1], Addr2[2], Addr2[3], Addr2[4], Addr2[5], Reason));
-    }
+	}
 }
 
 

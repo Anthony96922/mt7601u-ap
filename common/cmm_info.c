@@ -1745,57 +1745,71 @@ Arguments:
     Note:
     ==========================================================================
 */
-char * GetEncryptType(CHAR enc)
-{
-    if(enc == Ndis802_11WEPDisabled)
-        return "NONE";
-    if(enc == Ndis802_11WEPEnabled)
-    	return "WEP";
-    if(enc == Ndis802_11Encryption2Enabled)
-    	return "TKIP";
-    if(enc == Ndis802_11Encryption3Enabled)
-    	return "AES";
+char *GetEncryptType(char enc) {
+	if(enc == Ndis802_11WEPDisabled)
+		return "NONE";
+
+	if(enc == Ndis802_11WEPEnabled)
+		return "WEP";
+
+	if(enc == Ndis802_11Encryption2Enabled)
+		return "TKIP";
+
+	if(enc == Ndis802_11Encryption3Enabled)
+		return "AES";
+
 	if(enc == Ndis802_11Encryption4Enabled)
-    	return "TKIPAES";
+		return "TKIPAES";
+
 #ifdef WAPI_SUPPORT
 	if(enc == Ndis802_11EncryptionSMS4Enabled)
-    	return "SMS4";
+		return "SMS4";
 #endif /* WAPI_SUPPORT */
-    else
-    	return "UNKNOW";
+
+	return "UNKNOW";
 }
 
-char * GetAuthMode(CHAR auth)
-{
-    if(auth == Ndis802_11AuthModeOpen)
-    	return "OPEN";
-    if(auth == Ndis802_11AuthModeShared)
-    	return "SHARED";
+char *GetAuthMode(char auth) {
+	if(auth == Ndis802_11AuthModeOpen)
+		return "OPEN";
+
+	if(auth == Ndis802_11AuthModeShared)
+		return "SHARED";
+
 	if(auth == Ndis802_11AuthModeAutoSwitch)
-    	return "AUTOWEP";
-    if(auth == Ndis802_11AuthModeWPA)
-    	return "WPA";
-    if(auth == Ndis802_11AuthModeWPAPSK)
-    	return "WPAPSK";
-    if(auth == Ndis802_11AuthModeWPANone)
-    	return "WPANONE";
-    if(auth == Ndis802_11AuthModeWPA2)
-    	return "WPA2";
-    if(auth == Ndis802_11AuthModeWPA2PSK)
-    	return "WPA2PSK";
+		return "AUTOWEP";
+
+	if(auth == Ndis802_11AuthModeWPA)
+		return "WPA";
+
+	if(auth == Ndis802_11AuthModeWPAPSK)
+		return "WPAPSK";
+
+	if(auth == Ndis802_11AuthModeWPANone)
+		return "WPANONE";
+
+	if(auth == Ndis802_11AuthModeWPA2)
+		return "WPA2";
+
+	if(auth == Ndis802_11AuthModeWPA2PSK)
+		return "WPA2PSK";
+
 	if(auth == Ndis802_11AuthModeWPA1WPA2)
-    	return "WPA1WPA2";
+		return "WPA1WPA2";
+
 	if(auth == Ndis802_11AuthModeWPA1PSKWPA2PSK)
-    	return "WPA1PSKWPA2PSK";
+		return "WPA1PSKWPA2PSK";
+
 #ifdef WAPI_SUPPORT
 	if(auth == Ndis802_11AuthModeWAICERT)
-    	return "WAI-CERT";
+		return "WAI-CERT";
+
 	if(auth == Ndis802_11AuthModeWAIPSK)
-    	return "WAI-PSK";
+		return "WAI-PSK";
 #endif /* WAPI_SUPPORT */
-	
+
     	return "UNKNOW";
-}		
+}
 
 
 /* 
@@ -4415,16 +4429,16 @@ INT	Show_PMK_Proc(
 	unsigned char	PMK[32] = {0};
 
 #ifdef CONFIG_AP_SUPPORT    
-    POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
-	
+	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
+
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		NdisMoveMemory(PMK, pAd->ApCfg.MBSSID[pObj->ioctl_if].PMK, 32);
 #endif /* CONFIG_AP_SUPPORT */
 
-	
-    sprintf(pBuf, "\tPMK = ");
-    for (idx = 0; idx < 32; idx++)
-        sprintf(pBuf+strlen(pBuf), "%02X", PMK[idx]);
+
+	sprintf(pBuf, "\tPMK = ");
+	for (idx = 0; idx < 32; idx++)
+		sprintf(pBuf+strlen(pBuf), "%02X", PMK[idx]);
 
 	return 0;
 }

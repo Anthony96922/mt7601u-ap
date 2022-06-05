@@ -242,12 +242,17 @@ VOID RTMPSetHT(
 	switch (RxStream)
 	{
 		case 3:
-			ht_cap->MCSSet[2] =  0xff;
+			ht_cap->MCSSet[2] = 0xff;
+			ht_cap->MCSSet[1] = 0xff;
+			ht_cap->MCSSet[0] = 0xff;
+			break;
 		case 2:
-			ht_cap->MCSSet[1] =  0xff;
+			ht_cap->MCSSet[1] = 0xff;
+			ht_cap->MCSSet[0] = 0xff;
+			break;
 		case 1:
 		default:
-			ht_cap->MCSSet[0] =  0xff;
+			ht_cap->MCSSet[0] = 0xff;
 			break;
 	}
 

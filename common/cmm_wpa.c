@@ -3065,75 +3065,67 @@ bool RTMPCheckWPAframe(
 
 #ifdef HDR_TRANS_SUPPORT
 bool RTMPCheckWPAframe_Hdr_Trns(
-    IN PRTMP_ADAPTER    pAd,
-    IN PMAC_TABLE_ENTRY	pEntry,
-    IN unsigned char *           pData,
-    IN unsigned long            DataByteCount,
+	IN PRTMP_ADAPTER    pAd,
+	IN PMAC_TABLE_ENTRY	pEntry,
+	IN unsigned char *           pData,
+	IN unsigned long            DataByteCount,
 	IN unsigned char			FromWhichBSSID)
 {
 	unsigned long	Body_len;
 	bool Cancelled;
 
-	do
-	{
-	} while (FALSE);
+	if(DataByteCount < (LENGTH_802_3 + LENGTH_EAPOL_H))
+		return FALSE;
 
-    if(DataByteCount < (LENGTH_802_3 + LENGTH_EAPOL_H))
-        return FALSE;
-
-    
 	/* Skip LLC header	*/
-
 	pData += LENGTH_802_3;
 
 	/* Skip 2-bytes EAPoL type */
-    if (NdisEqualMemory(EAPOL, pData, 2)) 
+	if (NdisEqualMemory(EAPOL, pData, 2))
 /*	if (*(unsigned short *)EAPOL == *(unsigned short *)pData)*/
-    {
-        pData += 2;         
-    }
-    else    
-        return FALSE;
+	{
+		pData += 2;
+	} else {
+		return FALSE;
+	}
 
-    switch (*(pData+1))     
-    {   
-        case EAPPacket:
-			Body_len = (*(pData+2)<<8) | (*(pData+3));
+	switch (*(pData+1)) {
+	case EAPPacket:
+		Body_len = (*(pData+2)<<8) | (*(pData+3));
 #ifdef CONFIG_AP_SUPPORT
-			IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-			{
+		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
+		{
 #ifdef IDS_SUPPORT
-				if((*(pData+4)) == EAP_CODE_REQUEST)
-					pAd->ApCfg.RcvdEapReqCount ++;
+			if((*(pData+4)) == EAP_CODE_REQUEST)
+			pAd->ApCfg.RcvdEapReqCount ++;
 #endif /* IDS_SUPPORT */
-			}
+		}
 #endif /* CONFIG_AP_SUPPORT */
-            DBGPRINT(RT_DEBUG_TRACE, ("Receive EAP-Packet frame, TYPE = 0, Length = %ld\n", Body_len));
-            break;
+		DBGPRINT(RT_DEBUG_TRACE, ("Receive EAP-Packet frame, TYPE = 0, Length = %ld\n", Body_len));
+		break;
         case EAPOLStart:
-            DBGPRINT(RT_DEBUG_TRACE, ("Receive EAPOL-Start frame, TYPE = 1 \n"));
-			if (pEntry->EnqueueEapolStartTimerRunning != EAPOL_START_DISABLE)
-            {    
-            	DBGPRINT(RT_DEBUG_TRACE, ("Cancel the EnqueueEapolStartTimerRunning \n"));
-                RTMPCancelTimer(&pEntry->EnqueueStartForPSKTimer, &Cancelled);
-                pEntry->EnqueueEapolStartTimerRunning = EAPOL_START_DISABLE;             
-            }				
-            break;
-        case EAPOLLogoff:
-            DBGPRINT(RT_DEBUG_TRACE, ("Receive EAPOLLogoff frame, TYPE = 2 \n"));
-            break;
-        case EAPOLKey:
-			Body_len = (*(pData+2)<<8) | (*(pData+3));
-            DBGPRINT(RT_DEBUG_TRACE, ("Receive EAPOL-Key frame, TYPE = 3, Length = %ld\n", Body_len));
-            break;
-        case EAPOLASFAlert:
-            DBGPRINT(RT_DEBUG_TRACE, ("Receive EAPOLASFAlert frame, TYPE = 4 \n"));
-            break;
-        default:
-            return FALSE;
-    
-    }   
-    return TRUE;
+		DBGPRINT(RT_DEBUG_TRACE, ("Receive EAPOL-Start frame, TYPE = 1 \n"));
+		if (pEntry->EnqueueEapolStartTimerRunning != EAPOL_START_DISABLE) {
+			DBGPRINT(RT_DEBUG_TRACE, ("Cancel the EnqueueEapolStartTimerRunning \n"));
+			RTMPCancelTimer(&pEntry->EnqueueStartForPSKTimer, &Cancelled);
+			pEntry->EnqueueEapolStartTimerRunning = EAPOL_START_DISABLE;
+		}
+		break;
+	case EAPOLLogoff:
+		DBGPRINT(RT_DEBUG_TRACE, ("Receive EAPOLLogoff frame, TYPE = 2 \n"));
+		break;
+	case EAPOLKey:
+		Body_len = (*(pData+2)<<8) | (*(pData+3));
+		DBGPRINT(RT_DEBUG_TRACE, ("Receive EAPOL-Key frame, TYPE = 3, Length = %ld\n", Body_len));
+		break;
+	case EAPOLASFAlert:
+		DBGPRINT(RT_DEBUG_TRACE, ("Receive EAPOLASFAlert frame, TYPE = 4 \n"));
+		break;
+	default:
+		return FALSE;
+	}
+
+	return TRUE;
 }
 #endif /* HDR_TRANS_SUPPORT */
 

@@ -110,8 +110,8 @@ enum EVENT_TYPE {
 #define ANDES_CALIBRATION_TXDCOC		9
 
 INT AsicSendCommandToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT CmdUnit);
-NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd);
-NDIS_STATUS PCILoadFirmwareToAndes(RTMP_ADAPTER *pAd);
+int USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd);
+int PCILoadFirmwareToAndes(RTMP_ADAPTER *pAd);
 INT AsicSendCmdToAndes(PRTMP_ADAPTER pAd, struct CMD_UNIT *CmdUnit);
 INT AndesBurstWrite(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int *Data, unsigned int Count);
 INT AndesBurstRead(PRTMP_ADAPTER pAd, unsigned int Offset, unsigned int Cnt, unsigned int *Data);
@@ -121,8 +121,8 @@ INT AndesReadModifyWrite(PRTMP_ADAPTER pAd, R_M_W_REG *RegPair, unsigned int Num
 INT AndesRFReadModifyWrite(PRTMP_ADAPTER pAd, RF_R_M_W_REG *RegPair, unsigned int Num);
 INT AndesRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
 INT AndesRFRandomWritePair(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
-INT AndesRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
-INT AndesRFRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
+INT AndesRandomWrite(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
+int AndesRFRandomWrite(PRTMP_ADAPTER pAd, BANK_RF_REG_PAIR *RegPair, unsigned int Num);
 #ifdef MT7601
 INT AndesBBPRandomWritePair(PRTMP_ADAPTER pAd, RTMP_REG_PAIR *RegPair, unsigned int Num);
 INT AndesBBPRandomWrite(PRTMP_ADAPTER pAd, unsigned int Num, ...);
@@ -131,7 +131,7 @@ INT AndesFunSetOP(PRTMP_ADAPTER pAd, unsigned int FunID, unsigned int Param);
 INT AndesPwrSavingOP(PRTMP_ADAPTER pAd, unsigned int PwrOP, unsigned int PwrLevel, 
 					unsigned int ListenInterval, unsigned int PreTBTTLeadTime,
 					unsigned char TIMByteOffset, unsigned char TIMBytePattern);
-INT AndesCalibrationOP(PRTMP_ADAPTER, unsigned int CalibrationID, unsigned int Param);
+void AndesCalibrationOP(PRTMP_ADAPTER, unsigned int CalibrationID, unsigned int Param);
 bool IsInBandCmdProcessing(PRTMP_ADAPTER pAd);
 unsigned char GetCmdRspNum(PRTMP_ADAPTER pAd);
 #endif

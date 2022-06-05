@@ -204,10 +204,9 @@ VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 	TXINFO_STRUC *pTxInfo;
 	TXWI_STRUC *pTxWI;
 	unsigned char *buf;
+	TX_CONTEXT *pNullContext;
 	unsigned char TXWISize = pAd->chipCap.TXWISize;
 	unsigned short data_len = sizeof(pAd->NullFrame);;
-
-	PTX_CONTEXT pNullContext = &pAd->NullContext[0];
 
 	NdisZeroMemory(&pAd->NullFrame, data_len);
 	pAd->NullFrame.FC.Type = BTYPE_DATA;
@@ -216,6 +215,8 @@ VOID ComposeNullFrame(RTMP_ADAPTER *pAd)
 	COPY_MAC_ADDR(pAd->NullFrame.Addr1, pAd->CommonCfg.Bssid);
 	COPY_MAC_ADDR(pAd->NullFrame.Addr2, pAd->CurrentAddress);
 	COPY_MAC_ADDR(pAd->NullFrame.Addr3, pAd->CommonCfg.Bssid);
+
+	pNullContext = &pAd->NullContext[0];
 	buf = (unsigned char *)&pNullContext->TransferBuffer->field.WirelessPacket[0];
 
 	RTMPZeroMemory(buf, 100);

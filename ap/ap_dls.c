@@ -307,12 +307,11 @@ VOID APPeerDlsTearDownAction(
 			SA[0], SA[1], SA[2], SA[3], SA[4], SA[5]));
 
 	pSAEntry = MacTableLookup(pAd, SA);
-    if (!pSAEntry)
-    	return;
+	if (!pSAEntry)
+		return;
 
 	pDAEntry = MacTableLookup(pAd, DA);
-	if (!pDAEntry)
-	{
+	if (!pDAEntry) {
 		DBGPRINT(RT_DEBUG_TRACE, ("Destination station does not exist!\n"));
 		return;
 	}
