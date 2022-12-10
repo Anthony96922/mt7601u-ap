@@ -940,24 +940,23 @@ VOID ap_cmm_peer_assoc_req_action(
 #ifdef DOT11N_DRAFT3
 			/* P802.11n_D1.10, HT Information Exchange Support */
 			if (WMODE_CAP_N(pAd->CommonCfg.PhyMode)
-				&& (pAd->CommonCfg.Channel <= 14) 
+				&& (pAd->CommonCfg.Channel <= 14)
 				&& (pAd->CommonCfg.bBssCoexEnable == TRUE))
 				extCapInfo.BssCoexistMgmtSupport = 1;
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
 
+			extCapInfo.utf8_ssid = 1;
+
 			pInfo = (unsigned char *)(&extCapInfo);
-			for (infoPos = 0; infoPos < extInfoLen; infoPos++)
-			{
-				if (pInfo[infoPos] != 0)
-				{
+			for (infoPos = 0; infoPos < extInfoLen; infoPos++) {
+				if (pInfo[infoPos] != 0) {
 					bNeedAppendExtIE = TRUE;
 					break;
 				}
 			}
 
-			if (bNeedAppendExtIE == TRUE)
-			{
+			if (bNeedAppendExtIE == TRUE) {
 				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 							1, &ExtCapIe,
 							1, &extInfoLen,
@@ -966,6 +965,36 @@ VOID ap_cmm_peer_assoc_req_action(
 				FrameLen += TmpLen;
 			}
 		}
+
+		if (WMODE_CAP_N(PhyMode) &&
+			(wdev->DesiredHtPhyInfo.bHtEnable)) {
+
+			if ((ie_list->RalinkIe) == 0 || (pAd->bBroadComHT == TRUE)) {
+				unsigned char epigram_ie_len;
+				unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
+				unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
+
+				epigram_ie_len = ie_list->ht_cap_len + 4;
+
+				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+						1, &WpaIe,
+						1, &epigram_ie_len,
+						4, &BROADCOM_HTC[0],
+						ie_list->ht_cap_len, &HtCapabilityRsp,
+						END_OF_ARGS);
+
+				FrameLen += TmpLen;
+				epigram_ie_len = HtLen1 + 4;
+
+				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+						1, &WpaIe,
+						1, &epigram_ie_len,
+						4, &BROADCOM_AHTINFO[0],
+						HtLen1, &pAd->CommonCfg.AddHTInfo,
+						END_OF_ARGS);
+				FrameLen += TmpLen;
+			}
+                }
 
 #ifdef DOT11N_DRAFT3
 	 	/* P802.11n_D3.03, 7.3.2.60 Overlapping BSS Scan Parameters IE */
@@ -995,48 +1024,6 @@ VOID ap_cmm_peer_assoc_req_action(
 			FrameLen += TmpLen;
 	 	}
 #endif /* DOT11N_DRAFT3 */
-		if ((ie_list->RalinkIe) == 0 || (pAd->bBroadComHT == TRUE))
-		{
-			unsigned char epigram_ie_len;
-			unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
-			unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
-
-			epigram_ie_len = ie_list->ht_cap_len + 4;
-#ifndef RT_BIG_ENDIAN
-			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						1, &WpaIe,
-						1, &epigram_ie_len,
-						4, &BROADCOM_HTC[0],
-						ie_list->ht_cap_len, &HtCapabilityRsp,
-						END_OF_ARGS);
-#else
-			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						1, &WpaIe,
-						1, &epigram_ie_len,
-						4, &BROADCOM_HTC[0],
-						ie_list->ht_cap_len, &HtCapabilityTmp,
-						END_OF_ARGS);
-#endif
-
-			FrameLen += TmpLen;
-			epigram_ie_len = HtLen1 + 4;
-#ifndef RT_BIG_ENDIAN
-			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						1, &WpaIe,
-						1, &epigram_ie_len,
-						4, &BROADCOM_AHTINFO[0],
-						HtLen1, &pAd->CommonCfg.AddHTInfo,
-						END_OF_ARGS);
-#else
-			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						1, &WpaIe,
-						1, &epigram_ie_len,
-						4, &BROADCOM_AHTINFO[0],
-						HtLen1, &addHTInfoTmp,
-						END_OF_ARGS);
-#endif
-			FrameLen += TmpLen;
-		}
 
 #ifdef DOT11_VHT_AC
 		if (WMODE_CAP_AC(pAd->CommonCfg.PhyMode) &&

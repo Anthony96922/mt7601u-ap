@@ -514,6 +514,9 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
 
+			extCapInfo.proxy_arp = 1;
+			extCapInfo.utf8_ssid = 1;
+
 			pInfo = (unsigned char *)(&extCapInfo);
 			for (infoPos = 0; infoPos < extInfoLen; infoPos++) {
 				if (pInfo[infoPos] != 0) {

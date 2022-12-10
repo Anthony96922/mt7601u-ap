@@ -1987,22 +1987,22 @@ NDIS_STATUS RTMPSetProfileParameters(
 	char *		tmpbuf;
 	unsigned long		RtsThresh;
 	unsigned long		FragThresh;
-	char *		macptr;							
+	char *		macptr;
 	INT		i = 0, retval;
 
 /*	tmpbuf = kmalloc(MAX_PARAM_BUFFER_SIZE, MEM_ALLOC_FLAG);*/
 	os_alloc_mem(NULL, (unsigned char **)&tmpbuf, MAX_PARAM_BUFFER_SIZE);
 	if (tmpbuf == NULL)
 		return NDIS_STATUS_FAILURE;
-	
+
 	do
 	{
 		/* set file parameter to portcfg */
 		if (RTMPGetKeyParameter("MacAddress", tmpbuf, 25, pBuffer, TRUE))
-		{					
+		{
 			retval = RT_CfgSetMacAddress(pAd, tmpbuf);
 			if (retval)
-				DBGPRINT(RT_DEBUG_TRACE, ("MacAddress = %02x:%02x:%02x:%02x:%02x:%02x\n", 
+				DBGPRINT(RT_DEBUG_TRACE, ("MacAddress = %02x:%02x:%02x:%02x:%02x:%02x\n",
 											PRINT_MAC(pAd->CurrentAddress)));
 		}
 		/* CountryRegion */

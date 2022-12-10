@@ -525,7 +525,8 @@ typedef struct GNU_PACKED _EXT_CAP_INFO_ELEMENT{
 	unsigned int	ExtendChannelSwitch:1;
 	unsigned int	rsv2:8;
 	unsigned int	FMSSupport:1;/*bit 11*/
-	unsigned int	rsv3:4;
+	unsigned char	proxy_arp:1;
+	unsigned int	rsv3:3;
 	unsigned int	TFSSupport:1;/*bit 16*/
 	unsigned int	WNMSleepSupport:1;/*bit 17*/
 	unsigned int	rsv4:1;
@@ -537,6 +538,9 @@ typedef struct GNU_PACKED _EXT_CAP_INFO_ELEMENT{
 	unsigned int	TDLSPeerPSMSupport:1; /* bit29: TDLS Peer PSM Support */
 	unsigned int	TDLSChSwitchSupport:1; /* bit30: TDLS Channel Switching */
 	unsigned int	rsv7:1;
+	unsigned int	rsv8:8;
+	unsigned int	rsv9:8;
+	unsigned char	utf8_ssid:1;
 #endif /* RT_BIG_ENDIAN */
 
 }EXT_CAP_INFO_ELEMENT, *PEXT_CAP_INFO_ELEMENT;

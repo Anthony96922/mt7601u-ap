@@ -2214,7 +2214,7 @@ bool DOT1X_InternalCmdAction(
 	unsigned char			s_addr[MAC_ADDR_LEN];
 	unsigned char			EAPOL_IE[] = {0x88, 0x8e};
 	unsigned char			frame_len = LENGTH_802_3 + sizeof(RalinkIe);
-	unsigned char			FrameBuf[frame_len];
+	unsigned char			FrameBuf[LENGTH_802_3 + sizeof(RalinkIe)];
 	unsigned char			offset = 0;
 	
 	/* Init the frame buffer */
@@ -2275,7 +2275,7 @@ bool DOT1X_EapTriggerAction(
 	INT			apidx = MAIN_MBSSID;
 	unsigned char 			eapol_start_1x_hdr[4] = {0x01, 0x01, 0x00, 0x00};
 	unsigned char			frame_len = LENGTH_802_3 + sizeof(eapol_start_1x_hdr);
-	unsigned char			FrameBuf[frame_len];
+	unsigned char			FrameBuf[LENGTH_802_3 + sizeof(eapol_start_1x_hdr)];
 	unsigned char			offset = 0;
 
 	if ((pEntry->AuthMode == Ndis802_11AuthModeWPA) || (pEntry->AuthMode == Ndis802_11AuthModeWPA2) || (pAd->ApCfg.MBSSID[apidx].IEEE8021X == TRUE))
