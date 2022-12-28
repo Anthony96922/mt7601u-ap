@@ -149,6 +149,9 @@ VOID APStartUp(
 #ifdef DOT1X_SUPPORT
 	/* bool		bDot1xReload = FALSE; */
 #endif /* DOT1X_SUPPORT */
+#ifdef MT7601U
+	unsigned int MACValue[128 * 2];
+#endif
 
 	DBGPRINT(RT_DEBUG_TRACE, ("===> APStartUp\n"));
 
@@ -156,7 +159,6 @@ VOID APStartUp(
 	for (i = 0; i < NUM_OF_TX_RING; i ++)
 		pAd->BulkOutDataSizeLimit[i] = 24576;
 #endif /* INF_AMAZON_SE */
-		
 	AsicDisableSync(pAd);
 
 	TxPreamble = (pAd->CommonCfg.TxPreamble == Rt802_11PreambleLong ? 0 : 1);
@@ -185,8 +187,8 @@ VOID APStartUp(
 		if (pAd->chipCap.MBSSIDMode == MBSSID_MODE1) {
 			if (apidx > 0) {
 				/*
-					Refer to HW definition - 
-						Bit1 of MAC address Byte0 is local administration bit 
+					Refer to HW definition -
+						Bit1 of MAC address Byte0 is local administration bit
 						and should be set to 1 in extended multiple BSSIDs'
 						Bit3~ of MAC address Byte0 is extended multiple BSSID index.
 				 */
@@ -197,7 +199,7 @@ VOID APStartUp(
 			pMbss->Bssid[5] += apidx;
 
 		if (pMbss->MSSIDDev != NULL)
-			NdisMoveMemory(RTMP_OS_NETDEV_GET_PHYADDR(pMbss->MSSIDDev), 
+			NdisMoveMemory(RTMP_OS_NETDEV_GET_PHYADDR(pMbss->MSSIDDev),
 								pMbss->Bssid, MAC_ADDR_LEN);
 
 		if (pMbss->bWmmCapable)
@@ -207,27 +209,31 @@ VOID APStartUp(
 											TxPreamble, pAd->CommonCfg.bUseShortSlotTime,
 											SpectrumMgmt);
 
-		//if (bWmmCapable == TRUE)
-		//{
+#if 0
+		if (bWmmCapable == TRUE)
+		{
 			/*
 				In WMM spec v1.1, A WMM-only AP or STA does not set the "QoS"
 				bit in the capability field of association, beacon and probe
 				management frames.
 			*/
-			//pMbss->CapabilityInfo |= 0x0200;
-		//}
+			pMbss->CapabilityInfo |= 0x0200;
+		}
+#endif
 
 #ifdef UAPSD_SUPPORT
-		//if (pMbss->UapsdInfo.bAPSDCapable == TRUE)
-		//{
+#if 0
+		if (pMbss->UapsdInfo.bAPSDCapable == TRUE)
+		{
 			/*
 				QAPs set the APSD subfield to 1 within the Capability
 				Information field when the MIB attribute
 				dot11APSDOptionImplemented is true and set it to 0 otherwise.
 				STAs always set this subfield to 0.
 			*/
-			//pMbss->CapabilityInfo |= 0x0800;
-		//}
+			pMbss->CapabilityInfo |= 0x0800;
+		}
+#endif
 #endif /* UAPSD_SUPPORT */
 
 		/* decide the mixed WPA cipher combination */
@@ -391,19 +397,11 @@ VOID APStartUp(
 		p.s ASIC use all 0xff as termination of WCID table search.
 	*/
 #ifdef MT7601U
-	{
-		unsigned int MACValue[128 * 2];
-		unsigned int Index;
-
-		for (Index = 0; Index < 128 * 2; Index+=2) {
-			MACValue[Index] = 0;
-			MACValue[Index + 1] = 0;
-		}
-
-		AndesBurstWrite(pAd, MAC_WCID_BASE, MACValue, 128 * 2);
-
-
+	for (i = 0; i < 128 * 2; i += 2) {
+		MACValue[i + 0] = 0;
+		MACValue[i + 1] = 0;
 	}
+	AndesBurstWrite(pAd, MAC_WCID_BASE, MACValue, 128 * 2);
 #else
 	for (i = 0; i < 255; i++)
 		AsicDelWcidTab(pAd, i);
@@ -435,7 +433,7 @@ VOID APStartUp(
 
 #ifdef DOT11_VHT_AC
 //+++Add by shiang for debug
-DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, VHT-CentCh=%d, BBP_BW=%d)\n",
+	DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, VHT-CentCh=%d, BBP_BW=%d)\n",
 						__FUNCTION__, pAd->hw_cfg.cent_ch, pAd->CommonCfg.Channel, 
 						pAd->CommonCfg.CentralChannel, pAd->CommonCfg.vht_cent_ch,
 						pAd->CommonCfg.BBPCurrentBW));
@@ -451,7 +449,7 @@ DBGPRINT(RT_DEBUG_OFF, ("%s(): AP Set CentralFreq at %d(Prim=%d, HT-CentCh=%d, V
 #endif /* GREENAP_SUPPORT */
 #endif /* DOT11_N_SUPPORT */
 
-	MlmeSetTxPreamble(pAd, (unsigned short)pAd->CommonCfg.TxPreamble);	
+	MlmeSetTxPreamble(pAd, (unsigned short)pAd->CommonCfg.TxPreamble);
 	for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++) {
 		MlmeUpdateTxRates(pAd, FALSE, apidx);
 #ifdef DOT11_N_SUPPORT

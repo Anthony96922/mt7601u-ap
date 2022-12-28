@@ -244,6 +244,36 @@ VOID APPeerProbeReqAction(
 			FrameLen += TmpLen;
 		}
 
+
+#ifdef DOT11_N_SUPPORT
+		/* AP Channel Report */
+		{
+			unsigned char APChannelReportIe = IE_AP_CHANNEL_REPORT;
+			unsigned long TmpLen;
+
+			/*
+				802.11n D2.0 Annex J, USA regulatory
+				class 32, channel set 1~7
+				class 33, channel set 5-11
+			*/
+			unsigned char rclass32[] = {32, 1, 2, 3, 4, 5,  6,  7};
+			unsigned char rclass33[] = {33, 5, 6, 7, 8, 9, 10, 11};
+			unsigned char rclasslen = 8; /*sizeof(rclass32); */
+			if (PhyMode & (WMODE_B | WMODE_G))
+			{
+				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+						1, &APChannelReportIe,
+						1, &rclasslen,
+						rclasslen, rclass32,
+						1, &APChannelReportIe,
+						1, &rclasslen,
+						rclasslen, rclass33,
+						END_OF_ARGS);
+				FrameLen += TmpLen;
+			}
+		}
+#endif /* DOT11_N_SUPPORT */
+
 #ifdef A_BAND_SUPPORT
 		/* add Channel switch announcement IE */
 		if ((pAd->CommonCfg.Channel > 14)

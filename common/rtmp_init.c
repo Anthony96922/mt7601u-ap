@@ -1278,13 +1278,11 @@ NDIS_STATUS	NICInitializeAsic(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> NICInitializeAsic\n"));
 
-
-
 #ifdef RTMP_MAC_USB
 	/* Make sure MAC gets ready after NICLoadFirmware().*/
-	
+
 	Index = 0;
-	
+
 	/*To avoid hang-on issue when interface up in kernel 2.4, */
 	/*we use a local variable "MacCsr0" instead of using "pAd->MACVersion" directly.*/
 	if (WaitForAsicReady(pAd) != TRUE)
@@ -1296,51 +1294,47 @@ NDIS_STATUS	NICInitializeAsic(
 			__FUNCTION__, pAd->MACVersion));
 
 
-	if ( !IS_MT7601(pAd) )
-	{
-	/* turn on bit13 (set to zero) after rt2860D. This is to solve high-current issue.*/
-	RTMP_IO_READ32(pAd, PBF_SYS_CTRL, &MACValue);
-	MACValue &= (~0x2000);
-	RTMP_IO_WRITE32(pAd, PBF_SYS_CTRL, MACValue);
+	if ( !IS_MT7601(pAd) ) {
+		/* turn on bit13 (set to zero) after rt2860D. This is to solve high-current issue.*/
+		RTMP_IO_READ32(pAd, PBF_SYS_CTRL, &MACValue);
+		MACValue &= (~0x2000);
+		RTMP_IO_WRITE32(pAd, PBF_SYS_CTRL, MACValue);
 	}
-	
+
 	RTMP_IO_WRITE32(pAd, MAC_SYS_CTRL, 0x3);
 	RTMP_IO_WRITE32(pAd, USB_DMA_CFG, 0x0);
 
 #ifdef RTMP_MAC
 	RTUSBVenderReset(pAd);
 #endif
-	RTMPusecDelay(1000); 
+	RTMPusecDelay(1000);
 	RTMP_IO_WRITE32(pAd, MAC_SYS_CTRL, 0x0);
 #endif /* RTMP_MAC_USB */
 
 #ifdef RTMP_MAC_USB
 	UsbCfg.word = 0;
-	
+
 	/* USB1.1 do not use bulk in aggregation */
 	if (pAd->BulkInMaxPacketSize == 512)
 		UsbCfg.field.RxBulkAggEn = 1;
 
 	/* for last packet, PBF might use more than limited, so minus 2 to prevent from error */
-		UsbCfg.field.RxBulkAggLmt = (MAX_RXBULK_SIZE /1024)-3;
-	UsbCfg.field.RxBulkAggTOut = 0x80; 
+	UsbCfg.field.RxBulkAggLmt = (MAX_RXBULK_SIZE /1024)-3;
+	UsbCfg.field.RxBulkAggTOut = 0x80;
 
 	UsbCfg.field.RxBulkEn = 1;
 	UsbCfg.field.TxBulkEn = 1;
-	
+
 	RTMP_IO_WRITE32(pAd, USB_DMA_CFG, UsbCfg.word);
 
 #ifdef MT7601
-	if ( IS_MT7601(pAd) )
-	{
+	if ( IS_MT7601(pAd) ) {
 		UsbCfg.field.UDMA_RX_WL_DROP = 1;
 		RTMP_IO_WRITE32(pAd, USB_DMA_CFG, UsbCfg.word);
-	
 		UsbCfg.field.UDMA_RX_WL_DROP = 0;
 		RTMP_IO_WRITE32(pAd, USB_DMA_CFG, UsbCfg.word);
-
 	}
-	
+
 #endif /* MT7601 */
 
 #ifdef RLT_MAC
@@ -1371,19 +1365,19 @@ NDIS_STATUS	NICInitializeAsic(
 	if (pAd->chipOps.AsicMacInit != NULL)
 		pAd->chipOps.AsicMacInit(pAd);
 
-	
+
 	/* Before program BBP, we need to wait BBP/RF get wake up.*/
 	Index = 0;
 	do
 	{
 		RTMP_IO_READ32(pAd, MAC_STATUS_CFG, &MACValue);
 
-		if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST))			
+		if (RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST))
 			return NDIS_STATUS_FAILURE;
 
 		if ((MACValue & 0x03) == 0)	/* if BB.RF is stable*/
 			break;
-		
+
 		DBGPRINT(RT_DEBUG_TRACE, ("Check MAC_STATUS_CFG  = Busy = %x\n", MACValue));
 		RTMPusecDelay(1000);
 	} while (Index++ < 100);
@@ -1406,7 +1400,7 @@ NDIS_STATUS	NICInitializeAsic(
 	pAd->LastMCUCmd = 0x72;
 
 	NICInitBBP(pAd);
-	
+
 
 	if ((IS_RT3883(pAd)) || IS_RT65XX(pAd) || IS_MT7601(pAd) ||
 		((pAd->MACVersion >= RALINK_2880E_VERSION) &&
@@ -1416,7 +1410,7 @@ NDIS_STATUS	NICInitializeAsic(
 		unsigned int csr;
 		RTMP_IO_READ32(pAd, MAX_LEN_CFG, &csr);
 #if defined(RT2883) || defined(RT3883) || defined(RT3593) || defined(RT65xx) || defined(MT7601)
-		if (IS_RT2883(pAd) || IS_RT3883(pAd) || IS_RT3593(pAd) || IS_RT65XX(pAd) || IS_MT7601(pAd)) 
+		if (IS_RT2883(pAd) || IS_RT3883(pAd) || IS_RT3593(pAd) || IS_RT65XX(pAd) || IS_MT7601(pAd))
 		{
 			csr |= 0x3fff;
 		}
@@ -1432,35 +1426,31 @@ NDIS_STATUS	NICInitializeAsic(
 #ifdef RTMP_MAC_USB
 #ifdef RLT_MAC
 	{
-	unsigned int MACValue[128 * 2];
+		unsigned int MACValue[128 * 2];
 
-	for (Index = 0; Index < 128 * 2; Index+=2)
-	{
-		MACValue[Index] = 0xffffffff;
-		MACValue[Index + 1] = 0x00ffffff;
-	}
+		for (Index = 0; Index < 128 * 2; Index += 2) {
+			MACValue[Index + 0] = 0xffffffff;
+			MACValue[Index + 1] = 0x00ffffff;
+		}
 
-	AndesBurstWrite(pAd, MAC_WCID_BASE, MACValue, 128 * 2);
-
+		AndesBurstWrite(pAd, MAC_WCID_BASE, MACValue, 128 * 2);
 	}
 #else
 	{
-	unsigned char	MAC_Value[]={0xff,0xff,0xff,0xff,0xff,0xff,0xff,0,0};
+		unsigned char MAC_Value[] = {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0,0};
 
-	/*Initialize WCID table*/
-	for(Index =0 ;Index < 254;Index++)
-	{
-		RTUSBMultiWrite(pAd, (unsigned short)(MAC_WCID_BASE + Index * 8), MAC_Value, 8, FALSE);
+		/*Initialize WCID table*/
+		for (i = 0; Index < 254; Index++) {
+			RTUSBMultiWrite(pAd, (unsigned short)(MAC_WCID_BASE + Index * 8), MAC_Value, 8, FALSE);
+		}
 	}
-	}
-
 #endif /* RLT_MAC */
 #endif /* RTMP_MAC_USB */
 
 
 	/* Clear raw counters*/
 	NicResetRawCounters(pAd);
-	
+
 	/* ASIC will keep garbage value after boot*/
 	/* Clear all shared key table when initial*/
 	/* This routine can be ignored in radio-ON/OFF operation. */

@@ -198,19 +198,19 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 
 #ifdef DOT11_N_SUPPORT
 	/* AP Channel Report */
-	//{
-		//unsigned char APChannelReportIe = IE_AP_CHANNEL_REPORT;
-		//unsigned long TmpLen;
+	{
+		unsigned char APChannelReportIe = IE_AP_CHANNEL_REPORT;
+		unsigned long TmpLen;
 
 		/*
 			802.11n D2.0 Annex J, USA regulatory
 				class 32, channel set 1~7
 				class 33, channel set 5-11
 		*/
-		//unsigned char rclass32[] = {32, 1, 2, 3, 4, 5, 6, 7};
-		//unsigned char rclass33[] = {33, 5, 6, 7, 8, 9, 10, 11};
-		//unsigned char rclasslen = 8; /*sizeof(rclass32); */
-		/*if (PhyMode == (WMODE_B | WMODE_G | WMODE_GN))
+		unsigned char rclass32[] = {32, 1, 2, 3, 4, 5,  6,  7};
+		unsigned char rclass33[] = {33, 5, 6, 7, 8, 9, 10, 11};
+		unsigned char rclasslen = 8; /*sizeof(rclass32); */
+		if (PhyMode & (WMODE_B | WMODE_G))
 		{
 			MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
 						1, &APChannelReportIe,
@@ -221,8 +221,8 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 						rclasslen, rclass33,
 						END_OF_ARGS);
 			FrameLen += TmpLen;
-		}*/
-	//}
+		}
+	}
 #endif /* DOT11_N_SUPPORT */
 
 	RTMPWriteTxWI(pAd, &pAd->BeaconTxWI, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, 0, BSS0Mcast_WCID,
@@ -913,10 +913,10 @@ VOID APUpdateAllBeaconFrame(
 		DBGPRINT(RT_DEBUG_TRACE, ("DTIM Period reached, BSS20WidthReq=%d, Intolerant40=%d!\n", 
 				pAd->CommonCfg.LastBSSCoexist2040.field.BSS20WidthReq, pAd->CommonCfg.LastBSSCoexist2040.field.Intolerant40));
 		pAd->CommonCfg.Bss2040CoexistFlag &= (~BSS_2040_COEXIST_INFO_SYNC);
-		
+
 		prevBW = pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth; 
 		prevExtChOffset = pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset;
-		
+
 		if (pAd->CommonCfg.LastBSSCoexist2040.field.BSS20WidthReq ||
 			pAd->CommonCfg.LastBSSCoexist2040.field.Intolerant40 ||
 			(pAd->MacTab.fAnyStaFortyIntolerant == TRUE) ||

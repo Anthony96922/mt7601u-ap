@@ -1242,7 +1242,7 @@ INT	Set_DebugFunc_Proc(
 {
 	DBGPRINT_S(RT_DEBUG_TRACE, ("==>%s()\n", __FUNCTION__));
 	RTDebugFunc = simple_strtol(arg, 0, 10);
-	DBGPRINT_S(RT_DEBUG_TRACE, ("Set RTDebugFunc = 0x%x\n",__FUNCTION__, RTDebugFunc));
+	DBGPRINT_S(RT_DEBUG_TRACE, ("Set RTDebugFunc = 0x%lx\n", RTDebugFunc));
 
 	return TRUE;
 }
@@ -1472,7 +1472,7 @@ VOID RTMPSetPhyMode(
 #endif /* CONFIG_AP_SUPPORT */
 		DBGPRINT(RT_DEBUG_ERROR, ("RTMPSetPhyMode: channel is out of range, use first channel=%d \n", pAd->CommonCfg.Channel));
 	}
-	
+
 	NdisZeroMemory(pAd->CommonCfg.SupRate, MAX_LEN_OF_SUPPORTED_RATES);
 	NdisZeroMemory(pAd->CommonCfg.ExtRate, MAX_LEN_OF_SUPPORTED_RATES);
 	NdisZeroMemory(pAd->CommonCfg.DesireRate, MAX_LEN_OF_SUPPORTED_RATES);
@@ -1497,14 +1497,11 @@ VOID RTMPSetPhyMode(
 			Or some 11n stations will not connect to us if we do not put
 			supported/extended rate element in beacon.
 		*/
-		case (WMODE_G):
 		case (WMODE_B | WMODE_G):
 		case (WMODE_A | WMODE_B | WMODE_G):
 #ifdef DOT11_N_SUPPORT
-		case (WMODE_GN):
 		case (WMODE_A | WMODE_B | WMODE_G | WMODE_GN | WMODE_AN):
 		case (WMODE_B | WMODE_G | WMODE_GN):
-		case (WMODE_G | WMODE_GN):
 #endif /* DOT11_N_SUPPORT */
 			pAd->CommonCfg.SupRate[0]  = 0x82;	  /* 1 mbps, in units of 0.5 Mbps, basic rate*/
 			pAd->CommonCfg.SupRate[1]  = 0x84;	  /* 2 mbps, in units of 0.5 Mbps, basic rate*/
@@ -1532,6 +1529,31 @@ VOID RTMPSetPhyMode(
 			pAd->CommonCfg.DesireRate[9]  = 72;    /* 36 mbps, in units of 0.5 Mbps*/
 			pAd->CommonCfg.DesireRate[10] = 96;    /* 48 mbps, in units of 0.5 Mbps*/
 			pAd->CommonCfg.DesireRate[11] = 108;   /* 54 mbps, in units of 0.5 Mbps*/
+			break;
+
+		case (WMODE_G):
+#ifdef DOT11_N_SUPPORT
+		case (WMODE_G | WMODE_GN):
+		case (WMODE_GN):
+#endif /* DOT11_N_SUPPORT */
+			pAd->CommonCfg.SupRate[0]  = 0x8C;	  /* 6 mbps, in units of 0.5 Mbps, basic rate*/
+			pAd->CommonCfg.SupRate[1]  = 0x12;	  /* 9 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRate[2]  = 0x98;	  /* 12 mbps, in units of 0.5 Mbps, basic rate*/
+			pAd->CommonCfg.SupRate[3]  = 0x24;	  /* 18 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRate[4]  = 0xb0;	  /* 24 mbps, in units of 0.5 Mbps, basic rate*/
+			pAd->CommonCfg.SupRate[5]  = 0x48;	  /* 36 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRate[6]  = 0x60;	  /* 48 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRate[7]  = 0x6c;	  /* 54 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRateLen  = 8;
+			pAd->CommonCfg.ExtRateLen  = 0;
+			pAd->CommonCfg.DesireRate[0]  = 12;    /* 6 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.DesireRate[1]  = 18;    /* 9 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.DesireRate[2]  = 24;    /* 12 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.DesireRate[3]  = 36;    /* 18 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.DesireRate[4]  = 48;    /* 24 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.DesireRate[5]  = 72;    /* 36 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.DesireRate[6]  = 96;    /* 48 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.DesireRate[7]  = 108;   /* 54 mbps, in units of 0.5 Mbps*/
 			break;
 
 		case (WMODE_A):

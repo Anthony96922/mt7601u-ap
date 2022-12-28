@@ -400,7 +400,7 @@ static unsigned char RT_CfgMbssWirelessModeMaxGet(RTMP_ADAPTER *pAd)
 */
 INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 {
-	LONG cfg_mode;
+	long int cfg_mode;
 	unsigned char wmode;
 
 	cfg_mode = simple_strtol(arg, 0, 10);
@@ -408,7 +408,7 @@ INT RT_CfgSetMbssWirelessMode(RTMP_ADAPTER *pAd, char * arg)
 	wmode = cfgmode_2_wmode((unsigned char)cfg_mode);
 	if ((wmode == WMODE_INVALID) || (!wmode_valid(pAd, wmode))) {
 		DBGPRINT(RT_DEBUG_ERROR,
-				("%s(): Invalid wireless mode (%d, wmode = 0x%x), ChipCap(%s)\n",
+				("%s(): Invalid wireless mode (%ld, wmode = 0x%x), ChipCap(%s)\n",
 				__FUNCTION__, cfg_mode, wmode,
 				BAND_STR[pAd->chipCap.phy_caps & 0x3]));
 		return FALSE;

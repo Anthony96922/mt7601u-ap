@@ -2367,9 +2367,6 @@ VOID MT7601_InitDesiredTSSITable(
 	IN PRTMP_ADAPTER			pAd)
 {
 	unsigned int Value = 0;
-#ifdef DBG
-	unsigned short offset;
-#endif /* DBG */
 	int init_offset;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
@@ -2669,16 +2666,16 @@ bool MT7601_GetTssiCompensationParam(
 
 }
 
-VOID MT7601_AsicTxAlcGetAutoAgcOffset(
-	IN PRTMP_ADAPTER 			pAd,
-	IN char *					pDeltaPwr,
-	IN char *					pTotalDeltaPwr,
-	IN char *					pAgcCompensate,
-	IN char *	 				pDeltaPowerByBbpR1)
+void MT7601_AsicTxAlcGetAutoAgcOffset(
+	RTMP_ADAPTER 			*pAd,
+	char *					pDeltaPwr,
+	char *					pTotalDeltaPwr,
+	char *					pAgcCompensate,
+	char *	 				pDeltaPowerByBbpR1)
 {
 	int TargetPower, CurrentPower, PowerDiff;
 	unsigned char TssiLinear0, TssiLinear1;
-	CHAR tssi_offset;
+	char tssi_offset;
 	short tssi_db, tssi_m_dc;
 	unsigned int value;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
@@ -2691,9 +2688,9 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 		return;
 
 	if (pAd->Mlme.OneSecPeriodicRound % 4 == 0) {
-              // if base power is lower than 10 dBm use High VGA
+		// if base power is lower than 10 dBm use High VGA
 #ifdef DOT11_N_SUPPORT
-		if(pAd->TxPower[pAd->CommonCfg.CentralChannel-1].Power <= 20)
+		if (pAd->TxPower[pAd->CommonCfg.CentralChannel-1].Power <= 20)
 			pTxALCData->TSSI_USE_HVGA = 1;
 		else
 			pTxALCData->TSSI_USE_HVGA = 0;

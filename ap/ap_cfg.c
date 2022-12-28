@@ -1900,7 +1900,7 @@ INT RTMPAPSetInformation(
     			{
 					RTMP_GET_OS_PID(pObj->IappPid, IappPid);
 					pObj->IappPid_nr = IappPid;
-					DBGPRINT(RT_DEBUG_TRACE, ("RT_SET_APD_PID::(IappPid=%lu(0x%x))\n", IappPid, pObj->IappPid));
+					DBGPRINT(RT_DEBUG_TRACE, ("RT_SET_APD_PID::(IappPid=%lu(0x%p))\n", IappPid, pObj->IappPid));
 				}
     		}
 			break;
@@ -1917,7 +1917,7 @@ INT RTMPAPSetInformation(
     			{
 					RTMP_GET_OS_PID(pObj->apd_pid, apd_pid);
 					pObj->apd_pid_nr = apd_pid;
-					DBGPRINT(RT_DEBUG_TRACE, ("RT_SET_APD_PID::(ApdPid=%lu(0x%x))\n", apd_pid, pObj->apd_pid));
+					DBGPRINT(RT_DEBUG_TRACE, ("RT_SET_APD_PID::(ApdPid=%lu(0x%p))\n", apd_pid, pObj->apd_pid));
 				}
     		}
 			break;
@@ -5562,7 +5562,7 @@ INT Show_DriverInfo_Proc(
 	IN	char *			arg)
 {
 #ifdef DBG
-	printk("Driver version: %s (%s %s)\n", AP_DRIVER_VERSION, __DATE__, __TIME__);
+	printk("Driver version: %s\n", AP_DRIVER_VERSION);
 #endif /* DBG */
 	return TRUE;
 }
@@ -5762,7 +5762,7 @@ INT	Show_Sat_Proc(
 #ifdef DBG
 	/* Sanity check for calculation of sucessful count */
 	printk("TransmitCountFromOS = %d\n", pAd->WlanCounters.TransmitCountFrmOs.u.LowPart);
-	printk("TransmittedFragmentCount = %d\n", pAd->WlanCounters.TransmittedFragmentCount.u.LowPart + pAd->WlanCounters.MulticastTransmittedFrameCount.QuadPart);
+	printk("TransmittedFragmentCount = %lld\n", pAd->WlanCounters.TransmittedFragmentCount.u.LowPart + pAd->WlanCounters.MulticastTransmittedFrameCount.QuadPart);
 	printk("MulticastTransmittedFrameCount = %d\n", pAd->WlanCounters.MulticastTransmittedFrameCount.u.LowPart);
 	printk("FailedCount = %d\n", pAd->WlanCounters.FailedCount.u.LowPart);
 	printk("RetryCount = %d\n", pAd->WlanCounters.RetryCount.u.LowPart);
@@ -5774,7 +5774,7 @@ INT	Show_Sat_Proc(
 	printk("ReceivedFragmentCount = %d\n", pAd->WlanCounters.ReceivedFragmentCount.u.LowPart);
 	printk("MulticastReceivedFrameCount = %d\n", pAd->WlanCounters.MulticastReceivedFrameCount.u.LowPart);
 	printk("Rx drop due to out of resource  = %ld\n", (unsigned long)pAd->Counters8023.RxNoBuffer);
-#ifdef DBG 		
+#ifdef DBG
 	printk("RealFcsErrCount = %d\n", pAd->RalinkCounters.RealFcsErrCount.u.LowPart);
 #else
 	printk("FCSErrorCount = %d\n", pAd->WlanCounters.FCSErrorCount.u.LowPart);
@@ -6624,7 +6624,7 @@ VOID RTMPAPIoctlBBP(
 	char *				this_char;
 	char *				value;
 	unsigned char				regBBP = 0;
-	char *				mpool, msg; /*msg[2048]; */
+	char *				mpool, *msg; /*msg[2048]; */
 	char *				arg; /*arg[255]; */
 	char *				ptr;
 	INT					bbpId;
@@ -6836,10 +6836,10 @@ VOID RTMPAPIoctlMAC(
 	IN RTMP_ADAPTER *pAd, 
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
-	char * this_char, value;
+	char * this_char, *value;
 	INT j = 0, k = 0;
-	char * mpool, msg;
-	char * arg, ptr;
+	char * mpool, *msg;
+	char * arg, *ptr;
 	unsigned int macAddr = 0;
 	unsigned char temp[16];
 	char temp2[16];
@@ -6892,7 +6892,7 @@ VOID RTMPAPIoctlMAC(
 				k = j = strlen(this_char);
 				while(j-- > 0)
 					this_char[4-k+j] = this_char[j];
-				
+
 				while(k < 4)
 					this_char[3-k++]='0';
 				this_char[4]='\0';
@@ -6900,7 +6900,7 @@ VOID RTMPAPIoctlMAC(
 				if(strlen(this_char) == 4)
 				{
 					AtoH(this_char, temp, 2);
-					macAddr = *temp*256 + temp[1];					
+					macAddr = *temp*256 + temp[1];
 					if (macAddr < 0xFFFF)
 					{
 						RTMP_IO_READ32(pAd, macAddr, &macValue);
@@ -6956,7 +6956,7 @@ VOID RTMPAPIoctlMAC(
 				{
 					temp2[8-k+j] = temp2[j];
 				}
-				
+
 				while(k < 8)
 					temp2[7-k++]='0';
 				temp2[8]='\0';
@@ -6972,7 +6972,7 @@ VOID RTMPAPIoctlMAC(
 					if (macAddr == (HW_DEBUG_SETTING_BASE + 4))
 					{
 						/* 0x2bf4: byte0 non-zero: enable R66 tuning, 0: disable R66 tuning */
-						if (macValue & 0x000000ff) 
+						if (macValue & 0x000000ff)
 						{
 							pAd->BbpTuning.bEnable = TRUE;
 							DBGPRINT(RT_DEBUG_ERROR, ("turn on R17 tuning\n"));
@@ -6992,7 +6992,7 @@ VOID RTMPAPIoctlMAC(
 						DBGPRINT(RT_DEBUG_INFO, ("MacAddr=%02x, MacValue=0x%x\n", macAddr, macValue));
 
 					RTMP_IO_WRITE32(pAd, macAddr, macValue);
-					
+
 					sprintf(msg+strlen(msg), "[0x%04x]:%08x  ", macAddr, macValue);
 				}
 			}
@@ -7003,10 +7003,10 @@ VOID RTMPAPIoctlMAC(
 		bIsPrintAllMAC = TRUE;
 	}
 
-	
+
 	if(strlen(msg) == 1)
 		sprintf(msg+strlen(msg), "===>Error command format!");
-	
+
 #ifdef LINUX
 	if (bIsPrintAllMAC)
 	{
@@ -7019,7 +7019,7 @@ VOID RTMPAPIoctlMAC(
 		{
 			AddrStart = 0x0; AddrEnd = 0x1800;
 		}
-#endif /* defined(RT65xx) || defined(MT7601) */	
+#endif /* defined(RT65xx) || defined(MT7601) */
 
 		ASSERT((AddrEnd >= AddrStart));
 		/* *2 for safe */
@@ -7039,7 +7039,7 @@ VOID RTMPAPIoctlMAC(
 	wrq->u.data.length = strlen(msg);
 	if (copy_to_user(wrq->u.data.pointer, msg, wrq->u.data.length))
 	{
-		DBGPRINT(RT_DEBUG_TRACE, ("%s: copy_to_user() fail\n", __FUNCTION__));			
+		DBGPRINT(RT_DEBUG_TRACE, ("%s: copy_to_user() fail\n", __FUNCTION__));
 	}
 	}
 #endif /* LINUX */
@@ -7050,7 +7050,7 @@ VOID RTMPAPIoctlMAC(
 done:
 /*	kfree(mpool); */
 	os_free_mem(NULL, mpool);
-	if (!bFromUI)	
+	if (!bFromUI)
 		DBGPRINT(RT_DEBUG_INFO, ("<==RTMPIoctlMAC\n\n"));
 }
 
@@ -7062,7 +7062,7 @@ VOID RTMPAPIoctlRF(
 /*	char *				this_char;
 	char *				value;*/
 	unsigned char				regRF = 0;/*, rf_bank = 0;*/
-	char *				mpool, msg;
+	char *				mpool, *msg;
 	char *				arg;
 /*	char *				ptr;*/
 	INT				rfId, maxRFIdx, bank_Id;
@@ -7070,7 +7070,7 @@ VOID RTMPAPIoctlRF(
 	bool				bIsPrintAllRF = TRUE, bFromUI;
 	INT				memLen = sizeof(CHAR) * (2048+256+12);
 	INT				argLen;
-	
+
 	maxRFIdx = pAdapter->chipCap.MaxNumOfRfId;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==>RTMPIoctlRF (maxRFIdx = %d)\n", maxRFIdx));
@@ -7082,7 +7082,7 @@ VOID RTMPAPIoctlRF(
 	}
 
 	bFromUI = ((wrq->u.data.flags & RTPRIV_IOCTL_FLAG_UI) == RTPRIV_IOCTL_FLAG_UI) ? TRUE : FALSE;
-	
+
 	NdisZeroMemory(mpool, memLen);
 	msg = (char *)((unsigned long)(mpool+3) & (unsigned long)~0x03);
 	arg = (char *)((unsigned long)(msg+2048+3) & (unsigned long)~0x03);
@@ -7109,12 +7109,12 @@ VOID RTMPAPIoctlRF(
 
 #ifdef LINUX
 		wrq->u.data.length = strlen("Dump to RFDump.txt");
-		if (copy_to_user(wrq->u.data.pointer, "Dump to RFDump.txt", wrq->u.data.length)) 
+		if (copy_to_user(wrq->u.data.pointer, "Dump to RFDump.txt", wrq->u.data.length))
 		{
-			DBGPRINT(RT_DEBUG_TRACE, ("%s: copy_to_user() fail\n", __FUNCTION__));			
+			DBGPRINT(RT_DEBUG_TRACE, ("%s: copy_to_user() fail\n", __FUNCTION__));
 		}
 #endif /* LINUX */
-	}	
+	}
 
 	os_free_mem(NULL, mpool);
 	DBGPRINT(RT_DEBUG_TRACE, ("<==RTMPIoctlRF\n"));

@@ -1073,10 +1073,10 @@ VOID NetDevNickNameInit(IN struct _RTMP_ADAPTER *pAd);
 
 
 #ifdef GREENAP_SUPPORT
-VOID EnableAPMIMOPSv2(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
-VOID DisableAPMIMOPSv2(struct _RTMP_ADAPTER *pAd);
-VOID EnableAPMIMOPSv1(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
-VOID DisableAPMIMOPSv1(struct _RTMP_ADAPTER *pAd);
+void EnableAPMIMOPSv2(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
+void DisableAPMIMOPSv2(struct _RTMP_ADAPTER *pAd);
+void EnableAPMIMOPSv1(struct _RTMP_ADAPTER *pAd, bool ReduceCorePower);
+void DisableAPMIMOPSv1(struct _RTMP_ADAPTER *pAd);
 #endif /* GREENAP_SUPPORT */
 
 

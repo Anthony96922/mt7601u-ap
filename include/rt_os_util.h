@@ -658,7 +658,7 @@ VOID RtmpDrvAllE2PPrint(
 #ifdef DBG
 VOID RtmpDrvAllRFPrint(
 	IN VOID *pReserved,
-	IN unsigned int *pBuf,
+	IN unsigned char *pBuf,
 	IN unsigned int BufLen);
 #endif /* DBG */
 

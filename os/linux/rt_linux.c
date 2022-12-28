@@ -1793,8 +1793,12 @@ VOID RtmpDrvAllMacPrint(
 	if (!msg)
 		return;
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
+	orig_fs = force_uaccess_begin();
+#else
 	orig_fs = get_fs();
 	set_fs(KERNEL_DS);
+#endif
 
 	/* open file */
 	file_w = filp_open(fileName, O_WRONLY | O_CREAT, 0);
@@ -1821,7 +1825,11 @@ VOID RtmpDrvAllMacPrint(
 		}
 		filp_close(file_w, NULL);
 	}
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
+	force_uaccess_end(orig_fs);
+#else
 	set_fs(orig_fs);
+#endif
 	os_free_mem(NULL, msg);
 }
 
@@ -1842,8 +1850,12 @@ VOID RtmpDrvAllE2PPrint(
 	if (!msg)
 		return;
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
+	orig_fs = force_uaccess_begin();
+#else
 	orig_fs = get_fs();
 	set_fs(KERNEL_DS);
+#endif
 
 	/* open file */
 	file_w = filp_open(fileName, O_WRONLY | O_CREAT, 0);
@@ -1871,22 +1883,30 @@ VOID RtmpDrvAllE2PPrint(
 		}
 		filp_close(file_w, NULL);
 	}
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
+	force_uaccess_end(orig_fs);
+#else
 	set_fs(orig_fs);
+#endif
 	os_free_mem(NULL, msg);
 }
 
 
 VOID RtmpDrvAllRFPrint(
 	IN VOID *pReserved,
-	IN unsigned int *pBuf,
+	IN unsigned char *pBuf,
 	IN unsigned int BufLen)
 {
 	struct file *file_w;
 	char * fileName = "RFDump.txt";
 	mm_segment_t orig_fs;
 
+#if LINUX_VERSION_CODE > KERNEL_VERSION(5,10,0)
+	orig_fs = force_uaccess_begin();
+#else
 	orig_fs = get_fs();
 	set_fs(KERNEL_DS);
+#endif
 
 	/* open file */
 	file_w = filp_open(fileName, O_WRONLY | O_CREAT, 0);
@@ -1895,14 +1915,20 @@ VOID RtmpDrvAllRFPrint(
 			 ("-->2) %s: Error %ld opening %s\n", __FUNCTION__,
 			  -PTR_ERR(file_w), fileName));
 	} else {
+#if 0
 		if (file_w->f_op && file_w->f_op->write) {
 			file_w->f_pos = 0;
 			/* write data to file */
 			file_w->f_op->write(file_w, pBuf, BufLen, &file_w->f_pos);
 		}
+#endif
 		filp_close(file_w, NULL);
 	}
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
+	force_uaccess_end(orig_fs);
+#else
 	set_fs(orig_fs);
+#endif
 }
 #endif /* DBG */
 

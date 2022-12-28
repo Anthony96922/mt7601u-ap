@@ -498,7 +498,7 @@ VOID RtmpChipWriteMemory(
 
 
 #ifdef GREENAP_SUPPORT
-static VOID EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, bool ReduceCorePower)
+void EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, bool ReduceCorePower)
 {
 	rtmp_bbp_set_mmps(pAd, ReduceCorePower);
 	rtmp_mac_set_mmps(pAd, ReduceCorePower);
@@ -507,7 +507,7 @@ static VOID EnableAPMIMOPSv2(RTMP_ADAPTER *pAd, bool ReduceCorePower)
 }
 
 
-static VOID DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
+void DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
 {
 	rtmp_bbp_set_mmps(pAd, FALSE);
 	rtmp_mac_set_mmps(pAd, FALSE);
@@ -516,18 +516,16 @@ static VOID DisableAPMIMOPSv2(RTMP_ADAPTER *pAd)
 }
 
 
-static VOID EnableAPMIMOPSv1(
+void EnableAPMIMOPSv1(
 	IN RTMP_ADAPTER *pAd,
 	IN bool ReduceCorePower)
 {
-	unsigned char	BBPR3 = 0,BBPR1 = 0;
 	unsigned long	TxPinCfg = 0x00050F0A; /*Gary 2007/08/09 0x050A0A*/
-	unsigned char	BBPR4 = 0;
 	unsigned char	CentralChannel;
 
 	if(pAd->CommonCfg.Channel > 14)
 		TxPinCfg=0x00050F05;
-		
+
 	TxPinCfg &= 0xFFFFFFF3;
 	TxPinCfg &= 0xFFFFF3FF;
 	pAd->ApCfg.bGreenAPActive=TRUE;
@@ -555,13 +553,11 @@ static VOID EnableAPMIMOPSv1(
 }
 
 
-static VOID DisableAPMIMOPSv1(
+void DisableAPMIMOPSv1(
 	IN PRTMP_ADAPTER		pAd)
 {
-	unsigned char	BBPR3 = 0,BBPR1 = 0;
 	unsigned long	TxPinCfg = 0x00050F0A; /* Gary 2007/08/09 0x050A0A */
 	unsigned char	CentralChannel;
-	unsigned int	Value = 0;
 
 	if(pAd->CommonCfg.Channel > 14)
 		TxPinCfg = 0x00050F05;

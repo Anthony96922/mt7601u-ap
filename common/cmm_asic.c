@@ -1737,7 +1737,7 @@ VOID AsicAddPairwiseKeyEntry(
 	unsigned char *		 pTxMic = pCipherKey->TxMic;
 	unsigned char *		 pRxMic = pCipherKey->RxMic;
 #ifdef DBG
-	unsigned char * pKey = pCipherKey;
+	unsigned char 		*pKey = (char *)pCipherKey;
 	unsigned char		CipherAlg = pCipherKey->CipherAlg;
 #endif /* DBG */
 
