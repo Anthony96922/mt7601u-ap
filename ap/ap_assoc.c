@@ -350,7 +350,7 @@ static unsigned short update_associated_mac_entry(
 	{
 		pEntry->HTPhyMode.field.MCS = wdev->HTPhyMode.field.MCS;
 		pEntry->bAutoTxRateSwitch = FALSE;
-		
+
 		/* If the legacy mode is set, overwrite the transmit setting of this entry. */
 		RTMPUpdateLegacyTxSetting((unsigned char)wdev->DesiredTransmitSetting.field.FixedTxMode, pEntry);
 	}
@@ -592,7 +592,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	NDIS_STATUS NStatus;
 	unsigned long FrameLen = 0;
 	unsigned char MaxSupportedRate = 0;
-	unsigned char SupRateLen, PhyMode, FlgIs11bSta;
+	unsigned char SupRateLen, PhyMode, FlgIs11bSta, ErpIeLen = 1;
 	unsigned char i;
 	MAC_TABLE_ENTRY *pEntry;
 #ifdef DBG
@@ -603,8 +603,13 @@ VOID ap_cmm_peer_assoc_req_action(
 #ifdef DOT1X_SUPPORT
 	unsigned char * pPmkid = NULL;
 	unsigned char pmkid_count = 0;
-#endif /* DOT1X_SUPPORT */	
+#endif /* DOT1X_SUPPORT */
+	unsigned long TmpLen;
+#ifdef DOT11_N_SUPPORT
 	MULTISSID_STRUCT *wdev;
+	HT_CAPABILITY_IE HtCapabilityRsp;
+	unsigned char HtLen1;
+#endif /* DOT11_N_SUPPORT */
 
 	/* allocate memory */
 	os_alloc_mem(NULL, (unsigned char **)&ie_list, sizeof(IE_LISTS));
@@ -627,13 +632,13 @@ VOID ap_cmm_peer_assoc_req_action(
 					PRINT_MAC(ie_list->Addr2)));
 		goto LabelOK;
 	}
-	
+
 	if (!VALID_MBSS(pAd, pEntry->apidx)) {
 		DBGPRINT(RT_DEBUG_ERROR, ("%s():pEntry bounding invalid wdev(apidx=%d)\n",
 					__FUNCTION__, pEntry->apidx));
 		goto LabelOK;
 	}
-	
+
 	wdev = &pAd->ApCfg.MBSSID[pEntry->apidx];
 	PhyMode = wdev->PhyMode;
 
@@ -649,11 +654,10 @@ VOID ap_cmm_peer_assoc_req_action(
 			break;
 		}
 	}
-    
-    
+
 	/* clear the previous Pairwise key table */
 	if (pEntry->Aid != 0 &&
-	   (pEntry->WepStatus >= Ndis802_11Encryption2Enabled 
+	   (pEntry->WepStatus >= Ndis802_11Encryption2Enabled
 #ifdef DOT1X_SUPPORT
 	    || wdev->IEEE8021X
 #endif /* DOT1X_SUPPORT */
@@ -661,7 +665,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	{
 		/* clear GTK state */
 		pEntry->GTKState = REKEY_NEGOTIATING;
-    	
+
 		NdisZeroMemory(&pEntry->PairwiseKey, sizeof(CIPHER_KEY));
 
 		/* clear this entry as no-security mode */
@@ -669,17 +673,17 @@ VOID ap_cmm_peer_assoc_req_action(
 
 #ifdef DOT1X_SUPPORT
 		/* Notify 802.1x daemon to clear this sta info */
-		if (pEntry->AuthMode == Ndis802_11AuthModeWPA || 
+		if (pEntry->AuthMode == Ndis802_11AuthModeWPA ||
 		    pEntry->AuthMode == Ndis802_11AuthModeWPA2 ||
 		    wdev->IEEE8021X)
 			DOT1X_InternalCmdAction(pAd, pEntry, DOT1X_DISCONNECT_ENTRY);
 #endif /* DOT1X_SUPPORT */
 
 #ifdef WAPI_SUPPORT
-		WAPI_InternalCmdAction(pAd, 
-					pEntry->AuthMode, 
-					pEntry->apidx, 
-					pEntry->Addr, 
+		WAPI_InternalCmdAction(pAd,
+					pEntry->AuthMode,
+					pEntry->apidx,
+					pEntry->Addr,
 					WAI_MLME_DISCONNECT);
 
 		RTMPCancelWapiRekeyTimerAction(pAd, pEntry);
@@ -719,7 +723,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	if ((ie_list->SsidLen != wdev->SsidLen) ||
 		(NdisEqualMemory(ie_list->Ssid, wdev->Ssid, ie_list->SsidLen)==0))
         goto LabelOK;
-        
+
 #ifdef WSC_V2_SUPPORT
 	/* Do not check ACL when WPS V2 is enabled and ACL policy is positive. */
 	if ((pEntry->bWscCapable) &&
@@ -729,14 +733,14 @@ VOID ap_cmm_peer_assoc_req_action(
 		(MAC_ADDR_EQUAL(wdev->WscControl.EntryAddr, ZERO_MAC_ADDR)))
 		;
 	else
-#endif /* WSC_V2_SUPPORT */        
+#endif /* WSC_V2_SUPPORT */
 	/* set a flag for sending Assoc-Fail response to unwanted STA later. */
 	if (!ApCheckAccessControlList(pAd, ie_list->Addr2, pEntry->apidx))
 		bACLReject = TRUE;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s - MBSS(%d), receive %s request from %02x:%02x:%02x:%02x:%02x:%02x\n",
 					sAssoc, pEntry->apidx, sAssoc, PRINT_MAC(ie_list->Addr2)));
-    
+
 	/* supported rates array may not be sorted. sort it and find the maximum rate */
 	for (i = 0; i < ie_list->SupportedRatesLen; i++)
 	{
@@ -758,16 +762,14 @@ VOID ap_cmm_peer_assoc_req_action(
 				NULL,
 				0,
 #ifdef DOT11_VHT_AC
-					ie_list->vht_cap_len,
-					&ie_list->vht_cap,
+				ie_list->vht_cap_len,
+				&ie_list->vht_cap,
 #endif /* DOT11_VHT_AC */
 				&ie_list->HTCapability,
 				ie_list->ht_cap_len);
 
 	/* 2. qualify this STA's auth_asoc status in the MAC table, decide StatusCode */
 	StatusCode = APBuildAssociation(pAd, pEntry, ie_list, MaxSupportedRate, &Aid);
-
-
 
 #ifdef DOT11_VHT_AC
 	if (ie_list->vht_cap_len)
@@ -790,7 +792,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	NStatus = MlmeAllocateMemory(pAd, &pOutBuffer);
 	if (NStatus != NDIS_STATUS_SUCCESS)
 		goto LabelOK;
-        
+
 	DBGPRINT(RT_DEBUG_TRACE, ("%s - Send %s response (Status=%d)...\n", sAssoc, sAssoc, StatusCode));
 	Aid |= 0xc000; /* 2 most significant bits should be ON */
 
@@ -810,7 +812,7 @@ VOID ap_cmm_peer_assoc_req_action(
 			CapabilityInfoForAssocResp |= 0x0010;
 	}
 #endif /* WSC_AP_SUPPORT */
-	
+
 	/* fail in ACL checking => send an Assoc-Fail resp. */
 	SupRateLen = pAd->CommonCfg.SupRateLen;
 
@@ -820,7 +822,7 @@ VOID ap_cmm_peer_assoc_req_action(
 
 	if (bACLReject == TRUE)
 	{
-		MgtMacHeaderInit(pAd, &AssocRspHdr, SubType, 0, ie_list->Addr2, 
+		MgtMacHeaderInit(pAd, &AssocRspHdr, SubType, 0, ie_list->Addr2,
 					wdev->Bssid);
 		StatusCode = MLME_UNSPECIFY_FAIL;
 		MakeOutgoingFrame(pOutBuffer, &FrameLen,
@@ -846,7 +848,7 @@ VOID ap_cmm_peer_assoc_req_action(
 		goto LabelOK;
 	}
 
-	MgtMacHeaderInit(pAd, &AssocRspHdr, SubType, 0, ie_list->Addr2, 
+	MgtMacHeaderInit(pAd, &AssocRspHdr, SubType, 0, ie_list->Addr2,
 				wdev->Bssid);
 
 	MakeOutgoingFrame(pOutBuffer, &FrameLen,
@@ -859,14 +861,21 @@ VOID ap_cmm_peer_assoc_req_action(
 			SupRateLen, pAd->CommonCfg.SupRate,
 			END_OF_ARGS);
 
-	if ((pAd->CommonCfg.ExtRateLen) && (PhyMode != WMODE_B) && (FlgIs11bSta == 0))
-	{
-		unsigned long TmpLen;
+	if (pAd->CommonCfg.ExtRateLen && FlgIs11bSta == 0) {
 		MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-					1, &ExtRateIe,
-					1, &pAd->CommonCfg.ExtRateLen,
-					pAd->CommonCfg.ExtRateLen, pAd->CommonCfg.ExtRate,
-					END_OF_ARGS);
+			1, &ExtRateIe,
+			1, &pAd->CommonCfg.ExtRateLen,
+			pAd->CommonCfg.ExtRateLen, pAd->CommonCfg.ExtRate,
+			END_OF_ARGS);
+		FrameLen += TmpLen;
+	}
+
+	if (PhyMode != WMODE_B) {
+		MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+			1, &ErpIe,
+			1, &ErpIeLen,
+			1, &pAd->ApCfg.ErpIeContent,
+			END_OF_ARGS);
 		FrameLen += TmpLen;
 	}
 
@@ -874,9 +883,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	/* HT capability in AssocRsp frame. */
 	if ((ie_list->ht_cap_len > 0) && WMODE_CAP_N(pAd->CommonCfg.PhyMode))
 	{
-		unsigned long TmpLen;
-		unsigned char HtLen1 = sizeof(pAd->CommonCfg.AddHTInfo);
-		HT_CAPABILITY_IE HtCapabilityRsp;
+		HtLen1 = sizeof(pAd->CommonCfg.AddHTInfo);
 #ifdef RT_BIG_ENDIAN
 		HT_CAPABILITY_IE HtCapabilityTmp;
 		ADD_HT_INFO_IE addHTInfoTmp;
@@ -903,7 +910,7 @@ VOID ap_cmm_peer_assoc_req_action(
 
 			NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 			*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
+			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
 		}
 #else
 		*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
@@ -922,79 +929,97 @@ VOID ap_cmm_peer_assoc_req_action(
 					HtLen1, &addHTInfoTmp,
 					END_OF_ARGS);
 #endif /* RT_BIG_ENDIAN */
-#endif /* DOT11_N_SUPPORT */
 		FrameLen += TmpLen;
+	}
+#endif /* DOT11_N_SUPPORT */
 
-		/* 7.3.2.27 Extended Capabilities IE */
-		{
-			unsigned long TmpLen, infoPos;
-			unsigned char * pInfo;
-			unsigned char extInfoLen;
-			bool bNeedAppendExtIE = FALSE;
-			EXT_CAP_INFO_ELEMENT extCapInfo;
+	/* 7.3.2.27 Extended Capabilities IE */
+	{
+		unsigned long infoPos;
+		unsigned char *pInfo;
+		unsigned char extInfoLen;
+		bool bNeedAppendExtIE = FALSE;
+		EXT_CAP_INFO_ELEMENT extCapInfo;
 
-			extInfoLen = sizeof(EXT_CAP_INFO_ELEMENT);
-			NdisZeroMemory(&extCapInfo, extInfoLen);
+		extInfoLen = sizeof(EXT_CAP_INFO_ELEMENT);
+		NdisZeroMemory(&extCapInfo, extInfoLen);
 
 #ifdef DOT11_N_SUPPORT
 #ifdef DOT11N_DRAFT3
-			/* P802.11n_D1.10, HT Information Exchange Support */
-			if (WMODE_CAP_N(pAd->CommonCfg.PhyMode)
-				&& (pAd->CommonCfg.Channel <= 14)
-				&& (pAd->CommonCfg.bBssCoexEnable == TRUE))
-				extCapInfo.BssCoexistMgmtSupport = 1;
+		/* P802.11n_D1.10, HT Information Exchange Support */
+		if (WMODE_CAP_N(pAd->CommonCfg.PhyMode)
+			&& (pAd->CommonCfg.Channel <= 14)
+			&& (pAd->CommonCfg.bBssCoexEnable == TRUE))
+			extCapInfo.BssCoexistMgmtSupport = 1;
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
 
-			extCapInfo.utf8_ssid = 1;
+		extCapInfo.utf8_ssid = 1;
 
-			pInfo = (unsigned char *)(&extCapInfo);
-			for (infoPos = 0; infoPos < extInfoLen; infoPos++) {
-				if (pInfo[infoPos] != 0) {
-					bNeedAppendExtIE = TRUE;
-					break;
-				}
-			}
-
-			if (bNeedAppendExtIE == TRUE) {
-				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-							1, &ExtCapIe,
-							1, &extInfoLen,
-							extInfoLen, &extCapInfo,
-							END_OF_ARGS);
-				FrameLen += TmpLen;
+		pInfo = (unsigned char *)(&extCapInfo);
+		for (infoPos = 0; infoPos < extInfoLen; infoPos++) {
+			if (pInfo[infoPos] != 0) {
+				bNeedAppendExtIE = TRUE;
+				break;
 			}
 		}
 
-		if (WMODE_CAP_N(PhyMode) &&
-			(wdev->DesiredHtPhyInfo.bHtEnable)) {
-
-			if ((ie_list->RalinkIe) == 0 || (pAd->bBroadComHT == TRUE)) {
-				unsigned char epigram_ie_len;
-				unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
-				unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
-
-				epigram_ie_len = ie_list->ht_cap_len + 4;
-
-				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						1, &WpaIe,
-						1, &epigram_ie_len,
-						4, &BROADCOM_HTC[0],
-						ie_list->ht_cap_len, &HtCapabilityRsp,
+		if (bNeedAppendExtIE == TRUE) {
+			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+						1, &ExtCapIe,
+						1, &extInfoLen,
+						extInfoLen, &extCapInfo,
 						END_OF_ARGS);
+			FrameLen += TmpLen;
+		}
+	}
 
-				FrameLen += TmpLen;
-				epigram_ie_len = HtLen1 + 4;
+	/* add Ralink-specific IE here - Byte0.b0=1 for aggregation, Byte0.b1=1 for piggy-back */
+	{
+		unsigned char RalinkSpecificIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
 
-				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						1, &WpaIe,
-						1, &epigram_ie_len,
-						4, &BROADCOM_AHTINFO[0],
-						HtLen1, &pAd->CommonCfg.AddHTInfo,
-						END_OF_ARGS);
-				FrameLen += TmpLen;
-			}
-                }
+		if (pAd->CommonCfg.bAggregationCapable)
+			RalinkSpecificIe[5] |= 0x1;
+		if (pAd->CommonCfg.bPiggyBackCapable)
+			RalinkSpecificIe[5] |= 0x2;
+#ifdef DOT11_N_SUPPORT
+		if (pAd->CommonCfg.bRdg)
+			RalinkSpecificIe[5] |= 0x4;
+#endif /* DOT11_N_SUPPORT */
+		MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+				9, RalinkSpecificIe,
+				END_OF_ARGS);
+		FrameLen += TmpLen;
+	}
+
+	if (WMODE_CAP_N(PhyMode) &&
+		(wdev->DesiredHtPhyInfo.bHtEnable)) {
+
+		if ((ie_list->RalinkIe) == 0 || (pAd->bBroadComHT == TRUE)) {
+			unsigned char epigram_ie_len;
+			unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
+			unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
+
+			epigram_ie_len = ie_list->ht_cap_len + 4;
+
+			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+					1, &WpaIe,
+					1, &epigram_ie_len,
+					4, &BROADCOM_HTC[0],
+					ie_list->ht_cap_len, &HtCapabilityRsp,
+					END_OF_ARGS);
+
+			FrameLen += TmpLen;
+			epigram_ie_len = HtLen1 + 4;
+
+			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+					1, &WpaIe,
+					1, &epigram_ie_len,
+					4, &BROADCOM_AHTINFO[0],
+					HtLen1, &pAd->CommonCfg.AddHTInfo,
+					END_OF_ARGS);
+			FrameLen += TmpLen;
+		}
 
 #ifdef DOT11N_DRAFT3
 	 	/* P802.11n_D3.03, 7.3.2.60 Overlapping BSS Scan Parameters IE */
@@ -1014,13 +1039,13 @@ VOID ap_cmm_peer_assoc_req_action(
 			OverlapScanParam.ActiveTalPerChannel = cpu2le16(pAd->CommonCfg.Dot11OBssScanActiveTotalPerChannel);
 			OverlapScanParam.DelayFactor = cpu2le16(pAd->CommonCfg.Dot11BssWidthChanTranDelayFactor);
 			OverlapScanParam.ScanActThre = cpu2le16(pAd->CommonCfg.Dot11OBssScanActivityThre);
-			
+
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 						1, &OverlapScanIE,
 						1, &ScanIELen,
 						ScanIELen, &OverlapScanParam,
 						END_OF_ARGS);
-			
+
 			FrameLen += TmpLen;
 	 	}
 #endif /* DOT11N_DRAFT3 */
@@ -1059,25 +1084,6 @@ VOID ap_cmm_peer_assoc_req_action(
 		FrameLen += TmpLen;
 	}
 
-	/* add Ralink-specific IE here - Byte0.b0=1 for aggregation, Byte0.b1=1 for piggy-back */
-	{
-		unsigned long TmpLen;
-		unsigned char RalinkSpecificIe[9] = {IE_VENDOR_SPECIFIC, 7, 0x00, 0x0c, 0x43, 0x00, 0x00, 0x00, 0x00};
-
-		if (pAd->CommonCfg.bAggregationCapable)
-			RalinkSpecificIe[5] |= 0x1;
-		if (pAd->CommonCfg.bPiggyBackCapable)
-			RalinkSpecificIe[5] |= 0x2;
-#ifdef DOT11_N_SUPPORT
-		if (pAd->CommonCfg.bRdg)
-			RalinkSpecificIe[5] |= 0x4;
-#endif /* DOT11_N_SUPPORT */
-		MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-					9, RalinkSpecificIe,
-					END_OF_ARGS);
-		FrameLen += TmpLen;
-	}
-
 #ifdef WSC_AP_SUPPORT
 	if (pEntry->bWscCapable)
 	{
@@ -1098,10 +1104,9 @@ VOID ap_cmm_peer_assoc_req_action(
 		}
 	}
 #endif /* WSC_AP_SUPPORT */
-  
+
 	MiniportMMRequest(pAd, 0, pOutBuffer, FrameLen);
 	MlmeFreeMemory(pAd, (void *) pOutBuffer);
-
 
 	/* set up BA session */
 	if (StatusCode == MLME_SUCCESS)
@@ -1120,17 +1125,16 @@ VOID ap_cmm_peer_assoc_req_action(
 
 /*		SendSingalToDaemon(SIGUSR2, pObj->IappPid); */
 
-		
 #endif /* IAPP_SUPPORT */
 
 		ap_assoc_info_debugshow(pAd, isReassoc, pEntry, ie_list);
 
 		/* send wireless event - for association */
 		RTMPSendWirelessEvent(pAd, IW_ASSOC_EVENT_FLAG, pEntry->Addr, 0, 0);
-    	
+
 		/* This is a reassociation procedure */
 		pEntry->IsReassocSta = isReassoc;
-		
+
 #ifdef DOT11_N_SUPPORT
 		/* clear txBA bitmap */
 		pEntry->TXBAbitmap = 0;
@@ -1141,66 +1145,39 @@ VOID ap_cmm_peer_assoc_req_action(
 				pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset &&
 				(ie_list->HTCapability.HtCapInfo.ChannelWidth == BW_40))
 				SendBeaconRequest(pAd, pEntry->Aid);
-			/*BAOriSessionSetUp(pAd, pEntry, 0, 0, 3000, FALSE); */
-		}
+				/*BAOriSessionSetUp(pAd, pEntry, 0, 0, 3000, FALSE); */
 #endif /* DOT11_N_SUPPORT */
 
-		/* enqueue a EAPOL_START message to trigger EAP state machine doing the authentication */
-		if ((pEntry->AuthMode == Ndis802_11AuthModeWPAPSK) || 
-			(pEntry->AuthMode == Ndis802_11AuthModeWPA2PSK))
-		{
+			/* enqueue a EAPOL_START message to trigger EAP state machine doing the authentication */
+			if ((pEntry->AuthMode == Ndis802_11AuthModeWPAPSK) ||
+				(pEntry->AuthMode == Ndis802_11AuthModeWPA2PSK))
+			{
 #ifdef WSC_AP_SUPPORT
-			/*
-				In WPA-PSK mode,
-				If Association Request of station has RSN/SSN, WPS AP Must Not send EAP-Request/Identity to station
-				no matter WPS AP does receive EAPoL-Start from STA or not.
-				Marvell WPS test bed(v2.1.1.5) will send AssocReq with WPS IE and RSN/SSN IE.
-			 */
-			if (pEntry->bWscCapable || (ie_list->RSNIE_Len == 0))
-			{
-				DBGPRINT(RT_DEBUG_TRACE, ("ASSOC - IF(ra%d) This is a WPS Client.\n\n", pEntry->apidx));
-				goto LabelOK;
-			}
-			else
-			{
-				pEntry->bWscCapable = FALSE;
-				pEntry->Receive_EapolStart_EapRspId = (WSC_ENTRY_GET_EAPOL_START | WSC_ENTRY_GET_EAP_RSP_ID);
-				/* This STA is not a WPS STA */
-				NdisZeroMemory(wdev->WscControl.EntryAddr, 6);
-            }
+				/*
+					In WPA-PSK mode,
+					If Association Request of station has RSN/SSN, WPS AP Must Not send EAP-Request/Identity to station
+					no matter WPS AP does receive EAPoL-Start from STA or not.
+					Marvell WPS test bed(v2.1.1.5) will send AssocReq with WPS IE and RSN/SSN IE.
+				 */
+				if (pEntry->bWscCapable || (ie_list->RSNIE_Len == 0))
+				{
+					DBGPRINT(RT_DEBUG_TRACE, ("ASSOC - IF(ra%d) This is a WPS Client.\n\n", pEntry->apidx));
+					goto LabelOK;
+				}
+				else
+				{
+					pEntry->bWscCapable = FALSE;
+					pEntry->Receive_EapolStart_EapRspId = (WSC_ENTRY_GET_EAPOL_START | WSC_ENTRY_GET_EAP_RSP_ID);
+					/* This STA is not a WPS STA */
+					NdisZeroMemory(wdev->WscControl.EntryAddr, 6);
+				}
 #endif /* WSC_AP_SUPPORT */
 
-				/* Enqueue a EAPOL-start message with the pEntry for WPAPSK State Machine */
-				if ((pEntry->EnqueueEapolStartTimerRunning == EAPOL_START_DISABLE
-#ifdef HOSTAPD_SUPPORT			
-					&& wdev->Hostapd == FALSE
-#endif /* HOSTAPD_SUPPORT */
-				)
-#ifdef WSC_AP_SUPPORT
-					&& !pEntry->bWscCapable
-#endif /* WSC_AP_SUPPORT */
-				)
-			{
-				/* Enqueue a EAPOL-start message with the pEntry */
-				pEntry->EnqueueEapolStartTimerRunning = EAPOL_START_PSK;
-				RTMPSetTimer(&pEntry->EnqueueStartForPSKTimer, ENQUEUE_EAPOL_START_TIMER);
-			}
-		}
-#ifdef DOT1X_SUPPORT
-		/*else if (isReassoc && */
-		else if ((pEntry->AuthMode == Ndis802_11AuthModeWPA2) && 
-			((pPmkid = WPA_ExtractSuiteFromRSNIE(ie_list->RSN_IE, ie_list->RSNIE_Len, PMKID_LIST, &pmkid_count)) != NULL))
-		{	/* Key cache */
-			INT CacheIdx;
-
-			if (((CacheIdx = RTMPSearchPMKIDCache(pAd, pEntry->apidx, pEntry->Addr)) != -1)
-				&& (RTMPEqualMemory(pPmkid, &wdev->PMKIDCache.BSSIDInfo[CacheIdx].PMKID, LEN_PMKID)))
-			{
 				/* Enqueue a EAPOL-start message with the pEntry for WPAPSK State Machine */
 				if ((pEntry->EnqueueEapolStartTimerRunning == EAPOL_START_DISABLE
 #ifdef HOSTAPD_SUPPORT
 					&& wdev->Hostapd == FALSE
-#endif /*HOSTAPD_SUPPORT*/
+#endif /* HOSTAPD_SUPPORT */
 				)
 #ifdef WSC_AP_SUPPORT
 					&& !pEntry->bWscCapable
@@ -1211,88 +1188,114 @@ VOID ap_cmm_peer_assoc_req_action(
 					pEntry->EnqueueEapolStartTimerRunning = EAPOL_START_PSK;
 					RTMPSetTimer(&pEntry->EnqueueStartForPSKTimer, ENQUEUE_EAPOL_START_TIMER);
 				}
+			}
+#ifdef DOT1X_SUPPORT
+			/*else if (isReassoc && */
+			else if ((pEntry->AuthMode == Ndis802_11AuthModeWPA2) &&
+				((pPmkid = WPA_ExtractSuiteFromRSNIE(ie_list->RSN_IE, ie_list->RSNIE_Len, PMKID_LIST, &pmkid_count)) != NULL))
+			{	/* Key cache */
+				INT CacheIdx;
 
-				pEntry->PMKID_CacheIdx = CacheIdx;
-				DBGPRINT(RT_DEBUG_ERROR, ("ASSOC - 2.PMKID matched and start key cache algorithm\n"));
+				if (((CacheIdx = RTMPSearchPMKIDCache(pAd, pEntry->apidx, pEntry->Addr)) != -1)
+					&& (RTMPEqualMemory(pPmkid, &wdev->PMKIDCache.BSSIDInfo[CacheIdx].PMKID, LEN_PMKID)))
+				{
+					/* Enqueue a EAPOL-start message with the pEntry for WPAPSK State Machine */
+					if ((pEntry->EnqueueEapolStartTimerRunning == EAPOL_START_DISABLE
+#ifdef HOSTAPD_SUPPORT
+					&& wdev->Hostapd == FALSE
+#endif /*HOSTAPD_SUPPORT*/
+					)
+#ifdef WSC_AP_SUPPORT
+					&& !pEntry->bWscCapable
+#endif /* WSC_AP_SUPPORT */
+					)
+					{
+						/* Enqueue a EAPOL-start message with the pEntry */
+						pEntry->EnqueueEapolStartTimerRunning = EAPOL_START_PSK;
+						RTMPSetTimer(&pEntry->EnqueueStartForPSKTimer, ENQUEUE_EAPOL_START_TIMER);
+					}
+
+					pEntry->PMKID_CacheIdx = CacheIdx;
+					DBGPRINT(RT_DEBUG_ERROR, ("ASSOC - 2.PMKID matched and start key cache algorithm\n"));
+				}
+				else
+				{
+					pEntry->PMKID_CacheIdx = ENTRY_NOT_FOUND;
+					DBGPRINT(RT_DEBUG_ERROR, ("ASSOC - 2.PMKID not found \n"));
+				}
 			}
-			else
-			{
-				pEntry->PMKID_CacheIdx = ENTRY_NOT_FOUND;
-				DBGPRINT(RT_DEBUG_ERROR, ("ASSOC - 2.PMKID not found \n"));
-			}
-		}
-		else if ((pEntry->AuthMode == Ndis802_11AuthModeWPA) ||
+			else if ((pEntry->AuthMode == Ndis802_11AuthModeWPA) ||
 				 (pEntry->AuthMode == Ndis802_11AuthModeWPA2) ||
 				 ((wdev->IEEE8021X)
 #ifdef WSC_AP_SUPPORT
-					&& (!pEntry->bWscCapable)
+				&& (!pEntry->bWscCapable)
 #endif /* WSC_AP_SUPPORT */
-				)
-		)
-		{
-			/* Enqueue a EAPOL-start message to trigger EAP SM */
-			if (pEntry->EnqueueEapolStartTimerRunning == EAPOL_START_DISABLE
-#ifdef HOSTAPD_SUPPORT
-				&& wdev->Hostapd == FALSE
-#endif/*HOSTAPD_SUPPORT*/
-			)
+				))
 			{
-      	  			pEntry->EnqueueEapolStartTimerRunning = EAPOL_START_1X;
-       	 			RTMPSetTimer(&pEntry->EnqueueStartForPSKTimer, ENQUEUE_EAPOL_START_TIMER);
+				/* Enqueue a EAPOL-start message to trigger EAP SM */
+				if (pEntry->EnqueueEapolStartTimerRunning == EAPOL_START_DISABLE
+#ifdef HOSTAPD_SUPPORT
+					&& wdev->Hostapd == FALSE
+#endif/*HOSTAPD_SUPPORT*/
+				)
+				{
+					pEntry->EnqueueEapolStartTimerRunning = EAPOL_START_1X;
+					RTMPSetTimer(&pEntry->EnqueueStartForPSKTimer, ENQUEUE_EAPOL_START_TIMER);
+				}
 			}
-		}
 #endif /* DOT1X_SUPPORT */
 #ifdef WAPI_SUPPORT
-		else if (pEntry->AuthMode == Ndis802_11AuthModeWAICERT)
-		{
-			WAPI_InternalCmdAction(pAd,
-						pEntry->AuthMode,
-						pEntry->apidx,
-						pEntry->Addr,
-						WAI_MLME_CERT_AUTH_START);	
-
-			RTMPInitWapiRekeyTimerAction(pAd, pEntry);
-		}
-		else if (pEntry->AuthMode == Ndis802_11AuthModeWAIPSK)
-		{
-			WAPI_InternalCmdAction(pAd,
-						pEntry->AuthMode, 
-						pEntry->apidx, 
-						pEntry->Addr, 
-						WAI_MLME_KEY_HS_START);
-			RTMPInitWapiRekeyTimerAction(pAd, pEntry);
-		}
-#endif /* WAPI_SUPPORT */
-		else
-		{
-			if (pEntry->WepStatus == Ndis802_11WEPEnabled)
+			else if (pEntry->AuthMode == Ndis802_11AuthModeWAICERT)
 			{
-				/* Set WEP key to ASIC */
-				unsigned char KeyIdx = 0;
-				unsigned char CipherAlg = 0;
+				WAPI_InternalCmdAction(pAd,
+							pEntry->AuthMode,
+							pEntry->apidx,
+							pEntry->Addr,
+							WAI_MLME_CERT_AUTH_START);
 
-				KeyIdx = wdev->DefaultKeyId;					
-				CipherAlg = pAd->SharedKey[pEntry->apidx][KeyIdx].CipherAlg;
+				RTMPInitWapiRekeyTimerAction(pAd, pEntry);
+			}
+			else if (pEntry->AuthMode == Ndis802_11AuthModeWAIPSK)
+			{
+				WAPI_InternalCmdAction(pAd,
+							pEntry->AuthMode,
+							pEntry->apidx,
+							pEntry->Addr,
+							WAI_MLME_KEY_HS_START);
+				RTMPInitWapiRekeyTimerAction(pAd, pEntry);
+			}
+#endif /* WAPI_SUPPORT */
+			else
+			{
+				if (pEntry->WepStatus == Ndis802_11WEPEnabled)
+				{
+					/* Set WEP key to ASIC */
+					unsigned char KeyIdx = 0;
+					unsigned char CipherAlg = 0;
 
-				/*
-					If WEP is used, set pair-wise cipherAlg into WCID
-					attribute table for this entry.
-				*/
-				RTMP_SET_WCID_SEC_INFO(pAd, 
-							pEntry->apidx, 
-							KeyIdx, 
-							CipherAlg, 
-							pEntry->Aid, 
-							SHAREDKEYTABLE);
-			}	
-        	}
+					KeyIdx = wdev->DefaultKeyId;
+					CipherAlg = pAd->SharedKey[pEntry->apidx][KeyIdx].CipherAlg;
+
+					/*
+						If WEP is used, set pair-wise cipherAlg into WCID
+						attribute table for this entry.
+					*/
+					RTMP_SET_WCID_SEC_INFO(pAd,
+								pEntry->apidx,
+								KeyIdx,
+								CipherAlg,
+								pEntry->Aid,
+								SHAREDKEYTABLE);
+				}
+			}
+		}
 	}
 
 LabelOK:
 	if (ie_list != NULL)
 		os_free_mem(NULL, ie_list);
 
-	return;	
+	return;
 }
 
 

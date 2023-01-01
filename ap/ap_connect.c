@@ -93,7 +93,7 @@ bool BeaconTransmitRequired(
 */
 VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 {
-	unsigned char DsLen = 1, SsidLen;
+	unsigned char DsLen = 1, SsidLen, ErpIeLen = 1;
 	HEADER_802_11 BcnHdr;
 	LARGE_INTEGER FakeTimestamp;
 	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
@@ -187,11 +187,20 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 			DBGPRINT(RT_DEBUG_ERROR, ("%s: Allocate memory fail!!!\n", __FUNCTION__));
 	}
 
-	if ((pAd->CommonCfg.ExtRateLen) && (PhyMode != WMODE_B)) {
+	if (pAd->CommonCfg.ExtRateLen) {
 		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
 					1, &ExtRateIe,
 					1, &pAd->CommonCfg.ExtRateLen,
 					pAd->CommonCfg.ExtRateLen, pAd->CommonCfg.ExtRate,
+					END_OF_ARGS);
+		FrameLen += TmpLen;
+	}
+
+	if (PhyMode != WMODE_B) {
+		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
+					1, &ErpIe,
+					1, &ErpIeLen,
+					1, &pAd->ApCfg.ErpIeContent,
 					END_OF_ARGS);
 		FrameLen += TmpLen;
 	}
@@ -256,7 +265,7 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 		ptr += 4;
 	}
 
-	pAd->ApCfg.MBSSID[apidx].TimIELocationInBeacon = (unsigned char)FrameLen; 
+	pAd->ApCfg.MBSSID[apidx].TimIELocationInBeacon = (unsigned char)FrameLen;
 	pAd->ApCfg.MBSSID[apidx].CapabilityInfoLocationInBeacon = sizeof(HEADER_802_11) + TIMESTAMP_LEN + 2;
 }
 
@@ -374,7 +383,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 #endif /* A_BAND_SUPPORT */
 
 	/* Update ERP */
-	if ((pComCfg->ExtRateLen) && (PhyMode != WMODE_B)) {
+	if (PhyMode != WMODE_B) {
 		/* fill ERP IE */
 		ptr = (unsigned char *)pBeaconFrame + FrameLen; /* pTxD->DataByteCnt; */
 		*ptr = IE_ERP;
@@ -514,7 +523,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 #endif /* DOT11N_DRAFT3 */
 #endif /* DOT11_N_SUPPORT */
 
-			extCapInfo.proxy_arp = 1;
 			extCapInfo.utf8_ssid = 1;
 
 			pInfo = (unsigned char *)(&extCapInfo);
@@ -569,12 +577,12 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 	    (pAd->ApCfg.MBSSID[apidx].WepStatus == Ndis802_11WEPEnabled))
 	{
 		/*
-		    Non-WPS Windows XP and Vista PCs are unable to determine if a WEP enalbed network is static key based 
+		    Non-WPS Windows XP and Vista PCs are unable to determine if a WEP enalbed network is static key based
 		    or 802.1X based. If the legacy station gets an EAP-Rquest/Identity from the AP, it assume the WEP
 		    network is 802.1X enabled & will prompt the user for 802.1X credentials. If the legacy station doesn't
 		    receive anything after sending an EAPOL-Start, it will assume the WEP network is static key based and
 		    prompt user for the WEP key. <<from "WPS and Static Key WEP Networks">>
-		    A WPS enabled AP should include this IE in the beacon when the AP is hosting a static WEP key network.  
+		    A WPS enabled AP should include this IE in the beacon when the AP is hosting a static WEP key network.
 		    The IE would be 7 bytes long with the Extended Capability field set to 0 (all bits zero)
 		    http:msdn.microsoft.com/library/default.asp?url=/library/en-us/randz/protocol/securing_public_wi-fi_hotspots.asp
 		*/
@@ -692,19 +700,19 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 						  1, &WpaIe,
 						  1, &epigram_ie_len,
 						  4, &BROADCOM_HTC[0],
-						  HtLen, &pComCfg->HtCapability, 
+						  HtLen, &pComCfg->HtCapability,
 						  END_OF_ARGS);
 #else
 			NdisMoveMemory(&HtCapabilityTmp, &pComCfg->HtCapability, HtLen);
 			*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
 #ifdef UNALIGNMENT_SUPPORT
-		{
-			EXT_HT_CAP_INFO extHtCapInfo;
+			{
+				EXT_HT_CAP_INFO extHtCapInfo;
 
-			NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-			*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-		}
+				NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+				*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
+				NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
+			}
 #else
 			*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
 #endif /* UNALIGNMENT_SUPPORT */
@@ -751,7 +759,7 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 		BeaconTransmit.field.MCS = MCS_RATE_6;
 	}
 #endif /* A_BAND_SUPPORT */
-	RTMPWriteTxWI(pAd, &pAd->BeaconTxWI, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, 0, 0xff, 
+	RTMPWriteTxWI(pAd, &pAd->BeaconTxWI, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, 0, 0xff,
 		FrameLen, PID_MGMT, QID_MGMT, 0, IFS_HTTXOP, FALSE, &BeaconTransmit);
 
 	/* step 7. move BEACON TXWI and frame content to on-chip memory */
@@ -904,8 +912,8 @@ VOID APUpdateAllBeaconFrame(
 	FlgQloadIsAlarmIssued = QBSS_LoadIsAlarmIssued(pAd);
 #endif /* AP_QLOAD_SUPPORT */
 
-	if ((pAd->ApCfg.DtimCount == 0) && 
-		(((pAd->CommonCfg.Bss2040CoexistFlag & BSS_2040_COEXIST_INFO_SYNC) && 
+	if ((pAd->ApCfg.DtimCount == 0) &&
+		(((pAd->CommonCfg.Bss2040CoexistFlag & BSS_2040_COEXIST_INFO_SYNC) &&
 		  (pAd->CommonCfg.bForty_Mhz_Intolerant == FALSE)) ||
 		(FlgQloadIsAlarmIssued == TRUE)))
 	{

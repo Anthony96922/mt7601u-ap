@@ -269,7 +269,6 @@ int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
 	/* Initialize pAd->StaCfg, pAd->ApCfg, pAd->CommonCfg to manufacture default*/
 	UserCfgInit(pAd);
 
-
 	Status = RtmpNetTaskInit(pAd);
 	if (Status != NDIS_STATUS_SUCCESS)
 		goto err5;
@@ -279,7 +278,7 @@ int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
 #ifdef CONFIG_AP_SUPPORT
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		APInitialize(pAd);
-#endif /* CONFIG_AP_SUPPORT */	
+#endif /* CONFIG_AP_SUPPORT */
 
 #ifdef BLOCK_NET_IF
 	initblockQueueTab(pAd);
@@ -289,17 +288,17 @@ int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
 	if (Status != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT_ERR(("MeasureReqTabInit failed, Status[=0x%08x]\n",Status));
-		goto err6;	
+		goto err6;
 	}
 	Status = TpcReqTabInit(pAd);
 	if (Status != NDIS_STATUS_SUCCESS)
 	{
 		DBGPRINT_ERR(("TpcReqTabInit failed, Status[=0x%08x]\n",Status));
-		goto err6;	
+		goto err6;
 	}
 
 	/* Init the hardware, we need to init asic before read registry, otherwise mac register will be reset*/
-	
+
 	Status = NICInitializeAdapter(pAd, TRUE);
 	if (Status != NDIS_STATUS_SUCCESS)
 	{
@@ -360,7 +359,7 @@ int rt28xx_init(VOID *pAdSrc, char * pDefaultMac, char * pHostName)
 
 #ifdef LED_CONTROL_SUPPORT
 	/* Send LED Setting to MCU */
-	RTMPInitLEDMode(pAd);	
+	RTMPInitLEDMode(pAd);
 #endif /* LED_CONTROL_SUPPORT */
 
 	NICInitAsicFromEEPROM(pAd); /* rt2860b */

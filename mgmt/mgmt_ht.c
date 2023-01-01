@@ -194,23 +194,17 @@ VOID RTMPSetHT(
 		ht_cap->ExtHtCapInfo.PlusHTC = 1;
 		ht_cap->ExtHtCapInfo.RDGSupport = 1;
 	}
-	else
-	{
-		ht_cap->ExtHtCapInfo.PlusHTC = 0;
-		ht_cap->ExtHtCapInfo.RDGSupport = 0;
-	}
 
+	ht_cap->HtCapParm.MaxRAmpduFactor = 3;
+	rt_ht_cap->MaxRAmpduFactor = 3;
 
+#if 0
 	if (RxStream == 1)
 	{
 		ht_cap->HtCapParm.MaxRAmpduFactor = 2;
 		rt_ht_cap->MaxRAmpduFactor = 2;
 	}
-	else
-	{
-		ht_cap->HtCapParm.MaxRAmpduFactor = 3;
-		rt_ht_cap->MaxRAmpduFactor = 3;
-	}
+#endif
 
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPSetHT : RxBAWinLimit = %d\n", pAd->CommonCfg.BACapability.field.RxBAWinLimit));
 
@@ -363,11 +357,8 @@ VOID RTMPSetHT(
 	{
 		ht_cap->HtCapInfo.ShortGIfor20 = 0;
 		rt_ht_cap->ShortGIfor20 = 0;
-		if (pHTPhyMode->BW == BW_40)
-		{
-			ht_cap->HtCapInfo.ShortGIfor40 = 0;
-			rt_ht_cap->ShortGIfor40 = 0;
-		}
+		ht_cap->HtCapInfo.ShortGIfor40 = 0;
+		rt_ht_cap->ShortGIfor40 = 0;
 	}
 
 	/* We support link adaptation for unsolicit MCS feedback, set to 2.*/
@@ -455,27 +446,26 @@ VOID RTMPSetIndividualHT(
 
 	do
 	{
-
 #ifdef CONFIG_AP_SUPPORT
 #ifdef APCLI_SUPPORT
-			if (apidx >= MIN_NET_DEVICE_FOR_APCLI)
-			{
-				unsigned char	idx = apidx - MIN_NET_DEVICE_FOR_APCLI;
+		if (apidx >= MIN_NET_DEVICE_FOR_APCLI)
+		{
+			unsigned char	idx = apidx - MIN_NET_DEVICE_FOR_APCLI;
 
-				if (idx < MAX_APCLI_NUM)
-				{
-					pDesired_ht_phy = &pAd->ApCfg.ApCliTab[idx].DesiredHtPhyInfo;
-					DesiredMcs = pAd->ApCfg.ApCliTab[idx].DesiredTransmitSetting.field.MCS;
-					encrypt_mode = pAd->ApCfg.ApCliTab[idx].WepStatus;
-					pAd->ApCfg.ApCliTab[idx].bAutoTxRateSwitch = (DesiredMcs == MCS_AUTO) ? TRUE : FALSE;
-					break;
-				}
-				else
-				{
-					DBGPRINT(RT_DEBUG_ERROR, ("RTMPSetIndividualHT: invalid idx(%d)\n", idx));
-					return;
-				}
+			if (idx < MAX_APCLI_NUM)
+			{
+				pDesired_ht_phy = &pAd->ApCfg.ApCliTab[idx].DesiredHtPhyInfo;
+				DesiredMcs = pAd->ApCfg.ApCliTab[idx].DesiredTransmitSetting.field.MCS;
+				encrypt_mode = pAd->ApCfg.ApCliTab[idx].WepStatus;
+				pAd->ApCfg.ApCliTab[idx].bAutoTxRateSwitch = (DesiredMcs == MCS_AUTO) ? TRUE : FALSE;
+				break;
 			}
+			else
+			{
+				DBGPRINT(RT_DEBUG_ERROR, ("RTMPSetIndividualHT: invalid idx(%d)\n", idx));
+				return;
+			}
+		}
 #endif /* APCLI_SUPPORT */
 
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)

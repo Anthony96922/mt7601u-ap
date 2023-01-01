@@ -57,7 +57,7 @@ export OSABL RT28xx_DIR RT28xx_MODE LINUX_SRC CROSS_COMPILE CROSS_COMPILE_INCLUD
 # The targets that may be used.
 PHONY += all build_tools test LINUX release prerelease clean uninstall install libwapi osabl
 
-all: build_tools $(TARGET)
+all: $(TARGET)
 
 build_tools:
 	@$(MAKE) -C tools

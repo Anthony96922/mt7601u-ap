@@ -10009,37 +10009,37 @@ INT	Set_RADIUS_Port_Proc(
 }
 
 INT	Set_RADIUS_Key_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	POS_COOKIE  pObj = (POS_COOKIE) pAd->OS_Cookie;
 	unsigned char	    apidx = pObj->ioctl_if;
-	char *		macptr;	
+	char *		macptr;
 	INT			count;
 	INT			srv_cnt = 0;
 
-	for (count = 0, macptr = rstrtok(arg,";"); (macptr && count < MAX_RADIUS_SRV_NUM); macptr = rstrtok(NULL,";"), count++) 
+	for (count = 0, macptr = rstrtok(arg,";"); (macptr && count < MAX_RADIUS_SRV_NUM); macptr = rstrtok(NULL,";"), count++)
 	{
 		if (strlen(macptr) > 0 && srv_cnt < pAd->ApCfg.MBSSID[apidx].radius_srv_num)
 		{
 			PRADIUS_SRV_INFO pSrvInfo = &pAd->ApCfg.MBSSID[apidx].radius_srv_info[srv_cnt];
 
-			pSrvInfo->radius_key_len = strlen(macptr); 
-			NdisMoveMemory(pSrvInfo->radius_key, macptr, pSrvInfo->radius_key_len);	
+			pSrvInfo->radius_key_len = strlen(macptr);
+			NdisMoveMemory(pSrvInfo->radius_key, macptr, pSrvInfo->radius_key_len);
 			srv_cnt ++;
-			DBGPRINT(RT_DEBUG_TRACE, ("IF(ra%d), radius_key(seq-%d)=%s, len=%d\n", 
+			DBGPRINT(RT_DEBUG_TRACE, ("IF(ra%d), radius_key(seq-%d)=%s, len=%d\n",
 										apidx, srv_cnt,
-										pSrvInfo->radius_key, 
-										pSrvInfo->radius_key_len));			
+										pSrvInfo->radius_key,
+										pSrvInfo->radius_key_len));
 		}
-	}				
+	}
 	return TRUE;
 }
 #endif /* DOT1X_SUPPORT */
 
 #ifdef UAPSD_SUPPORT
 INT Set_UAPSD_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;

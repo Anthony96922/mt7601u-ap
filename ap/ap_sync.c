@@ -90,7 +90,7 @@ VOID APPeerProbeReqAction(
 	HEADER_802_11 ProbeRspHdr;
 	NDIS_STATUS NStatus;
 	unsigned char * pOutBuffer = NULL;
-	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
+	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0, TmpLen3 = 0;
 	LARGE_INTEGER FakeTimestamp;
 	unsigned char DsLen = 1, ErpIeLen = 1, apidx = 0, PhyMode, SupRateLen, RSNIe = IE_WPA, RSNIe2 = IE_WPA2;
 	bool	bRequestRssi = FALSE;
@@ -199,21 +199,19 @@ VOID APPeerProbeReqAction(
 #ifdef EXT_BUILD_CHANNEL_LIST
 			BuildBeaconChList(pAd, TmpFrame, &TmpLen2);
 #else
-			{
-				unsigned char MaxTxPower = GetCountryMaxTxPwr(pAd, pAd->CommonCfg.Channel);
-						MakeOutgoingFrame(TmpFrame + TmpLen2,
-						&TmpLen,
-						1, &pAd->ChannelList[0].Channel,
-						1, &pAd->ChannelListNum,
-						1, &MaxTxPower,
-						END_OF_ARGS);
-				TmpLen2 += TmpLen;
-			}
+			unsigned char MaxTxPower = GetCountryMaxTxPwr(pAd, pAd->CommonCfg.Channel);
+			MakeOutgoingFrame(TmpFrame + TmpLen2,
+					&TmpLen,
+					1, &pAd->ChannelList[0].Channel,
+					1, &pAd->ChannelListNum,
+					1, &MaxTxPower,
+					END_OF_ARGS);
+			TmpLen2 += TmpLen;
 #endif /* EXT_BUILD_CHANNEL_LIST */
 
 			/* need to do the padding bit check, and concatenate it */
 			if ((TmpLen2 % 2) == 0) {
-				unsigned char TmpLen3 = TmpLen2 + 4;
+				TmpLen3 = TmpLen2 + 4;
 				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 							1, &CountryIe,
 							1, &TmpLen3,
@@ -221,7 +219,7 @@ VOID APPeerProbeReqAction(
 							TmpLen2 + 1, TmpFrame,
 							END_OF_ARGS);
 			} else {
-				unsigned char TmpLen3 = TmpLen2 + 3;
+				TmpLen3 = TmpLen2 + 3;
 				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 							1, &CountryIe,
 							1, &TmpLen3,
@@ -232,18 +230,23 @@ VOID APPeerProbeReqAction(
 			FrameLen += TmpLen;
 		} /* Country IE - */
 
-		if ((pAd->CommonCfg.ExtRateLen) && (PhyMode != WMODE_B)) {
+		if (pAd->CommonCfg.ExtRateLen) {
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 						1, &ExtRateIe,
 						1, &pAd->CommonCfg.ExtRateLen,
 						pAd->CommonCfg.ExtRateLen, pAd->CommonCfg.ExtRate,
+						END_OF_ARGS);
+			FrameLen += TmpLen;
+		}
+
+		if (PhyMode != WMODE_B) {
+			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 						1, &ErpIe,
 						1, &ErpIeLen,
 						1, &pAd->ApCfg.ErpIeContent,
 						END_OF_ARGS);
 			FrameLen += TmpLen;
 		}
-
 
 #ifdef DOT11_N_SUPPORT
 		/* AP Channel Report */
@@ -479,7 +482,7 @@ VOID APPeerProbeReqAction(
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 						26, WmeParmIe,
 						END_OF_ARGS);
-				FrameLen += TmpLen;
+			FrameLen += TmpLen;
 		}
 
 #ifdef AP_QLOAD_SUPPORT
