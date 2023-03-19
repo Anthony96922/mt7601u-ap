@@ -433,7 +433,7 @@ static unsigned short APBuildAssociation(
 		*pAid = pEntry->Aid;
 		pEntry->NoDataIdleCount = 0;
 		pEntry->StaConnectTime = 0;
-        
+
 #ifdef WSC_AP_SUPPORT
 		if (pEntry->bWscCapable == FALSE)
 #endif /* WSC_AP_SUPPORT */
@@ -903,22 +903,12 @@ VOID ap_cmm_peer_assoc_req_action(
 					END_OF_ARGS);
 #else
 		NdisMoveMemory(&HtCapabilityTmp, &HtCapabilityRsp, ie_list->ht_cap_len);
-		*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-		{
-			EXT_HT_CAP_INFO extHtCapInfo;
-
-			NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-			*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-		}
-#else
-		*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
+		&HtCapabilityTmp.HtCapInfo = SWAP16(&HtCapabilityTmp.HtCapInfo);
+		&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(&HtCapabilityTmp.ExtHtCapInfo);
 
 		NdisMoveMemory(&addHTInfoTmp, &pAd->CommonCfg.AddHTInfo, HtLen1);
-		*(unsigned short *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo2));
-		*(unsigned short *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo3));
+		&addHTInfoTmp.AddHtInfo2 = SWAP16(&addHTInfoTmp.AddHtInfo2);
+		&addHTInfoTmp.AddHtInfo3 = SWAP16(&addHTInfoTmp.AddHtInfo3);
 
 		MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 					1, &HtCapIe,
@@ -933,8 +923,8 @@ VOID ap_cmm_peer_assoc_req_action(
 	}
 #endif /* DOT11_N_SUPPORT */
 
-	/* 7.3.2.27 Extended Capabilities IE */
 	{
+		/* 7.3.2.27 Extended Capabilities IE */
 		unsigned long infoPos;
 		unsigned char *pInfo;
 		unsigned char extInfoLen;
@@ -995,7 +985,7 @@ VOID ap_cmm_peer_assoc_req_action(
 	if (WMODE_CAP_N(PhyMode) &&
 		(wdev->DesiredHtPhyInfo.bHtEnable)) {
 
-		if ((ie_list->RalinkIe) == 0 || (pAd->bBroadComHT == TRUE)) {
+		if (pAd->bBroadComHT == TRUE) {
 			unsigned char epigram_ie_len;
 			unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
 			unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};

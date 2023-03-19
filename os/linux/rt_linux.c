@@ -120,12 +120,12 @@ static inline VOID __RTMP_OS_Init_Timer(
 	IN void * data)
 {
 	if (!timer_pending(pTimer)) {
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4,15,0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
+		timer_setup(pTimer, function, 0);
+#else
 		init_timer(pTimer);
 		pTimer->data = (unsigned long)data;
 		pTimer->function = function;
-#else
-		timer_setup(pTimer, function, 0);
 #endif
 	}
 }
@@ -375,9 +375,9 @@ NDIS_STATUS RTMPAllocateNdisPacket(
 
 	/* Clone the frame content and update the length of packet */
 	if (HeaderLen > 0)
-		NdisMoveMemory(pPacket->data, pHeader, HeaderLen);
+		NdisMoveMemory((void *)pPacket->data, pHeader, HeaderLen);
 	if (DataLen > 0)
-		NdisMoveMemory(pPacket->data + HeaderLen, pData, DataLen);
+		NdisMoveMemory((void *)pPacket->data + HeaderLen, pData, DataLen);
 	skb_put(pPacket, HeaderLen + DataLen);
 /* printk(KERN_ERR "%s : pPacket = %p, len = %d\n", __FUNCTION__, pPacket, GET_OS_PKT_LEN(pPacket));*/
 
@@ -499,9 +499,9 @@ PNDIS_PACKET duplicate_pkt(
 		MEM_DBG_PKT_ALLOC_INC(skb);
 
 		skb_reserve(skb, 2);
-		NdisMoveMemory(skb->tail, pHeader802_3, HdrLen);
+		NdisMoveMemory((void *)skb->tail, pHeader802_3, HdrLen);
 		skb_put(skb, HdrLen);
-		NdisMoveMemory(skb->tail, pData, DataSize);
+		NdisMoveMemory((void *)skb->tail, pData, DataSize);
 		skb_put(skb, DataSize);
 		skb->dev = pNetDev;	/*get_netdev_from_bssid(pAd, FromWhichBSSID); */
 		pPacket = OSPKT_TO_RTPKT(skb);
@@ -569,7 +569,7 @@ PNDIS_PACKET duplicate_pkt_with_VLAN(
 		skb_put(skb, HdrLen + VLAN_Size);
 
 		/* copy data body */
-		NdisMoveMemory(skb->tail, pData, DataSize);
+		NdisMoveMemory((void *)skb->tail, pData, DataSize);
 		skb_put(skb, DataSize);
 		skb->dev = pNetDev;	/*get_netdev_from_bssid(pAd, FromWhichBSSID); */
 		pPacket = OSPKT_TO_RTPKT(skb);
@@ -619,7 +619,7 @@ bool RTMPL2FrameTxAction(
 	skb_reserve(skb, 2);
 
 	/* Insert the frame content */
-	NdisMoveMemory(GET_OS_PKT_DATAPTR(skb), pData, data_len);
+	NdisMoveMemory((void *)GET_OS_PKT_DATAPTR(skb), pData, data_len);
 
 	/* End this frame */
 	skb_put(GET_OS_PKT_TYPE(skb), data_len);
@@ -861,7 +861,7 @@ VOID SendSignalToDaemon(
 	File open/close related functions.
 
  *******************************************************************************/
-RTMP_OS_FD RtmpOSFileOpen(char *pPath, int flag, int mode)
+struct file *RtmpOSFileOpen(char *pPath, int flag, int mode)
 {
 	struct file *filePtr;
 
@@ -881,82 +881,30 @@ RTMP_OS_FD RtmpOSFileOpen(char *pPath, int flag, int mode)
 			  -PTR_ERR(filePtr), pPath));
 	}
 
-	return (RTMP_OS_FD) filePtr;
+	return filePtr;
 }
 
-int RtmpOSFileClose(RTMP_OS_FD osfd)
+int RtmpOSFileClose(struct file *osfd)
 {
 	filp_close(osfd, NULL);
 	return 0;
 }
 
-void RtmpOSFileSeek(RTMP_OS_FD osfd, int offset)
+void RtmpOSFileSeek(struct file *osfd, int offset)
 {
 	osfd->f_pos = offset;
 }
 
 
-int RtmpOSFileRead(RTMP_OS_FD osfd, char *pDataPtr, int readLen)
+int RtmpOSFileRead(struct file *osfd, char *pDataPtr, size_t readLen)
 {
-	DBGPRINT(RT_DEBUG_ERROR, ("add: %p %p\n", osfd->f_op, osfd->f_op->read));
-
-	/* The object must have a read method */
-	if (osfd->f_op) {
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 9, 0)
-		return vfs_read(osfd, pDataPtr, readLen, &osfd->f_pos);
-#else
-		return kernel_read(osfd, pDataPtr, readLen, &osfd->f_pos);
-#endif
-	} else {
-		DBGPRINT(RT_DEBUG_ERROR, ("no file read method\n"));
-		return -1;
-	}
+	return kernel_read(osfd, pDataPtr, readLen, &osfd->f_pos);
 }
 
-int RtmpOSFileWrite(RTMP_OS_FD osfd, char *pDataPtr, int writeLen)
+int RtmpOSFileWrite(struct file *osfd, char *pDataPtr, size_t writeLen)
 {
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 9, 0)
-	return vfs_write(osfd, pDataPtr, (size_t) writeLen, &osfd->f_pos);
-#else
-	return kernel_write(osfd, pDataPtr, (size_t) writeLen, &osfd->f_pos);
-#endif
+	return kernel_write(osfd, pDataPtr, writeLen, &osfd->f_pos);
 }
-
-static inline void __RtmpOSFSInfoChange(OS_FS_INFO * pOSFSInfo, bool bSet)
-{
-	if (bSet) {
-		/* Save uid and gid used for filesystem access. */
-		/* Set user and group to 0 (root) */
-#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,29)
-		pOSFSInfo->fsuid = current->fsuid;
-		pOSFSInfo->fsgid = current->fsgid;
-		current->fsuid = current->fsgid = 0;
-#elif LINUX_VERSION_CODE >= KERNEL_VERSION(3,10,0)
-		pOSFSInfo->fsuid = current_fsuid().val;
-		pOSFSInfo->fsgid = current_fsgid().val;
-#else
-		pOSFSInfo->fsuid = current_fsuid();
-		pOSFSInfo->fsgid = current_fsgid();
-#endif
-#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
-		pOSFSInfo->fs = get_fs();
-		set_fs(KERNEL_DS);
-#else
-     pOSFSInfo->fs = force_uaccess_begin();
-#endif 
-	} else {
-#if LINUX_VERSION_CODE < KERNEL_VERSION(5,10,0)
-		set_fs(pOSFSInfo->fs);
-#else
-     force_uaccess_end(pOSFSInfo->fs);
-#endif 
-#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,29)
-		current->fsuid = pOSFSInfo->fsuid;
-		current->fsgid = pOSFSInfo->fsgid;
-#endif
-	}
-}
-
 
 /*******************************************************************************
 
@@ -1061,7 +1009,7 @@ static inline NDIS_STATUS __RtmpOSTaskAttach(
 	pTask->task_killed = 0;
 	pTask->kthread_task = NULL;
 	pTask->kthread_task =
-	    kthread_run((cast_fn) fn, (void *)arg, pTask->taskName);
+	    kthread_run((void *)fn, (void *)arg, pTask->taskName);
 	if (IS_ERR(pTask->kthread_task))
 		status = NDIS_STATUS_FAILURE;
 #else
@@ -1096,7 +1044,7 @@ static inline NDIS_STATUS __RtmpOSTaskInit(
 
 	len = strlen(pTaskName);
 	len = len > (RTMP_OS_TASK_NAME_LEN - 1) ? (RTMP_OS_TASK_NAME_LEN - 1) : len;
-	NdisMoveMemory(&pTask->taskName[0], pTaskName, len);
+	NdisMoveMemory((void *)&pTask->taskName[0], pTaskName, len);
 	pTask->priv = pPriv;
 
 #ifndef KTHREAD_SUPPORT
@@ -1280,7 +1228,7 @@ int RtmpOSNetDevAddrSet(
 /*	GET_PAD_FROM_NET_DEV(pAd, net_dev); */
 
 
-	NdisMoveMemory(net_dev->dev_addr, pMacAddr, 6);
+	NdisMoveMemory((void *)net_dev->dev_addr, pMacAddr, 6);
 
 	return 0;
 }
@@ -1584,7 +1532,7 @@ int RtmpOSNetDevAttach(
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 		/* copy the net device mac address to the net_device structure. */
-		NdisMoveMemory(pNetDev->dev_addr, &pDevOpHook->devAddr[0],
+		NdisMoveMemory((void *)pNetDev->dev_addr, &pDevOpHook->devAddr[0],
 			       MAC_ADDR_LEN);
 
 		rtnl_locked = pDevOpHook->needProtcted;
@@ -1785,20 +1733,12 @@ VOID RtmpDrvAllMacPrint(
 {
 	struct file *file_w;
 	char * fileName = "MacDump.txt";
-	mm_segment_t orig_fs;
 	char *msg;
 	unsigned int macAddr = 0, macValue = 0;
 
 	os_alloc_mem(NULL, (unsigned char **)&msg, 1024);
 	if (!msg)
 		return;
-
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
-	orig_fs = force_uaccess_begin();
-#else
-	orig_fs = get_fs();
-	set_fs(KERNEL_DS);
-#endif
 
 	/* open file */
 	file_w = filp_open(fileName, O_WRONLY | O_CREAT, 0);
@@ -1825,11 +1765,6 @@ VOID RtmpDrvAllMacPrint(
 		}
 		filp_close(file_w, NULL);
 	}
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
-	force_uaccess_end(orig_fs);
-#else
-	set_fs(orig_fs);
-#endif
 	os_free_mem(NULL, msg);
 }
 
@@ -1841,7 +1776,7 @@ VOID RtmpDrvAllE2PPrint(
 {
 	struct file *file_w;
 	char * fileName = "EEPROMDump.txt";
-	mm_segment_t orig_fs;
+
 	char *msg;
 	unsigned short eepAddr = 0;
 	unsigned short eepValue;
@@ -1849,13 +1784,6 @@ VOID RtmpDrvAllE2PPrint(
 	os_alloc_mem(NULL, (unsigned char **)&msg, 1024);
 	if (!msg)
 		return;
-
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
-	orig_fs = force_uaccess_begin();
-#else
-	orig_fs = get_fs();
-	set_fs(KERNEL_DS);
-#endif
 
 	/* open file */
 	file_w = filp_open(fileName, O_WRONLY | O_CREAT, 0);
@@ -1883,11 +1811,6 @@ VOID RtmpDrvAllE2PPrint(
 		}
 		filp_close(file_w, NULL);
 	}
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
-	force_uaccess_end(orig_fs);
-#else
-	set_fs(orig_fs);
-#endif
 	os_free_mem(NULL, msg);
 }
 
@@ -1899,14 +1822,6 @@ VOID RtmpDrvAllRFPrint(
 {
 	struct file *file_w;
 	char * fileName = "RFDump.txt";
-	mm_segment_t orig_fs;
-
-#if LINUX_VERSION_CODE > KERNEL_VERSION(5,10,0)
-	orig_fs = force_uaccess_begin();
-#else
-	orig_fs = get_fs();
-	set_fs(KERNEL_DS);
-#endif
 
 	/* open file */
 	file_w = filp_open(fileName, O_WRONLY | O_CREAT, 0);
@@ -1924,11 +1839,6 @@ VOID RtmpDrvAllRFPrint(
 #endif
 		filp_close(file_w, NULL);
 	}
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,10,0)
-	force_uaccess_end(orig_fs);
-#else
-	set_fs(orig_fs);
-#endif
 }
 #endif /* DBG */
 
@@ -3286,8 +3196,6 @@ void RtmpOSFSInfoChange(RTMP_OS_FS_INFO *pOSFSInfoOrg, bool bSet)
 		DBGPRINT(RT_DEBUG_ERROR, ("%s: pOSFSInfo == NULL!\n", __FUNCTION__));
 		return;
 	}
-
-	__RtmpOSFSInfoChange(pOSFSInfo, bSet);
 
 	if (bSet == FALSE) {
 		if (pOSFSInfoOrg->pContent != NULL) {
@@ -5183,13 +5091,6 @@ VOID RtmpOsOpsInit(RTMP_OS_ABL_OPS *pOps)
 }
 
 #else /* OS_ABL_FUNC_SUPPORT */
-
-
-void RtmpOSFSInfoChange(RTMP_OS_FS_INFO *pOSFSInfoOrg, bool bSet)
-{
-	__RtmpOSFSInfoChange(pOSFSInfoOrg, bSet);
-}
-
 
 /* timeout -- ms */
 VOID RTMP_SetPeriodicTimer(NDIS_MINIPORT_TIMER *pTimerOrg, unsigned long timeout)

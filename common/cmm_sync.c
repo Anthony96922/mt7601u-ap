@@ -110,12 +110,12 @@ VOID BuildChannelList(
 				{
 					if (pChannelList[i] == pAd->TxPower[j].Channel)
 						NdisMoveMemory(&pAd->ChannelList[index+i], &pAd->TxPower[j], sizeof(CHANNEL_TX_POWER));
-						pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
+					pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
 				}
 
 #ifdef DOT11_N_SUPPORT
-						if (N_ChannelGroupCheck(pAd, pAd->ChannelList[index + i].Channel))
-							pAd->ChannelList[index + i].Flags |= CHANNEL_40M_CAP;
+				if (N_ChannelGroupCheck(pAd, pAd->ChannelList[index + i].Channel))
+					pAd->ChannelList[index + i].Flags |= CHANNEL_40M_CAP;
 #endif /* DOT11_N_SUPPORT */
 
 				pAd->ChannelList[index+i].MaxTxPwr = 20;
@@ -216,21 +216,21 @@ VOID BuildChannelList(
 			num = q;
 #endif /* CONFIG_AP_SUPPORT */
 
-			for (i=0; i<num; i++)
+			for (i = 0; i < num; i++)
 			{
-				for (j=0; j<MAX_NUM_OF_CHANNELS; j++)
+				for (j = 0; j < MAX_NUM_OF_CHANNELS; j++)
 				{
 					if (pChannelList[i] == pAd->TxPower[j].Channel)
 						NdisMoveMemory(&pAd->ChannelList[index+i], &pAd->TxPower[j], sizeof(CHANNEL_TX_POWER));
-						pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
+					pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
 				}
 
 #ifdef DOT11_N_SUPPORT
 				if (N_ChannelGroupCheck(pAd, pAd->ChannelList[index + i].Channel))
 					pAd->ChannelList[index + i].Flags |= CHANNEL_40M_CAP;
-#endif /* DOT11_N_SUPPORT */	
+#endif /* DOT11_N_SUPPORT */
 
-				for (j=0; j<15; j++)
+				for (j = 0; j < 15; j++)
 				{
 					if (pChannelList[i] == RadarCh[j])
 						pAd->ChannelList[index+i].DfsReq = TRUE;

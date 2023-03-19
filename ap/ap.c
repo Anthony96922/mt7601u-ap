@@ -199,7 +199,7 @@ VOID APStartUp(
 			pMbss->Bssid[5] += apidx;
 
 		if (pMbss->MSSIDDev != NULL)
-			NdisMoveMemory(RTMP_OS_NETDEV_GET_PHYADDR(pMbss->MSSIDDev),
+			NdisMoveMemory((void *)RTMP_OS_NETDEV_GET_PHYADDR(pMbss->MSSIDDev),
 								pMbss->Bssid, MAC_ADDR_LEN);
 
 		if (pMbss->bWmmCapable)

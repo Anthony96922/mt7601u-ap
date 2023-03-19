@@ -256,13 +256,8 @@ struct iw_statistics *rt28xx_get_wireless_stats(
 /***********************************************************************************
  *	OS file operation related data structure definitions
  ***********************************************************************************/
-typedef struct file* RTMP_OS_FD;
-
 typedef struct _OS_FS_INFO_
 {
-	int		fsuid;
-	int		fsgid;
-	mm_segment_t	fs;
 } OS_FS_INFO;
 
 #define IS_FILE_OPEN_ERR(_fd) 	((_fd == NULL) || IS_ERR((_fd)))

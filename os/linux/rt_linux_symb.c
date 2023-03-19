@@ -106,7 +106,6 @@ EXPORT_SYMBOL(RtmpOsSetNetDevTypeMonitor);
 EXPORT_SYMBOL(RtmpOSNetDevAddrSet);
 
 EXPORT_SYMBOL(RtmpOSFileOpen);
-EXPORT_SYMBOL(RtmpOSFSInfoChange);
 EXPORT_SYMBOL(RtmpOSFileWrite);
 EXPORT_SYMBOL(RtmpOSFileRead);
 EXPORT_SYMBOL(RtmpOSFileClose);

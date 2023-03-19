@@ -969,8 +969,7 @@ INT	set_eFuseLoadFromBin_Proc(
 	IN	char *arg)
 {
 	char *src;
-	RTMP_OS_FD				srcf;
-	RTMP_OS_FS_INFO			osfsInfo;
+	struct file				*srcf;
 	INT 						retval, memSize;
 	char *buffer, *memPtr;
 	INT						TotalByte= 0,ReadedByte=0,CompareBuf=1;
@@ -993,8 +992,6 @@ INT	set_eFuseLoadFromBin_Proc(
 	else
 		NdisMoveMemory(src, EFUSE_EEPROM_DEFULT_FILE, strlen(EFUSE_EEPROM_DEFULT_FILE));
 	DBGPRINT(RT_DEBUG_OFF, ("FileName=%s\n",src));
-
-	RtmpOSFSInfoChange(&osfsInfo, TRUE);
 
 	srcf = RtmpOSFileOpen(src, O_RDONLY, 0);
 	if (IS_FILE_OPEN_ERR(srcf)) 
@@ -1022,8 +1019,6 @@ INT	set_eFuseLoadFromBin_Proc(
 			DBGPRINT(RT_DEBUG_TRACE, ("--> Error closing file %s\n", src));
   	}
 
-	
-	RtmpOSFSInfoChange(&osfsInfo, FALSE);
 
 	for(ReadedByte=0;ReadedByte<TotalByte;ReadedByte++)
 	{
@@ -1067,8 +1062,6 @@ closeFile:
 			retval = FALSE;
 
 recoverFS:
-	RtmpOSFSInfoChange(&osfsInfo, FALSE);
-	
 
 	if (memPtr)
 /*		kfree(memPtr);*/
@@ -1446,8 +1439,8 @@ int rtmp_ee_efuse_read16(
 
 
 int rtmp_ee_efuse_write16(
-	IN RTMP_ADAPTER *pAd, 
-	IN unsigned short Offset, 
+	IN RTMP_ADAPTER *pAd,
+	IN unsigned short Offset,
 	IN unsigned short data)
 {
 	if (pAd->bFroceEEPROMBuffer
@@ -1470,7 +1463,7 @@ int RtmpEfuseSupportCheck(
 	IN RTMP_ADAPTER *pAd)
 {
 	unsigned short value;
-	
+
 	if (IS_RT30xx(pAd) || IS_RT3593(pAd))
 	{
 		eFusePhysicalReadRegisters(pAd, EFUSE_TAG, 2, &value);
@@ -1486,9 +1479,8 @@ INT set_eFuseBufferModeWriteBack_Proc(
 	IN	char *			arg)
 {
 	unsigned int Enable;
-	
 
- 	if(strlen(arg)>0)	
+ 	if(strlen(arg)>0)
 	{
 		Enable= simple_strtol(arg, 0, 16);
  	}
@@ -1496,7 +1488,7 @@ INT set_eFuseBufferModeWriteBack_Proc(
 		return FALSE;
 	if(Enable==1)
 	{
-		DBGPRINT(RT_DEBUG_TRACE, ("set_eFuseBufferMode_Proc:: Call WRITEEEPROMBUF"));	
+		DBGPRINT(RT_DEBUG_TRACE, ("set_eFuseBufferMode_Proc:: Call WRITEEEPROMBUF"));
 		eFuseWriteEeeppromBuf(pAd);
 	}
 	else
@@ -1508,7 +1500,7 @@ INT set_eFuseBufferModeWriteBack_Proc(
 
 /*
 	========================================================================
-	
+
 	Routine Description:
 		Load EEPROM from bin file for eFuse mode
 
@@ -1520,69 +1512,58 @@ INT set_eFuseBufferModeWriteBack_Proc(
 		NDIS_STATUS_FAILURE         image not found
 
 	IRQL = PASSIVE_LEVEL
-		
+
 	========================================================================
 */
 INT eFuseLoadEEPROM(
 	IN PRTMP_ADAPTER pAd)
 {
 	char *					src = NULL;
-	INT 						retval;			
-	RTMP_OS_FD				srcf;
-	RTMP_OS_FS_INFO			osFSInfo;
+	INT 						retval;
+	struct file			*srcf;
 
-	
+
 	src=EFUSE_BUFFER_PATH;
 	DBGPRINT(RT_DEBUG_TRACE, ("FileName=%s\n",src));
 
 
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
-
 	if (src && *src)
 	{
 		srcf = RtmpOSFileOpen(src, O_RDONLY, 0);
-		if (IS_FILE_OPEN_ERR(srcf)) 
+		if (IS_FILE_OPEN_ERR(srcf))
 		{
 			DBGPRINT(RT_DEBUG_ERROR, ("--> Error opening %s\n", src));
 			return FALSE;
 		}
-		else 
+		else
 		{
 
-				memset(pAd->EEPROMImage, 0x00, MAX_EEPROM_BIN_FILE_SIZE);
-				
+			memset(pAd->EEPROMImage, 0x00, MAX_EEPROM_BIN_FILE_SIZE);
 
 			retval =RtmpOSFileRead(srcf, (char *)pAd->EEPROMImage, MAX_EEPROM_BIN_FILE_SIZE);
-			if (retval > 0)
-							{
-				
+			if (retval > 0) {
 				retval = NDIS_STATUS_SUCCESS;
-			}
-			else
+			} else
 				DBGPRINT(RT_DEBUG_ERROR, ("Read file \"%s\" failed(errCode=%d)!\n", src, retval));
 
       		}
 
 
-	}
-	else
-		{
-					DBGPRINT(RT_DEBUG_ERROR, ("--> Error src  or srcf is null\n"));
-					return FALSE;
+	} else {
+		DBGPRINT(RT_DEBUG_ERROR, ("--> Error src  or srcf is null\n"));
+		return FALSE;
 
-		}
+	}
 
 	retval=RtmpOSFileClose(srcf);
-			
+
 	if (retval)
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("--> Error %d closing %s\n", -retval, src));
 	}
 
 
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
-
-	return TRUE;	
+	return TRUE;
 }
 
 INT eFuseWriteEeeppromBuf(
@@ -1590,28 +1571,22 @@ INT eFuseWriteEeeppromBuf(
 {
 
 	char *					src = NULL;
-	INT 						retval;			
-	RTMP_OS_FD				srcf;
-	RTMP_OS_FS_INFO			osFSInfo;
-						
-	
+	INT 						retval;
+	struct file			*srcf;
+
 	src=EFUSE_BUFFER_PATH;
 	DBGPRINT(RT_DEBUG_TRACE, ("FileName=%s\n",src));
-
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
-	
-
 
 	if (src && *src)
 	{
 		srcf = RtmpOSFileOpen(src, O_WRONLY|O_CREAT, 0);
 
-		if (IS_FILE_OPEN_ERR(srcf)) 
+		if (IS_FILE_OPEN_ERR(srcf))
 		{
 			DBGPRINT(RT_DEBUG_ERROR, ("--> Error opening %s\n", src));
 			return FALSE;
 		}
-		else 
+		else
 		{
 
 			RtmpOSFileWrite(srcf, (char *)pAd->EEPROMImage,MAX_EEPROM_BIN_FILE_SIZE);
@@ -1634,7 +1609,6 @@ INT eFuseWriteEeeppromBuf(
 		DBGPRINT(RT_DEBUG_TRACE, ("--> Error %d closing %s\n", -retval, src));
 	}
 	
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
 	return TRUE;	
 }
 

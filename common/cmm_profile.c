@@ -3525,7 +3525,7 @@ bool RTMP_CardInfoRead(
 		}
 	}
 
-	RTMP_OS_FD srcf;
+	struct file *srcf;
 	INT retval;
 	char *buffer, *tmpbuf;
 	char card_id_buf[30], RFIC_word[30];
@@ -3581,7 +3581,6 @@ bool RTMP_CardInfoRead(
 
 	DBGPRINT(RT_DEBUG_TRACE, ("mac addr = %02x:%02x:%02x:%02x:%02x:%02x!\n", PRINT_MAC(mac)));
 
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 	/* open card information file*/
 	srcf = RtmpOSFileOpen(CARD_INFO_PATH, O_RDONLY, 0);
 	if (IS_FILE_OPEN_ERR(srcf)) {
@@ -3778,7 +3777,6 @@ bool RTMP_CardInfoRead(
 	retval = RtmpOSFileClose(srcf);
 
 free_resource:
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
 	/*	kfree(buffer);*/
 	/*	kfree(tmpbuf);*/
 	os_free_mem(NULL, buffer);
@@ -4096,7 +4094,7 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 	IN RTMP_ADAPTER *pAd)
 {
 	char *buffer, *readline, *token;
-	RTMP_OS_FD srcf;
+	struct file *srcf;
 	INT retval;
 	char *ptr;
 	int index, i;
@@ -4111,7 +4109,6 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 	if (buffer == NULL)
 		return FALSE;
 
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 	/* open card information file*/
 	srcf = RtmpOSFileOpen(SINGLE_SKU_TABLE_FILE_NAME, O_RDONLY, 0);
 	if (IS_FILE_OPEN_ERR(srcf)) {
@@ -4279,7 +4276,6 @@ NDIS_STATUS RTMPSetSingleSKUParameters(
 	retval = RtmpOSFileClose(srcf);
 
 free_resource:
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
 
 	os_free_mem(NULL, buffer);
 

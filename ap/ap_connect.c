@@ -93,7 +93,7 @@ bool BeaconTransmitRequired(
 */
 VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 {
-	unsigned char DsLen = 1, SsidLen, ErpIeLen = 1;
+	unsigned char DsLen = 1, SsidLen;
 	HEADER_802_11 BcnHdr;
 	LARGE_INTEGER FakeTimestamp;
 	unsigned long FrameLen = 0, TmpLen = 0, TmpLen2 = 0;
@@ -195,44 +195,6 @@ VOID APMakeBssBeacon(RTMP_ADAPTER *pAd, INT apidx)
 					END_OF_ARGS);
 		FrameLen += TmpLen;
 	}
-
-	if (PhyMode != WMODE_B) {
-		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
-					1, &ErpIe,
-					1, &ErpIeLen,
-					1, &pAd->ApCfg.ErpIeContent,
-					END_OF_ARGS);
-		FrameLen += TmpLen;
-	}
-
-#ifdef DOT11_N_SUPPORT
-	/* AP Channel Report */
-	{
-		unsigned char APChannelReportIe = IE_AP_CHANNEL_REPORT;
-		unsigned long TmpLen;
-
-		/*
-			802.11n D2.0 Annex J, USA regulatory
-				class 32, channel set 1~7
-				class 33, channel set 5-11
-		*/
-		unsigned char rclass32[] = {32, 1, 2, 3, 4, 5,  6,  7};
-		unsigned char rclass33[] = {33, 5, 6, 7, 8, 9, 10, 11};
-		unsigned char rclasslen = 8; /*sizeof(rclass32); */
-		if (PhyMode & (WMODE_B | WMODE_G))
-		{
-			MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
-						1, &APChannelReportIe,
-						1, &rclasslen,
-						rclasslen, rclass32,
-						1, &APChannelReportIe,
-						1, &rclasslen,
-						rclasslen, rclass33,
-						END_OF_ARGS);
-			FrameLen += TmpLen;
-		}
-	}
-#endif /* DOT11_N_SUPPORT */
 
 	RTMPWriteTxWI(pAd, &pAd->BeaconTxWI, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, 0, BSS0Mcast_WCID,
 		FrameLen, PID_MGMT, 0, 0,IFS_HTTXOP, FALSE, &BeaconTransmit);
@@ -425,15 +387,9 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 		unsigned char HtLen, HtLen1;
 		/*unsigned char i; */
 
-#ifdef RT_BIG_ENDIAN
-		HT_CAPABILITY_IE HtCapabilityTmp;
-		ADD_HT_INFO_IE addHTInfoTmp;
-/*		unsigned short	b2lTmp, b2lTmp2; // no use */
-#endif
 		/* add HT Capability IE */
 		HtLen = sizeof(pComCfg->HtCapability);
 		HtLen1 = sizeof(pComCfg->AddHTInfo);
-#ifndef RT_BIG_ENDIAN
 		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
 					1, &HtCapIe,
 					1, &HtLen,
@@ -442,34 +398,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 					1, &HtLen1,
 					HtLen1, &pComCfg->AddHTInfo,
 					END_OF_ARGS);
-#else
-		NdisMoveMemory(&HtCapabilityTmp, &pComCfg->HtCapability, HtLen);
-		*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-		{
-			EXT_HT_CAP_INFO extHtCapInfo;
-
-			NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-			*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-			NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-		}
-#else
-		*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
-
-		NdisMoveMemory(&addHTInfoTmp, &pComCfg->AddHTInfo, HtLen1);
-		*(unsigned short *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo2));
-		*(unsigned short *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo3));
-
-		MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
-					1, &HtCapIe,
-					1, &HtLen,
-					HtLen, &HtCapabilityTmp,
-					1, &AddHtInfoIe,
-					1, &HtLen1,
-					HtLen1, &addHTInfoTmp,
-					END_OF_ARGS);
-#endif
 		FrameLen += TmpLen;
 
 #ifdef DOT11_N_SUPPORT
@@ -680,11 +608,6 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 		(pMbss->DesiredHtPhyInfo.bHtEnable)) {
 		unsigned char HtLen, HtLen1;
 		/*unsigned char i; */
-#ifdef RT_BIG_ENDIAN
-		HT_CAPABILITY_IE HtCapabilityTmp;
-		ADD_HT_INFO_IE	addHTInfoTmp;
-/*		unsigned short	b2lTmp, b2lTmp2;*/ /* no use */
-#endif /* RT_BIG_ENDIAN */
 		/* add HT Capability IE */
 		HtLen = sizeof(pComCfg->HtCapability);
 		HtLen1 = sizeof(pComCfg->AddHTInfo);
@@ -695,58 +618,21 @@ VOID APUpdateBeaconFrame(RTMP_ADAPTER *pAd, INT apidx)
 			unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
 
 			epigram_ie_len = HtLen + 4;
-#ifndef RT_BIG_ENDIAN
 			MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
 						  1, &WpaIe,
 						  1, &epigram_ie_len,
 						  4, &BROADCOM_HTC[0],
 						  HtLen, &pComCfg->HtCapability,
 						  END_OF_ARGS);
-#else
-			NdisMoveMemory(&HtCapabilityTmp, &pComCfg->HtCapability, HtLen);
-			*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-			{
-				EXT_HT_CAP_INFO extHtCapInfo;
-
-				NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-				*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-				NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-			}
-#else
-			*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
-
-			MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
-						1, &WpaIe,
-						1, &epigram_ie_len,
-						4, &BROADCOM_HTC[0],
-						HtLen, &HtCapabilityTmp,
-						END_OF_ARGS);
-#endif
-
 			FrameLen += TmpLen;
 
 			epigram_ie_len = HtLen1 + 4;
-#ifndef RT_BIG_ENDIAN
 			MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
 						  1, &WpaIe,
 						  1, &epigram_ie_len,
 						  4, &BROADCOM_AHTINFO[0],
 						  HtLen1, &pComCfg->AddHTInfo,
 						  END_OF_ARGS);
-#else
-			NdisMoveMemory(&addHTInfoTmp, &pComCfg->AddHTInfo, HtLen1);
-			*(unsigned short *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo2));
-			*(unsigned short *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo3));
-
-			MakeOutgoingFrame(pBeaconFrame + FrameLen, &TmpLen,
-						1, &WpaIe,
-						1, &epigram_ie_len,
-						4, &BROADCOM_AHTINFO[0],
-						HtLen1, &addHTInfoTmp,
-						END_OF_ARGS);
-#endif
 			FrameLen += TmpLen;
 		}
 	}
@@ -918,11 +804,11 @@ VOID APUpdateAllBeaconFrame(
 		(FlgQloadIsAlarmIssued == TRUE)))
 	{
 		unsigned char	prevBW, prevExtChOffset;
-		DBGPRINT(RT_DEBUG_TRACE, ("DTIM Period reached, BSS20WidthReq=%d, Intolerant40=%d!\n", 
+		DBGPRINT(RT_DEBUG_TRACE, ("DTIM Period reached, BSS20WidthReq=%d, Intolerant40=%d!\n",
 				pAd->CommonCfg.LastBSSCoexist2040.field.BSS20WidthReq, pAd->CommonCfg.LastBSSCoexist2040.field.Intolerant40));
 		pAd->CommonCfg.Bss2040CoexistFlag &= (~BSS_2040_COEXIST_INFO_SYNC);
 
-		prevBW = pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth; 
+		prevBW = pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth;
 		prevExtChOffset = pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset;
 
 		if (pAd->CommonCfg.LastBSSCoexist2040.field.BSS20WidthReq ||
@@ -938,7 +824,7 @@ VOID APUpdateAllBeaconFrame(
 			pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth = pAd->CommonCfg.RegTransmitSetting.field.BW;
 			pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset = pAd->CommonCfg.RegTransmitSetting.field.EXTCHA;
 		}
-		DBGPRINT(RT_DEBUG_TRACE,("\tNow RecomWidth=%d, ExtChanOffset=%d, prevBW=%d, prevExtOffset=%d\n", 
+		DBGPRINT(RT_DEBUG_TRACE,("\tNow RecomWidth=%d, ExtChanOffset=%d, prevBW=%d, prevExtOffset=%d\n",
 				pAd->CommonCfg.AddHTInfo.AddHtInfo.RecomWidth,
 				pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset,
 				prevBW, prevExtChOffset));

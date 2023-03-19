@@ -1907,7 +1907,7 @@ VOID ApCliUpdateMlmeRate(
 				ProperMlmeRate = RATE_11;
 			else
 				ProperMlmeRate = RATE_24;
-			
+
 			if (pAd->ApCliMlmeAux.Channel <= 14)
 			MinimumRate = RATE_1;
 			else
@@ -1948,7 +1948,7 @@ VOID ApCliUpdateMlmeRate(
 					bMatch = TRUE;
 					break;
 				}
-			}			
+			}
 		}
 
 		if (bMatch)
@@ -1968,11 +1968,10 @@ VOID ApCliUpdateMlmeRate(
 						bMatch = TRUE;
 						break;
 					}
-				}			
+				}
 			}
-		
 			if (bMatch)
-			break;		
+			break;
 		}
 	}
 
@@ -1982,7 +1981,7 @@ VOID ApCliUpdateMlmeRate(
 	}
 
 	if(!OPSTATUS_TEST_FLAG(pAd, fOP_STATUS_MEDIA_STATE_CONNECTED))
-	{	
+	{
 		pAd->CommonCfg.MlmeRate = MinimumRate;
 		pAd->CommonCfg.RtsRate = ProperMlmeRate;
 		if (pAd->CommonCfg.MlmeRate >= RATE_6)
@@ -2014,7 +2013,7 @@ VOID APCli_Init(
 	INT apcli_index;
 /*	RTMP_OS_NETDEV_OP_HOOK	netDevOpHook; */
 	APCLI_STRUCT	*pApCliEntry;
-	
+
 	/* sanity check to avoid redundant virtual interfaces are created */
 	if (pAd->flg_apcli_init != FALSE)
 		return;
@@ -2046,25 +2045,24 @@ VOID APCli_Init(
 
 		if (pAd->chipCap.MBSSIDMode == MBSSID_MODE1)
 		{
-		if (pAd->ApCfg.BssidNum > 0 || MAX_MESH_NUM > 0) 
-		{
-			/* 	
-				Refer to HW definition - 
-					Bit1 of MAC address Byte0 is local administration bit 
-					and should be set to 1 in extended multiple BSSIDs'
-					Bit3~ of MAC address Byte0 is extended multiple BSSID index.
-			 */ 
-			pApCliEntry->CurrentAddress[0] += 2; 	
-			pApCliEntry->CurrentAddress[0] += (((pAd->ApCfg.BssidNum + MAX_MESH_NUM) - 1) << 2);
-		}
+			if (pAd->ApCfg.BssidNum > 0 || MAX_MESH_NUM > 0)
+			{
+				/*
+					Refer to HW definition -
+						Bit1 of MAC address Byte0 is local administration bit
+						and should be set to 1 in extended multiple BSSIDs'
+						Bit3~ of MAC address Byte0 is extended multiple BSSID index.
+				 */
+				pApCliEntry->CurrentAddress[0] += 2;
+				pApCliEntry->CurrentAddress[0] += (((pAd->ApCfg.BssidNum + MAX_MESH_NUM) - 1) << 2);
+			}
 		}
 		else
 		{
-		pApCliEntry->CurrentAddress[ETH_LENGTH_OF_ADDRESS - 1] =
-			(pApCliEntry->CurrentAddress[ETH_LENGTH_OF_ADDRESS - 1] + pAd->ApCfg.BssidNum + MAX_MESH_NUM) & 0xFF;
+			pApCliEntry->CurrentAddress[ETH_LENGTH_OF_ADDRESS - 1] =
+				(pApCliEntry->CurrentAddress[ETH_LENGTH_OF_ADDRESS - 1] + pAd->ApCfg.BssidNum + MAX_MESH_NUM) & 0xFF;
 		}
 
-		
 		pNetDevOps->priv_flags = INT_APCLI; /* we are virtual interface */
 		pNetDevOps->needProtcted = TRUE;
 		NdisMoveMemory(pNetDevOps->devAddr, &pApCliEntry->CurrentAddress[0], MAC_ADDR_LEN);
@@ -2167,7 +2165,7 @@ bool ApCli_Close(
 
 
 int APC_PacketSend(
-	IN	PNDIS_PACKET				skb_p, 
+	IN	PNDIS_PACKET				skb_p,
 	IN	PNET_DEV					dev_p,
 	IN	RTMP_NET_PACKET_TRANSMIT	Func)
 {
@@ -2227,4 +2225,3 @@ int APC_PacketSend(
 }
 
 #endif /* APCLI_SUPPORT */
-

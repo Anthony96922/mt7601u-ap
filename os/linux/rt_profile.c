@@ -132,8 +132,7 @@ NDIS_STATUS	RTMPReadParametersHook(
 	IN	PRTMP_ADAPTER pAd)
 {
 	char *			src = NULL;
-	RTMP_OS_FD		srcf;
-	RTMP_OS_FS_INFO		osFSInfo;
+	struct file		*srcf;
 	INT			retval = NDIS_STATUS_FAILURE;
 	char *			buffer;
 
@@ -146,31 +145,28 @@ NDIS_STATUS	RTMPReadParametersHook(
 	if(buffer == NULL)
 		return NDIS_STATUS_FAILURE;
 	memset(buffer, 0x00, MAX_INI_BUFFER_SIZE);
-			
-	{	
+
 #ifdef CONFIG_AP_SUPPORT
-		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
-		{
-			src = AP_PROFILE_PATH;
-		}
+	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
+	{
+		src = AP_PROFILE_PATH;
+	}
 #endif /* CONFIG_AP_SUPPORT */
 
 #ifdef MULTIPLE_CARD_SUPPORT
-		src = (char *)pAd->MC_FileName;
+	src = pAd->MC_FileName;
 #endif /* MULTIPLE_CARD_SUPPORT */
-	}
 
 	if (src && *src)
 	{
-		RtmpOSFSInfoChange(&osFSInfo, TRUE);
 		srcf = RtmpOSFileOpen(src, O_RDONLY, 0);
-		if (IS_FILE_OPEN_ERR(srcf)) 
+		if (IS_FILE_OPEN_ERR(srcf))
 		{
 			DBGPRINT(RT_DEBUG_ERROR, ("Open file \"%s\" failed!\n", src));
 		}
-		else 
+		else
 		{
-			retval =RtmpOSFileRead(srcf, buffer, MAX_INI_BUFFER_SIZE);
+			retval = RtmpOSFileRead(srcf, buffer, MAX_INI_BUFFER_SIZE);
 			if (retval > 0)
 			{
 				RTMPSetProfileParameters(pAd, buffer);
@@ -180,23 +176,20 @@ NDIS_STATUS	RTMPReadParametersHook(
 				DBGPRINT(RT_DEBUG_ERROR, ("Read file \"%s\" failed(errCode=%d)!\n", src, retval));
 
 			retval = RtmpOSFileClose(srcf);
-			if ( retval != 0)
+			if (retval != 0)
 			{
 				retval = NDIS_STATUS_FAILURE;
 				DBGPRINT(RT_DEBUG_ERROR, ("Close file \"%s\" failed(errCode=%d)!\n", src, retval));
 			}
 		}
-		
-		RtmpOSFSInfoChange(&osFSInfo, FALSE);
 	}
 
 #ifdef HOSTAPD_SUPPORT
-		for (i = 0; i < pAd->ApCfg.BssidNum; i++)
-		{
-			pAd->ApCfg.MBSSID[i].Hostapd=FALSE;
-			DBGPRINT(RT_DEBUG_TRACE, ("Reset ra%d hostapd support=FLASE", i));
-			
-		}
+	for (i = 0; i < pAd->ApCfg.BssidNum; i++)
+	{
+		pAd->ApCfg.MBSSID[i].Hostapd=FALSE;
+		DBGPRINT(RT_DEBUG_TRACE, ("Reset ra%d hostapd support=FLASE", i));
+	}
 #endif /*HOSTAPD_SUPPORT */
 
 #ifdef SINGLE_SKU_V2
@@ -205,7 +198,7 @@ NDIS_STATUS	RTMPReadParametersHook(
 
 /*	kfree(buffer); */
 	os_free_mem(NULL, buffer);
-	
+
 	return (retval);
 
 }
@@ -214,7 +207,7 @@ NDIS_STATUS	RTMPReadParametersHook(
 #ifdef SYSTEM_LOG_SUPPORT
 /*
 	========================================================================
-	
+
 	Routine Description:
 		Send log message through wireless event
 

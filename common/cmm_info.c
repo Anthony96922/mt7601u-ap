@@ -1433,11 +1433,11 @@ NDIS_STATUS RTMPWPARemoveKeyProc(
 
 	Arguments:
 		pAd - Pointer to our adapter
-		phymode  - 
+		phymode  -
 
 	IRQL = PASSIVE_LEVEL
 	IRQL = DISPATCH_LEVEL
-	
+
 	========================================================================
 */
 VOID RTMPSetPhyMode(
@@ -1468,7 +1468,7 @@ VOID RTMPSetPhyMode(
 #ifdef CONFIG_AP_SUPPORT
 		IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 		if (pAd->CommonCfg.Channel != 0)
-				pAd->CommonCfg.Channel = FirstChannel(pAd);
+			pAd->CommonCfg.Channel = FirstChannel(pAd);
 #endif /* CONFIG_AP_SUPPORT */
 		DBGPRINT(RT_DEBUG_ERROR, ("RTMPSetPhyMode: channel is out of range, use first channel=%d \n", pAd->CommonCfg.Channel));
 	}
@@ -1507,15 +1507,15 @@ VOID RTMPSetPhyMode(
 			pAd->CommonCfg.SupRate[1]  = 0x84;	  /* 2 mbps, in units of 0.5 Mbps, basic rate*/
 			pAd->CommonCfg.SupRate[2]  = 0x8B;	  /* 5.5 mbps, in units of 0.5 Mbps, basic rate*/
 			pAd->CommonCfg.SupRate[3]  = 0x96;	  /* 11 mbps, in units of 0.5 Mbps, basic rate*/
-			pAd->CommonCfg.SupRate[4]  = 0x12;	  /* 9 mbps, in units of 0.5 Mbps*/
-			pAd->CommonCfg.SupRate[5]  = 0x24;	  /* 18 mbps, in units of 0.5 Mbps*/
-			pAd->CommonCfg.SupRate[6]  = 0x48;	  /* 36 mbps, in units of 0.5 Mbps*/
-			pAd->CommonCfg.SupRate[7]  = 0x6c;	  /* 54 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRate[4]  = 0x0C;	  /* 6 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRate[5]  = 0x12;	  /* 9 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRate[6]  = 0x18;	  /* 12 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.SupRate[7]  = 0x24;	  /* 18 mbps, in units of 0.5 Mbps*/
 			pAd->CommonCfg.SupRateLen  = 8;
-			pAd->CommonCfg.ExtRate[0]  = 0x0C;	  /* 6 mbps, in units of 0.5 Mbps*/
-			pAd->CommonCfg.ExtRate[1]  = 0x18;	  /* 12 mbps, in units of 0.5 Mbps*/
-			pAd->CommonCfg.ExtRate[2]  = 0x30;	  /* 24 mbps, in units of 0.5 Mbps*/
-			pAd->CommonCfg.ExtRate[3]  = 0x60;	  /* 48 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.ExtRate[0]  = 0x30;	  /* 24 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.ExtRate[1]  = 0x48;	  /* 36 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.ExtRate[2]  = 0x60;	  /* 48 mbps, in units of 0.5 Mbps*/
+			pAd->CommonCfg.ExtRate[3]  = 0x6c;	  /* 54 mbps, in units of 0.5 Mbps*/
 			pAd->CommonCfg.ExtRateLen  = 4;
 			pAd->CommonCfg.DesireRate[0]  = 2;	   /* 1 mbps, in units of 0.5 Mbps*/
 			pAd->CommonCfg.DesireRate[1]  = 4;	   /* 2 mbps, in units of 0.5 Mbps*/
@@ -1534,7 +1534,6 @@ VOID RTMPSetPhyMode(
 		case (WMODE_G):
 #ifdef DOT11_N_SUPPORT
 		case (WMODE_G | WMODE_GN):
-		case (WMODE_GN):
 #endif /* DOT11_N_SUPPORT */
 			pAd->CommonCfg.SupRate[0]  = 0x8C;	  /* 6 mbps, in units of 0.5 Mbps, basic rate*/
 			pAd->CommonCfg.SupRate[1]  = 0x12;	  /* 9 mbps, in units of 0.5 Mbps*/
@@ -1595,23 +1594,22 @@ VOID RTMPSetPhyMode(
 	IF_DEV_CONFIG_OPMODE_ON_AP(pAd)
 	{
 		unsigned int	apidx;
-		
 		for (apidx = 0; apidx < pAd->ApCfg.BssidNum; apidx++)
 		{
 			MlmeUpdateTxRates(pAd, FALSE, apidx);
-		}	
+		}
 #ifdef WDS_SUPPORT
 		for (apidx = 0; apidx < MAX_WDS_ENTRY; apidx++)
-		{				
-			MlmeUpdateTxRates(pAd, FALSE, apidx + MIN_NET_DEVICE_FOR_WDS);			
+		{
+			MlmeUpdateTxRates(pAd, FALSE, apidx + MIN_NET_DEVICE_FOR_WDS);
 		}
 #endif /* WDS_SUPPORT */
 #ifdef APCLI_SUPPORT
 		for (apidx = 0; apidx < MAX_APCLI_NUM; apidx++)
-		{				
-			MlmeUpdateTxRates(pAd, FALSE, apidx + MIN_NET_DEVICE_FOR_APCLI);			
+		{
+			MlmeUpdateTxRates(pAd, FALSE, apidx + MIN_NET_DEVICE_FOR_APCLI);
 		}
-#endif /* APCLI_SUPPORT */		
+#endif /* APCLI_SUPPORT */
 	}
 #endif /* CONFIG_AP_SUPPORT */
 
@@ -1655,27 +1653,27 @@ VOID	RTMPAddWcidAttributeEntry(
 #ifdef APCLI_SUPPORT
 			if (BssIdx >= MIN_NET_DEVICE_FOR_APCLI)
 			{
-				if (pEntry)		
-					BssIdx -= MIN_NET_DEVICE_FOR_APCLI;		
+				if (pEntry)
+					BssIdx -= MIN_NET_DEVICE_FOR_APCLI;
 				else
 				{
 					DBGPRINT(RT_DEBUG_WARN, ("RTMPAddWcidAttributeEntry: AP-Client link doesn't need to set Group WCID Attribute. \n"));	
 					return;
 				}
-			}	
-			else 
+			}
+			else
 #endif /* APCLI_SUPPORT */
 #ifdef WDS_SUPPORT
 			if (BssIdx >= MIN_NET_DEVICE_FOR_WDS)
 			{
-				if (pEntry)		
-					BssIdx = BSS0;		
+				if (pEntry)
+					BssIdx = BSS0;
 				else
 				{
 					DBGPRINT(RT_DEBUG_WARN, ("RTMPAddWcidAttributeEntry: WDS link doesn't need to set Group WCID Attribute. \n"));	
 					return;
 				}
-			}	
+			}
 			else
 #endif /* WDS_SUPPORT */
 			{
@@ -1690,12 +1688,12 @@ VOID	RTMPAddWcidAttributeEntry(
 			if (pEntry)
 				Wcid = pEntry->Aid;
 			else
-				GET_GroupKey_WCID(pAd, Wcid, BssIdx);		
+				GET_GroupKey_WCID(pAd, Wcid, BssIdx);
 
 #ifdef DOT1X_SUPPORT
 			if ((BssIdx < pAd->ApCfg.BssidNum) && (BssIdx < MAX_MBSSID_NUM(pAd)) && (BssIdx < HW_BEACON_MAX_NUM))
 				IEEE8021X = pAd->ApCfg.MBSSID[BssIdx].IEEE8021X;
-#endif /* DOT1X_SUPPORT */			
+#endif /* DOT1X_SUPPORT */
 		}
 #endif /* CONFIG_AP_SUPPORT */
 	}
@@ -1713,10 +1711,10 @@ VOID	RTMPAddWcidAttributeEntry(
 		*/
 		if (pEntry && (IS_ENTRY_WDS(pEntry) || IS_ENTRY_MESH(pEntry)))
 			WCIDAttri = (BssIdx<<4) | (CipherAlg<<1) | PAIRWISEKEYTABLE;
-		else if ((pEntry) && 
-				((CipherAlg == CIPHER_TKIP) || 
-				 (CipherAlg == CIPHER_AES) || 
-				 (CipherAlg == CIPHER_NONE) || 
+		else if ((pEntry) &&
+				((CipherAlg == CIPHER_TKIP) ||
+				 (CipherAlg == CIPHER_AES) ||
+				 (CipherAlg == CIPHER_NONE) ||
 				 (IEEE8021X == TRUE)))
 			WCIDAttri = (BssIdx<<4) | (CipherAlg<<1) | PAIRWISEKEYTABLE;
 		else
@@ -1724,36 +1722,33 @@ VOID	RTMPAddWcidAttributeEntry(
 	}
 #endif /* CONFIG_AP_SUPPORT */
 
-		
 	RTMP_IO_WRITE32(pAd, offset, WCIDAttri);
 
-		
 	/* Update IV/EIV table*/
 	offset = MAC_IVEIV_TABLE_BASE + (Wcid * HW_IVEIV_ENTRY_SIZE);
 
 	/* WPA mode*/
 	if ((CipherAlg == CIPHER_TKIP) || (CipherAlg == CIPHER_AES))
-	{	
+	{
 		/* Eiv bit on. keyid always is 0 for pairwise key 			*/
-		IVEIV = (KeyIdx <<6) | 0x20;	
-	}	 
+		IVEIV = (KeyIdx <<6) | 0x20;
+	}
 	else
 	{
 		/* WEP KeyIdx is default tx key. */
-		IVEIV = (KeyIdx << 6);	
+		IVEIV = (KeyIdx << 6);
 	}
 
 	/* For key index and ext IV bit, so only need to update the position(offset+3).*/
 #ifdef RTMP_MAC_USB
 	RTUSBMultiWrite_OneByte(pAd, offset+3, &IVEIV);
 #endif /* RTMP_MAC_USB */
-	
-	DBGPRINT(RT_DEBUG_TRACE,("RTMPAddWcidAttributeEntry: WCID #%d, KeyIndex #%d, Alg=%s\n",Wcid, KeyIdx, CipherName[CipherAlg]));
-	DBGPRINT(RT_DEBUG_TRACE,("	WCIDAttri = 0x%x \n",  WCIDAttri));	
 
+	DBGPRINT(RT_DEBUG_TRACE,("RTMPAddWcidAttributeEntry: WCID #%d, KeyIndex #%d, Alg=%s\n",Wcid, KeyIdx, CipherName[CipherAlg]));
+	DBGPRINT(RT_DEBUG_TRACE,("	WCIDAttri = 0x%x \n",  WCIDAttri));
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Parse encryption type
@@ -1834,7 +1829,7 @@ char *GetAuthMode(char auth) {
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Get site survey results
@@ -1882,17 +1877,17 @@ VOID	RTMPCommSiteSurveyData(
 		for (idx = 0; (idx < 14) && (idx < pBss->SsidLen); idx++)
 			sprintf(Ssid + 2 + (idx*2), "%02X", (unsigned char)pBss->Ssid[idx]);
 	}
-		sprintf(msg+strlen(msg),"%-33s", Ssid);      
-		
+		sprintf(msg+strlen(msg),"%-33s", Ssid);
+
 		/*BSSID*/
-		sprintf(msg+strlen(msg),"%02x:%02x:%02x:%02x:%02x:%02x   ", 
-			pBss->Bssid[0], 
+		sprintf(msg+strlen(msg),"%02x:%02x:%02x:%02x:%02x:%02x   ",
+			pBss->Bssid[0],
 			pBss->Bssid[1],
-			pBss->Bssid[2], 
-			pBss->Bssid[3], 
-			pBss->Bssid[4], 
+			pBss->Bssid[2],
+			pBss->Bssid[3],
+			pBss->Bssid[4],
 			pBss->Bssid[5]);
-	
+
 	/*Security*/
 	RTMPZeroMemory(SecurityStr, 32);
 	if ((Ndis802_11AuthModeWPA <= pBss->AuthMode) &&
@@ -1906,24 +1901,24 @@ VOID	RTMPCommSiteSurveyData(
 		else if (pBss->AuthModeAux == Ndis802_11AuthModeOpen)
 		{
 			ap_auth_mode = pBss->AuthMode;
-			if ((ap_auth_mode == Ndis802_11AuthModeWPA) || 
+			if ((ap_auth_mode == Ndis802_11AuthModeWPA) ||
 				(ap_auth_mode == Ndis802_11AuthModeWPAPSK))
 			{
 				if (pBss->WPA.PairCipherAux == Ndis802_11WEPDisabled)
 					ap_cipher = pBss->WPA.PairCipher;
-				else 
+				else
 					ap_cipher = Ndis802_11Encryption4Enabled;
 			}
-			else if ((ap_auth_mode == Ndis802_11AuthModeWPA2) || 
+			else if ((ap_auth_mode == Ndis802_11AuthModeWPA2) ||
 					 (ap_auth_mode == Ndis802_11AuthModeWPA2PSK))
 			{
 				if (pBss->WPA2.PairCipherAux == Ndis802_11WEPDisabled)
 					ap_cipher = pBss->WPA2.PairCipher;
-				else 
+				else
 					ap_cipher = Ndis802_11Encryption4Enabled;
 			}
 		}
-		else if ((pBss->AuthMode == Ndis802_11AuthModeWPAPSK) || 
+		else if ((pBss->AuthMode == Ndis802_11AuthModeWPAPSK) ||
 				 (pBss->AuthMode == Ndis802_11AuthModeWPA2PSK))
 		{
 			if ((pBss->AuthModeAux == Ndis802_11AuthModeWPAPSK) ||
@@ -1931,7 +1926,7 @@ VOID	RTMPCommSiteSurveyData(
 				ap_auth_mode = Ndis802_11AuthModeWPA1PSKWPA2PSK;
 			else
 				ap_auth_mode = pBss->AuthMode;
-			
+
 			if (pBss->WPA.PairCipher != pBss->WPA2.PairCipher)
 				ap_cipher = Ndis802_11Encryption4Enabled;
 			else if ((pBss->WPA.PairCipher == pBss->WPA2.PairCipher) &&
@@ -1946,7 +1941,7 @@ VOID	RTMPCommSiteSurveyData(
 					 (pBss->WPA.PairCipherAux == Ndis802_11WEPDisabled))
 				ap_cipher = pBss->WPA.PairCipher;
 		}
-		else if ((pBss->AuthMode == Ndis802_11AuthModeWPA) || 
+		else if ((pBss->AuthMode == Ndis802_11AuthModeWPA) ||
 				 (pBss->AuthMode == Ndis802_11AuthModeWPA2))
 		{
 			if ((pBss->AuthModeAux == Ndis802_11AuthModeWPA) ||
@@ -1954,7 +1949,7 @@ VOID	RTMPCommSiteSurveyData(
 				ap_auth_mode = Ndis802_11AuthModeWPA1WPA2;
 			else
 				ap_auth_mode = pBss->AuthMode;
-			
+
 			if (pBss->WPA.PairCipher != pBss->WPA2.PairCipher)
 				ap_cipher = Ndis802_11Encryption4Enabled;
 			else if ((pBss->WPA.PairCipher == pBss->WPA2.PairCipher) &&
@@ -1970,85 +1965,85 @@ VOID	RTMPCommSiteSurveyData(
 				ap_cipher = pBss->WPA.PairCipher;
 		}
 
-		sprintf(SecurityStr, "%s/%s", GetAuthMode((CHAR)ap_auth_mode), GetEncryptType((CHAR)ap_cipher));		
-	}			
+		sprintf(SecurityStr, "%s/%s", GetAuthMode((CHAR)ap_auth_mode), GetEncryptType((CHAR)ap_cipher));
+	}
 	else
 	{
 		ap_auth_mode = pBss->AuthMode;
-		ap_cipher = pBss->WepStatus;		
+		ap_cipher = pBss->WepStatus;
 		if (ap_cipher == Ndis802_11WEPDisabled)
 			sprintf(SecurityStr, "NONE");
 		else if (ap_cipher == Ndis802_11WEPEnabled)
 			sprintf(SecurityStr, "WEP");
 		else
-			sprintf(SecurityStr, "%s/%s", GetAuthMode((CHAR)ap_auth_mode), GetEncryptType((CHAR)ap_cipher));		
+			sprintf(SecurityStr, "%s/%s", GetAuthMode((CHAR)ap_auth_mode), GetEncryptType((CHAR)ap_cipher));
 	}
-	
+
 	sprintf(msg+strlen(msg), "%-23s", SecurityStr);
 
-		/* Rssi*/
-		Rssi = (INT)pBss->Rssi;
-		if (Rssi >= -50)
-			Rssi_Quality = 100;
-		else if (Rssi >= -80)    /* between -50 ~ -80dbm*/
-			Rssi_Quality = (unsigned int)(24 + ((Rssi + 80) * 26)/10);
-		else if (Rssi >= -90)   /* between -80 ~ -90dbm*/
-			Rssi_Quality = (unsigned int)(((Rssi + 90) * 26)/10);
-		else    /* < -84 dbm*/
-			Rssi_Quality = 0;
-		sprintf(msg+strlen(msg),"%-9d", Rssi_Quality);
-		
-		/* Wireless Mode*/
-		wireless_mode = NetworkTypeInUseSanity(pBss);
-		if (wireless_mode == Ndis802_11FH ||
-			wireless_mode == Ndis802_11DS)
-			sprintf(msg+strlen(msg),"%-7s", "11b");
-		else if (wireless_mode == Ndis802_11OFDM5)
-			sprintf(msg+strlen(msg),"%-7s", "11a");
-		else if (wireless_mode == Ndis802_11OFDM5_N)
-			sprintf(msg+strlen(msg),"%-7s", "11a/n");
-		else if (wireless_mode == Ndis802_11OFDM24)
-			sprintf(msg+strlen(msg),"%-7s", "11b/g");
-		else if (wireless_mode == Ndis802_11OFDM24_N)
-			sprintf(msg+strlen(msg),"%-7s", "11b/g/n");
-		else
-			sprintf(msg+strlen(msg),"%-7s", "unknown");
+	/* Rssi*/
+	Rssi = (INT)pBss->Rssi;
+	if (Rssi >= -50)
+		Rssi_Quality = 100;
+	else if (Rssi >= -80)    /* between -50 ~ -80dbm*/
+		Rssi_Quality = (unsigned int)(24 + ((Rssi + 80) * 26)/10);
+	else if (Rssi >= -90)   /* between -80 ~ -90dbm*/
+		Rssi_Quality = (unsigned int)(((Rssi + 90) * 26)/10);
+	else    /* < -84 dbm*/
+		Rssi_Quality = 0;
+	sprintf(msg+strlen(msg),"%-9d", Rssi_Quality);
 
-		/* Ext Channel*/
-		if (pBss->AddHtInfoLen > 0)
-		{
-			if (pBss->AddHtInfo.AddHtInfo.ExtChanOffset == EXTCHA_ABOVE)
-				sprintf(msg+strlen(msg),"%-7s", " ABOVE");
-			else if (pBss->AddHtInfo.AddHtInfo.ExtChanOffset == EXTCHA_BELOW)
-				sprintf(msg+strlen(msg),"%-7s", " BELOW");
-			else
-				sprintf(msg+strlen(msg),"%-7s", " NONE");
-		}
+	/* Wireless Mode*/
+	wireless_mode = NetworkTypeInUseSanity(pBss);
+	if (wireless_mode == Ndis802_11FH ||
+		wireless_mode == Ndis802_11DS)
+		sprintf(msg+strlen(msg),"%-7s", "11b");
+	else if (wireless_mode == Ndis802_11OFDM5)
+		sprintf(msg+strlen(msg),"%-7s", "11a");
+	else if (wireless_mode == Ndis802_11OFDM5_N)
+		sprintf(msg+strlen(msg),"%-7s", "11a/n");
+	else if (wireless_mode == Ndis802_11OFDM24)
+		sprintf(msg+strlen(msg),"%-7s", "11b/g");
+	else if (wireless_mode == Ndis802_11OFDM24_N)
+		sprintf(msg+strlen(msg),"%-7s", "11b/g/n");
+	else
+		sprintf(msg+strlen(msg),"%-7s", "unknown");
+
+	/* Ext Channel*/
+	if (pBss->AddHtInfoLen > 0)
+	{
+		if (pBss->AddHtInfo.AddHtInfo.ExtChanOffset == EXTCHA_ABOVE)
+			sprintf(msg+strlen(msg),"%-7s", " ABOVE");
+		else if (pBss->AddHtInfo.AddHtInfo.ExtChanOffset == EXTCHA_BELOW)
+			sprintf(msg+strlen(msg),"%-7s", " BELOW");
 		else
-		{
 			sprintf(msg+strlen(msg),"%-7s", " NONE");
-		}
-		
-		/*Network Type		*/
-		if (pBss->BssType == BSS_ADHOC)
-			sprintf(msg+strlen(msg),"%-3s", " Ad");
-		else
-			sprintf(msg+strlen(msg),"%-3s", " In");
+	}
+	else
+	{
+		sprintf(msg+strlen(msg),"%-7s", " NONE");
+	}
+
+	/*Network Type		*/
+	if (pBss->BssType == BSS_ADHOC)
+		sprintf(msg+strlen(msg),"%-3s", " Ad");
+	else
+		sprintf(msg+strlen(msg),"%-3s", " In");
 
         sprintf(msg+strlen(msg),"\n");
-	
+
 	return;
 }
 
 #if defined (AP_SCAN_SUPPORT) || defined (CONFIG_STA_SUPPORT)
 VOID RTMPIoctlGetSiteSurvey(
-	IN	PRTMP_ADAPTER	pAdapter, 
+	IN	PRTMP_ADAPTER	pAdapter,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq)
 {
 	char *		msg;
-	INT 		i=0;	 
+	INT 		i=0;
 	INT			WaitCnt;
-	INT 		Status=0;	
+	INT 		Status=0;
 	INT         max_len = LINE_LEN;
 	PBSS_ENTRY	pBss;
 	unsigned int TotalLen, BufLen = IW_SCAN_MAX_DATA;
@@ -2057,14 +2052,14 @@ VOID RTMPIoctlGetSiteSurvey(
 	TotalLen = sizeof(CHAR)*((MAX_LEN_OF_BSS_TABLE)*max_len) + 100;
 
 	if (wrq->u.data.length == 0)
-		BufLen = IW_SCAN_MAX_DATA;	
+		BufLen = IW_SCAN_MAX_DATA;
 	else
 		BufLen = wrq->u.data.length;
 
 	os_alloc_mem(NULL, (unsigned char * *)&msg, TotalLen);
 
 	if (msg == NULL)
-	{   
+	{
 		DBGPRINT(RT_DEBUG_TRACE, ("RTMPIoctlGetSiteSurvey - msg memory alloc fail.\n"));
 		return;
 	}
@@ -2073,7 +2068,7 @@ VOID RTMPIoctlGetSiteSurvey(
 	sprintf(msg,"%s","\n");
 
 	sprintf(msg+strlen(msg),"%-4s%-33s%-20s%-23s%-9s%-7s%-7s%-3s\n",
-		"Ch", "SSID", "BSSID", "Security", "Signal(%)", "W-Mode", " ExtCH"," NT");	
+		"Ch", "SSID", "BSSID", "Security", "Signal(%)", "W-Mode", " ExtCH"," NT");
 
 #ifdef WSC_INCLUDED
 	sprintf(msg+strlen(msg)-1,"%-4s%-5s\n", " WPS", " DPID");
@@ -2083,12 +2078,12 @@ VOID RTMPIoctlGetSiteSurvey(
 	WaitCnt = 0;
 
 	while ((ScanRunning(pAdapter) == TRUE) && (WaitCnt++ < 200))
-		OS_WAIT(500);	
+		OS_WAIT(500);
 
 	for(i=0; i<pAdapter->ScanTab.BssNr ;i++)
 	{
 		pBss = &pAdapter->ScanTab.BssEntry[i];
-		
+
 		if( pBss->Channel==0)
 			break;
 
@@ -2097,7 +2092,7 @@ VOID RTMPIoctlGetSiteSurvey(
 
 
 		RTMPCommSiteSurveyData(msg, pBss, TotalLen);
-		
+
 #ifdef WSC_INCLUDED
         /*WPS*/
         if (pBss->WpsAP & 0x01)
@@ -2119,7 +2114,7 @@ VOID RTMPIoctlGetSiteSurvey(
 	Status = copy_to_user(wrq->u.data.pointer, msg, wrq->u.data.length);
 
 	DBGPRINT(RT_DEBUG_TRACE, ("RTMPIoctlGetSiteSurvey - wrq->u.data.length = %d\n", wrq->u.data.length));
-	os_free_mem(NULL, (unsigned char *)msg);	
+	os_free_mem(NULL, (unsigned char *)msg);
 }
 #endif
 
@@ -2128,7 +2123,7 @@ VOID RTMPIoctlGetSiteSurvey(
 
 #define	MAC_LINE_LEN	(1+14+4+4+4+4+10+10+10+6+6)	/* "\n"+Addr+aid+psm+datatime+rxbyte+txbyte+current tx rate+last tx rate+"\n" */
 VOID RTMPIoctlGetMacTable(
-	IN PRTMP_ADAPTER pAd, 
+	IN PRTMP_ADAPTER pAd,
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
 	INT i;
@@ -2173,8 +2168,7 @@ VOID RTMPIoctlGetMacTable(
 			/* the connected time per entry*/
 			pDst->ConnectedTime = pEntry->StaConnectTime;
 			pDst->TxRate.word = pEntry->HTPhyMode.word;
-									
-									
+
 			pMacTab->Num += 1;
 		}
 	}
@@ -2197,7 +2191,7 @@ VOID RTMPIoctlGetMacTable(
 	sprintf(msg,"%s","\n");
 	sprintf(msg+strlen(msg),"%-14s%-4s%-4s%-4s%-4s%-6s%-6s%-10s%-10s%-10s\n",
 		"MAC", "AP",  "AID", "PSM", "AUTH", "CTxR", "LTxR","LDT", "RxB", "TxB");
-	
+
 	for (i=0; i<MAX_LEN_OF_MAC_TABLE; i++)
 	{
 		PMAC_TABLE_ENTRY pEntry = &pAd->MacTab.Content[i];
@@ -2205,7 +2199,7 @@ VOID RTMPIoctlGetMacTable(
 		if (IS_ENTRY_CLIENT(pEntry) && (pEntry->Sst == SST_ASSOC))
 		{
 			if((strlen(msg)+MAC_LINE_LEN ) >= (MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN) )
-				break;	
+				break;
 			sprintf(msg+strlen(msg),"%02x%02x%02x%02x%02x%02x  ",
 				pEntry->Addr[0], pEntry->Addr[1], pEntry->Addr[2],
 				pEntry->Addr[3], pEntry->Addr[4], pEntry->Addr[5]);
@@ -2236,7 +2230,7 @@ LabelOK:
 #ifdef AR9_MAPI_SUPPORT
 #ifdef CONFIG_AP_SUPPORT
 VOID RTMPAR9IoctlGetMacTable(
-	IN PRTMP_ADAPTER pAd, 
+	IN PRTMP_ADAPTER pAd,
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
 	INT i;
@@ -2253,14 +2247,14 @@ VOID RTMPAR9IoctlGetMacTable(
 	sprintf(msg,"%s","\n");
 	sprintf(msg+strlen(msg),"%-14s%-4s%-4s%-4s%-4s%-6s%-6s%-10s%-10s%-10s\n",
 		"MAC", "AP",  "AID", "PSM", "AUTH", "CTxR", "LTxR","LDT", "RxB", "TxB");
-	
+
 	for (i=0; i<MAX_LEN_OF_MAC_TABLE; i++)
 	{
 		PMAC_TABLE_ENTRY pEntry = &pAd->MacTab.Content[i];
 		if (IS_ENTRY_CLIENT(pEntry) && (pEntry->Sst == SST_ASSOC))
 		{
 			if((strlen(msg)+MAC_LINE_LEN ) >= (MAX_LEN_OF_MAC_TABLE*MAC_LINE_LEN) )
-				break;	
+				break;
 			sprintf(msg+strlen(msg),"%02x%02x%02x%02x%02x%02x  ",
 				pEntry->Addr[0], pEntry->Addr[1], pEntry->Addr[2],
 				pEntry->Addr[3], pEntry->Addr[4], pEntry->Addr[5]);
@@ -2288,7 +2282,7 @@ VOID RTMPAR9IoctlGetMacTable(
 }
 
 VOID RTMPIoctlGetSTAT2(
-	IN PRTMP_ADAPTER pAd, 
+	IN PRTMP_ADAPTER pAd,
 	IN RTMP_IOCTL_INPUT_STRUCT *wrq)
 {
 	char *msg;
@@ -2305,11 +2299,11 @@ VOID RTMPIoctlGetSTAT2(
 	}
 	memset(msg, 0 ,pAd->ApCfg.BssidNum*(14*128));
 	sprintf(msg,"%s","\n");
-	
+
 	for (apidx=0; apidx<pAd->ApCfg.BssidNum; apidx++)
 	{
 		pMbss=&pAd->ApCfg.MBSSID[apidx];
-		
+
 		sprintf(msg+strlen(msg),"ra%d\n",apidx);
 		sprintf(msg+strlen(msg),"bytesTx = %ld\n",(pMbss->TransmittedByteCount));
 		sprintf(msg+strlen(msg),"bytesRx = %ld\n",(pMbss->ReceivedByteCount));

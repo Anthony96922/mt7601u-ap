@@ -1295,17 +1295,7 @@ VOID PeerAddBAReqAction(
 	}
 	ADDframe.TimeOutValue = 0; /* pAddreqFrame->TimeOutValue; */
 
-#ifdef UNALIGNMENT_SUPPORT
-	{
-		BA_PARM		tmpBaParm;
-
-		NdisMoveMemory((unsigned char *)(&tmpBaParm), (unsigned char *)(&ADDframe.BaParm), sizeof(BA_PARM));
-		*(unsigned short *)(&tmpBaParm) = cpu2le16(*(unsigned short *)(&tmpBaParm));
-		NdisMoveMemory((unsigned char *)(&ADDframe.BaParm), (unsigned char *)(&tmpBaParm), sizeof(BA_PARM));
-	}
-#else
 	*(unsigned short *)(&ADDframe.BaParm) = cpu2le16(*(unsigned short *)(&ADDframe.BaParm));
-#endif /* UNALIGNMENT_SUPPORT */
 
 	ADDframe.StatusCode = cpu2le16(ADDframe.StatusCode);
 	ADDframe.TimeOutValue = cpu2le16(ADDframe.TimeOutValue);

@@ -175,7 +175,6 @@ INT RT_CfgSetCountryRegion(
 	}
 
 	return TRUE;
-	
 }
 
 
@@ -729,52 +728,6 @@ INT RtmpIoctl_rt_ioctl_giwname(
 	IN	unsigned long		Data)
 {
 	strcpy(pData, "IEEE 802.11");
-	switch(pAd->CommonCfg.PhyMode) {
-	case (WMODE_B | WMODE_G):
-		strcat(pData, "bg");
-		break;
-	case (WMODE_B):
-		strcat(pData, "b");
-		break;
-	case (WMODE_G):
-		strcat(pData, "g");
-		break;
-#ifdef A_BAND_SUPPORT
-	case (WMODE_A):
-		strcat(pData, "a");
-		break;
-	case (WMODE_A | WMODE_B | WMODE_G):
-		strcat(pData, "abg");
-		break;
-#endif /* A_BAND_SUPPORT */
-#ifdef DOT11_N_SUPPORT
-#ifdef A_BAND_SUPPORT
-	case (WMODE_A | WMODE_B | WMODE_G | WMODE_GN | WMODE_AN):
-		strcat(pData, "abgn");
-		break;
-	case (WMODE_A | WMODE_AN):
-		strcat(pData, "an");
-		break;
-	case (WMODE_A | WMODE_G | WMODE_GN | WMODE_AN):
-		strcat(pData, "agn");
-		break;
-#endif /* A_BAND_SUPPORT */
-	case (WMODE_G | WMODE_GN):
-		strcat(pData, "gn");
-		break;
-	case (WMODE_B | WMODE_G | WMODE_GN):
-		strcat(pData, "bgn");
-		break;
-#ifdef A_BAND_SUPPORT
-	case (WMODE_AN):
-#endif /* A_BAND_SUPPORT */
-	case (WMODE_GN):
-		strcat(pData, "n");
-		break;
-#endif /* DOT11_N_SUPPORT */
-	default:
-		break;
-	}
 
 	return NDIS_STATUS_SUCCESS;
 }
@@ -1040,7 +993,7 @@ INT RTMP_COM_IoctlHandle(
 			break;
 
 		case CMD_RTPRIV_IOCTL_INF_PPA_EXIT:
-			if (ppa_hook_directpath_register_dev_fn && pAd->PPAEnable==TRUE) 
+			if (ppa_hook_directpath_register_dev_fn && pAd->PPAEnable == TRUE)
 			{
 				unsigned int status;
 				status=ppa_hook_directpath_register_dev_fn(&pAd->g_if_id, pAd->net_dev, NULL, 0);
@@ -1099,7 +1052,7 @@ INT RTMP_COM_IoctlHandle(
 
 		case CMD_RTPRIV_IOCTL_INF_STATS_GET:
 			/* get statistics */
-			{			
+			{
 				RT_CMD_STATS *pStats = (RT_CMD_STATS *)pData;
 				pStats->pStats = pAd->stats;
 				if(pAd->OpMode == OPMODE_STA)
@@ -1126,7 +1079,7 @@ INT RTMP_COM_IoctlHandle(
 						if (pAd->ApCfg.MBSSID[index].MSSIDDev == (PNET_DEV)(pStats->pNetDev))
 							break;
 					}
-						
+
 					if (index >= MAX_MBSSID_NUM(pAd))
 					{
 						//reset counters
@@ -1142,11 +1095,11 @@ INT RTMP_COM_IoctlHandle(
 						pStats->rx_crc_errors = 0;	/* recved pkt with crc error*/
 						pStats->rx_frame_errors = 0;	/* recv'd frame alignment error*/
 						pStats->rx_fifo_errors = 0;	/* recv'r fifo overrun*/
-						   
+
 						DBGPRINT(RT_DEBUG_ERROR, ("CMD_RTPRIV_IOCTL_INF_STATS_GET: can not find mbss I/F\n"));
 						return NDIS_STATUS_FAILURE;
 					}
-					
+
 					pStats->rx_packets = pAd->ApCfg.MBSSID[index].RxCount;
 					pStats->tx_packets = pAd->ApCfg.MBSSID[index].TxCount;
 					pStats->rx_bytes = pAd->ApCfg.MBSSID[index].ReceivedByteCount;
@@ -1168,7 +1121,7 @@ INT RTMP_COM_IoctlHandle(
 		/* get wireless statistics */
 		{
 			unsigned char CurOpMode = OPMODE_AP;
-#ifdef CONFIG_AP_SUPPORT 
+#ifdef CONFIG_AP_SUPPORT
 			PMAC_TABLE_ENTRY pMacEntry = NULL;
 #endif /* CONFIG_AP_SUPPORT */
 			RT_CMD_IW_STATS *pStats = (RT_CMD_IW_STATS *)pData;
@@ -1177,11 +1130,10 @@ INT RTMP_COM_IoctlHandle(
 			pStats->level = 0;
 			pStats->noise = 0;
 			pStats->pStats = pAd->iw_stats;
-			
 
 			/*check if the interface is down*/
 			if(!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE))
-				return NDIS_STATUS_FAILURE;	
+				return NDIS_STATUS_FAILURE;
 
 #ifdef CONFIG_AP_SUPPORT
 			if (CurOpMode == OPMODE_AP)
@@ -1281,22 +1233,22 @@ INT RTMP_COM_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_ATE:
 			RtmpDoAte(pAd, wrq, pData);
 			break;
-#endif /* RALINK_QA */ 
+#endif /* RALINK_QA */
 #endif /* RALINK_ATE */
 
 		case CMD_RTPRIV_IOCTL_MAC_ADDR_GET:
 
 			RT28xx_EEPROM_READ16(pAd, 0x04, Addr01);
 			RT28xx_EEPROM_READ16(pAd, 0x06, Addr23);
-			RT28xx_EEPROM_READ16(pAd, 0x08, Addr45);			
-			
-			PermanentAddress[0] = (unsigned char)(Addr01 & 0xff);		
+			RT28xx_EEPROM_READ16(pAd, 0x08, Addr45);
+
+			PermanentAddress[0] = (unsigned char)(Addr01 & 0xff);
 			PermanentAddress[1] = (unsigned char)(Addr01 >> 8);
 			PermanentAddress[2] = (unsigned char)(Addr23 & 0xff);
 			PermanentAddress[3] = (unsigned char)(Addr23 >> 8);
 			PermanentAddress[4] = (unsigned char)(Addr45 & 0xff);
-			PermanentAddress[5] = (unsigned char)(Addr45 >> 8);				
-			
+			PermanentAddress[5] = (unsigned char)(Addr45 >> 8);
+
 			for(i = 0; i < 6; i++)
 				*(unsigned char *)(pData+i) = PermanentAddress[i];
 			break;
@@ -1355,7 +1307,7 @@ INT RTMP_COM_IoctlHandle(
 	return Status;
 }
 
-/* 
+/*
     ==========================================================================
     Description:
         Issue a site survey command to driver
@@ -1367,12 +1319,12 @@ INT RTMP_COM_IoctlHandle(
         None
 
     Note:
-        Usage: 
+        Usage:
                1.) iwpriv ra0 set site_survey
     ==========================================================================
 */
 INT Set_SiteSurvey_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	NDIS_802_11_SSID Ssid;
@@ -1384,7 +1336,7 @@ INT Set_SiteSurvey_Proc(
 	if (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_INTERRUPT_IN_USE))
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("INFO::Network is down!\n"));
-		return -ENETDOWN;   
+		return -ENETDOWN;
 	}
 
 
@@ -1417,7 +1369,7 @@ INT Set_SiteSurvey_Proc(
 }
 
 INT	Set_Antenna_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	ANT_DIVERSITY_TYPE UsedAnt;
@@ -1435,13 +1387,13 @@ INT	Set_Antenna_Proc(
 		/* 2: Fix in the PHY Antenna CON1*/
 		case ANT_FIX_ANT0:
 			AsicSetRxAnt(pAd, 0);
-			DBGPRINT(RT_DEBUG_OFF, ("<== Set_Antenna_Proc(Fix in Ant CON1), (%d,%d)\n", 
+			DBGPRINT(RT_DEBUG_OFF, ("<== Set_Antenna_Proc(Fix in Ant CON1), (%d,%d)\n",
 					pAd->RxAnt.Pair1PrimaryRxAnt, pAd->RxAnt.Pair1SecondaryRxAnt));
 			break;
     	/* 3: Fix in the PHY Antenna CON2*/
 		case ANT_FIX_ANT1:
 			AsicSetRxAnt(pAd, 1);
-			DBGPRINT(RT_DEBUG_OFF, ("<== %s(Fix in Ant CON2), (%d,%d)\n", 
+			DBGPRINT(RT_DEBUG_OFF, ("<== %s(Fix in Ant CON2), (%d,%d)\n",
 							__FUNCTION__, pAd->RxAnt.Pair1PrimaryRxAnt, pAd->RxAnt.Pair1SecondaryRxAnt));
 			break;
 		default:
@@ -1449,7 +1401,7 @@ INT	Set_Antenna_Proc(
 					pAd->RxAnt.Pair1PrimaryRxAnt, pAd->RxAnt.Pair1SecondaryRxAnt));
 			break;
 	}
-	
+
 	return TRUE;
 }
 
@@ -1457,13 +1409,13 @@ INT	Set_Antenna_Proc(
 
 #ifdef MICROWAVE_OVEN_SUPPORT
 INT Set_MO_FalseCCATh_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *		arg)
 {
 	unsigned long th;
 
 	th = simple_strtol(arg, 0, 10);
-	
+
 	if (th > 65535)
 		th = 65535;
 

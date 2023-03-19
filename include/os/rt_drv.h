@@ -159,8 +159,6 @@ typedef char			* PNDIS_BUFFER;
 /***********************************************************************************
  *	OS file operation related data structure definitions
  ***********************************************************************************/
-typedef VOID * 			RTMP_OS_FD;
-
 #define IS_FILE_OPEN_ERR(_fd)	RtmpOsFileIsErr((_fd))
 
 #ifndef O_RDONLY

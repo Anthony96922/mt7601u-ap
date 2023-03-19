@@ -1231,7 +1231,7 @@ VOID RTMPDeQueuePacket(
 										fRTMP_ADAPTER_RESET_IN_PROGRESS |
 										fRTMP_ADAPTER_HALT_IN_PROGRESS |
 #ifdef CONFIG_MULTI_CHANNEL
-										fRTMP_ADAPTER_DISABLE_DEQUEUEPACKET |  
+										fRTMP_ADAPTER_DISABLE_DEQUEUEPACKET |
 #endif /* CONFIG_MULTI_CHANNEL */
 										fRTMP_ADAPTER_NIC_NOT_EXIST
 			))))
@@ -1244,21 +1244,10 @@ VOID RTMPDeQueuePacket(
 				break;
 #endif /* CONFIG_MULTI_CHANNEL */
 
-			
 			if (Count >= Max_Tx_Packets)
 				break;
 
 			DEQUEUE_LOCK(&pAd->irq_lock, bIntContext, IrqFlags);
-			if (&pAd->TxSwQueue[QueIdx] == NULL)
-			{
-#ifdef DBG_DIAGNOSE
-				if (firstRound == TRUE)
-					pDiagStruct->TxSWQueCnt[pDiagStruct->ArrayCurIdx][0]++;
-#endif /* DBG_DIAGNOSE */
-				DEQUEUE_UNLOCK(&pAd->irq_lock, bIntContext, IrqFlags);
-				break;
-			}
-
 
 			/* probe the Queue Head*/
 			pQueue = &pAd->TxSwQueue[QueIdx];
@@ -1270,7 +1259,6 @@ VOID RTMPDeQueuePacket(
 
 			pTxBlk = &TxBlk;
 			NdisZeroMemory((unsigned char *)pTxBlk, sizeof(TX_BLK));
-			
 			pTxBlk->QueIdx = QueIdx;
 
 #ifdef VENDOR_FEATURE1_SUPPORT

@@ -99,7 +99,7 @@ endif
 ifeq ($(RT28xx_MODE),STA)
 	cp $(RT28xx_DIR)/os/linux/Makefile.DPD $(RTMP_SRC_DIR)/os/linux/
 	cp $(RT28xx_DIR)/os/linux/Makefile.DPO $(RTMP_SRC_DIR)/os/linux/
-endif	
+endif
 
 clean:
 	$(MAKE) -C $(RT28xx_DIR)/os/linux -f Makefile.6 clean

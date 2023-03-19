@@ -3169,7 +3169,7 @@ INT RTMPAPQueryInformation(
 			}
 			pBss->Length = (unsigned long)(sizeof(NDIS_WLAN_BSSID_EX) - 1 + sizeof(NDIS_802_11_FIXED_IEs) + pAd->ScanTab.BssEntry[i].VarIELen + Padding);
 
-#if WIRELESS_EXT < 17                
+#if WIRELESS_EXT < 17
 			if ((BssLen + pBss->Length) < wrq->u.data.length)
 				BssLen += pBss->Length;
 			else
@@ -3182,7 +3182,7 @@ INT RTMPAPQueryInformation(
 #endif
 		}
 
-#if WIRELESS_EXT < 17            
+#if WIRELESS_EXT < 17
 		wrq->u.data.length = BssLen;
 #else
 		if (BssLen > wrq->u.data.length)
@@ -3211,7 +3211,7 @@ INT RTMPAPQueryInformation(
 		wrq->u.data.length = MAC_ADDR_LEN;
             	Status = copy_to_user(wrq->u.data.pointer, pApCliEntry->CurrentAddress, wrq->u.data.length);
 		break;
-  
+
         case OID_802_11_BSSID:
 		if (pObj->ioctl_if_type != INT_APCLI)
 			return FALSE;
@@ -3321,7 +3321,7 @@ INT RTMPAPQueryInformation(
 			wrq->u.data.length = sizeof(unsigned int);
 			/*WscPinCode = GenerateWpsPinCode(pAd, FALSE, apidx); */
 			pWscControl = &pAd->ApCfg.MBSSID[apidx].WscControl;
-			
+
 			WscPinCode = pWscControl->WscEnrolleePinCode;
 			if (copy_to_user(wrq->u.data.pointer, &WscPinCode, wrq->u.data.length))
 				Status = -EFAULT;
@@ -3429,7 +3429,7 @@ INT RTMPAPQueryInformation(
 						AssocTab.Entry[AssocTab.Num].MOR = RateIdToMbps[pAd->ApCfg.MBSSID[apidx].MaxTxRate] * 2;
 						AssocTab.Num += 1;
 					}
-				}            
+				}
 				wrq->u.data.length = sizeof(RT_LLTD_ASSOICATION_TABLE);
 				if (copy_to_user(wrq->u.data.pointer, &AssocTab, wrq->u.data.length))
 				{
@@ -3449,9 +3449,9 @@ INT RTMPAPQueryInformation(
 #ifdef DOT1X_SUPPORT
 		case OID_802_DOT1X_CONFIGURATION:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::Get Radius setting(%d)\n", sizeof(DOT1X_CMM_CONF)));
-				RTMPIoctlQueryRadiusConf(pAd, wrq);	
+				RTMPIoctlQueryRadiusConf(pAd, wrq);
 			break;
-#endif /* DOT1X_SUPPORT */			
+#endif /* DOT1X_SUPPORT */
 
 #ifdef WSC_AP_SUPPORT
 		case RT_OID_802_11_MAC_ADDRESS:
@@ -3550,12 +3550,12 @@ INT RTMPAPQueryInformation(
 			DBGPRINT(RT_DEBUG_TRACE, ("LongRetryLimit = %ld,  tx_rty_cfg.field.LongRtyLimit = %d\n", LongRetryLimit, tx_rty_cfg.field.LongRtyLimit));
 			Status = copy_to_user(wrq->u.data.pointer, &LongRetryLimit, wrq->u.data.length);
 			break;
-			
+
 		case RT_OID_802_11_PRODUCTID:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_802_11_PRODUCTID\n"));
-		
+
 #ifdef RTMP_MAC_USB
-			snprintf((char *)snmp_tmp, sizeof(snmp_tmp), "%04x %04x\n", 
+			snprintf((char *)snmp_tmp, sizeof(snmp_tmp), "%04x %04x\n",
 						RtmpOsGetUsbDevVendorID(((POS_COOKIE)pAd->OS_Cookie)->pUsb_Dev),
 						RtmpOsGetUsbDevProductID(((POS_COOKIE)pAd->OS_Cookie)->pUsb_Dev));
 #endif /* RTMP_MAC_USB */
@@ -3598,10 +3598,10 @@ INT RTMPAPQueryInformation(
 			pStatistics->FrameDuplicateCount.QuadPart = pAd->WlanCounters.FrameDuplicateCount.QuadPart;
 			pStatistics->ReceivedFragmentCount.QuadPart = pAd->WlanCounters.ReceivedFragmentCount.QuadPart;
 			pStatistics->MulticastReceivedFrameCount.QuadPart = pAd->WlanCounters.MulticastReceivedFrameCount.QuadPart;
-#ifdef DBG	
+#ifdef DBG
                 	pStatistics->FCSErrorCount = pAd->RalinkCounters.RealFcsErrCount;
 #else
-            	    pStatistics->FCSErrorCount.QuadPart = pAd->WlanCounters.FCSErrorCount.QuadPart;
+			pStatistics->FCSErrorCount.QuadPart = pAd->WlanCounters.FCSErrorCount.QuadPart;
 			pStatistics->FrameDuplicateCount.u.LowPart = pAd->WlanCounters.FrameDuplicateCount.u.LowPart / 100;
 #endif
 			pStatistics->TransmittedFrameCount.QuadPart = pAd->WlanCounters.TransmittedFragmentCount.QuadPart;
@@ -3642,8 +3642,8 @@ INT RTMPAPQueryInformation(
 			pMbssStat->bcPktsTx=  pMbss->bcPktsTx;
 			pMbssStat->bcPktsRx=  pMbss->bcPktsRx;
 			wrq->u.data.length = sizeof(MBSS_STATISTICS);
-			copy_to_user(wrq->u.data.pointer, pMbssStat, wrq->u.data.length);
-			os_free_mem(pAd, pMbssStat);			
+			Status = copy_to_user(wrq->u.data.pointer, pMbssStat, wrq->u.data.length);
+			os_free_mem(pAd, pMbssStat);
 		}
 		break;
 
@@ -3679,37 +3679,37 @@ INT RTMPAPQueryInformation(
 		case OID_802_11_MCAST_TXIV:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::RT_OID_802_11_MCAST_TXIV\n"));
 			Status  = -EINVAL;
-			break;			
+			break;
 		case OID_802_11_WAPI_CONFIGURATION:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::Get WAPI Configuration(%d)\n", sizeof(WAPI_CONF)));
-			RTMPIoctlQueryWapiConf(pAd, wrq);	
-			break;			
+			RTMPIoctlQueryWapiConf(pAd, wrq);
+			break;
 		case OID_802_11_WAPI_IE:
 			DBGPRINT(RT_DEBUG_TRACE, ("Query::OID_802_11_WAPI_IE\n"));
 			if (wrq->u.data.length != sizeof(WAPI_WIE_STRUCT))
-                Status  = -EINVAL;
-            else
-            {                												
+				Status  = -EINVAL;
+			else
+			{
 				WAPI_WIE_STRUCT   	wapi_ie;
 				MAC_TABLE_ENTRY		*pWapiEntry;
 
 				NdisZeroMemory(&wapi_ie, sizeof(WAPI_WIE_STRUCT));
 				NdisMoveMemory(wapi_ie.addr, wrq->u.data.pointer, MAC_ADDR_LEN);
-					
+
 				pWapiEntry = MacTableLookup(pAd, wapi_ie.addr);
-						
+
 				if (pWapiEntry && IS_ENTRY_CLIENT(pWapiEntry) && (pWapiEntry->RSNIE_Len > 0))
 				{
 					wapi_ie.wie_len = pWapiEntry->RSNIE_Len;
-					NdisMoveMemory(wapi_ie.wie, pWapiEntry->RSN_IE, pWapiEntry->RSNIE_Len);						
+					NdisMoveMemory(wapi_ie.wie, pWapiEntry->RSN_IE, pWapiEntry->RSNIE_Len);
 				}
-								
+
 				if (copy_to_user(wrq->u.data.pointer, &wapi_ie, wrq->u.data.length))
 				{
 					DBGPRINT(RT_DEBUG_ERROR, ("%s: copy_to_user() fail\n", __FUNCTION__));
-				}								
-            }
-			break;		
+				}
+			}
+			break;
 
 		case OID_802_11_MCAST_KEY_INFO:
 			{
@@ -3717,38 +3717,36 @@ INT RTMPAPQueryInformation(
 				WAPI_MCAST_KEY_STRUCT   wapi_mkey;
 
 				DBGPRINT(RT_DEBUG_TRACE, ("Query::OID_802_11_MCAST_KEY_INFO\n"));
-							
-				pMbss = &pAd->ApCfg.MBSSID[pObj->ioctl_if];					
+
+				pMbss = &pAd->ApCfg.MBSSID[pObj->ioctl_if];
 				NdisZeroMemory(&wapi_mkey, sizeof(WAPI_MCAST_KEY_STRUCT));
 
 				if (pMbss->sw_wpi_encrypt)
 				{
-					NdisMoveMemory(wapi_mkey.m_tx_iv, 
+					NdisMoveMemory(wapi_mkey.m_tx_iv,
 								   pAd->SharedKey[pObj->ioctl_if][pMbss->DefaultKeyId].TxTsc,
 								   LEN_WAPI_TSC);
 				}
 				else
 				{
-					INT	m_wcid;	
-				
+					INT	m_wcid;
+
 					GET_GroupKey_WCID(pAd, m_wcid, apidx);
 					RTMPGetWapiTxTscFromAsic(pAd, m_wcid, wapi_mkey.m_tx_iv);
-				}				
-				wapi_mkey.key_id = pMbss->DefaultKeyId;													
+				}
+				wapi_mkey.key_id = pMbss->DefaultKeyId;
 				NdisMoveMemory(wapi_mkey.key_announce, pMbss->key_announce_flag, LEN_WAPI_TSC);
 				NdisMoveMemory(wapi_mkey.NMK, pMbss->NMK, 16);
 
 				wrq->u.data.length = sizeof(WAPI_MCAST_KEY_STRUCT);
 				Status = copy_to_user(wrq->u.data.pointer, &wapi_mkey, wrq->u.data.length);
 			}
-			break;		
-			
+			break;
 #endif /* WAPI_SUPPORT */
 
 #ifdef HOSTAPD_SUPPORT
 
 		case HOSTAPD_OID_GETWPAIE:/*report wpa ie of the new station to hostapd. */
-			
 			if (wrq->u.data.length != sizeof(wpaie))
 			{
 				Status = -EINVAL;
@@ -3784,7 +3782,6 @@ INT RTMPAPQueryInformation(
 				Status = -EFAULT;
 			break;
 
-			
 		case HOSTAPD_OID_GET_SEQ:/*report txtsc to hostapd. */
 
 			pMbss = &pAd->ApCfg.MBSSID[apidx];
@@ -3806,7 +3803,6 @@ INT RTMPAPQueryInformation(
 			}
 			break;
 
-			
 		case HOSTAPD_OID_GET_1X_GROUP_KEY:/*report default group key to hostapd. */
 
 			pMbss = &pAd->ApCfg.MBSSID[apidx];
@@ -3847,7 +3843,7 @@ INT RTMPAPQueryInformation(
 				{
 					APCLI_MR_APIDX_SANITY_CHECK(ApCliIdx);
 					pApCliEntry = &pAd->ApCfg.ApCliTab[ApCliIdx];
-					pEntry = &pAd->MacTab.Content[pApCliEntry->MacTabWCID]; 
+					pEntry = &pAd->MacTab.Content[pApCliEntry->MacTabWCID];
 
 					if (!IS_ENTRY_APCLI(pEntry))
 					{
@@ -3894,7 +3890,7 @@ INT RTMPAPQueryInformation(
 
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Country Code.
@@ -3903,14 +3899,14 @@ INT RTMPAPQueryInformation(
     ==========================================================================
 */
 INT Set_CountryCode_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *		arg)
 {
 
 #ifdef EXT_BUILD_CHANNEL_LIST
 	/* reset temp table status */
 	pAd->CommonCfg.pChDesp = NULL;
-	pAd->CommonCfg.DfsType = MAX_RD_REGION;	
+	pAd->CommonCfg.DfsType = MAX_RD_REGION;
 #endif /* EXT_BUILD_CHANNEL_LIST */
 
 	if(strlen(arg) == 2)
@@ -3922,8 +3918,8 @@ INT Set_CountryCode_Proc(
 	{
 		NdisZeroMemory(pAd->CommonCfg.CountryCode, 3);
 		pAd->CommonCfg.bCountryFlag = FALSE;
-	}	
-		
+	}
+
 	DBGPRINT(RT_DEBUG_TRACE, ("Set_CountryCode_Proc::(bCountryFlag=%d, CountryCode=%s)\n", pAd->CommonCfg.bCountryFlag, pAd->CommonCfg.CountryCode));
 
 	return TRUE;
@@ -3931,11 +3927,11 @@ INT Set_CountryCode_Proc(
 
 #ifdef EXT_BUILD_CHANNEL_LIST
 INT Set_ChGeography_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *		arg)
 {
 	unsigned long Geography;
-		
+
 	Geography = simple_strtol(arg, 0, 10);
 	if (Geography <= BOTH)
 		pAd->CommonCfg.Geography = Geography;
@@ -3946,12 +3942,12 @@ INT Set_ChGeography_Proc(
 		(pAd->CommonCfg.Geography == BOTH) ? ' ' : ((pAd->CommonCfg.Geography == IDOR) ? 'I' : 'O');
 
 	DBGPRINT(RT_DEBUG_ERROR, ("Set_ChannelGeography_Proc:: Geography = %s\n", pAd->CommonCfg.Geography == ODOR ? "out-door" : (pAd->CommonCfg.Geography == IDOR ? "in-door" : "both")));
-	
+
 	/* After Set ChGeography need invoke SSID change procedural again for Beacon update. */
 	/* it's no longer necessary since APStartUp will rebuild channel again. */
 	/*BuildChannelListEx(pAd); */
 
-	return TRUE;			
+	return TRUE;
 }
 #endif /* EXT_BUILD_CHANNEL_LIST */
 
@@ -3966,7 +3962,7 @@ INT Set_ChGeography_Proc(
     ==========================================================================
 */
 INT Set_CountryString_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *		arg)
 {
 	INT   index = 0;
@@ -3984,7 +3980,7 @@ INT Set_CountryString_Proc(
 			DBGPRINT(RT_DEBUG_ERROR, ("Set_CountryString_Proc::Parameter of CountryString are too short!\n"));
 			return FALSE;
 		}
-		
+
 		for (index = 0; index < strlen(arg); index++)
 		{
 			if ((arg[index] >= 'a') && (arg[index] <= 'z'))
@@ -4006,7 +4002,7 @@ INT Set_CountryString_Proc(
 			success = FALSE;
 	}
 	else
-		success = FALSE;			
+		success = FALSE;
 
 	if (success == TRUE)
 	{
@@ -4093,7 +4089,7 @@ INT Set_CountryString_Proc(
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set SSID
@@ -4102,7 +4098,7 @@ INT Set_CountryString_Proc(
     ==========================================================================
 */
 INT	Set_AP_SSID_Proc(
-	IN	PRTMP_ADAPTER	pAdapter, 
+	IN	PRTMP_ADAPTER	pAdapter,
 	IN	char *			arg)
 {
 	INT   success = FALSE;
@@ -4162,16 +4158,16 @@ INT	Set_AP_SSID_Proc(
     ==========================================================================
 */
 INT Set_TxRate_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			arg)
 {
 	POS_COOKIE pObj = (POS_COOKIE) pAd->OS_Cookie;
-	
+
 	NdisZeroMemory(pAd->ApCfg.MBSSID[pObj->ioctl_if].DesiredRates, MAX_LEN_OF_SUPPORTED_RATES);
 
 	pAd->ApCfg.MBSSID[pObj->ioctl_if].DesiredRatesIndex = simple_strtol(arg, 0, 10);
 	/* todo RTMPBuildDesireRate(pAd, pObj->ioctl_if, pAd->ApCfg.MBSSID[pObj->ioctl_if].DesiredRatesIndex); */
-	
+
 	/*todo MlmeUpdateTxRates(pAd); */
 
 	return TRUE;
@@ -4207,7 +4203,7 @@ INT Set_BasicRate_Proc(RTMP_ADAPTER *pAd, char * arg)
 }
 
 
-/* 
+/*
     ==========================================================================
     Description:
         Set Beacon Period
@@ -10881,8 +10877,8 @@ INT RTMP_AP_IoctlHandle(
 			break;
 
 		case CMD_RTPRIV_IOCTL_AP_SIOCGIFHWADDR:
-            if (pObj->ioctl_if < MAX_MBSSID_NUM(pAd))
-    			NdisCopyMemory((char *) wrq->u.name, (char *) pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid, 6);
+			if (pObj->ioctl_if < MAX_MBSSID_NUM(pAd))
+				NdisCopyMemory((char *) wrq->u.name, (char *) pAd->ApCfg.MBSSID[pObj->ioctl_if].Bssid, 6);
 			break;
 
 		case CMD_RTPRIV_IOCTL_AP_SIOCGIWESSID:

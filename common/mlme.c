@@ -28,7 +28,6 @@
 */
 
 #include "rt_config.h"
-#include <stdarg.h>
 
 
 unsigned char CISCO_OUI[] = {0x00, 0x40, 0x96};

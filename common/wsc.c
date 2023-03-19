@@ -7542,7 +7542,7 @@ void    WscWriteConfToDatFile(
 {
 	char	*cfgData = 0;
 	char *			fileName = NULL;
-	RTMP_OS_FD		file_r, file_w;
+	struct file		*file_r, *file_w;
 	RTMP_OS_FS_INFO		osFSInfo;
 	LONG			rv, fileLen = 0;
 	char			*offset = 0;
@@ -7574,9 +7574,6 @@ void    WscWriteConfToDatFile(
 		snprintf((char *) WepKeyFormatName, sizeof(WepKeyFormatName), "Key%dType=", pAd->ApCfg.MBSSID[apidx].DefaultKeyId+1);
 	}
 #endif /* CONFIG_AP_SUPPORT */
-
-
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 
 	file_r = RtmpOSFileOpen(fileName, O_RDONLY, 0);
 	if (IS_FILE_OPEN_ERR(file_r)) 
@@ -7838,8 +7835,6 @@ WriteFileOpenErr:
 /*		kfree(cfgData); */
 		os_free_mem(NULL, cfgData);
 out:
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
-
 
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscWriteConfToDatFile\n"));
 	return;
@@ -7851,7 +7846,7 @@ void    WscWriteConfToAR9File(
     IN  unsigned char			CurOpMode)
 {
 	char *			fileName = NULL;
-	RTMP_OS_FD		file_w;
+	struct file		*file_w;
 	RTMP_OS_FS_INFO		osFSInfo;
 	INT			offset = 0;
 	INT			datoffset = 0;
@@ -7882,7 +7877,6 @@ void    WscWriteConfToAR9File(
 #endif /* CONFIG_AP_SUPPORT */
 
 
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 	file_w = RtmpOSFileOpen(fileName, O_WRONLY|O_CREAT, 0);
 	if (IS_FILE_OPEN_ERR(file_w)) 
 	{
@@ -8148,7 +8142,7 @@ void    WscWriteConfToAR9File(
 		RtmpOSFileClose(file_w);
 	}
 
-WriteErr:   
+WriteErr:
 	if (pTempStr)
 /*		kfree(pTempStr); */
 		os_free_mem(NULL, pTempStr);
@@ -8156,9 +8150,7 @@ WriteErr:
 /*		kfree(pDatStr); */
 		os_free_mem(NULL, pDatStr);
 
-WriteFileOpenErr:    
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
-
+WriteFileOpenErr:
 
 	DBGPRINT(RT_DEBUG_TRACE, ("<----- WscWriteConfToAR9File\n"));
 	return;

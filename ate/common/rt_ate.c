@@ -4136,7 +4136,7 @@ INT Set_ATE_Load_E2P_Proc(
 {
 	bool		    	ret = FALSE;
 	char *			src = EEPROM_BIN_FILE_NAME;
-	RTMP_OS_FD		srcf;
+	struct file		*srcf;
 	int 			retval;
 	unsigned short 			WriteEEPROM[(EEPROM_SIZE >> 1)];
 	INT				FileLength = 0;
@@ -4149,8 +4149,6 @@ INT Set_ATE_Load_E2P_Proc(
 	{
 		/* zero the e2p buffer */
 		NdisZeroMemory((unsigned char *)WriteEEPROM, EEPROM_SIZE);
-
-		RtmpOSFSInfoChange(&osFSInfo, TRUE);
 
 		do
 		{
@@ -4198,7 +4196,6 @@ INT Set_ATE_Load_E2P_Proc(
 		}
 
 		/* restore */
-		RtmpOSFSInfoChange(&osFSInfo, FALSE);		
 	}
 
     DBGPRINT(RT_DEBUG_OFF, ("<=== %s (ret=%d)\n", __FUNCTION__, ret));
@@ -6020,9 +6017,9 @@ INT Set_ADCDump_Proc(
 	unsigned int CaptureModeOffset=0,CaptureStartAddr=0;
 	unsigned int SMM_Addr;
 	unsigned int PKT_Addr;
-	int i = 0; 
+	int i = 0;
 	char *					src = "ADCDump.txt";
-	RTMP_OS_FD				srcf;
+	struct file 			*srcf;
 	RTMP_OS_FS_INFO			osFSInfo;
 	unsigned char				msg[128];
 	unsigned char				msg1[128];
@@ -6031,7 +6028,7 @@ INT Set_ADCDump_Proc(
 	CAPTURE_MODE_PACKET_BUFFER    PKTValue2d;
 	unsigned char retval=0;
 	unsigned char DataSourceADC6=simple_strtol(arg, 0, 10);
-	
+
 	pAd->ate.Mode = ATE_START;
 
 	/* Disable Tx/Rx */
@@ -6039,7 +6036,7 @@ INT Set_ADCDump_Proc(
 	BBP_IO_READ8_BY_REG_ID(pAd, BBP_R21, &BBP_R21_Ori);
 
 	/* Disable BBP power saving */
-	   
+
 	/* disable all Tx/Rx Queue */
 	RTMP_IO_WRITE32(pAd, PBF_CFG, 0x00000000);
 
@@ -6135,7 +6132,6 @@ INT Set_ADCDump_Proc(
 	CaptureStartAddr = CaptureStartAddr & 0x00001FFF;
 
 	/* Dump data from MAC memory */
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 
 	SMM_Addr=SMM_BASEADDR+CaptureStartAddr*2;
 	PKT_Addr=PKT_BASEADDR+CaptureStartAddr*4;
@@ -6202,8 +6198,6 @@ INT Set_ADCDump_Proc(
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("--> Error %d closing %s\n", -retval, src));
 	}
-
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
 
 	BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R21, BBP_R21_Ori);
 	BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R60, BBP_R60_Ori); 

@@ -223,7 +223,7 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;
 	unsigned char *			src;
-	RTMP_OS_FD		srcf;
+	struct file			*srcf;
 	INT 				retval, i;
 	unsigned char *			pFirmwareImage;
 	INT				FileLength = 0;
@@ -238,8 +238,6 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 	/* init */
 	pFirmwareImage = NULL;
 	src = RTMP_FIRMWARE_FILE_NAME;
-
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 
 	pAd->FirmwareVersion = (FIRMWARE_MAJOR_VERSION << 8) + \
 						   FIRMWARE_MINOR_VERSION;
@@ -390,7 +388,6 @@ NDIS_STATUS RtmpAsicLoadFirmware(
 			os_free_mem(NULL, pFirmwareImage);
 	}
 
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
 #else
 
 	NDIS_STATUS		Status = NDIS_STATUS_SUCCESS;

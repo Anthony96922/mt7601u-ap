@@ -309,18 +309,14 @@ unsigned int RtmpOsHtonl(
 	IN	unsigned int					Value);
 
 /* OS File */
-RTMP_OS_FD RtmpOSFileOpen(char *pPath,  int flag, int mode);
-int RtmpOSFileClose(RTMP_OS_FD osfd);
-void RtmpOSFileSeek(RTMP_OS_FD osfd, int offset);
-int RtmpOSFileRead(RTMP_OS_FD osfd, char *pDataPtr, int readLen);
-int RtmpOSFileWrite(RTMP_OS_FD osfd, char *pDataPtr, int writeLen);
+struct file *RtmpOSFileOpen(char *pPath,  int flag, int mode);
+int RtmpOSFileClose(struct file *osfd);
+void RtmpOSFileSeek(struct file *osfd, int offset);
+int RtmpOSFileRead(struct file *osfd, char *pDataPtr, size_t readLen);
+int RtmpOSFileWrite(struct file *osfd, char *pDataPtr, size_t writeLen);
 
 int RtmpOsFileIsErr(
 	IN	VOID					*pFile);
-
-void RtmpOSFSInfoChange(
-	IN	RTMP_OS_FS_INFO			*pOSFSInfoOrg,
-	IN	bool					bSet);
 
 /* OS Network Interface */
 int RtmpOSNetDevAddrSet(

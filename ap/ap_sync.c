@@ -248,35 +248,6 @@ VOID APPeerProbeReqAction(
 			FrameLen += TmpLen;
 		}
 
-#ifdef DOT11_N_SUPPORT
-		/* AP Channel Report */
-		{
-			unsigned char APChannelReportIe = IE_AP_CHANNEL_REPORT;
-			unsigned long TmpLen;
-
-			/*
-				802.11n D2.0 Annex J, USA regulatory
-				class 32, channel set 1~7
-				class 33, channel set 5-11
-			*/
-			unsigned char rclass32[] = {32, 1, 2, 3, 4, 5,  6,  7};
-			unsigned char rclass33[] = {33, 5, 6, 7, 8, 9, 10, 11};
-			unsigned char rclasslen = 8; /*sizeof(rclass32); */
-			if (PhyMode & (WMODE_B | WMODE_G))
-			{
-				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						1, &APChannelReportIe,
-						1, &rclasslen,
-						rclasslen, rclass32,
-						1, &APChannelReportIe,
-						1, &rclasslen,
-						rclasslen, rclass33,
-						END_OF_ARGS);
-				FrameLen += TmpLen;
-			}
-		}
-#endif /* DOT11_N_SUPPORT */
-
 #ifdef A_BAND_SUPPORT
 		/* add Channel switch announcement IE */
 		if ((pAd->CommonCfg.Channel > 14)
@@ -301,10 +272,6 @@ VOID APPeerProbeReqAction(
 		if (WMODE_CAP_N(PhyMode) &&
 			(pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable)) {
 			unsigned char HtLen, AddHtLen, NewExtLen;
-#ifdef RT_BIG_ENDIAN
-			HT_CAPABILITY_IE HtCapabilityTmp;
-			ADD_HT_INFO_IE addHTInfoTmp;
-#endif /* RT_BIG_ENDIAN */
 
 #ifdef A_BAND_SUPPORT
 			if (pAd->CommonCfg.bExtChannelSwitchAnnouncement && (pAd->CommonCfg.Channel > 14)) {
@@ -322,7 +289,6 @@ VOID APPeerProbeReqAction(
 			AddHtLen = sizeof(pAd->CommonCfg.AddHTInfo);
 			NewExtLen = 1;
 			/* New extension channel offset IE is included in Beacon, Probe Rsp or channel Switch Announcement Frame */
-#ifndef RT_BIG_ENDIAN
 			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
 						1, &HtCapIe,
 						1, &HtLen,
@@ -331,35 +297,6 @@ VOID APPeerProbeReqAction(
 						1, &AddHtLen,
 						sizeof(ADD_HT_INFO_IE), &pAd->CommonCfg.AddHTInfo,
 						END_OF_ARGS);
-#else
-			NdisMoveMemory(&HtCapabilityTmp, &pAd->CommonCfg.HtCapability, HtLen);
-			*(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-			{
-				EXT_HT_CAP_INFO extHtCapInfo;
-
-				NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-				*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-				NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-			}
-#else
-			*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
-
-			NdisMoveMemory(&addHTInfoTmp, &pAd->CommonCfg.AddHTInfo, AddHtLen);
-			*(unsigned short *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo2));
-			*(unsigned short *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo3));
-
-			MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-						1, &HtCapIe,
-						1, &HtLen,
-						HtLen, &HtCapabilityTmp,
-						1, &AddHtInfoIe,
-						1, &AddHtLen,
-						AddHtLen, &addHTInfoTmp,
-						END_OF_ARGS);
-
-#endif /* RT_BIG_ENDIAN */
 #endif /* DOT11_N_SUPPORT */
 
 			FrameLen += TmpLen;
@@ -531,72 +468,32 @@ VOID APPeerProbeReqAction(
 
 #ifdef DOT11_N_SUPPORT
 		if (WMODE_CAP_N(PhyMode) &&
-                        (pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable)) {
-                        unsigned char HtLen, AddHtLen;/*, NewExtLen; */
-#ifdef RT_BIG_ENDIAN
-                        HT_CAPABILITY_IE HtCapabilityTmp;
-                        ADD_HT_INFO_IE addHTInfoTmp;
-#endif
-                        HtLen = sizeof(pAd->CommonCfg.HtCapability);
-                        AddHtLen = sizeof(pAd->CommonCfg.AddHTInfo);
+			(pAd->ApCfg.MBSSID[apidx].DesiredHtPhyInfo.bHtEnable)) {
+			unsigned char HtLen, AddHtLen;/*, NewExtLen; */
+			HtLen = sizeof(pAd->CommonCfg.HtCapability);
+			AddHtLen = sizeof(pAd->CommonCfg.AddHTInfo);
 
-                        if (pAd->bBroadComHT == TRUE) {
-                                unsigned char epigram_ie_len;
-                                unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
-                                unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
+			if (pAd->bBroadComHT == TRUE) {
+				unsigned char epigram_ie_len;
+				unsigned char BROADCOM_HTC[4] = {0x0, 0x90, 0x4c, 0x33};
+				unsigned char BROADCOM_AHTINFO[4] = {0x0, 0x90, 0x4c, 0x34};
 
-                                epigram_ie_len = HtLen + 4;
-#ifndef RT_BIG_ENDIAN
-                                MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-                                                        1, &WpaIe,
-                                                        1, &epigram_ie_len,
-                                                        4, &BROADCOM_HTC[0],
-                                                        HtLen, &pAd->CommonCfg.HtCapability,
-                                                        END_OF_ARGS);
-#else
-                                NdisMoveMemory(&HtCapabilityTmp, &pAd->CommonCfg.HtCapability, HtLen);
-                                *(unsigned short *)(&HtCapabilityTmp.HtCapInfo) = SWAP16(*(unsigned short *)(&HtCapabilityTmp.HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-                                {
-                                        EXT_HT_CAP_INFO extHtCapInfo;
+				epigram_ie_len = HtLen + 4;
+				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+							1, &WpaIe,
+							1, &epigram_ie_len,
+							4, &BROADCOM_HTC[0],
+							HtLen, &pAd->CommonCfg.HtCapability,
+							END_OF_ARGS);
+				FrameLen += TmpLen;
 
-                                        NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-                                        *(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-                                        NdisMoveMemory((unsigned char *)(&HtCapabilityTmp.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-                                }
-#else
-                                *(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&HtCapabilityTmp.ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
-
-                                MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-                                                        1, &WpaIe,
-                                                        1, &epigram_ie_len,
-                                                        4, &BROADCOM_HTC[0],
-                                                        HtLen, &HtCapabilityTmp,
-                                                        END_OF_ARGS);
-#endif /* RT_BIG_ENDIAN */
-
-                                FrameLen += TmpLen;
-                                epigram_ie_len = AddHtLen + 4;
-#ifndef RT_BIG_ENDIAN
-                                MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-                                                        1, &WpaIe,
-                                                        1, &epigram_ie_len,
-                                                        4, &BROADCOM_AHTINFO[0],
-                                                        AddHtLen, &pAd->CommonCfg.AddHTInfo,
-                                                        END_OF_ARGS);
-#else
-                                NdisMoveMemory(&addHTInfoTmp, &pAd->CommonCfg.AddHTInfo, AddHtLen);
-                                *(unsigned short *)(&addHTInfoTmp.AddHtInfo2) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo2));
-                                *(unsigned short *)(&addHTInfoTmp.AddHtInfo3) = SWAP16(*(unsigned short *)(&addHTInfoTmp.AddHtInfo3));
-
-                                MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
-                                                        1, &WpaIe,
-                                                        1, &epigram_ie_len,
-                                                        4, &BROADCOM_AHTINFO[0],
-                                                        AddHtLen, &addHTInfoTmp,
-                                                        END_OF_ARGS);
-#endif /* RT_BIG_ENDIAN */
+				epigram_ie_len = AddHtLen + 4;
+				MakeOutgoingFrame(pOutBuffer + FrameLen, &TmpLen,
+							1, &WpaIe,
+							1, &epigram_ie_len,
+							4, &BROADCOM_AHTINFO[0],
+							AddHtLen, &pAd->CommonCfg.AddHTInfo,
+							END_OF_ARGS);
 				FrameLen += TmpLen;
 			}
 		}

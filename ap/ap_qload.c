@@ -11,9 +11,9 @@
  * way altering the source code is stricitly prohibited, unless the prior
  * written consent of Ralink Technology, Inc. is obtained.
  ***************************************************************************/
- 
+
 /****************************************************************************
- 
+
     Abstract:
 
     Provide information on the current STA population and traffic levels
@@ -22,7 +22,7 @@
 	This attribute is available only at a QAP. This attribute, when TRUE,
 	indicates that the QAP implementation is capable of generating and
 	transmitting the QBSS load element in the Beacon and Probe Response frames.
- 
+
 ***************************************************************************/
 
 #include "rt_config.h"
@@ -150,7 +150,7 @@ static VOID QBSS_LoadAlarm(
 			if (bDisconnectSta)
 			{
 				/* send wireless event - for ageout */
-				RTMPSendWirelessEvent(pAd, IW_AGEOUT_EVENT_FLAG, pEntry->Addr, 0, 0); 
+				RTMPSendWirelessEvent(pAd, IW_AGEOUT_EVENT_FLAG, pEntry->Addr, 0, 0);
 
 				{
 					unsigned char *      pOutBuffer = NULL;
@@ -171,20 +171,20 @@ static VOID QBSS_LoadAlarm(
 					Reason = REASON_DEAUTH_STA_LEAVING;
 					MgtMacHeaderInit(pAd, &DeAuthHdr, SUBTYPE_DEAUTH, 0,
 									pEntry->Addr,
-									pAd->ApCfg.MBSSID[pEntry->apidx].Bssid);				
-			    	MakeOutgoingFrame(pOutBuffer,            &FrameLen, 
-			    	                  sizeof(HEADER_802_11), &DeAuthHdr, 
-			    	                  2,                     &Reason, 
-			    	                  END_OF_ARGS);
-			    	MiniportMMRequest(pAd, 0, pOutBuffer, FrameLen);
-			    	MlmeFreeMemory(pAd, pOutBuffer);
+									pAd->ApCfg.MBSSID[pEntry->apidx].Bssid);
+					MakeOutgoingFrame(pOutBuffer,            &FrameLen,
+								sizeof(HEADER_802_11), &DeAuthHdr,
+								2,                     &Reason,
+								END_OF_ARGS);
+					MiniportMMRequest(pAd, 0, pOutBuffer, FrameLen);
+					MlmeFreeMemory(pAd, pOutBuffer);
 				}
 
 				DBGPRINT(RT_DEBUG_TRACE, ("qbss> Alarm! Deauth the station "
 						"%02x:%02x:%02x:%02x:%02x:%02x\n",
 						pEntry->Addr[0], pEntry->Addr[1],
 						pEntry->Addr[2], pEntry->Addr[3],
-						pEntry->Addr[4], pEntry->Addr[5]));			
+						pEntry->Addr[4], pEntry->Addr[5]));
 
 				MacTableDeleteEntry(pAd, pEntry->Aid, pEntry->Addr);
 				continue;
@@ -515,12 +515,12 @@ unsigned int QBSS_LoadElementAppend(
 
 	/* because no ACM is supported, the available bandwidth is 1 sec */
 	pLoad->AvalAdmCap = le2cpu16(0x7a12); /* 0x7a12 * 32us = 1 second */
-	
+
 
 	/* copy the element to the frame */
-    MakeOutgoingFrame(pBeaconBuf, &ElmLen,
-						sizeof(ELM_QBSS_LOAD),	pLoad,
-						END_OF_ARGS);
+	MakeOutgoingFrame(pBeaconBuf, &ElmLen,
+				sizeof(ELM_QBSS_LOAD), pLoad,
+				END_OF_ARGS);
 
 	return ElmLen;
 }
@@ -847,7 +847,7 @@ Note:
 ========================================================================
 */
 INT	Set_QloadClr_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			Arg)
 {
 	QBSS_LoadStatusClear(pAd);
@@ -871,7 +871,7 @@ Note:
 ========================================================================
 */
 INT	Set_QloadAlarmTimeThreshold_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			Arg)
 {
 #ifdef QLOAD_FUNC_BUSY_TIME_ALARM
@@ -902,7 +902,7 @@ Note:
 ========================================================================
 */
 INT	Set_QloadAlarmNumThreshold_Proc(
-	IN	PRTMP_ADAPTER	pAd, 
+	IN	PRTMP_ADAPTER	pAd,
 	IN	char *			Arg)
 {
 #ifdef QLOAD_FUNC_BUSY_TIME_ALARM

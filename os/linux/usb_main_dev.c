@@ -133,7 +133,7 @@ static bool USBDevConfigInit(
 		}
 	}
 
-	if (!(pConfig->BulkInEpAddr && pConfig->BulkOutEpAddr[0]))
+	if (!pConfig->BulkOutEpAddr[0])
 	{
 #ifdef DBG
 		printk("Could not find both bulk-in and bulk-out endpoints\n");
@@ -265,7 +265,7 @@ static bool USBDevConfigInit(
 		}
 	}
 
-	if (!(pConfig->BulkInEpAddr && pConfig->BulkOutEpAddr[0]))
+	if (!pConfig->BulkOutEpAddr[0])
 	{
 #ifdef DBG
 		printk("%s: Could not find both bulk-in and bulk-out endpoints\n", __FUNCTION__);

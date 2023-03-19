@@ -157,17 +157,7 @@ bool PeerAddBAReqActionSanity(
 		return FALSE;
 	}
 	/* we support immediate BA.*/
-#ifdef UNALIGNMENT_SUPPORT
-	{
-		BA_PARM		tmpBaParm;
-
-		NdisMoveMemory((unsigned char *)(&tmpBaParm), (unsigned char *)(&pAddFrame->BaParm), sizeof(BA_PARM));
-		*(unsigned short *)(&tmpBaParm) = cpu2le16(*(unsigned short *)(&tmpBaParm));
-		NdisMoveMemory((unsigned char *)(&pAddFrame->BaParm), (unsigned char *)(&tmpBaParm), sizeof(BA_PARM));
-	}
-#else
 	*(unsigned short *)(&pAddFrame->BaParm) = cpu2le16(*(unsigned short *)(&pAddFrame->BaParm));
-#endif
 	pAddFrame->TimeOutValue = cpu2le16(pAddFrame->TimeOutValue);
 	pAddFrame->BaStartSeq.word = cpu2le16(pAddFrame->BaStartSeq.word); 
 
@@ -190,7 +180,7 @@ bool PeerAddBARspActionSanity(
 {
 	/*PFRAME_802_11 pFrame = (PFRAME_802_11)pMsg;*/
 	PFRAME_ADDBA_RSP pAddFrame;
-	
+
 	pAddFrame = (PFRAME_ADDBA_RSP)(pMsg);
 	if (MsgLen < (sizeof(FRAME_ADDBA_RSP)))
 	{
@@ -198,17 +188,7 @@ bool PeerAddBARspActionSanity(
 		return FALSE;
 	}
 	/* we support immediate BA.*/
-#ifdef UNALIGNMENT_SUPPORT
-	{
-		BA_PARM		tmpBaParm;
-
-		NdisMoveMemory((unsigned char *)(&tmpBaParm), (unsigned char *)(&pAddFrame->BaParm), sizeof(BA_PARM));
-		*(unsigned short *)(&tmpBaParm) = cpu2le16(*(unsigned short *)(&tmpBaParm));
-		NdisMoveMemory((unsigned char *)(&pAddFrame->BaParm), (unsigned char *)(&tmpBaParm), sizeof(BA_PARM));
-	}
-#else
 	*(unsigned short *)(&pAddFrame->BaParm) = cpu2le16(*(unsigned short *)(&pAddFrame->BaParm));
-#endif
 	pAddFrame->StatusCode = cpu2le16(pAddFrame->StatusCode);
 	pAddFrame->TimeOutValue = cpu2le16(pAddFrame->TimeOutValue);
 
@@ -433,29 +413,18 @@ bool PeerBeaconAndProbeRspSanity_Old(
 				*pHtCapabilityLen = SIZE_HT_CAP_IE;	/* Nnow we only support 26 bytes.*/
 
 				*(unsigned short *)(&pHtCapability->HtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-				{
-					EXT_HT_CAP_INFO extHtCapInfo;
-					NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-					*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-					NdisMoveMemory((unsigned char *)(&pHtCapability->ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-				}
-#else
 				*(unsigned short *)(&pHtCapability->ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
-
 			}
 			else
 			{
 				DBGPRINT(RT_DEBUG_WARN, ("%s() - wrong IE_HT_CAP. pEid->Len = %d\n", __FUNCTION__, pEid->Len));
 			}
-			
 		break;
             case IE_ADD_HT:
-			if (pEid->Len >= sizeof(ADD_HT_INFO_IE))				
+			if (pEid->Len >= sizeof(ADD_HT_INFO_IE))
 			{
-				/* 
-					This IE allows extension, but we can ignore extra bytes beyond our 
+				/*
+					This IE allows extension, but we can ignore extra bytes beyond our
 					knowledge , so only copy first sizeof(ADD_HT_INFO_IE)
 				*/
 				NdisMoveMemory(AddHtInfo, pEid->Octet, sizeof(ADD_HT_INFO_IE));
@@ -932,17 +901,7 @@ bool PeerBeaconAndProbeRspSanity(
 				ie_list->HtCapabilityLen = SIZE_HT_CAP_IE;	/* Nnow we only support 26 bytes.*/
 
 				*(unsigned short *)(&ie_list->HtCapability.HtCapInfo) = cpu2le16(*(unsigned short *)(&ie_list->HtCapability.HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-				{
-					EXT_HT_CAP_INFO extHtCapInfo;
-					NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&ie_list->HtCapability.ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-					*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-					NdisMoveMemory((unsigned char *)(&ie_list->HtCapability.ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-				}
-#else
 				*(unsigned short *)(&ie_list->HtCapability.ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&ie_list->HtCapability.ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
-
 			}
 			else
 			{
@@ -1795,17 +1754,7 @@ bool PeerDlsReqSanity(
 					NdisMoveMemory(pHtCapability, eid_ptr->Octet, sizeof(HT_CAPABILITY_IE));
 
 					*(unsigned short *)(&pHtCapability->HtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-					{
-						EXT_HT_CAP_INFO extHtCapInfo;
-
-						NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-						*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-						NdisMoveMemory((unsigned char *)(&pHtCapability->ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
-					}
-#else				
 					*(unsigned short *)(&pHtCapability->ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
 					*pHtCapabilityLen = sizeof(HT_CAPABILITY_IE);
 
 					DBGPRINT(RT_DEBUG_TRACE, ("PeerDlsReqSanity - IE_HT_CAP\n"));
@@ -1923,17 +1872,7 @@ bool PeerDlsRspSanity(
 					NdisMoveMemory(pHtCapability, eid_ptr->Octet, sizeof(HT_CAPABILITY_IE));
 
 					*(unsigned short *)(&pHtCapability->HtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-					{
-						EXT_HT_CAP_INFO extHtCapInfo;
-
-						NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-						*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-						NdisMoveMemory((unsigned char *)(&pHtCapability->ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
-					}
-#else				
 					*(unsigned short *)(&pHtCapability->ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
 					*pHtCapabilityLen = sizeof(HT_CAPABILITY_IE);
 
 					DBGPRINT(RT_DEBUG_TRACE, ("PeerDlsRspSanity - IE_HT_CAP\n"));

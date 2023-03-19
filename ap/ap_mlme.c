@@ -26,7 +26,6 @@
  */
 
 #include "rt_config.h"
-#include <stdarg.h>
 
 
 #ifdef DOT11_N_SUPPORT

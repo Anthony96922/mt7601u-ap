@@ -345,7 +345,7 @@ bool	WscReadProfileFromUfdFile(
 {
 	PWSC_CREDENTIAL     pCredential = &pAd->ApCfg.MBSSID[ApIdx].WscControl.WscProfile.Profile[0];
 	RTMP_OS_FS_INFO		osFSInfo;
-	RTMP_OS_FD			file_r;
+	struct file			*file_r;
 	ssize_t				rv, fileLen = 0;
 	char *				pXmlData = NULL;
 	bool				RV = TRUE;
@@ -355,8 +355,6 @@ bool	WscReadProfileFromUfdFile(
 		DBGPRINT(RT_DEBUG_TRACE, ("--> %s: pUfdFileName is NULL\n", __FUNCTION__));
 		return FALSE;
 	}
-
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 
 	file_r = RtmpOSFileOpen(pUfdFileName, O_RDONLY, 0);
 	if (IS_FILE_OPEN_ERR(file_r)) 
@@ -375,7 +373,6 @@ bool	WscReadProfileFromUfdFile(
 		if (pXmlData == NULL)
 		{
 			RtmpOSFileClose(file_r);
-			RtmpOSFSInfoChange(&osFSInfo, FALSE);
 			DBGPRINT(RT_DEBUG_TRACE, ("pXmlData kmalloc fail. (fileLen = %d)\n", fileLen));
 			return FALSE;
 		}
@@ -386,13 +383,10 @@ bool	WscReadProfileFromUfdFile(
 		if (rv != fileLen)
 		{
 			DBGPRINT(RT_DEBUG_TRACE, ("RtmpOSFileRead fail, fileLen = %d\n", fileLen));
-			RtmpOSFSInfoChange(&osFSInfo, FALSE);
 			goto ReadErr;
 		}
 	}
 
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
-	
 	DBGPRINT(RT_DEBUG_TRACE, ("WscReadProfileFromUfdFile\n"));
 	if (WscPassXmlDeclare(&pXmlData))
 	{
@@ -478,7 +472,7 @@ bool	WscWriteProfileToUfdFile(
 	PWSC_CTRL           pWscControl = &pAd->ApCfg.MBSSID[ApIdx].WscControl;
 	PWSC_CREDENTIAL     pCredential = &pWscControl->WscProfile.Profile[0];
 	RTMP_OS_FS_INFO		osFSInfo;
-	RTMP_OS_FD			file_w;
+	struct file			*file_w;
 	char *				offset, pXmlTemplate = (char *)XML_TEMPLATE;
 	bool				bFound = FALSE, bRtn = TRUE;
 	unsigned char				Guid[UUID_LEN_HEX];
@@ -489,8 +483,6 @@ bool	WscWriteProfileToUfdFile(
 		DBGPRINT(RT_DEBUG_TRACE, ("--> %s: pUfdFileName is NULL\n", __FUNCTION__));
 		return FALSE;
 	}
-
-	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 
 	file_w = RtmpOSFileOpen(pUfdFileName, O_WRONLY|O_TRUNC|O_CREAT, 0);
 	if (IS_FILE_OPEN_ERR(file_w)) 
@@ -589,8 +581,6 @@ bool	WscWriteProfileToUfdFile(
 
 out:
 	RtmpOSFileClose(file_w);
-	RtmpOSFSInfoChange(&osFSInfo, FALSE);
-	
 	return bRtn;
 }
 

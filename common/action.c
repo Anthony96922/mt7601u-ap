@@ -163,17 +163,7 @@ VOID MlmeADDBAAction(
 		Frame.BaStartSeq.field.FragNum = 0;
 		Frame.BaStartSeq.field.StartSeq = pAd->MacTab.Content[pInfo->Wcid].TxSeq[pInfo->TID];
 
-#ifdef UNALIGNMENT_SUPPORT
-		{
-			BA_PARM		tmpBaParm;
-
-			NdisMoveMemory((unsigned char *)(&tmpBaParm), (unsigned char *)(&Frame.BaParm), sizeof(BA_PARM));
-			*(unsigned short *)(&tmpBaParm) = cpu2le16(*(unsigned short *)(&tmpBaParm));
-			NdisMoveMemory((unsigned char *)(&Frame.BaParm), (unsigned char *)(&tmpBaParm), sizeof(BA_PARM));
-		}
-#else
 		*(unsigned short *)(&(Frame.BaParm)) = cpu2le16((*(unsigned short *)(&(Frame.BaParm))));
-#endif /* UNALIGNMENT_SUPPORT */
 
 		Frame.TimeOutValue = cpu2le16(Frame.TimeOutValue);
 		Frame.BaStartSeq.word = cpu2le16(Frame.BaStartSeq.word);
@@ -185,7 +175,7 @@ VOID MlmeADDBAAction(
 		MiniportMMRequest(pAd, (MGMT_USE_QUEUE_FLAG | MapUserPriorityToAccessCategory[pInfo->TID]), pOutBuffer, FrameLen);
 
 		MlmeFreeMemory(pAd, pOutBuffer);
-		
+
 		DBGPRINT(RT_DEBUG_TRACE, ("BA - Send ADDBA request. StartSeq = %x,  FrameLen = %ld. BufSize = %d\n", Frame.BaStartSeq.field.StartSeq, FrameLen, Frame.BaParm.BufSize));
     }
 }

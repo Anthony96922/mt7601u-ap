@@ -160,25 +160,14 @@ bool PeerAssocReqCmmSanity(
                     ie_lists->SupportedRatesLen = MAX_LEN_OF_SUPPORTED_RATES;
                 }
                 break;
-                
+
             case IE_HT_CAP:
 			if (eid_ptr->Len >= sizeof(HT_CAPABILITY_IE))
 			{
 				NdisMoveMemory(pHtCapability, eid_ptr->Octet, SIZE_HT_CAP_IE);
 
 				*(unsigned short *)(&pHtCapability->HtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->HtCapInfo));
-
-#ifdef UNALIGNMENT_SUPPORT
-				{
-					EXT_HT_CAP_INFO extHtCapInfo;
-
-					NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-					*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-					NdisMoveMemory((unsigned char *)(&pHtCapability->ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
-				}
-#else				
 				*(unsigned short *)(&pHtCapability->ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
 
 				ie_lists->ht_cap_len = SIZE_HT_CAP_IE;
 				Sanity |= 0x10;
@@ -188,7 +177,6 @@ bool PeerAssocReqCmmSanity(
 			{
 				DBGPRINT(RT_DEBUG_WARN, ("PeerAssocReqSanity - wrong IE_HT_CAP.eid_ptr->Len = %d\n", eid_ptr->Len));
 			}
-				
 		break;
 		case IE_EXT_CAPABILITY:
 			if (eid_ptr->Len >= sizeof(EXT_CAP_INFO_ELEMENT))
@@ -225,22 +213,12 @@ bool PeerAssocReqCmmSanity(
 								NdisMoveMemory(pHtCapability, &eid_ptr->Octet[4], SIZE_HT_CAP_IE);
 
 								*(unsigned short *)(&pHtCapability->HtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->HtCapInfo));
-#ifdef UNALIGNMENT_SUPPORT
-								{
-									EXT_HT_CAP_INFO extHtCapInfo;
-
-									NdisMoveMemory((unsigned char *)(&extHtCapInfo), (unsigned char *)(&pHtCapability->ExtHtCapInfo), sizeof(EXT_HT_CAP_INFO));
-									*(unsigned short *)(&extHtCapInfo) = cpu2le16(*(unsigned short *)(&extHtCapInfo));
-									NdisMoveMemory((unsigned char *)(&pHtCapability->ExtHtCapInfo), (unsigned char *)(&extHtCapInfo), sizeof(EXT_HT_CAP_INFO));		
-								}
-#else				
 								*(unsigned short *)(&pHtCapability->ExtHtCapInfo) = cpu2le16(*(unsigned short *)(&pHtCapability->ExtHtCapInfo));
-#endif /* UNALIGNMENT_SUPPORT */
 
 								ie_lists->ht_cap_len = SIZE_HT_CAP_IE;
 							}
 							break;
-						
+
 						default:
 							/* ignore other cases */
 							break;
