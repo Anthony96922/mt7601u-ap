@@ -554,9 +554,6 @@ static void rt2870_disconnect(struct usb_device *dev, VOID *pAd)
 /*	RTMP_SET_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST); */
 	RTMP_DRIVER_NIC_NOT_EXIST_SET(pAd);
 
-	/* for debug, wait to show some messages to /proc system */
-	udelay(1);
-
 	RTMP_DRIVER_NET_DEV_GET(pAd, &net_dev);
 
 	RtmpPhyNetDevExit(pAd, net_dev);
@@ -611,10 +608,13 @@ static int rt2870_probe(
 /*	INT 		pm_usage_cnt; */
 	INT		 res =1 ; 
 #endif /* USB_SUPPORT_SELECTIVE_SUSPEND */
-#endif /* CONFIG_PM */	
+#endif /* CONFIG_PM */
+#ifdef PRE_ASSIGN_MAC_ADDR
+	unsigned char PermanentAddress[MAC_ADDR_LEN];
+#endif /* PRE_ASSIGN_MAC_ADDR */
 
 	DBGPRINT(RT_DEBUG_TRACE, ("rt2870_probe()\n"));
-	
+
 #ifdef CONFIG_PM
 #ifdef USB_SUPPORT_SELECTIVE_SUSPEND
 
@@ -719,11 +719,19 @@ static int rt2870_probe(
 #endif /* INF_PPA_SUPPORT */
 
 #ifdef PRE_ASSIGN_MAC_ADDR
-	unsigned char PermanentAddress[MAC_ADDR_LEN];
 	RTMP_DRIVER_MAC_ADDR_GET(pAd, &PermanentAddress[0]);
-	DBGPRINT(RT_DEBUG_TRACE, ("%s MAC address: %02x:%02x:%02x:%02x:%02x:%02x\n", __FUNCTION__, PermanentAddress[0], PermanentAddress[1], PermanentAddress[2], PermanentAddress[3], PermanentAddress[4], PermanentAddress[5]));
+	DBGPRINT(RT_DEBUG_TRACE, ("%s MAC address: %02x:%02x:%02x:%02x:%02x:%02x\n",
+		__FUNCTION__,
+		PermanentAddress[0],
+		PermanentAddress[1],
+		PermanentAddress[2],
+		PermanentAddress[3],
+		PermanentAddress[4],
+		PermanentAddress[5])
+	);
 	/* Set up the Mac address */
-	RtmpOSNetDevAddrSet(OpMode, net_dev, &PermanentAddress[0], NULL);
+	NdisMoveMemory(net_dev->perm_addr, PermanentAddress, 6);
+	RtmpOSNetDevAddrSet(OpMode, net_dev, PermanentAddress, NULL);
 #endif /* PRE_ASSIGN_MAC_ADDR */
 
 #ifdef EXT_BUILD_CHANNEL_LIST
@@ -734,13 +742,13 @@ static int rt2870_probe(
 
 	return 0;
 
-	/* --------------------------- ERROR HANDLE --------------------------- */	
+	/* --------------------------- ERROR HANDLE --------------------------- */
 err_out_free_netdev:
 	RtmpOSNetDevFree(net_dev);
-	
+
 err_out_free_radev:
 	RTMPFreeAdapter(pAd);
-	
+
 err_out:
 	*ppAd = NULL;
 

@@ -1222,14 +1222,7 @@ int RtmpOSNetDevAddrSet(
 	IN unsigned char * pMacAddr,
 	IN unsigned char * dev_name)
 {
-	struct net_device *net_dev;
-
-	net_dev = pNetDev;
-/*	GET_PAD_FROM_NET_DEV(pAd, net_dev); */
-
-
-	NdisMoveMemory((void *)net_dev->dev_addr, pMacAddr, 6);
-
+	eth_hw_addr_set(pNetDev, pMacAddr);
 	return 0;
 }
 
@@ -1416,14 +1409,14 @@ INT RtmpOSNetDevDestory(VOID *pReserved, PNET_DEV pNetDev)
 }
 
 
-void RtmpOSNetDevDetach(PNET_DEV pNetDev)
+void RtmpOSNetDevDetach(struct net_device *pNetDev)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,31)
 	struct net_device_ops *pNetDevOps = (struct net_device_ops *)pNetDev->netdev_ops;
 #endif
 	int ret;
 
-	 ret = rtnl_trylock();
+	ret = rtnl_trylock();
 
 	unregister_netdevice(pNetDev);
 
@@ -1532,8 +1525,7 @@ int RtmpOSNetDevAttach(
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 		/* copy the net device mac address to the net_device structure. */
-		NdisMoveMemory((void *)pNetDev->dev_addr, &pDevOpHook->devAddr[0],
-			       MAC_ADDR_LEN);
+		eth_hw_addr_set(pNetDev, pDevOpHook->devAddr);
 
 		rtnl_locked = pDevOpHook->needProtcted;
 

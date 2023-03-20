@@ -641,10 +641,6 @@ INT	RT_CfgSetMacAddress(
 		arg = arg + 3;
 	}
 
-	/* clear the locally administered bit */
-	if (pAd->CurrentAddress[0] & 0x02)
-		pAd->CurrentAddress[0] ^= 0x02;
-
 	pAd->bLocalAdminMAC = TRUE;
 	return TRUE;
 }
