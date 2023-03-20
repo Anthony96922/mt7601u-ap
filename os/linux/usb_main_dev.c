@@ -719,7 +719,7 @@ static int rt2870_probe(
 #endif /* INF_PPA_SUPPORT */
 
 #ifdef PRE_ASSIGN_MAC_ADDR
-	RTMP_DRIVER_MAC_ADDR_GET(pAd, &PermanentAddress[0]);
+	RTMP_DRIVER_MAC_ADDR_GET(pAd, PermanentAddress);
 	DBGPRINT(RT_DEBUG_TRACE, ("%s MAC address: %02x:%02x:%02x:%02x:%02x:%02x\n",
 		__FUNCTION__,
 		PermanentAddress[0],

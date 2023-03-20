@@ -15,6 +15,8 @@ $ sudo make install
 $ sudo modprobe mt7601Uap
 ```
 
+You need to add "coherent_pool=4M" to your kernel command line for this to work!
+
 If the module has loaded then running `sudo ip link set ra0 up` will bring up a WiFi access point that you can connect your devices to.
 You can change the network name and the password by editing the file `/etc/wifi/RT2870AP/RT2870AP.txt`.
 
