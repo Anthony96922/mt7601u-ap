@@ -1222,7 +1222,11 @@ int RtmpOSNetDevAddrSet(
 	IN unsigned char * pMacAddr,
 	IN unsigned char * dev_name)
 {
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 15, 0)
 	eth_hw_addr_set(pNetDev, pMacAddr);
+#else
+	memcpy(pNetDev->dev_addr, pMacAddr, 6);
+#endif
 	return 0;
 }
 
@@ -1525,7 +1529,11 @@ int RtmpOSNetDevAttach(
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 		/* copy the net device mac address to the net_device structure. */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 15, 0)
 		eth_hw_addr_set(pNetDev, pDevOpHook->devAddr);
+#else
+		memcpy(pNetDev->dev_addr, pDevOpHook->devAddr, 6);
+#endif
 
 		rtnl_locked = pDevOpHook->needProtcted;
 
